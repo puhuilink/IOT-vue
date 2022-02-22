@@ -44,18 +44,13 @@ import Hamburger from '@/components/Hamburger'
 import Screenfull from '@/components/Screenfull'
 import SizeSelect from '@/components/SizeSelect'
 import Search from '@/components/HeaderSearch'
-import RuoYiGit from '@/components/RuoYi/Git'
-import RuoYiDoc from '@/components/RuoYi/Doc'
-
 export default {
   components: {
     Breadcrumb,
     Hamburger,
     Screenfull,
     SizeSelect,
-    Search,
-    RuoYiGit,
-    RuoYiDoc
+    Search
   },
   computed: {
     ...mapGetters([
@@ -86,7 +81,7 @@ export default {
         type: 'warning'
       }).then(() => {
         this.$store.dispatch('LogOut').then(() => {
-          location.href = '/index';
+          location.href = '/index'
         })
       })
     }
