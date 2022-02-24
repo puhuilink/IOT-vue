@@ -91,11 +91,10 @@ export default {
 
 <style lang="scss" scoped>
 .navbar {
+  background-image: linear-gradient(to right , #416ecb, #658cdf);
   height: 50px;
   overflow: hidden;
   position: relative;
-  background: #fff;
-  box-shadow: 0 1px 4px rgba(0,21,41,.08);
 
   .hamburger-container {
     line-height: 46px;
@@ -106,7 +105,7 @@ export default {
     -webkit-tap-highlight-color:transparent;
 
     &:hover {
-      background: rgba(0, 0, 0, .025)
+      background: rgba(68, 6, 241, 0.025)
     }
   }
 
@@ -172,3 +171,4 @@ export default {
   }
 }
 </style>
+
