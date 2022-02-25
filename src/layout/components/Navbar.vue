@@ -91,7 +91,7 @@ export default {
 
 <style lang="scss" scoped>
 .navbar {
-  background-image: linear-gradient(to right , #416ecb, #658cdf);
+  background-image: linear-gradient(to right , #0957f5, #658cdf);
   height: 50px;
   overflow: hidden;
   position: relative;
