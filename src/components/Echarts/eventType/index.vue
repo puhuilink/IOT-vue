@@ -37,32 +37,48 @@ export default {
   methods: {
     drawPolicitalStatus() {
       if (this.policitalStatus.length) {
-        // 基于准备好的dom，初始化echarts实例
-        if (this.type === 1) {
-          this.datacopy = [
-            { value: 3948, name: '僵木蠕事件' },
-            { value: 2514, name: '漏洞' },
-            { value: 1699, name: '配置核查' },
-            { value: 1023, name: '工业网络' },
-            { value: 362, name: '诱捕防护' }
-          ]
-        } else if (this.type === 2) {
-          this.datacopy = [
-            { value: 3948, name: '待上报' },
-            { value: 2514, name: '处置中' },
-            { value: 1699, name: '已处置' },
-            { value: 1023, name: '已完成' },
-            { value: 362, name: '待处置' }
-          ]
-        } else {
-          this.datacopy = [
-            { value: 3948, name: '僵尸网络' },
-            { value: 2514, name: '间谍软件' },
-            { value: 1699, name: '木马' },
-            { value: 1023, name: '恶意软件' },
-            { value: 362, name: 'URL_malware' }
-          ]
+        switch (this.type) {
+          case 1:
+            this.datacopy = [
+              { value: 3948, name: '僵木蠕事件' },
+              { value: 2514, name: '漏洞' },
+              { value: 1699, name: '配置核查' },
+              { value: 1023, name: '工业网络' },
+              { value: 362, name: '诱捕防护' }
+            ]
+            break
+          case 2:
+            this.datacopy = [
+              { value: 3948, name: '待上报' },
+              { value: 2514, name: '处置中' },
+              { value: 1699, name: '已处置' },
+              { value: 1023, name: '已完成' },
+              { value: 362, name: '待处置' }
+            ]
+            break
+          case 3:
+            this.datacopy = [
+              { value: 3948, name: '僵尸网络' },
+              { value: 2514, name: '间谍软件' },
+              { value: 1699, name: '木马' },
+              { value: 1023, name: '恶意软件' },
+              { value: 362, name: 'URL_malware' }
+            ]
+            break
+          case 4:
+            this.datacopy = [
+              { value: 3948, name: '低危' },
+              { value: 2514, name: '极低' },
+              { value: 1699, name: '中危' },
+              { value: 1023, name: '高危' },
+              { value: 362, name: '致命' }
+            ]
+            break
+          default:
+            console.log('这里是项目类型', this.type)
+            break
         }
+        // 基于准备好的dom，初始化echarts实例
         const myChart = this.$echarts.init(this.$refs.canvas1)
         // 绘制图表
         myChart.setOption({

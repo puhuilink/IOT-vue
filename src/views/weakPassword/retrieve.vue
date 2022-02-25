@@ -1,0 +1,393 @@
+<template>
+  <div class="app-container">
+    <el-card class="box-card">
+      <div>
+        <el-row :gutter="20">
+          <el-form
+            ref="elForm"
+            :model="formData"
+            :rules="rules"
+            size="mini"
+            label-width="80px"
+            class="label-type"
+            label-position="left"
+          >
+            <el-col :span="6">
+              <el-form-item label="资产名称" prop="name">
+                <el-input v-model="formData.name" placeholder="请输入资产名称" clearable :style="{width: '100%'}" />
+              </el-form-item>
+            </el-col>
+            <el-col :span="6">
+              <el-form-item label="区域" prop="area">
+                <el-select
+                  v-model="formData.area"
+                  placeholder="请选择区域"
+                  filterable
+                  clearable
+                  :style="{width: '100%'}"
+                >
+                  <el-option
+                    v-for="(item, index) in areaOptions"
+                    :key="index"
+                    :label="item.label"
+                    :value="item.value"
+                    :disabled="item.disabled"
+                  />
+                </el-select>
+              </el-form-item>
+            </el-col>
+            <el-col :span="6">
+              <el-form-item label="事件等级" prop="level">
+                <el-select
+                  v-model="formData.level"
+                  placeholder="请选择事件等级"
+                  filterable
+                  clearable
+                  :style="{width: '100%'}"
+                >
+                  <el-option
+                    v-for="(item, index) in levelOptions"
+                    :key="index"
+                    :label="item.label"
+                    :value="item.value"
+                    :disabled="item.disabled"
+                  />
+                </el-select>
+              </el-form-item>
+            </el-col>
+            <el-col :span="6">
+              <el-form-item label="处置状态" prop="field114">
+                <el-select v-model="formData.field114" placeholder="请选择处置状态" clearable :style="{width: '100%'}">
+                  <el-option
+                    v-for="(item, index) in field114Options"
+                    :key="index"
+                    :label="item.label"
+                    :value="item.value"
+                    :disabled="item.disabled"
+                  />
+                </el-select>
+              </el-form-item>
+            </el-col>
+            <el-col :span="6">
+              <el-form-item label="IP地址" prop="type">
+                <el-input v-model="formData.type" placeholder="请输入IP地址" clearable :style="{width: '100%'}" />
+              </el-form-item>
+            </el-col>
+
+            <el-col :span="6">
+              <el-form-item label="协议" prop="agreement">
+                <el-input v-model="formData.agreement" placeholder="请输入协议" clearable :style="{width: '100%'}" />
+              </el-form-item>
+            </el-col>
+            <el-col :span="9">
+              <el-form-item label="时间" prop="date">
+                <el-time-picker
+                  v-model="formData.date"
+                  is-range
+                  format="HH:mm:ss"
+                  value-format="HH:mm:ss"
+                  :style="{width: '100%'}"
+                  start-placeholder="开始时间"
+                  end-placeholder="结束时间"
+                  range-separator="至"
+                  clearable
+                />
+              </el-form-item>
+            </el-col>
+            <el-col :span="6">
+              <el-form-item size="mini">
+                <el-button type="primary" @click="submitdata">搜索</el-button>
+                <el-button @click="resetForm">重置</el-button>
+              </el-form-item>
+            </el-col>
+          </el-form>
+        </el-row>
+      </div>
+    </el-card>
+    <el-table :data="groupList">
+      <el-table-column type="selection" width="55" align="center" />
+      <el-table-column label="资产名称" align="center" prop="groupOrder" />
+      <el-table-column label="IP地址" align="center" prop="userId" />
+      <el-table-column label="协议" align="center" prop="groupName" />
+      <el-table-column label="端口" align="center" prop="searchValue" />
+      <el-table-column label="事件等级" align="center" prop="remark" />
+      <el-table-column label="处置状态" align="center" prop="createBy" />
+      <el-table-column label="发生时间" align="center" prop="createTime" />
+      <el-table-column label="区域" align="center" prop="updateBy" />
+      <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
+        <template slot-scope="scope">
+          <el-button
+            v-hasPermi="['system:group:edit']"
+            size="mini"
+            type="text"
+            icon="el-icon-edit"
+            @click="detail"
+          >详情</el-button>
+          <el-button
+            v-hasPermi="['system:group:remove']"
+            size="mini"
+            type="text"
+            icon="el-icon-delete"
+            @click="handleDelete(scope.row)"
+          >处置</el-button>
+        </template>
+      </el-table-column>
+    </el-table>
+
+    <pagination
+      v-show="total>0"
+      :total="total"
+      :page.sync="queryParams.pageNum"
+      :limit.sync="queryParams.pageSize"
+      @pagination="getList"
+    />
+    <!-- 添加或修改分组对话框 -->
+    <el-dialog :title="title" :visible.sync="open" width="900px" append-to-body>
+      <el-form ref="form" label-width="100px" label-position="left">
+        <el-row>
+          <el-col :span="8">
+            <el-form-item label="用户名 :">
+              {{ dataTest.name }}
+            </el-form-item>
+          </el-col>
+          <el-col :span="8">
+            <el-form-item label="密码 :">
+              {{ dataTest.name1 }}
+            </el-form-item>
+          </el-col>
+          <el-col :span="8">
+            <el-form-item label="服务 :">
+              {{ dataTest.name2 }}
+            </el-form-item>
+          </el-col>
+          <el-col :span="8">
+            <el-form-item label="端口 :">
+              {{ dataTest.name3 }}
+            </el-form-item>
+          </el-col>
+          <el-col :span="8">
+            <el-form-item label="处置状态 :">
+              {{ dataTest.name4 }}
+            </el-form-item>
+          </el-col>
+          <el-col :span="8">
+            <el-form-item label="发现时间 :">
+              {{ dataTest.name5 }}
+            </el-form-item>
+          </el-col>
+          <el-col :span="8">
+            <el-form-item label="资产名称 :">
+              {{ dataTest.name6 }}
+            </el-form-item>
+          </el-col>
+          <el-col :span="8">
+            <el-form-item label="资产类型 :">
+              {{ dataTest.name7 }}
+            </el-form-item>
+          </el-col>
+          <el-col :span="8">
+            <el-form-item label="IP地址 :">
+              {{ dataTest.name8 }}
+            </el-form-item>
+          </el-col>
+          <el-col :span="8">
+            <el-form-item label="资产价值 :">
+              {{ dataTest.name9 }}
+            </el-form-item>
+          </el-col>
+          <el-col :span="8">
+            <el-form-item label="责任人 :">
+              {{ dataTest.name10 }}
+            </el-form-item>
+          </el-col>
+          <el-col :span="8">
+            <el-form-item label="部门 :">
+              {{ dataTest.name11 }}
+            </el-form-item>
+          </el-col>
+          <el-col :span="8">
+            <el-form-item label="区域 :">
+              {{ dataTest.name12 }}
+            </el-form-item>
+          </el-col>
+        </el-row>
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-row type="flex" justify="center">
+          <el-button size="small" type="primary" @click="submitForm">确 定</el-button>
+          <el-button size="small" @click="cancel">取 消</el-button>
+        </el-row>
+      </div>
+    </el-dialog>
+  </div>
+</template>
+<script>
+export default {
+  components: {},
+  props: [],
+  data() {
+    return {
+      loading: true,
+      name: '测试',
+      dataTest: {
+        name: 'ZJStream',
+        name1: 'Z*****m',
+        name2: 'DNS_TCP',
+        name3: '53',
+        name4: '未处置',
+        name5: '2022-02-11 10:40:50',
+        name6: '内网DNS',
+        name7: '应用服务器-DNS',
+        name8: '10.1.10.5',
+        name9: '3',
+        name10: '张三',
+        name11: '运维组',
+        name12: '山西燃气厂'
+
+      },
+      // 分组表格数据
+      groupList: [{ 'searchValue': '53', 'createBy': '未处置', 'createTime': '2021-05-18 16:35:03', 'updateBy': '山西燃气厂', 'updateTime': '2021-05-18 16:35:32', 'remark': '高', 'params': {}, 'groupId': 1, 'userId': '116.103.2.11', 'groupName': 'DNS_TCP', 'groupOrder': '内网DNS', 'delFlag': '载荷投递' },
+        { 'searchValue': '53', 'createBy': '未处置', 'createTime': '2021-05-18 16:35:03', 'updateBy': '山西燃气厂', 'updateTime': '2021-05-18 16:35:32', 'remark': '高', 'params': {}, 'groupId': 2, 'userId': '116.103.2.11', 'groupName': 'DNS_TCP', 'groupOrder': '内网DNS', 'delFlag': '载荷投递' },
+        { 'searchValue': '53', 'createBy': '未处置', 'createTime': '2021-05-18 16:35:03', 'updateBy': '山西燃气厂', 'updateTime': '2021-05-18 16:35:32', 'remark': '高', 'params': {}, 'groupId': 3, 'userId': '116.103.2.11', 'groupName': 'DNS_TCP', 'groupOrder': '内网DNS', 'delFlag': '载荷投递' },
+        { 'searchValue': '53', 'createBy': '未处置', 'createTime': '2021-05-18 16:35:03', 'updateBy': '山西燃气厂', 'updateTime': '2021-05-18 16:35:32', 'remark': '高', 'params': {}, 'groupId': 4, 'userId': '116.103.2.11', 'groupName': 'DNS_TCP', 'groupOrder': '内网DNS', 'delFlag': '载荷投递' },
+        { 'searchValue': '53', 'createBy': '未处置', 'createTime': '2021-05-18 16:35:03', 'updateBy': '山西燃气厂', 'updateTime': '2021-05-18 16:35:32', 'remark': '高', 'params': {}, 'groupId': 5, 'userId': '116.103.2.11', 'groupName': 'DNS_TCP', 'groupOrder': '内网DNS', 'delFlag': '载荷投递' }],
+      // 创建时间时间范围
+      daterangeCreateTime: [],
+      // 弹出层标题
+      title: '',
+      // 是否显示弹出层
+      open: false,
+      // 总条数
+      total: 0,
+      // 查询参数
+      queryParams: {
+        pageNum: 1,
+        pageSize: 10,
+        userId: null,
+        groupName: null,
+        createTime: null
+      },
+      formData: {
+        name: undefined,
+        threat: undefined,
+        level: undefined,
+        kill: undefined,
+        type: undefined,
+        area: undefined,
+        agreement: undefined,
+        ip: undefined,
+        newip: undefined,
+        equipment: undefined,
+        date: [''],
+        field114: undefined
+      },
+      rules: {
+        name: [],
+        level: [],
+        type: [],
+        area: [],
+        agreement: [],
+        ip: [],
+        newip: [],
+        equipment: [],
+        date: [],
+        field114: []
+      },
+      levelOptions: [{
+        'label': '正常',
+        'value': 1
+      }, {
+        'label': '低危',
+        'value': 2
+      }, {
+        'label': '中危',
+        'value': 3
+      }, {
+        'label': '高危',
+        'value': 4
+      }, {
+        'label': '失陷',
+        'value': 5
+      }],
+      areaOptions: [{
+        'label': '北京',
+        'value': 1
+      }, {
+        'label': '重庆',
+        'value': 2
+      }],
+      threat: [{
+        'label': '53',
+        'value': 1
+      }, {
+        'label': '网络木马',
+        'value': 2
+      }],
+      field114Options: [{
+        'label': '未处置',
+        'value': 1
+      }, {
+        'label': '处置中',
+        'value': 2
+      }, {
+        'label': '已处置',
+        'value': 2
+      }, {
+        'label': '已完成',
+        'value': 2
+      }],
+      killle: [{
+        'label': '侦察跟踪',
+        'value': 1
+      }, {
+        'label': '武器构建',
+        'value': 2
+      }, {
+        'label': '载荷投递',
+        'value': 2
+      }, {
+        'label': '漏洞利用',
+        'value': 2
+      }, {
+        'label': '安装植入',
+        'value': 2
+      }, {
+        'label': '命令控制',
+        'value': 2
+      }, {
+        'label': '目标达成',
+        'value': 2
+      }]
+    }
+  },
+  created() {
+
+  },
+  methods: {
+    submitdata() {
+      this.$refs['elForm'].validate(valid => {
+        if (!valid) return
+        // TODO 提交表单
+      })
+    },
+    resetForm() {
+      this.$refs['elForm'].resetFields()
+    },
+    detail() {
+      this.open = true
+      this.title = '事件详情'
+    },
+    // 取消按钮
+    cancel() {
+      this.open = false
+    },
+    /** 提交按钮 */
+    submitForm() {
+      this.open = false
+    }
+  }
+}
+
+</script>
+<style>
+</style>

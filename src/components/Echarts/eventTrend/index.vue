@@ -52,7 +52,7 @@ export default {
             axisTick: { // x轴刻度线
               show: false
             },
-            data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+            data: ['2022/2/1', '2022/2/2', '2022/2/3', '2022/2/4', '2022/2/5', '2022/2/6', '2022/2/7']
           },
           yAxis: {
             axisTick: { // x轴刻度线

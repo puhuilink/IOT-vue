@@ -1,8 +1,8 @@
 <template>
   <div class="app-container">
     <echarts />
-    <eventTrend :type="3" />
-    <eventType />
+    <eventTrend />
+    <eventType :type="3" />
     <wordcloud :type="2" />
     <eventType :tipname="'事件状态处置图'" :type="2" />
     <el-col :span="24">
