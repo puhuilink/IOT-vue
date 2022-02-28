@@ -281,7 +281,7 @@ export default {
       // 是否显示弹出层
       open: false,
       // 总条数
-      total: 0,
+      total: 6,
       // 查询参数
       queryParams: {
         pageNum: 1,
