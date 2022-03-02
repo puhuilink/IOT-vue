@@ -153,6 +153,7 @@
             size="mini"
             type="text"
             icon="el-icon-edit"
+            @click="edit()"
           >编辑</el-button>
           <el-button
             v-hasPermi="['system:group:edit']"
@@ -165,6 +166,7 @@
             size="mini"
             type="text"
             icon="el-icon-delete"
+            @click="end()"
           >完成</el-button>
         </template>
       </el-table-column>
@@ -249,9 +251,14 @@
     <el-dialog :title="title" :visible.sync="openlook" width="800px" append-to-body>
       <el-form ref="form" :model="dataTest" :rules="rules" label-width="110px">
         <el-row>
-          <el-col :span="12">
+          <el-col v-if="editTrue===false" :span="12">
             <el-form-item label="通报名称 :">
               {{ dataTest.name }}
+            </el-form-item>
+          </el-col>
+          <el-col v-else :span="12">
+            <el-form-item label="通报名称 :">
+              <el-input v-model="dataTest.name" placeholder="" />
             </el-form-item>
           </el-col>
           <el-col :span="12">
@@ -264,9 +271,28 @@
               {{ dataTest.name2 }}
             </el-form-item>
           </el-col>
-          <el-col :span="12">
+          <el-col v-if="editTrue===false" :span="12">
             <el-form-item label="优先级 :">
               {{ dataTest.name3 }}
+            </el-form-item>
+          </el-col>
+          <el-col v-else :span="12">
+            <el-form-item label="优先级:" prop="remark">
+              <el-select
+                v-model="dataTest.name3"
+                placeholder=""
+                filterable
+                clearable
+                :style="{width: '100%'}"
+              >
+                <el-option
+                  v-for="(item, index) in reportLevelOptions"
+                  :key="index"
+                  :label="item.label"
+                  :value="item.value"
+                  :disabled="item.disabled"
+                />
+              </el-select>
             </el-form-item>
           </el-col>
           <el-col :span="12">
@@ -296,7 +322,19 @@
           </el-col>
           <el-col :span="24">
             <el-form-item label="备注 :">
-              <el-input v-model="dataTest.message" placeholder="" />
+              <el-input v-model="dataTest.message" placeholder="" type="textarea" />
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="附件 :">
+              <el-upload
+                drag
+                action
+                multiple
+                :file-list="fileList"
+              >
+                <i class="el-icon-upload" />
+              </el-upload>
             </el-form-item>
           </el-col>
         </el-row>
@@ -328,6 +366,7 @@ export default {
         name8: '2021/12/26 08:00:00',
         message: ''
       },
+      fileList: [],
       // 分组表格数据
       groupList: [{ 'searchValue': '僵木蠕事件', 'createBy': '2021-12-26 08:00:00', 'createTime': '极高', 'updateBy': '管理员', 'updateTime': '2021-12-25 08:00:00', 'remark': '2021-12-25 09:00:00', 'params': {}, 'groupId': '1', 'userId': '僵木蠕通报', 'groupName': '--', 'groupOrder': '僵木蠕', 'delFlag': '未通报' },
         { 'searchValue': '僵木蠕事件', 'createBy': '2021-12-26 08:00:00', 'createTime': '极高', 'updateBy': '管理员', 'updateTime': '2021-12-25 08:00:00', 'remark': '2021-12-25 09:00:00', 'params': {}, 'groupId': '1', 'userId': '僵木蠕通报', 'groupName': '--', 'groupOrder': '僵木蠕', 'delFlag': '未通报' },
@@ -341,6 +380,8 @@ export default {
       // 2021-12-26 08:00:00否显示弹出层
       open: false,
       openlook: false,
+      editTrue: false,
+      upload: false,
       // 总条数
       total: 6,
       // 查询参数
@@ -497,22 +538,45 @@ export default {
       this.open = true
       this.title = '新增通报'
     },
-    /** 新增按钮操作 */
+    /** 查看按钮操作 */
     lookdetail() {
       this.openlook = true
       this.title = '通报详情'
+      this.editTrue = false
+      this.dataTest.name4 = '已通报'
+      this.dataTest.message = ''
+    },
+    /** 编辑按钮操作 */
+    edit() {
+      this.openlook = true
+      this.title = '编辑通报'
+      this.editTrue = false
+      this.dataTest.name4 = '未通报'
+      this.dataTest.message = '这是一个备注'
+    },
+    /** 完成按钮操作 */
+    end() {
+      this.openlook = true
+      this.title = '完结通报'
+      this.editTrue = true
+      this.dataTest.name4 = '已通报'
+      this.dataTest.message = ''
+      this.upload = true
     },
     // 取消按钮
     cancel() {
       this.open = false
+      this.openlook = false
     },
     /** 提交按钮 */
     submitForm() {
       this.open = false
+      this.openlook = false
     }
   }
 }
 
 </script>
 <style>
+
 </style>
