@@ -1,6 +1,6 @@
 <template>
   <div class="app-container">
-    <el-form :model="queryParams" ref="queryForm" :inline="true" label-width="68px">
+    <el-form ref="queryForm" :model="queryParams" :inline="true" label-width="68px">
       <el-form-item label="IP地址" prop="ipaddr">
         <el-input
           v-model="queryParams.ipaddr"
@@ -19,7 +19,7 @@
           @keyup.enter.native="handleQuery"
         />
       </el-form-item>
-       <el-form-item label="风险等级" prop="userName">
+      <el-form-item label="风险等级" prop="userName">
         <el-input
           v-model="queryParams.userName"
           placeholder="请选择风险等级"
@@ -28,7 +28,7 @@
           @keyup.enter.native="handleQuery"
         />
       </el-form-item>
-       <el-form-item label="责任人" prop="ipaddr">
+      <el-form-item label="责任人" prop="ipaddr">
         <el-input
           v-model="queryParams.ipaddr"
           placeholder="请输入责任人"
@@ -37,7 +37,7 @@
           @keyup.enter.native="handleQuery"
         />
       </el-form-item>
-       <el-form-item label="事件等级" prop="userName">
+      <el-form-item label="事件等级" prop="userName">
         <el-input
           v-model="queryParams.userName"
           placeholder="请选择事件等级"
@@ -46,7 +46,7 @@
           @keyup.enter.native="handleQuery"
         />
       </el-form-item>
-       <el-form-item label="资产类型" prop="userName">
+      <el-form-item label="资产类型" prop="userName">
         <el-input
           v-model="queryParams.userName"
           placeholder="请选择资产类型"
@@ -60,33 +60,33 @@
         <el-button icon="el-icon-refresh" size="mini" @click="resetQuery">重置</el-button>
       </el-form-item>
     </el-form>
-     <el-row :gutter="10" class="mb8">
-       <el-col :span="1.5">
-            <el-button
-              type="primary"
-              size="mini"
-              @click="handleExport"
-              v-hasPermi="['system:user:export']"
-            >导出</el-button>
-          </el-col>
-          <el-col :span="1.5">
-            <el-button
-              type="primary"
-              size="mini"
-              @click="handleAdd"
-              v-hasPermi="['system:user:add']"
-            >添加</el-button>
-          </el-col>
-          <el-col :span="1.5">
-            <el-button
-              type="primary"
-              size="mini"
-              :disabled="multiple"
-              @click="handleDelete"
-              v-hasPermi="['system:user:remove']"
-            >删除</el-button>
-          </el-col>
-        </el-row>
+    <el-row :gutter="10" class="mb8">
+      <el-col :span="1.5">
+        <el-button
+          v-hasPermi="['system:user:export']"
+          type="primary"
+          size="mini"
+          @click="handleExport"
+        >导出</el-button>
+      </el-col>
+      <el-col :span="1.5">
+        <el-button
+          v-hasPermi="['system:user:add']"
+          type="primary"
+          size="mini"
+          @click="handleAdd"
+        >添加</el-button>
+      </el-col>
+      <el-col :span="1.5">
+        <el-button
+          v-hasPermi="['system:user:remove']"
+          type="primary"
+          size="mini"
+          :disabled="multiple"
+          @click="handleDelete"
+        >删除</el-button>
+      </el-col>
+    </el-row>
     <el-table
       v-loading="loading"
       :data="list.slice((pageNum-1)*pageSize,pageNum*pageSize)"
@@ -94,16 +94,16 @@
     >
       <el-table-column label="序号" type="index" align="center">
         <template slot-scope="scope">
-          <span>{{(pageNum - 1) * pageSize + scope.$index + 1}}</span>
+          <span>{{ (pageNum - 1) * pageSize + scope.$index + 1 }}</span>
         </template>
       </el-table-column>
       <el-table-column label="资产编号" align="center" prop="tokenId" :show-overflow-tooltip="true" />
       <el-table-column label="IP地址" align="center" prop="userName" :show-overflow-tooltip="true" />
       <el-table-column label="资产名称" align="center" prop="deptName" />
       <el-table-column label="资产类型" align="center" prop="ipaddr" :show-overflow-tooltip="true" />
-      <el-table-column label="运行状态" align="center" prop="loginLocation" :show-overflow-tooltip="true" width="60"/>
-      <el-table-column label="风险状态" align="center" prop="browser" width="60"/>
-      <el-table-column label="事件等级" align="center" prop="os" width="60"/>
+      <el-table-column label="运行状态" align="center" prop="loginLocation" :show-overflow-tooltip="true" width="60" />
+      <el-table-column label="风险状态" align="center" prop="browser" width="60" />
+      <el-table-column label="事件等级" align="center" prop="os" width="60" />
       <el-table-column label="操作系统" align="center" prop="loginTime" width="80">
         <template slot-scope="scope">
           <span>{{ parseTime(scope.row.loginTime) }}</span>
@@ -114,7 +114,7 @@
       <el-table-column label="资产标签" align="center" prop="os" />
       <el-table-column label="区域" align="center" prop="loginLocation" :show-overflow-tooltip="true" />
       <el-table-column label="负责人" align="center" prop="browser" />
-      <el-table-column label="最后活跃时间" align="center" prop="os" >
+      <el-table-column label="最后活跃时间" align="center" prop="os">
         <template slot-scope="scope">
           <span>{{ parseTime(scope.row.loginTime) }}</span>
         </template>
@@ -122,25 +122,25 @@
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width" width="180">
         <template slot-scope="scope">
           <el-button
+            v-hasPermi="['monitor:online:forceLogout']"
             size="mini"
             type="text"
             icon="el-icon-view"
             @click="handleForceLogout(scope.row)"
-            v-hasPermi="['monitor:online:forceLogout']"
           >详情</el-button>
           <el-button
+            v-hasPermi="['monitor:online:forceLogout']"
             size="mini"
             type="text"
             icon="el-icon-s-tools"
             @click="handleForceLogout(scope.row)"
-            v-hasPermi="['monitor:online:forceLogout']"
           >配置</el-button>
           <el-button
+            v-hasPermi="['monitor:online:forceLogout']"
             size="mini"
             type="text"
             icon="el-icon-edit"
             @click="handleForceLogout(scope.row)"
-            v-hasPermi="['monitor:online:forceLogout']"
           >修改</el-button>
         </template>
       </el-table-column>
@@ -151,10 +151,10 @@
 </template>
 
 <script>
-import { list, forceLogout } from "@/api/monitor/online";
+import { list, forceLogout } from '@/api/monitor/online'
 
 export default {
-  name: "Online",
+  name: 'Online',
   data() {
     return {
       // 遮罩层
@@ -170,45 +170,45 @@ export default {
         ipaddr: undefined,
         userName: undefined
       }
-    };
+    }
   },
   created() {
-    this.getList();
+    this.getList()
   },
   methods: {
     /** 查询登录日志列表 */
     getList() {
-      this.loading = true;
+      this.loading = true
       list(this.queryParams).then(response => {
-        this.list = response.rows;
-        this.total = response.total;
-        this.loading = false;
-      });
+        this.list = response.rows
+        this.total = response.total
+        this.loading = false
+      })
     },
     /** 搜索按钮操作 */
     handleQuery() {
-      this.pageNum = 1;
-      this.getList();
+      this.pageNum = 1
+      this.getList()
     },
     /** 重置按钮操作 */
     resetQuery() {
-      this.resetForm("queryForm");
-      this.handleQuery();
+      this.resetForm('queryForm')
+      this.handleQuery()
     },
     /** 强退按钮操作 */
     handleForceLogout(row) {
-      this.$confirm('是否确认强退名称为"' + row.userName + '"的数据项?', "警告", {
-          confirmButtonText: "确定",
-          cancelButtonText: "取消",
-          type: "warning"
-        }).then(function() {
-          return forceLogout(row.tokenId);
-        }).then(() => {
-          this.getList();
-          this.msgSuccess("强退成功");
-        })
+      this.$confirm('是否确认强退名称为"' + row.userName + '"的数据项?', '警告', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(function() {
+        return forceLogout(row.tokenId)
+      }).then(() => {
+        this.getList()
+        this.msgSuccess('强退成功')
+      })
     }
   }
-};
+}
 </script>
 
