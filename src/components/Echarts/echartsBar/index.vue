@@ -70,10 +70,11 @@ export default {
             },
             axisLabel: {
               textStyle: {
-                color: '#2A86E3'
+                color: '#2A86E3',
+                align: 'left'
               },
               height: 70,
-              margin: -35,
+              margin: -5,
               rich: {
               }
             }
