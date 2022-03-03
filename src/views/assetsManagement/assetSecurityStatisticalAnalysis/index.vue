@@ -34,73 +34,72 @@
       </el-form-item>
     </el-form>
 
-     <el-row :gutter="10">
-        <el-col :span="5" class="elcolCard">
-           <div class="AssetsBox">
-               <div class="Assets">全部资产</div>
-               <div class="AssetsNumber">{{this.allAssets}}</div>
-           </div>
-        </el-col>
-        <el-col :span="5" class="elcolCard">
-           <div class="AssetsBox">
-               <div class="Assets">在线的资产</div>
-               <div class="AssetsNumber">{{this.onlineAssets}}</div>
-           </div>
-        </el-col>
-        <el-col :span="4" class="elcolCard">
-            <div  class="AssetsBox">
-              <div class="Assets">资产类型</div>
-              <div class="ITNumber">
-                  <div>
-                    <span class="IT">IT</span>
-                    <span class="OT">OT</span>
-                  </div>
-                  <div>
-                    <span class="ITNumber">{{this.ITNumber}}</span>
-                    <span class="OTNumber">{{this.OTNumber}}</span>
-                  </div>
-              </div>
-              
+    <el-row :gutter="10">
+      <el-col :span="5" class="elcolCard">
+        <div class="AssetsBox">
+          <div class="Assets">全部资产</div>
+          <div class="AssetsNumber">{{ this.allAssets }}</div>
+        </div>
+      </el-col>
+      <el-col :span="5" class="elcolCard">
+        <div class="AssetsBox">
+          <div class="Assets">在线的资产</div>
+          <div class="AssetsNumber">{{ this.onlineAssets }}</div>
+        </div>
+      </el-col>
+      <el-col :span="4" class="elcolCard">
+        <div class="AssetsBox">
+          <div class="Assets">资产类型</div>
+          <div class="ITNumberBox">
+            <div>
+              <span class="IT">IT</span>
+              <span class="OT">OT</span>
             </div>
-        </el-col>
-        <el-col :span="5" class="elcolCard">
-            <div  class="AssetsBox">
-               <div class="Assets">离线的资产</div>
-               <div class="AssetsNumber">{{this.offlineAssets}}</div>
+            <div>
+              <span class="ITNumber">{{ this.ITNumber }}</span>
+              <span class="OTNumber">{{ this.OTNumber }}</span>
             </div>
-        </el-col>
-        <el-col :span="5" class="elcolCard">
-            <div class="AssetsBox">
-                <div class="Assets">异常的资产</div>
-                <div class="AssetsNumber">{{this.abnormalAssets}}</div>
-            </div>
-        </el-col>
-      </el-row>
-      
-      <div id="test1">
-         <Tip>
-            <span>IT资产类型分布</span>
-          </Tip>
-          <div id="canvas1" />
-      </div>
-      <div id="test2">
-          <Tip>
-            <span>操作系统类型分布</span>
-          </Tip>
-          <div id="canvas2" />
-      </div>
-      <div id="test3">
-         <Tip>
-            <span>OT资产类型分布</span>
-          </Tip>
-          <div id="canvas3" />
-      </div>
-      <div id="test4">
-         <Tip>
-            <span>工业协议分布</span>
-          </Tip>
-          <div id="canvas4" />
-      </div>
+          </div>
+        </div>
+      </el-col>
+      <el-col :span="5" class="elcolCard">
+        <div class="AssetsBox">
+          <div class="Assets">离线的资产</div>
+          <div class="AssetsNumber">{{ this.offlineAssets }}</div>
+        </div>
+      </el-col>
+      <el-col :span="5" class="elcolCard">
+        <div class="AssetsBox">
+          <div class="Assets">异常的资产</div>
+          <div class="AssetsNumber">{{ this.abnormalAssets }}</div>
+        </div>
+      </el-col>
+    </el-row>
+
+    <div id="test1">
+      <Tip>
+        <span>IT资产类型分布</span>
+      </Tip>
+      <div id="canvas1" />
+    </div>
+    <div id="test2">
+      <Tip>
+        <span>操作系统类型分布</span>
+      </Tip>
+      <div id="canvas2" />
+    </div>
+    <div id="test3">
+      <Tip>
+        <span>OT资产类型分布</span>
+      </Tip>
+      <div id="canvas3" />
+    </div>
+    <div id="test4">
+      <Tip>
+        <span>工业协议分布</span>
+      </Tip>
+      <div id="canvas4" />
+    </div>
 
     <!-- <el-row :gutter="10" class="mb8">
       <el-col :span="1.5">
@@ -295,9 +294,7 @@
           />
         </el-form-item>
         <el-form-item label="分类" prop="categoryId">
-          <el-select
-            v-model="form.categoryId"
-          >
+          <el-select v-model="form.categoryId">
             <el-option
               v-for="category in categoryList"
               :key="category.categoryId"
@@ -324,7 +321,7 @@
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
-        <el-button type="primary" @click="submitForm">确 定</el-button>        
+        <el-button type="primary" @click="submitForm">确 定</el-button>
         <el-button @click="cancel">取 消</el-button>
       </div>
     </el-dialog>
@@ -349,7 +346,10 @@
                 v-model="statusForm.relayStatus"
                 active-text="打开"
                 inactive-text="关闭"
-                :active-value=1 :inactive-value=0 active-color="#13ce66">
+                :active-value="1"
+                :inactive-value="0"
+                active-color="#13ce66"
+              >
               </el-switch>
             </el-form-item>
           </el-col>
@@ -359,7 +359,10 @@
                 v-model="statusForm.lightStatus"
                 active-text="打开"
                 inactive-text="关闭"
-                :active-value=1 :inactive-value=0 active-color="#13ce66">
+                :active-value="1"
+                :inactive-value="0"
+                active-color="#13ce66"
+              >
               </el-switch>
             </el-form-item>
           </el-col>
@@ -388,9 +391,10 @@
             <el-form-item label="渐变间隔/ms" prop="lightInterval">
               <el-slider
                 v-model="statusForm.lightInterval"
-                :min=0
-                :max=1500
-                show-input>
+                :min="0"
+                :max="1500"
+                show-input
+              >
               </el-slider>
             </el-form-item>
           </el-col>
@@ -398,53 +402,43 @@
             <el-form-item label="渐变时间/ms" prop="fadeTime">
               <el-slider
                 v-model="statusForm.fadeTime"
-                :min=0
-                :max=1500
-                show-input>
+                :min="0"
+                :max="1500"
+                show-input
+              >
               </el-slider>
             </el-form-item>
           </el-col>
         </el-row>
 
         <el-row>
-          <el-col :span="24" >
+          <el-col :span="24">
             <el-form-item label="亮度" prop="brightness">
-              <el-slider
-                v-model="statusForm.brightness"
-                show-input>
+              <el-slider v-model="statusForm.brightness" show-input>
               </el-slider>
             </el-form-item>
           </el-col>
           <el-col :span="24">
             <el-form-item label="红色" prop="red">
-               <el-slider
-                v-model="statusForm.red"
-                :max=255
-                show-input>
+              <el-slider v-model="statusForm.red" :max="255" show-input>
               </el-slider>
             </el-form-item>
           </el-col>
           <el-col :span="24">
             <el-form-item label="绿色" prop="green">
-               <el-slider
-                v-model="statusForm.green"
-                :max=255
-                show-input>
+              <el-slider v-model="statusForm.green" :max="255" show-input>
               </el-slider>
             </el-form-item>
           </el-col>
           <el-col :span="24">
             <el-form-item label="蓝色" prop="blue">
-               <el-slider
-                v-model="statusForm.blue"
-                :max=255
-                show-input>
+              <el-slider v-model="statusForm.blue" :max="255" show-input>
               </el-slider>
             </el-form-item>
           </el-col>
         </el-row>
 
-        <el-divider content-position="center"/>
+        <el-divider content-position="center" />
         <el-row>
           <el-col :span="11">
             <el-form-item label="空气温度" prop="airTemperature">
@@ -461,11 +455,14 @@
             </el-form-item>
           </el-col>
         </el-row>
-
       </el-form>
       <div slot="footer" class="dialog-footer">
-        <el-button type="primary" @click="statusSubmitForm(false)">确 定</el-button>
-        <el-button type="success" @click="statusSubmitForm(true)">应 用</el-button>
+        <el-button type="primary" @click="statusSubmitForm(false)"
+          >确 定</el-button
+        >
+        <el-button type="success" @click="statusSubmitForm(true)"
+          >应 用</el-button
+        >
         <el-button @click="statusCancel">取 消</el-button>
       </div>
     </el-dialog>
@@ -477,58 +474,74 @@
       width="630px"
       append-to-body
     >
-      <el-form ref="setForm" :model="setForm" :rules="rules" label-width="120px">
+      <el-form
+        ref="setForm"
+        :model="setForm"
+        :rules="rules"
+        label-width="120px"
+      >
         <el-form-item label="雷达感应" prop="isRadar">
-            <el-switch
-                v-model="setForm.isRadar"
-                active-text="打开"
-                inactive-text="关闭"
-                :active-value=1 :inactive-value=0 >
-              </el-switch>
+          <el-switch
+            v-model="setForm.isRadar"
+            active-text="打开"
+            inactive-text="关闭"
+            :active-value="1"
+            :inactive-value="0"
+          >
+          </el-switch>
         </el-form-item>
 
         <el-form-item label="报警" prop="isAlarm">
-            <el-switch
-                v-model="setForm.isAlarm"
-                active-text="打开"
-                inactive-text="关闭"
-                :active-value=1 :inactive-value=0 >
-              </el-switch>
+          <el-switch
+            v-model="setForm.isAlarm"
+            active-text="打开"
+            inactive-text="关闭"
+            :active-value="1"
+            :inactive-value="0"
+          >
+          </el-switch>
         </el-form-item>
 
         <el-form-item label="雷达感应间隔/s" prop="radarInterval">
           <el-slider
-                v-model="setForm.radarInterval"
-                :min=1
-                :max=60
-                show-input>
-              </el-slider>
+            v-model="setForm.radarInterval"
+            :min="1"
+            :max="60"
+            show-input
+          >
+          </el-slider>
         </el-form-item>
 
-        <el-divider content-position="center"/>
+        <el-divider content-position="center" />
         <el-form-item label="射频遥控" prop="isRfControl">
-            <el-switch
-                v-model="setForm.isRfControl"
-                active-text="打开"
-                inactive-text="关闭"
-                :active-value=1 :inactive-value=0 >
-              </el-switch>
+          <el-switch
+            v-model="setForm.isRfControl"
+            active-text="打开"
+            inactive-text="关闭"
+            :active-value="1"
+            :inactive-value="0"
+          >
+          </el-switch>
         </el-form-item>
         <el-form-item label="遥控配对" prop="isRfLearn">
           <el-switch
-                v-model="setForm.isRfLearn"
-                active-text="打开"
-                inactive-text="关闭"
-                :active-value=1 :inactive-value=0 >
-              </el-switch>
+            v-model="setForm.isRfLearn"
+            active-text="打开"
+            inactive-text="关闭"
+            :active-value="1"
+            :inactive-value="0"
+          >
+          </el-switch>
         </el-form-item>
         <el-form-item label="遥控清码" prop="isRfClear">
           <el-switch
-                v-model="setForm.isRfClear"
-                active-text="打开"
-                inactive-text="关闭"
-                :active-value=1 :inactive-value=0 >
-              </el-switch>
+            v-model="setForm.isRfClear"
+            active-text="打开"
+            inactive-text="关闭"
+            :active-value="1"
+            :inactive-value="0"
+          >
+          </el-switch>
         </el-form-item>
         <el-row>
           <el-col :span="11">
@@ -557,7 +570,10 @@
           </el-col>
           <el-col :span="11">
             <el-form-item label="按键三" prop="rfThreeFunc">
-              <el-select v-model="setForm.rfThreeFunc" placeholder="请选择按键三">
+              <el-select
+                v-model="setForm.rfThreeFunc"
+                placeholder="请选择按键三"
+              >
                 <el-option
                   v-for="dict in rfFuncOptions"
                   :key="dict.dictValue"
@@ -569,7 +585,10 @@
           </el-col>
           <el-col :span="11" :offset="1">
             <el-form-item label="按键四" prop="rfFourFunc">
-              <el-select v-model="setForm.rfFourFunc" placeholder="请选择按键四">
+              <el-select
+                v-model="setForm.rfFourFunc"
+                placeholder="请选择按键四"
+              >
                 <el-option
                   v-for="dict in rfFuncOptions"
                   :key="dict.dictValue"
@@ -579,24 +598,30 @@
               </el-select>
             </el-form-item>
           </el-col>
-        </el-row>     
+        </el-row>
 
-        <el-divider content-position="center"/>
-                <el-form-item label="重启" prop="isReset">
-            <el-switch
-                v-model="setForm.isReset"
-                active-text="打开"
-                inactive-text="关闭"
-                :active-value=1 :inactive-value=0 active-color="#f56c6c">
-              </el-switch>
+        <el-divider content-position="center" />
+        <el-form-item label="重启" prop="isReset">
+          <el-switch
+            v-model="setForm.isReset"
+            active-text="打开"
+            inactive-text="关闭"
+            :active-value="1"
+            :inactive-value="0"
+            active-color="#f56c6c"
+          >
+          </el-switch>
         </el-form-item>
         <el-form-item label="打开AP" prop="isAp">
-           <el-switch
-                v-model="setForm.isAp"
-                active-text="打开"
-                inactive-text="关闭"
-                :active-value=1 :inactive-value=0 active-color="#f56c6c">
-              </el-switch>
+          <el-switch
+            v-model="setForm.isAp"
+            active-text="打开"
+            inactive-text="关闭"
+            :active-value="1"
+            :inactive-value="0"
+            active-color="#f56c6c"
+          >
+          </el-switch>
         </el-form-item>
 
         <!-- <el-form-item label="托管" prop="isHost">
@@ -609,10 +634,11 @@
             ></el-option>
           </el-select>
         </el-form-item> -->
-
       </el-form>
       <div slot="footer" class="dialog-footer">
-        <el-button type="primary" @click="setSubmitForm(false)">确 定</el-button>
+        <el-button type="primary" @click="setSubmitForm(false)"
+          >确 定</el-button
+        >
         <el-button type="success" @click="setSubmitForm(true)">应 用</el-button>
         <el-button @click="setCancel">取 消</el-button>
       </div>
@@ -631,37 +657,37 @@
 </style>
 
 <script>
-import Tip from '@/components/EchartsTip/index'
+import Tip from "@/components/EchartsTip/index";
 import {
   listDevice,
   getDevice,
   delDevice,
   addDevice,
   updateDevice,
-  exportDevice
+  exportDevice,
 } from "@/api/system/device";
 import { getNewStatus, updateStatus } from "@/api/system/status";
 import { getNewSet, updateSet } from "@/api/system/set";
 import { listCategory } from "@/api/system/category";
-import echarts from 'echarts'
+import echarts from "echarts";
 
 export default {
   name: "Device",
-  components: {Tip},
+  components: { Tip },
   data() {
     return {
-      charts:"",
+      charts: "",
       // opinion:['男','女'],
       // opinionData:[
       //     {value:335, name:'男'},
       //     {value:310, name:'女'},
       // ],
-      allAssets:"40639",
-      onlineAssets:"37247",
-      ITNumber:"40230",
-      OTNumber:"409",
-      offlineAssets:"652",
-      abnormalAssets:"2740",
+      allAssets: "40639",
+      onlineAssets: "37247",
+      ITNumber: "40230",
+      OTNumber: "409",
+      offlineAssets: "652",
+      abnormalAssets: "2740",
       // 遮罩层
       loading: true,
       // 选中数组
@@ -688,54 +714,54 @@ export default {
       daterangeCreateTime: [],
       // 分类
       categoryList: [],
-      allTypeList:[
+      allTypeList: [
         {
           label: "全部",
-          value: 0
+          value: 0,
         },
         {
           label: "山西燃气厂",
-          value: 1
-        }
+          value: 1,
+        },
       ],
       // 继电器字典
       openCloseOptions: [
         {
           label: "打开",
-          value: 1
+          value: 1,
         },
         {
           label: "关闭",
-          value: 0
-        }
+          value: 0,
+        },
       ],
       // 灯状态字典
       yesNoOptions: [
         {
           label: "是",
-          value: 1
+          value: 1,
         },
         {
           label: "否",
-          value: 0
-        }
+          value: 0,
+        },
       ],
       // 在线字典
       isOnlineOptions: [
         {
           label: "在线",
-          value: 1
+          value: 1,
         },
         {
           label: "离线",
-          value: 0
-        }
+          value: 0,
+        },
       ],
       // 触发源字典
       triggerSourceOptions: [],
       // 彩灯模式字典
       lightModeOptions: [],
-      
+
       // 按键字典
       rfFuncOptions: [],
       // 创建时间时间范围
@@ -744,13 +770,13 @@ export default {
       queryParams: {
         pageNum: 1,
         pageSize: 10,
-        groupId:0,
+        groupId: 0,
         deviceNum: null,
         categoryId: null,
         deviceName: null,
         firmwareVersion: null,
         ownerId: null,
-        createTime: null
+        createTime: null,
       },
       // 表单参数
       form: {},
@@ -759,36 +785,36 @@ export default {
       // 表单校验
       rules: {
         deviceNum: [
-          { required: true, message: "编号不能为空", trigger: "blur" }
+          { required: true, message: "编号不能为空", trigger: "blur" },
         ],
         deviceName: [
-          { required: true, message: "名称不能为空", trigger: "blur" }
+          { required: true, message: "名称不能为空", trigger: "blur" },
         ],
         categoryId: [
-          {required:true,message:"设备分类不能为空",trigger: "blur"}
+          { required: true, message: "设备分类不能为空", trigger: "blur" },
         ],
         firmwareVersion: [
-          {required:true,message:"版本号不能为空", trigger: "blur"}
+          { required: true, message: "版本号不能为空", trigger: "blur" },
         ],
-      }
+      },
     };
   },
   created() {
     this.getCategoryList();
     this.getList();
-    this.getDicts("iot_trigger_source").then(response => {
+    this.getDicts("iot_trigger_source").then((response) => {
       this.triggerSourceOptions = response.data;
     });
-    this.getDicts("light_mode").then(response => {
+    this.getDicts("light_mode").then((response) => {
       this.lightModeOptions = response.data;
     });
-    this.getDicts("rf_function").then(response => {
+    this.getDicts("rf_function").then((response) => {
       this.rfFuncOptions = response.data;
     });
     this.getPieChartOne();
     this.getPieChartTwo();
     this.getPieChartThree();
-    this.getPieChartFour()
+    this.getPieChartFour();
   },
   methods: {
     /**行颜色 */
@@ -805,12 +831,11 @@ export default {
       this.loading = true;
       this.queryParams.params = {};
       if (null != this.daterangeCreateTime && "" != this.daterangeCreateTime) {
-        this.queryParams.params[
-          "beginCreateTime"
-        ] = this.daterangeCreateTime[0];
+        this.queryParams.params["beginCreateTime"] =
+          this.daterangeCreateTime[0];
         this.queryParams.params["endCreateTime"] = this.daterangeCreateTime[1];
       }
-      listDevice(this.queryParams).then(response => {
+      listDevice(this.queryParams).then((response) => {
         this.deviceList = response.rows;
         this.total = response.total;
         this.loading = false;
@@ -818,7 +843,7 @@ export default {
     },
     // 查询设备分类
     getCategoryList() {
-      listCategory(this.queryCategoryParams).then(response => {
+      listCategory(this.queryCategoryParams).then((response) => {
         this.categoryList = response.rows;
       });
     },
@@ -867,7 +892,7 @@ export default {
         createTime: null,
         updateBy: null,
         updateTime: null,
-        remark: null
+        remark: null,
       };
       this.resetForm("form");
     },
@@ -895,7 +920,7 @@ export default {
         createTime: null,
         updateBy: null,
         updateTime: null,
-        remark: null
+        remark: null,
       };
       this.resetForm("statusForm");
     },
@@ -906,7 +931,7 @@ export default {
         deviceNum: null,
         isAlarm: null,
         isRadar: null,
-        radarInterval:null,
+        radarInterval: null,
         isHost: null,
         isReset: null,
         isAp: null,
@@ -926,7 +951,7 @@ export default {
         createTime: null,
         updateBy: null,
         updateTime: null,
-        remark: null
+        remark: null,
       };
       this.resetForm("setForm");
     },
@@ -943,7 +968,7 @@ export default {
     },
     // 多选框选中数据
     handleSelectionChange(selection) {
-      this.ids = selection.map(item => item.deviceId);
+      this.ids = selection.map((item) => item.deviceId);
       this.single = selection.length !== 1;
       this.multiple = !selection.length;
     },
@@ -957,7 +982,7 @@ export default {
     handleUpdate(row) {
       this.reset();
       const deviceId = row.deviceId || this.ids;
-      getDevice(deviceId).then(response => {
+      getDevice(deviceId).then((response) => {
         this.form = response.data;
         this.open = true;
         this.title = "修改设备";
@@ -967,7 +992,7 @@ export default {
     handleStatus(row) {
       this.reset();
       const deviceId = row.deviceId || this.ids;
-      getNewStatus(deviceId).then(response => {
+      getNewStatus(deviceId).then((response) => {
         this.statusForm = response.data;
         this.statusOpen = true;
         this.statusTitle = "设备状态";
@@ -977,7 +1002,7 @@ export default {
     handleSet(row) {
       this.reset();
       const deviceId = row.deviceId || this.ids;
-      getNewSet(deviceId).then(response => {
+      getNewSet(deviceId).then((response) => {
         this.setForm = response.data;
         this.setOpen = true;
         this.setTitle = "设备配置";
@@ -985,16 +1010,16 @@ export default {
     },
     /** 提交按钮 */
     submitForm() {
-      this.$refs["form"].validate(valid => {
+      this.$refs["form"].validate((valid) => {
         if (valid) {
           if (this.form.deviceId != null) {
-            updateDevice(this.form).then(response => {
+            updateDevice(this.form).then((response) => {
               this.msgSuccess("修改成功");
               this.open = false;
               this.getList();
             });
           } else {
-            addDevice(this.form).then(response => {
+            addDevice(this.form).then((response) => {
               this.msgSuccess("新增成功");
               this.open = false;
               this.getList();
@@ -1005,15 +1030,15 @@ export default {
     },
     /** 状态提交按钮 */
     statusSubmitForm(isApply) {
-      this.$refs["statusForm"].validate(valid => {
+      this.$refs["statusForm"].validate((valid) => {
         if (valid) {
           if (this.statusForm.deviceStatusId != null) {
-            updateStatus(this.statusForm).then(response => {
+            updateStatus(this.statusForm).then((response) => {
               this.msgSuccess("更新成功");
-              if(!isApply){
+              if (!isApply) {
                 this.statusOpen = false;
                 this.getList();
-              }              
+              }
             });
           }
         }
@@ -1021,15 +1046,15 @@ export default {
     },
     /** 设置提交按钮 */
     setSubmitForm(isApply) {
-      this.$refs["setForm"].validate(valid => {
+      this.$refs["setForm"].validate((valid) => {
         if (valid) {
           if (this.setForm.deviceSetId != null) {
-            updateSet(this.setForm).then(response => {
+            updateSet(this.setForm).then((response) => {
               this.msgSuccess("更新成功");
-              if(!isApply){
+              if (!isApply) {
                 this.setOpen = false;
                 this.getList();
-              }              
+              }
             });
           }
         }
@@ -1044,10 +1069,10 @@ export default {
         {
           confirmButtonText: "确定",
           cancelButtonText: "取消",
-          type: "warning"
+          type: "warning",
         }
       )
-        .then(function() {
+        .then(function () {
           return delDevice(deviceIds);
         })
         .then(() => {
@@ -1061,232 +1086,231 @@ export default {
       this.$confirm("是否确认导出所有设备数据项?", "警告", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
-        type: "warning"
+        type: "warning",
       })
-        .then(function() {
+        .then(function () {
           return exportDevice(queryParams);
         })
-        .then(response => {
+        .then((response) => {
           this.download(response.msg);
         });
     },
-    getPieChartOne(){
-       this.charts = echarts.init(document.getElementById('canvas1'))
-        // 绘制图表
-         this.charts.setOption({
-                title: {
-                  // text: 'Referer of a Website',
-                  // subtext: 'Fake Data',
-                  left: 'center'
-                },
-                 tooltip: {
-                   trigger: 'item',
-                 },
-                 legend: {
-                   orient: 'vertical',
-                   left: 'right',
-                  //  data:this.opinion
-                 },
-                 color:['#45C2E0', '#C1EBDD', '#FFC851','#5A5476','#1869A0'],
-                 series: [
-                    {
-                      name: 'Access From',
-                      type: 'pie',
-                      radius: '50%',
-                  data: [
-                     { value: 1048, name: '主机(3948)' },
-                     { value: 735, name: '服务器(2514)' },
-                     { value: 580, name: '防火墙(1699)' },
-                     { value: 484, name: '网闸(1023)' },
-                     { value: 300, name: '网关(362)' }
-                  ],
-                  emphasis: {
-                    itemStyle: {
-                      shadowBlur: 10,
-                      shadowOffsetX: 0,
-                      shadowColor: 'rgba(0, 0, 0, 0.5)'
-                    }
-                   }
-                  }
-                 ]
-               })
+    getPieChartOne() {
+      this.charts = echarts.init(document.getElementById("canvas1"));
+      // 绘制图表
+      this.charts.setOption({
+        title: {
+          // text: 'Referer of a Website',
+          // subtext: 'Fake Data',
+          left: "center",
+        },
+        tooltip: {
+          trigger: "item",
+        },
+        legend: {
+          orient: "vertical",
+          left: "right",
+          //  data:this.opinion
+        },
+        color: ["#45C2E0", "#C1EBDD", "#FFC851", "#5A5476", "#1869A0"],
+        series: [
+          {
+            name: "Access From",
+            type: "pie",
+            radius: "50%",
+            data: [
+              { value: 1048, name: "主机(3948)" },
+              { value: 735, name: "服务器(2514)" },
+              { value: 580, name: "防火墙(1699)" },
+              { value: 484, name: "网闸(1023)" },
+              { value: 300, name: "网关(362)" },
+            ],
+            emphasis: {
+              itemStyle: {
+                shadowBlur: 10,
+                shadowOffsetX: 0,
+                shadowColor: "rgba(0, 0, 0, 0.5)",
+              },
+            },
+          },
+        ],
+      });
     },
-    getPieChartTwo(){
-        this.charts = echarts.init(document.getElementById('canvas2'))
-        // 绘制图表
-         this.charts.setOption({
-                title: {
-                  // text: 'Referer of a Website',
-                  // subtext: 'Fake Data',
-                  left: 'center'
-                },
-                 tooltip: {
-                   trigger: 'item',
-                 },
-                 legend: {
-                   orient: 'vertical',
-                   left: 'right',
-                  //  data:this.opinion
-                 },
-                 color:['#45C2E0', '#C1EBDD', '#FFC851','#5A5476','#1869A0'],
-                 series: [
-                    {
-                      name: 'Access From',
-                      type: 'pie',
-                      radius: '50%',
-                  data: [
-                     { value: 1048, name: 'Linux(3948)' },
-                     { value: 735, name: 'Window 7(2514)' },
-                     { value: 580, name: 'Window XP(1699)' },
-                     { value: 484, name: 'Unix(1023)' },
-                     { value: 300, name: 'MAC OS(362)' }
-                  ],
-                  emphasis: {
-                    itemStyle: {
-                      shadowBlur: 10,
-                      shadowOffsetX: 0,
-                      shadowColor: 'rgba(0, 0, 0, 0.5)'
-                    }
-                   }
-                  }
-                 ]
-               })
+    getPieChartTwo() {
+      this.charts = echarts.init(document.getElementById("canvas2"));
+      // 绘制图表
+      this.charts.setOption({
+        title: {
+          // text: 'Referer of a Website',
+          // subtext: 'Fake Data',
+          left: "center",
+        },
+        tooltip: {
+          trigger: "item",
+        },
+        legend: {
+          orient: "vertical",
+          left: "right",
+          //  data:this.opinion
+        },
+        color: ["#45C2E0", "#C1EBDD", "#FFC851", "#5A5476", "#1869A0"],
+        series: [
+          {
+            name: "Access From",
+            type: "pie",
+            radius: "50%",
+            data: [
+              { value: 1048, name: "Linux(3948)" },
+              { value: 735, name: "Window 7(2514)" },
+              { value: 580, name: "Window XP(1699)" },
+              { value: 484, name: "Unix(1023)" },
+              { value: 300, name: "MAC OS(362)" },
+            ],
+            emphasis: {
+              itemStyle: {
+                shadowBlur: 10,
+                shadowOffsetX: 0,
+                shadowColor: "rgba(0, 0, 0, 0.5)",
+              },
+            },
+          },
+        ],
+      });
     },
-    getPieChartThree(){
-         this.charts = echarts.init(document.getElementById('canvas3'))
-        // 绘制图表
-         this.charts.setOption({
-                title: {
-                  // text: 'Referer of a Website',
-                  // subtext: 'Fake Data',
-                  left: 'center'
-                },
-                 tooltip: {
-                   trigger: 'item',
-                 },
-                 legend: {
-                   orient: 'vertical',
-                   left: 'right',
-                  //  data:this.opinion
-                 },
-                 color:['#45C2E0', '#C1EBDD', '#FFC851','#5A5476','#1869A0'],
-                 series: [
-                    {
-                      name: 'Access From',
-                      type: 'pie',
-                      radius: '50%',
-                  data: [
-                     { value: 1048, name: '主机(3948)' },
-                     { value: 735, name: '服务器(2514)' },
-                     { value: 580, name: '防火墙(1699)' },
-                     { value: 484, name: '网闸(1023)' },
-                     { value: 300, name: '网关(362)' }
-                  ],
-                  emphasis: {
-                    itemStyle: {
-                      shadowBlur: 10,
-                      shadowOffsetX: 0,
-                      shadowColor: 'rgba(0, 0, 0, 0.5)'
-                    }
-                   }
-                  }
-                 ]
-               })
+    getPieChartThree() {
+      this.charts = echarts.init(document.getElementById("canvas3"));
+      // 绘制图表
+      this.charts.setOption({
+        title: {
+          // text: 'Referer of a Website',
+          // subtext: 'Fake Data',
+          left: "center",
+        },
+        tooltip: {
+          trigger: "item",
+        },
+        legend: {
+          orient: "vertical",
+          left: "right",
+          //  data:this.opinion
+        },
+        color: ["#45C2E0", "#C1EBDD", "#FFC851", "#5A5476", "#1869A0"],
+        series: [
+          {
+            name: "Access From",
+            type: "pie",
+            radius: "50%",
+            data: [
+              { value: 1048, name: "主机(3948)" },
+              { value: 735, name: "服务器(2514)" },
+              { value: 580, name: "防火墙(1699)" },
+              { value: 484, name: "网闸(1023)" },
+              { value: 300, name: "网关(362)" },
+            ],
+            emphasis: {
+              itemStyle: {
+                shadowBlur: 10,
+                shadowOffsetX: 0,
+                shadowColor: "rgba(0, 0, 0, 0.5)",
+              },
+            },
+          },
+        ],
+      });
     },
-    getPieChartFour(){
-         this.charts = echarts.init(document.getElementById('canvas4'))
-        // 绘制图表
-         this.charts.setOption({
-                title: {
-                  // text: 'Referer of a Website',
-                  // subtext: 'Fake Data',
-                  left: 'center'
-                },
-                 tooltip: {
-                   trigger: 'item',
-                 },
-                 legend: {
-                   orient: 'vertical',
-                   left: 'right',
-                  //  data:this.opinion
-                 },
-                 color:['#45C2E0', '#C1EBDD', '#FFC851','#5A5476','#1869A0'],
-                 series: [
-                    {
-                      name: 'Access From',
-                      type: 'pie',
-                      radius: '50%',
-                  data: [
-                     { value: 1048, name: 'S7(3948)' },
-                     { value: 735, name: 'MOBUS(2514)' },
-                     { value: 580, name: 'DNP3(1699)' },
-                     { value: 484, name: 'IEC104(1023)' },
-                     { value: 300, name: 'MMS(362)' }
-                  ],
-                  emphasis: {
-                    itemStyle: {
-                      shadowBlur: 10,
-                      shadowOffsetX: 0,
-                      shadowColor: 'rgba(0, 0, 0, 0.5)'
-                    }
-                   }
-                  }
-                 ]
-               })
-    }
+    getPieChartFour() {
+      this.charts = echarts.init(document.getElementById("canvas4"));
+      // 绘制图表
+      this.charts.setOption({
+        title: {
+          // text: 'Referer of a Website',
+          // subtext: 'Fake Data',
+          left: "center",
+        },
+        tooltip: {
+          trigger: "item",
+        },
+        legend: {
+          orient: "vertical",
+          left: "right",
+          //  data:this.opinion
+        },
+        color: ["#45C2E0", "#C1EBDD", "#FFC851", "#5A5476", "#1869A0"],
+        series: [
+          {
+            name: "Access From",
+            type: "pie",
+            radius: "50%",
+            data: [
+              { value: 1048, name: "S7(3948)" },
+              { value: 735, name: "MOBUS(2514)" },
+              { value: 580, name: "DNP3(1699)" },
+              { value: 484, name: "IEC104(1023)" },
+              { value: 300, name: "MMS(362)" },
+            ],
+            emphasis: {
+              itemStyle: {
+                shadowBlur: 10,
+                shadowOffsetX: 0,
+                shadowColor: "rgba(0, 0, 0, 0.5)",
+              },
+            },
+          },
+        ],
+      });
+    },
   },
-   mounted() {
-    this.$nextTick(function() {
-          this.getPieChartOne('test1')
-          this.getPieChartTwo('test2')
-          this.getPieChartThree('test3')
-          this.getPieChartFour('test4')
-  })
-
+  mounted() {
+    this.$nextTick(function () {
+      this.getPieChartOne("test1");
+      this.getPieChartTwo("test2");
+      this.getPieChartThree("test3");
+      this.getPieChartFour("test4");
+    });
   },
 };
 </script>
 <style lang="scss" scoped>
-.app-container{
-  .elcolCard{
-   
-     .AssetsBox{
-       .Assets{
-          background-color: #5599FF;
-          padding:10px 80px 10px 10px;
-          border-bottom: 1px solid #FFF;
-          color:#FFF;
-        }
-       .AssetsNumber{
-         width:100%;
-         height:100px;
-         background-color: #5599FF;
-         color:#FFFF77;
-         font-weight:800;
-         text-align: center;
-         line-height: 100px;
-       }
-      .ITNumber{
-        color:#FFF;
-        background-color: #5599FF;
-         width:100%;
-         height:100px;
-         font-weight:800;
+.app-container {
+  .elcolCard {
+    .AssetsBox {
+      .Assets {
+        background-color: #5599ff;
+        padding: 10px 80px 10px 10px;
+        border-bottom: 1px solid #fff;
+        color: #fff;
+      }
+      .AssetsNumber {
+        width: 100%;
+        height: 100px;
+        background-color: #5599ff;
+        color: #ffff77;
+        font-weight: 800;
+        text-align: center;
+        line-height: 100px;
+      }
+      .ITNumberBox {
+        color: #fff;
+        background-color: #5599ff;
+        width: 100%;
+        height: 100px;
+        font-weight: 800;
+        padding-top: 24px;
         //  line-height: 100px;
-       }
-     }
-    .IT{
-      margin-left: 15px;
-      margin-right: 80px;
-    }
-    .OT{
-      margin-left: 26px;
-    }
-    .ITNumber{
-      margin-right: 80px;
-    }
-    .OTNumber{
-      margin-left: 10px;
+        .IT {
+          margin-left: 36px;
+          // margin-right: 80px;
+        }
+        .OT {
+          margin-left: 90px;
+        }
+        .ITNumber {
+          margin-left: 20px;
+        }
+        .OTNumber {
+          margin-left: 68px;
+        }
+      }
     }
   }
   #test1 {
