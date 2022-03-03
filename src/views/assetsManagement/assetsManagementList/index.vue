@@ -184,27 +184,27 @@
       >
         <template>
           <el-button
+            v-hasPermi="['monitor:online:forceLogout']"
             size="mini"
             type="text"
             icon="el-icon-view"
             @click="detail"
-            v-hasPermi="['monitor:online:forceLogout']"
             >详情</el-button
           >
           <el-button
+            v-hasPermi="['monitor:online:forceLogout']"
             size="mini"
             type="text"
             icon="el-icon-s-tools"
             @click="configuration"
-            v-hasPermi="['monitor:online:forceLogout']"
             >配置</el-button
           >
           <el-button
+            v-hasPermi="['monitor:online:forceLogout']"
             size="mini"
             type="text"
             icon="el-icon-edit"
             @click="edit"
-            v-hasPermi="['monitor:online:forceLogout']"
             >修改</el-button
           >
         </template>
@@ -743,10 +743,10 @@
 </template>
 
 <script>
-import { list, forceLogout } from "@/api/monitor/online";
+import { list, forceLogout } from '@/api/monitor/online'
 
 export default {
-  name: "Online",
+  name: 'Online',
   data() {
     return {
       // 是否显示新增弹出层
@@ -822,7 +822,7 @@ export default {
     };
   },
   created() {
-    this.getList();
+    this.getList()
   },
   methods: {
     /** 查询登录日志列表 */
@@ -836,13 +836,13 @@ export default {
     },
     /** 搜索按钮操作 */
     handleQuery() {
-      this.pageNum = 1;
-      this.getList();
+      this.pageNum = 1
+      this.getList()
     },
     /** 重置按钮操作 */
     resetQuery() {
-      this.resetForm("queryForm");
-      this.handleQuery();
+      this.resetForm('queryForm')
+      this.handleQuery()
     },
     handleAdd() {
       this.open = true;

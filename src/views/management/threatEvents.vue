@@ -118,23 +118,19 @@
         </el-row>
       </div>
     </el-card>
-    <el-table v-loading="loading" :data="groupList">
+    <el-table :data="groupList" tooltip-effect="light">
       <el-table-column type="selection" width="55" align="center" />
-      <el-table-column label="事件名称" align="center" prop="groupId" />
-      <el-table-column label="源IP" align="center" prop="userId" />
-      <el-table-column label="目的IP" align="center" prop="groupName" />
-      <el-table-column label="协议" align="center" prop="groupOrder" />
-      <el-table-column label="事件等级" align="center" prop="createTime">
-        <template slot-scope="scope">
-          <span>{{ parseTime(scope.row.createTime, '{y}-{m}-{d}') }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column label="事件类型" align="center" prop="remark" />
-      <el-table-column label="处置状态" align="center" prop="remark" />
-      <el-table-column label="事件开始事件" align="center" prop="remark" />
-      <el-table-column label="事件结束事件" align="center" prop="remark" />
-      <el-table-column label="区域" align="center" prop="remark" />
-      <el-table-column label="上报设备" align="center" prop="remark" />
+      <el-table-column label="事件名称" align="center" prop="groupId" :show-overflow-tooltip="true" />
+      <el-table-column label="源IP" align="center" prop="userId" :show-overflow-tooltip="true" />
+      <el-table-column label="目的IP" align="center" prop="groupName" :show-overflow-tooltip="true" />
+      <el-table-column label="协议" align="center" prop="groupOrder" :show-overflow-tooltip="true" />
+      <el-table-column label="事件等级" align="center" prop="createTime" :show-overflow-tooltip="true" />
+      <el-table-column label="事件类型" align="center" prop="remark" :show-overflow-tooltip="true" />
+      <el-table-column label="处置状态" align="center" prop="searchValue" :show-overflow-tooltip="true" />
+      <el-table-column label="事件开始时间" align="center" prop="updateBy" :show-overflow-tooltip="true" />
+      <el-table-column label="事件结束时间" align="center" prop="updateTime" :show-overflow-tooltip="true" />
+      <el-table-column label="区域" align="center" prop="delFlag" :show-overflow-tooltip="true" />
+      <el-table-column label="上报设备" align="center" prop="name" :show-overflow-tooltip="true" />
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
         <template slot-scope="scope">
           <el-button
@@ -248,7 +244,6 @@
   </div>
 </template>
 <script>
-import { listGroup } from '@/api/system/group'
 export default {
   components: {},
   props: [],
@@ -267,13 +262,17 @@ export default {
         name7: '工业网络审计',
         name8: '10.255.52.83',
         name9: '失陷',
-        name10: '山西燃气厂',
+        name10: '2022-01-29 10:10:00',
         name11: '待处置',
         name12: '2022-02-22',
         name13: '2022-2-25'
       },
       // 分组表格数据
-      groupList: [],
+      groupList: [{ 'name': '工业网络审计', 'searchValue': '未处置', 'createBy': '未处置', 'createTime': '极低', 'updateBy': '2022-01-29 10:10:00', 'updateTime': '2022-01-30 16:35:32', 'remark': '工业网络审计', 'params': {}, 'groupId': 1, 'userId': '116.103.2.11', 'groupName': '10.255.52.10', 'groupOrder': 'MODBUS协议', 'delFlag': '山西三通燃气厂' },
+        { 'name': '工业网络审计', 'searchValue': '未处置', 'createBy': '未处置', 'createTime': '极低', 'updateBy': '2022-01-29 10:10:00', 'updateTime': '2022-01-30 16:35:32', 'remark': '工业网络审计', 'params': {}, 'groupId': 2, 'userId': '116.103.2.11', 'groupName': '10.255.52.10', 'groupOrder': 'MODBUS协议', 'delFlag': '山西三通燃气厂' },
+        { 'name': '工业网络审计', 'searchValue': '未处置', 'createBy': '未处置', 'createTime': '极低', 'updateBy': '2022-01-29 10:10:00', 'updateTime': '2022-01-30 16:35:32', 'remark': '工业网络审计', 'params': {}, 'groupId': 3, 'userId': '116.103.2.11', 'groupName': '10.255.52.10', 'groupOrder': 'MODBUS协议', 'delFlag': '山西三通燃气厂' },
+        { 'name': '工业网络审计', 'searchValue': '未处置', 'createBy': '未处置', 'createTime': '极低', 'updateBy': '2022-01-29 10:10:00', 'updateTime': '2022-01-30 16:35:32', 'remark': '工业网络审计', 'params': {}, 'groupId': 4, 'userId': '116.103.2.11', 'groupName': '10.255.52.10', 'groupOrder': 'MODBUS协议', 'delFlag': '山西三通燃气厂' },
+        { 'name': '工业网络审计', 'searchValue': '未处置', 'createBy': '未处置', 'createTime': '极低', 'updateBy': '2022-01-29 10:10:00', 'updateTime': '2022-01-30 16:35:32', 'remark': '工业网络审计', 'params': {}, 'groupId': 5, 'userId': '116.103.2.11', 'groupName': '10.255.52.10', 'groupOrder': 'MODBUS协议', 'delFlag': '山西三通燃气厂' }],
       // 创建时间时间范围
       daterangeCreateTime: [],
       // 弹出层标题
@@ -281,7 +280,7 @@ export default {
       // 是否显示弹出层
       open: false,
       // 总条数
-      total: 0,
+      total: 6,
       // 查询参数
       queryParams: {
         pageNum: 1,
@@ -350,19 +349,9 @@ export default {
     }
   },
   created() {
-    this.getList()
   },
   methods: {
     /** 查询分组列表 */
-    getList() {
-      this.loading = true
-      this.queryParams.params = {}
-      listGroup(this.queryParams).then(response => {
-        this.groupList = response.rows
-        this.total = response.total
-        this.loading = false
-      })
-    },
     submitdata() {
       this.$refs['elForm'].validate(valid => {
         if (!valid) return
