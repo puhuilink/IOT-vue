@@ -325,7 +325,7 @@
               <el-input v-model="dataTest.message" placeholder="" type="textarea" />
             </el-form-item>
           </el-col>
-          <el-col :span="12">
+          <el-col v-if="upload === true" :span="12">
             <el-form-item label="附件 :">
               <el-upload
                 drag
@@ -545,6 +545,7 @@ export default {
       this.editTrue = false
       this.dataTest.name4 = '已通报'
       this.dataTest.message = ''
+      this.upload = false
     },
     /** 编辑按钮操作 */
     edit() {
@@ -553,6 +554,7 @@ export default {
       this.editTrue = false
       this.dataTest.name4 = '未通报'
       this.dataTest.message = '这是一个备注'
+      this.upload = false
     },
     /** 完成按钮操作 */
     end() {
