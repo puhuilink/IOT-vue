@@ -148,21 +148,29 @@
             </el-col>
           </el-form>
         </el-row>
-      </div>
+        <el-row :gutter="10" class="mb8">
+          <el-col :span="1.5">
+            <el-button
+              v-hasPermi="['system:user:export']"
+              type="primary"
+              size="mini"
+            >导出</el-button>
+          </el-col>
+        </el-row></div>
     </el-card>
     <el-table :data="groupList">
       <el-table-column type="selection" width="55" align="center" />
-      <el-table-column label="检测服务器类型" align="center" prop="groupId" min-width="10%" />
-      <el-table-column label="动作类型" align="center" prop="userId" :show-overflow-tooltip="true" min-width="30%" />
+      <el-table-column label="检测服务器类型" align="center" :show-overflow-tooltip="true" prop="groupId" min-width="15%" />
+      <el-table-column label="动作类型" align="center" prop="userId" :show-overflow-tooltip="true" min-width="10%" />
       <el-table-column label="协议类型" align="center" prop="remark" :show-overflow-tooltip="true" min-width="15%" />
-      <el-table-column label="源IP" align="center" prop="groupOrder" min-width="10%" />
-      <el-table-column label="时间" align="center" prop="searchValue" min-width="10%" />
-      <el-table-column label="事件等级" align="center" prop="createTime" min-width="10%" />
-      <el-table-column label="命中策略" align="center" prop="delFlag" min-width="15%" />
-      <el-table-column label="事件SID" align="center" prop="updateBy" min-width="10%" />
-      <el-table-column label="事件ID" align="center" prop="createBy" min-width="10%" />
-      <el-table-column label="处置状态" align="center" prop="updateTime" min-width="10%" />
-      <el-table-column label="区域" align="center" prop="groupName" min-width="10%" />
+      <el-table-column label="源IP" align="center" prop="groupOrder" :show-overflow-tooltip="true" min-width="10%" />
+      <el-table-column label="时间" align="center" prop="searchValue" :show-overflow-tooltip="true" min-width="10%" />
+      <el-table-column label="事件等级" align="center" prop="createTime" :show-overflow-tooltip="true" min-width="10%" />
+      <el-table-column label="命中策略" align="center" prop="delFlag" :show-overflow-tooltip="true" min-width="15%" />
+      <el-table-column label="事件SID" align="center" prop="updateBy" :show-overflow-tooltip="true" min-width="10%" />
+      <el-table-column label="事件ID" align="center" prop="createBy" :show-overflow-tooltip="true" min-width="10%" />
+      <el-table-column label="处置状态" align="center" prop="updateTime" :show-overflow-tooltip="true" min-width="10%" />
+      <el-table-column label="区域" align="center" prop="groupName" :show-overflow-tooltip="true" min-width="10%" />
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width" min-width="15%">
         <template slot-scope="scope">
           <el-button
@@ -192,74 +200,146 @@
     />
     <!-- 添加或修改分组对话框 -->
     <el-dialog :title="title" :visible.sync="open" width="900px" append-to-body>
-      <el-form ref="form" label-width="100px" label-position="left">
+      <el-form ref="form" label-width="105px" label-position="left">
+        <el-row type="flex" justify="center">
+          <span class="textarea">事件7525948311879681</span>
+        </el-row>
+        <el-divider />
         <el-row>
-          <el-col :span="12">
-            <el-form-item label="漏洞名称 :">
+          <el-col :span="8">
+            <el-form-item label="协议类型 :">
               {{ dataTest.name }}
             </el-form-item>
           </el-col>
-          <el-col :span="12">
-            <el-form-item label="影响平台 :">
+          <el-col :span="8">
+            <el-form-item label="事件等级 :">
               {{ dataTest.name1 }}
             </el-form-item>
           </el-col>
-          <el-col :span="12">
-            <el-form-item label="漏洞ID :">
+          <el-col :span="8">
+            <el-form-item label="状态 :">
               {{ dataTest.name2 }}
             </el-form-item>
           </el-col>
-          <el-col :span="12">
-            <el-form-item label="事件等级 :">
+          <el-col :span="8">
+            <el-form-item label="服务器 :">
               {{ dataTest.name3 }}
             </el-form-item>
           </el-col>
-          <el-col :span="12">
-            <el-form-item label="CVSS分值 :">
+          <el-col :span="8">
+            <el-form-item label="时间 :">
               {{ dataTest.name4 }}
             </el-form-item>
           </el-col>
-          <el-col :span="12">
-            <el-form-item label="CVE编号 :">
+          <el-col :span="8">
+            <el-form-item label="目标URL :">
               {{ dataTest.name5 }}
             </el-form-item>
           </el-col>
-          <el-col :span="12">
-            <el-form-item label="CNCVE编号 :">
+          <el-col :span="8">
+            <el-form-item label="发送者 :">
               {{ dataTest.name6 }}
             </el-form-item>
           </el-col>
-          <el-col :span="12">
-            <el-form-item label="CNNVD编号 :">
+          <el-col :span="8">
+            <el-form-item label="接收者 :">
               {{ dataTest.name7 }}
             </el-form-item>
           </el-col>
-          <el-col :span="12">
-            <el-form-item label="安全性 :">
+          <el-col :span="8">
+            <el-form-item label="抄送人 :">
               {{ dataTest.name8 }}
             </el-form-item>
           </el-col>
-          <el-col :span="12">
-            <el-form-item label="CNVD编号 :">
+          <el-col :span="8">
+            <el-form-item label="密送者 :">
               {{ dataTest.name9 }}
             </el-form-item>
           </el-col>
-          <el-col :span="12">
-            <el-form-item label="可利用性 :">
+          <el-col :span="8">
+            <el-form-item label="源IP :">
               {{ dataTest.name10 }}
             </el-form-item>
           </el-col>
-          <el-col :span="12">
-            <el-form-item label="区域 :">
+          <el-col :span="8">
+            <el-form-item label="目标IP :">
               {{ dataTest.name11 }}
             </el-form-item>
           </el-col>
-          <el-col :span="12">
-            <el-form-item label="处置状态 :">
+          <el-col :span="8">
+            <el-form-item label="IP对应关系人 :">
               {{ dataTest.name12 }}
             </el-form-item>
           </el-col>
+          <el-col :span="8">
+            <el-form-item label="MAC地址 :">
+              {{ dataTest.name13 }}
+            </el-form-item>
+          </el-col>
+          <el-col :span="8">
+            <el-form-item label="域名 :">
+              {{ dataTest.name14 }}
+            </el-form-item>
+          </el-col>
+          <el-col :span="8">
+            <el-form-item label="证据文件 :">
+              {{ dataTest.name15 }}
+            </el-form-item>
+          </el-col>
+          <el-col :span="8">
+            <el-form-item label="区域 :">
+              {{ dataTest.name16 }}
+            </el-form-item>
+          </el-col>
+          <el-col :span="8">
+            <el-form-item label="处置状态 :">
+              {{ dataTest.name17 }}
+            </el-form-item>
+          </el-col>
         </el-row>
+        <br>
+        <el-row type="flex" justify="center">
+          <span class="textarea">命中策略</span>
+        </el-row>
+        <el-divider />
+        <el-row>
+          <el-col :span="8">
+            <el-form-item label="命中策略名 :">
+              {{ dataTest.name18 }}
+            </el-form-item>
+          </el-col>
+          <el-col :span="8">
+            <el-form-item label="策略ID :">
+              {{ dataTest.name19 }}
+            </el-form-item>
+          </el-col>
+          <el-col :span="8">
+            <el-form-item label="命中结果 :">
+              {{ dataTest.name20 }}
+            </el-form-item>
+          </el-col>
+          <el-col :span="8">
+            <el-form-item label="匹配详情 :">
+              <img :src="showPhoto" width="750">
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row type="flex" justify="center">
+          <span class="textarea">操作记录</span>
+        </el-row>
+        <el-divider />
+
+        <el-table :data="content">
+          <el-table-column label="操作时间" align="center" :show-overflow-tooltip="true" prop="time" min-width="20%" />
+          <el-table-column label="操作类型" align="center" prop="type" :show-overflow-tooltip="true" min-width="15%" />
+          <el-table-column label="操作人" align="center" prop="user" :show-overflow-tooltip="true" min-width="15%" />
+          <el-table-column label="操作内容" align="center" prop="content" :show-overflow-tooltip="true" min-width="50%" />
+        </el-table>
+        <br>
+        <el-row type="flex" justify="center">
+          <span class="textarea">注释</span>
+        </el-row>
+        <el-divider />
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-row type="flex" justify="center">
@@ -271,29 +351,41 @@
   </div>
 </template>
 <script>
+import approval_url from '@/icons/echarts/datail.png'
 export default {
   components: {},
   props: [],
   data() {
     return {
       loading: true,
+      showPhoto: approval_url,
       name: '测试',
       dataTest: {
-        name: '记录',
-        name1: 'OpenSSH through 6.4',
-        name2: '低',
-        name3: '高',
-        name4: '7.5',
-        name5: 'CVE2014-1692',
-        name6: 'CNKara文件内置财务',
-        name7: 'CNNVD-201401-581',
-        name8: '753253358804481',
-        name9: 'CNVD-2014-00916',
-        name10: '10.0',
-        name11: '山西燃气厂',
-        name12: '已处置'
+        name: 'SMTP',
+        name1: '极低',
+        name2: '新建',
+        name3: '20',
+        name4: '2020-10-27',
+        name5: '暂无',
+        name6: 'liuqiong@wondersoft',
+        name7: '暂无',
+        name8: '暂无',
+        name9: 'rece1@3110921034.cn',
+        name10: '192.168.154.94',
+        name11: '0.0.0.00',
+        name12: '广州区域支行-刘武',
+        name13: '暂无',
+        name14: '暂无',
+        name15: '邮件主题.txt',
+        name16: '山西燃气厂',
+        name17: '处置中',
+        name18: 'kara邮件手机号',
+        name19: '100',
+        name20: '(手机号码)'
       },
       // 分组表格数据
+      content: [{ 'time': '2020-10--29 11:15:45', 'type': '策略通知规则', 'user': 'system', 'content': '事件入库操作成功！' },
+        { 'time': '2020-10--29 11:15:45', 'type': '审批规则', 'user': 'system', 'content': 'smtp阻断：审批阻断成功！' }],
       groupList: [{ 'searchValue': '2020-10--29 11:15:45', 'createBy': '753253358804481', 'createTime': '低', 'updateBy': '20201026545-fdaaxa', 'updateTime': '未处置', 'remark': 'SCANFILE', 'params': {}, 'groupId': '终端检测器', 'userId': '记录', 'groupName': '山西燃气厂', 'groupOrder': '192.168.148.168', 'delFlag': 'Kara文件内置财务' },
         { 'searchValue': '2020-10--29 11:15:45', 'createBy': '753253358804481', 'createTime': '低', 'updateBy': '20201026545-fdaaxa', 'updateTime': '未处置', 'remark': 'SCANFILE', 'params': {}, 'groupId': '终端检测器', 'userId': '记录', 'groupName': '山西燃气厂', 'groupOrder': '192.168.148.168', 'delFlag': 'Kara文件内置财务' },
         { 'searchValue': '2020-10--29 11:15:45', 'createBy': '753253358804481', 'createTime': '低', 'updateBy': '20201026545-fdaaxa', 'updateTime': '未处置', 'remark': 'SCANFILE', 'params': {}, 'groupId': '终端检测器', 'userId': '记录', 'groupName': '山西燃气厂', 'groupOrder': '192.168.148.168', 'delFlag': 'Kara文件内置财务' },
@@ -435,4 +527,11 @@ export default {
 
 </script>
 <style>
+.textarea{
+  font-weight:bold
+}
+ .el-divider {
+      background-color: #0474ec;
+      height: 2px;
+    }
 </style>

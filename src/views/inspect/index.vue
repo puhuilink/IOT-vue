@@ -121,18 +121,18 @@
         </el-row>
       </div>
     </el-card>
-    <el-table :data="groupList">
+    <el-table :data="groupList" tooltip-effect="light">
       <el-table-column type="selection" width="55" align="center" />
       <el-table-column label="控制点类别" align="center" prop="groupId" min-width="10%" />
       <el-table-column label="控制点" align="center" prop="userId" :show-overflow-tooltip="true" min-width="30%" />
       <el-table-column label="检查项" align="center" prop="remark" :show-overflow-tooltip="true" min-width="15%" />
       <el-table-column label="事件等级" align="center" prop="groupOrder" min-width="10%" />
-      <el-table-column label="IP" align="center" prop="searchValue" min-width="10%" />
+      <el-table-column label="IP" align="center" prop="searchValue" :show-overflow-tooltip="true" min-width="10%" />
       <el-table-column label="状态" align="center" prop="createTime" min-width="10%" />
-      <el-table-column label="发布时间" align="center" prop="delFlag" min-width="15%" />
+      <el-table-column label="发布时间" align="center" prop="delFlag" :show-overflow-tooltip="true" min-width="15%" />
       <el-table-column label="操作系统" align="center" prop="createBy" min-width="10%" />
       <el-table-column label="处置状态" align="center" prop="updateBy" min-width="10%" />
-      <el-table-column label="区域" align="center" prop="groupName" min-width="10%" />
+      <el-table-column label="区域" align="center" prop="groupName" :show-overflow-tooltip="true" min-width="10%" />
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width" min-width="15%">
         <template slot-scope="scope">
           <el-button

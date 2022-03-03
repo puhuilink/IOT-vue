@@ -74,6 +74,24 @@ export default {
               { value: 362, name: '致命' }
             ]
             break
+          case 5:
+            this.datacopy = [
+              { value: 3948, name: 'monitor_文件类型' },
+              { value: 2514, name: 'MAIL_文件规则验证' },
+              { value: 1699, name: 'qwer' },
+              { value: 1023, name: 'monitor_内容规则或验证' },
+              { value: 362, name: 'MAIL_地址审批响应' }
+            ]
+            break
+          case 6:
+            this.datacopy = [
+              { value: 3948, name: 'txt' },
+              { value: 2514, name: 'eml' },
+              { value: 1699, name: 'docx' },
+              { value: 1023, name: 'doc' },
+              { value: 362, name: 'png' }
+            ]
+            break
           default:
             console.log('这里是项目类型', this.type)
             break
@@ -85,6 +103,7 @@ export default {
           tooltip: {
             trigger: 'item'
           },
+          color: ['#2C82FC ', '#ffaf37', '#31B3D2', '#9D6AFF', '#FF7B82', '#43A682 ', '#ca8622'],
           legend: {
             type: 'scroll',
             orient: 'vertical',
@@ -94,7 +113,10 @@ export default {
           },
           series: [
             {
-
+              label: {
+                show: false,
+                position: 'center'
+              },
               type: 'pie',
               radius: '50%',
               data: this.datacopy,

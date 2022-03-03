@@ -126,7 +126,7 @@
         </el-row>
       </div>
     </el-card>
-    <el-table :data="groupList">
+    <el-table :data="groupList" tooltip-effect="light">
       <el-table-column type="selection" width="55" align="center" />
       <el-table-column label="通报编号" align="center" prop="groupId" min-width="10%" />
       <el-table-column label="通报名称" align="center" prop="userId" :show-overflow-tooltip="true" min-width="10%" />
@@ -136,8 +136,8 @@
       <el-table-column label="优先级" align="center" prop="createTime" min-width="8%" />
       <el-table-column label="通报状态" align="center" prop="delFlag" min-width="10%" />
       <el-table-column label="创建人" align="center" prop="updateBy" min-width="8%" />
-      <el-table-column label="最近更新时间" align="center" prop="createBy" min-width="15%" />
-      <el-table-column label="创建时间" align="center" prop="updateTime" min-width="10%" />
+      <el-table-column label="最近更新时间" align="center" prop="createBy" min-width="15%" :show-overflow-tooltip="true" />
+      <el-table-column label="创建时间" align="center" prop="updateTime" min-width="10%" :show-overflow-tooltip="true" />
       <el-table-column label="备注" align="center" prop="groupName" min-width="10%" />
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width" min-width="22%">
         <template>

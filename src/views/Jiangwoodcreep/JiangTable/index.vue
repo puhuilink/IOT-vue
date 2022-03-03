@@ -130,18 +130,18 @@
         </el-row>
       </div>
     </el-card>
-    <el-table :data="groupList">
+    <el-table :data="groupList" tooltip-effect="light">
       <el-table-column type="selection" width="55" align="center" />
-      <el-table-column label="攻击者IP" align="center" prop="groupOrder" />
-      <el-table-column label="受害者IP" align="center" prop="userId" />
-      <el-table-column label="事件名称" align="center" prop="groupName" />
-      <el-table-column label="威胁分类" align="center" prop="searchValue" />
-      <el-table-column label="事件等级" align="center" prop="remark" />
-      <el-table-column label="杀伤链阶段" align="center" prop="delFlag" />
-      <el-table-column label="处置状态" align="center" prop="createBy" />
-      <el-table-column label="发生时间" align="center" prop="createTime" />
-      <el-table-column label="发现时间" align="center" prop="updateTime" />
-      <el-table-column label="区域" align="center" prop="updateBy" />
+      <el-table-column label="攻击者IP" align="center" prop="groupOrder" :show-overflow-tooltip="true" />
+      <el-table-column label="受害者IP" align="center" prop="userId" :show-overflow-tooltip="true" />
+      <el-table-column label="事件名称" align="center" prop="groupName" :show-overflow-tooltip="true" />
+      <el-table-column label="威胁分类" align="center" prop="searchValue" :show-overflow-tooltip="true" />
+      <el-table-column label="事件等级" align="center" prop="remark" :show-overflow-tooltip="true" />
+      <el-table-column label="杀伤链阶段" align="center" prop="delFlag" :show-overflow-tooltip="true" />
+      <el-table-column label="处置状态" align="center" prop="createBy" :show-overflow-tooltip="true" />
+      <el-table-column label="发生时间" align="center" prop="createTime" :show-overflow-tooltip="true" />
+      <el-table-column label="发现时间" align="center" prop="updateTime" :show-overflow-tooltip="true" />
+      <el-table-column label="区域" align="center" prop="updateBy" :show-overflow-tooltip="true" />
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
         <template slot-scope="scope">
           <el-button
