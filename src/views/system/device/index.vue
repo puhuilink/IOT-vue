@@ -17,92 +17,84 @@
       v-show="showSearch"
       label-width="68px"
     >
-      <el-form-item label="" prop="categoryId">
+      <el-form-item label="设备编号" prop="deviceNum">
+        <el-input
+          v-model="queryParams.deviceNum"
+          placeholder="请输入编号"
+          clearable
+          size="small"
+          @keyup.enter.native="handleQuery"
+        />
+      </el-form-item>
+      <el-form-item label="分类" prop="categoryId">
         <el-select
           v-model="queryParams.categoryId"
-          placeholder="请选择"
+          placeholder="请选择分类"
           clearable
           size="small"
         >
           <el-option
-            v-for="item in allTypeList"
-            :key="item.value"
-            :label="item.label"
-            :value="item.value"
+            v-for="category in categoryList"
+            :key="category.categoryId"
+            :label="category.categoryName"
+            :value="category.categoryId"
           />
         </el-select>
       </el-form-item>
+      <el-form-item label="设备名称" prop="deviceName">
+        <el-input
+          v-model="queryParams.deviceName"
+          placeholder="请输入名称"
+          clearable
+          size="small"
+          @keyup.enter.native="handleQuery"
+        />
+      </el-form-item>
+      <el-form-item label="固件版本" prop="firmwareVersion">
+        <el-input
+          v-model="queryParams.firmwareVersion"
+          placeholder="请输入固件版本"
+          clearable
+          size="small"
+          @keyup.enter.native="handleQuery"
+        />
+      </el-form-item>
+      <el-form-item label="用户" prop="ownerId">
+        <el-input
+          v-model="queryParams.ownerId"
+          placeholder="请输入用户"
+          clearable
+          size="small"
+          @keyup.enter.native="handleQuery"
+        />
+      </el-form-item>
+      <el-form-item label="创建时间">
+        <el-date-picker
+          v-model="daterangeCreateTime"
+          size="small"
+          style="width: 240px"
+          value-format="yyyy-MM-dd"
+          type="daterange"
+          range-separator="-"
+          start-placeholder="开始日期"
+          end-placeholder="结束日期"
+        ></el-date-picker>
+      </el-form-item>
+      <el-form-item>
+        <el-button
+          type="primary"
+          icon="el-icon-search"
+          size="mini"
+          @click="handleQuery"
+          >搜索</el-button
+        >
+        <el-button icon="el-icon-refresh" size="mini" @click="resetQuery"
+          >重置</el-button
+        >
+      </el-form-item>
     </el-form>
 
-     <el-row :gutter="10">
-        <el-col :span="5" class="elcolCard">
-           <div class="AssetsBox">
-               <div class="Assets">全部资产</div>
-               <div class="AssetsNumber">{{this.allAssets}}</div>
-           </div>
-        </el-col>
-        <el-col :span="5" class="elcolCard">
-           <div class="AssetsBox">
-               <div class="Assets">在线的资产</div>
-               <div class="AssetsNumber">{{this.onlineAssets}}</div>
-           </div>
-        </el-col>
-        <el-col :span="4" class="elcolCard">
-            <div  class="AssetsBox">
-              <div class="Assets">资产类型</div>
-              <div class="ITNumber">
-                  <div>
-                    <span class="IT">IT</span>
-                    <span class="OT">OT</span>
-                  </div>
-                  <div>
-                    <span class="ITNumber">{{this.ITNumber}}</span>
-                    <span class="OTNumber">{{this.OTNumber}}</span>
-                  </div>
-              </div>
-              
-            </div>
-        </el-col>
-        <el-col :span="5" class="elcolCard">
-            <div  class="AssetsBox">
-               <div class="Assets">离线的资产</div>
-               <div class="AssetsNumber">{{this.offlineAssets}}</div>
-            </div>
-        </el-col>
-        <el-col :span="5" class="elcolCard">
-            <div class="AssetsBox">
-                <div class="Assets">异常的资产</div>
-                <div class="AssetsNumber">{{this.abnormalAssets}}</div>
-            </div>
-        </el-col>
-      </el-row>
-      
-      <div id="test1">
-         <Tip>
-            <span>IT资产类型分布</span>
-          </Tip>
-          <div id="canvas1" />
-      </div>
-      <div id="test2">
-          <Tip>
-            <span>操作系统类型分布</span>
-          </Tip>
-          <div id="canvas2" />
-      </div>
-      <div id="test3">
-         <Tip>
-            <span>OT资产类型分布</span>
-          </Tip>
-          <div id="canvas3" />
-      </div>
-      <div id="test4">
-         <Tip>
-            <span>工业协议分布</span>
-          </Tip>
-          <div id="canvas4" />
-      </div>
-
-    <!-- <el-row :gutter="10" class="mb8">
+    <el-row :gutter="10" class="mb8">
       <el-col :span="1.5">
         <el-button
           type="primary"
@@ -146,9 +138,9 @@
         >导出</el-button>
       </el-col>
       <right-toolbar :showSearch.sync="showSearch" @queryTable="getList"></right-toolbar>
-    </el-row> -->
+    </el-row>
 
-    <!-- <el-table
+    <el-table
       v-loading="loading"
       :data="deviceList"
       @selection-change="handleSelectionChange"
@@ -172,6 +164,7 @@
           <el-switch v-model="scope.row.isOnline" :active-value=1 :inactive-value=0 active-color="#13ce66" disabled></el-switch>
         </template>
       </el-table-column>
+      <!-- wifi信号强度(信号极好4格[-55—— 0]，信号好3格[-70—— -55），信号一般2格[-85—— -70），信号差1格[-100—— -85）) -->
       <el-table-column label="信号" align="center" prop="rssi">
         <template slot-scope="scope" style="font-size: 40px">
           <div style="font-size: 30px">
@@ -223,6 +216,7 @@
         prop="deviceTemperature"
       />
       <el-table-column label="配网地址" align="center" prop="networkAddress" />
+      <!-- <el-table-column label="配网IP" align="center" prop="networkIp" /> -->
       <el-table-column
         label="创建时间"
         align="center"
@@ -275,15 +269,15 @@
           >
         </template>
       </el-table-column>
-    </el-table> -->
+    </el-table>
 
-    <!-- <pagination
+    <pagination
       v-show="total > 0"
       :total="total"
       :page.sync="queryParams.pageNum"
       :limit.sync="queryParams.pageSize"
       @pagination="getList"
-    /> -->
+    />
 
     <!-- 添加或修改设备对话框 -->
     <el-dialog :title="title" :visible.sync="open" width="500px" append-to-body>
@@ -631,7 +625,6 @@
 </style>
 
 <script>
-import Tip from '@/components/EchartsTip/index'
 import {
   listDevice,
   getDevice,
@@ -643,25 +636,12 @@ import {
 import { getNewStatus, updateStatus } from "@/api/system/status";
 import { getNewSet, updateSet } from "@/api/system/set";
 import { listCategory } from "@/api/system/category";
-import echarts from 'echarts'
 
 export default {
   name: "Device",
-  components: {Tip},
+  components: {},
   data() {
     return {
-      charts:"",
-      // opinion:['男','女'],
-      // opinionData:[
-      //     {value:335, name:'男'},
-      //     {value:310, name:'女'},
-      // ],
-      allAssets:"40639",
-      onlineAssets:"37247",
-      ITNumber:"40230",
-      OTNumber:"409",
-      offlineAssets:"652",
-      abnormalAssets:"2740",
       // 遮罩层
       loading: true,
       // 选中数组
@@ -688,16 +668,6 @@ export default {
       daterangeCreateTime: [],
       // 分类
       categoryList: [],
-      allTypeList:[
-        {
-          label: "全部",
-          value: 0
-        },
-        {
-          label: "山西燃气厂",
-          value: 1
-        }
-      ],
       // 继电器字典
       openCloseOptions: [
         {
@@ -785,10 +755,6 @@ export default {
     this.getDicts("rf_function").then(response => {
       this.rfFuncOptions = response.data;
     });
-    this.getPieChartOne();
-    this.getPieChartTwo();
-    this.getPieChartThree();
-    this.getPieChartFour()
   },
   methods: {
     /**行颜色 */
@@ -1069,285 +1035,7 @@ export default {
         .then(response => {
           this.download(response.msg);
         });
-    },
-    getPieChartOne(){
-       this.charts = echarts.init(document.getElementById('canvas1'))
-        // 绘制图表
-         this.charts.setOption({
-                title: {
-                  // text: 'Referer of a Website',
-                  // subtext: 'Fake Data',
-                  left: 'center'
-                },
-                 tooltip: {
-                   trigger: 'item',
-                 },
-                 legend: {
-                   orient: 'vertical',
-                   left: 'right',
-                  //  data:this.opinion
-                 },
-                 color:['#45C2E0', '#C1EBDD', '#FFC851','#5A5476','#1869A0'],
-                 series: [
-                    {
-                      name: 'Access From',
-                      type: 'pie',
-                      radius: '50%',
-                  data: [
-                     { value: 1048, name: '主机(3948)' },
-                     { value: 735, name: '服务器(2514)' },
-                     { value: 580, name: '防火墙(1699)' },
-                     { value: 484, name: '网闸(1023)' },
-                     { value: 300, name: '网关(362)' }
-                  ],
-                  emphasis: {
-                    itemStyle: {
-                      shadowBlur: 10,
-                      shadowOffsetX: 0,
-                      shadowColor: 'rgba(0, 0, 0, 0.5)'
-                    }
-                   }
-                  }
-                 ]
-               })
-    },
-    getPieChartTwo(){
-        this.charts = echarts.init(document.getElementById('canvas2'))
-        // 绘制图表
-         this.charts.setOption({
-                title: {
-                  // text: 'Referer of a Website',
-                  // subtext: 'Fake Data',
-                  left: 'center'
-                },
-                 tooltip: {
-                   trigger: 'item',
-                 },
-                 legend: {
-                   orient: 'vertical',
-                   left: 'right',
-                  //  data:this.opinion
-                 },
-                 color:['#45C2E0', '#C1EBDD', '#FFC851','#5A5476','#1869A0'],
-                 series: [
-                    {
-                      name: 'Access From',
-                      type: 'pie',
-                      radius: '50%',
-                  data: [
-                     { value: 1048, name: 'Linux(3948)' },
-                     { value: 735, name: 'Window 7(2514)' },
-                     { value: 580, name: 'Window XP(1699)' },
-                     { value: 484, name: 'Unix(1023)' },
-                     { value: 300, name: 'MAC OS(362)' }
-                  ],
-                  emphasis: {
-                    itemStyle: {
-                      shadowBlur: 10,
-                      shadowOffsetX: 0,
-                      shadowColor: 'rgba(0, 0, 0, 0.5)'
-                    }
-                   }
-                  }
-                 ]
-               })
-    },
-    getPieChartThree(){
-         this.charts = echarts.init(document.getElementById('canvas3'))
-        // 绘制图表
-         this.charts.setOption({
-                title: {
-                  // text: 'Referer of a Website',
-                  // subtext: 'Fake Data',
-                  left: 'center'
-                },
-                 tooltip: {
-                   trigger: 'item',
-                 },
-                 legend: {
-                   orient: 'vertical',
-                   left: 'right',
-                  //  data:this.opinion
-                 },
-                 color:['#45C2E0', '#C1EBDD', '#FFC851','#5A5476','#1869A0'],
-                 series: [
-                    {
-                      name: 'Access From',
-                      type: 'pie',
-                      radius: '50%',
-                  data: [
-                     { value: 1048, name: '主机(3948)' },
-                     { value: 735, name: '服务器(2514)' },
-                     { value: 580, name: '防火墙(1699)' },
-                     { value: 484, name: '网闸(1023)' },
-                     { value: 300, name: '网关(362)' }
-                  ],
-                  emphasis: {
-                    itemStyle: {
-                      shadowBlur: 10,
-                      shadowOffsetX: 0,
-                      shadowColor: 'rgba(0, 0, 0, 0.5)'
-                    }
-                   }
-                  }
-                 ]
-               })
-    },
-    getPieChartFour(){
-         this.charts = echarts.init(document.getElementById('canvas4'))
-        // 绘制图表
-         this.charts.setOption({
-                title: {
-                  // text: 'Referer of a Website',
-                  // subtext: 'Fake Data',
-                  left: 'center'
-                },
-                 tooltip: {
-                   trigger: 'item',
-                 },
-                 legend: {
-                   orient: 'vertical',
-                   left: 'right',
-                  //  data:this.opinion
-                 },
-                 color:['#45C2E0', '#C1EBDD', '#FFC851','#5A5476','#1869A0'],
-                 series: [
-                    {
-                      name: 'Access From',
-                      type: 'pie',
-                      radius: '50%',
-                  data: [
-                     { value: 1048, name: 'S7(3948)' },
-                     { value: 735, name: 'MOBUS(2514)' },
-                     { value: 580, name: 'DNP3(1699)' },
-                     { value: 484, name: 'IEC104(1023)' },
-                     { value: 300, name: 'MMS(362)' }
-                  ],
-                  emphasis: {
-                    itemStyle: {
-                      shadowBlur: 10,
-                      shadowOffsetX: 0,
-                      shadowColor: 'rgba(0, 0, 0, 0.5)'
-                    }
-                   }
-                  }
-                 ]
-               })
     }
-  },
-   mounted() {
-    this.$nextTick(function() {
-          this.getPieChartOne('test1')
-          this.getPieChartTwo('test2')
-          this.getPieChartThree('test3')
-          this.getPieChartFour('test4')
-  })
-
-  },
+  }
 };
 </script>
-<style lang="scss" scoped>
-.app-container{
-  .elcolCard{
-   
-     .AssetsBox{
-       .Assets{
-          background-color: #5599FF;
-          padding:10px 80px 10px 10px;
-          border-bottom: 1px solid #FFF;
-          color:#FFF;
-        }
-       .AssetsNumber{
-         width:100%;
-         height:100px;
-         background-color: #5599FF;
-         color:#FFFF77;
-         font-weight:800;
-         text-align: center;
-         line-height: 100px;
-       }
-      .ITNumber{
-        color:#FFF;
-        background-color: #5599FF;
-         width:100%;
-         height:100px;
-         font-weight:800;
-        //  line-height: 100px;
-       }
-     }
-    .IT{
-      margin-left: 15px;
-      margin-right: 80px;
-    }
-    .OT{
-      margin-left: 26px;
-    }
-    .ITNumber{
-      margin-right: 80px;
-    }
-    .OTNumber{
-      margin-left: 10px;
-    }
-  }
-  #test1 {
-    // background: inherit;
-    // background-color: rgba(255, 255, 255, 0.996078431372549);
-    float: left;
-    height: 300px;
-    top: 20px;
-    width: 50%;
-    padding-right: 50px;
-
-    #canvas1 {
-      height: 300px;
-      left: 10px;
-      margin-left: 20px;
-    }
-  }
-  #test2 {
-    // background: inherit;
-    // background-color: rgba(255, 255, 255, 0.996078431372549);
-    float: left;
-    height: 300px;
-    top: 20px;
-    width: 50%;
-    padding-right: 50px;
-
-    #canvas2 {
-      height: 300px;
-      left: 10px;
-      margin-left: 20px;
-    }
-  }
-  #test3 {
-    // background: inherit;
-    // background-color: rgba(255, 255, 255, 0.996078431372549);
-    float: left;
-    height: 300px;
-    top: 20px;
-    width: 50%;
-    padding-right: 50px;
-
-    #canvas3 {
-      height: 300px;
-      left: 10px;
-      margin-left: 20px;
-    }
-  }
-  #test4 {
-    // background: inherit;
-    // background-color: rgba(255, 255, 255, 0.996078431372549);
-    float: left;
-    height: 300px;
-    top: 20px;
-    width: 50%;
-    padding-right: 50px;
-
-    #canvas4 {
-      height: 300px;
-      left: 10px;
-      margin-left: 20px;
-    }
-  }
-}
-</style>

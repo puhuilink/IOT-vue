@@ -1,56 +1,93 @@
 <template>
   <div class="app-container">
     <echarts />
-    <eventTrend />
-    <eventType :type="1" />
-    <wordcloud />
-    <eventType :tipname="'事件状态处置图'" :type="2" />
-    <el-col :span="24">
-      <tip> 最新威胁事件 </tip>
-      <el-table :data="groupList">
-        <el-table-column label="事件名称" align="center" prop="groupId" />
-        <el-table-column label="源IP" align="center" prop="userId" />
-        <el-table-column label="目的IP" align="center" prop="groupOrder" />
-        <el-table-column label="事件等级" align="center" prop="remark" />
-        <el-table-column label="事件类型" align="center" prop="searchValue" />
-        <el-table-column label="时间" align="center" prop="createTime" />
-        <el-table-column label="区域" align="center" prop="groupName" />
-        <el-table-column label="上报设备" align="center" prop="delFlag" />
-      </el-table>
-    </el-col>
+    <div>
+      <el-row :gutter="30">
+        <el-col :span="6">
+          <div class="AssetsBox">
+            <div class="Assets">资产防护</div>
+            <div class="AssetsNumber">5个</div>
+          </div>
+        </el-col>
+        <el-col :span="6">
+          <div class="AssetsBox">
+            <div class="Assets">入侵事件</div>
+            <div class="AssetsNumber">8次</div>
+          </div>
+        </el-col>
+        <el-col :span="6">
+          <div class="AssetsBox">
+            <div class="Assets">探测事件</div>
+            <div class="AssetsNumber">12次</div>
+          </div>
+        </el-col>
+        <el-col :span="6">
+          <div class="AssetsBox">
+            <div class="Assets">威胁人员</div>
+            <div class="AssetsNumber">8个</div>
+          </div>
+        </el-col>
+      </el-row>
+    </div>
+    <assetsUnderAttack />
+    <!-- <eventTrend /> -->
+    <toDetectEvents />
+    <!-- <eventType :type="1" /> -->
+    <underAttackSandbox />
+    <eventLevelDistribution />
+    <!-- <eventType :tipname="'事件状态处置图'" :type="2" /> -->
   </div>
 </template>
 <script>
-import echarts from '@/components/Echarts/searchBar'
-import eventTrend from '@/components/Echarts/eventTrend'
-import eventType from '@/components/Echarts/eventType'
-import wordcloud from '@/components/Echarts/wordcloud'
-import tip from '@/components/EchartsTip'
+import echarts from "@/components/Echarts/searchBar";
+import assetsUnderAttack from "@/components/Echarts/assetsUnderAttack";
+import toDetectEvents from "@/components/Echarts/toDetectEvents";
+import underAttackSandbox from "@/components/Echarts/underAttackSandbox";
+import eventLevelDistribution from "@/components/Echarts/eventLevelDistribution";
+// import eventTrend from "@/components/Echarts/eventTrend";
+// import eventType from "@/components/Echarts/eventType";
+// import wordcloud from "@/components/Echarts/wordcloud";
+import tip from "@/components/EchartsTip";
 export default {
-  components: { echarts, eventTrend, eventType, wordcloud, tip },
+  components: {
+    echarts,
+    assetsUnderAttack,
+    toDetectEvents,
+    underAttackSandbox,
+    eventLevelDistribution,
+    tip,
+  },
   props: [],
   data() {
     return {
-      policitalStatus: ['1'],
-
-      groupList: [{ 'searchValue': '---', 'createBy': '', 'createTime': '2021-05-18 16:35:03', 'updateBy': '', 'updateTime': '2021-05-18 16:35:32', 'remark': '极低', 'params': {}, 'groupId': 1, 'userId': '116.103.2.11', 'groupName': '山西燃气厂', 'groupOrder': '10.255.52.10', 'delFlag': '蜜罐' },
-        { 'searchValue': '---', 'createBy': '', 'createTime': '2021-05-18 16:35:03', 'updateBy': '', 'updateTime': '2021-05-18 16:35:32', 'remark': '极低', 'params': {}, 'groupId': 2, 'userId': '116.103.2.11', 'groupName': '山西燃气厂', 'groupOrder': '10.255.52.10', 'delFlag': '蜜罐' },
-        { 'searchValue': '---', 'createBy': '', 'createTime': '2021-05-18 16:35:03', 'updateBy': '', 'updateTime': '2021-05-18 16:35:32', 'remark': '极低', 'params': {}, 'groupId': 3, 'userId': '116.103.2.11', 'groupName': '山西燃气厂', 'groupOrder': '10.255.52.10', 'delFlag': '蜜罐' },
-        { 'searchValue': '---', 'createBy': '', 'createTime': '2021-05-18 16:35:03', 'updateBy': '', 'updateTime': '2021-05-18 16:35:32', 'remark': '极低', 'params': {}, 'groupId': 4, 'userId': '116.103.2.11', 'groupName': '山西燃气厂', 'groupOrder': '10.255.52.10', 'delFlag': '蜜罐' },
-        { 'searchValue': '---', 'createBy': '', 'createTime': '2021-05-18 16:35:03', 'updateBy': '', 'updateTime': '2021-05-18 16:35:32', 'remark': '极低', 'params': {}, 'groupId': 5, 'userId': '116.103.2.11', 'groupName': '山西燃气厂', 'groupOrder': '10.255.52.10', 'delFlag': '蜜罐' }]
-    }
+      policitalStatus: ["1"],
+    };
   },
   computed: {},
   watch: {},
-  created() {
-
-  },
-  mounted() {
-  },
-  methods: {
-  }
-}
-
+  created() {},
+  mounted() {},
+  methods: {},
+};
 </script>
 <style lang="scss" scoped>
+.app-container {
+  .AssetsBox {
+    .Assets {
+      background-color: #5599ff;
+      padding: 10px 80px 10px 10px;
+      border-bottom: 1px solid #fff;
+      color: #fff;
+    }
+    .AssetsNumber {
+      width: 100%;
+      height: 100px;
+      background-color: #5599ff;
+      color: #ffff77;
+      font-weight: 800;
+      text-align: center;
+      line-height: 100px;
+    }
+  }
+}
 </style>
