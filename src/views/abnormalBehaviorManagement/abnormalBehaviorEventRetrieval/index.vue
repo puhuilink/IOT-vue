@@ -140,22 +140,18 @@
       <el-button type="primary" @click="submitdata" class="export"
         >导出</el-button
       >
-      <el-table v-loading="loading" :data="groupList">
+      <el-table v-loading="loading" :data="groupListData">
         <el-table-column type="selection" width="55" align="center" />
-        <el-table-column label="攻击者IP" align="center" prop="groupId" />
-        <el-table-column label="受害者IP" align="center" prop="userId" />
-        <el-table-column label="事件名称" align="center" prop="groupName" />
-        <el-table-column label="事件类型" align="center" prop="groupOrder" />
-        <el-table-column label="事件等级" align="center" prop="createTime">
-          <template slot-scope="scope">
-            <span>{{ parseTime(scope.row.createTime, "{y}-{m}-{d}") }}</span>
-          </template>
-        </el-table-column>
-        <el-table-column label="杀伤链阶段" align="center" prop="remark" />
-        <el-table-column label="处置状态" align="center" prop="remark" />
-        <el-table-column label="发生时间" align="center" prop="remark" />
-        <el-table-column label="发现时间" align="center" prop="remark" />
-        <el-table-column label="区域" align="center" prop="remark" />
+        <el-table-column label="攻击者IP" align="center" prop="sgjIP" />
+        <el-table-column label="受害者IP" align="center" prop="shzIP" />
+        <el-table-column label="事件名称" align="center" prop="eventName" />
+        <el-table-column label="事件类型" align="center" prop="eventType" />
+        <el-table-column label="事件等级" align="center" prop="eventLevel" />
+        <el-table-column label="杀伤链阶段" align="center" prop="ssljd" />
+        <el-table-column label="处置状态" align="center" prop="czzt" />
+        <el-table-column label="发生时间" align="center" prop="happenTime" />
+        <el-table-column label="发现时间" align="center" prop="discoverTime" />
+        <el-table-column label="区域" align="center" prop="area" />
         <el-table-column
           label="操作"
           align="center"
@@ -312,7 +308,68 @@ export default {
         name13: "2022-2-25",
       },
       // 分组表格数据
-      groupList: [],
+      groupListData: [
+        {
+          sgjIP: "192.168.28.8",
+          shzIP: "10.13.20.24",
+          eventName: "MALWARE",
+          eventType: "规则匹配",
+          eventLevel: "低",
+          ssljd: "荷载投递",
+          czzt: "未处置",
+          happenTime: "2020-01-29 10:00:00",
+          discoverTime: "2020-01-29 10:01:00",
+          area: "山西燃气厂",
+        },
+        {
+          sgjIP: "192.168.28.8",
+          shzIP: "10.13.20.24",
+          eventName: "MALWARE",
+          eventType: "规则匹配",
+          eventLevel: "低",
+          ssljd: "荷载投递",
+          czzt: "未处置",
+          happenTime: "2020-01-29 10:00:00",
+          discoverTime: "2020-01-29 10:01:00",
+          area: "山西燃气厂",
+        },
+        {
+          sgjIP: "192.168.28.8",
+          shzIP: "10.13.20.24",
+          eventName: "MALWARE",
+          eventType: "规则匹配",
+          eventLevel: "低",
+          ssljd: "荷载投递",
+          czzt: "未处置",
+          happenTime: "2020-01-29 10:00:00",
+          discoverTime: "2020-01-29 10:01:00",
+          area: "山西燃气厂",
+        },
+        {
+          sgjIP: "192.168.28.8",
+          shzIP: "10.13.20.24",
+          eventName: "MALWARE",
+          eventType: "规则匹配",
+          eventLevel: "低",
+          ssljd: "荷载投递",
+          czzt: "未处置",
+          happenTime: "2020-01-29 10:00:00",
+          discoverTime: "2020-01-29 10:01:00",
+          area: "山西燃气厂",
+        },
+        {
+          sgjIP: "192.168.28.8",
+          shzIP: "10.13.20.24",
+          eventName: "MALWARE",
+          eventType: "规则匹配",
+          eventLevel: "低",
+          ssljd: "荷载投递",
+          czzt: "未处置",
+          happenTime: "2020-01-29 10:00:00",
+          discoverTime: "2020-01-29 10:01:00",
+          area: "山西燃气厂",
+        },
+      ],
       // 创建时间时间范围
       daterangeCreateTime: [],
       // 弹出层标题

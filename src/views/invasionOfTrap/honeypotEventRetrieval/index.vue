@@ -118,24 +118,24 @@
       <el-button type="primary" @click="submitdata" class="export"
         >导出</el-button
       >
-      <el-table v-loading="loading" :data="groupList">
+      <el-table v-loading="loading" :data="groupListData">
         <el-table-column type="selection" width="55" align="center" />
-        <el-table-column label="攻击者" align="center" prop="groupId" />
-        <el-table-column label="攻击目标" align="center" prop="userId" />
-        <el-table-column label="隔离沙箱" align="center" prop="groupName" />
+        <el-table-column label="攻击者" align="center" prop="gjz" />
+        <el-table-column label="攻击目标" align="center" prop="gjmb" />
+        <el-table-column label="隔离沙箱" align="center" prop="glsx" />
         <el-table-column
           label="开始攻击时间"
           align="center"
-          prop="groupOrder"
+          prop="attackTime"
         />
-        <el-table-column label="最后攻击时间" align="center" prop="createTime">
-          <template slot-scope="scope">
-            <span>{{ parseTime(scope.row.createTime, "{y}-{m}-{d}") }}</span>
-          </template>
-        </el-table-column>
-        <el-table-column label="事件等级" align="center" prop="remark" />
-        <el-table-column label="处置状态" align="center" prop="remark" />
-        <el-table-column label="区域" align="center" prop="remark" />
+        <el-table-column
+          label="最后攻击时间"
+          align="center"
+          prop="createTime"
+        />
+        <el-table-column label="事件等级" align="center" prop="level" />
+        <el-table-column label="处置状态" align="center" prop="status" />
+        <el-table-column label="区域" align="center" prop="area" />
         <el-table-column
           label="操作"
           align="center"
@@ -257,7 +257,58 @@ export default {
         name13: "2022-2-25",
       },
       // 分组表格数据
-      groupList: [],
+      groupListData: [
+        {
+          gjz: "10.255.52.84",
+          gjmb: "115.236.55.14",
+          glsx: "confluence_https",
+          attackTime: "2020-01-29 10:00:00",
+          createTime: "2020-01-30 10:00:00",
+          level: "高",
+          status: "处置中",
+          area: "山西燃气厂",
+        },
+        {
+          gjz: "10.255.52.84",
+          gjmb: "115.236.55.14",
+          glsx: "confluence_https",
+          attackTime: "2020-01-29 10:00:00",
+          createTime: "2020-01-30 10:00:00",
+          level: "高",
+          status: "处置中",
+          area: "山西燃气厂",
+        },
+        {
+          gjz: "10.255.52.84",
+          gjmb: "115.236.55.14",
+          glsx: "confluence_https",
+          attackTime: "2020-01-29 10:00:00",
+          createTime: "2020-01-30 10:00:00",
+          level: "高",
+          status: "处置中",
+          area: "山西燃气厂",
+        },
+        {
+          gjz: "10.255.52.84",
+          gjmb: "115.236.55.14",
+          glsx: "confluence_https",
+          attackTime: "2020-01-29 10:00:00",
+          createTime: "2020-01-30 10:00:00",
+          level: "高",
+          status: "处置中",
+          area: "山西燃气厂",
+        },
+        {
+          gjz: "10.255.52.84",
+          gjmb: "115.236.55.14",
+          glsx: "confluence_https",
+          attackTime: "2020-01-29 10:00:00",
+          createTime: "2020-01-30 10:00:00",
+          level: "高",
+          status: "处置中",
+          area: "山西燃气厂",
+        },
+      ],
       // 创建时间时间范围
       daterangeCreateTime: [],
       // 弹出层标题
