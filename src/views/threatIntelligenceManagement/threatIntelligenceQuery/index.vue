@@ -28,23 +28,15 @@
       </div>
     </el-card>
     <el-card>
-      <el-table v-loading="loading" :data="groupList">
+      <el-table v-loading="loading" :data="groupListData">
         <el-table-column type="selection" width="55" align="center" />
-        <el-table-column label="事件名称" align="center" prop="groupId" />
-        <el-table-column label="源IP" align="center" prop="userId" />
-        <el-table-column label="目的IP" align="center" prop="groupName" />
-        <el-table-column label="协议" align="center" prop="groupOrder" />
-        <el-table-column label="事件等级" align="center" prop="createTime">
-          <template slot-scope="scope">
-            <span>{{ parseTime(scope.row.createTime, "{y}-{m}-{d}") }}</span>
-          </template>
-        </el-table-column>
-        <el-table-column label="事件类型" align="center" prop="remark" />
-        <el-table-column label="处置状态" align="center" prop="remark" />
-        <el-table-column label="事件开始事件" align="center" prop="remark" />
-        <el-table-column label="事件结束事件" align="center" prop="remark" />
-        <el-table-column label="区域" align="center" prop="remark" />
-        <el-table-column label="上报设备" align="center" prop="remark" />
+        <el-table-column label="IOC" align="center" prop="IOC" />
+        <el-table-column label="情报来源名称" align="center" prop="qblymc" />
+        <el-table-column label="威胁类型" align="center" prop="wxlx" />
+        <el-table-column label="威胁级别" align="center" prop="wxjb" />
+        <el-table-column label="置信度" align="center" prop="zxd" />
+        <el-table-column label="情报源添加时间" align="center" prop="qbytjsj" />
+        <el-table-column label="情报源权重" align="center" prop="qybqz" />
         <el-table-column
           label="操作"
           align="center"
@@ -151,7 +143,7 @@
               {{ dataTest.name13 }}
             </el-form-item>
           </el-col>
-           <el-col :span="8">
+          <el-col :span="8">
             <el-form-item label="注册者 :">
               {{ dataTest.name11 }}
             </el-form-item>
@@ -235,7 +227,53 @@ export default {
         name13: "2022-2-25",
       },
       // 分组表格数据
-      groupList: [],
+      groupListData: [
+        {
+          IOC: "hask.f3322.org",
+          qblymc: "微步在线机情报",
+          wxlx: "c2 Zegost",
+          wxjb: "高",
+          zxd: "85",
+          qbytjsj: "2020-01-29 10:00:00",
+          qybqz: "7",
+        },
+        {
+          IOC: "hask.f3322.org",
+          qblymc: "微步在线机情报",
+          wxlx: "c2 Zegost",
+          wxjb: "高",
+          zxd: "85",
+          qbytjsj: "2020-01-29 10:00:00",
+          qybqz: "7",
+        },
+        {
+          IOC: "hask.f3322.org",
+          qblymc: "微步在线机情报",
+          wxlx: "c2 Zegost",
+          wxjb: "高",
+          zxd: "85",
+          qbytjsj: "2020-01-29 10:00:00",
+          qybqz: "7",
+        },
+        {
+          IOC: "hask.f3322.org",
+          qblymc: "微步在线机情报",
+          wxlx: "c2 Zegost",
+          wxjb: "高",
+          zxd: "85",
+          qbytjsj: "2020-01-29 10:00:00",
+          qybqz: "7",
+        },
+        {
+          IOC: "hask.f3322.org",
+          qblymc: "微步在线机情报",
+          wxlx: "c2 Zegost",
+          wxjb: "高",
+          zxd: "85",
+          qbytjsj: "2020-01-29 10:00:00",
+          qybqz: "7",
+        },
+      ],
       // 创建时间时间范围
       daterangeCreateTime: [],
       // 弹出层标题
