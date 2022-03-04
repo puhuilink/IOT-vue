@@ -103,27 +103,24 @@
         >
       </el-col>
     </el-row>
-    <el-table
-      v-loading="loading"
-      :data="list.slice((pageNum - 1) * pageSize, pageNum * pageSize)"
-      style="width: 100%"
-    >
-      <el-table-column label="序号" type="index" align="center">
+    <el-table v-loading="loading" :data="dataList" style="width: 100%">
+      <el-table-column label="资产编号" type="index" align="center">
         <template slot-scope="scope">
-          <span>{{ (pageNum - 1) * pageSize + scope.$index + 1 }}</span>
+          <span>{{ scope.row.index }}</span>
         </template>
       </el-table-column>
-      <el-table-column
-        label="资产编号"
+      <!-- <el-table-column
+        label=""
         align="center"
         prop="tokenId"
         :show-overflow-tooltip="true"
-      />
+      /> -->
       <el-table-column
         label="IP地址"
         align="center"
         prop="userName"
         :show-overflow-tooltip="true"
+        width="120px"
       />
       <el-table-column label="资产名称" align="center" prop="deptName" />
       <el-table-column
@@ -139,41 +136,28 @@
         :show-overflow-tooltip="true"
         width="60"
       />
-      <el-table-column
-        label="风险状态"
-        align="center"
-        prop="browser"
-        width="60"
-      />
+      <el-table-column label="风险状态" align="center" prop="fxzt" width="60" />
       <el-table-column label="事件等级" align="center" prop="os" width="60" />
-      <el-table-column
-        label="操作系统"
-        align="center"
-        prop="loginTime"
-        width="80"
-      >
-        <template slot-scope="scope">
-          <span>{{ parseTime(scope.row.loginTime) }}</span>
-        </template>
-      </el-table-column>
+      <el-table-column label="操作系统" align="center" prop="xt" width="80" />
+
       <el-table-column
         label="应用协议"
         align="center"
-        prop="loginLocation"
+        prop="yyxy"
         :show-overflow-tooltip="true"
       />
-      <el-table-column label="风险协议" align="center" prop="browser" />
-      <el-table-column label="资产标签" align="center" prop="os" />
+      <el-table-column label="风险协议" align="center" prop="fxxy" />
+      <el-table-column label="资产标签" align="center" prop="zcbq" />
       <el-table-column
         label="区域"
         align="center"
-        prop="loginLocation"
+        prop="area"
         :show-overflow-tooltip="true"
       />
-      <el-table-column label="负责人" align="center" prop="browser" />
-      <el-table-column label="最后活跃时间" align="center" prop="os">
+      <el-table-column label="负责人" align="center" prop="fzr" />
+      <el-table-column label="最后活跃时间" align="center" prop="zhhysj">
         <template slot-scope="scope">
-          <span>{{ parseTime(scope.row.loginTime) }}</span>
+          <span>{{ scope.row.zhhysj }}</span>
         </template>
       </el-table-column>
       <el-table-column
@@ -743,10 +727,10 @@
 </template>
 
 <script>
-import { list, forceLogout } from '@/api/monitor/online'
+import { list, forceLogout } from "@/api/monitor/online";
 
 export default {
-  name: 'Online',
+  name: "Online",
   data() {
     return {
       // 是否显示新增弹出层
@@ -760,7 +744,127 @@ export default {
       // 总条数
       total: 0,
       // 表格数据
-      list: [],
+      dataList: [
+        {
+          index: 1,
+          userName: "10.255.52.84",
+          deptName: "主机",
+          ipaddr: "主机",
+          loginLocation: "在线",
+          fxzt: "正常",
+          os: "极低",
+          xt: "Linux",
+          yyxy: "--",
+          fxxy: "--",
+          // browser: "--",
+          zcbq: "--",
+          area: "山西三通燃气厂",
+          fzr: "张三",
+          zhhysj: "2022-01-29 10:10:00",
+        },
+        {
+          index: 1,
+          userName: "10.255.52.84",
+          deptName: "主机",
+          ipaddr: "主机",
+          loginLocation: "在线",
+          fxzt: "正常",
+          os: "极低",
+          xt: "Linux",
+          yyxy: "--",
+          fxxy: "--",
+          // browser: "--",
+          zcbq: "--",
+          area: "山西三通燃气厂",
+          fzr: "张三",
+          zhhysj: "2022-01-29 10:10:00",
+        },
+        {
+          index: 1,
+          userName: "10.255.52.84",
+          deptName: "主机",
+          ipaddr: "主机",
+          loginLocation: "在线",
+          fxzt: "正常",
+          os: "极低",
+          xt: "Linux",
+          yyxy: "--",
+          fxxy: "--",
+          // browser: "--",
+          zcbq: "--",
+          area: "山西三通燃气厂",
+          fzr: "张三",
+          zhhysj: "2022-01-29 10:10:00",
+        },
+        {
+          index: 1,
+          userName: "10.255.52.84",
+          deptName: "主机",
+          ipaddr: "主机",
+          loginLocation: "在线",
+          fxzt: "正常",
+          os: "极低",
+          xt: "Linux",
+          yyxy: "--",
+          fxxy: "--",
+          // browser: "--",
+          zcbq: "--",
+          area: "山西三通燃气厂",
+          fzr: "张三",
+          zhhysj: "2022-01-29 10:10:00",
+        },
+        {
+          index: 1,
+          userName: "10.255.52.84",
+          deptName: "主机",
+          ipaddr: "主机",
+          loginLocation: "在线",
+          fxzt: "正常",
+          os: "极低",
+          xt: "Linux",
+          yyxy: "--",
+          fxxy: "--",
+          // browser: "--",
+          zcbq: "--",
+          area: "山西三通燃气厂",
+          fzr: "张三",
+          zhhysj: "2022-01-29 10:10:00",
+        },
+        {
+          index: 1,
+          userName: "10.255.52.84",
+          deptName: "主机",
+          ipaddr: "主机",
+          loginLocation: "在线",
+          fxzt: "正常",
+          os: "极低",
+          xt: "Linux",
+          yyxy: "--",
+          fxxy: "--",
+          // browser: "--",
+          zcbq: "--",
+          area: "山西三通燃气厂",
+          fzr: "张三",
+          zhhysj: "2022-01-29 10:10:00",
+        },
+        {
+          index: 1,
+          userName: "10.255.52.84",
+          deptName: "主机",
+          ipaddr: "主机",
+          loginLocation: "在线",
+          fxzt: "正常",
+          os: "极低",
+          xt: "Linux",
+          yyxy: "--",
+          fxxy: "--",
+          // browser: "--",
+          zcbq: "--",
+          area: "山西三通燃气厂",
+          fzr: "张三",
+          zhhysj: "2022-01-29 10:10:00",
+        },
+      ],
       pageNum: 1,
       pageSize: 10,
       // 查询参数
@@ -822,7 +926,7 @@ export default {
     };
   },
   created() {
-    this.getList()
+    this.getList();
   },
   methods: {
     /** 查询登录日志列表 */
@@ -836,13 +940,13 @@ export default {
     },
     /** 搜索按钮操作 */
     handleQuery() {
-      this.pageNum = 1
-      this.getList()
+      this.pageNum = 1;
+      this.getList();
     },
     /** 重置按钮操作 */
     resetQuery() {
-      this.resetForm('queryForm')
-      this.handleQuery()
+      this.resetForm("queryForm");
+      this.handleQuery();
     },
     handleAdd() {
       this.open = true;

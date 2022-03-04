@@ -141,25 +141,23 @@
     </el-card>
     <el-card>
       <el-row>
-         <el-button type="primary" @click="submitdata" class="export">导出</el-button>
+        <el-button type="primary" @click="submitdata" class="export"
+          >导出</el-button
+        >
       </el-row>
-      <el-table v-loading="loading" :data="groupList">
+      <el-table v-loading="loading" :data="groupListData">
         <el-table-column type="selection" width="55" align="center" />
-        <el-table-column label="接收时间" align="center" prop="groupId" />
-        <el-table-column label="事件名称" align="center" prop="userId" />
-        <el-table-column label="事件等级" align="center" prop="groupName" />
-        <el-table-column label="事件类型" align="center" prop="groupOrder" />
-        <el-table-column label="操作系统" align="center" prop="createTime">
-          <template slot-scope="scope">
-            <span>{{ parseTime(scope.row.createTime, "{y}-{m}-{d}") }}</span>
-          </template>
-        </el-table-column>
-        <el-table-column label="客户端名称" align="center" prop="remark" />
-        <el-table-column label="客户端IP" align="center" prop="remark" />
-        <el-table-column label="产生时间" align="center" prop="remark" />
-        <el-table-column label="日志描述" align="center" prop="remark" />
-        <el-table-column label="处置状态" align="center" prop="remark" />
-        <el-table-column label="区域" align="center" prop="remark" />
+        <el-table-column label="接收时间" align="center" prop="searchValue" />
+        <el-table-column label="事件名称" align="center" prop="createBy" />
+        <el-table-column label="事件等级" align="center" prop="createTime" />
+        <el-table-column label="事件类型" align="center" prop="remark" />
+        <el-table-column label="操作系统" align="center" prop="updateTime" />
+        <el-table-column label="客户端名称" align="center" prop="khdmc" />
+        <el-table-column label="客户端IP" align="center" prop="groupName" />
+        <el-table-column label="产生时间" align="center" prop="groupId" />
+        <el-table-column label="日志描述" align="center" prop="groupName" />
+        <el-table-column label="处置状态" align="center" prop="czzt" />
+        <el-table-column label="区域" align="center" prop="delFlag" />
         <el-table-column
           label="操作"
           align="center"
@@ -266,7 +264,7 @@
               {{ dataTest.name13 }}
             </el-form-item>
           </el-col>
-           <el-col :span="12">
+          <el-col :span="12">
             <el-form-item label="产生时间 :">
               {{ dataTest.name12 }}
             </el-form-item>
@@ -276,7 +274,7 @@
               {{ dataTest.name13 }}
             </el-form-item>
           </el-col>
-           <el-col :span="12">
+          <el-col :span="12">
             <el-form-item label="日志描述 :">
               {{ dataTest.name12 }}
             </el-form-item>
@@ -286,12 +284,12 @@
               {{ dataTest.name13 }}
             </el-form-item>
           </el-col>
-           <el-col :span="12">
+          <el-col :span="12">
             <el-form-item label="进程 :">
               {{ dataTest.name12 }}
             </el-form-item>
           </el-col>
-            <el-col :span="12">
+          <el-col :span="12">
             <el-form-item label="父进程 :">
               {{ dataTest.name12 }}
             </el-form-item>
@@ -340,7 +338,106 @@ export default {
         name13: "2022-2-25",
       },
       // 分组表格数据
-      groupList: [],
+      groupListData: [
+        {
+          searchValue: "2022-01-29 10:10:00",
+          createBy: "非法外联告警",
+          createTime: "高",
+          remark: "非法外联事件",
+          updateTime: "Windows7",
+          khdmc: "WIN-gyk",
+          groupName: "192.168.19.159",
+          groupId: "2022-01-29 10:10:00",
+          userId: "116.103.2.11",
+          groupName: "产生非法外联、外联地址：www百度.com",
+          czzt: "未处置",
+          delFlag: "山西三通燃气厂",
+        },
+        {
+          searchValue: "2022-01-29 10:10:00",
+          createBy: "非法外联告警",
+          createTime: "高",
+          remark: "非法外联事件",
+          updateTime: "Windows7",
+          khdmc: "WIN-gyk",
+          groupName: "192.168.19.159",
+          groupId: "2022-01-29 10:10:00",
+          userId: "116.103.2.11",
+          groupName: "产生非法外联、外联地址：www百度.com",
+          czzt: "未处置",
+          delFlag: "山西三通燃气厂",
+        },
+        {
+          searchValue: "2022-01-29 10:10:00",
+          createBy: "非法外联告警",
+          createTime: "高",
+          remark: "非法外联事件",
+          updateTime: "Windows7",
+          khdmc: "WIN-gyk",
+          groupName: "192.168.19.159",
+          groupId: "2022-01-29 10:10:00",
+          userId: "116.103.2.11",
+          groupName: "产生非法外联、外联地址：www百度.com",
+          czzt: "未处置",
+          delFlag: "山西三通燃气厂",
+        },
+        {
+          searchValue: "2022-01-29 10:10:00",
+          createBy: "非法外联告警",
+          createTime: "高",
+          remark: "非法外联事件",
+          updateTime: "Windows7",
+          khdmc: "WIN-gyk",
+          groupName: "192.168.19.159",
+          groupId: "2022-01-29 10:10:00",
+          userId: "116.103.2.11",
+          groupName: "产生非法外联、外联地址：www百度.com",
+          czzt: "未处置",
+          delFlag: "山西三通燃气厂",
+        },
+        {
+          searchValue: "2022-01-29 10:10:00",
+          createBy: "非法外联告警",
+          createTime: "高",
+          remark: "非法外联事件",
+          updateTime: "Windows7",
+          khdmc: "WIN-gyk",
+          groupName: "192.168.19.159",
+          groupId: "2022-01-29 10:10:00",
+          userId: "116.103.2.11",
+          groupName: "产生非法外联、外联地址：www百度.com",
+          czzt: "未处置",
+          delFlag: "山西三通燃气厂",
+        },
+        {
+          searchValue: "2022-01-29 10:10:00",
+          createBy: "非法外联告警",
+          createTime: "高",
+          remark: "非法外联事件",
+          updateTime: "Windows7",
+          khdmc: "WIN-gyk",
+          groupName: "192.168.19.159",
+          groupId: "2022-01-29 10:10:00",
+          userId: "116.103.2.11",
+          groupName: "产生非法外联、外联地址：www百度.com",
+          czzt: "未处置",
+          delFlag: "山西三通燃气厂",
+        },
+        {
+          searchValue: "2022-01-29 10:10:00",
+          createBy: "非法外联告警",
+          createTime: "高",
+          remark: "非法外联事件",
+          updateTime: "Windows7",
+          khdmc: "WIN-gyk",
+          groupName: "192.168.19.159",
+          groupId: "2022-01-29 10:10:00",
+          userId: "116.103.2.11",
+          groupName: "产生非法外联、外联地址：www百度.com",
+          czzt: "未处置",
+          delFlag: "山西三通燃气厂",
+        },
+      ],
       // 创建时间时间范围
       daterangeCreateTime: [],
       // 弹出层标题
@@ -468,7 +565,7 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-.export{
+.export {
   margin-bottom: 10px;
 }
 </style>
