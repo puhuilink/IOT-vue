@@ -122,7 +122,12 @@
         :show-overflow-tooltip="true"
         width="120px"
       />
-      <el-table-column label="资产名称" align="center" prop="deptName" />
+      <el-table-column
+        label="资产名称"
+        align="center"
+        prop="deptName"
+        :show-overflow-tooltip="true"
+      />
       <el-table-column
         label="资产类型"
         align="center"
@@ -136,9 +141,9 @@
         :show-overflow-tooltip="true"
         width="60"
       />
-      <el-table-column label="风险状态" align="center" prop="fxzt" width="60" />
-      <el-table-column label="事件等级" align="center" prop="os" width="60" />
-      <el-table-column label="操作系统" align="center" prop="xt" width="80" />
+      <el-table-column label="风险状态" align="center" prop="fxzt" width="60" :show-overflow-tooltip="true"/>
+      <el-table-column label="事件等级" align="center" prop="os" width="60" :show-overflow-tooltip="true"/>
+      <el-table-column label="操作系统" align="center" prop="xt" width="80" :show-overflow-tooltip="true"/>
 
       <el-table-column
         label="应用协议"
@@ -146,8 +151,8 @@
         prop="yyxy"
         :show-overflow-tooltip="true"
       />
-      <el-table-column label="风险协议" align="center" prop="fxxy" />
-      <el-table-column label="资产标签" align="center" prop="zcbq" />
+      <el-table-column label="风险协议" align="center" prop="fxxy" :show-overflow-tooltip="true"/>
+      <el-table-column label="资产标签" align="center" prop="zcbq" :show-overflow-tooltip="true"/>
       <el-table-column
         label="区域"
         align="center"
@@ -155,7 +160,7 @@
         :show-overflow-tooltip="true"
       />
       <el-table-column label="负责人" align="center" prop="fzr" />
-      <el-table-column label="最后活跃时间" align="center" prop="zhhysj">
+      <el-table-column label="最后活跃时间" align="center" prop="zhhysj" :show-overflow-tooltip="true">
         <template slot-scope="scope">
           <span>{{ scope.row.zhhysj }}</span>
         </template>
@@ -748,8 +753,8 @@ export default {
         {
           index: 1,
           userName: "10.255.52.84",
-          deptName: "主机",
-          ipaddr: "主机",
+          deptName: "长亭WAF",
+          ipaddr: "安全设备-web应用防火墙",
           loginLocation: "在线",
           fxzt: "正常",
           os: "极低",
@@ -763,11 +768,79 @@ export default {
           zhhysj: "2022-01-29 10:10:00",
         },
         {
-          index: 1,
+          index: 2,
+          userName: "10.255.52.67",
+          deptName: "4AOIM",
+          ipaddr: "服务器-虚拟机",
+          loginLocation: "在线",
+          fxzt: "低危",
+          os: "低",
+          xt: "CentOS7.6",
+          yyxy: "--",
+          fxxy: "--",
+          // browser: "--",
+          zcbq: "--",
+          area: "天津管片厂",
+          fzr: "张三",
+          zhhysj: "2022-01-29 10:10:00",
+        },
+        {
+          index: 3,
+          userName: "10.255.52.27",
+          deptName: "4A流量监控管理系统",
+          ipaddr: "服务器-服务器",
+          loginLocation: "在线",
+          fxzt: "中危",
+          os: "中",
+          xt: "Linux2.6x",
+          yyxy: "--",
+          fxxy: "--",
+          // browser: "--",
+          zcbq: "--",
+          area: "北京城乡水厂",
+          fzr: "张三",
+          zhhysj: "2022-01-29 10:10:00",
+        },
+        {
+          index: 4,
+          userName: "10.20.51.82",
+          deptName: "蜜罐",
+          ipaddr: "安全设备-蜜罐",
+          loginLocation: "异常",
+          fxzt: "高危",
+          os: "高",
+          xt: "--",
+          yyxy: "--",
+          fxxy: "--",
+          // browser: "--",
+          zcbq: "--",
+          area: "珠海深中通道",
+          fzr: "张三",
+          zhhysj: "2022-01-29 10:10:00",
+        },
+        {
+          index: 5,
+          userName: "10.255.52.84",
+          deptName: "防火墙",
+          ipaddr: "安全设备-工业防火墙",
+          loginLocation: "在线",
+          fxzt: "失陷",
+          os: "致命",
+          xt: "WOS",
+          yyxy: "S7",
+          fxxy: "S7",
+          // browser: "--",
+          zcbq: "--",
+          area: "三亚海投轨交",
+          fzr: "张三",
+          zhhysj: "2022-01-29 10:10:00",
+        },
+        {
+          index: 6,
           userName: "10.255.52.84",
           deptName: "主机",
-          ipaddr: "主机",
-          loginLocation: "在线",
+          ipaddr: "服务器-主机",
+          loginLocation: "离线",
           fxzt: "正常",
           os: "极低",
           xt: "Linux",
@@ -780,11 +853,11 @@ export default {
           zhhysj: "2022-01-29 10:10:00",
         },
         {
-          index: 1,
+          index: 7,
           userName: "10.255.52.84",
           deptName: "主机",
-          ipaddr: "主机",
-          loginLocation: "在线",
+          ipaddr: "服务器-主机",
+          loginLocation: "离线",
           fxzt: "正常",
           os: "极低",
           xt: "Linux",
@@ -797,11 +870,28 @@ export default {
           zhhysj: "2022-01-29 10:10:00",
         },
         {
-          index: 1,
+          index: 8,
+          userName: "10.255.52.84",
+          deptName: "防火墙",
+          ipaddr: "安全设备-工业防火墙",
+          loginLocation: "在线",
+          fxzt: "失陷",
+          os: "致命",
+          xt: "WOS",
+          yyxy: "S7",
+          fxxy: "S7",
+          // browser: "--",
+          zcbq: "--",
+          area: "三亚海投轨交",
+          fzr: "张三",
+          zhhysj: "2022-01-29 10:10:00",
+        },
+        {
+          index: 9,
           userName: "10.255.52.84",
           deptName: "主机",
-          ipaddr: "主机",
-          loginLocation: "在线",
+          ipaddr: "服务器-主机",
+          loginLocation: "离线",
           fxzt: "正常",
           os: "极低",
           xt: "Linux",
@@ -814,45 +904,11 @@ export default {
           zhhysj: "2022-01-29 10:10:00",
         },
         {
-          index: 1,
+          index: 10,
           userName: "10.255.52.84",
           deptName: "主机",
-          ipaddr: "主机",
-          loginLocation: "在线",
-          fxzt: "正常",
-          os: "极低",
-          xt: "Linux",
-          yyxy: "--",
-          fxxy: "--",
-          // browser: "--",
-          zcbq: "--",
-          area: "山西三通燃气厂",
-          fzr: "张三",
-          zhhysj: "2022-01-29 10:10:00",
-        },
-        {
-          index: 1,
-          userName: "10.255.52.84",
-          deptName: "主机",
-          ipaddr: "主机",
-          loginLocation: "在线",
-          fxzt: "正常",
-          os: "极低",
-          xt: "Linux",
-          yyxy: "--",
-          fxxy: "--",
-          // browser: "--",
-          zcbq: "--",
-          area: "山西三通燃气厂",
-          fzr: "张三",
-          zhhysj: "2022-01-29 10:10:00",
-        },
-        {
-          index: 1,
-          userName: "10.255.52.84",
-          deptName: "主机",
-          ipaddr: "主机",
-          loginLocation: "在线",
+          ipaddr: "服务器-主机",
+          loginLocation: "离线",
           fxzt: "正常",
           os: "极低",
           xt: "Linux",
