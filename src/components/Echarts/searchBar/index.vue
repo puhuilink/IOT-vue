@@ -84,6 +84,18 @@ export default {
       }, {
         'label': '山西燃气厂',
         'value': 2
+      }, {
+        'label': '北京城乡水厂',
+        'value': 3
+      }, {
+        'label': '天津管片厂',
+        'value': 4
+      }, {
+        'label': '珠海深中通道',
+        'value': 5
+      }, {
+        'label': '三亚海投轨交',
+        'value': 6
       }],
       dateOptions: [{
         'label': '最近一天',

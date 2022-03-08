@@ -80,6 +80,11 @@ export default {
                 this.barData = [354, 125, 168, 445, 121, 1289, 1300, 1255, 1100, 2449, 4100]
                 this.title = '源IP'
                 break
+              case 6:
+                this.category = ['192.168.148.151', '192.168.154.55', '192.168.148.160', '0.0.0.0', '192.168.148.125', '192.168.148.67', '192.168.154.213', '192.168.154.155', '192.168.154.222', '192.168.154.107']
+                this.barData = [374, 225, 118, 315, 221, 1289, 1800, 1255, 1140, 2449, 3100]
+                this.title = '源IP'
+                break
               default:
                 console.log('无数据', this.type)
                 break
@@ -111,6 +116,11 @@ export default {
               case 5:
                 this.category = ['1', '2', '11', '6', '5', '3']
                 this.barData = [2483, 431, 1418, 1161, 1299, 2131]
+                this.title = '文件大小单位/M'
+                break
+              case 6:
+                this.category = ['1', '2', '11', '6', '5', '3']
+                this.barData = [1483, 331, 1218, 1171, 1499, 1141]
                 this.title = '文件大小单位/M'
                 break
               default:

@@ -36,11 +36,14 @@ export default {
     return {
       policitalStatus: ['1'],
       address: 1,
-      groupList: [{ 'searchValue': 'ZJStream', 'createBy': '山西燃气厂', 'createTime': 'Z*****m', 'updateBy': '', 'updateTime': '2021-05-18 16:35:32', 'remark': '53', 'params': {}, 'groupId': '内网DNS', 'userId': '116.103.2.11', 'groupName': '高危', 'groupOrder': 'DNS_TCP', 'delFlag': '未处置' },
-        { 'searchValue': 'ZJStream', 'createBy': '山西燃气厂', 'createTime': 'Z*****m', 'updateBy': '', 'updateTime': '2021-05-18 16:35:32', 'remark': '53', 'params': {}, 'groupId': '内网DNS', 'userId': '116.103.2.11', 'groupName': '高危', 'groupOrder': 'DNS_TCP', 'delFlag': '未处置' },
-        { 'searchValue': 'ZJStream', 'createBy': '山西燃气厂', 'createTime': 'Z*****m', 'updateBy': '', 'updateTime': '2021-05-18 16:35:32', 'remark': '53', 'params': {}, 'groupId': '内网DNS', 'userId': '116.103.2.11', 'groupName': '高危', 'groupOrder': 'DNS_TCP', 'delFlag': '未处置' },
-        { 'searchValue': 'ZJStream', 'createBy': '山西燃气厂', 'createTime': 'Z*****m', 'updateBy': '', 'updateTime': '2021-05-18 16:35:32', 'remark': '53', 'params': {}, 'groupId': '内网DNS', 'userId': '116.103.2.11', 'groupName': '高危', 'groupOrder': 'DNS_TCP', 'delFlag': '未处置' },
-        { 'searchValue': 'ZJStream', 'createBy': '山西燃气厂', 'createTime': 'Z*****m', 'updateBy': '', 'updateTime': '2021-05-18 16:35:32', 'remark': '53', 'params': {}, 'groupId': '内网DNS', 'userId': '116.103.2.11', 'groupName': '高危', 'groupOrder': 'DNS_TCP', 'delFlag': '未处置' }]
+      groupList: [{ 'searchValue': 'ZJStream', 'createBy': '山西三通燃气厂', 'createTime': 'Z*****m', 'updateBy': '', 'updateTime': '2021-05-18 16:35:32', 'remark': '53', 'params': {}, 'groupId': '内网DNS', 'userId': '116.103.2.11', 'groupName': '高危', 'groupOrder': 'DNS_TCP', 'delFlag': '未处置' },
+        { 'searchValue': 'ZJStream', 'createBy': '北京城乡水厂', 'createTime': 'Z*****m', 'updateBy': '', 'updateTime': '2021-05-18 16:35:32', 'remark': '53', 'params': {}, 'groupId': '内网DNS', 'userId': '116.103.2.11', 'groupName': '高危', 'groupOrder': 'DNS_TCP', 'delFlag': '未处置' },
+        { 'searchValue': 'ZJStream', 'createBy': '天津管片厂', 'createTime': 'Z*****m', 'updateBy': '', 'updateTime': '2021-05-18 16:35:32', 'remark': '53', 'params': {}, 'groupId': '内网DNS', 'userId': '116.103.2.11', 'groupName': '高危', 'groupOrder': 'DNS_TCP', 'delFlag': '未处置' },
+        { 'searchValue': 'ZJStream', 'createBy': '珠海深中通道', 'createTime': 'Z*****m', 'updateBy': '', 'updateTime': '2021-05-18 16:35:32', 'remark': '53', 'params': {}, 'groupId': '内网DNS', 'userId': '116.103.2.11', 'groupName': '高危', 'groupOrder': 'DNS_TCP', 'delFlag': '未处置' },
+        { 'searchValue': 'ZJStream', 'createBy': '三亚海投轨交', 'createTime': 'Z*****m', 'updateBy': '', 'updateTime': '2021-05-18 16:35:32', 'remark': '53', 'params': {}, 'groupId': '内网DNS', 'userId': '116.103.2.11', 'groupName': '高危', 'groupOrder': 'DNS_TCP', 'delFlag': '未处置' },
+        { 'searchValue': 'ZJStream', 'createBy': '珠海深中通道', 'createTime': 'Z*****m', 'updateBy': '', 'updateTime': '2021-05-18 16:35:32', 'remark': '53', 'params': {}, 'groupId': '内网DNS', 'userId': '116.103.2.11', 'groupName': '高危', 'groupOrder': 'DNS_TCP', 'delFlag': '未处置' },
+        { 'searchValue': 'ZJStream', 'createBy': '珠海深中通道', 'createTime': 'Z*****m', 'updateBy': '', 'updateTime': '2021-05-18 16:35:32', 'remark': '53', 'params': {}, 'groupId': '内网DNS', 'userId': '116.103.2.11', 'groupName': '高危', 'groupOrder': 'DNS_TCP', 'delFlag': '未处置' }
+      ]
     }
   },
   computed: {},
