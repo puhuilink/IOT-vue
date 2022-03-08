@@ -38,22 +38,22 @@ export default {
         // 绘制图表
         myChart.setOption({
           tooltip: {
-            trigger: "item",
+            // trigger: "item",
             formatter: "{a} <br/>{b}: {c} ({d}%)",
           },
           legend: {
-            data: [
-              "Direct",
-              "Marketing",
-              "Search Engine",
-              //   "Email",
-              //   "Union Ads",
-              //   "Video Ads",
-              "Baidu",
-              "Google",
-              //   "Bing",
-              //   "Others",
-            ],
+            // data: [
+            //   "Direct",
+            //   "Marketing",
+            //   "Search Engine",
+            //   //   "Email",
+            //   //   "Union Ads",
+            //   //   "Video Ads",
+            //   "Baidu",
+            //   "Google",
+            //   //   "Bing",
+            //   //   "Others",
+            // ],
           },
           color: ["#5599ff", "#77DDFF", "#00AA00", "#FFC851", "#E63F00"],
           series: [
@@ -119,12 +119,7 @@ export default {
                 { value: 200, name: "文件保护事件" },
                 { value: 300, name: "注册表保护事件" },
                 { value: 600, name: "非法外联事件" },
-                // { value: 310, name: "Email" },
                 { value: 600, name: "恶意文件事件" },
-                // { value: 234, name: "Union Ads" },
-                // { value: 147, name: "Bing" },
-                // { value: 135, name: "Video Ads" },
-                // { value: 102, name: "Others" },
               ],
             },
           ],

@@ -23,6 +23,7 @@
           placeholder="请选择"
           clearable
           size="small"
+         @change="selectChanged"
         >
           <el-option
             v-for="item in allTypeList"
@@ -646,15 +647,6 @@
   </div>
 </template>
 
-<style>
-.el-table .warning-row {
-  background: oldlace;
-}
-
-.el-table .success-row {
-  background: #f0f9eb;
-}
-</style>
 
 <script>
 import Tip from "@/components/EchartsTip/index";
@@ -798,6 +790,11 @@ export default {
         ],
       },
     };
+  },
+  methods:{
+   selectChanged() {
+      console.log('111')
+    },
   },
   created() {
     this.getCategoryList();
