@@ -117,7 +117,18 @@ export default {
     }
   },
   computed: {},
-  watch: {},
+  watch: {
+    'formData.address': {
+      deep: true,
+      handler(val, oldVal) {
+        if (val !== oldVal) {
+          this.getdata()
+        } else {
+          return
+        }
+      }
+    }
+  },
   created() {
 
   },
@@ -125,6 +136,12 @@ export default {
 
   },
   methods: {
+    getdata() {
+      this.$emit('getaddress', {
+        address: this.formData.address
+      })
+    }
+
   }
 }
 

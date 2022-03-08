@@ -1,10 +1,10 @@
 <template>
   <div class="app-container">
-    <echarts />
-    <eventTrend />
-    <eventType :type="3" />
-    <wordcloud :type="2" />
-    <eventType :tipname="'事件状态处置图'" :type="2" />
+    <echarts @getaddress="uploadData" />
+    <eventTrend :address="address" />
+    <eventType :address="address" :type="3" />
+    <wordcloud :address="address" :type="2" />
+    <eventType :address="address" :tipname="'事件状态处置图'" :type="2" />
     <el-col :span="24">
       <tip> 最新僵木蠕事件 </tip>
       <el-table :data="groupList">
@@ -34,6 +34,7 @@ export default {
   data() {
     return {
       policitalStatus: ['1'],
+      address: 1,
       groupList: [{ 'searchValue': '低', 'createBy': '', 'createTime': '2021-05-18 16:35:03', 'updateBy': '', 'updateTime': '2021-05-18 16:35:32', 'remark': '僵尸网络', 'params': {}, 'groupId': 'Botnet', 'userId': '116.103.2.11', 'groupName': '山西燃气厂', 'groupOrder': '10.255.52.10', 'delFlag': '载荷投递' },
         { 'searchValue': '低', 'createBy': '', 'createTime': '2021-05-18 16:35:03', 'updateBy': '', 'updateTime': '2021-05-18 16:35:32', 'remark': '僵尸网络', 'params': {}, 'groupId': 'Botnet', 'userId': '116.103.2.11', 'groupName': '山西燃气厂', 'groupOrder': '10.255.52.10', 'delFlag': '载荷投递' },
         { 'searchValue': '低', 'createBy': '', 'createTime': '2021-05-18 16:35:03', 'updateBy': '', 'updateTime': '2021-05-18 16:35:32', 'remark': '僵尸网络', 'params': {}, 'groupId': 'Botnet', 'userId': '116.103.2.11', 'groupName': '山西燃气厂', 'groupOrder': '10.255.52.10', 'delFlag': '载荷投递' },
@@ -49,6 +50,9 @@ export default {
   mounted() {
   },
   methods: {
+    uploadData(data) {
+      this.address = data.address
+    }
   }
 }
 

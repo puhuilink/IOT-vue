@@ -1,10 +1,10 @@
 <template>
   <div class="app-container">
-    <echarts />
-    <eventTrend />
-    <eventType :type="4" />
-    <echartsBar :tipname="'攻击者TOP5统计'" />
-    <eventType :tipname="'事件状态处置图'" :type="2" />
+    <echarts @getaddress="uploadData" />
+    <eventTrend :address="address" />
+    <eventType :type="4" :address="address" />
+    <echartsBar :tipname="'攻击者TOP5统计'" :address="address" />
+    <eventType :tipname="'事件状态处置图'" :address="address" :type="2" />
     <el-col :span="24">
       <tip> 最新弱口令事件 </tip>
       <el-table :data="groupList">
@@ -29,12 +29,13 @@ import eventType from '@/components/Echarts/eventType'
 import echartsBar from '@/components/Echarts/echartsBar'
 import tip from '@/components/EchartsTip'
 export default {
+  name: 'Index',
   components: { echarts, eventTrend, eventType, echartsBar, tip },
   props: [],
   data() {
     return {
       policitalStatus: ['1'],
-
+      address: 1,
       groupList: [{ 'searchValue': 'ZJStream', 'createBy': '山西燃气厂', 'createTime': 'Z*****m', 'updateBy': '', 'updateTime': '2021-05-18 16:35:32', 'remark': '53', 'params': {}, 'groupId': '内网DNS', 'userId': '116.103.2.11', 'groupName': '高危', 'groupOrder': 'DNS_TCP', 'delFlag': '未处置' },
         { 'searchValue': 'ZJStream', 'createBy': '山西燃气厂', 'createTime': 'Z*****m', 'updateBy': '', 'updateTime': '2021-05-18 16:35:32', 'remark': '53', 'params': {}, 'groupId': '内网DNS', 'userId': '116.103.2.11', 'groupName': '高危', 'groupOrder': 'DNS_TCP', 'delFlag': '未处置' },
         { 'searchValue': 'ZJStream', 'createBy': '山西燃气厂', 'createTime': 'Z*****m', 'updateBy': '', 'updateTime': '2021-05-18 16:35:32', 'remark': '53', 'params': {}, 'groupId': '内网DNS', 'userId': '116.103.2.11', 'groupName': '高危', 'groupOrder': 'DNS_TCP', 'delFlag': '未处置' },
@@ -43,13 +44,17 @@ export default {
     }
   },
   computed: {},
-  watch: {},
+  watch: {
+  },
   created() {
 
   },
   mounted() {
   },
   methods: {
+    uploadData(data) {
+      this.address = data.address
+    }
   }
 }
 

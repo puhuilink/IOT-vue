@@ -1,10 +1,10 @@
 <template>
   <div class="app-container">
-    <echarts />
-    <category :type="1" :tipname="'源IP统计事件TOP10'" />
-    <category :type="2" :tipname="'文件大小统计事件TOP10'" />
-    <eventType :type="5" :tipname="'策略统计事件分析'" />
-    <eventType :type="6" :tipname="'文件类型统计事件分析'" />
+    <echarts @getaddress="uploadData" />
+    <category :type="1" :tipname="'源IP统计事件TOP10'" :address="address" />
+    <category :type="2" :tipname="'文件大小统计事件TOP10'" :address="address" />
+    <eventType :type="5" :tipname="'策略统计事件分析'" :address="address" />
+    <eventType :type="6" :tipname="'文件类型统计事件分析'" :address="address" />
     <el-col :span="12">
       <tip> 最新数据安全事件 </tip>
       <el-table :data="groupList">
@@ -18,7 +18,7 @@
         <el-table-column label="区域" align="center" prop="delFlag" :show-overflow-tooltip="true" />
       </el-table>
     </el-col>
-    <eventType :tipname="'事件等级分布'" :type="4" />
+    <eventType :tipname="'事件等级分布'" :type="4" :address="address" />
   </div>
 </template>
 <script>
@@ -32,7 +32,7 @@ export default {
   data() {
     return {
       policitalStatus: ['1'],
-
+      address: 1,
       groupList: [{ 'searchValue': '信息', 'createBy': '', 'createTime': 'Kara文件内置财务', 'updateBy': '', 'updateTime': '2021-05-18 16:35:32', 'remark': '192.168.146.168', 'params': {}, 'groupId': '终端监测器', 'userId': '记录', 'groupName': '753253358804481', 'groupOrder': 'SCANFILE', 'delFlag': '山西燃气厂' },
         { 'searchValue': '信息', 'createBy': '', 'createTime': 'Kara文件内置财务', 'updateBy': '', 'updateTime': '2021-05-18 16:35:32', 'remark': '192.168.146.168', 'params': {}, 'groupId': '终端监测器', 'userId': '记录', 'groupName': '753253358804481', 'groupOrder': 'SCANFILE', 'delFlag': '山西燃气厂' },
         { 'searchValue': '信息', 'createBy': '', 'createTime': 'Kara文件内置财务', 'updateBy': '', 'updateTime': '2021-05-18 16:35:32', 'remark': '192.168.146.168', 'params': {}, 'groupId': '终端监测器', 'userId': '记录', 'groupName': '753253358804481', 'groupOrder': 'SCANFILE', 'delFlag': '山西燃气厂' },
@@ -48,6 +48,9 @@ export default {
   mounted() {
   },
   methods: {
+    uploadData(data) {
+      this.address = data.address
+    }
   }
 }
 
