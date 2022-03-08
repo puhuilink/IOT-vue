@@ -15,6 +15,10 @@ export default {
     tipname: { // tip内容
       default: '事件趋势分析',
       type: String
+    },
+    address: { // 厂家内容
+      default: null,
+      type: Number
     }
   },
   data() {
@@ -23,7 +27,16 @@ export default {
     }
   },
   computed: {},
-  watch: {},
+  watch: {
+    address: {
+      handler(val, oldVal) {
+        if (val !== oldVal) {
+          this.drawPolicitalStatus()
+        }
+      },
+      deep: true
+    }
+  },
   created() {
 
   },
@@ -35,17 +48,61 @@ export default {
       if (this.policitalStatus.length) {
         // 基于准备好的dom，初始化echarts实例
         const myChart = this.$echarts.init(this.$refs.canvas1)
-
-        // 绘制图表
-        myChart.setOption({
-          dataset: {
-            source: [
+        switch (this.address) {
+          case 1:
+            this.data1 = [
               ['MySQL', 49, 30.4, 100, 100],
               ['DNS_TCP', 33, 12.1, 100, 50],
               ['Redis', 13, 92.1, 100, 50],
               ['FTP', 6, 102.1, 100, 50],
               ['DNS', 4, 132.1, 100, 50]
             ]
+            break
+          case 2:
+            this.data1 = [
+              ['MySQL', 19, 20.4, 70, 90],
+              ['DNS_TCP', 23, 17.1, 100, 50],
+              ['Redis', 63, 42.1, 200, 70],
+              ['FTP', 6, 102.1, 212, 70],
+              ['DNS', 14, 122.1, 176, 50]
+            ]
+            break
+          case 3:
+            this.data1 = [
+              ['MySQL', 49, 30.4, 40, 120],
+              ['DNS_TCP', 33, 12.1, 60, 80],
+              ['Redis', 13, 92.1, 77, 70],
+              ['FTP', 26, 172.1, 30, 20],
+              ['DNS', 4, 102.1, 107, 53]
+            ]
+            break
+          case 4:
+            this.data1 = [
+              ['MySQL', 29, 30.4, 170, 100],
+              ['DNS_TCP', 13, 12.1, 110, 50],
+              ['Redis', 13, 92.1, 200, 50],
+              ['FTP', 74, 171.1, 47, 50],
+              ['DNS', 15, 42.1, 25, 50]
+            ]
+            break
+          case 5:
+            this.data1 = [
+              ['MySQL', 79, 30.4, 100, 114],
+              ['DNS_TCP', 143, 12.1, 140, 50],
+              ['Redis', 13, 92.1, 110, 24],
+              ['FTP', 16, 132.1, 130, 55],
+              ['DNS', 54, 172.1, 700, 67]
+            ]
+            break
+          default:
+            console.log('无数据', this.type)
+            break
+        }
+
+        // 绘制图表
+        myChart.setOption({
+          dataset: {
+            source: this.data1
           },
           backgroundColor: '#fff',
           grid: {

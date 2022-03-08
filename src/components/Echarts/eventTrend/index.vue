@@ -13,15 +13,33 @@ export default {
     tipname: { // tip内容
       default: '事件趋势分析',
       type: String
+    },
+    address: { // 厂家内容
+      default: null,
+      type: Number
     }
   },
   data() {
     return {
-      policitalStatus: ['1']
+      policitalStatus: ['1'],
+      data1: [],
+      data2: [],
+      data3: [],
+      data4: [],
+      data5: []
     }
   },
   computed: {},
-  watch: {},
+  watch: {
+    address: {
+      handler(val, oldVal) {
+        if (val !== oldVal) {
+          this.drawPolicitalStatus()
+        }
+      },
+      deep: true
+    }
+  },
   created() {
 
   },
@@ -31,6 +49,46 @@ export default {
   methods: {
     drawPolicitalStatus() {
       if (this.policitalStatus.length) {
+        switch (this.address) {
+          case 1:
+            this.data1 = [120, 132, 101, 134, 90, 230, 210]
+            this.data2 = [0, 182, 191, 234, 290, 11, 310]
+            this.data3 = [12, 182, 391, 634, 950, 111, 310]
+            this.data4 = [47, 142, 111, 2204, 390, 101, 810]
+            this.data5 = [5, 282, 291, 434, 490, 41, 210]
+            break
+          case 2:
+            this.data1 = [140, 232, 141, 634, 90, 230, 210]
+            this.data2 = [74, 472, 791, 274, 390, 11, 310]
+            this.data3 = [24, 102, 491, 204, 211, 11, 310]
+            this.data4 = [35, 782, 391, 184, 230, 11, 310]
+            this.data5 = [14, 582, 81, 24, 280, 11, 310]
+            break
+          case 3:
+            this.data1 = [30, 432, 1101, 534, 120, 230, 210]
+            this.data2 = [74, 182, 291, 344, 2140, 11, 310]
+            this.data3 = [20, 152, 301, 124, 90, 230, 210]
+            this.data4 = [25, 422, 451, 374, 380, 11, 310]
+            this.data5 = [12, 572, 111, 244, 620, 11, 310]
+            break
+          case 4:
+            this.data1 = [140, 1302, 171, 134, 100, 230, 210]
+            this.data2 = [154, 1168, 255, 789, 1155, 2100, 2200]
+            this.data3 = [150, 192, 141, 434, 20, 230, 1210]
+            this.data4 = [74, 282, 131, 334, 1030, 11, 310]
+            this.data5 = [35, 172, 201, 534, 790, 11, 380]
+            break
+          case 5:
+            this.data1 = [140, 182, 301, 734, 90, 230, 210]
+            this.data2 = [34, 165, 468, 155, 1289, 2449, 4100]
+            this.data3 = [120, 122, 151, 254, 90, 230, 210]
+            this.data4 = [70, 482, 132, 414, 290, 11, 340]
+            this.data5 = [20, 382, 171, 232, 290, 11, 310]
+            break
+          default:
+            console.log('无数据', this.type)
+            break
+        }
         // 基于准备好的dom，初始化echarts实例
         const myChart = this.$echarts.init(this.$refs.canvas1)
         // 绘制图表
@@ -67,31 +125,31 @@ export default {
               name: '极低',
               type: 'line',
               smooth: true,
-              data: [100, 132, 101, 134, 90, 230, 210]
+              data: this.data1
             },
             {
               name: '低危',
               type: 'line',
               smooth: true,
-              data: [0, 182, 191, 234, 290, 11, 310]
+              data: this.data2
             },
             {
               name: '中危',
               type: 'line',
               smooth: true,
-              data: [150, 0, 201, 154, 190, 330, 410]
+              data: this.data3
             },
             {
               name: '高危',
               type: 'line',
               smooth: true,
-              data: [320, 332, 301, 334, 390, 330, 320]
+              data: this.data4
             },
             {
               name: '致命',
               type: 'line',
               smooth: true,
-              data: [820, 932, 901, 934, 1290, 1330, 1320]
+              data: this.data5
             }
           ]
         })

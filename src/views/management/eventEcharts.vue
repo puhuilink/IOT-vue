@@ -1,10 +1,10 @@
 <template>
   <div class="app-container">
-    <echarts />
-    <eventTrend />
-    <eventType :type="1" />
-    <wordcloud />
-    <eventType :tipname="'事件状态处置图'" :type="2" />
+    <echarts @getaddress="uploadData" />
+    <eventTrend :address="address" />
+    <eventType :type="1" :address="address" />
+    <wordcloud :address="address" />
+    <eventType :tipname="'事件状态处置图'" :type="2" :address="address" />
     <el-col :span="24">
       <tip> 最新威胁事件 </tip>
       <el-table :data="groupList">
@@ -32,7 +32,7 @@ export default {
   data() {
     return {
       policitalStatus: ['1'],
-
+      address: 1,
       groupList: [{ 'searchValue': '---', 'createBy': '', 'createTime': '2021-05-18 16:35:03', 'updateBy': '', 'updateTime': '2021-05-18 16:35:32', 'remark': '极低', 'params': {}, 'groupId': 1, 'userId': '116.103.2.11', 'groupName': '山西燃气厂', 'groupOrder': '10.255.52.10', 'delFlag': '蜜罐' },
         { 'searchValue': '---', 'createBy': '', 'createTime': '2021-05-18 16:35:03', 'updateBy': '', 'updateTime': '2021-05-18 16:35:32', 'remark': '极低', 'params': {}, 'groupId': 2, 'userId': '116.103.2.11', 'groupName': '山西燃气厂', 'groupOrder': '10.255.52.10', 'delFlag': '蜜罐' },
         { 'searchValue': '---', 'createBy': '', 'createTime': '2021-05-18 16:35:03', 'updateBy': '', 'updateTime': '2021-05-18 16:35:32', 'remark': '极低', 'params': {}, 'groupId': 3, 'userId': '116.103.2.11', 'groupName': '山西燃气厂', 'groupOrder': '10.255.52.10', 'delFlag': '蜜罐' },
@@ -48,6 +48,9 @@ export default {
   mounted() {
   },
   methods: {
+    uploadData(data) {
+      this.address = data.address
+    }
   }
 }
 
