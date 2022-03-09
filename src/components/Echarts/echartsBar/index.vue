@@ -94,6 +94,15 @@ export default {
               ['DNS', 54, 172.1, 700, 67]
             ]
             break
+          case 6:
+            this.data1 = [
+              ['MySQL', 39, 29.4, 160, 114],
+              ['DNS_TCP', 143, 12.1, 340, 50],
+              ['Redis', 113, 72.1, 110, 24],
+              ['FTP', 16, 132.1, 130, 68],
+              ['DNS', 54, 272.1, 400, 67]
+            ]
+            break
           default:
             console.log('无数据', this.type)
             break

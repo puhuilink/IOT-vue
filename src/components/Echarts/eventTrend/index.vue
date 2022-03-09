@@ -85,6 +85,13 @@ export default {
             this.data4 = [70, 482, 132, 414, 290, 11, 340]
             this.data5 = [20, 382, 171, 232, 290, 11, 310]
             break
+          case 6:
+            this.data1 = [142, 182, 311, 734, 910, 230, 210]
+            this.data2 = [34, 165, 438, 155, 1689, 2449, 400]
+            this.data3 = [120, 122, 151, 254, 90, 230, 210]
+            this.data4 = [70, 492, 122, 414, 290, 11, 340]
+            this.data5 = [20, 382, 171, 230, 290, 11, 710]
+            break
           default:
             console.log('无数据', this.type)
             break

@@ -104,17 +104,17 @@
         </el-row>
       </div>
     </el-card>
-    <el-table :data="groupList">
+    <el-table :data="groupList" tooltip-effect="light">
       <el-table-column type="selection" width="55" align="center" />
-      <el-table-column label="资产名称" align="center" prop="groupOrder" />
-      <el-table-column label="IP地址" align="center" prop="userId" />
-      <el-table-column label="协议" align="center" prop="groupName" />
-      <el-table-column label="端口" align="center" prop="searchValue" />
-      <el-table-column label="事件等级" align="center" prop="remark" />
-      <el-table-column label="处置状态" align="center" prop="createBy" />
-      <el-table-column label="发生时间" align="center" prop="createTime" />
-      <el-table-column label="区域" align="center" prop="updateBy" />
-      <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
+      <el-table-column label="资产名称" align="center" prop="groupOrder" :show-overflow-tooltip="true" min-width="15%" />
+      <el-table-column label="IP地址" align="center" prop="userId" :show-overflow-tooltip="true" min-width="15%" />
+      <el-table-column label="协议" align="center" prop="groupName" :show-overflow-tooltip="true" min-width="15%" />
+      <el-table-column label="端口" align="center" prop="searchValue" :show-overflow-tooltip="true" min-width="15%" />
+      <el-table-column label="事件等级" align="center" prop="remark" min-width="10%" />
+      <el-table-column label="处置状态" align="center" prop="createBy" min-width="8%" />
+      <el-table-column label="发生时间" align="center" prop="createTime" :show-overflow-tooltip="true" min-width="15%" />
+      <el-table-column label="区域" align="center" prop="updateBy" :show-overflow-tooltip="true" min-width="15%" />
+      <el-table-column label="操作" align="center" class-name="small-padding fixed-width" min-width="10%">
         <template slot-scope="scope">
           <el-button
             v-hasPermi="['system:group:edit']"
@@ -133,13 +133,13 @@
         </template>
       </el-table-column>
     </el-table>
-
     <pagination
-      v-show="total>0"
+      :current-page="currentPage"
+      :page-size="pagesize"
+      layout="total, sizes, prev, pager, next, jumper"
       :total="total"
-      :page.sync="queryParams.pageNum"
-      :limit.sync="queryParams.pageSize"
-      @pagination="getList"
+      @size-change="handleSizeChange"
+      @current-change="handleCurrentChange"
     />
     <!-- 添加或修改分组对话框 -->
     <el-dialog :title="title" :visible.sync="open" width="900px" append-to-body>
@@ -246,11 +246,14 @@ export default {
 
       },
       // 分组表格数据
-      groupList: [{ 'searchValue': '53', 'createBy': '未处置', 'createTime': '2021-05-18 16:35:03', 'updateBy': '山西燃气厂', 'updateTime': '2021-05-18 16:35:32', 'remark': '高', 'params': {}, 'groupId': 1, 'userId': '116.103.2.11', 'groupName': 'DNS_TCP', 'groupOrder': '内网DNS', 'delFlag': '载荷投递' },
-        { 'searchValue': '53', 'createBy': '未处置', 'createTime': '2021-05-18 16:35:03', 'updateBy': '山西燃气厂', 'updateTime': '2021-05-18 16:35:32', 'remark': '高', 'params': {}, 'groupId': 2, 'userId': '116.103.2.11', 'groupName': 'DNS_TCP', 'groupOrder': '内网DNS', 'delFlag': '载荷投递' },
-        { 'searchValue': '53', 'createBy': '未处置', 'createTime': '2021-05-18 16:35:03', 'updateBy': '山西燃气厂', 'updateTime': '2021-05-18 16:35:32', 'remark': '高', 'params': {}, 'groupId': 3, 'userId': '116.103.2.11', 'groupName': 'DNS_TCP', 'groupOrder': '内网DNS', 'delFlag': '载荷投递' },
-        { 'searchValue': '53', 'createBy': '未处置', 'createTime': '2021-05-18 16:35:03', 'updateBy': '山西燃气厂', 'updateTime': '2021-05-18 16:35:32', 'remark': '高', 'params': {}, 'groupId': 4, 'userId': '116.103.2.11', 'groupName': 'DNS_TCP', 'groupOrder': '内网DNS', 'delFlag': '载荷投递' },
-        { 'searchValue': '53', 'createBy': '未处置', 'createTime': '2021-05-18 16:35:03', 'updateBy': '山西燃气厂', 'updateTime': '2021-05-18 16:35:32', 'remark': '高', 'params': {}, 'groupId': 5, 'userId': '116.103.2.11', 'groupName': 'DNS_TCP', 'groupOrder': '内网DNS', 'delFlag': '载荷投递' }],
+      groupList: [{ 'searchValue': '53', 'createBy': '未处置', 'createTime': '2021-05-18 16:35:03', 'updateBy': '山西三通燃气厂', 'updateTime': '2021-05-18 16:35:32', 'remark': '高', 'params': {}, 'groupId': 1, 'userId': '116.103.2.11', 'groupName': 'DNS_TCP', 'groupOrder': '内网DNS', 'delFlag': '载荷投递' },
+        { 'searchValue': '53', 'createBy': '未处置', 'createTime': '2021-05-18 16:35:03', 'updateBy': '北京城乡水厂', 'updateTime': '2021-05-18 16:35:32', 'remark': '高', 'params': {}, 'groupId': 2, 'userId': '116.103.2.11', 'groupName': 'DNS_TCP', 'groupOrder': '内网DNS', 'delFlag': '载荷投递' },
+        { 'searchValue': '53', 'createBy': '未处置', 'createTime': '2021-05-18 16:35:03', 'updateBy': '天津管片厂', 'updateTime': '2021-05-18 16:35:32', 'remark': '高', 'params': {}, 'groupId': 3, 'userId': '116.103.2.11', 'groupName': 'DNS_TCP', 'groupOrder': '内网DNS', 'delFlag': '载荷投递' },
+        { 'searchValue': '53', 'createBy': '未处置', 'createTime': '2021-05-18 16:35:03', 'updateBy': '珠海深中通道', 'updateTime': '2021-05-18 16:35:32', 'remark': '高', 'params': {}, 'groupId': 4, 'userId': '116.103.2.11', 'groupName': 'DNS_TCP', 'groupOrder': '内网DNS', 'delFlag': '载荷投递' },
+        { 'searchValue': '53', 'createBy': '未处置', 'createTime': '2021-05-18 16:35:03', 'updateBy': '三亚海投轨交', 'updateTime': '2021-05-18 16:35:32', 'remark': '高', 'params': {}, 'groupId': 5, 'userId': '116.103.2.11', 'groupName': 'DNS_TCP', 'groupOrder': '内网DNS', 'delFlag': '载荷投递' },
+        { 'searchValue': '53', 'createBy': '未处置', 'createTime': '2021-05-18 16:35:03', 'updateBy': '珠海深中通道', 'updateTime': '2021-05-18 16:35:32', 'remark': '高', 'params': {}, 'groupId': 4, 'userId': '116.103.2.11', 'groupName': 'DNS_TCP', 'groupOrder': '内网DNS', 'delFlag': '载荷投递' }
+      ],
+
       // 创建时间时间范围
       daterangeCreateTime: [],
       // 弹出层标题
@@ -258,7 +261,10 @@ export default {
       // 是否显示弹出层
       open: false,
       // 总条数
-      total: 0,
+      currentPage: 1, // 初始页
+      pagesize: 10, // 每页的数据
+      total: 0, // 总条数
+      newArry: [], // 循环数据
       // 查询参数
       queryParams: {
         pageNum: 1,
@@ -364,6 +370,27 @@ export default {
 
   },
   methods: {
+    handleSizeChange: function(size) {
+      this.pagesize = size
+      this.getResultsData()
+    },
+    handleCurrentChange: function(page) {
+      this.currentPage = page
+      this.getResultsData()
+    },
+    // 前端自己分页
+    getResultsData: function() {
+      // this指向改一下
+      var that = this
+      var list = that.groupList // 后端回来表格的数据
+      // 渲染的数据newArry赋值
+      this.newArry = list.filter(
+        (item, index) =>
+          index < that.currentPage * that.pagesize &&
+            index >= that.pagesize * (that.currentPage - 1)
+      ) // 根据页数显示相应的内容
+      this.total = list.length
+    },
     submitdata() {
       this.$refs['elForm'].validate(valid => {
         if (!valid) return
