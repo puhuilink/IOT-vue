@@ -1,11 +1,11 @@
 <template>
   <div class="app-container">
-    <echarts />
-    <eventTrend />
+    <echarts  @getaddress="uploadData"/>
+    <eventTrend :address="address" />
     <!-- <eventType :type="1" /> -->
-    <pieChartNesting />
-    <wordcloud />
-    <pieChartDisposal :tipname="'事件状态处置图'" />
+    <pieChartNesting :address="address"/>
+    <wordcloud :address="address" />
+    <pieChartDisposal :tipname="'事件状态处置图'" :address="address"/>
     <!-- <eventType :tipname="'事件状态处置图'" :type="2" /> -->
     <el-col :span="24">
       <tip> 最新主机安全事件 </tip>
@@ -44,7 +44,7 @@ export default {
   data() {
     return {
       policitalStatus: ["1"],
-
+      address: 1,
       groupList: [
         {
           searchValue: "2022-01-29 10:10:00",
@@ -109,7 +109,11 @@ export default {
   watch: {},
   created() {},
   mounted() {},
-  methods: {},
+   methods: {
+    uploadData(data) {
+      this.address = data.address;
+    },
+  },
 };
 </script>
 <style lang="scss" scoped>

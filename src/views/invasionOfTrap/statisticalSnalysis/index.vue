@@ -1,6 +1,6 @@
 <template>
   <div class="app-container">
-    <echarts />
+    <echarts @getaddress="uploadData" />
     <div>
       <el-row :gutter="30">
         <el-col :span="6">
@@ -29,12 +29,12 @@
         </el-col>
       </el-row>
     </div>
-    <assetsUnderAttack />
+    <assetsUnderAttack :address="address" />
     <!-- <eventTrend /> -->
-    <toDetectEvents />
+    <toDetectEvents :address="address" />
     <!-- <eventType :type="1" /> -->
-    <underAttackSandbox />
-    <eventLevelDistribution />
+    <underAttackSandbox :address="address" />
+    <eventLevelDistribution :address="address" />
     <!-- <eventType :tipname="'事件状态处置图'" :type="2" /> -->
   </div>
 </template>
@@ -61,13 +61,18 @@ export default {
   data() {
     return {
       policitalStatus: ["1"],
+      address: 1,
     };
   },
   computed: {},
   watch: {},
   created() {},
   mounted() {},
-  methods: {},
+  methods: {
+    uploadData(data) {
+      this.address = data.address;
+    },
+  },
 };
 </script>
 <style lang="scss" scoped>

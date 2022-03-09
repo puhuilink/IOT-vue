@@ -17,14 +17,31 @@ export default {
       default: "探测事件/入侵事件趋势",
       type: String,
     },
+    address: {
+      // 厂家内容
+      default: null,
+      type: Number,
+    },
   },
   data() {
     return {
       policitalStatus: ["1"],
+      barData: [],
+      category: [],
+      title: "",
     };
   },
   computed: {},
-  watch: {},
+  watch: {
+    address: {
+      handler(val, oldVal) {
+        if (val !== oldVal) {
+          this.drawPolicitalStatus();
+        }
+      },
+      deep: true,
+    },
+  },
   created() {},
   mounted() {
     this.drawPolicitalStatus();
@@ -32,6 +49,36 @@ export default {
   methods: {
     drawPolicitalStatus() {
       if (this.policitalStatus.length) {
+        switch (this.address) {
+          case 1:
+            (this.category = ["", 0, 0, 0, 0, 6, 10, 0]),
+              (this.barData = ["", 0, 0, 0, 0, 6, 2, 0]),
+              (this.title = "源IP");
+            break;
+          case 2:
+            (this.category = ["", 0, 0, 10, 0, 6, 11, 0]),
+              (this.barData = ["", 0, 0, 0, 0, 6, 9, 0]),
+              (this.title = "源IP");
+            break;
+          case 3:
+            (this.category = ["", 0, 0, 0, 0, 6, 12, 0]),
+              (this.barData = ["", 0, 0, 0, 0, 6, 17, 0]),
+              (this.title = "源IP");
+            break;
+          case 4:
+            (this.category = ["", 0, 0, 0, 0, 6, 13, 0]),
+              (this.barData = ["", 0, 0, 0, 0, 6, 18, 0]),
+              (this.title = "源IP");
+            break;
+          case 5:
+            (this.category = ["", 0, 0, 0, 0, 6, 14, 0]),
+              (this.barData = ["", 0, 0, 0, 0, 5, 19, 0]),
+              (this.title = "源IP");
+            break;
+          default:
+            console.log("无数据", this.type);
+            break;
+        }
         // 基于准备好的dom，初始化echarts实例
         const myChart = this.$echarts.init(this.$refs.canvas1);
 
@@ -121,7 +168,7 @@ export default {
               emphasis: {
                 focus: "series",
               },
-              data: ["", 0, 0, 0, 0, 6, 10, 0],
+              data: this.category,
             },
             {
               name: "入侵",
@@ -131,7 +178,7 @@ export default {
               emphasis: {
                 focus: "series",
               },
-              data: ["", 0, 0, 0, 0, 5, 4, 1],
+              data: this.barData,
             },
             // {
             //   name: "Search Engine",

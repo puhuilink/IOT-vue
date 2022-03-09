@@ -1,12 +1,12 @@
 <template>
   <div class="app-container">
-    <echarts />
-    <eventTrend />
-    <killChainPhaseStatistics />
+    <echarts @getaddress="uploadData" />
+    <eventTrend :address="address" />
+    <killChainPhaseStatistics :address="address"/>
     <!-- <eventType :type="1" /> -->
     <!-- <wordcloud /> -->
-    <pieChartThreats />
-    <killChainPhaseTrafficStatistics />
+    <pieChartThreats :address="address"/>
+    <killChainPhaseTrafficStatistics :address="address"/>
     <!-- <eventType :tipname="'事件状态处置图'" :type="2" /> -->
     <el-col :span="24">
       <tip> 最新威胁事件 </tip>
@@ -41,7 +41,7 @@ export default {
   data() {
     return {
       policitalStatus: ["1"],
-
+      address: 1,
       groupList: [
         {
           gjzIP: "192.168.28.8",
@@ -82,7 +82,11 @@ export default {
   watch: {},
   created() {},
   mounted() {},
-  methods: {},
+  methods: {
+    uploadData(data) {
+      this.address = data.address;
+    },
+  },
 };
 </script>
 <style lang="scss" scoped>
