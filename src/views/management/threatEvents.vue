@@ -118,7 +118,7 @@
         </el-row>
       </div>
     </el-card>
-    <el-table :data="groupList" tooltip-effect="light">
+    <el-table v-loading="loading" :data="groupList" tooltip-effect="light">
       <el-table-column type="selection" width="55" align="center" />
       <el-table-column label="事件名称" align="center" prop="eventName" :show-overflow-tooltip="true" />
       <el-table-column label="源IP" align="center" prop="sourceIp" :show-overflow-tooltip="true" />
@@ -236,7 +236,7 @@
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-row type="flex" justify="center">
-          <el-button size="small" type="primary" @click="submitForm">确 定</el-button>
+          <el-button size="small" type="primary" @click="submitForm">确 认</el-button>
           <el-button size="small" @click="cancel">取 消</el-button>
         </el-row>
       </div>
@@ -350,9 +350,11 @@ export default {
   },
   methods: {
     getCategoryList() {
+      this.loading = true
       listEvent(this.queryParams).then((response) => {
         this.groupList = response.rows
         this.total = response.total
+        this.loading = false
       })
     },
     /** 查询分组列表 */
