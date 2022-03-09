@@ -17,14 +17,31 @@ export default {
       default: "事件类型分布",
       type: String,
     },
+    address: {
+      // 厂家内容
+      default: null,
+      type: Number,
+    },
   },
   data() {
     return {
       policitalStatus: ["1"],
+      barData: [],
+      category: [],
+      title: "",
     };
   },
   computed: {},
-  watch: {},
+  watch: {
+    address: {
+      handler(val, oldVal) {
+        if (val !== oldVal) {
+          this.drawPolicitalStatus();
+        }
+      },
+      deep: true,
+    },
+  },
   created() {},
   mounted() {
     this.drawPolicitalStatus();
@@ -32,6 +49,86 @@ export default {
   methods: {
     drawPolicitalStatus() {
       if (this.policitalStatus.length) {
+        switch (this.address) {
+          case 1:
+            (this.category = [
+              { value: 600, name: "访问控制事件" },
+              { value: 600, name: "非法外联事件" },
+              { value: 800, name: "恶意文件事件", selected: true },
+            ]),
+              (this.barData = [
+                { value: 100, name: "强制访问控制事件" },
+                { value: 200, name: "文件保护事件" },
+                { value: 300, name: "注册表保护事件" },
+                { value: 600, name: "非法外联事件" },
+                { value: 800, name: "恶意文件事件" },
+              ]),
+              (this.title = "源IP");
+            break;
+          case 2:
+            (this.category = [
+              { value: 600, name: "访问控制事件" },
+              { value: 600, name: "非法外联事件" },
+              { value: 600, name: "恶意文件事件", selected: true },
+            ]),
+              (this.barData = [
+                { value: 100, name: "强制访问控制事件" },
+                { value: 200, name: "文件保护事件" },
+                { value: 300, name: "注册表保护事件" },
+                { value: 600, name: "非法外联事件" },
+                { value: 600, name: "恶意文件事件" },
+              ]),
+              (this.title = "源IP");
+            break;
+          case 3:
+            (this.category = [
+              { value: 600, name: "访问控制事件" },
+              { value: 600, name: "非法外联事件" },
+              { value: 600, name: "恶意文件事件", selected: true },
+            ]),
+              (this.barData = [
+                { value: 100, name: "强制访问控制事件" },
+                { value: 200, name: "文件保护事件" },
+                { value: 300, name: "注册表保护事件" },
+                { value: 600, name: "非法外联事件" },
+                { value: 600, name: "恶意文件事件" },
+              ]),
+              (this.title = "源IP");
+            break;
+          case 4:
+            (this.category = [
+              { value: 600, name: "访问控制事件" },
+              { value: 600, name: "非法外联事件" },
+              { value: 600, name: "恶意文件事件", selected: true },
+            ]),
+              (this.barData = [
+                { value: 100, name: "强制访问控制事件" },
+                { value: 200, name: "文件保护事件" },
+                { value: 300, name: "注册表保护事件" },
+                { value: 600, name: "非法外联事件" },
+                { value: 600, name: "恶意文件事件" },
+              ]),
+              (this.title = "源IP");
+            break;
+          case 5:
+            (this.category = [
+              { value: 600, name: "访问控制事件" },
+              { value: 600, name: "非法外联事件" },
+              { value: 600, name: "恶意文件事件", selected: true },
+            ]),
+              (this.barData = [
+                { value: 100, name: "强制访问控制事件" },
+                { value: 200, name: "文件保护事件" },
+                { value: 300, name: "注册表保护事件" },
+                { value: 600, name: "非法外联事件" },
+                { value: 600, name: "恶意文件事件" },
+              ]),
+              (this.title = "源IP");
+            break;
+          default:
+            console.log("无数据", this.type);
+            break;
+        }
         // 基于准备好的dom，初始化echarts实例
         const myChart = this.$echarts.init(this.$refs.canvas1);
 
@@ -69,11 +166,7 @@ export default {
               labelLine: {
                 show: false,
               },
-              data: [
-                { value: 600, name: "访问控制事件" },
-                { value: 600, name: "非法外联事件" },
-                { value: 600, name: "恶意文件事件", selected: true },
-              ],
+              data: this.category,
             },
             {
               name: "Access From",
@@ -114,13 +207,7 @@ export default {
                   },
                 },
               },
-              data: [
-                { value: 100, name: "强制访问控制事件" },
-                { value: 200, name: "文件保护事件" },
-                { value: 300, name: "注册表保护事件" },
-                { value: 600, name: "非法外联事件" },
-                { value: 600, name: "恶意文件事件" },
-              ],
+              data: this.barData,
             },
           ],
         });
