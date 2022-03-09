@@ -66,47 +66,47 @@ export default {
                 break
               case 2:
                 this.datacopy = [
-                  { value: 3948, name: '僵木蠕事件' },
-                  { value: 2514, name: '漏洞' },
-                  { value: 1699, name: '配置核查' },
+                  { value: 1248, name: '僵木蠕事件' },
+                  { value: 1414, name: '漏洞' },
+                  { value: 199, name: '配置核查' },
                   { value: 1023, name: '工业网络' },
-                  { value: 362, name: '诱捕防护' }
+                  { value: 522, name: '诱捕防护' }
                 ]
                 break
               case 3:
                 this.datacopy = [
-                  { value: 3948, name: '僵木蠕事件' },
+                  { value: 3148, name: '僵木蠕事件' },
                   { value: 2514, name: '漏洞' },
-                  { value: 1699, name: '配置核查' },
-                  { value: 1023, name: '工业网络' },
-                  { value: 362, name: '诱捕防护' }
+                  { value: 1179, name: '配置核查' },
+                  { value: 2023, name: '工业网络' },
+                  { value: 562, name: '诱捕防护' }
                 ]
                 break
               case 4:
                 this.datacopy = [
-                  { value: 3948, name: '僵木蠕事件' },
+                  { value: 3348, name: '僵木蠕事件' },
                   { value: 2514, name: '漏洞' },
-                  { value: 1699, name: '配置核查' },
-                  { value: 1023, name: '工业网络' },
-                  { value: 362, name: '诱捕防护' }
+                  { value: 2699, name: '配置核查' },
+                  { value: 623, name: '工业网络' },
+                  { value: 762, name: '诱捕防护' }
                 ]
                 break
               case 5:
                 this.datacopy = [
-                  { value: 3948, name: '僵木蠕事件' },
-                  { value: 2514, name: '漏洞' },
-                  { value: 1699, name: '配置核查' },
-                  { value: 1023, name: '工业网络' },
-                  { value: 362, name: '诱捕防护' }
+                  { value: 3142, name: '僵木蠕事件' },
+                  { value: 2114, name: '漏洞' },
+                  { value: 1499, name: '配置核查' },
+                  { value: 423, name: '工业网络' },
+                  { value: 1362, name: '诱捕防护' }
                 ]
                 break
               case 6:
                 this.datacopy = [
-                  { value: 3948, name: '僵木蠕事件' },
-                  { value: 2514, name: '漏洞' },
-                  { value: 1699, name: '配置核查' },
-                  { value: 1023, name: '工业网络' },
-                  { value: 362, name: '诱捕防护' }
+                  { value: 3148, name: '僵木蠕事件' },
+                  { value: 1614, name: '漏洞' },
+                  { value: 2699, name: '配置核查' },
+                  { value: 2023, name: '工业网络' },
+                  { value: 462, name: '诱捕防护' }
                 ]
                 break
               default:

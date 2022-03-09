@@ -1,4 +1,4 @@
-/******************************************************************************
+/** ****************************************************************************
  * 作者：kerwincui
  * 时间：2021-06-08
  * 邮箱：164770707@qq.com
@@ -10,6 +10,14 @@
  ******************************************************************************/
 import request from '@/utils/request'
 
+// 调试分页接口
+export function listEvent(query) {
+  return request({
+    url: '/m/event/list',
+    method: 'get',
+    params: query
+  })
+}
 // 查询设备分类列表
 export function listCategory(query) {
   return request({
