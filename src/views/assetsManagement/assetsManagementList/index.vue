@@ -96,75 +96,97 @@
         <el-button
           type="primary"
           size="mini"
-          :disabled="multiple"
           @click="handleDelete"
           v-hasPermi="['system:user:remove']"
           >删除</el-button
         >
       </el-col>
     </el-row>
-    <el-table v-loading="loading" :data="dataList" style="width: 100%">
-      <el-table-column label="资产编号" type="index" align="center">
-        <template slot-scope="scope">
-          <span>{{ scope.row.index }}</span>
-        </template>
-      </el-table-column>
-      <!-- <el-table-column
-        label=""
+    <el-table :data="groupList" tooltip-effect="light">
+      <el-table-column
+        label="资产编号"
+        type="index"
         align="center"
-        prop="tokenId"
-        :show-overflow-tooltip="true"
-      /> -->
+      />
       <el-table-column
         label="IP地址"
         align="center"
-        prop="userName"
+        prop="sourceIp"
         :show-overflow-tooltip="true"
-        width="120px"
       />
       <el-table-column
         label="资产名称"
         align="center"
-        prop="deptName"
+        prop="eventName"
         :show-overflow-tooltip="true"
       />
       <el-table-column
         label="资产类型"
         align="center"
-        prop="ipaddr"
+        prop="type"
         :show-overflow-tooltip="true"
       />
       <el-table-column
         label="运行状态"
         align="center"
-        prop="loginLocation"
+        prop="status"
         :show-overflow-tooltip="true"
-        width="60"
       />
-      <el-table-column label="风险状态" align="center" prop="fxzt" width="60" :show-overflow-tooltip="true"/>
-      <el-table-column label="事件等级" align="center" prop="os" width="60" :show-overflow-tooltip="true"/>
-      <el-table-column label="操作系统" align="center" prop="xt" width="80" :show-overflow-tooltip="true"/>
+      <el-table-column
+        label="风险状态"
+        align="center"
+        prop="status"
+        :show-overflow-tooltip="true"
+      />
+      <el-table-column
+        label="事件等级"
+        align="center"
+        prop="level"
+        :show-overflow-tooltip="true"
+      />
+      <el-table-column
+        label="操作系统"
+        align="center"
+        prop="equipment"
+        :show-overflow-tooltip="true"
+      />
 
       <el-table-column
         label="应用协议"
         align="center"
-        prop="yyxy"
+        prop="agreement"
         :show-overflow-tooltip="true"
       />
-      <el-table-column label="风险协议" align="center" prop="fxxy" :show-overflow-tooltip="true"/>
-      <el-table-column label="资产标签" align="center" prop="zcbq" :show-overflow-tooltip="true"/>
+      <el-table-column
+        label="风险协议"
+        align="center"
+        prop="agreement"
+        :show-overflow-tooltip="true"
+      />
+      <el-table-column
+        label="资产标签"
+        align="center"
+        prop="equipment"
+        :show-overflow-tooltip="true"
+      />
       <el-table-column
         label="区域"
         align="center"
-        prop="area"
+        prop="address"
         :show-overflow-tooltip="true"
       />
-      <el-table-column label="负责人" align="center" prop="fzr" />
-      <el-table-column label="最后活跃时间" align="center" prop="zhhysj" :show-overflow-tooltip="true">
-        <template slot-scope="scope">
-          <span>{{ scope.row.zhhysj }}</span>
-        </template>
-      </el-table-column>
+      <el-table-column
+        label="负责人"
+        align="center"
+        prop="eventName"
+        :show-overflow-tooltip="true"
+      />
+      <el-table-column
+        label="最后活跃时间"
+        align="center"
+        prop="endTime"
+        :show-overflow-tooltip="true"
+      />
       <el-table-column
         label="操作"
         align="center"
@@ -203,8 +225,9 @@
     <pagination
       v-show="total > 0"
       :total="total"
-      :page.sync="pageNum"
-      :limit.sync="pageSize"
+      :page.sync="queryParams.pageNum"
+      :limit.sync="queryParams.pageSize"
+      @pagination="getCategoryList"
     />
     <!-- 添加分组对话框 -->
     <el-dialog :title="title" :visible.sync="open" width="900px" append-to-body>
@@ -656,67 +679,59 @@
           </el-col>
         </el-row>
       </el-form>
-      <el-table
-        v-loading="loading"
-        :data="list.slice((pageNum - 1) * pageSize, pageNum * pageSize)"
-        style="width: 100%"
-      >
+      <el-table  :data="groupList" style="width: 100%">
         <el-table-column
           label="事件名称"
           align="center"
-          prop="tokenId"
+          prop="eventName"
           :show-overflow-tooltip="true"
         />
         <el-table-column
           label="源IP"
           align="center"
-          prop="userName"
+          prop="sourceIp"
           :show-overflow-tooltip="true"
         />
         <el-table-column
           label="目的IP"
           align="center"
-          prop="ipaddr"
+          prop="destinationIp"
           :show-overflow-tooltip="true"
         />
         <el-table-column
           label="协议"
           align="center"
-          prop="loginLocation"
+          prop="agreement"
           :show-overflow-tooltip="true"
           width="60"
         />
         <el-table-column
           label="事件等级"
           align="center"
-          prop="browser"
+          prop="level"
           width="60"
         />
         <el-table-column label="事件类型" align="center" prop="os" width="60" />
         <el-table-column
           label="处置状态"
           align="center"
-          prop="loginTime"
+          prop="status"
           width="80"
-        >
-          <template slot-scope="scope">
-            <span>{{ parseTime(scope.row.loginTime) }}</span>
-          </template>
-        </el-table-column>
+        />
         <el-table-column
           label="事件开始时间"
           align="center"
-          prop="loginLocation"
+          prop="startTime"
           :show-overflow-tooltip="true"
         />
-        <el-table-column label="事件结束时间" align="center" prop="browser" />
+        <el-table-column label="事件结束时间" align="center" prop="startTime" />
         <el-table-column
           label="区域"
           align="center"
-          prop="loginLocation"
+          prop="address"
           :show-overflow-tooltip="true"
         />
-        <el-table-column label="上报设备" align="center" prop="browser" />
+        <el-table-column label="上报设备" align="center" prop="equipment" />
       </el-table>
 
       <div slot="footer" class="dialog-footer">
@@ -732,12 +747,13 @@
 </template>
 
 <script>
-import { list, forceLogout } from "@/api/monitor/online";
+import { listEvent } from "@/api/system/category";
 
 export default {
   name: "Online",
   data() {
     return {
+      title: "",
       // 是否显示新增弹出层
       open: false,
       exportDialog: false,
@@ -921,12 +937,17 @@ export default {
           zhhysj: "2022-01-29 10:10:00",
         },
       ],
+      // 分组表格数据
+      groupList: [],
       pageNum: 1,
       pageSize: 10,
       // 查询参数
       queryParams: {
-        ipaddr: undefined,
-        userName: undefined,
+        pageNum: 1,
+        pageSize: 10,
+        userId: null,
+        groupName: null,
+        createTime: null,
       },
       formData: {
         level: "",
@@ -982,16 +1003,14 @@ export default {
     };
   },
   created() {
-    this.getList();
+    this.getCategoryList();
   },
   methods: {
     /** 查询登录日志列表 */
-    getList() {
-      this.loading = true;
-      list(this.queryParams).then((response) => {
-        this.list = response.rows;
+    getCategoryList() {
+      listEvent(this.queryParams).then((response) => {
+        this.groupList = response.rows;
         this.total = response.total;
-        this.loading = false;
       });
     },
     /** 搜索按钮操作 */

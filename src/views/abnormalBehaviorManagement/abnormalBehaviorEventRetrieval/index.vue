@@ -140,18 +140,63 @@
       <el-button type="primary" @click="submitdata" class="export"
         >导出</el-button
       >
-      <el-table v-loading="loading" :data="groupListData">
+      <el-table :data="groupList" tooltip-effect="light">
         <el-table-column type="selection" width="55" align="center" />
-        <el-table-column label="攻击者IP" align="center" prop="sgjIP" />
-        <el-table-column label="受害者IP" align="center" prop="shzIP" />
-        <el-table-column label="事件名称" align="center" prop="eventName" />
-        <el-table-column label="事件类型" align="center" prop="eventType" />
-        <el-table-column label="事件等级" align="center" prop="eventLevel" />
-        <el-table-column label="杀伤链阶段" align="center" prop="ssljd" />
-        <el-table-column label="处置状态" align="center" prop="czzt" />
+        <el-table-column
+          label="攻击者IP"
+          align="center"
+          prop="sourceIp"
+          :show-overflow-tooltip="true"
+        />
+        <el-table-column
+          label="受害者IP"
+          align="center"
+          prop="destinationIp"
+          :show-overflow-tooltip="true"
+        />
+        <el-table-column
+          label="事件名称"
+          align="center"
+          prop="eventName"
+          :show-overflow-tooltip="true"
+        />
+        <el-table-column
+          label="事件类型"
+          align="center"
+          prop="type"
+          :show-overflow-tooltip="true"
+        />
+        <el-table-column
+          label="事件等级"
+          align="center"
+          prop="level"
+          :show-overflow-tooltip="true"
+        />
+        <el-table-column
+          label="杀伤链阶段"
+          align="center"
+          prop="equipment"
+          :show-overflow-tooltip="true"
+        />
+        <el-table-column
+          label="处置状态"
+          align="center"
+          prop="level"
+          :show-overflow-tooltip="true"
+        />
         <el-table-column label="发生时间" align="center" prop="happenTime" />
-        <el-table-column label="发现时间" align="center" prop="discoverTime" />
-        <el-table-column label="区域" align="center" prop="area" />
+        <el-table-column
+          label="发现时间"
+          align="center"
+          prop="endTime"
+          :show-overflow-tooltip="true"
+        />
+        <el-table-column
+          label="区域"
+          align="center"
+          prop="address"
+          :show-overflow-tooltip="true"
+        />
         <el-table-column
           label="操作"
           align="center"
@@ -175,15 +220,14 @@
           </template>
         </el-table-column>
       </el-table>
-      <pagination
-        v-show="total > 0"
-        :total="total"
-        :page.sync="queryParams.pageNum"
-        :limit.sync="queryParams.pageSize"
-        @pagination="getList"
-      />
     </el-card>
-
+    <pagination
+      v-show="total > 0"
+      :total="total"
+      :page.sync="queryParams.pageNum"
+      :limit.sync="queryParams.pageSize"
+      @pagination="getCategoryList"
+    />
     <!-- 添加或修改分组对话框 -->
     <el-dialog :title="title" :visible.sync="open" width="900px" append-to-body>
       <el-form ref="form" label-width="95px" label-position="left">
@@ -283,7 +327,7 @@
   </div>
 </template>
 <script>
-import { listGroup } from "@/api/system/group";
+import { listEvent } from "@/api/system/category";
 export default {
   components: {},
   props: [],
@@ -370,6 +414,7 @@ export default {
           area: "山西燃气厂",
         },
       ],
+      groupList: [],
       // 创建时间时间范围
       daterangeCreateTime: [],
       // 弹出层标题
@@ -459,17 +504,14 @@ export default {
     };
   },
   created() {
-    this.getList();
+    this.getCategoryList();
   },
   methods: {
     /** 查询分组列表 */
-    getList() {
-      this.loading = true;
-      this.queryParams.params = {};
-      listGroup(this.queryParams).then((response) => {
+    getCategoryList() {
+      listEvent(this.queryParams).then((response) => {
         this.groupList = response.rows;
         this.total = response.total;
-        this.loading = false;
       });
     },
     submitdata() {

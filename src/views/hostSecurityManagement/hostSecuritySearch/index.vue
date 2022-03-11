@@ -145,19 +145,74 @@
           >导出</el-button
         >
       </el-row>
-      <el-table v-loading="loading" :data="groupListData">
+      <el-table :data="groupList" tooltip-effect="light">
         <el-table-column type="selection" width="55" align="center" />
-        <el-table-column label="接收时间" align="center" prop="searchValue" />
-        <el-table-column label="事件名称" align="center" prop="createBy" />
-        <el-table-column label="事件等级" align="center" prop="createTime" />
-        <el-table-column label="事件类型" align="center" prop="remark" />
-        <el-table-column label="操作系统" align="center" prop="updateTime" />
-        <el-table-column label="客户端名称" align="center" prop="khdmc" />
-        <el-table-column label="客户端IP" align="center" prop="groupName" />
-        <el-table-column label="产生时间" align="center" prop="groupId" />
-        <el-table-column label="日志描述" align="center" prop="groupName" />
-        <el-table-column label="处置状态" align="center" prop="czzt" />
-        <el-table-column label="区域" align="center" prop="delFlag" />
+        <el-table-column
+          label="接收时间"
+          align="center"
+          prop="startTime"
+          :show-overflow-tooltip="true"
+        />
+        <el-table-column
+          label="事件名称"
+          align="center"
+          prop="eventName"
+          :show-overflow-tooltip="true"
+        />
+        <el-table-column
+          label="事件等级"
+          align="center"
+          prop="level"
+          :show-overflow-tooltip="true"
+        />
+        <el-table-column
+          label="事件类型"
+          align="center"
+          prop="type"
+          :show-overflow-tooltip="true"
+        />
+        <el-table-column
+          label="操作系统"
+          align="center"
+          prop="equipment"
+          :show-overflow-tooltip="true"
+        />
+        <el-table-column
+          label="客户端名称"
+          align="center"
+          prop="equipment"
+          :show-overflow-tooltip="true"
+        />
+        <el-table-column
+          label="客户端IP"
+          align="center"
+          prop="sourceIp"
+          :show-overflow-tooltip="true"
+        />
+        <el-table-column
+          label="产生时间"
+          align="center"
+          prop="endTime"
+          :show-overflow-tooltip="true"
+        />
+        <el-table-column
+          label="日志描述"
+          align="center"
+          prop="type"
+          :show-overflow-tooltip="true"
+        />
+        <el-table-column
+          label="处置状态"
+          align="center"
+          prop="status"
+          :show-overflow-tooltip="true"
+        />
+        <el-table-column
+          label="区域"
+          align="center"
+          prop="address"
+          :show-overflow-tooltip="true"
+        />
         <el-table-column
           label="操作"
           align="center"
@@ -188,7 +243,7 @@
       :total="total"
       :page.sync="queryParams.pageNum"
       :limit.sync="queryParams.pageSize"
-      @pagination="getList"
+      @pagination="getCategoryList"
     />
     <!-- 添加或修改分组对话框 -->
     <el-dialog :title="title" :visible.sync="open" width="900px" append-to-body>
@@ -313,7 +368,7 @@
   </div>
 </template>
 <script>
-import { listGroup } from "@/api/system/group";
+import { listEvent } from "@/api/system/category";
 export default {
   components: {},
   props: [],
@@ -438,6 +493,8 @@ export default {
           delFlag: "山西三通燃气厂",
         },
       ],
+      // 分组表格数据
+      groupList: [],
       // 创建时间时间范围
       daterangeCreateTime: [],
       // 弹出层标题
@@ -527,17 +584,14 @@ export default {
     };
   },
   created() {
-    this.getList();
+    this.getCategoryList();
   },
   methods: {
     /** 查询分组列表 */
-    getList() {
-      this.loading = true;
-      this.queryParams.params = {};
-      listGroup(this.queryParams).then((response) => {
+    getCategoryList() {
+      listEvent(this.queryParams).then((response) => {
         this.groupList = response.rows;
         this.total = response.total;
-        this.loading = false;
       });
     },
     submitdata() {
