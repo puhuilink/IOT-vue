@@ -128,17 +128,17 @@
     </el-card>
     <el-table :data="groupList" tooltip-effect="light">
       <el-table-column type="selection" width="55" align="center" />
-      <el-table-column label="通报编号" align="center" prop="groupId" min-width="10%" />
-      <el-table-column label="通报名称" align="center" prop="userId" :show-overflow-tooltip="true" min-width="10%" />
-      <el-table-column label="上报时间" align="center" prop="remark" :show-overflow-tooltip="true" min-width="10%" />
-      <el-table-column label="事件类型" align="center" prop="groupOrder" min-width="10%" />
-      <el-table-column label="事件名称" align="center" prop="searchValue" min-width="10%" />
-      <el-table-column label="优先级" align="center" prop="createTime" min-width="8%" />
-      <el-table-column label="通报状态" align="center" prop="delFlag" min-width="10%" />
-      <el-table-column label="创建人" align="center" prop="updateBy" min-width="8%" />
-      <el-table-column label="最近更新时间" align="center" prop="createBy" min-width="15%" :show-overflow-tooltip="true" />
-      <el-table-column label="创建时间" align="center" prop="updateTime" min-width="10%" :show-overflow-tooltip="true" />
-      <el-table-column label="备注" align="center" prop="groupName" min-width="10%" />
+      <el-table-column label="通报编号" type="index" min-width="10%" />
+      <el-table-column label="通报名称" align="center" prop="notifiedName" :show-overflow-tooltip="true" min-width="10%" />
+      <el-table-column label="上报时间" align="center" prop="createTime" :show-overflow-tooltip="true" min-width="10%" />
+      <el-table-column label="事件类型" align="center" prop="type" min-width="10%" />
+      <el-table-column label="事件名称" align="center" prop="name" min-width="10%" />
+      <el-table-column label="优先级" align="center" prop="level" min-width="8%" />
+      <el-table-column label="通报状态" align="center" prop="state" min-width="10%" />
+      <el-table-column label="创建人" align="center" prop="creator" min-width="8%" />
+      <el-table-column label="最近更新时间" align="center" prop="updateTime" min-width="15%" :show-overflow-tooltip="true" />
+      <el-table-column label="创建时间" align="center" prop="createTime" min-width="10%" :show-overflow-tooltip="true" />
+      <el-table-column label="备注" align="center" prop="remark" min-width="10%" />
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width" min-width="22%">
         <template>
           <el-button
@@ -177,6 +177,7 @@
       :total="total"
       :page.sync="queryParams.pageNum"
       :limit.sync="queryParams.pageSize"
+      @pagination="getCategoryList"
     />
     <!-- 添加或修改分组对话框 -->
     <el-dialog :title="title" :visible.sync="open" width="500px" append-to-body>
@@ -347,6 +348,7 @@
   </div>
 </template>
 <script>
+import { notificationList } from '@/api/system/list'
 export default {
   components: {},
   props: [],
@@ -368,11 +370,7 @@ export default {
       },
       fileList: [],
       // 分组表格数据
-      groupList: [{ 'searchValue': '僵木蠕事件', 'createBy': '2021-12-26 08:00:00', 'createTime': '极高', 'updateBy': '管理员', 'updateTime': '2021-12-25 08:00:00', 'remark': '2021-12-25 09:00:00', 'params': {}, 'groupId': '1', 'userId': '僵木蠕通报', 'groupName': '--', 'groupOrder': '僵木蠕', 'delFlag': '未通报' },
-        { 'searchValue': '僵木蠕事件', 'createBy': '2021-12-26 08:00:00', 'createTime': '极高', 'updateBy': '管理员', 'updateTime': '2021-12-25 08:00:00', 'remark': '2021-12-25 09:00:00', 'params': {}, 'groupId': '1', 'userId': '僵木蠕通报', 'groupName': '--', 'groupOrder': '僵木蠕', 'delFlag': '未通报' },
-        { 'searchValue': '僵木蠕事件', 'createBy': '2021-12-26 08:00:00', 'createTime': '极高', 'updateBy': '管理员', 'updateTime': '2021-12-25 08:00:00', 'remark': '2021-12-25 09:00:00', 'params': {}, 'groupId': '1', 'userId': '僵木蠕通报', 'groupName': '--', 'groupOrder': '僵木蠕', 'delFlag': '未通报' },
-        { 'searchValue': '僵木蠕事件', 'createBy': '2021-12-26 08:00:00', 'createTime': '极高', 'updateBy': '管理员', 'updateTime': '2021-12-25 08:00:00', 'remark': '2021-12-25 09:00:00', 'params': {}, 'groupId': '1', 'userId': '僵木蠕通报', 'groupName': '--', 'groupOrder': '僵木蠕', 'delFlag': '未通报' },
-        { 'searchValue': '僵木蠕事件', 'createBy': '2021-12-26 08:00:00', 'createTime': '极高', 'updateBy': '管理员', 'updateTime': '2021-12-25 08:00:00', 'remark': '2021-12-25 09:00:00', 'params': {}, 'groupId': '1', 'userId': '僵木蠕通报', 'groupName': '--', 'groupOrder': '僵木蠕', 'delFlag': '未通报' }],
+      groupList: [],
       // 创建时间时间范围
       daterangeCreateTime: [],
       // 弹出层标题
@@ -521,8 +519,17 @@ export default {
     }
   },
   created() {
+    this.getCategoryList()
   },
   methods: {
+    getCategoryList() {
+      this.loading = true
+      notificationList(this.queryParams).then((response) => {
+        this.groupList = response.rows
+        this.total = response.total
+        this.loading = false
+      })
+    },
     /** 查询分组列表 */
     submitdata() {
       this.$refs['elForm'].validate(valid => {
