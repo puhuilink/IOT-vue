@@ -28,15 +28,50 @@
       </div>
     </el-card>
     <el-card>
-      <el-table v-loading="loading" :data="groupListData">
+      <el-table :data="groupList" tooltip-effect="light">
         <el-table-column type="selection" width="55" align="center" />
-        <el-table-column label="IOC" align="center" prop="IOC" />
-        <el-table-column label="情报来源名称" align="center" prop="qblymc" />
-        <el-table-column label="威胁类型" align="center" prop="wxlx" />
-        <el-table-column label="威胁级别" align="center" prop="wxjb" />
-        <el-table-column label="置信度" align="center" prop="zxd" />
-        <el-table-column label="情报源添加时间" align="center" prop="qbytjsj" />
-        <el-table-column label="情报源权重" align="center" prop="qybqz" />
+        <el-table-column
+          label="IOC"
+          align="center"
+          prop="eventName"
+          :show-overflow-tooltip="true"
+        />
+        <el-table-column
+          label="情报来源名称"
+          align="center"
+          prop="sourceIp"
+          :show-overflow-tooltip="true"
+        />
+        <el-table-column
+          label="威胁类型"
+          align="center"
+          prop="type"
+          :show-overflow-tooltip="true"
+        />
+        <el-table-column
+          label="威胁级别"
+          align="center"
+          prop="level"
+          :show-overflow-tooltip="true"
+        />
+        <el-table-column
+          label="置信度"
+          align="center"
+          prop="status"
+          :show-overflow-tooltip="true"
+        />
+        <el-table-column
+          label="情报源添加时间"
+          align="center"
+          prop="startTime"
+          :show-overflow-tooltip="true"
+        />
+        <el-table-column
+          label="情报源权重"
+          align="center"
+          prop="agreement"
+          :show-overflow-tooltip="true"
+        />
         <el-table-column
           label="操作"
           align="center"
@@ -67,7 +102,7 @@
       :total="total"
       :page.sync="queryParams.pageNum"
       :limit.sync="queryParams.pageSize"
-      @pagination="getList"
+      @pagination="getCategoryList"
     />
     <!-- 添加或修改分组对话框 -->
     <el-dialog :title="title" :visible.sync="open" width="900px" append-to-body>
@@ -202,7 +237,7 @@
   </div>
 </template>
 <script>
-import { listGroup } from "@/api/system/group";
+import { listEvent } from "@/api/system/category";
 export default {
   components: {},
   props: [],
@@ -274,6 +309,8 @@ export default {
           qybqz: "7",
         },
       ],
+      // 分组表格数据
+      groupList: [],
       // 创建时间时间范围
       daterangeCreateTime: [],
       // 弹出层标题
@@ -363,17 +400,14 @@ export default {
     };
   },
   created() {
-    this.getList();
+    this.getCategoryList();
   },
   methods: {
     /** 查询分组列表 */
-    getList() {
-      this.loading = true;
-      this.queryParams.params = {};
-      listGroup(this.queryParams).then((response) => {
+    getCategoryList() {
+      listEvent(this.queryParams).then((response) => {
         this.groupList = response.rows;
         this.total = response.total;
-        this.loading = false;
       });
     },
     submitdata() {

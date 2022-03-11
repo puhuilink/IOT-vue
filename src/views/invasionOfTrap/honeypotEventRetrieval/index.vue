@@ -118,24 +118,56 @@
       <el-button type="primary" @click="submitdata" class="export"
         >导出</el-button
       >
-      <el-table v-loading="loading" :data="groupListData">
+      <el-table :data="groupList" tooltip-effect="light">
         <el-table-column type="selection" width="55" align="center" />
-        <el-table-column label="攻击者" align="center" prop="gjz" />
-        <el-table-column label="攻击目标" align="center" prop="gjmb" />
-        <el-table-column label="隔离沙箱" align="center" prop="glsx" />
+        <el-table-column
+          label="攻击者"
+          align="center"
+          prop="sourceIp"
+          :show-overflow-tooltip="true"
+        />
+        <el-table-column
+          label="攻击目标"
+          align="center"
+          prop="sourceIp"
+          :show-overflow-tooltip="true"
+        />
+        <el-table-column
+          label="隔离沙箱"
+          align="center"
+          prop="eventName"
+          :show-overflow-tooltip="true"
+        />
         <el-table-column
           label="开始攻击时间"
           align="center"
-          prop="attackTime"
+          prop="startTime"
+          :show-overflow-tooltip="true"
         />
         <el-table-column
           label="最后攻击时间"
           align="center"
-          prop="createTime"
+          prop="endTime"
+          :show-overflow-tooltip="true"
         />
-        <el-table-column label="事件等级" align="center" prop="level" />
-        <el-table-column label="处置状态" align="center" prop="status" />
-        <el-table-column label="区域" align="center" prop="area" />
+        <el-table-column
+          label="事件等级"
+          align="center"
+          prop="level"
+          :show-overflow-tooltip="true"
+        />
+        <el-table-column
+          label="处置状态"
+          align="center"
+          prop="status"
+          :show-overflow-tooltip="true"
+        />
+        <el-table-column
+          label="区域"
+          align="center"
+          prop="address"
+          :show-overflow-tooltip="true"
+        />
         <el-table-column
           label="操作"
           align="center"
@@ -164,7 +196,7 @@
         :total="total"
         :page.sync="queryParams.pageNum"
         :limit.sync="queryParams.pageSize"
-        @pagination="getList"
+        @pagination="getCategoryList"
       />
     </el-card>
 
@@ -232,7 +264,8 @@
   </div>
 </template>
 <script>
-import { listGroup } from "@/api/system/group";
+// import { listGroup } from "@/api/system/group";
+import { listEvent } from "@/api/system/category";
 export default {
   components: {},
   props: [],
@@ -309,6 +342,8 @@ export default {
           area: "山西燃气厂",
         },
       ],
+      // 分组表格数据
+      groupList: [],
       // 创建时间时间范围
       daterangeCreateTime: [],
       // 弹出层标题
@@ -398,17 +433,14 @@ export default {
     };
   },
   created() {
-    this.getList();
+    this.getCategoryList();
   },
   methods: {
     /** 查询分组列表 */
-    getList() {
-      this.loading = true;
-      this.queryParams.params = {};
-      listGroup(this.queryParams).then((response) => {
+     getCategoryList() {
+      listEvent(this.queryParams).then((response) => {
         this.groupList = response.rows;
         this.total = response.total;
-        this.loading = false;
       });
     },
     submitdata() {
