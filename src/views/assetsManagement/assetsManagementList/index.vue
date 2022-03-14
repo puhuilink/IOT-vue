@@ -1,8 +1,8 @@
 <template>
   <div class="app-container">
     <el-form
-      :model="queryParams"
       ref="queryForm"
+      :model="queryParams"
       :inline="true"
       label-width="68px"
     >
@@ -66,40 +66,38 @@
           icon="el-icon-search"
           size="mini"
           @click="handleQuery"
-          >搜索</el-button
-        >
-        <el-button icon="el-icon-refresh" size="mini" @click="resetQuery"
-          >重置</el-button
-        >
+        >搜索</el-button>
+        <el-button
+          icon="el-icon-refresh"
+          size="mini"
+          @click="resetQuery"
+        >重置</el-button>
       </el-form-item>
     </el-form>
     <el-row :gutter="10" class="mb8">
       <el-col :span="1.5">
         <el-button
+          v-hasPermi="['system:user:export']"
           type="primary"
           size="mini"
           @click="handleExport"
-          v-hasPermi="['system:user:export']"
-          >导出</el-button
-        >
+        >导出</el-button>
       </el-col>
       <el-col :span="1.5">
         <el-button
+          v-hasPermi="['system:user:add']"
           type="primary"
           size="mini"
           @click="handleAdd"
-          v-hasPermi="['system:user:add']"
-          >添加</el-button
-        >
+        >添加</el-button>
       </el-col>
       <el-col :span="1.5">
         <el-button
+          v-hasPermi="['system:user:remove']"
           type="primary"
           size="mini"
           @click="handleDelete"
-          v-hasPermi="['system:user:remove']"
-          >删除</el-button
-        >
+        >删除</el-button>
       </el-col>
     </el-row>
     <el-table :data="groupList" tooltip-effect="light">
@@ -111,31 +109,31 @@
       <el-table-column
         label="IP地址"
         align="center"
-        prop="sourceIp"
+        prop="ip"
         :show-overflow-tooltip="true"
       />
       <el-table-column
         label="资产名称"
         align="center"
-        prop="eventName"
+        prop="assetName"
         :show-overflow-tooltip="true"
       />
       <el-table-column
         label="资产类型"
         align="center"
-        prop="type"
+        prop="assetType"
         :show-overflow-tooltip="true"
       />
       <el-table-column
         label="运行状态"
         align="center"
-        prop="status"
+        prop="runState"
         :show-overflow-tooltip="true"
       />
       <el-table-column
         label="风险状态"
         align="center"
-        prop="status"
+        prop="riskState"
         :show-overflow-tooltip="true"
       />
       <el-table-column
@@ -147,38 +145,38 @@
       <el-table-column
         label="操作系统"
         align="center"
-        prop="equipment"
+        prop="os"
         :show-overflow-tooltip="true"
       />
 
       <el-table-column
         label="应用协议"
         align="center"
-        prop="agreement"
+        prop="appProtocol"
         :show-overflow-tooltip="true"
       />
       <el-table-column
         label="风险协议"
         align="center"
-        prop="agreement"
+        prop="riskProtocol"
         :show-overflow-tooltip="true"
       />
       <el-table-column
         label="资产标签"
         align="center"
-        prop="equipment"
+        prop="assetLabel"
         :show-overflow-tooltip="true"
       />
       <el-table-column
         label="区域"
         align="center"
-        prop="address"
+        prop="region"
         :show-overflow-tooltip="true"
       />
       <el-table-column
         label="负责人"
         align="center"
-        prop="eventName"
+        prop="leader"
         :show-overflow-tooltip="true"
       />
       <el-table-column
@@ -200,24 +198,21 @@
             type="text"
             icon="el-icon-view"
             @click="detail"
-            >详情</el-button
-          >
+          >详情</el-button>
           <el-button
             v-hasPermi="['monitor:online:forceLogout']"
             size="mini"
             type="text"
             icon="el-icon-s-tools"
             @click="configuration"
-            >配置</el-button
-          >
+          >配置</el-button>
           <el-button
             v-hasPermi="['monitor:online:forceLogout']"
             size="mini"
             type="text"
             icon="el-icon-edit"
             @click="edit"
-            >修改</el-button
-          >
+          >修改</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -227,13 +222,13 @@
       :total="total"
       :page.sync="queryParams.pageNum"
       :limit.sync="queryParams.pageSize"
-      @pagination="getCategoryList"
+      @pagination="getList"
     />
     <!-- 添加分组对话框 -->
     <el-dialog :title="title" :visible.sync="open" width="900px" append-to-body>
       <el-form
-        :model="queryParams"
         ref="queryForm"
+        :model="queryParams"
         :inline="true"
         label-width="300px"
       >
@@ -316,9 +311,11 @@
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-row type="flex" justify="center">
-          <el-button size="small" type="primary" @click="submitForm"
-            >保 存</el-button
-          >
+          <el-button
+            size="small"
+            type="primary"
+            @click="submitForm"
+          >保 存</el-button>
           <el-button size="small" @click="cancel">取 消</el-button>
         </el-row>
       </div>
@@ -331,8 +328,8 @@
       append-to-body
     >
       <el-form
-        :model="queryParams"
         ref="queryForm"
+        :model="queryParams"
         :inline="true"
         label-width="300px"
       >
@@ -348,9 +345,11 @@
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-row type="flex" justify="center">
-          <el-button size="small" type="primary" @click="submitForm"
-            >导 入</el-button
-          >
+          <el-button
+            size="small"
+            type="primary"
+            @click="submitForm"
+          >导 入</el-button>
           <el-button size="small" @click="cancel">取 消</el-button>
         </el-row>
       </div>
@@ -363,8 +362,8 @@
       append-to-body
     >
       <el-form
-        :model="queryParams"
         ref="queryForm"
+        :model="queryParams"
         :inline="true"
         label-width="300px"
       >
@@ -447,9 +446,11 @@
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-row type="flex" justify="center">
-          <el-button size="small" type="primary" @click="submitForm"
-            >保 存</el-button
-          >
+          <el-button
+            size="small"
+            type="primary"
+            @click="submitForm"
+          >保 存</el-button>
           <el-button size="small" @click="cancel">取 消</el-button>
         </el-row>
       </div>
@@ -462,8 +463,8 @@
       append-to-body
     >
       <el-form
-        :model="queryParams"
         ref="queryForm"
+        :model="queryParams"
         :inline="true"
         label-width="300px"
       >
@@ -535,9 +536,11 @@
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-row type="flex" justify="center">
-          <el-button size="small" type="primary" @click="submitForm"
-            >保 存</el-button
-          >
+          <el-button
+            size="small"
+            type="primary"
+            @click="submitForm"
+          >保 存</el-button>
           <el-button size="small" @click="cancel">取 消</el-button>
         </el-row>
       </div>
@@ -679,7 +682,7 @@
           </el-col>
         </el-row>
       </el-form>
-      <el-table  :data="groupList" style="width: 100%">
+      <el-table :data="groupList" style="width: 100%">
         <el-table-column
           label="事件名称"
           align="center"
@@ -736,9 +739,11 @@
 
       <div slot="footer" class="dialog-footer">
         <el-row type="flex" justify="center">
-          <el-button size="small" type="primary" @click="submitForm"
-            >保 存</el-button
-          >
+          <el-button
+            size="small"
+            type="primary"
+            @click="submitForm"
+          >保 存</el-button>
           <el-button size="small" @click="cancel">取 消</el-button>
         </el-row>
       </div>
@@ -747,13 +752,13 @@
 </template>
 
 <script>
-import { listEvent } from "@/api/system/category";
-
+// import { listEvent } from '@/api/system/category'
+import { assetList } from '@/api/system/list'
 export default {
-  name: "Online",
+  name: 'Online',
   data() {
     return {
-      title: "",
+      title: '',
       // 是否显示新增弹出层
       open: false,
       exportDialog: false,
@@ -761,181 +766,181 @@ export default {
       configurationDialog: false,
       detailDialog: false,
       // 遮罩层
-      loading: true,
+      loading: false,
       // 总条数
       total: 0,
       // 表格数据
       dataList: [
         {
           index: 1,
-          userName: "10.255.52.84",
-          deptName: "长亭WAF",
-          ipaddr: "安全设备-web应用防火墙",
-          loginLocation: "在线",
-          fxzt: "正常",
-          os: "极低",
-          xt: "Linux",
-          yyxy: "--",
-          fxxy: "--",
+          userName: '10.255.52.84',
+          deptName: '长亭WAF',
+          ipaddr: '安全设备-web应用防火墙',
+          loginLocation: '在线',
+          fxzt: '正常',
+          os: '极低',
+          xt: 'Linux',
+          yyxy: '--',
+          fxxy: '--',
           // browser: "--",
-          zcbq: "--",
-          area: "山西三通燃气厂",
-          fzr: "张三",
-          zhhysj: "2022-01-29 10:10:00",
+          zcbq: '--',
+          area: '山西三通燃气厂',
+          fzr: '张三',
+          zhhysj: '2022-01-29 10:10:00'
         },
         {
           index: 2,
-          userName: "10.255.52.67",
-          deptName: "4AOIM",
-          ipaddr: "服务器-虚拟机",
-          loginLocation: "在线",
-          fxzt: "低危",
-          os: "低",
-          xt: "CentOS7.6",
-          yyxy: "--",
-          fxxy: "--",
+          userName: '10.255.52.67',
+          deptName: '4AOIM',
+          ipaddr: '服务器-虚拟机',
+          loginLocation: '在线',
+          fxzt: '低危',
+          os: '低',
+          xt: 'CentOS7.6',
+          yyxy: '--',
+          fxxy: '--',
           // browser: "--",
-          zcbq: "--",
-          area: "天津管片厂",
-          fzr: "张三",
-          zhhysj: "2022-01-29 10:10:00",
+          zcbq: '--',
+          area: '天津管片厂',
+          fzr: '张三',
+          zhhysj: '2022-01-29 10:10:00'
         },
         {
           index: 3,
-          userName: "10.255.52.27",
-          deptName: "4A流量监控管理系统",
-          ipaddr: "服务器-服务器",
-          loginLocation: "在线",
-          fxzt: "中危",
-          os: "中",
-          xt: "Linux2.6x",
-          yyxy: "--",
-          fxxy: "--",
+          userName: '10.255.52.27',
+          deptName: '4A流量监控管理系统',
+          ipaddr: '服务器-服务器',
+          loginLocation: '在线',
+          fxzt: '中危',
+          os: '中',
+          xt: 'Linux2.6x',
+          yyxy: '--',
+          fxxy: '--',
           // browser: "--",
-          zcbq: "--",
-          area: "北京城乡水厂",
-          fzr: "张三",
-          zhhysj: "2022-01-29 10:10:00",
+          zcbq: '--',
+          area: '北京城乡水厂',
+          fzr: '张三',
+          zhhysj: '2022-01-29 10:10:00'
         },
         {
           index: 4,
-          userName: "10.20.51.82",
-          deptName: "蜜罐",
-          ipaddr: "安全设备-蜜罐",
-          loginLocation: "异常",
-          fxzt: "高危",
-          os: "高",
-          xt: "--",
-          yyxy: "--",
-          fxxy: "--",
+          userName: '10.20.51.82',
+          deptName: '蜜罐',
+          ipaddr: '安全设备-蜜罐',
+          loginLocation: '异常',
+          fxzt: '高危',
+          os: '高',
+          xt: '--',
+          yyxy: '--',
+          fxxy: '--',
           // browser: "--",
-          zcbq: "--",
-          area: "珠海深中通道",
-          fzr: "张三",
-          zhhysj: "2022-01-29 10:10:00",
+          zcbq: '--',
+          area: '珠海深中通道',
+          fzr: '张三',
+          zhhysj: '2022-01-29 10:10:00'
         },
         {
           index: 5,
-          userName: "10.255.52.84",
-          deptName: "防火墙",
-          ipaddr: "安全设备-工业防火墙",
-          loginLocation: "在线",
-          fxzt: "失陷",
-          os: "致命",
-          xt: "WOS",
-          yyxy: "S7",
-          fxxy: "S7",
+          userName: '10.255.52.84',
+          deptName: '防火墙',
+          ipaddr: '安全设备-工业防火墙',
+          loginLocation: '在线',
+          fxzt: '失陷',
+          os: '致命',
+          xt: 'WOS',
+          yyxy: 'S7',
+          fxxy: 'S7',
           // browser: "--",
-          zcbq: "--",
-          area: "三亚海投轨交",
-          fzr: "张三",
-          zhhysj: "2022-01-29 10:10:00",
+          zcbq: '--',
+          area: '三亚海投轨交',
+          fzr: '张三',
+          zhhysj: '2022-01-29 10:10:00'
         },
         {
           index: 6,
-          userName: "10.255.52.84",
-          deptName: "主机",
-          ipaddr: "服务器-主机",
-          loginLocation: "离线",
-          fxzt: "正常",
-          os: "极低",
-          xt: "Linux",
-          yyxy: "--",
-          fxxy: "--",
+          userName: '10.255.52.84',
+          deptName: '主机',
+          ipaddr: '服务器-主机',
+          loginLocation: '离线',
+          fxzt: '正常',
+          os: '极低',
+          xt: 'Linux',
+          yyxy: '--',
+          fxxy: '--',
           // browser: "--",
-          zcbq: "--",
-          area: "山西三通燃气厂",
-          fzr: "张三",
-          zhhysj: "2022-01-29 10:10:00",
+          zcbq: '--',
+          area: '山西三通燃气厂',
+          fzr: '张三',
+          zhhysj: '2022-01-29 10:10:00'
         },
         {
           index: 7,
-          userName: "10.255.52.84",
-          deptName: "主机",
-          ipaddr: "服务器-主机",
-          loginLocation: "离线",
-          fxzt: "正常",
-          os: "极低",
-          xt: "Linux",
-          yyxy: "--",
-          fxxy: "--",
+          userName: '10.255.52.84',
+          deptName: '主机',
+          ipaddr: '服务器-主机',
+          loginLocation: '离线',
+          fxzt: '正常',
+          os: '极低',
+          xt: 'Linux',
+          yyxy: '--',
+          fxxy: '--',
           // browser: "--",
-          zcbq: "--",
-          area: "山西三通燃气厂",
-          fzr: "张三",
-          zhhysj: "2022-01-29 10:10:00",
+          zcbq: '--',
+          area: '山西三通燃气厂',
+          fzr: '张三',
+          zhhysj: '2022-01-29 10:10:00'
         },
         {
           index: 8,
-          userName: "10.255.52.84",
-          deptName: "防火墙",
-          ipaddr: "安全设备-工业防火墙",
-          loginLocation: "在线",
-          fxzt: "失陷",
-          os: "致命",
-          xt: "WOS",
-          yyxy: "S7",
-          fxxy: "S7",
+          userName: '10.255.52.84',
+          deptName: '防火墙',
+          ipaddr: '安全设备-工业防火墙',
+          loginLocation: '在线',
+          fxzt: '失陷',
+          os: '致命',
+          xt: 'WOS',
+          yyxy: 'S7',
+          fxxy: 'S7',
           // browser: "--",
-          zcbq: "--",
-          area: "三亚海投轨交",
-          fzr: "张三",
-          zhhysj: "2022-01-29 10:10:00",
+          zcbq: '--',
+          area: '三亚海投轨交',
+          fzr: '张三',
+          zhhysj: '2022-01-29 10:10:00'
         },
         {
           index: 9,
-          userName: "10.255.52.84",
-          deptName: "主机",
-          ipaddr: "服务器-主机",
-          loginLocation: "离线",
-          fxzt: "正常",
-          os: "极低",
-          xt: "Linux",
-          yyxy: "--",
-          fxxy: "--",
+          userName: '10.255.52.84',
+          deptName: '主机',
+          ipaddr: '服务器-主机',
+          loginLocation: '离线',
+          fxzt: '正常',
+          os: '极低',
+          xt: 'Linux',
+          yyxy: '--',
+          fxxy: '--',
           // browser: "--",
-          zcbq: "--",
-          area: "山西三通燃气厂",
-          fzr: "张三",
-          zhhysj: "2022-01-29 10:10:00",
+          zcbq: '--',
+          area: '山西三通燃气厂',
+          fzr: '张三',
+          zhhysj: '2022-01-29 10:10:00'
         },
         {
           index: 10,
-          userName: "10.255.52.84",
-          deptName: "主机",
-          ipaddr: "服务器-主机",
-          loginLocation: "离线",
-          fxzt: "正常",
-          os: "极低",
-          xt: "Linux",
-          yyxy: "--",
-          fxxy: "--",
+          userName: '10.255.52.84',
+          deptName: '主机',
+          ipaddr: '服务器-主机',
+          loginLocation: '离线',
+          fxzt: '正常',
+          os: '极低',
+          xt: 'Linux',
+          yyxy: '--',
+          fxxy: '--',
           // browser: "--",
-          zcbq: "--",
-          area: "山西三通燃气厂",
-          fzr: "张三",
-          zhhysj: "2022-01-29 10:10:00",
-        },
+          zcbq: '--',
+          area: '山西三通燃气厂',
+          fzr: '张三',
+          zhhysj: '2022-01-29 10:10:00'
+        }
       ],
       // 分组表格数据
       groupList: [],
@@ -947,133 +952,141 @@ export default {
         pageSize: 10,
         userId: null,
         groupName: null,
-        createTime: null,
+        createTime: null
       },
       formData: {
-        level: "",
+        level: ''
       },
       field114Options: [
         {
-          label: "IT资产",
-          value: 1,
+          label: 'IT资产',
+          value: 1
         },
         {
-          label: "无控资产",
-          value: 2,
+          label: '无控资产',
+          value: 2
         },
         {
-          label: "无",
-          value: 3,
+          label: '无',
+          value: 3
         },
         {
-          label: "无控资产-服务器",
-          value: 4,
-        },
+          label: '无控资产-服务器',
+          value: 4
+        }
       ],
       statusOptions: [
         {
-          label: "在线",
-          value: 1,
+          label: '在线',
+          value: 1
         },
         {
-          label: "离线",
-          value: 2,
+          label: '离线',
+          value: 2
         },
         {
-          label: "异常",
-          value: 3,
-        },
+          label: '异常',
+          value: 3
+        }
       ],
       dataTest: {
-        name: "工业网络审计事件",
-        name1: "工业网络审计",
-        name2: "高危",
-        name3: "未知接口",
-        name4: "10.255.52.84",
-        name5: "192.163.12.63",
-        name6: "MODBUS协议",
-        name7: "工业网络审计",
-        name8: "10.255.52.83",
-        name9: "失陷",
-        name10: "山西燃气厂",
-        name11: "待处置",
-        name12: "2022-02-22",
-        name13: "2022-2-25",
-      },
-    };
+        name: '工业网络审计事件',
+        name1: '工业网络审计',
+        name2: '高危',
+        name3: '未知接口',
+        name4: '10.255.52.84',
+        name5: '192.163.12.63',
+        name6: 'MODBUS协议',
+        name7: '工业网络审计',
+        name8: '10.255.52.83',
+        name9: '失陷',
+        name10: '山西燃气厂',
+        name11: '待处置',
+        name12: '2022-02-22',
+        name13: '2022-2-25'
+      }
+    }
   },
   created() {
-    this.getCategoryList();
+    this.getList()
   },
   methods: {
     /** 查询登录日志列表 */
-    getCategoryList() {
-      listEvent(this.queryParams).then((response) => {
-        this.groupList = response.rows;
-        this.total = response.total;
-      });
+    // getCategoryList() {
+    //   listEvent(this.queryParams).then((response) => {
+    //     this.groupList = response.rows
+    //     this.total = response.total
+    //   })
+    // },
+    /** 查询分组列表 */
+    async getList() {
+      this.loading = true
+      const res = await assetList(this.queryParams)
+      this.groupList = res.rows
+      this.total = res.total
+      this.loading = false
     },
     /** 搜索按钮操作 */
     handleQuery() {
-      this.pageNum = 1;
-      this.getList();
+      this.pageNum = 1
+      this.getList()
     },
     /** 重置按钮操作 */
     resetQuery() {
-      this.resetForm("queryForm");
-      this.handleQuery();
+      this.resetForm('queryForm')
+      this.handleQuery()
     },
     handleAdd() {
-      this.open = true;
-      this.title = "新增资产";
+      this.open = true
+      this.title = '新增资产'
     },
     // 取消按钮
     cancel() {
-      this.open = false;
-      this.exportDialog = false;
-      this.editDialog = false;
-      this.configurationDialog = false;
-      this.detailDialog = false;
+      this.open = false
+      this.exportDialog = false
+      this.editDialog = false
+      this.configurationDialog = false
+      this.detailDialog = false
     },
     /** 提交按钮 */
     submitForm() {
-      this.open = false;
-      this.exportDialog = false;
-      this.editDialog = false;
-      this.configurationDialog = false;
-      this.detailDialog = false;
+      this.open = false
+      this.exportDialog = false
+      this.editDialog = false
+      this.configurationDialog = false
+      this.detailDialog = false
     },
     handleDelete(row) {
-      this.$confirm("是否确认删除选中的资产?", "删除", {
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
-        type: "warning",
+      this.$confirm('是否确认删除选中的资产?', '删除', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
       })
-        .then(function () {
-          return forceLogout(row.tokenId);
+        .then(function() {
+          return forceLogout(row.tokenId)
         })
         .then(() => {
-          this.getList();
-          this.msgSuccess("强退成功");
-        });
+          this.getList()
+          this.msgSuccess('强退成功')
+        })
     },
     handleExport() {
-      this.exportDialog = true;
-      this.title = "批量导入资产";
+      this.exportDialog = true
+      this.title = '批量导入资产'
     },
     edit() {
-      this.editDialog = true;
-      this.title = "修改资产";
+      this.editDialog = true
+      this.title = '修改资产'
     },
     configuration() {
-      this.configurationDialog = true;
-      this.title = "配置资产";
+      this.configurationDialog = true
+      this.title = '配置资产'
     },
     detail() {
-      this.detailDialog = true;
-      this.title = "资产详情";
-    },
-  },
-};
+      this.detailDialog = true
+      this.title = '资产详情'
+    }
+  }
+}
 </script>
 
