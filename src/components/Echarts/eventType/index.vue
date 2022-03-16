@@ -109,6 +109,15 @@ export default {
                   { value: 462, name: '诱捕防护' }
                 ]
                 break
+              case 7:
+                this.datacopy = [
+                  { value: 3948, name: '审计协议规约事件' },
+                  { value: 2514, name: '审计协议白名单告警' },
+                  { value: 1699, name: '审计用户自定义告警' },
+                  { value: 1023, name: '审计关键事件告警' },
+                  { value: 362, name: '其他' }
+                ]
+                break
               default:
                 console.log('这里是项目类型', this.address)
                 break

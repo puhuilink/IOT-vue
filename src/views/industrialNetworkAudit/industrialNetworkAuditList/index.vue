@@ -295,7 +295,6 @@
           <el-form
             ref="elForm"
             :model="dialogDetail"
-            :rules="rules"
             size="mini"
             label-width="133px"
           >
