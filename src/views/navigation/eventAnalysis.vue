@@ -23,52 +23,54 @@
         </el-col>
       </el-form>
     </el-row>
-    <funnel />
-    <tree :address="address" />
-    <treecopy :address="address" />
-    <el-col :span="12">
-      <tip> 事件安全通报 </tip>
-      <el-row>
-        <el-col :span="6">
-          <div class="tip1 flex j-s a-c">
-            <span class="text">通报率</span>
-            <br>
-            <span class="textNumber">69.3%</span>
+    <funnel :id="id" />
+    <tree :id="id" :address="address" />
+    <treecopy :id="id" :address="address" />
+    <el-col :span="11">
+      <div :class="id===4 ? 'box' : ''" @click="log">
+        <tip> 事件安全通报 </tip>
+        <el-row>
+          <el-col :span="6">
+            <div class="tip1 flex j-s a-c">
+              <span class="text">通报率</span>
+              <br>
+              <span class="textNumber">69.3%</span>
 
-          </div>
-        </el-col>
-        <el-col :span="6">
-          <div class="tip2 flex j-s a-c">
-            <span class="text">事件总数</span>
-            <br>
-            <span class="textNumber">3200</span>
+            </div>
+          </el-col>
+          <el-col :span="6">
+            <div class="tip2 flex j-s a-c">
+              <span class="text">事件总数</span>
+              <br>
+              <span class="textNumber">3200</span>
 
-          </div>
-        </el-col>
-        <el-col :span="6">
-          <div class="tip3 flex j-s a-c">
-            <span class="text">通报数</span>
-            <br>
-            <span class="textNumber">2217.6</span>
-          </div>
-        </el-col>
-        <el-col :span="6">
-          <div class="tip4 flex j-s a-c">
-            <span class="text">通报类型TOP1</span>
-            <br>
-            <span class="textNumber">僵木蠕事件</span>
+            </div>
+          </el-col>
+          <el-col :span="6">
+            <div class="tip3 flex j-s a-c">
+              <span class="text">通报数</span>
+              <br>
+              <span class="textNumber">2217.6</span>
+            </div>
+          </el-col>
+          <el-col :span="6">
+            <div class="tip4 flex j-s a-c">
+              <span class="text">通报类型TOP1</span>
+              <br>
+              <span class="textNumber">僵木蠕事件</span>
 
-          </div>
-        </el-col>
-      </el-row>
-      <el-table :data="groupList">
-        <el-table-column label="通报编号" align="center" prop="userId" min-width="15%" />
-        <el-table-column label="事件名称" align="center" prop="groupOrder" min-width="30%" />
-        <el-table-column label="事件类型" align="center" prop="groupName" min-width="15%" />
-        <el-table-column label="优先级" align="center" prop="groupId" min-width="10%" />
-        <el-table-column label="通报状态" align="center" prop="searchValue" min-width="15%" />
-        <el-table-column label="最近更新时间" align="center" prop="delFlag" min-width="20%" />
-      </el-table>
+            </div>
+          </el-col>
+        </el-row>
+        <el-table :data="groupList" height="360">
+          <el-table-column label="通报编号" align="center" prop="userId" min-width="15%" />
+          <el-table-column label="事件名称" align="center" prop="groupOrder" min-width="20%" />
+          <el-table-column label="事件类型" align="center" prop="groupName" min-width="15%" />
+          <el-table-column label="优先级" align="center" prop="groupId" min-width="10%" />
+          <el-table-column label="通报状态" align="center" prop="searchValue" min-width="15%" />
+          <el-table-column label="最近更新时间" align="center" prop="delFlag" min-width="25%" />
+        </el-table>
+      </div>
     </el-col>
   </div>
 </template>
@@ -79,7 +81,12 @@ import treecopy from '@/components/Echarts/treeCopy'
 import tip from '@/components/EchartsTip'
 export default {
   components: { funnel, tree, tip, treecopy },
-  props: [],
+  props: {
+    id: { // 路由类型
+      default: null,
+      type: Number
+    }
+  },
   data() {
     return {
       formData: {
@@ -112,12 +119,26 @@ export default {
   mounted() {
   },
   methods: {
-
+    log() {
+      this.$router.push('/safety/InformManagement')
+    }
   }
 }
 
 </script>
-<style lang="scss" scoped>
+<style lang="scss" >
+.box{
+  width:780px;
+  height: 380px;
+ background:#E7EDF5;
+ .el-table, .el-table__expanded-cell {
+    background-color: transparent;
+}
+
+.el-table th, .el-table tr {
+    background-color: transparent;
+}
+}
 .tip1 {
   border-left: 4px solid rgba(24, 144, 255, 1);
   font-weight: bold;
