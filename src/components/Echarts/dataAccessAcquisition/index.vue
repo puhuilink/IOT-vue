@@ -9,19 +9,19 @@
         <div class="unit">{{ unit }}</div>
       </div>
       <div class="datails">
-        <div class="box">
+        <div class="boxContent">
           <span class="name">{{ IT }}</span>
           <span class="dataIT">{{ ITdata }}</span>
         </div>
-        <div class="box">
+        <div class="boxContent">
           <span class="name">{{ OT }}</span>
           <span class="dataIT">{{ OTdata }}</span>
         </div>
-        <div class="box" @click="log">
+        <div class="boxContent" @click="log">
           <span class="name">{{ ITdaily }}</span>
           <span class="dataIT">{{ ITdailyData }}</span>
         </div>
-        <div class="box">
+        <div class="boxContent">
           <span class="name">{{ OTdaily }}</span>
           <span class="dataIT">{{ OTdailyData }}</span>
         </div>
@@ -132,7 +132,7 @@ export default {
     margin-top: 40px;
     float: right;
     padding-right: 60px;
-    .box {
+    .boxContent {
       background: url("../../../assets/logo/textBK_blue.png") no-repeat !important;
       width: 334px;
       height: 60px;

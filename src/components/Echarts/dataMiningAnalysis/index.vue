@@ -7,62 +7,62 @@
         class="leftBox"
         @click="log"
       >
-        <div class="box">
+        <div class="boxContent">
           <span class="name">{{ network }}</span>
         </div>
-        <div class="box">
+        <div class="boxContent">
           <span class="name">{{ fwqrz }}</span>
         </div>
-        <div class="box">
+        <div class="boxContent">
           <span class="name">{{ networkLirz }}</span>
         </div>
-        <div class="box">
+        <div class="boxContent">
           <span class="name">{{ safe }}</span>
         </div>
-        <div class="box">
+        <div class="boxContent">
           <span class="name">{{ middle }}</span>
         </div>
-        <div class="box">
+        <div class="boxContent">
           <span class="name">{{ datadaily }}</span>
         </div>
-        <div class="box">
+        <div class="boxContent">
           <span class="name">{{ safeEquiment }}</span>
         </div>
-        <div class="box">
+        <div class="boxContent">
           <span class="name">{{ networkDaily }}</span>
         </div>
-        <div class="box">
+        <div class="boxContent">
           <span class="name">{{ networkEquimentDaily }}</span>
         </div>
       </div>
       <div class="quantity">{{ quantity }}</div>
       <div class="number">{{ number }}</div>
       <div class="datails">
-        <div class="box">
+        <div class="boxContent">
           <span class="name">{{ IT }}</span>
         </div>
-        <div class="box">
+        <div class="boxContent">
           <span class="name">{{ ITdata }}</span>
         </div>
-        <div class="box">
+        <div class="boxContent">
           <span class="name">{{ OT }}</span>
         </div>
-        <div class="box">
+        <div class="boxContent">
           <span class="name">{{ OTdata }}</span>
         </div>
-        <div class="box">
+        <div class="boxContent">
           <span class="name">{{ ITdaily }}</span>
         </div>
-        <div class="box">
+        <div class="boxContent">
           <span class="name">{{ ITdailyData }}</span>
         </div>
-        <div class="box">
+        <div class="boxContent">
           <span class="name">{{ OTdaily }}</span>
         </div>
-        <div class="box">
+        <div class="boxContent">
           <span class="name">{{ OTdailyData }}</span>
         </div>
-        <div class="box">
+        <div class="boxContent">
           <span class="name">{{ user }}</span>
         </div>
       </div>
@@ -174,7 +174,7 @@ export default {
   position: absolute;
   top: -3px;
   left: 463px;
-  .box {
+  .boxContent {
     font-size: 12px;
     font-family: MicrosoftYaHei-Bold, MicrosoftYaHei;
     font-weight: bold;
@@ -197,7 +197,7 @@ export default {
   position: absolute;
   top: -3px;
   left: -3px;
-  .box {
+  .boxContent {
     font-size: 12px;
     font-family: MicrosoftYaHei-Bold, MicrosoftYaHei;
     font-weight: bold;

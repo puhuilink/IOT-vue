@@ -7,66 +7,66 @@
         <div class="quantity">{{ quantity }}</div>
         <div class="number">{{ number }}</div>
         <div class="leftBox">
-          <div class="box">
+          <div class="boxContent">
             <span class="name">{{ network }}</span>
           </div>
-          <div class="box">
+          <div class="boxContent">
             <span class="name">{{ fwqrz }}</span>
           </div>
-          <div class="box">
+          <div class="boxContent">
             <span class="name">{{ networkLirz }}</span>
           </div>
-          <div class="box">
+          <div class="boxContent">
             <span class="name">{{ safe }}</span>
           </div>
-          <div class="box">
+          <div class="boxContent">
             <span class="name">{{ middle }}</span>
           </div>
-          <div class="box">
+          <div class="boxContent">
             <span class="name">{{ datadaily }}</span>
           </div>
-          <div class="box">
+          <div class="boxContent">
             <span class="name">{{ ldnumber }}</span>
           </div>
-          <div class="box">
+          <div class="boxContent">
             <span class="name">{{ safeEquiment }}</span>
           </div>
-          <div class="box">
+          <div class="boxContent">
             <span class="name">{{ networkDaily }}</span>
           </div>
-          <div class="box">
+          <div class="boxContent">
             <span class="name">{{ networkEquimentDaily }}</span>
           </div>
         </div>
         <div class="datails">
-          <div class="box">
+          <div class="boxContent">
             <span class="name">{{ IT }}</span>
           </div>
-          <div class="box">
+          <div class="boxContent">
             <span class="name">{{ ITdata }}</span>
           </div>
-          <div class="box">
+          <div class="boxContent">
             <span class="name">{{ OT }}</span>
           </div>
-          <div class="box">
+          <div class="boxContent">
             <span class="name">{{ OTdata }}</span>
           </div>
-          <div class="box">
+          <div class="boxContent">
             <span class="name">{{ ITdaily }}</span>
           </div>
-          <div class="box">
+          <div class="boxContent">
             <span class="name">{{ ITdailyData }}</span>
           </div>
-          <div class="box">
+          <div class="boxContent">
             <span class="name">{{ OTdaily }}</span>
           </div>
-          <div class="box">
+          <div class="boxContent">
             <span class="name">{{ OTdailyData }}</span>
           </div>
-          <div class="box">
+          <div class="boxContent">
             <span class="name">{{ user }}</span>
           </div>
-          <div class="box">
+          <div class="boxContent">
             <span class="name">{{ OTuser }}</span>
           </div>
         </div>
@@ -182,7 +182,7 @@ export default {
       // margin-top: 10px;
       // float: right;
       // padding-right: 100px;
-      .box {
+      .boxContent {
         font-size: 12px;
         font-family: MicrosoftYaHei-Bold, MicrosoftYaHei;
         font-weight: bold;
@@ -214,7 +214,7 @@ export default {
       // margin-top: 10px;
       // float: left;
       padding-right: 20px;
-      .box {
+      .boxContent {
         font-size: 12px;
         font-family: MicrosoftYaHei-Bold, MicrosoftYaHei;
         font-weight: bold;
