@@ -12,7 +12,6 @@ import dataMangment from "@/components/Echarts/dataMangment";
 import dataAccessAcquisition from "@/components/Echarts/dataAccessAcquisition";
 import dataMiningAnalysis from "@/components/Echarts/dataMiningAnalysis";
 export default {
-  name:"Data",
   components: {
     dataSource,
     dataAccessAcquisition,

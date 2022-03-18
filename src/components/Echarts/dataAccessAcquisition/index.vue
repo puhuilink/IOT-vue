@@ -3,7 +3,7 @@
   <el-col :span="12">
     <div
       :style="[
-        { background: (id === 1 ?'#e7edf5':'red') },
+        { background: (id === 1 ?'#e7edf5':'') },
         { cursor: 'pointer' },
         { width: '100%' },
         { height: '385px' },
