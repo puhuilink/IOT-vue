@@ -141,22 +141,24 @@
     </el-card>
     <el-card>
       <el-row>
-        <el-button type="primary" @click="submitdata" class="export"
-          >导出</el-button
-        >
+        <el-button
+          type="primary"
+          class="export"
+          @click="submitdata"
+        >导出</el-button>
       </el-row>
       <el-table :data="groupList" tooltip-effect="light">
         <el-table-column type="selection" width="55" align="center" />
         <el-table-column
           label="接收时间"
           align="center"
-          prop="startTime"
+          prop="acceptance"
           :show-overflow-tooltip="true"
         />
         <el-table-column
           label="事件名称"
           align="center"
-          prop="eventName"
+          prop="name"
           :show-overflow-tooltip="true"
         />
         <el-table-column
@@ -174,43 +176,43 @@
         <el-table-column
           label="操作系统"
           align="center"
-          prop="equipment"
+          prop="os"
           :show-overflow-tooltip="true"
         />
         <el-table-column
           label="客户端名称"
           align="center"
-          prop="equipment"
+          prop="client"
           :show-overflow-tooltip="true"
         />
         <el-table-column
           label="客户端IP"
           align="center"
-          prop="sourceIp"
+          prop="clientIp"
           :show-overflow-tooltip="true"
         />
         <el-table-column
           label="产生时间"
           align="center"
-          prop="endTime"
+          prop="happen"
           :show-overflow-tooltip="true"
         />
         <el-table-column
           label="日志描述"
           align="center"
-          prop="type"
+          prop="log"
           :show-overflow-tooltip="true"
         />
         <el-table-column
           label="处置状态"
           align="center"
-          prop="status"
+          prop="state"
           :show-overflow-tooltip="true"
         />
         <el-table-column
           label="区域"
           align="center"
-          prop="address"
+          prop="region"
           :show-overflow-tooltip="true"
         />
         <el-table-column
@@ -224,15 +226,13 @@
               size="mini"
               type="text"
               @click="detail"
-              >详情</el-button
-            >
+            >详情</el-button>
             <el-button
               v-hasPermi="['system:group:remove']"
               size="mini"
               type="text"
               @click="handleDelete(scope.row)"
-              >处置</el-button
-            >
+            >处置</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -243,7 +243,7 @@
       :total="total"
       :page.sync="queryParams.pageNum"
       :limit.sync="queryParams.pageSize"
-      @pagination="getCategoryList"
+      @pagination="getList"
     />
     <!-- 添加或修改分组对话框 -->
     <el-dialog :title="title" :visible.sync="open" width="900px" append-to-body>
@@ -358,9 +358,11 @@
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-row type="flex" justify="center">
-          <el-button size="small" type="primary" @click="submitForm"
-            >确 定</el-button
-          >
+          <el-button
+            size="small"
+            type="primary"
+            @click="submitForm"
+          >确 定</el-button>
           <el-button size="small" @click="cancel">取 消</el-button>
         </el-row>
       </div>
@@ -368,137 +370,139 @@
   </div>
 </template>
 <script>
-import { listEvent } from "@/api/system/category";
+// import { listEvent } from '@/api/system/category'
+import { hostList } from '@/api/system/list'
+
 export default {
   components: {},
   props: [],
   data() {
     return {
-      loading: true,
-      name: "测试",
+      loading: false,
+      name: '测试',
       dataTest: {
-        name: "工业网络审计事件",
-        name1: "工业网络审计",
-        name2: "高危",
-        name3: "未知接口",
-        name4: "10.255.52.84",
-        name5: "192.163.12.63",
-        name6: "MODBUS协议",
-        name7: "工业网络审计",
-        name8: "10.255.52.83",
-        name9: "失陷",
-        name10: "山西燃气厂",
-        name11: "待处置",
-        name12: "2022-02-22",
-        name13: "2022-2-25",
+        name: '工业网络审计事件',
+        name1: '工业网络审计',
+        name2: '高危',
+        name3: '未知接口',
+        name4: '10.255.52.84',
+        name5: '192.163.12.63',
+        name6: 'MODBUS协议',
+        name7: '工业网络审计',
+        name8: '10.255.52.83',
+        name9: '失陷',
+        name10: '山西燃气厂',
+        name11: '待处置',
+        name12: '2022-02-22',
+        name13: '2022-2-25'
       },
       // 分组表格数据
-      groupListData: [
-        {
-          searchValue: "2022-01-29 10:10:00",
-          createBy: "非法外联告警",
-          createTime: "高",
-          remark: "非法外联事件",
-          updateTime: "Windows7",
-          khdmc: "WIN-gyk",
-          groupName: "192.168.19.159",
-          groupId: "2022-01-29 10:10:00",
-          userId: "116.103.2.11",
-          groupName: "产生非法外联、外联地址：www百度.com",
-          czzt: "未处置",
-          delFlag: "山西三通燃气厂",
-        },
-        {
-          searchValue: "2022-01-29 10:10:00",
-          createBy: "非法外联告警",
-          createTime: "高",
-          remark: "非法外联事件",
-          updateTime: "Windows7",
-          khdmc: "WIN-gyk",
-          groupName: "192.168.19.159",
-          groupId: "2022-01-29 10:10:00",
-          userId: "116.103.2.11",
-          groupName: "产生非法外联、外联地址：www百度.com",
-          czzt: "未处置",
-          delFlag: "山西三通燃气厂",
-        },
-        {
-          searchValue: "2022-01-29 10:10:00",
-          createBy: "非法外联告警",
-          createTime: "高",
-          remark: "非法外联事件",
-          updateTime: "Windows7",
-          khdmc: "WIN-gyk",
-          groupName: "192.168.19.159",
-          groupId: "2022-01-29 10:10:00",
-          userId: "116.103.2.11",
-          groupName: "产生非法外联、外联地址：www百度.com",
-          czzt: "未处置",
-          delFlag: "山西三通燃气厂",
-        },
-        {
-          searchValue: "2022-01-29 10:10:00",
-          createBy: "非法外联告警",
-          createTime: "高",
-          remark: "非法外联事件",
-          updateTime: "Windows7",
-          khdmc: "WIN-gyk",
-          groupName: "192.168.19.159",
-          groupId: "2022-01-29 10:10:00",
-          userId: "116.103.2.11",
-          groupName: "产生非法外联、外联地址：www百度.com",
-          czzt: "未处置",
-          delFlag: "山西三通燃气厂",
-        },
-        {
-          searchValue: "2022-01-29 10:10:00",
-          createBy: "非法外联告警",
-          createTime: "高",
-          remark: "非法外联事件",
-          updateTime: "Windows7",
-          khdmc: "WIN-gyk",
-          groupName: "192.168.19.159",
-          groupId: "2022-01-29 10:10:00",
-          userId: "116.103.2.11",
-          groupName: "产生非法外联、外联地址：www百度.com",
-          czzt: "未处置",
-          delFlag: "山西三通燃气厂",
-        },
-        {
-          searchValue: "2022-01-29 10:10:00",
-          createBy: "非法外联告警",
-          createTime: "高",
-          remark: "非法外联事件",
-          updateTime: "Windows7",
-          khdmc: "WIN-gyk",
-          groupName: "192.168.19.159",
-          groupId: "2022-01-29 10:10:00",
-          userId: "116.103.2.11",
-          groupName: "产生非法外联、外联地址：www百度.com",
-          czzt: "未处置",
-          delFlag: "山西三通燃气厂",
-        },
-        {
-          searchValue: "2022-01-29 10:10:00",
-          createBy: "非法外联告警",
-          createTime: "高",
-          remark: "非法外联事件",
-          updateTime: "Windows7",
-          khdmc: "WIN-gyk",
-          groupName: "192.168.19.159",
-          groupId: "2022-01-29 10:10:00",
-          userId: "116.103.2.11",
-          groupName: "产生非法外联、外联地址：www百度.com",
-          czzt: "未处置",
-          delFlag: "山西三通燃气厂",
-        },
-      ],
+      // groupListData: [
+      //   {
+      //     searchValue: '2022-01-29 10:10:00',
+      //     createBy: '非法外联告警',
+      //     createTime: '高',
+      //     remark: '非法外联事件',
+      //     updateTime: 'Windows7',
+      //     khdmc: 'WIN-gyk',
+      //     groupName: '192.168.19.159',
+      //     groupId: '2022-01-29 10:10:00',
+      //     userId: '116.103.2.11',
+      //     groupName: '产生非法外联、外联地址：www百度.com',
+      //     czzt: '未处置',
+      //     delFlag: '山西三通燃气厂'
+      //   },
+      //   {
+      //     searchValue: '2022-01-29 10:10:00',
+      //     createBy: '非法外联告警',
+      //     createTime: '高',
+      //     remark: '非法外联事件',
+      //     updateTime: 'Windows7',
+      //     khdmc: 'WIN-gyk',
+      //     groupName: '192.168.19.159',
+      //     groupId: '2022-01-29 10:10:00',
+      //     userId: '116.103.2.11',
+      //     groupName: '产生非法外联、外联地址：www百度.com',
+      //     czzt: '未处置',
+      //     delFlag: '山西三通燃气厂'
+      //   },
+      //   {
+      //     searchValue: '2022-01-29 10:10:00',
+      //     createBy: '非法外联告警',
+      //     createTime: '高',
+      //     remark: '非法外联事件',
+      //     updateTime: 'Windows7',
+      //     khdmc: 'WIN-gyk',
+      //     groupName: '192.168.19.159',
+      //     groupId: '2022-01-29 10:10:00',
+      //     userId: '116.103.2.11',
+      //     groupName: '产生非法外联、外联地址：www百度.com',
+      //     czzt: '未处置',
+      //     delFlag: '山西三通燃气厂'
+      //   },
+      //   {
+      //     searchValue: '2022-01-29 10:10:00',
+      //     createBy: '非法外联告警',
+      //     createTime: '高',
+      //     remark: '非法外联事件',
+      //     updateTime: 'Windows7',
+      //     khdmc: 'WIN-gyk',
+      //     groupName: '192.168.19.159',
+      //     groupId: '2022-01-29 10:10:00',
+      //     userId: '116.103.2.11',
+      //     groupName: '产生非法外联、外联地址：www百度.com',
+      //     czzt: '未处置',
+      //     delFlag: '山西三通燃气厂'
+      //   },
+      //   {
+      //     searchValue: '2022-01-29 10:10:00',
+      //     createBy: '非法外联告警',
+      //     createTime: '高',
+      //     remark: '非法外联事件',
+      //     updateTime: 'Windows7',
+      //     khdmc: 'WIN-gyk',
+      //     groupName: '192.168.19.159',
+      //     groupId: '2022-01-29 10:10:00',
+      //     userId: '116.103.2.11',
+      //     groupName: '产生非法外联、外联地址：www百度.com',
+      //     czzt: '未处置',
+      //     delFlag: '山西三通燃气厂'
+      //   },
+      //   {
+      //     searchValue: '2022-01-29 10:10:00',
+      //     createBy: '非法外联告警',
+      //     createTime: '高',
+      //     remark: '非法外联事件',
+      //     updateTime: 'Windows7',
+      //     khdmc: 'WIN-gyk',
+      //     groupName: '192.168.19.159',
+      //     groupId: '2022-01-29 10:10:00',
+      //     userId: '116.103.2.11',
+      //     groupName: '产生非法外联、外联地址：www百度.com',
+      //     czzt: '未处置',
+      //     delFlag: '山西三通燃气厂'
+      //   },
+      //   {
+      //     searchValue: '2022-01-29 10:10:00',
+      //     createBy: '非法外联告警',
+      //     createTime: '高',
+      //     remark: '非法外联事件',
+      //     updateTime: 'Windows7',
+      //     khdmc: 'WIN-gyk',
+      //     groupName: '192.168.19.159',
+      //     groupId: '2022-01-29 10:10:00',
+      //     userId: '116.103.2.11',
+      //     groupName: '产生非法外联、外联地址：www百度.com',
+      //     czzt: '未处置',
+      //     delFlag: '山西三通燃气厂'
+      //   }
+      // ],
       // 分组表格数据
       groupList: [],
       // 创建时间时间范围
       daterangeCreateTime: [],
       // 弹出层标题
-      title: "",
+      title: '',
       // 是否显示弹出层
       open: false,
       // 总条数
@@ -509,7 +513,7 @@ export default {
         pageSize: 10,
         userId: null,
         groupName: null,
-        createTime: null,
+        createTime: null
       },
       formData: {
         name: undefined,
@@ -520,8 +524,8 @@ export default {
         ip: undefined,
         newip: undefined,
         equipment: undefined,
-        date: [""],
-        field114: undefined,
+        date: [''],
+        field114: undefined
       },
       rules: {
         name: [],
@@ -533,90 +537,97 @@ export default {
         newip: [],
         equipment: [],
         date: [],
-        field114: [],
+        field114: []
       },
       levelOptions: [
         {
-          label: "正常",
-          value: 1,
+          label: '正常',
+          value: 1
         },
         {
-          label: "低危",
-          value: 2,
+          label: '低危',
+          value: 2
         },
         {
-          label: "中危",
-          value: 3,
+          label: '中危',
+          value: 3
         },
         {
-          label: "高危",
-          value: 4,
+          label: '高危',
+          value: 4
         },
         {
-          label: "失陷",
-          value: 5,
-        },
+          label: '失陷',
+          value: 5
+        }
       ],
       areaOptions: [
         {
-          label: "北京",
-          value: 1,
+          label: '北京',
+          value: 1
         },
         {
-          label: "重庆",
-          value: 2,
-        },
+          label: '重庆',
+          value: 2
+        }
       ],
       field114Options: [
         {
-          label: "未处置",
-          value: 1,
+          label: '未处置',
+          value: 1
         },
         {
-          label: "处置中",
-          value: 2,
+          label: '处置中',
+          value: 2
         },
         {
-          label: "已处置",
-          value: 3,
-        },
-      ],
-    };
+          label: '已处置',
+          value: 3
+        }
+      ]
+    }
   },
   created() {
-    this.getCategoryList();
+    this.getList()
   },
   methods: {
-    /** 查询分组列表 */
-    getCategoryList() {
-      listEvent(this.queryParams).then((response) => {
-        this.groupList = response.rows;
-        this.total = response.total;
-      });
+    async getList() {
+      this.loading = true
+      const res = await hostList(this.queryParams)
+      this.groupList = res.rows
+      this.total = res.total
+      this.loading = false
     },
+    /** 查询分组列表 */
+    // getCategoryList() {
+    //   listEvent(this.queryParams).then((response) => {
+    //     this.groupList = response.rows
+    //     this.total = response.total
+    //   })
+    // },
     submitdata() {
-      this.$refs["elForm"].validate((valid) => {
-        if (!valid) return;
+      this.$refs['elForm'].validate((valid) => {
+        if (!valid) return
         // TODO 提交表单
-      });
+      })
     },
     resetForm() {
-      this.$refs["elForm"].resetFields();
+      this.$refs['elForm'].resetFields()
     },
     detail() {
-      this.open = true;
-      this.title = "事件详情";
+      this.open = true
+      this.title = '事件详情'
     },
     // 取消按钮
     cancel() {
-      this.open = false;
+      this.open = false
     },
     /** 提交按钮 */
     submitForm() {
-      this.open = false;
-    },
-  },
-};
+      this.open = false
+    }
+  }
+}
 </script>
 <style lang="scss" scoped>
 .export {
