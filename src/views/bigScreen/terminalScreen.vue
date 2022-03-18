@@ -1,7 +1,7 @@
 <template>
   <div class="app-container home">
 
-    <iframe id="mobsf" src="http://116.63.139.209:9081/#/previewScreen?id=2GW8Q8CVJ_20220307101023" scrolling="no" frameborder="0" />
+    <iframe id="mobsf" src="http://116.63.139.209:9081/#/previewScreen?id=2GW8252UC_20220310060257" scrolling="no" frameborder="0" />
 
   </div>
 </template>
