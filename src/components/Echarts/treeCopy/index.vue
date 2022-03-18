@@ -1,6 +1,6 @@
 <template>
   <el-col :span="12">
-    <div :class="id===3 ? 'box' : ''" style="height:380px;width:780px" @click="log">
+    <div :class="id===3 ? 'box' : ''" style="height:380px;width:780px;cursor:pointer;" @click="log">
       <tip>{{ tipname }}</tip>
       <div id="bg" style="position: relative;">
         <!-- 事件关联分析左半部分 -->

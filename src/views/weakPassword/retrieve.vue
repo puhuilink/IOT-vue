@@ -79,7 +79,7 @@
                 <el-input v-model="formData.agreement" placeholder="请输入协议" clearable :style="{width: '100%'}" />
               </el-form-item>
             </el-col>
-            <el-col :span="9">
+            <el-col :span="7">
               <el-form-item label="时间" prop="date">
                 <el-time-picker
                   v-model="formData.date"
@@ -94,7 +94,7 @@
                 />
               </el-form-item>
             </el-col>
-            <el-col :span="6">
+            <el-col :span="5">
               <el-form-item size="mini">
                 <el-button type="primary" @click="getList">搜索</el-button>
                 <el-button @click="resetForm">重置</el-button>

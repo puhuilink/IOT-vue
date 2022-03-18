@@ -27,7 +27,7 @@
     <tree :id="id" :address="address" />
     <treecopy :id="id" :address="address" />
     <el-col :span="11">
-      <div :class="id===4 ? 'box' : ''" @click="log">
+      <div :class="id===4 ? 'box' : ''" style="cursor:pointer;" @click="log">
         <tip> 事件安全通报 </tip>
         <el-row>
           <el-col :span="6">
@@ -128,6 +128,7 @@ export default {
 </script>
 <style lang="scss" >
 .box{
+  cursor:pointer;
   width:780px;
   height: 380px;
  background:#E7EDF5;
