@@ -1,6 +1,6 @@
 <template>
   <el-col :span="12">
-    <div :class="id===1 ? 'box' : ''" style="height:380px;width:780px" @click="log">
+    <div :class="id===1 ? 'box' : ''" style="height:380px;width:780px;cursor:pointer;" @click="log">
       <tip>{{ tipname }}</tip>
       <div id="bg" style="position: relative; left:200px">
         <div id="text" style="position: absolute; top: 205px; left: -90px;color:#158CC6;font-weight: bold;font-size: 12px; font-family:Microsoft YaHei;">操作异常事件</div>
