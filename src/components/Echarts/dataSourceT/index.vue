@@ -191,9 +191,9 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-// .dataAccess {
-//   width: 100%;
-//   height: 385px;
-//   background-color: #e7edf5;
-// }
+.dataAccess {
+  width: 100%;
+  height: 385px;
+  background-color: #e7edf5;
+}
 </style>

@@ -2,9 +2,11 @@
 <template>
   <el-col :span="12">
     <tip>{{ tipname }}</tip>
-
     <div class="acquisition">
-      <div class="leftBox" @click="window.open('https://10.201.30.43:8988/noah/access/collector-manager')">
+      <div
+        class="leftBox"
+        @click="log"
+      >
         <div class="box">
           <span class="name">{{ network }}</span>
         </div>
@@ -76,7 +78,7 @@ export default {
   props: {
     tipname: {
       // tip内容
-      default: "数据接入采集",
+      default: "数据挖掘分析",
       type: String,
     },
     address: {
@@ -128,7 +130,14 @@ export default {
   mounted() {
     // this.drawPolicitalStatus();
   },
-  methods: {},
+  methods: {
+    log() {
+      window.open(
+        "https://10.201.30.43:8988/noah/access/collector-manager",
+        "_blank"
+      );
+    },
+  },
 };
 </script>
 <style lang="scss" scoped>

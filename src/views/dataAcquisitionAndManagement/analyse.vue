@@ -1,7 +1,7 @@
 <template>
   <div class="app-container">
-    <dataAccessAcquisitionT :address="address" />
-    <dataMiningAnalysis :address="address" />
+    <dataAccessAcquisition :address="address" />
+    <dataMiningAnalysisT :address="address" />
     <dataMangment :address="address" />
     <dataSource :address="address" />
   </div>
@@ -9,13 +9,13 @@
 <script>
 import dataSource from "@/components/Echarts/dataSource";
 import dataMangment from "@/components/Echarts/dataMangment";
-import dataAccessAcquisitionT from "@/components/Echarts/dataAccessAcquisitionT";
-import dataMiningAnalysis from "@/components/Echarts/dataMiningAnalysis";
+import dataAccessAcquisition from "@/components/Echarts/dataAccessAcquisition";
+import dataMiningAnalysisT from "@/components/Echarts/dataMiningAnalysisT";
 export default {
   components: {
     dataSource,
-    dataAccessAcquisitionT,
-    dataMiningAnalysis,
+    dataAccessAcquisition,
+    dataMiningAnalysisT,
     dataMangment,
   },
   props: [],

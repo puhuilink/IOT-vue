@@ -90,9 +90,9 @@ export default {
 </script>
 <style lang="scss" scoped>
 .dataAccess {
-  // width: 100%;
-  // height: 385px;
-  // background-color: #e7edf5;
+  width: 100%;
+  height: 385px;
+  background-color: #e7edf5;
   .acquisition {
     position: relative;
     float: left;
