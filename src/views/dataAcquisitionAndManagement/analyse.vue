@@ -1,32 +1,18 @@
 <template>
-  <div class="app-container">
-    <dataAccessAcquisition :address="address" />
-    <dataMiningAnalysisT :address="address" />
-    <dataMangment :address="address" />
-    <dataSource :address="address" />
-  </div>
+  <type :id="2" />
 </template>
+
 <script>
-import dataSource from "@/components/Echarts/dataSource";
-import dataMangment from "@/components/Echarts/dataMangment";
-import dataAccessAcquisition from "@/components/Echarts/dataAccessAcquisition";
-import dataMiningAnalysisT from "@/components/Echarts/dataMiningAnalysisT";
+import type from '@/views/dataAcquisitionAndManagement/type'
 export default {
-  components: {
-    dataSource,
-    dataAccessAcquisition,
-    dataMiningAnalysisT,
-    dataMangment,
-  },
-  props: [],
+  components: { type },
   data() {
     return {
-      policitalStatus: ["1"],
-      address: 1,
-      type: 1,
-    };
-  },
-};
+    }
+  }
+}
 </script>
-<style lang="scss" scoped>
+
+<style>
+
 </style>

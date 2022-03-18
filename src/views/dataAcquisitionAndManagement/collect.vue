@@ -1,5 +1,5 @@
 <template>
-  <type :id="3" />
+  <type :id="1" />
 </template>
 
 <script>

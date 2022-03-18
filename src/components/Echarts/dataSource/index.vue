@@ -1,9 +1,16 @@
 
 <template>
   <el-col :span="12">
-    <div class="dataAccess">
+    <div
+      :style="[
+        { background: id === 3 ? '#e7edf5' : '' },
+        { cursor: 'pointer' },
+        { width: '100%' },
+        { height: '420px' },
+      ]"
+    >
       <tip>{{ tipname }}</tip>
-      <div ref="canvas1" style="height: 400px" />
+      <div ref="canvas1" style="height: 400px;" />
     </div>
   </el-col>
 </template>
@@ -21,6 +28,11 @@ export default {
     },
     address: {
       // 厂家内容
+      default: null,
+      type: Number,
+    },
+    id: {
+      // 路由类型
       default: null,
       type: Number,
     },
@@ -191,9 +203,4 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-// .dataAccess {
-//   width: 100%;
-//   height: 385px;
-//   background-color: #e7edf5;
-// }
 </style>

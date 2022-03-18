@@ -1,69 +1,75 @@
 
 <template>
   <el-col :span="12">
-    <tip>{{ tipname }}</tip>
-    <div class="acquisition">
-      <div
-        class="leftBox"
-        @click="log"
-      >
-        <div class="boxContent">
-          <span class="name">{{ network }}</span>
+    <div
+      :style="[
+        { background: id === 2 ? '#e7edf5' : '' },
+        { cursor: 'pointer' },
+        { width: '100%' },
+        { height: '385px' },
+      ]"
+    >
+      <tip>{{ tipname }}</tip>
+      <div class="acquisition">
+        <div class="leftBox" @click="log">
+          <div class="boxContent">
+            <span class="name">{{ network }}</span>
+          </div>
+          <div class="boxContent">
+            <span class="name">{{ fwqrz }}</span>
+          </div>
+          <div class="boxContent">
+            <span class="name">{{ networkLirz }}</span>
+          </div>
+          <div class="boxContent">
+            <span class="name">{{ safe }}</span>
+          </div>
+          <div class="boxContent">
+            <span class="name">{{ middle }}</span>
+          </div>
+          <div class="boxContent">
+            <span class="name">{{ datadaily }}</span>
+          </div>
+          <div class="boxContent">
+            <span class="name">{{ safeEquiment }}</span>
+          </div>
+          <div class="boxContent">
+            <span class="name">{{ networkDaily }}</span>
+          </div>
+          <div class="boxContent">
+            <span class="name">{{ networkEquimentDaily }}</span>
+          </div>
         </div>
-        <div class="boxContent">
-          <span class="name">{{ fwqrz }}</span>
-        </div>
-        <div class="boxContent">
-          <span class="name">{{ networkLirz }}</span>
-        </div>
-        <div class="boxContent">
-          <span class="name">{{ safe }}</span>
-        </div>
-        <div class="boxContent">
-          <span class="name">{{ middle }}</span>
-        </div>
-        <div class="boxContent">
-          <span class="name">{{ datadaily }}</span>
-        </div>
-        <div class="boxContent">
-          <span class="name">{{ safeEquiment }}</span>
-        </div>
-        <div class="boxContent">
-          <span class="name">{{ networkDaily }}</span>
-        </div>
-        <div class="boxContent">
-          <span class="name">{{ networkEquimentDaily }}</span>
-        </div>
-      </div>
-      <div class="quantity">{{ quantity }}</div>
-      <div class="number">{{ number }}</div>
-      <div class="datails">
-        <div class="boxContent">
-          <span class="name">{{ IT }}</span>
-        </div>
-        <div class="boxContent">
-          <span class="name">{{ ITdata }}</span>
-        </div>
-        <div class="boxContent">
-          <span class="name">{{ OT }}</span>
-        </div>
-        <div class="boxContent">
-          <span class="name">{{ OTdata }}</span>
-        </div>
-        <div class="boxContent">
-          <span class="name">{{ ITdaily }}</span>
-        </div>
-        <div class="boxContent">
-          <span class="name">{{ ITdailyData }}</span>
-        </div>
-        <div class="boxContent">
-          <span class="name">{{ OTdaily }}</span>
-        </div>
-        <div class="boxContent">
-          <span class="name">{{ OTdailyData }}</span>
-        </div>
-        <div class="boxContent">
-          <span class="name">{{ user }}</span>
+        <div class="quantity">{{ quantity }}</div>
+        <div class="number">{{ number }}</div>
+        <div class="datails">
+          <div class="boxContent">
+            <span class="name">{{ IT }}</span>
+          </div>
+          <div class="boxContent">
+            <span class="name">{{ ITdata }}</span>
+          </div>
+          <div class="boxContent">
+            <span class="name">{{ OT }}</span>
+          </div>
+          <div class="boxContent">
+            <span class="name">{{ OTdata }}</span>
+          </div>
+          <div class="boxContent">
+            <span class="name">{{ ITdaily }}</span>
+          </div>
+          <div class="boxContent">
+            <span class="name">{{ ITdailyData }}</span>
+          </div>
+          <div class="boxContent">
+            <span class="name">{{ OTdaily }}</span>
+          </div>
+          <div class="boxContent">
+            <span class="name">{{ OTdailyData }}</span>
+          </div>
+          <div class="boxContent">
+            <span class="name">{{ user }}</span>
+          </div>
         </div>
       </div>
     </div>
@@ -83,6 +89,11 @@ export default {
     },
     address: {
       // 厂家内容
+      default: null,
+      type: Number,
+    },
+    id: {
+      // 路由类型
       default: null,
       type: Number,
     },
@@ -142,6 +153,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 .acquisition {
+  margin-left: 60px;
   position: relative;
   // display: inline-block;
   // float: left;
@@ -151,7 +163,7 @@ export default {
   background: url("../../../assets/logo/treeBK_02.png") no-repeat !important;
   // border: 10px solid #1f8fff;
   // margin-left: 20px;
-  margin-top: 20px;
+  margin-top: 10px;
   font-size: 24px;
   .quantity {
     position: absolute;
