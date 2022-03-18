@@ -142,7 +142,7 @@
             </el-col>
             <el-col :span="6">
               <el-form-item size="mini">
-                <el-button type="primary" @click="submitdata">搜索</el-button>
+                <el-button type="primary" @click="getList">搜索</el-button>
                 <el-button @click="resetForm">重置</el-button>
               </el-form-item>
             </el-col>
@@ -160,17 +160,17 @@
     </el-card>
     <el-table :data="groupList">
       <el-table-column type="selection" width="55" align="center" />
-      <el-table-column label="检测服务器类型" align="center" :show-overflow-tooltip="true" prop="groupId" min-width="15%" />
-      <el-table-column label="动作类型" align="center" prop="userId" :show-overflow-tooltip="true" min-width="10%" />
-      <el-table-column label="协议类型" align="center" prop="remark" :show-overflow-tooltip="true" min-width="15%" />
-      <el-table-column label="源IP" align="center" prop="groupOrder" :show-overflow-tooltip="true" min-width="10%" />
-      <el-table-column label="时间" align="center" prop="searchValue" :show-overflow-tooltip="true" min-width="10%" />
-      <el-table-column label="事件等级" align="center" prop="createTime" :show-overflow-tooltip="true" min-width="10%" />
-      <el-table-column label="命中策略" align="center" prop="delFlag" :show-overflow-tooltip="true" min-width="15%" />
-      <el-table-column label="事件SID" align="center" prop="updateBy" :show-overflow-tooltip="true" min-width="10%" />
-      <el-table-column label="事件ID" align="center" prop="createBy" :show-overflow-tooltip="true" min-width="10%" />
-      <el-table-column label="处置状态" align="center" prop="updateTime" :show-overflow-tooltip="true" min-width="10%" />
-      <el-table-column label="区域" align="center" prop="groupName" :show-overflow-tooltip="true" min-width="10%" />
+      <el-table-column label="检测服务器类型" align="center" :show-overflow-tooltip="true" prop="serviceType" min-width="15%" />
+      <el-table-column label="动作类型" align="center" prop="safeType" :show-overflow-tooltip="true" min-width="10%" />
+      <el-table-column label="协议类型" align="center" prop="protocol" :show-overflow-tooltip="true" min-width="15%" />
+      <el-table-column label="源IP" align="center" prop="sourceIp" :show-overflow-tooltip="true" min-width="10%" />
+      <el-table-column label="发生时间" align="center" prop="happen" :show-overflow-tooltip="true" min-width="10%" />
+      <el-table-column label="事件等级" align="center" prop="level" :show-overflow-tooltip="true" min-width="10%" />
+      <el-table-column label="命中策略" align="center" prop="tactics" :show-overflow-tooltip="true" min-width="15%" />
+      <el-table-column label="事件SID" align="center" prop="eventSid" :show-overflow-tooltip="true" min-width="10%" />
+      <el-table-column label="事件ID" align="center" prop="eventId" :show-overflow-tooltip="true" min-width="10%" />
+      <el-table-column label="处置状态" align="center" prop="state" :show-overflow-tooltip="true" min-width="10%" />
+      <el-table-column label="区域" align="center" prop="region" :show-overflow-tooltip="true" min-width="10%" />
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width" min-width="15%">
         <template slot-scope="scope">
           <el-button
@@ -352,12 +352,14 @@
 </template>
 <script>
 import approval_url from '@/icons/echarts/datail.png'
+import { dataList } from '@/api/system/list'
+
 export default {
   components: {},
   props: [],
   data() {
     return {
-      loading: true,
+      loading: false,
       showPhoto: approval_url,
       name: '测试',
       dataTest: {
@@ -500,6 +502,15 @@ export default {
     this.getList()
   },
   methods: {
+    /** 查询分组列表 */
+    async getList() {
+      this.loading = true
+      const res = await dataList(this.queryParams)
+      this.groupList = res.rows
+      this.total = res.total
+      console.log(this.groupList)
+      this.loading = false
+    },
     /** 查询分组列表 */
     submitdata() {
       this.$refs['elForm'].validate(valid => {

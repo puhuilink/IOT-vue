@@ -122,7 +122,7 @@
             </el-col>
             <el-col :span="6">
               <el-form-item size="mini">
-                <el-button type="primary" @click="submitdata">搜索</el-button>
+                <el-button type="primary" @click="getList">搜索</el-button>
                 <el-button @click="resetForm">重置</el-button>
               </el-form-item>
             </el-col>
@@ -132,16 +132,16 @@
     </el-card>
     <el-table :data="groupList" tooltip-effect="light">
       <el-table-column type="selection" width="55" align="center" />
-      <el-table-column label="攻击者IP" align="center" prop="groupOrder" :show-overflow-tooltip="true" />
-      <el-table-column label="受害者IP" align="center" prop="userId" :show-overflow-tooltip="true" />
-      <el-table-column label="事件名称" align="center" prop="groupName" :show-overflow-tooltip="true" />
-      <el-table-column label="威胁分类" align="center" prop="searchValue" :show-overflow-tooltip="true" />
-      <el-table-column label="事件等级" align="center" prop="remark" :show-overflow-tooltip="true" />
-      <el-table-column label="杀伤链阶段" align="center" prop="delFlag" :show-overflow-tooltip="true" />
-      <el-table-column label="处置状态" align="center" prop="createBy" :show-overflow-tooltip="true" />
-      <el-table-column label="发生时间" align="center" prop="createTime" :show-overflow-tooltip="true" />
-      <el-table-column label="发现时间" align="center" prop="updateTime" :show-overflow-tooltip="true" />
-      <el-table-column label="区域" align="center" prop="updateBy" :show-overflow-tooltip="true" />
+      <el-table-column label="攻击者IP" align="center" prop="ip" :show-overflow-tooltip="true" />
+      <el-table-column label="受害者IP" align="center" prop="victimIp" :show-overflow-tooltip="true" />
+      <el-table-column label="事件名称" align="center" prop="name" :show-overflow-tooltip="true" />
+      <el-table-column label="威胁分类" align="center" prop="threat" :show-overflow-tooltip="true" />
+      <el-table-column label="事件等级" align="center" prop="risk" :show-overflow-tooltip="true" />
+      <el-table-column label="杀伤链阶段" align="center" prop="stage" :show-overflow-tooltip="true" />
+      <el-table-column label="处置状态" align="center" prop="state" :show-overflow-tooltip="true" />
+      <el-table-column label="发生时间" align="center" prop="happen" :show-overflow-tooltip="true" />
+      <el-table-column label="发现时间" align="center" prop="found" :show-overflow-tooltip="true" />
+      <el-table-column label="区域" align="center" prop="region" :show-overflow-tooltip="true" />
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
         <template slot-scope="scope">
           <el-button
@@ -265,12 +265,14 @@
   </div>
 </template>
 <script>
+import { zombieList } from '@/api/system/list'
+
 export default {
   components: {},
   props: [],
   data() {
     return {
-      loading: true,
+      loading: false,
       name: '测试',
       dataTest: {
         name: 'Botnet',
@@ -291,11 +293,12 @@ export default {
         name15: '已处置'
       },
       // 分组表格数据
-      groupList: [{ 'searchValue': '僵尸网络', 'createBy': '未处置', 'createTime': '2021-05-18 16:35:03', 'updateBy': '山西燃气厂', 'updateTime': '2021-05-18 16:35:32', 'remark': '极低', 'params': {}, 'groupId': 1, 'userId': '116.103.2.11', 'groupName': 'Botnet', 'groupOrder': '10.255.52.10', 'delFlag': '载荷投递' },
-        { 'searchValue': '僵尸网络', 'createBy': '未处置', 'createTime': '2021-05-18 16:35:03', 'updateBy': '山西燃气厂', 'updateTime': '2021-05-18 16:35:32', 'remark': '极低', 'params': {}, 'groupId': 2, 'userId': '116.103.2.11', 'groupName': 'Botnet', 'groupOrder': '10.255.52.10', 'delFlag': '载荷投递' },
-        { 'searchValue': '僵尸网络', 'createBy': '未处置', 'createTime': '2021-05-18 16:35:03', 'updateBy': '山西燃气厂', 'updateTime': '2021-05-18 16:35:32', 'remark': '极低', 'params': {}, 'groupId': 3, 'userId': '116.103.2.11', 'groupName': 'Botnet', 'groupOrder': '10.255.52.10', 'delFlag': '载荷投递' },
-        { 'searchValue': '僵尸网络', 'createBy': '未处置', 'createTime': '2021-05-18 16:35:03', 'updateBy': '山西燃气厂', 'updateTime': '2021-05-18 16:35:32', 'remark': '极低', 'params': {}, 'groupId': 4, 'userId': '116.103.2.11', 'groupName': 'Botnet', 'groupOrder': '10.255.52.10', 'delFlag': '载荷投递' },
-        { 'searchValue': '僵尸网络', 'createBy': '未处置', 'createTime': '2021-05-18 16:35:03', 'updateBy': '山西燃气厂', 'updateTime': '2021-05-18 16:35:32', 'remark': '极低', 'params': {}, 'groupId': 5, 'userId': '116.103.2.11', 'groupName': 'Botnet', 'groupOrder': '10.255.52.10', 'delFlag': '载荷投递' }],
+      groupList: [],
+      // groupList: [{ 'searchValue': '僵尸网络', 'createBy': '未处置', 'createTime': '2021-05-18 16:35:03', 'updateBy': '山西燃气厂', 'updateTime': '2021-05-18 16:35:32', 'remark': '极低', 'params': {}, 'groupId': 1, 'userId': '116.103.2.11', 'groupName': 'Botnet', 'groupOrder': '10.255.52.10', 'delFlag': '载荷投递' },
+      //   { 'searchValue': '僵尸网络', 'createBy': '未处置', 'createTime': '2021-05-18 16:35:03', 'updateBy': '山西燃气厂', 'updateTime': '2021-05-18 16:35:32', 'remark': '极低', 'params': {}, 'groupId': 2, 'userId': '116.103.2.11', 'groupName': 'Botnet', 'groupOrder': '10.255.52.10', 'delFlag': '载荷投递' },
+      //   { 'searchValue': '僵尸网络', 'createBy': '未处置', 'createTime': '2021-05-18 16:35:03', 'updateBy': '山西燃气厂', 'updateTime': '2021-05-18 16:35:32', 'remark': '极低', 'params': {}, 'groupId': 3, 'userId': '116.103.2.11', 'groupName': 'Botnet', 'groupOrder': '10.255.52.10', 'delFlag': '载荷投递' },
+      //   { 'searchValue': '僵尸网络', 'createBy': '未处置', 'createTime': '2021-05-18 16:35:03', 'updateBy': '山西燃气厂', 'updateTime': '2021-05-18 16:35:32', 'remark': '极低', 'params': {}, 'groupId': 4, 'userId': '116.103.2.11', 'groupName': 'Botnet', 'groupOrder': '10.255.52.10', 'delFlag': '载荷投递' },
+      //   { 'searchValue': '僵尸网络', 'createBy': '未处置', 'createTime': '2021-05-18 16:35:03', 'updateBy': '山西燃气厂', 'updateTime': '2021-05-18 16:35:32', 'remark': '极低', 'params': {}, 'groupId': 5, 'userId': '116.103.2.11', 'groupName': 'Botnet', 'groupOrder': '10.255.52.10', 'delFlag': '载荷投递' }],
       // 创建时间时间范围
       daterangeCreateTime: [],
       // 弹出层标题
@@ -406,9 +409,16 @@ export default {
     }
   },
   created() {
-
+    this.getList()
   },
   methods: {
+    async getList() {
+      this.loading = true
+      const res = await zombieList(this.queryParams)
+      this.groupList = res.rows
+      this.total = res.total
+      this.loading = false
+    },
     submitdata() {
       this.$refs['elForm'].validate(valid => {
         if (!valid) return

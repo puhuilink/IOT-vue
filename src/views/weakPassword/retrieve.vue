@@ -96,7 +96,7 @@
             </el-col>
             <el-col :span="6">
               <el-form-item size="mini">
-                <el-button type="primary" @click="submitdata">搜索</el-button>
+                <el-button type="primary" @click="getList">搜索</el-button>
                 <el-button @click="resetForm">重置</el-button>
               </el-form-item>
             </el-col>
@@ -106,14 +106,14 @@
     </el-card>
     <el-table :data="groupList" tooltip-effect="light">
       <el-table-column type="selection" width="55" align="center" />
-      <el-table-column label="资产名称" align="center" prop="groupOrder" :show-overflow-tooltip="true" min-width="15%" />
-      <el-table-column label="IP地址" align="center" prop="userId" :show-overflow-tooltip="true" min-width="15%" />
-      <el-table-column label="协议" align="center" prop="groupName" :show-overflow-tooltip="true" min-width="15%" />
-      <el-table-column label="端口" align="center" prop="searchValue" :show-overflow-tooltip="true" min-width="15%" />
-      <el-table-column label="事件等级" align="center" prop="remark" min-width="10%" />
-      <el-table-column label="处置状态" align="center" prop="createBy" min-width="8%" />
-      <el-table-column label="发生时间" align="center" prop="createTime" :show-overflow-tooltip="true" min-width="15%" />
-      <el-table-column label="区域" align="center" prop="updateBy" :show-overflow-tooltip="true" min-width="15%" />
+      <el-table-column label="资产名称" align="center" prop="name" :show-overflow-tooltip="true" min-width="15%" />
+      <el-table-column label="IP地址" align="center" prop="ip" :show-overflow-tooltip="true" min-width="15%" />
+      <el-table-column label="协议" align="center" prop="protocol" :show-overflow-tooltip="true" min-width="15%" />
+      <el-table-column label="端口" align="center" prop="port" :show-overflow-tooltip="true" min-width="15%" />
+      <el-table-column label="事件等级" align="center" prop="level" min-width="10%" />
+      <el-table-column label="处置状态" align="center" prop="state" min-width="8%" />
+      <el-table-column label="发生时间" align="center" prop="happen" :show-overflow-tooltip="true" min-width="15%" />
+      <el-table-column label="区域" align="center" prop="region" :show-overflow-tooltip="true" min-width="15%" />
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width" min-width="10%">
         <template slot-scope="scope">
           <el-button
@@ -135,11 +135,10 @@
     </el-table>
     <pagination
       :current-page="currentPage"
-      :page-size="pagesize"
-      layout="total, sizes, prev, pager, next, jumper"
+      :page.sync="queryParams.pageNum"
+      :limit.sync="queryParams.pageSize"
       :total="total"
-      @size-change="handleSizeChange"
-      @current-change="handleCurrentChange"
+      @pagination="getList"
     />
     <!-- 添加或修改分组对话框 -->
     <el-dialog :title="title" :visible.sync="open" width="900px" append-to-body>
@@ -222,12 +221,14 @@
   </div>
 </template>
 <script>
+import { weakList } from '@/api/system/list'
+
 export default {
   components: {},
   props: [],
   data() {
     return {
-      loading: true,
+      loading: false,
       name: '测试',
       dataTest: {
         name: 'ZJStream',
@@ -246,13 +247,14 @@ export default {
 
       },
       // 分组表格数据
-      groupList: [{ 'searchValue': '53', 'createBy': '未处置', 'createTime': '2021-05-18 16:35:03', 'updateBy': '山西三通燃气厂', 'updateTime': '2021-05-18 16:35:32', 'remark': '高', 'params': {}, 'groupId': 1, 'userId': '116.103.2.11', 'groupName': 'DNS_TCP', 'groupOrder': '内网DNS', 'delFlag': '载荷投递' },
-        { 'searchValue': '53', 'createBy': '未处置', 'createTime': '2021-05-18 16:35:03', 'updateBy': '北京城乡水厂', 'updateTime': '2021-05-18 16:35:32', 'remark': '高', 'params': {}, 'groupId': 2, 'userId': '116.103.2.11', 'groupName': 'DNS_TCP', 'groupOrder': '内网DNS', 'delFlag': '载荷投递' },
-        { 'searchValue': '53', 'createBy': '未处置', 'createTime': '2021-05-18 16:35:03', 'updateBy': '天津管片厂', 'updateTime': '2021-05-18 16:35:32', 'remark': '高', 'params': {}, 'groupId': 3, 'userId': '116.103.2.11', 'groupName': 'DNS_TCP', 'groupOrder': '内网DNS', 'delFlag': '载荷投递' },
-        { 'searchValue': '53', 'createBy': '未处置', 'createTime': '2021-05-18 16:35:03', 'updateBy': '珠海深中通道', 'updateTime': '2021-05-18 16:35:32', 'remark': '高', 'params': {}, 'groupId': 4, 'userId': '116.103.2.11', 'groupName': 'DNS_TCP', 'groupOrder': '内网DNS', 'delFlag': '载荷投递' },
-        { 'searchValue': '53', 'createBy': '未处置', 'createTime': '2021-05-18 16:35:03', 'updateBy': '三亚海投轨交', 'updateTime': '2021-05-18 16:35:32', 'remark': '高', 'params': {}, 'groupId': 5, 'userId': '116.103.2.11', 'groupName': 'DNS_TCP', 'groupOrder': '内网DNS', 'delFlag': '载荷投递' },
-        { 'searchValue': '53', 'createBy': '未处置', 'createTime': '2021-05-18 16:35:03', 'updateBy': '珠海深中通道', 'updateTime': '2021-05-18 16:35:32', 'remark': '高', 'params': {}, 'groupId': 4, 'userId': '116.103.2.11', 'groupName': 'DNS_TCP', 'groupOrder': '内网DNS', 'delFlag': '载荷投递' }
-      ],
+      groupList: [],
+      // groupList: [{ 'searchValue': '53', 'createBy': '未处置', 'createTime': '2021-05-18 16:35:03', 'updateBy': '山西三通燃气厂', 'updateTime': '2021-05-18 16:35:32', 'remark': '高', 'params': {}, 'groupId': 1, 'userId': '116.103.2.11', 'groupName': 'DNS_TCP', 'groupOrder': '内网DNS', 'delFlag': '载荷投递' },
+      //   { 'searchValue': '53', 'createBy': '未处置', 'createTime': '2021-05-18 16:35:03', 'updateBy': '北京城乡水厂', 'updateTime': '2021-05-18 16:35:32', 'remark': '高', 'params': {}, 'groupId': 2, 'userId': '116.103.2.11', 'groupName': 'DNS_TCP', 'groupOrder': '内网DNS', 'delFlag': '载荷投递' },
+      //   { 'searchValue': '53', 'createBy': '未处置', 'createTime': '2021-05-18 16:35:03', 'updateBy': '天津管片厂', 'updateTime': '2021-05-18 16:35:32', 'remark': '高', 'params': {}, 'groupId': 3, 'userId': '116.103.2.11', 'groupName': 'DNS_TCP', 'groupOrder': '内网DNS', 'delFlag': '载荷投递' },
+      //   { 'searchValue': '53', 'createBy': '未处置', 'createTime': '2021-05-18 16:35:03', 'updateBy': '珠海深中通道', 'updateTime': '2021-05-18 16:35:32', 'remark': '高', 'params': {}, 'groupId': 4, 'userId': '116.103.2.11', 'groupName': 'DNS_TCP', 'groupOrder': '内网DNS', 'delFlag': '载荷投递' },
+      //   { 'searchValue': '53', 'createBy': '未处置', 'createTime': '2021-05-18 16:35:03', 'updateBy': '三亚海投轨交', 'updateTime': '2021-05-18 16:35:32', 'remark': '高', 'params': {}, 'groupId': 5, 'userId': '116.103.2.11', 'groupName': 'DNS_TCP', 'groupOrder': '内网DNS', 'delFlag': '载荷投递' },
+      //   { 'searchValue': '53', 'createBy': '未处置', 'createTime': '2021-05-18 16:35:03', 'updateBy': '珠海深中通道', 'updateTime': '2021-05-18 16:35:32', 'remark': '高', 'params': {}, 'groupId': 4, 'userId': '116.103.2.11', 'groupName': 'DNS_TCP', 'groupOrder': '内网DNS', 'delFlag': '载荷投递' }
+      // ],
 
       // 创建时间时间范围
       daterangeCreateTime: [],
@@ -367,9 +369,16 @@ export default {
     }
   },
   created() {
-
+    this.getList()
   },
   methods: {
+    async getList() {
+      this.loading = true
+      const res = await weakList(this.queryParams)
+      this.groupList = res.rows
+      this.total = res.total
+      this.loading = false
+    },
     handleSizeChange: function(size) {
       this.pagesize = size
       this.getResultsData()
