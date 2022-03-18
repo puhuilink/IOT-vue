@@ -1,0 +1,272 @@
+<template>
+  <el-col :span="12">
+    <!-- <tip>{{ tipname }}</tip> -->
+    <div>
+      <el-row>
+        <el-col :xs="24" :sm="4" :md="4" :lg="4" :xl="4" :offset="2">
+          <div class="backStyle">
+            <div class="textThreat">威胁情报</div>
+            <div class="number">123</div>
+            <div class="numberText">事件数</div>
+            <div class="numberDisposal">23</div>
+            <div class="disposal">处置数</div>
+            <div class="notDisposalNumber">100</div>
+            <div class="notDisposal">未处置数</div>
+          </div>
+        </el-col>
+        <el-col :xs="24" :sm="4" :md="4" :lg="4" :xl="4">
+          <div class="backStyle">
+            <div class="text">数据</div>
+            <div class="textTwo">安全防护</div>
+            <div class="number">123</div>
+            <div class="numberText">事件数</div>
+            <div class="numberDisposal">23</div>
+            <div class="disposal">处置数</div>
+            <div class="notDisposalNumber">100</div>
+            <div class="notDisposal">未处置数</div>
+          </div>
+        </el-col>
+        <el-col :xs="24" :sm="4" :md="4" :lg="4" :xl="4">
+          <div class="backStyle">
+            <div class="text">异常</div>
+            <div class="textTwo">行为分析</div>
+            <div class="number">123</div>
+            <div class="numberText">事件数</div>
+            <div class="numberDisposal">23</div>
+            <div class="disposal">处置数</div>
+            <div class="notDisposalNumber">100</div>
+            <div class="notDisposal">未处置数</div>
+          </div>
+        </el-col>
+        <el-col :xs="24" :sm="4" :md="4" :lg="4" :xl="4">
+          <div class="backStyle">
+            <div class="text">主机</div>
+            <div class="textTwo">安全防护</div>
+            <div class="number">123</div>
+            <div class="numberText">事件数</div>
+            <div class="numberDisposal">23</div>
+            <div class="disposal">处置数</div>
+            <div class="notDisposalNumber">100</div>
+            <div class="notDisposal">未处置数</div>
+          </div>
+        </el-col>
+        <el-col :xs="24" :sm="4" :md="4" :lg="4" :xl="4">
+          <div class="backStyle">
+            <div class="textThree">工业网络</div>
+            <div class="textTwo">安全审计</div>
+            <div class="number">123</div>
+            <div class="numberText">事件数</div>
+            <div class="numberDisposal">23</div>
+            <div class="disposal">处置数</div>
+            <div class="notDisposalNumber">100</div>
+            <div class="notDisposal">未处置数</div>
+          </div>
+        </el-col>
+      </el-row>
+      <el-row>
+        <el-col :xs="24" :sm="4" :md="4" :lg="4" :xl="4" :offset="2">
+          <div class="backStyle">
+            <div class="textSecond">弱口令监测</div>
+            <div class="number">123</div>
+            <div class="numberText">事件数</div>
+            <div class="numberDisposal">23</div>
+            <div class="disposal">处置数</div>
+            <div class="notDisposalNumber">100</div>
+            <div class="notDisposal">未处置数</div>
+          </div>
+        </el-col>
+        <el-col :xs="24" :sm="4" :md="4" :lg="4" :xl="4">
+          <div class="backStyle">
+            <div class="textFour">入侵诱捕</div>
+            <div class="number">123</div>
+            <div class="numberText">事件数</div>
+            <div class="numberDisposal">23</div>
+            <div class="disposal">处置数</div>
+            <div class="notDisposalNumber">100</div>
+            <div class="notDisposal">未处置数</div>
+          </div>
+        </el-col>
+        <el-col :xs="24" :sm="4" :md="4" :lg="4" :xl="4">
+          <div class="backStyle">
+            <div class="textFour">配置核查</div>
+            <div class="number">123</div>
+            <div class="numberText">事件数</div>
+            <div class="numberDisposal">23</div>
+            <div class="disposal">处置数</div>
+            <div class="notDisposalNumber">100</div>
+            <div class="notDisposal">未处置数</div>
+          </div>
+        </el-col>
+        <el-col :xs="24" :sm="4" :md="4" :lg="4" :xl="4">
+          <div class="backStyle">
+            <div class="textSecond">僵木蠕监测</div>
+            <div class="number">123</div>
+            <div class="numberText">事件数</div>
+            <div class="numberDisposal">23</div>
+            <div class="disposal">处置数</div>
+            <div class="notDisposalNumber">100</div>
+            <div class="notDisposal">未处置数</div>
+          </div>
+        </el-col>
+        <el-col :xs="24" :sm="4" :md="4" :lg="4" :xl="4">
+          <div class="backStyle">
+            <div class="textFour">漏洞扫描</div>
+            <div class="number">123</div>
+            <div class="numberText">事件数</div>
+            <div class="numberDisposal">23</div>
+            <div class="disposal">处置数</div>
+            <div class="notDisposalNumber">100</div>
+            <div class="notDisposal">未处置数</div>
+          </div>
+        </el-col>
+      </el-row>
+    </div>
+  </el-col>
+</template>
+<script>
+import { setNotopt } from "@/utils/emptyEcharts.js";
+import tip from "@/components/EchartsTip";
+export default {
+  components: { tip },
+  //   props: {
+  //     tipname: { // tip内容
+  //       default: '生产网安全防护',
+  //       type: String
+  //     },
+  //     address: { // 厂家内容
+  //       default: null,
+  //       type: Number
+  //     }
+  //   },
+  data() {
+    return {
+      policitalStatus: ["1"],
+      data1: [],
+      data2: [],
+      data3: [],
+      data4: [],
+      data5: [],
+    };
+  },
+  computed: {},
+  created() {},
+  mounted() {},
+  methods: {},
+};
+</script>
+<style lang="scss" scoped>
+.backStyle {
+  margin-top: 20px;
+  width: 110px;
+  height: 250px;
+  background: url("../../../assets/logo/box_bk.png") no-repeat !important;
+  position: relative;
+  .textThreat {
+    top: 16px;
+    left: 26px;
+    position: absolute;
+    font-size: 14px;
+    font-family: MicrosoftYaHeiUI-Bold, MicrosoftYaHeiUI;
+    font-weight: bold;
+    color: #2f6699;
+  }
+  .text {
+    top: 6px;
+    left: 40px;
+    position: absolute;
+    font-size: 14px;
+    font-family: MicrosoftYaHeiUI-Bold, MicrosoftYaHeiUI;
+    font-weight: bold;
+    color: #2f6699;
+  }
+  .textThree {
+    top: 6px;
+    left: 26px;
+    position: absolute;
+    font-size: 14px;
+    font-family: MicrosoftYaHeiUI-Bold, MicrosoftYaHeiUI;
+    font-weight: bold;
+    color: #2f6699;
+  }
+  .textTwo {
+    top: 26px;
+    left: 26px;
+    position: absolute;
+    font-size: 14px;
+    font-family: MicrosoftYaHeiUI-Bold, MicrosoftYaHeiUI;
+    font-weight: bold;
+    color: #2f6699;
+  }
+  .textSecond {
+    top: 16px;
+    left: 20px;
+    text-align: center;
+    position: absolute;
+    font-size: 14px;
+    font-family: MicrosoftYaHeiUI-Bold, MicrosoftYaHeiUI;
+    font-weight: bold;
+    color: #2f6699;
+  }
+  .number {
+    font-size: 20px;
+    font-family: PingFangSC-Regular, PingFang SC;
+    font-weight: 400;
+    color: #000000;
+    top: 66px;
+    left: 35px;
+    position: absolute;
+  }
+  .notDisposalNumber {
+    font-size: 20px;
+    font-family: PingFangSC-Regular, PingFang SC;
+    font-weight: 400;
+    color: #000000;
+    top: 190px;
+    left: 35px;
+    position: absolute;
+  }
+  .notDisposal {
+    font-size: 12px;
+    font-family: MicrosoftYaHeiUI;
+    color: #8766b2;
+    top: 210px;
+    left: 32px;
+    position: absolute;
+  }
+  .numberText {
+    top: 86px;
+    left: 35px;
+    position: absolute;
+    font-size: 12px;
+    font-family: MicrosoftYaHeiUI;
+    color: #1890ff;
+  }
+  .numberDisposal {
+    font-size: 20px;
+    font-family: PingFangSC-Regular, PingFang SC;
+    font-weight: 400;
+    color: #000000;
+    top: 126px;
+    left: 42px;
+    position: absolute;
+  }
+  .disposal {
+    top: 146px;
+    left: 35px;
+    position: absolute;
+    font-size: 12px;
+    font-family: MicrosoftYaHeiUI;
+    color: #107373;
+  }
+  .textFour {
+    top: 16px;
+    left: 30px;
+    text-align: center;
+    position: absolute;
+    font-size: 14px;
+    font-family: MicrosoftYaHeiUI-Bold, MicrosoftYaHeiUI;
+    font-weight: bold;
+    color: #2f6699;
+  }
+}
+</style>

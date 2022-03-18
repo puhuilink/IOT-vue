@@ -23,7 +23,7 @@
           placeholder="请选择"
           clearable
           size="small"
-          @change="selectChanged"
+         @change="selectChanged"
         >
           <el-option
             v-for="item in allTypeList"
@@ -35,24 +35,23 @@
       </el-form-item>
     </el-form>
 
-    <el-row :gutter="270">
-      <el-col :span="4" class="elcolCard" >
+    <el-row :gutter="10">
+      <el-col :span="5" class="elcolCard">
         <div class="AssetsBox">
           <div class="Assets">全部资产</div>
           <div class="AssetsNumber">{{ this.allAssets }}</div>
         </div>
       </el-col>
-      <el-col :span="4" class="elcolCard">
-        <div class="AssetsBoxOnline">
+      <el-col :span="5" class="elcolCard">
+        <div class="AssetsBox">
           <div class="Assets">在线的资产</div>
           <div class="AssetsNumber">{{ this.onlineAssets }}</div>
         </div>
       </el-col>
       <el-col :span="4" class="elcolCard">
-        <div class="AssetsBoxType">
+        <div class="AssetsBox">
           <div class="Assets">资产类型</div>
-          <div class="AssetsNumber">{{ this.onlineAssets }}</div>
-          <!-- <div class="ITNumberBox">
+          <div class="ITNumberBox">
             <div>
               <span class="IT">IT</span>
               <span class="OT">OT</span>
@@ -61,17 +60,17 @@
               <span class="ITNumber">{{ this.ITNumber }}</span>
               <span class="OTNumber">{{ this.OTNumber }}</span>
             </div>
-          </div> -->
+          </div>
         </div>
       </el-col>
-      <el-col :span="4" class="elcolCard">
-        <div class="AssetsBoxOffline">
+      <el-col :span="5" class="elcolCard">
+        <div class="AssetsBox">
           <div class="Assets">离线的资产</div>
           <div class="AssetsNumber">{{ this.offlineAssets }}</div>
         </div>
       </el-col>
-      <el-col :span="4" class="elcolCard">
-        <div class="AssetsBoxUnNormal">
+      <el-col :span="5" class="elcolCard">
+        <div class="AssetsBox">
           <div class="Assets">异常的资产</div>
           <div class="AssetsNumber">{{ this.abnormalAssets }}</div>
         </div>
@@ -249,9 +248,9 @@ export default {
       },
     };
   },
-  methods: {
-    selectChanged() {
-      console.log("111");
+  methods:{
+   selectChanged() {
+      console.log('111')
     },
   },
   created() {
@@ -698,27 +697,20 @@ export default {
 .app-container {
   .elcolCard {
     .AssetsBox {
-      width: 240px;
-      height: 80px;
-      background: linear-gradient(180deg, #df97d1 0%, #af449c 100%);
       .Assets {
-        text-align: center;
-        // padding: 10px 80px 10px 10px;
-        // border-bottom: 1px solid #fff;
+        background-color: #5599ff;
+        padding: 10px 80px 10px 10px;
+        border-bottom: 1px solid #fff;
         color: #fff;
-        font-size: 16px;
-        line-height: 50px;
       }
       .AssetsNumber {
         width: 100%;
         height: 100px;
-        // background-color: #5599ff;
-        // color: #ffff77;
-        // font-weight: 800;
-        font-size: 28px;
-        color: #fff;
+        background-color: #5599ff;
+        color: #ffff77;
+        font-weight: 800;
         text-align: center;
-        line-height: 20px;
+        line-height: 100px;
       }
       .ITNumberBox {
         color: #fff;
@@ -741,102 +733,6 @@ export default {
         .OTNumber {
           margin-left: 68px;
         }
-      }
-    }
-    .AssetsBoxOnline {
-      width: 240px;
-      height: 80px;
-      background: linear-gradient(180deg, #b56af9 0%, #6333b8 100%);
-      .Assets {
-        text-align: center;
-        // padding: 10px 80px 10px 10px;
-        // border-bottom: 1px solid #fff;
-        color: #fff;
-        font-size: 16px;
-        line-height: 50px;
-      }
-      .AssetsNumber {
-        width: 100%;
-        height: 100px;
-        // background-color: #5599ff;
-        // color: #ffff77;
-        // font-weight: 800;
-        font-size: 28px;
-        color: #fff;
-        text-align: center;
-        line-height: 20px;
-      }
-    }
-    .AssetsBoxOffline {
-      width: 240px;
-      height: 80px;
-      background: linear-gradient(180deg, #00bbeb 0%, #0085d2 100%);
-      .Assets {
-        text-align: center;
-        // padding: 10px 80px 10px 10px;
-        // border-bottom: 1px solid #fff;
-        color: #fff;
-        font-size: 16px;
-        line-height: 50px;
-      }
-      .AssetsNumber {
-        width: 100%;
-        height: 100px;
-        // background-color: #5599ff;
-        // color: #ffff77;
-        // font-weight: 800;
-        font-size: 28px;
-        color: #fff;
-        text-align: center;
-        line-height: 20px;
-      }
-    }
-    .AssetsBoxUnNormal {
-      width: 240px;
-      height: 80px;
-      background: linear-gradient(180deg, #3cd3aa 0%, #229b9f 100%);
-      .Assets {
-        text-align: center;
-        // padding: 10px 80px 10px 10px;
-        // border-bottom: 1px solid #fff;
-        color: #fff;
-        font-size: 16px;
-        line-height: 50px;
-      }
-      .AssetsNumber {
-        width: 100%;
-        height: 100px;
-        // background-color: #5599ff;
-        // color: #ffff77;
-        // font-weight: 800;
-        font-size: 28px;
-        color: #fff;
-        text-align: center;
-        line-height: 20px;
-      }
-    }
-    .AssetsBoxType {
-      width: 240px;
-      height: 80px;
-      background: linear-gradient(180deg, #4fa8e7 0%, #3570d4 100%);
-      .Assets {
-        text-align: center;
-        // padding: 10px 80px 10px 10px;
-        // border-bottom: 1px solid #fff;
-        color: #fff;
-        font-size: 16px;
-        line-height: 50px;
-      }
-      .AssetsNumber {
-        width: 100%;
-        height: 100px;
-        // background-color: #5599ff;
-        // color: #ffff77;
-        // font-weight: 800;
-        font-size: 28px;
-        color: #fff;
-        text-align: center;
-        line-height: 20px;
       }
     }
   }
