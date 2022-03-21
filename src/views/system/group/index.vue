@@ -60,7 +60,7 @@
       </el-col>
       <el-col :span="1.5">
         <el-button
-          v-hasPermi="['system:group:edit']"
+         
           type="success"
           plain
           icon="el-icon-edit"
@@ -71,7 +71,7 @@
       </el-col>
       <el-col :span="1.5">
         <el-button
-          v-hasPermi="['system:group:remove']"
+          
           type="danger"
           plain
           icon="el-icon-delete"
@@ -108,14 +108,14 @@
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
         <template slot-scope="scope">
           <el-button
-            v-hasPermi="['system:group:edit']"
+           
             size="mini"
             type="text"
             icon="el-icon-edit"
             @click="handleUpdate(scope.row)"
           >修改</el-button>
           <el-button
-            v-hasPermi="['system:group:remove']"
+            
             size="mini"
             type="text"
             icon="el-icon-delete"

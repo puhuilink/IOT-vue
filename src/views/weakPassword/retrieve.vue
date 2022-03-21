@@ -106,25 +106,25 @@
     </el-card>
     <el-table :data="groupList" tooltip-effect="light">
       <el-table-column type="selection" width="55" align="center" />
-      <el-table-column label="资产名称" align="center" prop="name" :show-overflow-tooltip="true" min-width="15%" />
-      <el-table-column label="IP地址" align="center" prop="ip" :show-overflow-tooltip="true" min-width="15%" />
-      <el-table-column label="协议" align="center" prop="protocol" :show-overflow-tooltip="true" min-width="15%" />
+      <el-table-column label="资产名称" align="center" prop="assetName" :show-overflow-tooltip="true" min-width="15%" />
+      <el-table-column label="IP地址" align="center" prop="ipAddress" :show-overflow-tooltip="true" min-width="15%" />
+      <el-table-column label="协议" align="center" prop="agreement" :show-overflow-tooltip="true" min-width="15%" />
       <el-table-column label="端口" align="center" prop="port" :show-overflow-tooltip="true" min-width="15%" />
-      <el-table-column label="事件等级" align="center" prop="level" min-width="10%" />
-      <el-table-column label="处置状态" align="center" prop="state" min-width="8%" />
-      <el-table-column label="发生时间" align="center" prop="happen" :show-overflow-tooltip="true" min-width="15%" />
+      <el-table-column label="事件等级" align="center" prop="eventLevel" min-width="10%" />
+      <el-table-column label="处置状态" align="center" prop="disposalStatus" min-width="8%" />
+      <el-table-column label="发生时间" align="center" prop="findTime" :show-overflow-tooltip="true" min-width="15%" />
       <el-table-column label="区域" align="center" prop="region" :show-overflow-tooltip="true" min-width="15%" />
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width" min-width="10%">
         <template slot-scope="scope">
           <el-button
-            v-hasPermi="['system:group:edit']"
+
             size="mini"
             type="text"
             icon="el-icon-edit"
-            @click="detail"
+            @click="detail(scope.row.weakPasswordId)"
           >详情</el-button>
           <el-button
-            v-hasPermi="['system:group:remove']"
+
             size="mini"
             type="text"
             icon="el-icon-delete"
@@ -145,68 +145,68 @@
       <el-form ref="form" label-width="100px" label-position="left">
         <el-row>
           <el-col :span="8">
-            <el-form-item label="用户名 :">
-              {{ dataTest.name }}
+            <el-form-item label="IP地址 :">
+              {{ detailData.name }}
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="密码 :">
-              {{ dataTest.name1 }}
+              {{ detailData.name1 }}
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="服务 :">
-              {{ dataTest.name2 }}
+              {{ detailData.name2 }}
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="端口 :">
-              {{ dataTest.name3 }}
+              {{ detailData.name3 }}
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="处置状态 :">
-              {{ dataTest.name4 }}
+              {{ detailData.name4 }}
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="发现时间 :">
-              {{ dataTest.name5 }}
+              {{ detailData.name5 }}
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="资产名称 :">
-              {{ dataTest.name6 }}
+              {{ detailData.name6 }}
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="资产类型 :">
-              {{ dataTest.name7 }}
+              {{ detailData.name7 }}
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="IP地址 :">
-              {{ dataTest.name8 }}
+              {{ detailData.name8 }}
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="资产价值 :">
-              {{ dataTest.name9 }}
+              {{ detailData.name9 }}
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="责任人 :">
-              {{ dataTest.name10 }}
+              {{ detailData.name10 }}
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="部门 :">
-              {{ dataTest.name11 }}
+              {{ detailData.name11 }}
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="区域 :">
-              {{ dataTest.name12 }}
+              {{ detailData.name12 }}
             </el-form-item>
           </el-col>
         </el-row>
@@ -221,7 +221,9 @@
   </div>
 </template>
 <script>
+
 import { weakList } from '@/api/system/list'
+import { WeakPasswordDetail } from '@/api/system/detail'
 
 export default {
   components: {},
@@ -230,7 +232,7 @@ export default {
     return {
       loading: false,
       name: '测试',
-      dataTest: {
+      detailData: {
         name: 'ZJStream',
         name1: 'Z*****m',
         name2: 'DNS_TCP',
@@ -409,7 +411,9 @@ export default {
     resetForm() {
       this.$refs['elForm'].resetFields()
     },
-    detail() {
+    async detail(id) {
+      const res = await WeakPasswordDetail(id)
+      this.detailData = res.rows
       this.open = true
       this.title = '事件详情'
     },

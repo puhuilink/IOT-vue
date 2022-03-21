@@ -152,37 +152,37 @@
         <el-table-column
           label="接收时间"
           align="center"
-          prop="acceptance"
+          prop="receivingTime"
           :show-overflow-tooltip="true"
         />
         <el-table-column
           label="事件名称"
           align="center"
-          prop="name"
+          prop="eventName"
           :show-overflow-tooltip="true"
         />
         <el-table-column
           label="事件等级"
           align="center"
-          prop="level"
+          prop="eventLevel"
           :show-overflow-tooltip="true"
         />
         <el-table-column
           label="事件类型"
           align="center"
-          prop="type"
+          prop="eventType"
           :show-overflow-tooltip="true"
         />
         <el-table-column
           label="操作系统"
           align="center"
-          prop="os"
+          prop="operatingSystem"
           :show-overflow-tooltip="true"
         />
         <el-table-column
           label="客户端名称"
           align="center"
-          prop="client"
+          prop="clientName"
           :show-overflow-tooltip="true"
         />
         <el-table-column
@@ -194,19 +194,19 @@
         <el-table-column
           label="产生时间"
           align="center"
-          prop="happen"
+          prop="generationTime"
           :show-overflow-tooltip="true"
         />
         <el-table-column
           label="日志描述"
           align="center"
-          prop="log"
+          prop="logDescription"
           :show-overflow-tooltip="true"
         />
         <el-table-column
           label="处置状态"
           align="center"
-          prop="state"
+          prop="disposalStatus"
           :show-overflow-tooltip="true"
         />
         <el-table-column
@@ -222,13 +222,13 @@
         >
           <template slot-scope="scope">
             <el-button
-              v-hasPermi="['system:group:edit']"
+
               size="mini"
               type="text"
-              @click="detail"
+              @click="detail(scope.row.stiffWoodCreepId)"
             >详情</el-button>
             <el-button
-              v-hasPermi="['system:group:remove']"
+
               size="mini"
               type="text"
               @click="handleDelete(scope.row)"
@@ -251,107 +251,107 @@
         <el-row>
           <el-col :span="12">
             <el-form-item label="接收时间 :">
-              {{ dataTest.name }}
+              {{ detailData.name }}
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="病毒类型 :">
-              {{ dataTest.name1 }}
+              {{ detailData.name1 }}
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="事件名称 :">
-              {{ dataTest.name2 }}
+              {{ detailData.name2 }}
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="病毒名 :">
-              {{ dataTest.name3 }}
+              {{ detailData.name3 }}
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="事件等级 :">
-              {{ dataTest.name4 }}
+              {{ detailData.name4 }}
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="用户名称 :">
-              {{ dataTest.name5 }}
+              {{ detailData.name5 }}
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="事件类型 :">
-              {{ dataTest.name6 }}
+              {{ detailData.name6 }}
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="路径 :">
-              {{ dataTest.name7 }}
+              {{ detailData.name7 }}
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="操作系统 :">
-              {{ dataTest.name8 }}
+              {{ detailData.name8 }}
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="目的地址 :">
-              {{ dataTest.name9 }}
+              {{ detailData.name9 }}
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="客户端名称 :">
-              {{ dataTest.name10 }}
+              {{ detailData.name10 }}
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="公司名称 :">
-              {{ dataTest.name11 }}
+              {{ detailData.name11 }}
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="客户端 IP :">
-              {{ dataTest.name12 }}
+              {{ detailData.name12 }}
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="产品名称 :">
-              {{ dataTest.name13 }}
+              {{ detailData.name13 }}
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="产生时间 :">
-              {{ dataTest.name12 }}
+              {{ detailData.name12 }}
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="版本号 :">
-              {{ dataTest.name13 }}
+              {{ detailData.name13 }}
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="日志描述 :">
-              {{ dataTest.name12 }}
+              {{ detailData.name12 }}
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="区域 :">
-              {{ dataTest.name13 }}
+              {{ detailData.name13 }}
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="进程 :">
-              {{ dataTest.name12 }}
+              {{ detailData.name12 }}
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="父进程 :">
-              {{ dataTest.name12 }}
+              {{ detailData.name12 }}
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="处置状态 :">
-              {{ dataTest.name13 }}
+              {{ detailData.name13 }}
             </el-form-item>
           </el-col>
         </el-row>
@@ -372,6 +372,7 @@
 <script>
 // import { listEvent } from '@/api/system/category'
 import { hostList } from '@/api/system/list'
+import { hostSecurityDetail } from '@/api/system/detail'
 
 export default {
   components: {},
@@ -380,7 +381,7 @@ export default {
     return {
       loading: false,
       name: '测试',
-      dataTest: {
+      detailData: {
         name: '工业网络审计事件',
         name1: '工业网络审计',
         name2: '高危',
@@ -396,107 +397,6 @@ export default {
         name12: '2022-02-22',
         name13: '2022-2-25'
       },
-      // 分组表格数据
-      // groupListData: [
-      //   {
-      //     searchValue: '2022-01-29 10:10:00',
-      //     createBy: '非法外联告警',
-      //     createTime: '高',
-      //     remark: '非法外联事件',
-      //     updateTime: 'Windows7',
-      //     khdmc: 'WIN-gyk',
-      //     groupName: '192.168.19.159',
-      //     groupId: '2022-01-29 10:10:00',
-      //     userId: '116.103.2.11',
-      //     groupName: '产生非法外联、外联地址：www百度.com',
-      //     czzt: '未处置',
-      //     delFlag: '山西三通燃气厂'
-      //   },
-      //   {
-      //     searchValue: '2022-01-29 10:10:00',
-      //     createBy: '非法外联告警',
-      //     createTime: '高',
-      //     remark: '非法外联事件',
-      //     updateTime: 'Windows7',
-      //     khdmc: 'WIN-gyk',
-      //     groupName: '192.168.19.159',
-      //     groupId: '2022-01-29 10:10:00',
-      //     userId: '116.103.2.11',
-      //     groupName: '产生非法外联、外联地址：www百度.com',
-      //     czzt: '未处置',
-      //     delFlag: '山西三通燃气厂'
-      //   },
-      //   {
-      //     searchValue: '2022-01-29 10:10:00',
-      //     createBy: '非法外联告警',
-      //     createTime: '高',
-      //     remark: '非法外联事件',
-      //     updateTime: 'Windows7',
-      //     khdmc: 'WIN-gyk',
-      //     groupName: '192.168.19.159',
-      //     groupId: '2022-01-29 10:10:00',
-      //     userId: '116.103.2.11',
-      //     groupName: '产生非法外联、外联地址：www百度.com',
-      //     czzt: '未处置',
-      //     delFlag: '山西三通燃气厂'
-      //   },
-      //   {
-      //     searchValue: '2022-01-29 10:10:00',
-      //     createBy: '非法外联告警',
-      //     createTime: '高',
-      //     remark: '非法外联事件',
-      //     updateTime: 'Windows7',
-      //     khdmc: 'WIN-gyk',
-      //     groupName: '192.168.19.159',
-      //     groupId: '2022-01-29 10:10:00',
-      //     userId: '116.103.2.11',
-      //     groupName: '产生非法外联、外联地址：www百度.com',
-      //     czzt: '未处置',
-      //     delFlag: '山西三通燃气厂'
-      //   },
-      //   {
-      //     searchValue: '2022-01-29 10:10:00',
-      //     createBy: '非法外联告警',
-      //     createTime: '高',
-      //     remark: '非法外联事件',
-      //     updateTime: 'Windows7',
-      //     khdmc: 'WIN-gyk',
-      //     groupName: '192.168.19.159',
-      //     groupId: '2022-01-29 10:10:00',
-      //     userId: '116.103.2.11',
-      //     groupName: '产生非法外联、外联地址：www百度.com',
-      //     czzt: '未处置',
-      //     delFlag: '山西三通燃气厂'
-      //   },
-      //   {
-      //     searchValue: '2022-01-29 10:10:00',
-      //     createBy: '非法外联告警',
-      //     createTime: '高',
-      //     remark: '非法外联事件',
-      //     updateTime: 'Windows7',
-      //     khdmc: 'WIN-gyk',
-      //     groupName: '192.168.19.159',
-      //     groupId: '2022-01-29 10:10:00',
-      //     userId: '116.103.2.11',
-      //     groupName: '产生非法外联、外联地址：www百度.com',
-      //     czzt: '未处置',
-      //     delFlag: '山西三通燃气厂'
-      //   },
-      //   {
-      //     searchValue: '2022-01-29 10:10:00',
-      //     createBy: '非法外联告警',
-      //     createTime: '高',
-      //     remark: '非法外联事件',
-      //     updateTime: 'Windows7',
-      //     khdmc: 'WIN-gyk',
-      //     groupName: '192.168.19.159',
-      //     groupId: '2022-01-29 10:10:00',
-      //     userId: '116.103.2.11',
-      //     groupName: '产生非法外联、外联地址：www百度.com',
-      //     czzt: '未处置',
-      //     delFlag: '山西三通燃气厂'
-      //   }
-      // ],
       // 分组表格数据
       groupList: [],
       // 创建时间时间范围
@@ -614,7 +514,9 @@ export default {
     resetForm() {
       this.$refs['elForm'].resetFields()
     },
-    detail() {
+    detail(id) {
+      const res = hostSecurityDetail(id)
+      this.detailData = res.rows
       this.open = true
       this.title = '事件详情'
     },

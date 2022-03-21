@@ -4,7 +4,7 @@
  * @Author: Zhangjunjie
  * @Date: 2022-1-25
  */
-// 根据鑫哥之前写的部署脚本改良并适配到工业企业网络安全综合防护平台
+// 根据鑫哥之前写的部署脚本改良并适配到安全子平台
 // # 打版本，以 1.0.0 为例
 // git checkout master
 // # 修改 package.json 中 version 为 1.0.0
@@ -28,10 +28,10 @@ const { Log, now } = require('./utils')
 const [target] = process.argv.slice(2)
 const IS_TESTING = target === '--testing'
 
-const HOST = IS_TESTING ? '116.63.139.209' : '192.168.2.94'
+const HOST = IS_TESTING ? '116.63.139.209' : '116.63.139.209'
 const USERNAME = 'root'
-const PASSWORD = IS_TESTING ? 'Puhuilink@123' : 'puhuilink00'
-const DOCKER_NGINX_CONTAINER = IS_TESTING ? 'wumei-nginx' : 'wumei_nginx'
+const PASSWORD = IS_TESTING ? 'Puhuilink@123' : 'Puhuilink@123'
+const DOCKER_NGINX_CONTAINER = IS_TESTING ? 'wumei-nginx' : 'navigation-nginx'
 const DOCKER_NGINX_ROOT = '/etc/nginx'
 
 const ssh = new NodeSSH()
