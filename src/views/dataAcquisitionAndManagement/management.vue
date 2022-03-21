@@ -1,11 +1,11 @@
 <template>
-  <data :id="3" />
+  <type :id="3" />
 </template>
 
 <script>
-import data from '@/views/dataAcquisitionAndManagement/data'
+import type from '@/views/dataAcquisitionAndManagement/type'
 export default {
-  components: { data },
+  components: { type },
   data() {
     return {
     }

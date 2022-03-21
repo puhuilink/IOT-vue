@@ -1,7 +1,14 @@
 
 <template>
   <el-col :span="12">
-    <div class="dataAccess">
+    <div
+      :style="[
+        { background: id === 3 ? '#e7edf5' : '' },
+        { cursor: 'pointer' },
+        { width: '100%' },
+        { height: '420px' },
+      ]"
+    >
       <tip>{{ tipname }}</tip>
       <div class="acquisition" @click="log">
         <div class="quantity">{{ quantity }}</div>
@@ -91,6 +98,11 @@ export default {
       default: null,
       type: Number,
     },
+    id: {
+      // 路由类型
+      default: null,
+      type: Number,
+    },
   },
   data() {
     return {
@@ -145,97 +157,92 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-.dataAccess {
-  // width: 100%;
-  // height: 385px;
-  // background-color: #e7edf5;
-  .acquisition {
-    position: relative;
-    background: url("../../../assets/logo/treeBK_01.png") no-repeat !important;
-    height: 358px;
-    width: 624px;
-    margin-left: 20px;
-    margin-top: 20px;
-    margin-right: 20px;
+.acquisition {
+  position: relative;
+  background: url("../../../assets/logo/treeBK_01.png") no-repeat !important;
+  height: 358px;
+  width: 624px;
+  margin-left: 20px;
+  margin-top: 20px;
+  margin-right: 20px;
+  font-size: 24px;
+  .quantity {
+    position: absolute;
+    top: 130px;
+    left: 50px;
     font-size: 24px;
-    .quantity {
-      position: absolute;
-      top: 130px;
-      left: 50px;
-      font-size: 24px;
-      font-family: MicrosoftYaHei;
-      color: #333333;
-    }
-    .number {
-      position: absolute;
-      top: 160px;
-      left: 78px;
-      font-size: 48px;
-      font-family: PingFangSC-Semibold, PingFang SC;
-      font-weight: 600;
-      color: #000000;
-    }
-    .datails {
-      position: absolute;
-      top: 20px;
-      left: 495px;
-      // margin-top: 10px;
-      // float: right;
-      // padding-right: 100px;
-      .boxContent {
-        font-size: 12px;
-        font-family: MicrosoftYaHei-Bold, MicrosoftYaHei;
-        font-weight: bold;
-        color: #0e6ccb;
-        line-height: 32px;
-        // width: 200px;
-        // height: 30px;
-        // line-height: 30px;
-        // text-align: left;
-        // // border: 1px solid #1f8fff;
-        // margin-bottom: 10px;
-        // border-radius: 50px;
-        // border-top: none;
-        // border-bottom: none;
-        .name {
-          float: left;
-          // margin-left: 20px;
-        }
-        .dataIT {
-          float: right;
-          // margin-right: 20px;
-        }
+    font-family: MicrosoftYaHei;
+    color: #333333;
+  }
+  .number {
+    position: absolute;
+    top: 160px;
+    left: 78px;
+    font-size: 48px;
+    font-family: PingFangSC-Semibold, PingFang SC;
+    font-weight: 600;
+    color: #000000;
+  }
+  .datails {
+    position: absolute;
+    top: 20px;
+    left: 495px;
+    // margin-top: 10px;
+    // float: right;
+    // padding-right: 100px;
+    .boxContent {
+      font-size: 12px;
+      font-family: MicrosoftYaHei-Bold, MicrosoftYaHei;
+      font-weight: bold;
+      color: #0e6ccb;
+      line-height: 32px;
+      // width: 200px;
+      // height: 30px;
+      // line-height: 30px;
+      // text-align: left;
+      // // border: 1px solid #1f8fff;
+      // margin-bottom: 10px;
+      // border-radius: 50px;
+      // border-top: none;
+      // border-bottom: none;
+      .name {
+        float: left;
+        // margin-left: 20px;
+      }
+      .dataIT {
+        float: right;
+        // margin-right: 20px;
       }
     }
-    .leftBox {
-      position: absolute;
-      top: 20px;
-      left: 270px;
-      // margin-top: 10px;
-      // float: left;
-      padding-right: 20px;
-      .boxContent {
-        font-size: 12px;
-        font-family: MicrosoftYaHei-Bold, MicrosoftYaHei;
-        font-weight: bold;
-        color: #402165;
-        // width: 130px;
-        // height: 30px;
-        line-height: 32px;
-        text-align: left;
-        // border: 1px solid #1f8fff;
-        // margin-bottom: 40px;
-        // border-radius: 50px;
-        // border-top: none;
-        // border-bottom: none;
-        .name {
-          float: left;
-          margin-left: 20px;
-        }
-        .dataIT {
-          float: right;
-          margin-right: 20px;
-        }
+  }
+  .leftBox {
+    position: absolute;
+    top: 20px;
+    left: 270px;
+    // margin-top: 10px;
+    // float: left;
+    padding-right: 20px;
+    .boxContent {
+      font-size: 12px;
+      font-family: MicrosoftYaHei-Bold, MicrosoftYaHei;
+      font-weight: bold;
+      color: #402165;
+      // width: 130px;
+      // height: 30px;
+      line-height: 32px;
+      text-align: left;
+      // border: 1px solid #1f8fff;
+      // margin-bottom: 40px;
+      // border-radius: 50px;
+      // border-top: none;
+      // border-bottom: none;
+      .name {
+        float: left;
+        margin-left: 20px;
+      }
+      .dataIT {
+        float: right;
+        margin-right: 20px;
       }
     }
   }
