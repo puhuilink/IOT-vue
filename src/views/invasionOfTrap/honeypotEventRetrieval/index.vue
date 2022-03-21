@@ -179,7 +179,7 @@
             <el-button
               size="mini"
               type="text"
-              @click="detail(scope.row.id)"
+              @click="detail(scope.row.intrusionTrapId)"
             >详情</el-button>
             <el-button
               size="mini"
@@ -203,38 +203,38 @@
       <el-form ref="form" label-width="105px" label-position="left">
         <el-row>
           <el-col :span="8">
-            <el-form-item label="攻击者 :">
-              {{ dataTest.name }}
+            <el-form-item label="攻击源 :">
+              {{ detailData.attackSource }}
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="攻击目标 :">
-              {{ dataTest.name1 }}
+              {{ detailData.attackTarget }}
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="事件等级 :">
-              {{ dataTest.name2 }}
+              {{ detailData.eventLevel }}
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="开始攻击时间 :">
-              {{ dataTest.name3 }}
+              {{ detailData.startAttackTime }}
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="结束攻击时间 :">
-              {{ dataTest.name4 }}
+              {{ detailData.lastAttackTime }}
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="区域 :">
-              {{ dataTest.name5 }}
+              {{ detailData.region }}
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="处置状态 :">
-              {{ dataTest.name6 }}
+              {{ detailData.disposalStatus }}
             </el-form-item>
           </el-col>
         </el-row>
@@ -276,76 +276,10 @@ export default {
     return {
       loading: false,
       name: '测试',
-      dataTest: {
-        name: '工业网络审计事件',
-        name1: '工业网络审计',
-        name2: '高危',
-        name3: '未知接口',
-        name4: '10.255.52.84',
-        name5: '192.163.12.63',
-        name6: 'MODBUS协议',
-        name7: '工业网络审计',
-        name8: '10.255.52.83',
-        name9: '失陷',
-        name10: '山西燃气厂',
-        name11: '待处置',
-        name12: '2022-02-22',
-        name13: '2022-2-25'
+      detailData: {
       },
       // 分组表格数据
-      // groupListData: [
-      //   {
-      //     gjz: '10.255.52.84',
-      //     gjmb: '115.236.55.14',
-      //     glsx: 'confluence_https',
-      //     attackTime: '2020-01-29 10:00:00',
-      //     createTime: '2020-01-30 10:00:00',
-      //     level: '高',
-      //     status: '处置中',
-      //     area: '山西燃气厂'
-      //   },
-      //   {
-      //     gjz: '10.255.52.84',
-      //     gjmb: '115.236.55.14',
-      //     glsx: 'confluence_https',
-      //     attackTime: '2020-01-29 10:00:00',
-      //     createTime: '2020-01-30 10:00:00',
-      //     level: '高',
-      //     status: '处置中',
-      //     area: '山西燃气厂'
-      //   },
-      //   {
-      //     gjz: '10.255.52.84',
-      //     gjmb: '115.236.55.14',
-      //     glsx: 'confluence_https',
-      //     attackTime: '2020-01-29 10:00:00',
-      //     createTime: '2020-01-30 10:00:00',
-      //     level: '高',
-      //     status: '处置中',
-      //     area: '山西燃气厂'
-      //   },
-      //   {
-      //     gjz: '10.255.52.84',
-      //     gjmb: '115.236.55.14',
-      //     glsx: 'confluence_https',
-      //     attackTime: '2020-01-29 10:00:00',
-      //     createTime: '2020-01-30 10:00:00',
-      //     level: '高',
-      //     status: '处置中',
-      //     area: '山西燃气厂'
-      //   },
-      //   {
-      //     gjz: '10.255.52.84',
-      //     gjmb: '115.236.55.14',
-      //     glsx: 'confluence_https',
-      //     attackTime: '2020-01-29 10:00:00',
-      //     createTime: '2020-01-30 10:00:00',
-      //     level: '高',
-      //     status: '处置中',
-      //     area: '山西燃气厂'
-      //   }
-      // ],
-      // 分组表格数据
+
       groupList: [],
       // 创建时间时间范围
       daterangeCreateTime: [],
@@ -456,9 +390,9 @@ export default {
     resetForm() {
       this.$refs['elForm'].resetFields()
     },
-    detail(id) {
-      const res = trapDetail(id)
-      this.detailData = res.rows
+    async  detail(id) {
+      const { data } = await trapDetail(id)
+      this.detailData = data
       this.open = true
       this.title = '事件详情'
     },

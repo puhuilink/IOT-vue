@@ -146,67 +146,57 @@
         <el-row>
           <el-col :span="8">
             <el-form-item label="IP地址 :">
-              {{ detailData.name }}
-            </el-form-item>
-          </el-col>
-          <el-col :span="8">
-            <el-form-item label="密码 :">
-              {{ detailData.name1 }}
-            </el-form-item>
-          </el-col>
-          <el-col :span="8">
-            <el-form-item label="服务 :">
-              {{ detailData.name2 }}
-            </el-form-item>
-          </el-col>
-          <el-col :span="8">
-            <el-form-item label="端口 :">
-              {{ detailData.name3 }}
-            </el-form-item>
-          </el-col>
-          <el-col :span="8">
-            <el-form-item label="处置状态 :">
-              {{ detailData.name4 }}
-            </el-form-item>
-          </el-col>
-          <el-col :span="8">
-            <el-form-item label="发现时间 :">
-              {{ detailData.name5 }}
-            </el-form-item>
-          </el-col>
-          <el-col :span="8">
-            <el-form-item label="资产名称 :">
-              {{ detailData.name6 }}
+              {{ detailData.ipAddress }}
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="资产类型 :">
-              {{ detailData.name7 }}
+              {{ detailData.assetType }}
             </el-form-item>
           </el-col>
           <el-col :span="8">
-            <el-form-item label="IP地址 :">
-              {{ detailData.name8 }}
+            <el-form-item label="协议 :">
+              {{ detailData.agreement }}
+            </el-form-item>
+          </el-col>
+          <el-col :span="8">
+            <el-form-item label="端口 :">
+              {{ detailData.port }}
+            </el-form-item>
+          </el-col>
+          <el-col :span="8">
+            <el-form-item label="处置状态 :">
+              {{ detailData.disposalStatus }}
+            </el-form-item>
+          </el-col>
+          <el-col :span="8">
+            <el-form-item label="发现时间 :">
+              {{ detailData.findTime }}
+            </el-form-item>
+          </el-col>
+          <el-col :span="8">
+            <el-form-item label="资产名称 :">
+              {{ detailData. assetName }}
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="资产价值 :">
-              {{ detailData.name9 }}
+              {{ detailData.assetValue }}
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="责任人 :">
-              {{ detailData.name10 }}
+              {{ detailData.personLiable }}
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="部门 :">
-              {{ detailData.name11 }}
+              {{ detailData.departmen }}
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="区域 :">
-              {{ detailData.name12 }}
+              {{ detailData.region }}
             </el-form-item>
           </el-col>
         </el-row>
@@ -233,19 +223,6 @@ export default {
       loading: false,
       name: '测试',
       detailData: {
-        name: 'ZJStream',
-        name1: 'Z*****m',
-        name2: 'DNS_TCP',
-        name3: '53',
-        name4: '未处置',
-        name5: '2022-02-11 10:40:50',
-        name6: '内网DNS',
-        name7: '应用服务器-DNS',
-        name8: '10.1.10.5',
-        name9: '3',
-        name10: '张三',
-        name11: '运维组',
-        name12: '山西燃气厂'
 
       },
       // 分组表格数据
@@ -412,8 +389,8 @@ export default {
       this.$refs['elForm'].resetFields()
     },
     async detail(id) {
-      const res = await WeakPasswordDetail(id)
-      this.detailData = res.rows
+      const { data } = await WeakPasswordDetail(id)
+      this.detailData = data
       this.open = true
       this.title = '事件详情'
     },

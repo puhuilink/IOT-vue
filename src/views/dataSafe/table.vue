@@ -178,7 +178,7 @@
             size="mini"
             type="text"
             icon="el-icon-edit"
-            @click="detail(scope.row.id)"
+            @click="detail(scope.row.dataSecurityManagementId)"
           >详情</el-button>
           <el-button
 
@@ -208,92 +208,88 @@
         <el-row>
           <el-col :span="8">
             <el-form-item label="协议类型 :">
-              {{ detailData.name }}
+              {{ detailData.protocolType }}
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="事件等级 :">
-              {{ detailData.name1 }}
+              {{ detailData.eventLevel }}
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="状态 :">
-              {{ detailData.name2 }}
+              {{ detailData.status }}
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="服务器 :">
-              {{ detailData.name3 }}
+              {{ detailData.theServer }}
             </el-form-item>
           </el-col>
           <el-col :span="8">
-            <el-form-item label="时间 :">
-              {{ detailData.name4 }}
+            <el-form-item label="发生时间 :">
+              {{ detailData.happenTime }}
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="目标URL :">
-              {{ detailData.name5 }}
+              {{ detailData.targetUrl }}
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="发送者 :">
-              {{ detailData.name6 }}
+              {{ detailData.sender }}
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="接收者 :">
-              {{ detailData.name7 }}
+              {{ detailData.recipient }}
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="抄送人 :">
-              {{ detailData.name8 }}
+              {{ detailData.ccPeople }}
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="密送者 :">
-              {{ detailData.name9 }}
+              {{ detailData.secretSender }}
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="源IP :">
-              {{ detailData.name10 }}
+              {{ detailData.sourceIp }}
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="目标IP :">
-              {{ detailData.name11 }}
+              {{ detailData.targetIp }}
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="IP对应关系人 :">
-              {{ detailData.name12 }}
+              {{ detailData.ipCounterpart }}
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="MAC地址 :">
-              {{ detailData.name13 }}
+              {{ detailData.macAddress }}
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="域名 :">
-              {{ detailData.name14 }}
+              {{ detailData.domainName }}
             </el-form-item>
           </el-col>
-          <el-col :span="8">
-            <el-form-item label="证据文件 :">
-              {{ detailData.name15 }}
-            </el-form-item>
-          </el-col>
+
           <el-col :span="8">
             <el-form-item label="区域 :">
-              {{ detailData.name16 }}
+              {{ detailData.region }}
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="处置状态 :">
-              {{ detailData.name17 }}
+              {{ detailData.disposalStatus }}
             </el-form-item>
           </el-col>
         </el-row>
@@ -305,22 +301,17 @@
         <el-row>
           <el-col :span="8">
             <el-form-item label="命中策略名 :">
-              {{ detailData.name18 }}
+              {{ detailData.hitPolicyName }}
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="策略ID :">
-              {{ detailData.name19 }}
+              {{ detailData.strategyId }}
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="命中结果 :">
-              {{ detailData.name20 }}
-            </el-form-item>
-          </el-col>
-          <el-col :span="8">
-            <el-form-item label="匹配详情 :">
-              <img :src="showPhoto" width="750">
+              {{ detailData.hitResult }}
             </el-form-item>
           </el-col>
         </el-row>
@@ -353,7 +344,7 @@
 <script>
 import approval_url from '@/icons/echarts/datail.png'
 import { dataSecurityManagementList } from '@/api/system/list'
-import { dataSecurityManagementDetail } from '@/api/system/list'
+import { dataSecurityManagementDetail } from '@/api/system/detail'
 export default {
   components: {},
   props: [],
@@ -363,27 +354,6 @@ export default {
       showPhoto: approval_url,
       name: '测试',
       detailData: {
-        name: 'SMTP',
-        name1: '极低',
-        name2: '新建',
-        name3: '20',
-        name4: '2020-10-27',
-        name5: '暂无',
-        name6: 'liuqiong@wondersoft',
-        name7: '暂无',
-        name8: '暂无',
-        name9: 'rece1@3110921034.cn',
-        name10: '192.168.154.94',
-        name11: '0.0.0.00',
-        name12: '广州区域支行-刘武',
-        name13: '暂无',
-        name14: '暂无',
-        name15: '邮件主题.txt',
-        name16: '山西燃气厂',
-        name17: '处置中',
-        name18: 'kara邮件手机号',
-        name19: '100',
-        name20: '(手机号码)'
       },
       // 分组表格数据
       content: [{ 'time': '2020-10--29 11:15:45', 'type': '策略通知规则', 'user': 'system', 'content': '事件入库操作成功！' },
@@ -517,10 +487,9 @@ export default {
     resetForm() {
       this.$refs['elForm'].resetFields()
     },
-    detail(id) {
-      const res = dataSecurityManagementDetail(id)
-      this.detailData = res.rows
-
+    async  detail(id) {
+      const { data } = await dataSecurityManagementDetail(id)
+      this.detailData = data
       this.open = true
       this.title = '事件详情'
     },

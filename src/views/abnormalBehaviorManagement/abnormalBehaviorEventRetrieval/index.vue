@@ -205,7 +205,7 @@
 
               size="mini"
               type="text"
-              @click="detail(scope.row.id)"
+              @click="detail(scope.row.abnormalId)"
             >详情</el-button>
             <el-button
 
@@ -230,83 +230,83 @@
         <el-row>
           <el-col :span="12">
             <el-form-item label="事件名称 :">
-              {{ detailData.name }}
+              {{ detailData.eventName }}
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="事件类型 :">
-              {{ detailData.name1 }}
+              {{ detailData.eventType }}
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="杀伤链阶段 :">
-              {{ detailData.name2 }}
+              {{ detailData.killingChainStage }}
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="事件等级 :">
-              {{ detailData.name3 }}
+              {{ detailData.eventLevel }}
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="攻击者IP :">
-              {{ detailData.name4 }}
+              {{ detailData.attackerIp }}
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="攻击者国家 :">
-              {{ detailData.name5 }}
+              {{ detailData.attackerState }}
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="受害者IP :">
-              {{ detailData.name6 }}
+              {{ detailData.victimIp }}
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="受害者国家 :">
-              {{ detailData.name7 }}
+              {{ detailData.victimCountry }}
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="源端口 :">
-              {{ detailData.name8 }}
+              {{ detailData.sourcePort }}
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="目标端口 :">
-              {{ detailData.name9 }}
+              {{ detailData.targetPort }}
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="协议 :">
-              {{ detailData.name11 }}
+              {{ detailData.agreement }}
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="威胁分类 :">
-              {{ detailData.name10 }}
+              {{ detailData.threatClassification }}
             </el-form-item>
           </el-col>
 
           <el-col :span="12">
             <el-form-item label="发生时间 :">
-              {{ detailData.name12 }}
+              {{ detailData.happenTime }}
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="发现时间 :">
-              {{ detailData.name13 }}
+              {{ detailData.findTime }}
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="处置状态 :">
-              {{ detailData.name12 }}
+              {{ detailData.disposalStatus }}
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="区域 :">
-              {{ detailData.name13 }}
+              {{ detailData.region }}
             </el-form-item>
           </el-col>
         </el-row>
@@ -336,20 +336,7 @@ export default {
       loading: false,
       name: '测试',
       detailData: {
-        name: '工业网络审计事件',
-        name1: '工业网络审计',
-        name2: '高危',
-        name3: '未知接口',
-        name4: '10.255.52.84',
-        name5: '192.163.12.63',
-        name6: 'MODBUS协议',
-        name7: '工业网络审计',
-        name8: '10.255.52.83',
-        name9: '失陷',
-        name10: '山西燃气厂',
-        name11: '待处置',
-        name12: '2022-02-22',
-        name13: '2022-2-25'
+
       },
       // 分组表格数据
       groupList: [],
@@ -463,9 +450,9 @@ export default {
     resetForm() {
       this.$refs['elForm'].resetFields()
     },
-    detail() {
-      const res = abnormalDetail(this.queryParams)
-      this.detailData = res.rows
+    async  detail(id) {
+      const { data } = await abnormalDetail(id)
+      this.detailData = data
       this.open = true
       this.title = '事件详情'
     },
