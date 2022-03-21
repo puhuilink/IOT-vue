@@ -219,13 +219,13 @@
         >
           <template slot-scope="scope">
             <el-button
-              v-hasPermi="['system:group:edit']"
+             
               size="mini"
               type="text"
               @click="detail(scope.row.id)"
             >详情</el-button>
             <el-button
-              v-hasPermi="['system:group:remove']"
+              
               size="mini"
               type="text"
               @click="handleDelete(scope.row)"

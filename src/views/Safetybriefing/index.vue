@@ -142,27 +142,27 @@
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width" min-width="22%">
         <template>
           <el-button
-            v-hasPermi="['system:group:edit']"
+           
             size="mini"
             type="text"
             icon="el-icon-edit"
             @click="lookdetail()"
           >查看</el-button>
           <el-button
-            v-hasPermi="['system:group:edit']"
+           
             size="mini"
             type="text"
             icon="el-icon-edit"
             @click="edit()"
           >编辑</el-button>
           <el-button
-            v-hasPermi="['system:group:edit']"
+           
             size="mini"
             type="text"
             icon="el-icon-edit"
           >上报</el-button>
           <el-button
-            v-hasPermi="['system:group:remove']"
+            
             size="mini"
             type="text"
             icon="el-icon-delete"

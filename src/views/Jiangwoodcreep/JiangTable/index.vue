@@ -145,14 +145,12 @@
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
         <template slot-scope="scope">
           <el-button
-            v-hasPermi="['system:group:edit']"
             size="mini"
             type="text"
             icon="el-icon-edit"
             @click="detail(scope.row.stiffWoodCreepId)"
           >详情</el-button>
           <el-button
-            v-hasPermi="['system:group:remove']"
             size="mini"
             type="text"
             icon="el-icon-delete"
