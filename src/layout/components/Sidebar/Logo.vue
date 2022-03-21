@@ -27,7 +27,7 @@ export default {
   },
   data() {
     return {
-      title: '网络安全综合防护平台',
+      // title: '网络安全综合防护平台',
       logo: logoImg
     }
   },
@@ -65,8 +65,8 @@ export default {
     width: 100%;
 
     & .sidebar-logo {
-      width: 32px;
-      height: 32px;
+      width: 200px;
+      height: 45px;
       vertical-align: middle;
       margin-right: 12px;
     }
