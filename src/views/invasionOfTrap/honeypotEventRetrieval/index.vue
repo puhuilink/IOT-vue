@@ -13,17 +13,32 @@
             label-position="left"
           >
             <el-col :span="6">
-              <el-form-item label="攻击者" prop="name">
-                <el-input
-                  v-model="formData.name"
-                  placeholder="请输入事件名称"
+              <el-form-item
+                label="攻击者:"
+                prop="name"
+              >
+                <el-select
+                  v-model="formData.level"
+                  placeholder="请选择攻击者"
+                  filterable
                   clearable
                   :style="{ width: '100%' }"
-                />
+                >
+                  <el-option
+                    v-for="(item, index) in levelOptions"
+                    :key="index"
+                    :label="item.label"
+                    :value="item.value"
+                    :disabled="item.disabled"
+                  />
+                </el-select>
               </el-form-item>
             </el-col>
             <el-col :span="6">
-              <el-form-item label="事件等级" prop="level">
+              <el-form-item
+                label="事件等级:"
+                prop="level"
+              >
                 <el-select
                   v-model="formData.level"
                   placeholder="请选择事件等级"
@@ -42,17 +57,32 @@
               </el-form-item>
             </el-col>
             <el-col :span="6">
-              <el-form-item label="隔离沙箱" prop="type">
-                <el-input
-                  v-model="formData.type"
-                  placeholder="请输入事件类型"
+              <el-form-item
+                label="隔离沙箱:"
+                prop="type"
+              >
+                <el-select
+                  v-model="formData.level"
+                  placeholder="请选择隔离沙箱"
+                  filterable
                   clearable
                   :style="{ width: '100%' }"
-                />
+                >
+                  <el-option
+                    v-for="(item, index) in levelOptions"
+                    :key="index"
+                    :label="item.label"
+                    :value="item.value"
+                    :disabled="item.disabled"
+                  />
+                </el-select>
               </el-form-item>
             </el-col>
             <el-col :span="6">
-              <el-form-item label="区域" prop="area">
+              <el-form-item
+                label="区域:"
+                prop="area"
+              >
                 <el-select
                   v-model="formData.area"
                   placeholder="请选择区域"
@@ -71,7 +101,10 @@
               </el-form-item>
             </el-col>
             <el-col :span="6">
-              <el-form-item label="处置状态" prop="field114">
+              <el-form-item
+                label="处置状态:"
+                prop="field114"
+              >
                 <el-select
                   v-model="formData.field114"
                   placeholder="请选择处置状态"
@@ -89,7 +122,10 @@
               </el-form-item>
             </el-col>
             <el-col :span="6">
-              <el-form-item label="时间" prop="date">
+              <el-form-item
+                label="时间:"
+                prop="date"
+              >
                 <el-time-picker
                   v-model="formData.date"
                   is-range
@@ -104,9 +140,15 @@
               </el-form-item>
             </el-col>
 
-            <el-col :span="6">
-              <el-form-item size="mini" label-width="10px">
-                <el-button type="primary" @click="getList">搜索</el-button>
+            <el-col :span="12">
+              <el-form-item
+                size="mini"
+                label-width="450px"
+              >
+                <el-button
+                  type="primary"
+                  @click="getList"
+                >搜索</el-button>
                 <el-button @click="resetForm">重置</el-button>
               </el-form-item>
             </el-col>
@@ -120,8 +162,15 @@
         class="export"
         @click="submitdata"
       >导出</el-button>
-      <el-table :data="groupList" tooltip-effect="light">
-        <el-table-column type="selection" width="55" align="center" />
+      <el-table
+        :data="groupList"
+        tooltip-effect="light"
+      >
+        <el-table-column
+          type="selection"
+          width="55"
+          align="center"
+        />
         <el-table-column
           label="攻击者"
           align="center"
@@ -260,6 +309,7 @@
           <el-button size="small" @click="cancel">取 消</el-button>
         </el-row>
       </div>
+
     </el-dialog>
   </div>
 </template>
@@ -281,6 +331,43 @@ export default {
       // 分组表格数据
 
       groupList: [],
+      // 详情页表格数据
+      groupListDetails: [{
+        groupId: '1',
+        userId: '114',
+        groupName: '一楼',
+        createTime: '2021-05-18',
+        remark: '智能灯'
+      },
+      {
+        groupId: '2',
+        userId: '114',
+        groupName: '二楼',
+        createTime: '2021-05-18',
+        remark: '智能灯'
+      },
+      {
+        groupId: '3',
+        userId: '114',
+        groupName: '三楼',
+        createTime: '2021-05-18',
+        remark: '智能灯'
+      },
+      {
+        groupId: '4',
+        userId: '114',
+        groupName: '四楼',
+        createTime: '2021-05-18',
+        remark: '智能灯'
+      },
+      {
+        groupId: '5',
+        userId: '114',
+        groupName: '五楼',
+        createTime: '2021-05-18',
+        remark: '智能灯'
+      }
+      ],
       // 创建时间时间范围
       daterangeCreateTime: [],
       // 弹出层标题
@@ -410,5 +497,33 @@ export default {
 <style lang="scss" scoped>
 .export {
   margin-bottom: 10px;
+}
+::v-deep .el-dialog__body {
+  padding: 0 !important;
+}
+.contentBox {
+  width: 100%;
+  height: 100%;
+  border-top: 1px solid #ccc;
+  padding: 10px 20px;
+  .information {
+    text-align: center;
+    font-weight: bold;
+    font-size: 18px;
+    border-bottom: 2px solid #33ccff;
+    padding-top: 10px;
+    margin-bottom: 10px;
+  }
+}
+::v-deep .label-type {
+  .el-form-item__label {
+    color: #333;
+    font-family: MicrosoftYaHei;
+    font-size: 14px;
+    font-weight: normal !important;
+  }
+}
+.dialog-footer {
+  margin-top: 20px;
 }
 </style>

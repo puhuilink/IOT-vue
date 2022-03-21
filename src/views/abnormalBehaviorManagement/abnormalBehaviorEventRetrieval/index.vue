@@ -13,7 +13,10 @@
             label-position="left"
           >
             <el-col :span="6">
-              <el-form-item label="事件名称" prop="name">
+              <el-form-item
+                label="事件名称:"
+                prop="name"
+              >
                 <el-input
                   v-model="formData.name"
                   placeholder="请输入事件名称"
@@ -23,7 +26,10 @@
               </el-form-item>
             </el-col>
             <el-col :span="6">
-              <el-form-item label="区域" prop="area">
+              <el-form-item
+                label="区域:"
+                prop="area"
+              >
                 <el-select
                   v-model="formData.area"
                   placeholder="请选择区域"
@@ -42,7 +48,10 @@
               </el-form-item>
             </el-col>
             <el-col :span="6">
-              <el-form-item label="事件等级" prop="level">
+              <el-form-item
+                label="事件等级:"
+                prop="level"
+              >
                 <el-select
                   v-model="formData.level"
                   placeholder="请选择事件等级"
@@ -61,48 +70,81 @@
               </el-form-item>
             </el-col>
             <el-col :span="6">
-              <el-form-item label="事件类型" prop="type">
-                <el-input
+              <el-form-item
+                label="事件类型:"
+                prop="type"
+              >
+                <el-select
                   v-model="formData.type"
-                  placeholder="请输入事件类型"
+                  placeholder="请选择事件类型"
+                  filterable
                   clearable
                   :style="{ width: '100%' }"
-                />
+                >
+                  <el-option
+                    v-for="(item, index) in levelOptions"
+                    :key="index"
+                    :label="item.label"
+                    :value="item.value"
+                    :disabled="item.disabled"
+                  />
+                </el-select>
               </el-form-item>
             </el-col>
 
             <el-col :span="6">
-              <el-form-item label="处置状态" prop="agreement">
-                <el-input
+              <el-form-item
+                label="处置状态:"
+                prop="agreement"
+              >
+                <el-select
                   v-model="formData.agreement"
-                  placeholder="请输入目标IP"
+                  placeholder="请选择处置状态"
+                  filterable
                   clearable
                   :style="{ width: '100%' }"
-                />
+                >
+                  <el-option
+                    v-for="(item, index) in levelOptions"
+                    :key="index"
+                    :label="item.label"
+                    :value="item.value"
+                    :disabled="item.disabled"
+                  />
+                </el-select>
               </el-form-item>
             </el-col>
             <el-col :span="6">
-              <el-form-item label="受害者IP" prop="ip">
+              <el-form-item
+                label="受害者IP:"
+                prop="ip"
+              >
                 <el-input
                   v-model="formData.ip"
-                  placeholder="请输入源IP"
+                  placeholder="请输入受害者IP"
                   clearable
                   :style="{ width: '100%' }"
                 />
               </el-form-item>
             </el-col>
             <el-col :span="6">
-              <el-form-item label="攻击者IP" prop="newip">
+              <el-form-item
+                label="攻击者IP:"
+                prop="newip"
+              >
                 <el-input
                   v-model="formData.newip"
-                  placeholder="请输入目标IP"
+                  placeholder="请输入攻击者IP"
                   clearable
                   :style="{ width: '100%' }"
                 />
               </el-form-item>
             </el-col>
             <el-col :span="6">
-              <el-form-item label="时间" prop="date">
+              <el-form-item
+                label="时间段:"
+                prop="date"
+              >
                 <el-time-picker
                   v-model="formData.date"
                   is-range
@@ -116,19 +158,34 @@
                 />
               </el-form-item>
             </el-col>
-            <el-col :span="6">
-              <el-form-item label="杀伤链阶段" prop="equipment">
-                <el-input
-                  v-model="formData.equipment"
-                  placeholder="请输入上报设备"
+            <el-col :span="7">
+              <el-form-item
+                label="杀伤链阶段:"
+                prop="equipment"
+              >
+                <el-select
+                  v-model="formData.agreement"
+                  placeholder="请选择杀伤链阶段"
+                  filterable
                   clearable
                   :style="{ width: '100%' }"
-                />
+                >
+                  <el-option
+                    v-for="(item, index) in levelOptions"
+                    :key="index"
+                    :label="item.label"
+                    :value="item.value"
+                    :disabled="item.disabled"
+                  />
+                </el-select>
               </el-form-item>
             </el-col>
             <el-col :span="6">
               <el-form-item size="mini">
-                <el-button type="primary" @click="getList">搜索</el-button>
+                <el-button
+                  type="primary"
+                  @click="getList"
+                >搜索</el-button>
                 <el-button @click="resetForm">重置</el-button>
               </el-form-item>
             </el-col>
@@ -137,9 +194,20 @@
       </div>
     </el-card>
     <el-card>
-      <el-button type="primary" class="export" @click="submitdata">导出</el-button>
-      <el-table :data="groupList" tooltip-effect="light">
-        <el-table-column type="selection" width="55" align="center" />
+      <el-button
+        type="primary"
+        class="export"
+        @click="submitdata"
+      >导出</el-button>
+      <el-table
+        :data="groupList"
+        tooltip-effect="light"
+      >
+        <el-table-column
+          type="selection"
+          width="55"
+          align="center"
+        />
         <el-table-column
           label="攻击者IP"
           align="center"
@@ -182,7 +250,11 @@
           prop="disposalStatus"
           :show-overflow-tooltip="true"
         />
-        <el-table-column label="发生时间" align="center" prop="happen_time" />
+        <el-table-column
+          label="发生时间"
+          align="center"
+          prop="happen_time"
+        />
         <el-table-column
           label="发现时间"
           align="center"
@@ -321,6 +393,7 @@
           <el-button size="small" @click="cancel">取 消</el-button>
         </el-row>
       </div>
+
     </el-dialog>
   </div>
 </template>
@@ -470,5 +543,22 @@ export default {
 <style lang="scss" scoped>
 .export {
   margin-bottom: 10px;
+}
+::v-deep .el-dialog__body {
+  padding: 0 !important;
+}
+.contentBox {
+  width: 100%;
+  height: 100%;
+  border-top: 1px solid #ccc;
+  padding: 10px 20px;
+}
+::v-deep .label-type {
+  .el-form-item__label {
+    color: #333;
+    font-family: MicrosoftYaHei;
+    font-size: 14px;
+    font-weight: normal !important;
+  }
 }
 </style>

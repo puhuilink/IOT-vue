@@ -13,7 +13,10 @@
             label-position="left"
           >
             <el-col :span="6">
-              <el-form-item label="事件名称" prop="name">
+              <el-form-item
+                label="事件名称:"
+                prop="name"
+              >
                 <el-input
                   v-model="formData.name"
                   placeholder="请输入事件名称"
@@ -23,7 +26,10 @@
               </el-form-item>
             </el-col>
             <el-col :span="6">
-              <el-form-item label="区域" prop="area">
+              <el-form-item
+                label="区域:"
+                prop="area"
+              >
                 <el-select
                   v-model="formData.area"
                   placeholder="请选择区域"
@@ -42,7 +48,10 @@
               </el-form-item>
             </el-col>
             <el-col :span="6">
-              <el-form-item label="事件等级" prop="level">
+              <el-form-item
+                label="事件等级:"
+                prop="level"
+              >
                 <el-select
                   v-model="formData.level"
                   placeholder="请选择事件等级"
@@ -61,7 +70,10 @@
               </el-form-item>
             </el-col>
             <el-col :span="6">
-              <el-form-item label="事件类型" prop="type">
+              <el-form-item
+                label="事件类型:"
+                prop="type"
+              >
                 <el-input
                   v-model="formData.type"
                   placeholder="请输入事件类型"
@@ -72,7 +84,10 @@
             </el-col>
 
             <el-col :span="6">
-              <el-form-item label="处置状态" prop="agreement">
+              <el-form-item
+                label="处置状态:"
+                prop="agreement"
+              >
                 <el-input
                   v-model="formData.agreement"
                   placeholder="请输入目标IP"
@@ -82,40 +97,44 @@
               </el-form-item>
             </el-col>
             <el-col :span="6">
-              <el-form-item label="接收开始时间" prop="ip">
-                <el-input
-                  v-model="formData.ip"
-                  placeholder="请输入源IP"
-                  clearable
+              <el-form-item
+                label="时间段:"
+                prop="date"
+              >
+                <el-time-picker
+                  v-model="formData.date"
+                  is-range
+                  format="HH:mm:ss"
+                  value-format="HH:mm:ss"
                   :style="{ width: '100%' }"
+                  start-placeholder="开始时间"
+                  end-placeholder="结束时间"
+                  range-separator="至"
+                  clearable
                 />
               </el-form-item>
             </el-col>
             <el-col :span="6">
-              <el-form-item label="接收结束时间" prop="newip">
-                <el-input
-                  v-model="formData.newip"
-                  placeholder="请输入目标IP"
-                  clearable
-                  :style="{ width: '100%' }"
-                />
-              </el-form-item>
-            </el-col>
-            <el-col :span="6">
-              <el-form-item label="客户端IP" prop="equipment">
+              <el-form-item
+                label="客户端IP:"
+                prop="equipment"
+              >
                 <el-input
                   v-model="formData.equipment"
-                  placeholder="请输入上报设备"
+                  placeholder="请输入客户端IP"
                   clearable
                   :style="{ width: '100%' }"
                 />
               </el-form-item>
             </el-col>
             <el-col :span="6">
-              <el-form-item label="操作系统" prop="field114">
+              <el-form-item
+                label="操作系统:"
+                prop="field114"
+              >
                 <el-select
                   v-model="formData.field114"
-                  placeholder="请选择处置状态"
+                  placeholder="请选择操作系统"
                   clearable
                   :style="{ width: '100%' }"
                 >
@@ -130,8 +149,14 @@
               </el-form-item>
             </el-col>
             <el-col :span="6">
-              <el-form-item size="mini" label-width="10px">
-                <el-button type="primary" @click="submitdata">搜索</el-button>
+              <el-form-item
+                size="mini"
+                label-width="10px"
+              >
+                <el-button
+                  type="primary"
+                  @click="submitdata"
+                >搜索</el-button>
                 <el-button @click="resetForm">重置</el-button>
               </el-form-item>
             </el-col>
@@ -144,11 +169,19 @@
         <el-button
           type="primary"
           class="export"
+          size="mini"
           @click="submitdata"
         >导出</el-button>
       </el-row>
-      <el-table :data="groupList" tooltip-effect="light">
-        <el-table-column type="selection" width="55" align="center" />
+      <el-table
+        :data="groupList"
+        tooltip-effect="light"
+      >
+        <el-table-column
+          type="selection"
+          width="55"
+          align="center"
+        />
         <el-table-column
           label="接收时间"
           align="center"
@@ -366,6 +399,7 @@
           <el-button size="small" @click="cancel">取 消</el-button>
         </el-row>
       </div>
+
     </el-dialog>
   </div>
 </template>
@@ -521,5 +555,22 @@ export default {
 <style lang="scss" scoped>
 .export {
   margin-bottom: 10px;
+}
+::v-deep .el-dialog__body {
+  padding: 0 !important;
+}
+.contentBox {
+  width: 100%;
+  height: 100%;
+  border-top: 1px solid #ccc;
+  padding: 10px 20px;
+}
+::v-deep .label-type {
+  .el-form-item__label {
+    color: #333;
+    font-family: MicrosoftYaHei;
+    font-size: 14px;
+    font-weight: normal !important;
+  }
 }
 </style>
