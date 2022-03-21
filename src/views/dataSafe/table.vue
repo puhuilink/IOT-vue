@@ -160,28 +160,28 @@
     </el-card>
     <el-table :data="groupList">
       <el-table-column type="selection" width="55" align="center" />
-      <el-table-column label="检测服务器类型" align="center" :show-overflow-tooltip="true" prop="serviceType" min-width="15%" />
-      <el-table-column label="动作类型" align="center" prop="safeType" :show-overflow-tooltip="true" min-width="10%" />
-      <el-table-column label="协议类型" align="center" prop="protocol" :show-overflow-tooltip="true" min-width="15%" />
+      <el-table-column label="检测服务器类型" align="center" :show-overflow-tooltip="true" prop="detectServerType" min-width="15%" />
+      <el-table-column label="动作类型" align="center" prop="actionType" :show-overflow-tooltip="true" min-width="10%" />
+      <el-table-column label="协议类型" align="center" prop="protocolType" :show-overflow-tooltip="true" min-width="15%" />
       <el-table-column label="源IP" align="center" prop="sourceIp" :show-overflow-tooltip="true" min-width="10%" />
-      <el-table-column label="发生时间" align="center" prop="happen" :show-overflow-tooltip="true" min-width="10%" />
-      <el-table-column label="事件等级" align="center" prop="level" :show-overflow-tooltip="true" min-width="10%" />
-      <el-table-column label="命中策略" align="center" prop="tactics" :show-overflow-tooltip="true" min-width="15%" />
+      <el-table-column label="发生时间" align="center" prop="happenTime" :show-overflow-tooltip="true" min-width="10%" />
+      <el-table-column label="事件等级" align="center" prop="eventLevel" :show-overflow-tooltip="true" min-width="10%" />
+      <el-table-column label="命中策略" align="center" prop="hitStrategy" :show-overflow-tooltip="true" min-width="15%" />
       <el-table-column label="事件SID" align="center" prop="eventSid" :show-overflow-tooltip="true" min-width="10%" />
       <el-table-column label="事件ID" align="center" prop="eventId" :show-overflow-tooltip="true" min-width="10%" />
-      <el-table-column label="处置状态" align="center" prop="state" :show-overflow-tooltip="true" min-width="10%" />
+      <el-table-column label="处置状态" align="center" prop="disposalStatus" :show-overflow-tooltip="true" min-width="10%" />
       <el-table-column label="区域" align="center" prop="region" :show-overflow-tooltip="true" min-width="10%" />
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width" min-width="15%">
         <template slot-scope="scope">
           <el-button
-            v-hasPermi="['system:group:edit']"
+
             size="mini"
             type="text"
             icon="el-icon-edit"
-            @click="detail"
+            @click="detail(scope.row.id)"
           >详情</el-button>
           <el-button
-            v-hasPermi="['system:group:remove']"
+
             size="mini"
             type="text"
             icon="el-icon-delete"
@@ -208,92 +208,92 @@
         <el-row>
           <el-col :span="8">
             <el-form-item label="协议类型 :">
-              {{ dataTest.name }}
+              {{ detailData.name }}
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="事件等级 :">
-              {{ dataTest.name1 }}
+              {{ detailData.name1 }}
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="状态 :">
-              {{ dataTest.name2 }}
+              {{ detailData.name2 }}
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="服务器 :">
-              {{ dataTest.name3 }}
+              {{ detailData.name3 }}
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="时间 :">
-              {{ dataTest.name4 }}
+              {{ detailData.name4 }}
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="目标URL :">
-              {{ dataTest.name5 }}
+              {{ detailData.name5 }}
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="发送者 :">
-              {{ dataTest.name6 }}
+              {{ detailData.name6 }}
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="接收者 :">
-              {{ dataTest.name7 }}
+              {{ detailData.name7 }}
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="抄送人 :">
-              {{ dataTest.name8 }}
+              {{ detailData.name8 }}
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="密送者 :">
-              {{ dataTest.name9 }}
+              {{ detailData.name9 }}
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="源IP :">
-              {{ dataTest.name10 }}
+              {{ detailData.name10 }}
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="目标IP :">
-              {{ dataTest.name11 }}
+              {{ detailData.name11 }}
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="IP对应关系人 :">
-              {{ dataTest.name12 }}
+              {{ detailData.name12 }}
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="MAC地址 :">
-              {{ dataTest.name13 }}
+              {{ detailData.name13 }}
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="域名 :">
-              {{ dataTest.name14 }}
+              {{ detailData.name14 }}
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="证据文件 :">
-              {{ dataTest.name15 }}
+              {{ detailData.name15 }}
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="区域 :">
-              {{ dataTest.name16 }}
+              {{ detailData.name16 }}
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="处置状态 :">
-              {{ dataTest.name17 }}
+              {{ detailData.name17 }}
             </el-form-item>
           </el-col>
         </el-row>
@@ -305,17 +305,17 @@
         <el-row>
           <el-col :span="8">
             <el-form-item label="命中策略名 :">
-              {{ dataTest.name18 }}
+              {{ detailData.name18 }}
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="策略ID :">
-              {{ dataTest.name19 }}
+              {{ detailData.name19 }}
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="命中结果 :">
-              {{ dataTest.name20 }}
+              {{ detailData.name20 }}
             </el-form-item>
           </el-col>
           <el-col :span="8">
@@ -352,8 +352,8 @@
 </template>
 <script>
 import approval_url from '@/icons/echarts/datail.png'
-import { dataList } from '@/api/system/list'
-
+import { dataSecurityManagementList } from '@/api/system/list'
+import { dataSecurityManagementDetail } from '@/api/system/list'
 export default {
   components: {},
   props: [],
@@ -362,7 +362,7 @@ export default {
       loading: false,
       showPhoto: approval_url,
       name: '测试',
-      dataTest: {
+      detailData: {
         name: 'SMTP',
         name1: '极低',
         name2: '新建',
@@ -388,11 +388,7 @@ export default {
       // 分组表格数据
       content: [{ 'time': '2020-10--29 11:15:45', 'type': '策略通知规则', 'user': 'system', 'content': '事件入库操作成功！' },
         { 'time': '2020-10--29 11:15:45', 'type': '审批规则', 'user': 'system', 'content': 'smtp阻断：审批阻断成功！' }],
-      groupList: [{ 'searchValue': '2020-10--29 11:15:45', 'createBy': '753253358804481', 'createTime': '低', 'updateBy': '20201026545-fdaaxa', 'updateTime': '未处置', 'remark': 'SCANFILE', 'params': {}, 'groupId': '终端检测器', 'userId': '记录', 'groupName': '山西燃气厂', 'groupOrder': '192.168.148.168', 'delFlag': 'Kara文件内置财务' },
-        { 'searchValue': '2020-10--29 11:15:45', 'createBy': '753253358804481', 'createTime': '低', 'updateBy': '20201026545-fdaaxa', 'updateTime': '未处置', 'remark': 'SCANFILE', 'params': {}, 'groupId': '终端检测器', 'userId': '记录', 'groupName': '山西燃气厂', 'groupOrder': '192.168.148.168', 'delFlag': 'Kara文件内置财务' },
-        { 'searchValue': '2020-10--29 11:15:45', 'createBy': '753253358804481', 'createTime': '低', 'updateBy': '20201026545-fdaaxa', 'updateTime': '未处置', 'remark': 'SCANFILE', 'params': {}, 'groupId': '终端检测器', 'userId': '记录', 'groupName': '山西燃气厂', 'groupOrder': '192.168.148.168', 'delFlag': 'Kara文件内置财务' },
-        { 'searchValue': '2020-10--29 11:15:45', 'createBy': '753253358804481', 'createTime': '低', 'updateBy': '20201026545-fdaaxa', 'updateTime': '未处置', 'remark': 'SCANFILE', 'params': {}, 'groupId': '终端检测器', 'userId': '记录', 'groupName': '山西燃气厂', 'groupOrder': '192.168.148.168', 'delFlag': 'Kara文件内置财务' },
-        { 'searchValue': '2020-10--29 11:15:45', 'createBy': '753253358804481', 'createTime': '低', 'updateBy': '20201026545-fdaaxa', 'updateTime': '未处置', 'remark': 'SCANFILE', 'params': {}, 'groupId': '终端检测器', 'userId': '记录', 'groupName': '山西燃气厂', 'groupOrder': '192.168.148.168', 'delFlag': 'Kara文件内置财务' }],
+      groupList: [],
       // 创建时间时间范围
       daterangeCreateTime: [],
       // 弹出层标题
@@ -505,7 +501,7 @@ export default {
     /** 查询分组列表 */
     async getList() {
       this.loading = true
-      const res = await dataList(this.queryParams)
+      const res = await dataSecurityManagementList(this.queryParams)
       this.groupList = res.rows
       this.total = res.total
       console.log(this.groupList)
@@ -521,7 +517,10 @@ export default {
     resetForm() {
       this.$refs['elForm'].resetFields()
     },
-    detail() {
+    detail(id) {
+      const res = dataSecurityManagementDetail(id)
+      this.detailData = res.rows
+
       this.open = true
       this.title = '事件详情'
     },

@@ -132,27 +132,25 @@
     </el-card>
     <el-table :data="groupList" tooltip-effect="light">
       <el-table-column type="selection" width="55" align="center" />
-      <el-table-column label="攻击者IP" align="center" prop="ip" :show-overflow-tooltip="true" />
+      <el-table-column label="攻击者IP" align="center" prop="attackerIp" :show-overflow-tooltip="true" />
       <el-table-column label="受害者IP" align="center" prop="victimIp" :show-overflow-tooltip="true" />
-      <el-table-column label="事件名称" align="center" prop="name" :show-overflow-tooltip="true" />
-      <el-table-column label="威胁分类" align="center" prop="threat" :show-overflow-tooltip="true" />
-      <el-table-column label="事件等级" align="center" prop="risk" :show-overflow-tooltip="true" />
-      <el-table-column label="杀伤链阶段" align="center" prop="stage" :show-overflow-tooltip="true" />
-      <el-table-column label="处置状态" align="center" prop="state" :show-overflow-tooltip="true" />
-      <el-table-column label="发生时间" align="center" prop="happen" :show-overflow-tooltip="true" />
-      <el-table-column label="发现时间" align="center" prop="found" :show-overflow-tooltip="true" />
+      <el-table-column label="事件名称" align="center" prop="eventName" :show-overflow-tooltip="true" />
+      <el-table-column label="威胁分类" align="center" prop="threatClassification" :show-overflow-tooltip="true" />
+      <el-table-column label="事件等级" align="center" prop="eventLevel" :show-overflow-tooltip="true" />
+      <el-table-column label="杀伤链阶段" align="center" prop="killingChainStage" :show-overflow-tooltip="true" />
+      <el-table-column label="处置状态" align="center" prop="disposalStatus" :show-overflow-tooltip="true" />
+      <el-table-column label="发生时间" align="center" prop="happenTime" :show-overflow-tooltip="true" />
+      <el-table-column label="发现时间" align="center" prop="findTime" :show-overflow-tooltip="true" />
       <el-table-column label="区域" align="center" prop="region" :show-overflow-tooltip="true" />
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
         <template slot-scope="scope">
           <el-button
-            v-hasPermi="['system:group:edit']"
             size="mini"
             type="text"
             icon="el-icon-edit"
-            @click="detail"
+            @click="detail(scope.row.stiffWoodCreepId)"
           >详情</el-button>
           <el-button
-            v-hasPermi="['system:group:remove']"
             size="mini"
             type="text"
             icon="el-icon-delete"
@@ -175,82 +173,78 @@
         <el-row>
           <el-col :span="8">
             <el-form-item label="事件名称 :">
-              {{ dataTest.name }}
+              {{ detailData.eventName }}
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="威胁分类 :">
-              {{ dataTest.name1 }}
+              {{ detailData.threatClassification }}
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="杀伤链阶段 :">
-              {{ dataTest.name2 }}
+              {{ detailData.killingChainStage }}
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="事件等级 :">
-              {{ dataTest.name3 }}
+              {{ detailData.eventlevel }}
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="攻击者IP :">
-              {{ dataTest.name4 }}
+              {{ detailData.attackerIp }}
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="攻击者国家 :">
-              {{ dataTest.name5 }}
+              {{ detailData.attackerState }}
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="受害者IP :">
-              {{ dataTest.name6 }}
+              {{ detailData.victimIp }}
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="受害者国家 :">
-              {{ dataTest.name7 }}
+              {{ detailData.victimCountry }}
             </el-form-item>
           </el-col>
-          <el-col :span="8">
-            <el-form-item label="上报设备IP :">
-              {{ dataTest.name8 }}
-            </el-form-item>
-          </el-col>
+
           <el-col :span="8">
             <el-form-item label="源端口 :">
-              {{ dataTest.name9 }}
+              {{ detailData.sourcePort }}
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="目标端口 :">
-              {{ dataTest.name10 }}
+              {{ detailData.targetPort }}
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="协议 :">
-              {{ dataTest.name11 }}
+              {{ detailData.agreement }}
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="发生时间 :">
-              {{ dataTest.name12 }}
+              {{ detailData.happenTime }}
             </el-form-item>
           </el-col>
           <el-col :span="8">
-            <el-form-item label="发生时间:">
-              {{ dataTest.name13 }}
+            <el-form-item label="发现时间:">
+              {{ detailData.findTime }}
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="区域 :">
-              {{ dataTest.name14 }}
+              {{ detailData.region }}
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="处置状态 :">
-              {{ dataTest.name15 }}
+              {{ detailData.disposalStatus }}
             </el-form-item>
           </el-col>
         </el-row>
@@ -265,40 +259,21 @@
   </div>
 </template>
 <script>
-import { zombieList } from '@/api/system/list'
 
+import { zombieList } from '@/api/system/list'
+import { StiffWoodCreepDetail } from '@/api/system/detail'
 export default {
+  name: 'Index',
   components: {},
   props: [],
   data() {
     return {
       loading: false,
       name: '测试',
-      dataTest: {
-        name: 'Botnet',
-        name1: '僵尸网络',
-        name2: '载荷投递',
-        name3: '低',
-        name4: '192.168.28.8',
-        name5: '--',
-        name6: '10.13.20.24',
-        name7: '工业网络审计',
-        name8: '--',
-        name9: '55612',
-        name10: '80',
-        name11: 'http',
-        name12: '2022-01-29 10:00:00',
-        name13: '2022-01-29 10:01:00',
-        name14: '山西燃气厂',
-        name15: '已处置'
+      detailData: {
       },
       // 分组表格数据
       groupList: [],
-      // groupList: [{ 'searchValue': '僵尸网络', 'createBy': '未处置', 'createTime': '2021-05-18 16:35:03', 'updateBy': '山西燃气厂', 'updateTime': '2021-05-18 16:35:32', 'remark': '极低', 'params': {}, 'groupId': 1, 'userId': '116.103.2.11', 'groupName': 'Botnet', 'groupOrder': '10.255.52.10', 'delFlag': '载荷投递' },
-      //   { 'searchValue': '僵尸网络', 'createBy': '未处置', 'createTime': '2021-05-18 16:35:03', 'updateBy': '山西燃气厂', 'updateTime': '2021-05-18 16:35:32', 'remark': '极低', 'params': {}, 'groupId': 2, 'userId': '116.103.2.11', 'groupName': 'Botnet', 'groupOrder': '10.255.52.10', 'delFlag': '载荷投递' },
-      //   { 'searchValue': '僵尸网络', 'createBy': '未处置', 'createTime': '2021-05-18 16:35:03', 'updateBy': '山西燃气厂', 'updateTime': '2021-05-18 16:35:32', 'remark': '极低', 'params': {}, 'groupId': 3, 'userId': '116.103.2.11', 'groupName': 'Botnet', 'groupOrder': '10.255.52.10', 'delFlag': '载荷投递' },
-      //   { 'searchValue': '僵尸网络', 'createBy': '未处置', 'createTime': '2021-05-18 16:35:03', 'updateBy': '山西燃气厂', 'updateTime': '2021-05-18 16:35:32', 'remark': '极低', 'params': {}, 'groupId': 4, 'userId': '116.103.2.11', 'groupName': 'Botnet', 'groupOrder': '10.255.52.10', 'delFlag': '载荷投递' },
-      //   { 'searchValue': '僵尸网络', 'createBy': '未处置', 'createTime': '2021-05-18 16:35:03', 'updateBy': '山西燃气厂', 'updateTime': '2021-05-18 16:35:32', 'remark': '极低', 'params': {}, 'groupId': 5, 'userId': '116.103.2.11', 'groupName': 'Botnet', 'groupOrder': '10.255.52.10', 'delFlag': '载荷投递' }],
       // 创建时间时间范围
       daterangeCreateTime: [],
       // 弹出层标题
@@ -428,7 +403,9 @@ export default {
     resetForm() {
       this.$refs['elForm'].resetFields()
     },
-    detail() {
+    async detail(id) {
+      const { data } = await StiffWoodCreepDetail(id)
+      this.detailData = data
       this.open = true
       this.title = '事件详情'
     },

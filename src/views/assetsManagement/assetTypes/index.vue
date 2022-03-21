@@ -43,14 +43,14 @@
       <el-col :span="6">
         <el-card class="theHostBox">
           <div class="">
-            <div class="el-icon-s-platform"></div>
+            <div class="el-icon-s-platform" />
             <div class="host">主机</div>
             <div class="operations">
-              <div class="el-icon-view"></div>
+              <div class="el-icon-view" />
               <div class="el-icon-edit-outline"
-                   @click="edit"></div>
+                   @click="edit" />
               <div class="el-icon-delete"
-                   @click="handleForceLogout"></div>
+                   @click="handleForceLogout" />
             </div>
             <div class="wxy">wxy</div>
             <div class="numberOfDevices">设备数量</div>
@@ -63,14 +63,14 @@
       <el-col :span="6">
         <el-card class="theHostBox">
           <div class="">
-            <div class="el-icon-s-fold"></div>
+            <div class="el-icon-s-fold" />
             <div class="server">服务器</div>
             <div class="operations">
-              <div class="el-icon-view"></div>
+              <div class="el-icon-view" />
               <div class="el-icon-edit-outline"
-                   @click="edit"></div>
+                   @click="edit" />
               <div class="el-icon-delete"
-                   @click="handleForceLogout"></div>
+                   @click="handleForceLogout" />
             </div>
             <div class="wxy">wxy</div>
             <div class="numberOfDevices">设备数量</div>
@@ -91,14 +91,14 @@
       <el-col :span="6">
         <el-card class="netsBrakeBox">
           <div class="">
-            <div class="el-icon-s-platform"></div>
+            <div class="el-icon-s-platform" />
             <div class="host">网闸</div>
             <div class="operations">
-              <div class="el-icon-view"></div>
+              <div class="el-icon-view" />
               <div class="el-icon-edit-outline"
-                   @click="edit"></div>
+                   @click="edit" />
               <div class="el-icon-delete"
-                   @click="handleForceLogout"></div>
+                   @click="handleForceLogout" />
             </div>
             <div class="wxy">wxy</div>
             <div class="numberOfDevices">设备数量</div>
@@ -124,14 +124,14 @@
       <el-col :span="6">
         <el-card class="netsBrakeBox">
           <div class="">
-            <div class="el-icon-s-platform"></div>
+            <div class="el-icon-s-platform" />
             <div class="host">网关</div>
             <div class="operations">
-              <div class="el-icon-view"></div>
+              <div class="el-icon-view" />
               <div class="el-icon-edit-outline"
-                   @click="edit"></div>
+                   @click="edit" />
               <div class="el-icon-delete"
-                   @click="handleForceLogout"></div>
+                   @click="handleForceLogout" />
             </div>
             <div class="wxy">wxy</div>
             <div class="numberOfDevices">设备数量</div>
@@ -152,14 +152,14 @@
       <el-col :span="6">
         <el-card class="netsBrakeBox">
           <div class="">
-            <div class="el-icon-s-platform"></div>
+            <div class="el-icon-s-platform" />
             <div class="host">防火墙</div>
             <div class="operations">
-              <div class="el-icon-view"></div>
+              <div class="el-icon-view" />
               <div class="el-icon-edit-outline"
-                   @click="edit"></div>
+                   @click="edit" />
               <div class="el-icon-delete"
-                   @click="handleForceLogout"></div>
+                   @click="handleForceLogout" />
             </div>
             <div class="wxy">wxy</div>
             <div class="numberOfDevices">设备数量</div>
@@ -180,14 +180,14 @@
       <el-col :span="6">
         <el-card class="netsBrakeBox">
           <div class="">
-            <div class="el-icon-s-platform"></div>
+            <div class="el-icon-s-platform" />
             <div class="host">交换机</div>
             <div class="operations">
-              <div class="el-icon-view"></div>
+              <div class="el-icon-view" />
               <div class="el-icon-edit-outline"
-                   @click="edit"></div>
+                   @click="edit" />
               <div class="el-icon-delete"
-                   @click="handleForceLogout"></div>
+                   @click="handleForceLogout" />
             </div>
             <div class="wxy">wxy</div>
             <div class="numberOfDevices">设备数量</div>
@@ -208,14 +208,14 @@
       <el-col :span="6">
         <el-card class="netsBrakeBox">
           <div class="">
-            <div class="el-icon-s-platform"></div>
+            <div class="el-icon-s-platform" />
             <div class="host">网站</div>
             <div class="operations">
-              <div class="el-icon-view"></div>
+              <div class="el-icon-view" />
               <div class="el-icon-edit-outline"
-                   @click="edit"></div>
+                   @click="edit" />
               <div class="el-icon-delete"
-                   @click="handleForceLogout"></div>
+                   @click="handleForceLogout" />
             </div>
             <div class="wxy">wxy</div>
             <div class="numberOfDevices">设备数量</div>
@@ -236,14 +236,14 @@
       <el-col :span="6">
         <el-card class="netsBrakeBox">
           <div class="">
-            <div class="el-icon-s-platform"></div>
+            <div class="el-icon-s-platform" />
             <div class="host">平台系统</div>
             <div class="operations">
-              <div class="el-icon-view"></div>
+              <div class="el-icon-view" />
               <div class="el-icon-edit-outline"
-                   @click="edit"></div>
+                   @click="edit" />
               <div class="el-icon-delete"
-                   @click="handleForceLogout"></div>
+                   @click="handleForceLogout" />
             </div>
             <div class="wxy">wxy</div>
             <div class="numberOfDevices">设备数量</div>
@@ -441,17 +441,70 @@
                        @click="cancel">取 消</el-button>
           </el-row>
         </div>
-      </div>
+        <el-form-item label="操作系统 :"
+                      prop="userName">
+          <el-input v-model="queryParams.userName"
+                    placeholder="请输入操作系统"
+                    clearable
+                    size="small"
+                    @keyup.enter.native="handleQuery" />
+        </el-form-item>
+        <el-form-item label="工控协议 :"
+                      prop="ipaddr">
+          <el-select v-model="formData.field114"
+                     placeholder="请输入工控协议"
+                     clearable
+                     :style="{ width: '100%' }">
+            <el-option v-for="(item, index) in field114Options"
+                       :key="index"
+                       :label="item.label"
+                       :value="item.value"
+                       :disabled="item.disabled" />
+          </el-select>
+        </el-form-item>
+        <el-form-item label="传输层协议 :"
+                      prop="userName">
+          <el-input v-model="queryParams.userName"
+                    placeholder="请输入传输层协议"
+                    clearable
+                    size="small"
+                    @keyup.enter.native="handleQuery" />
+        </el-form-item>
+        <el-form-item label="端口 :"
+                      prop="ipaddr">
+          <el-select v-model="formData.field114"
+                     placeholder="请选择端口"
+                     clearable
+                     :style="{ width: '100%' }">
+            <el-option v-for="(item, index) in field114Options"
+                       :key="index"
+                       :label="item.label"
+                       :value="item.value"
+                       :disabled="item.disabled" />
+          </el-select>
+        </el-form-item>
+        </el-form>
+        <div slot="footer"
+             class="dialog-footer">
+          <el-row type="flex"
+                  justify="center">
+            <el-button size="small"
+                       type="primary"
+                       @click="submitForm">保 存</el-button>
+            <el-button size="small"
+                       @click="cancel">取 消</el-button>
+          </el-row>
+        </div>
 
     </el-dialog>
   </div>
 </template>
 
 <script>
-import { list, forceLogout } from "@/api/monitor/online";
+import { forceLogout } from '@/api/monitor/online'
 
 export default {
-  name: "Online",
+  name: 'Online',
   data () {
     return {
       // 是否显示弹出层
@@ -459,40 +512,40 @@ export default {
       editDialog: false,
       assetTypes: [
         {
-          label: "主机",
-          value: 1,
+          label: '主机',
+          value: 1
         },
         {
-          label: "服务器",
-          value: 2,
+          label: '服务器',
+          value: 2
         },
         {
-          label: "网闸",
-          value: 3,
+          label: '网闸',
+          value: 3
         },
         {
-          label: "网关",
-          value: 4,
+          label: '网关',
+          value: 4
         },
         {
-          label: "防火墙",
-          value: 5,
+          label: '防火墙',
+          value: 5
         },
         {
-          label: "交换机",
-          value: 6,
+          label: '交换机',
+          value: 6
         },
         {
-          label: "网站",
-          value: 7,
+          label: '网站',
+          value: 7
         },
         {
-          label: "平台系统",
-          value: 8,
-        },
+          label: '平台系统',
+          value: 8
+        }
       ],
       formData: {
-        level: "",
+        level: ''
       },
       // 遮罩层
       loading: true,
@@ -505,86 +558,71 @@ export default {
       // 查询参数
       queryParams: {
         ipaddr: undefined,
-        userName: undefined,
+        userName: undefined
       },
       field114Options: [
         {
-          label: "IT资产",
-          value: 1,
+          label: 'IT资产',
+          value: 1
         },
         {
-          label: "无控资产",
-          value: 2,
+          label: '无控资产',
+          value: 2
         },
         {
-          label: "无",
-          value: 3,
+          label: '无',
+          value: 3
         },
         {
-          label: "无控资产-服务器",
-          value: 4,
-        },
-      ],
-    };
+          label: '无控资产-服务器',
+          value: 4
+        }
+      ]
+    }
   },
   created () {
-    this.getList();
   },
   methods: {
-    /** 查询登录日志列表 */
-    getList () {
-      this.loading = true;
-      list(this.queryParams).then((response) => {
-        this.list = response.rows;
-        this.total = response.total;
-        this.loading = false;
-      });
-    },
-    /** 搜索按钮操作 */
-    handleQuery () {
-      this.pageNum = 1;
-      this.getList();
-    },
     /** 重置按钮操作 */
     resetQuery () {
-      this.resetForm("queryForm");
-      this.handleQuery();
+      this.resetForm('queryForm')
+      this.handleQuery()
     },
     /** 强退按钮操作 */
     handleForceLogout (row) {
-      this.$confirm("是否确认删除选中的资产类型?", "删除", {
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
-        type: "warning",
+      this.$confirm('是否确认删除选中的资产类型?', '删除', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
       })
         .then(function () {
-          return forceLogout(row.tokenId);
+          return forceLogout(row.tokenId)
         })
         .then(() => {
-          this.getList();
-          this.msgSuccess("强退成功");
-        });
+          this.getList()
+          this.msgSuccess('强退成功')
+        })
     },
     handleAdd () {
-      this.open = true;
-      this.title = "新增资产类型";
+      this.open = true
+      this.title = '新增资产类型'
     },
     edit () {
-      this.editDialog = true;
-      this.title = "编辑资产类型";
+      this.editDialog = true
+      this.title = '编辑资产类型'
     },
     // 取消按钮
     cancel () {
-      this.open = false;
-      this.editDialog = false;
+      this.open = false
+      this.editDialog = false
     },
     /** 提交按钮 */
     submitForm () {
-      this.open = false;
-      this.editDialog = false;
-    },
-  },
-};
+      this.open = false
+      this.editDialog = false
+    }
+  }
+}
 </script>
 <style lang="scss" scoped >
 ::v-deep .el-dialog__body {

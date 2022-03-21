@@ -194,14 +194,74 @@
             <el-button v-hasPermi="['system:group:remove']"
                        type="text"
                        @click="handleDelete(scope.row)">处置</el-button>
-          </template>
-        </el-table-column>
-      </el-table>
-      <pagination v-show="total > 0"
-                  :total="total"
-                  :page.sync="queryParams.pageNum"
-                  :limit.sync="queryParams.pageSize"
-                  @pagination="getCategoryList" />
+            =======
+            <el-button type="primary"
+                       class="export"
+                       @click="submitdata">导出</el-button>
+            <el-table :data="groupList"
+                      tooltip-effect="light">
+              <el-table-column type="selection"
+                               width="55"
+                               align="center" />
+              <el-table-column label="攻击者IP"
+                               align="center"
+                               prop="attackerIp"
+                               :show-overflow-tooltip="true" />
+              <el-table-column label="受害者IP"
+                               align="center"
+                               prop="victimIp"
+                               :show-overflow-tooltip="true" />
+              <el-table-column label="APT组织"
+                               align="center"
+                               prop="aptOrganization"
+                               :show-overflow-tooltip="true" />
+              <el-table-column label="协议"
+                               align="center"
+                               prop="agreement"
+                               :show-overflow-tooltip="true" />
+              <el-table-column label="事件等级"
+                               align="center"
+                               prop="eventLevel"
+                               :show-overflow-tooltip="true" />
+              <el-table-column label="杀伤链阶段"
+                               align="center"
+                               prop="killingChainStage"
+                               :show-overflow-tooltip="true" />
+              <el-table-column label="发生时间"
+                               align="center"
+                               prop="happenTime"
+                               :show-overflow-tooltip="true" />
+              <el-table-column label="发现时间"
+                               align="center"
+                               prop="discoveryTime"
+                               :show-overflow-tooltip="true" />
+              <el-table-column label="处置状态"
+                               align="center"
+                               prop="disposalStatus"
+                               :show-overflow-tooltip="true" />
+              <el-table-column label="区域"
+                               align="center"
+                               prop="region"
+                               :show-overflow-tooltip="true" />
+              <el-table-column label="操作"
+                               align="center"
+                               class-name="small-padding fixed-width">
+                <template slot-scope="scope">
+                  <el-button size="mini"
+                             type="text"
+                             @click="detail(scope.row.id)">详情</el-button>
+                  <el-button size="mini"
+                             type="text"
+                             @click="handleDelete(scope.row)">处置</el-button>
+                  >>>>>>> master
+                </template>
+              </el-table-column>
+            </el-table>
+            <pagination v-show="total > 0"
+                        :total="total"
+                        :page.sync="queryParams.pageNum"
+                        :limit.sync="queryParams.pageSize"
+                        @pagination="getCategoryList" />
     </el-card>
 
     <!-- 添加或修改分组对话框 -->
@@ -217,82 +277,82 @@
           <el-row>
             <el-col :span="12">
               <el-form-item label="APT组织1 :">
-                {{ dataTest.name }}
+                {{ detailData.name }}
               </el-form-item>
             </el-col>
             <el-col :span="12">
               <el-form-item label="情报类型 :">
-                {{ dataTest.name1 }}
+                {{ detailData.name1 }}
               </el-form-item>
             </el-col>
             <el-col :span="12">
               <el-form-item label="情报IOC :">
-                {{ dataTest.name2 }}
+                {{ detailData.name2 }}
               </el-form-item>
             </el-col>
             <el-col :span="12">
               <el-form-item label="事件等级 :">
-                {{ dataTest.name3 }}
+                {{ detailData.name3 }}
               </el-form-item>
             </el-col>
             <el-col :span="12">
               <el-form-item label="攻击者IP :">
-                {{ dataTest.name4 }}
+                {{ detailData.name4 }}
               </el-form-item>
             </el-col>
             <el-col :span="12">
               <el-form-item label="攻击者国家 :">
-                {{ dataTest.name5 }}
+                {{ detailData.name5 }}
               </el-form-item>
             </el-col>
             <el-col :span="12">
               <el-form-item label="受害者IP :">
-                {{ dataTest.name6 }}
+                {{ detailData.name6 }}
               </el-form-item>
             </el-col>
             <el-col :span="12">
               <el-form-item label="受害者国家 :">
-                {{ dataTest.name7 }}
+                {{ detailData.name7 }}
               </el-form-item>
             </el-col>
             <el-col :span="12">
               <el-form-item label="源端口 :">
-                {{ dataTest.name8 }}
+                {{ detailData.name8 }}
               </el-form-item>
             </el-col>
             <el-col :span="12">
               <el-form-item label="目标端口 :">
-                {{ dataTest.name9 }}
+                {{ detailData.name9 }}
               </el-form-item>
             </el-col>
             <el-col :span="12">
               <el-form-item label="协议 :">
-                {{ dataTest.name10 }}
+                {{ detailData.name10 }}
               </el-form-item>
             </el-col>
             <el-col :span="12">
               <el-form-item label="杀伤链阶段 :">
-                {{ dataTest.name11 }}
+                {{ detailData.name11 }}
               </el-form-item>
             </el-col>
             <el-col :span="12">
               <el-form-item label="杀伤链阶段 :">
-                {{ dataTest.name12 }}
+                {{ detailData.name12 }}
               </el-form-item>
             </el-col>
             <el-col :span="12">
               <el-form-item label="发现时间 :">
-                {{ dataTest.name13 }}
+                {{ detailData.name13 }}
               </el-form-item>
             </el-col>
             <el-col :span="12">
               <el-form-item label="处置状态 :">
-                {{ dataTest.name12 }}
+                {{ detailData.name12 }}
               </el-form-item>
             </el-col>
             <el-col :span="12">
               <el-form-item label="区域 :">
-                {{ dataTest.name13 }}
+                {{ detailData.name13 }}
               </el-form-item>
             </el-col>
           </el-row>
@@ -315,99 +375,37 @@
 </template>
 <script>
 // import { listGroup } from "@/api/system/group";
-import { listEvent } from "@/api/system/category";
+import { ThreatIntelligenceDetail } from '@/api/system/detail'
+import { ThreatIntelligenceList } from '@/api/system/list'
 export default {
   components: {},
   props: [],
   data () {
     return {
       loading: true,
-      name: "测试",
-      dataTest: {
-        name: "工业网络审计事件",
-        name1: "工业网络审计",
-        name2: "高危",
-        name3: "未知接口",
-        name4: "10.255.52.84",
-        name5: "192.163.12.63",
-        name6: "MODBUS协议",
-        name7: "工业网络审计",
-        name8: "10.255.52.83",
-        name9: "失陷",
-        name10: "山西燃气厂",
-        name11: "待处置",
-        name12: "2022-02-22",
-        name13: "2022-2-25",
+      name: '测试',
+      detailData: {
+        name: '工业网络审计事件',
+        name1: '工业网络审计',
+        name2: '高危',
+        name3: '未知接口',
+        name4: '10.255.52.84',
+        name5: '192.163.12.63',
+        name6: 'MODBUS协议',
+        name7: '工业网络审计',
+        name8: '10.255.52.83',
+        name9: '失陷',
+        name10: '山西燃气厂',
+        name11: '待处置',
+        name12: '2022-02-22',
+        name13: '2022-2-25'
       },
-      // 分组表格数据
-      groupListData: [
-        {
-          gjzIP: "192.168.28.8",
-          shzIP: "10.13.20.24",
-          APT: "BITTER",
-          groupOrder: "DNS",
-          eventLevel: "低",
-          ssljd: "荷载投递",
-          happenTime: "2022-01-29 10:00:00",
-          disTime: "2022-01-29 10:01:00",
-          status: "未处置",
-          area: "山西燃气厂",
-        },
-        {
-          gjzIP: "192.168.28.8",
-          shzIP: "10.13.20.24",
-          APT: "BITTER",
-          groupOrder: "DNS",
-          eventLevel: "低",
-          ssljd: "荷载投递",
-          happenTime: "2022-01-29 10:00:00",
-          disTime: "2022-01-29 10:01:00",
-          status: "未处置",
-          area: "山西燃气厂",
-        },
-        {
-          gjzIP: "192.168.28.8",
-          shzIP: "10.13.20.24",
-          APT: "BITTER",
-          groupOrder: "DNS",
-          eventLevel: "低",
-          ssljd: "荷载投递",
-          happenTime: "2022-01-29 10:00:00",
-          disTime: "2022-01-29 10:01:00",
-          status: "未处置",
-          area: "山西燃气厂",
-        },
-        {
-          gjzIP: "192.168.28.8",
-          shzIP: "10.13.20.24",
-          APT: "BITTER",
-          groupOrder: "DNS",
-          eventLevel: "低",
-          ssljd: "荷载投递",
-          happenTime: "2022-01-29 10:00:00",
-          disTime: "2022-01-29 10:01:00",
-          status: "未处置",
-          area: "山西燃气厂",
-        },
-        {
-          gjzIP: "192.168.28.8",
-          shzIP: "10.13.20.24",
-          APT: "BITTER",
-          groupOrder: "DNS",
-          eventLevel: "低",
-          ssljd: "荷载投递",
-          happenTime: "2022-01-29 10:00:00",
-          disTime: "2022-01-29 10:01:00",
-          status: "未处置",
-          area: "山西燃气厂",
-        },
-      ],
       // 分组表格数据
       groupList: [],
       // 创建时间时间范围
       daterangeCreateTime: [],
       // 弹出层标题
-      title: "",
+      title: '',
       // 是否显示弹出层
       open: false,
       // 总条数
@@ -418,7 +416,7 @@ export default {
         pageSize: 10,
         userId: null,
         groupName: null,
-        createTime: null,
+        createTime: null
       },
       formData: {
         name: undefined,
@@ -429,8 +427,8 @@ export default {
         ip: undefined,
         newip: undefined,
         equipment: undefined,
-        date: [""],
-        field114: undefined,
+        date: [''],
+        field114: undefined
       },
       rules: {
         name: [],
@@ -442,90 +440,93 @@ export default {
         newip: [],
         equipment: [],
         date: [],
-        field114: [],
+        field114: []
       },
       levelOptions: [
         {
-          label: "正常",
-          value: 1,
+          label: '正常',
+          value: 1
         },
         {
-          label: "低危",
-          value: 2,
+          label: '低危',
+          value: 2
         },
         {
-          label: "中危",
-          value: 3,
+          label: '中危',
+          value: 3
         },
         {
-          label: "高危",
-          value: 4,
+          label: '高危',
+          value: 4
         },
         {
-          label: "失陷",
-          value: 5,
-        },
+          label: '失陷',
+          value: 5
+        }
       ],
       areaOptions: [
         {
-          label: "北京",
-          value: 1,
+          label: '北京',
+          value: 1
         },
         {
-          label: "重庆",
-          value: 2,
-        },
+          label: '重庆',
+          value: 2
+        }
       ],
       field114Options: [
         {
-          label: "未处置",
-          value: 1,
+          label: '未处置',
+          value: 1
         },
         {
-          label: "处置中",
-          value: 2,
+          label: '处置中',
+          value: 2
         },
         {
-          label: "已处置",
-          value: 3,
-        },
-      ],
-    };
+          label: '已处置',
+          value: 3
+        }
+      ]
+    }
   },
   created () {
-    this.getCategoryList();
+    this.getCategoryList()
   },
   methods: {
     /** 查询分组列表 */
     getCategoryList () {
-      listEvent(this.queryParams).then((response) => {
-        this.groupList = response.rows;
-        this.total = response.total;
-      });
+      ThreatIntelligenceList(this.queryParams).then((response) => {
+        this.groupList = response.rows
+        this.total = response.total
+      })
     },
     submitdata () {
-      this.$refs["elForm"].validate((valid) => {
-        if (!valid) return;
+      this.$refs['elForm'].validate((valid) => {
+        if (!valid) return
         // TODO 提交表单
-      });
+      })
     },
     resetForm () {
-      this.$refs["elForm"].resetFields();
+      this.$refs['elForm'].resetFields()
     },
-    detail () {
-      this.open = true;
-      this.title = "事件详情";
+    detail (id) {
+      ThreatIntelligenceDetail(id).then((response) => {
+        this.detailData = response.rows
+      })
+      this.open = true
+      this.title = '事件详情'
     },
     // 取消按钮
     cancel () {
-      this.open = false;
+      this.open = false
     },
     /** 提交按钮 */
     submitForm () {
-      this.open = false;
-    },
-  },
-};
+      this.open = false
+    }
+  }
+}
 </script>
 <style lang="scss" scoped>
 .export {

@@ -262,84 +262,84 @@
   </div>
 </template>
 <script>
-import { listEvent } from "@/api/system/category";
+import { listEvent } from '@/api/system/category'
 export default {
   components: {},
   props: [],
   data () {
     return {
       loading: true,
-      name: "测试",
+      name: '测试',
       dataTest: {
-        name: "工业网络审计事件",
-        name1: "工业网络审计",
-        name2: "高危",
-        name3: "未知接口",
-        name4: "10.255.52.84",
-        name5: "192.163.12.63",
-        name6: "MODBUS协议",
-        name7: "工业网络审计",
-        name8: "10.255.52.83",
-        name9: "失陷",
-        name10: "山西燃气厂",
-        name11: "待处置",
-        name12: "2022-02-22",
-        name13: "2022-2-25",
+        name: '工业网络审计事件',
+        name1: '工业网络审计',
+        name2: '高危',
+        name3: '未知接口',
+        name4: '10.255.52.84',
+        name5: '192.163.12.63',
+        name6: 'MODBUS协议',
+        name7: '工业网络审计',
+        name8: '10.255.52.83',
+        name9: '失陷',
+        name10: '山西燃气厂',
+        name11: '待处置',
+        name12: '2022-02-22',
+        name13: '2022-2-25'
       },
       // 分组表格数据
       groupListData: [
         {
-          IOC: "hask.f3322.org",
-          qblymc: "微步在线机情报",
-          wxlx: "c2 Zegost",
-          wxjb: "高",
-          zxd: "85",
-          qbytjsj: "2020-01-29 10:00:00",
-          qybqz: "7",
+          IOC: 'hask.f3322.org',
+          qblymc: '微步在线机情报',
+          wxlx: 'c2 Zegost',
+          wxjb: '高',
+          zxd: '85',
+          qbytjsj: '2020-01-29 10:00:00',
+          qybqz: '7'
         },
         {
-          IOC: "hask.f3322.org",
-          qblymc: "微步在线机情报",
-          wxlx: "c2 Zegost",
-          wxjb: "高",
-          zxd: "85",
-          qbytjsj: "2020-01-29 10:00:00",
-          qybqz: "7",
+          IOC: 'hask.f3322.org',
+          qblymc: '微步在线机情报',
+          wxlx: 'c2 Zegost',
+          wxjb: '高',
+          zxd: '85',
+          qbytjsj: '2020-01-29 10:00:00',
+          qybqz: '7'
         },
         {
-          IOC: "hask.f3322.org",
-          qblymc: "微步在线机情报",
-          wxlx: "c2 Zegost",
-          wxjb: "高",
-          zxd: "85",
-          qbytjsj: "2020-01-29 10:00:00",
-          qybqz: "7",
+          IOC: 'hask.f3322.org',
+          qblymc: '微步在线机情报',
+          wxlx: 'c2 Zegost',
+          wxjb: '高',
+          zxd: '85',
+          qbytjsj: '2020-01-29 10:00:00',
+          qybqz: '7'
         },
         {
-          IOC: "hask.f3322.org",
-          qblymc: "微步在线机情报",
-          wxlx: "c2 Zegost",
-          wxjb: "高",
-          zxd: "85",
-          qbytjsj: "2020-01-29 10:00:00",
-          qybqz: "7",
+          IOC: 'hask.f3322.org',
+          qblymc: '微步在线机情报',
+          wxlx: 'c2 Zegost',
+          wxjb: '高',
+          zxd: '85',
+          qbytjsj: '2020-01-29 10:00:00',
+          qybqz: '7'
         },
         {
-          IOC: "hask.f3322.org",
-          qblymc: "微步在线机情报",
-          wxlx: "c2 Zegost",
-          wxjb: "高",
-          zxd: "85",
-          qbytjsj: "2020-01-29 10:00:00",
-          qybqz: "7",
-        },
+          IOC: 'hask.f3322.org',
+          qblymc: '微步在线机情报',
+          wxlx: 'c2 Zegost',
+          wxjb: '高',
+          zxd: '85',
+          qbytjsj: '2020-01-29 10:00:00',
+          qybqz: '7'
+        }
       ],
       // 分组表格数据
       groupList: [],
       // 创建时间时间范围
       daterangeCreateTime: [],
       // 弹出层标题
-      title: "",
+      title: '',
       // 是否显示弹出层
       open: false,
       // 总条数
@@ -350,7 +350,7 @@ export default {
         pageSize: 10,
         userId: null,
         groupName: null,
-        createTime: null,
+        createTime: null
       },
       formData: {
         name: undefined,
@@ -361,8 +361,8 @@ export default {
         ip: undefined,
         newip: undefined,
         equipment: undefined,
-        date: [""],
-        field114: undefined,
+        date: [''],
+        field114: undefined
       },
       rules: {
         name: [],
@@ -374,90 +374,90 @@ export default {
         newip: [],
         equipment: [],
         date: [],
-        field114: [],
+        field114: []
       },
       levelOptions: [
         {
-          label: "正常",
-          value: 1,
+          label: '正常',
+          value: 1
         },
         {
-          label: "低危",
-          value: 2,
+          label: '低危',
+          value: 2
         },
         {
-          label: "中危",
-          value: 3,
+          label: '中危',
+          value: 3
         },
         {
-          label: "高危",
-          value: 4,
+          label: '高危',
+          value: 4
         },
         {
-          label: "失陷",
-          value: 5,
-        },
+          label: '失陷',
+          value: 5
+        }
       ],
       areaOptions: [
         {
-          label: "北京",
-          value: 1,
+          label: '北京',
+          value: 1
         },
         {
-          label: "重庆",
-          value: 2,
-        },
+          label: '重庆',
+          value: 2
+        }
       ],
       field114Options: [
         {
-          label: "未处置",
-          value: 1,
+          label: '未处置',
+          value: 1
         },
         {
-          label: "处置中",
-          value: 2,
+          label: '处置中',
+          value: 2
         },
         {
-          label: "已处置",
-          value: 3,
-        },
-      ],
-    };
+          label: '已处置',
+          value: 3
+        }
+      ]
+    }
   },
   created () {
-    this.getCategoryList();
+    this.getCategoryList()
   },
   methods: {
     /** 查询分组列表 */
     getCategoryList () {
       listEvent(this.queryParams).then((response) => {
-        this.groupList = response.rows;
-        this.total = response.total;
-      });
+        this.groupList = response.rows
+        this.total = response.total
+      })
     },
     submitdata () {
-      this.$refs["elForm"].validate((valid) => {
-        if (!valid) return;
+      this.$refs['elForm'].validate((valid) => {
+        if (!valid) return
         // TODO 提交表单
-      });
+      })
     },
     resetForm () {
-      this.$refs["elForm"].resetFields();
+      this.$refs['elForm'].resetFields()
     },
     detail () {
-      this.open = true;
-      this.title = "情报详情";
+      this.open = true
+      this.title = '事件详情'
     },
     // 取消按钮
     cancel () {
-      this.open = false;
+      this.open = false
     },
     /** 提交按钮 */
     submitForm () {
-      this.open = false;
-    },
-  },
-};
+      this.open = false
+    }
+  }
+}
 </script>
 <style lang="scss" scoped>
 .box-card {

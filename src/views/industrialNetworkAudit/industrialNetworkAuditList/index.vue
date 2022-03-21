@@ -135,7 +135,7 @@
         <el-table-column
           label="产生时间"
           align="center"
-          prop="happen"
+          prop="generationTime"
           :show-overflow-tooltip="true"
         />
         <el-table-column
@@ -153,44 +153,44 @@
         <el-table-column
           label="目的IP"
           align="center"
-          prop="aimIp"
+          prop="destinationIp"
           :show-overflow-tooltip="true"
         />
         <el-table-column
           label="目的端口"
           align="center"
-          prop="aimPort"
+          prop="destinationPort"
           :show-overflow-tooltip="true"
         />
         <el-table-column
           label="传输层协议"
           align="center"
-          prop="transportProtocol"
+          prop="transportLayerProtocol"
           :show-overflow-tooltip="true"
         />
         <el-table-column
           label="应用层协议"
           align="center"
-          prop="applyProtocol"
+          prop="applicationLayerProtocol"
           :show-overflow-tooltip="true"
         />
         <el-table-column
           label="事件级别"
           align="center"
-          prop="level"
+          prop="eventLevel"
           :show-overflow-tooltip="true"
         />
 
         <el-table-column
           label="事件类型"
           align="center"
-          prop="type"
+          prop="eventCategory"
           :show-overflow-tooltip="true"
         />
         <el-table-column
           label="处置状态"
           align="center"
-          prop="state"
+          prop="disposalStatus"
           :show-overflow-tooltip="true"
         />
         <el-table-column
@@ -479,6 +479,8 @@
 
 <script>
 import { industryList } from '@/api/system/list'
+import { industrialNetworkAuditDetail } from '@/api/system/detail'
+
 export default {
   name: 'Online',
   data() {
@@ -612,7 +614,8 @@ export default {
       this.title = '批量导入资产'
     },
     detail(row) {
-      this.dialogDetail = row
+      const res = industrialNetworkAuditDetail(row)
+      this.detailData = res.rows
       this.detailDialog = true
       this.title = '事件详情'
     }

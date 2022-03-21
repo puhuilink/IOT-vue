@@ -119,7 +119,6 @@
     <el-card>
       <el-button type="primary"
                  class="export"
-                 size="mini"
                  @click="submitdata">导出</el-button>
       <el-table :data="groupList"
                 tooltip-effect="light">
@@ -128,31 +127,31 @@
                          align="center" />
         <el-table-column label="攻击者"
                          align="center"
-                         prop="attack"
+                         prop="attackSource"
                          :show-overflow-tooltip="true" />
         <el-table-column label="攻击目标"
                          align="center"
-                         prop="attackAim"
+                         prop="attackTarget"
                          :show-overflow-tooltip="true" />
         <el-table-column label="隔离沙箱"
                          align="center"
-                         prop="isolation"
+                         prop="isolationSandbox"
                          :show-overflow-tooltip="true" />
         <el-table-column label="开始攻击时间"
                          align="center"
-                         prop="happen"
+                         prop="startAttackTime"
                          :show-overflow-tooltip="true" />
         <el-table-column label="最后攻击时间"
                          align="center"
-                         prop="last"
+                         prop="lastAttackTime"
                          :show-overflow-tooltip="true" />
         <el-table-column label="事件等级"
                          align="center"
-                         prop="level"
+                         prop="eventLevel"
                          :show-overflow-tooltip="true" />
         <el-table-column label="处置状态"
                          align="center"
-                         prop="state"
+                         prop="disposalStatus"
                          :show-overflow-tooltip="true" />
         <el-table-column label="区域"
                          align="center"
@@ -162,10 +161,10 @@
                          align="center"
                          class-name="small-padding fixed-width">
           <template slot-scope="scope">
-            <el-button v-hasPermi="['system:group:edit']"
+            <el-button size="mini"
                        type="text"
-                       @click="detail">详情</el-button>
-            <el-button v-hasPermi="['system:group:remove']"
+                       @click="detail(scope.row.id)">详情</el-button>
+            <el-button size="mini"
                        type="text"
                        @click="handleDelete(scope.row)">处置</el-button>
           </template>
@@ -276,7 +275,8 @@
 <script>
 // import { listGroup } from "@/api/system/group";
 // import { listEvent } from '@/api/system/category'
-import { honeypotList } from '@/api/system/list'
+import { trapList } from '@/api/system/list'
+import { trapDetail } from '@/api/system/detail'
 
 export default {
   components: {},
@@ -486,15 +486,9 @@ export default {
   },
   methods: {
     /** 查询分组列表 */
-    // getCategoryList() {
-    //   listEvent(this.queryParams).then((response) => {
-    //     this.groupList = response.rows
-    //     this.total = response.total
-    //   })
-    // },
     async getList () {
       this.loading = true
-      const res = await honeypotList(this.queryParams)
+      const res = await trapList(this.queryParams)
       this.groupList = res.rows
       this.total = res.total
       this.loading = false
@@ -508,7 +502,9 @@ export default {
     resetForm () {
       this.$refs['elForm'].resetFields()
     },
-    detail () {
+    detail (id) {
+      const res = trapDetail(id)
+      this.detailData = res.rows
       this.open = true
       this.title = '事件详情'
     },

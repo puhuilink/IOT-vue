@@ -1,5 +1,5 @@
 module.exports = {
-  title: '工业企业网络安全综合防护平台',
+  title: '安全子平台',
 
   /**
    * 侧边栏主题 深色主题theme-dark，浅色主题theme-light
