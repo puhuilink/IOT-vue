@@ -6,7 +6,7 @@
 import eventAnalysis from '@/views/navigation/eventAnalysis'
 export default {
   components: { eventAnalysis },
-  data() {
+  data () {
     return {
     }
   }
@@ -14,5 +14,4 @@ export default {
 </script>
 
 <style>
-
 </style>

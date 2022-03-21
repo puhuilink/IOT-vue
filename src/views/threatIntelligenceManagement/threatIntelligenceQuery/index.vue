@@ -1,237 +1,263 @@
 <template>
   <div class="app-container">
     <el-card class="box-card">
-      <div>
-        <el-row :gutter="20">
-          <el-form
-            ref="elForm"
-            :model="formData"
-            :rules="rules"
-            size="mini"
-            label-width="360px"
-            class="label-type"
-            label-position="left"
-          >
-            <el-col :span="12">
-              <el-form-item label="" prop="name">
-                <el-input
-                  v-model="formData.name"
-                  placeholder="请输入事件名称"
-                  clearable
-                  :style="{ width: '100%' }"
-                ><el-button icon="el-icon-search" /></el-input>
-              </el-form-item>
-            </el-col>
-          </el-form>
-        </el-row>
-      </div>
+      <el-row :gutter="20">
+        <el-form ref="elForm"
+                 :model="formData"
+                 :rules="rules"
+                 size="mini"
+                 label-width="60px"
+                 class="label-type"
+                 label-position="left">
+          <el-col :span="6"
+                  offset="9">
+            <el-form-item label=""
+                          prop="name">
+              <el-input v-model="formData.name"
+                        placeholder="请输入威胁情报名称"
+                        clearable
+                        :style="{ width: '100%' }">
+                <el-button icon="el-icon-search"></el-button>
+              </el-input>
+            </el-form-item>
+          </el-col>
+        </el-form>
+      </el-row>
     </el-card>
     <el-card>
-      <el-table :data="groupList" tooltip-effect="light">
-        <el-table-column type="selection" width="55" align="center" />
-        <el-table-column
-          label="IOC"
-          align="center"
-          prop="eventName"
-          :show-overflow-tooltip="true"
-        />
-        <el-table-column
-          label="情报来源名称"
-          align="center"
-          prop="sourceIp"
-          :show-overflow-tooltip="true"
-        />
-        <el-table-column
-          label="威胁类型"
-          align="center"
-          prop="type"
-          :show-overflow-tooltip="true"
-        />
-        <el-table-column
-          label="威胁级别"
-          align="center"
-          prop="level"
-          :show-overflow-tooltip="true"
-        />
-        <el-table-column
-          label="置信度"
-          align="center"
-          prop="status"
-          :show-overflow-tooltip="true"
-        />
-        <el-table-column
-          label="情报源添加时间"
-          align="center"
-          prop="startTime"
-          :show-overflow-tooltip="true"
-        />
-        <el-table-column
-          label="情报源权重"
-          align="center"
-          prop="agreement"
-          :show-overflow-tooltip="true"
-        />
-        <el-table-column
-          label="操作"
-          align="center"
-          class-name="small-padding fixed-width"
-        >
+      <div class="title">
+        多源情报查询结果
+      </div>
+      <el-table :data="groupList"
+                tooltip-effect="light">
+        <el-table-column type="selection"
+                         width="55"
+                         align="center" />
+        <el-table-column label="IOC"
+                         align="center"
+                         prop="eventName"
+                         :show-overflow-tooltip="true" />
+        <el-table-column label="情报来源名称"
+                         align="center"
+                         prop="sourceIp"
+                         :show-overflow-tooltip="true" />
+        <el-table-column label="威胁类型"
+                         align="center"
+                         prop="type"
+                         :show-overflow-tooltip="true" />
+        <el-table-column label="威胁级别"
+                         align="center"
+                         prop="level"
+                         :show-overflow-tooltip="true" />
+        <el-table-column label="置信度"
+                         align="center"
+                         prop="status"
+                         :show-overflow-tooltip="true" />
+        <el-table-column label="情报源添加时间"
+                         align="center"
+                         prop="startTime"
+                         :show-overflow-tooltip="true" />
+        <el-table-column label="情报源权重"
+                         align="center"
+                         prop="agreement"
+                         :show-overflow-tooltip="true" />
+        <el-table-column label="操作"
+                         align="center"
+                         class-name="small-padding fixed-width">
           <template slot-scope="scope">
-            <el-button
-
-              size="mini"
-              type="text"
-              @click="detail"
-            >详情</el-button>
-            <el-button
-
-              size="mini"
-              type="text"
-              @click="handleDelete(scope.row)"
-            >处置</el-button>
+            <el-button v-hasPermi="['system:group:edit']"
+                       size="mini"
+                       type="text"
+                       @click="detail(scope.row)">详情</el-button>
           </template>
         </el-table-column>
       </el-table>
     </el-card>
 
-    <pagination
-      v-show="total > 0"
-      :total="total"
-      :page.sync="queryParams.pageNum"
-      :limit.sync="queryParams.pageSize"
-      @pagination="getCategoryList"
-    />
+    <pagination v-show="total > 0"
+                :total="total"
+                :page.sync="queryParams.pageNum"
+                :limit.sync="queryParams.pageSize"
+                @pagination="getCategoryList" />
     <!-- 添加或修改分组对话框 -->
-    <el-dialog :title="title" :visible.sync="open" width="900px" append-to-body>
-      <el-form ref="form" label-width="95px" label-position="left">
-        <el-row>
-          <el-col :span="8">
-            <el-form-item label="IOC :">
-              {{ dataTest.name }}
-            </el-form-item>
-          </el-col>
-          <el-col :span="8">
-            <el-form-item label="IOC类型 :">
-              {{ dataTest.name1 }}
-            </el-form-item>
-          </el-col>
-          <el-col :span="8">
-            <el-form-item label="威胁类型 :">
-              {{ dataTest.name2 }}
-            </el-form-item>
-          </el-col>
-          <el-col :span="8">
-            <el-form-item label="威胁级别 :">
-              {{ dataTest.name3 }}
-            </el-form-item>
-          </el-col>
-          <el-col :span="8">
-            <el-form-item label="可信度 :">
-              {{ dataTest.name4 }}
-            </el-form-item>
-          </el-col>
-          <el-col :span="8">
-            <el-form-item label="更新时间 :">
-              {{ dataTest.name5 }}
-            </el-form-item>
-          </el-col>
-          <el-col :span="8">
-            <el-form-item label="受影响平台 :">
-              {{ dataTest.name6 }}
-            </el-form-item>
-          </el-col>
-          <el-col :span="8">
-            <el-form-item label="可信度 :">
-              {{ dataTest.name7 }}
-            </el-form-item>
-          </el-col>
-          <el-col :span="8">
-            <el-form-item label="更新时间 :">
-              {{ dataTest.name8 }}
-            </el-form-item>
-          </el-col>
-          <el-col :span="8">
-            <el-form-item label="IP :">
-              {{ dataTest.name9 }}
-            </el-form-item>
-          </el-col>
-          <el-col :span="8">
-            <el-form-item label="运营商 :">
-              {{ dataTest.name10 }}
-            </el-form-item>
-          </el-col>
-          <el-col :span="8">
-            <el-form-item label="位置 :">
-              {{ dataTest.name11 }}
-            </el-form-item>
-          </el-col>
-          <el-col :span="8">
-            <el-form-item label="域名服务商 :">
-              {{ dataTest.name12 }}
-            </el-form-item>
-          </el-col>
-          <el-col :span="8">
-            <el-form-item label="域名服务器 :">
-              {{ dataTest.name13 }}
-            </el-form-item>
-          </el-col>
-          <el-col :span="8">
-            <el-form-item label="注册者 :">
-              {{ dataTest.name11 }}
-            </el-form-item>
-          </el-col>
-          <el-col :span="8">
-            <el-form-item label="注册邮箱 :">
-              {{ dataTest.name12 }}
-            </el-form-item>
-          </el-col>
-          <el-col :span="8">
-            <el-form-item label="注册机构 :">
-              {{ dataTest.name13 }}
-            </el-form-item>
-          </el-col>
-          <el-col :span="8">
-            <el-form-item label="地址 :">
-              {{ dataTest.name11 }}
-            </el-form-item>
-          </el-col>
-          <el-col :span="8">
-            <el-form-item label="电话 :">
-              {{ dataTest.name12 }}
-            </el-form-item>
-          </el-col>
-          <el-col :span="8">
-            <el-form-item label="注册时间 :">
-              {{ dataTest.name13 }}
-            </el-form-item>
-          </el-col>
-          <el-col :span="8">
-            <el-form-item label="更新时间 :">
-              {{ dataTest.name11 }}
-            </el-form-item>
-          </el-col>
-          <el-col :span="8">
-            <el-form-item label="过期时间 :">
-              {{ dataTest.name12 }}
-            </el-form-item>
-          </el-col>
-          <el-col :span="8">
-            <el-form-item label="Alexa :">
-              {{ dataTest.name13 }}
-            </el-form-item>
-          </el-col>
-        </el-row>
-      </el-form>
-      <div slot="footer" class="dialog-footer">
-        <el-row type="flex" justify="center">
-          <el-button
-            size="small"
-            type="primary"
-            @click="submitForm"
-          >确 定</el-button>
-          <el-button size="small" @click="cancel">取 消</el-button>
-        </el-row>
+    <el-dialog :title="title"
+               :visible.sync="open"
+               width="900px"
+               append-to-body>
+      <div class="contentBox">
+        <div class="information">
+          概况
+        </div>
+        <el-form ref="form"
+                 label-width="95px"
+                 label-position="left"
+                 class="label-type">
+          <el-row>
+            <el-col :span="8">
+              <el-form-item label="IOC :">
+                {{ dataTest.name }}
+              </el-form-item>
+            </el-col>
+            <el-col :span="8">
+              <el-form-item label="IOC类型 :">
+                {{ dataTest.name1 }}
+              </el-form-item>
+            </el-col>
+            <el-col :span="8">
+              <el-form-item label="威胁类型 :">
+                {{ dataTest.name2 }}
+              </el-form-item>
+            </el-col>
+            <el-col :span="8">
+              <el-form-item label="威胁级别 :">
+                {{ dataTest.name3 }}
+              </el-form-item>
+            </el-col>
+            <el-col :span="8">
+              <el-form-item label="可信度 :">
+                {{ dataTest.name4 }}
+              </el-form-item>
+            </el-col>
+            <el-col :span="8">
+              <el-form-item label="更新时间 :">
+                {{ dataTest.name5 }}
+              </el-form-item>
+            </el-col>
+            <el-col :span="8">
+              <el-form-item label="受影响平台 :">
+                {{ dataTest.name6 }}
+              </el-form-item>
+            </el-col>
+            <el-col :span="8">
+              <el-form-item label="可信度 :">
+                {{ dataTest.name7 }}
+              </el-form-item>
+            </el-col>
+            <el-col :span="8">
+              <el-form-item label="更新时间 :">
+                {{ dataTest.name8 }}
+              </el-form-item>
+            </el-col>
+          </el-row>
+        </el-form>
+        <div class="information">
+          域名解析
+        </div>
+        <el-form ref="form"
+                 label-width="95px"
+                 label-position="left"
+                 class="label-type">
+          <el-row>
+            <el-col :span="8">
+              <el-form-item label="IP :">
+                {{ dataTest.name9 }}
+              </el-form-item>
+            </el-col>
+            <el-col :span="8">
+              <el-form-item label="运营商 :">
+                {{ dataTest.name10 }}
+              </el-form-item>
+            </el-col>
+            <el-col :span="8">
+              <el-form-item label="位置 :">
+                {{ dataTest.name11 }}
+              </el-form-item>
+            </el-col>
+          </el-row>
+        </el-form>
+        <div class="information">
+          WHOLS
+        </div>
+        <el-form ref="form"
+                 label-width="95px"
+                 label-position="left"
+                 class="label-type">
+          <el-row>
+            <el-col :span="8">
+              <el-form-item label="域名服务商 :">
+                {{ dataTest.name12 }}
+              </el-form-item>
+            </el-col>
+            <el-col :span="8">
+              <el-form-item label="域名服务器 :">
+                {{ dataTest.name13 }}
+              </el-form-item>
+            </el-col>
+            <el-col :span="8">
+              <el-form-item label="注册者 :">
+                {{ dataTest.name11 }}
+              </el-form-item>
+            </el-col>
+            <el-col :span="8">
+              <el-form-item label="注册邮箱 :">
+                {{ dataTest.name12 }}
+              </el-form-item>
+            </el-col>
+            <el-col :span="8">
+              <el-form-item label="注册机构 :">
+                {{ dataTest.name13 }}
+              </el-form-item>
+            </el-col>
+            <el-col :span="8">
+              <el-form-item label="地址 :">
+                {{ dataTest.name11 }}
+              </el-form-item>
+            </el-col>
+            <el-col :span="8">
+              <el-form-item label="电话 :">
+                {{ dataTest.name12 }}
+              </el-form-item>
+            </el-col>
+            <el-col :span="8">
+              <el-form-item label="注册时间 :">
+                {{ dataTest.name13 }}
+              </el-form-item>
+            </el-col>
+            <el-col :span="8">
+              <el-form-item label="更新时间 :">
+                {{ dataTest.name11 }}
+              </el-form-item>
+            </el-col>
+            <el-col :span="8">
+              <el-form-item label="过期时间 :">
+                {{ dataTest.name12 }}
+              </el-form-item>
+            </el-col>
+            <el-col :span="8">
+              <el-form-item label="Alexa :">
+                {{ dataTest.name13 }}
+              </el-form-item>
+            </el-col>
+          </el-row>
+        </el-form>
+        <div class="information">
+          子域名
+        </div>
+        <div class="information">
+          可视化分析
+        </div>
+        <div class="information">
+          数字签名
+        </div>
+        <div class="information">
+          生命周期
+        </div>
+        <div class="information">
+          协同研发
+        </div>
+        <div slot="footer"
+             class="dialog-footer">
+          <el-row type="flex"
+                  justify="center">
+            <el-button size="small"
+                       type="primary"
+                       @click="submitForm">确 定</el-button>
+            <el-button size="small"
+                       @click="cancel">取 消</el-button>
+          </el-row>
+        </div>
       </div>
+
     </el-dialog>
   </div>
 </template>
@@ -240,7 +266,7 @@ import { listEvent } from '@/api/system/category'
 export default {
   components: {},
   props: [],
-  data() {
+  data () {
     return {
       loading: true,
       name: '测试',
@@ -398,40 +424,73 @@ export default {
       ]
     }
   },
-  created() {
+  created () {
     this.getCategoryList()
   },
   methods: {
     /** 查询分组列表 */
-    getCategoryList() {
+    getCategoryList () {
       listEvent(this.queryParams).then((response) => {
         this.groupList = response.rows
         this.total = response.total
       })
     },
-    submitdata() {
+    submitdata () {
       this.$refs['elForm'].validate((valid) => {
         if (!valid) return
         // TODO 提交表单
       })
     },
-    resetForm() {
+    resetForm () {
       this.$refs['elForm'].resetFields()
     },
-    detail() {
+    detail () {
       this.open = true
       this.title = '事件详情'
     },
     // 取消按钮
-    cancel() {
+    cancel () {
       this.open = false
     },
     /** 提交按钮 */
-    submitForm() {
+    submitForm () {
       this.open = false
     }
   }
 }
 </script>
-<style>
+<style lang="scss" scoped>
+.box-card {
+  margin-bottom: 20px;
+}
+.title {
+  font-weight: bold;
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+::v-deep .el-dialog__body {
+  padding: 0 !important;
+}
+.contentBox {
+  width: 100%;
+  height: 100%;
+  border-top: 1px solid #ccc;
+  padding: 10px 20px;
+  .information {
+    text-align: center;
+    font-weight: bold;
+    font-size: 18px;
+    border-bottom: 2px solid #33ccff;
+    padding-top: 10px;
+    margin-bottom: 10px;
+  }
+}
+::v-deep .label-type {
+  .el-form-item__label {
+    color: #333;
+    font-family: MicrosoftYaHei;
+    font-size: 14px;
+    font-weight: normal !important;
+  }
+}
 </style>
