@@ -1,51 +1,54 @@
 <template>
   <div>
     <el-card>
-      <el-form
-        :model="queryParams"
-        ref="queryForm"
-        :inline="true"
-        v-show="showSearch"
-        label-width="100px"
-      >
-        <el-form-item label="资产组 :" prop="categoryId">
-          <el-select
-            v-model="queryParams.categoryId"
-            placeholder="请选择"
-            clearable
-            size="small"
-            @change="selectChanged"
-          >
-            <el-option
-              v-for="item in allTypeList"
-              :key="item.value"
-              :label="item.label"
-              :value="item.value"
-            />
+      <el-form :model="queryParams"
+               ref="queryForm"
+               :inline="true"
+               v-show="showSearch"
+               label-width="65px">
+        <el-form-item label="资产组 :"
+                      prop="categoryId"
+                      class="label-type">
+          <el-select v-model="queryParams.categoryId"
+                     placeholder="请选择"
+                     clearable
+                     size="small"
+                     @change="selectChanged">
+            <el-option v-for="item in allTypeList"
+                       :key="item.value"
+                       :label="item.label"
+                       :value="item.value" />
           </el-select>
         </el-form-item>
+        <el-form-item>
+          <el-button type="primary"
+                     size="mini"
+                     @click="handleQuery">新增</el-button>
+          <el-button type="primary"
+                     size="mini"
+                     @click="resetQuery">编辑</el-button>
+          <el-button type="primary"
+                     size="mini"
+                     @click="resetQuery">删除</el-button>
+        </el-form-item>
       </el-form>
-      <el-row :gutter="10" class="mb8">
+      <el-row :gutter="10"
+              class="mb8">
         <el-col :span="1.5">
-          <el-button
-            type="primary"
-            @click="handleAdd"
-            v-hasPermi="['system:user:add']"
-            >搜索</el-button
-          >
+          <el-button type="primary"
+                     @click="handleAdd"
+                     v-hasPermi="['system:user:add']">搜索</el-button>
         </el-col>
       </el-row>
     </el-card>
     <el-card>
       <el-row>
         <el-col :span="12">
-          <el-tree
-            :data="data"
-            show-checkbox
-            node-key="id"
-            :default-expanded-keys="[2, 3]"
-            :default-checked-keys="[5]"
-          >
+          <el-tree :data="data"
+                   show-checkbox
+                   node-key="id"
+                   :default-expanded-keys="[2, 3]"
+                   :default-checked-keys="[5]">
           </el-tree>
         </el-col>
       </el-row>
@@ -54,7 +57,7 @@
 </template>
 <script>
 export default {
-  data() {
+  data () {
     return {
       data: [
         {
@@ -72,14 +75,14 @@ export default {
                 {
                   id: 5,
                   label: "三级 3-1-2",
-                //   disabled: true,
+                  //   disabled: true,
                 },
               ],
             },
             {
               id: 2,
               label: "二级单位",
-            //   disabled: true,
+              //   disabled: true,
               children: [
                 {
                   id: 6,
@@ -89,7 +92,7 @@ export default {
                 {
                   id: 7,
                   label: "中国城乡",
-                //   disabled: true,
+                  //   disabled: true,
                   children: [
                     { id: 11, label: "北京城乡水厂" },
                     { id: 12, label: "山西三通燃气厂" },
@@ -105,8 +108,8 @@ export default {
                 {
                   id: 9,
                   label: "中交一航局",
-                //   disabled: true,
-                   children: [
+                  //   disabled: true,
+                  children: [
                     { id: 14, label: "天津管片厂" }
                   ],
                 },
@@ -150,9 +153,20 @@ export default {
     };
   },
   methods: {
-    selectChanged() {
+    selectChanged () {
       console.log("111");
     },
   },
 };
 </script>
+<style lang="scss"
+ scoped>
+.label-type {
+  .el-form-item__label {
+    color: #333;
+    font-family: MicrosoftYaHei;
+    font-size: 24px;
+    font-weight: normal !important;
+  }
+}
+</style>
