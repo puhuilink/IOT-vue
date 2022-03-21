@@ -161,11 +161,11 @@ export default {
 </script>
 <style lang="scss"
  scoped>
-.label-type {
+::v-deep .label-type {
   .el-form-item__label {
     color: #333;
     font-family: MicrosoftYaHei;
-    font-size: 24px;
+    font-size: 14px;
     font-weight: normal !important;
   }
 }
