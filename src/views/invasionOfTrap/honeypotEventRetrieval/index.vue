@@ -288,16 +288,12 @@
           </el-col>
         </el-row>
       </el-form>
-      <el-table v-loading="loading" :data="groupList">
-        <el-table-column label="攻击时间" align="center" prop="groupId" />
-        <el-table-column label="来源IP" align="center" prop="userId" />
-        <el-table-column label="类型" align="center" prop="groupName" />
-        <el-table-column label="攻击手法" align="center" prop="createTime">
-          <template slot-scope="scope">
-            <span>{{ parseTime(scope.row.createTime, "{y}-{m}-{d}") }}</span>
-          </template>
-        </el-table-column>
-        <el-table-column label="攻击行为" align="center" prop="remark" />
+      <el-table v-loading="loading" :data="groupListCopy" tooltip-effect="light">
+        <el-table-column label="攻击时间" align="center" prop="groupId" min-width="15%" :show-overflow-tooltip="true" />
+        <el-table-column label="来源IP" align="center" prop="userId" min-width="15%" />
+        <el-table-column label="类型" align="center" prop="groupName" min-width="8%" />
+        <el-table-column label="攻击手法" align="center" prop="createTime" min-width="15%" />
+        <el-table-column label="攻击行为" align="center" prop="remark" min-width="55%" :show-overflow-tooltip="true" />
       </el-table>
       <div slot="footer" class="dialog-footer">
         <el-row type="flex" justify="center">
@@ -332,40 +328,40 @@ export default {
 
       groupList: [],
       // 详情页表格数据
-      groupListDetails: [{
-        groupId: '1',
-        userId: '114',
-        groupName: '一楼',
-        createTime: '2021-05-18',
-        remark: '智能灯'
+      groupListCopy: [{
+        groupId: '2022-01-29 10:10:00',
+        userId: '10.255.52.84',
+        groupName: '入侵',
+        createTime: '文件反制',
+        remark: '打开高管邮件，邮箱为1234567@163.com.邮件为安全监测子平台系统，访问时长：4秒'
       },
       {
-        groupId: '2',
-        userId: '114',
-        groupName: '二楼',
-        createTime: '2021-05-18',
-        remark: '智能灯'
+        groupId: '2022-01-29 10:10:00',
+        userId: '10.255.52.84',
+        groupName: '入侵',
+        createTime: '文件反制',
+        remark: '打开高管邮件，邮箱为1234567@163.com.邮件为安全监测子平台系统，访问时长：4秒'
       },
       {
-        groupId: '3',
-        userId: '114',
-        groupName: '三楼',
-        createTime: '2021-05-18',
-        remark: '智能灯'
+        groupId: '2022-01-29 10:10:00',
+        userId: '10.255.52.84',
+        groupName: '入侵',
+        createTime: '文件反制',
+        remark: '打开高管邮件，邮箱为1234567@163.com.邮件为安全监测子平台系统，访问时长：4秒'
       },
       {
-        groupId: '4',
-        userId: '114',
-        groupName: '四楼',
-        createTime: '2021-05-18',
-        remark: '智能灯'
+        groupId: '2022-01-29 10:10:00',
+        userId: '10.255.52.84',
+        groupName: '入侵',
+        createTime: '文件反制',
+        remark: '打开高管邮件，邮箱为1234567@163.com.邮件为安全监测子平台系统，访问时长：4秒'
       },
       {
-        groupId: '5',
-        userId: '114',
-        groupName: '五楼',
-        createTime: '2021-05-18',
-        remark: '智能灯'
+        groupId: '2022-01-29 10:10:00',
+        userId: '10.255.52.84',
+        groupName: '入侵',
+        createTime: '文件反制',
+        remark: '打开高管邮件，邮箱为1234567@163.com.邮件为安全监测子平台系统，访问时长：4秒'
       }
       ],
       // 创建时间时间范围
