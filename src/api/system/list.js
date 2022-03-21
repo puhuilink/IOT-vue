@@ -104,7 +104,7 @@ export function trapList(query) {
 // 威胁情报检索
 export function ThreatIntelligenceList(query) {
   return request({
-    url: '/dm/dmThreatIntelligence/list',
+    url: '/dm/dmThreatIntelligence/queryDmThreatIntelligenceList',
     method: 'get',
     params: query
   })

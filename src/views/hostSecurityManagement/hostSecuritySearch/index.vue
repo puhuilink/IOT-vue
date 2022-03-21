@@ -225,7 +225,7 @@
               v-hasPermi="['system:group:edit']"
               size="mini"
               type="text"
-              @click="detail"
+              @click="detail(scope.row.stiffWoodCreepId)"
             >详情</el-button>
             <el-button
               v-hasPermi="['system:group:remove']"
@@ -513,7 +513,8 @@ export default {
     resetForm() {
       this.$refs['elForm'].resetFields()
     },
-    detail() {
+    detail(id) {
+      console.log(id)
       this.open = true
       this.title = '事件详情'
     },

@@ -4,7 +4,7 @@
  * @Author: Zhangjunjie
  * @Date: 2022-1-25
  */
-// 根据鑫哥之前写的部署脚本改良并适配到工业企业网络安全综合防护平台
+// 根据鑫哥之前写的部署脚本改良并适配到安全子平台
 // # 打版本，以 1.0.0 为例
 // git checkout master
 // # 修改 package.json 中 version 为 1.0.0

@@ -146,67 +146,67 @@
         <el-row>
           <el-col :span="8">
             <el-form-item label="用户名 :">
-              {{ dataTest.name }}
+              {{ detailData.name }}
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="密码 :">
-              {{ dataTest.name1 }}
+              {{ detailData.name1 }}
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="服务 :">
-              {{ dataTest.name2 }}
+              {{ detailData.name2 }}
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="端口 :">
-              {{ dataTest.name3 }}
+              {{ detailData.name3 }}
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="处置状态 :">
-              {{ dataTest.name4 }}
+              {{ detailData.name4 }}
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="发现时间 :">
-              {{ dataTest.name5 }}
+              {{ detailData.name5 }}
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="资产名称 :">
-              {{ dataTest.name6 }}
+              {{ detailData.name6 }}
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="资产类型 :">
-              {{ dataTest.name7 }}
+              {{ detailData.name7 }}
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="IP地址 :">
-              {{ dataTest.name8 }}
+              {{ detailData.name8 }}
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="资产价值 :">
-              {{ dataTest.name9 }}
+              {{ detailData.name9 }}
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="责任人 :">
-              {{ dataTest.name10 }}
+              {{ detailData.name10 }}
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="部门 :">
-              {{ dataTest.name11 }}
+              {{ detailData.name11 }}
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="区域 :">
-              {{ dataTest.name12 }}
+              {{ detailData.name12 }}
             </el-form-item>
           </el-col>
         </el-row>
@@ -221,7 +221,9 @@
   </div>
 </template>
 <script>
+
 import { weakList } from '@/api/system/list'
+import { WeakPasswordDetail } from '@/api/system/detail'
 
 export default {
   components: {},
@@ -230,7 +232,7 @@ export default {
     return {
       loading: false,
       name: '测试',
-      dataTest: {
+      detailData: {
         name: 'ZJStream',
         name1: 'Z*****m',
         name2: 'DNS_TCP',
@@ -409,7 +411,10 @@ export default {
     resetForm() {
       this.$refs['elForm'].resetFields()
     },
-    detail() {
+    async detail() {
+      const res = await WeakPasswordDetail(this.queryParams)
+      this.detailData = res.rows
+
       this.open = true
       this.title = '事件详情'
     },
