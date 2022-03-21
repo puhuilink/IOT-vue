@@ -106,13 +106,13 @@
     </el-card>
     <el-table :data="groupList" tooltip-effect="light">
       <el-table-column type="selection" width="55" align="center" />
-      <el-table-column label="资产名称" align="center" prop="asset_name" :show-overflow-tooltip="true" min-width="15%" />
-      <el-table-column label="IP地址" align="center" prop="ip_address" :show-overflow-tooltip="true" min-width="15%" />
+      <el-table-column label="资产名称" align="center" prop="assetName" :show-overflow-tooltip="true" min-width="15%" />
+      <el-table-column label="IP地址" align="center" prop="ipAddress" :show-overflow-tooltip="true" min-width="15%" />
       <el-table-column label="协议" align="center" prop="agreement" :show-overflow-tooltip="true" min-width="15%" />
       <el-table-column label="端口" align="center" prop="port" :show-overflow-tooltip="true" min-width="15%" />
-      <el-table-column label="事件等级" align="center" prop="event_level" min-width="10%" />
-      <el-table-column label="处置状态" align="center" prop="disposal_status" min-width="8%" />
-      <el-table-column label="发生时间" align="center" prop="find_time" :show-overflow-tooltip="true" min-width="15%" />
+      <el-table-column label="事件等级" align="center" prop="eventLevel" min-width="10%" />
+      <el-table-column label="处置状态" align="center" prop="disposalStatus" min-width="8%" />
+      <el-table-column label="发生时间" align="center" prop="findTime" :show-overflow-tooltip="true" min-width="15%" />
       <el-table-column label="区域" align="center" prop="region" :show-overflow-tooltip="true" min-width="15%" />
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width" min-width="10%">
         <template slot-scope="scope">

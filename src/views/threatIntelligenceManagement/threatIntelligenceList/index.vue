@@ -155,19 +155,19 @@
         <el-table-column
           label="攻击者IP"
           align="center"
-          prop="attacker_ip"
+          prop="attackerIp"
           :show-overflow-tooltip="true"
         />
         <el-table-column
           label="受害者IP"
           align="center"
-          prop="victim_ip"
+          prop="victimIp"
           :show-overflow-tooltip="true"
         />
         <el-table-column
           label="APT组织"
           align="center"
-          prop="apt_organization"
+          prop="aptOrganization"
           :show-overflow-tooltip="true"
         />
         <el-table-column
@@ -179,31 +179,31 @@
         <el-table-column
           label="事件等级"
           align="center"
-          prop="event_level"
+          prop="eventLevel"
           :show-overflow-tooltip="true"
         />
         <el-table-column
           label="杀伤链阶段"
           align="center"
-          prop="killing_chain_stage"
+          prop="killingChainStage"
           :show-overflow-tooltip="true"
         />
         <el-table-column
           label="发生时间"
           align="center"
-          prop="happen_time"
+          prop="happenTime"
           :show-overflow-tooltip="true"
         />
         <el-table-column
           label="发现时间"
           align="center"
-          prop="discovery_time"
+          prop="discoveryTime"
           :show-overflow-tooltip="true"
         />
         <el-table-column
           label="处置状态"
           align="center"
-          prop="disposal_status"
+          prop="disposalStatus"
           :show-overflow-tooltip="true"
         />
         <el-table-column

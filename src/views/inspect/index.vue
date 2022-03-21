@@ -123,12 +123,12 @@
     </el-card>
     <el-table :data="groupList" tooltip-effect="light">
       <el-table-column type="selection" width="55" align="center" />
-      <el-table-column label="检查项" align="center" prop="inspection_items" :show-overflow-tooltip="true" min-width="15%" />
-      <el-table-column label="事件等级" align="center" prop="event_level" min-width="10%" />
+      <el-table-column label="检查项" align="center" prop="inspectionItems" :show-overflow-tooltip="true" min-width="15%" />
+      <el-table-column label="事件等级" align="center" prop="eventLevel" min-width="10%" />
       <el-table-column label="IP" align="center" prop="ip" :show-overflow-tooltip="true" min-width="10%" />
       <el-table-column label="状态" align="center" prop="state" min-width="10%" />
-      <el-table-column label="发布时间" align="center" prop="release_time" :show-overflow-tooltip="true" min-width="15%" />
-      <el-table-column label="处置状态" align="center" prop="disposal_status" min-width="10%" />
+      <el-table-column label="发布时间" align="center" prop="releaseTime" :show-overflow-tooltip="true" min-width="15%" />
+      <el-table-column label="处置状态" align="center" prop="disposalStatus" min-width="10%" />
       <el-table-column label="区域" align="center" prop="region" :show-overflow-tooltip="true" min-width="10%" />
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width" min-width="15%">
         <template slot-scope="scope">
@@ -238,7 +238,7 @@
   </div>
 </template>
 <script>
-import { configurationVerificationList } from '@/api/system/category'
+import { configurationVerificationList } from '@/api/system/list'
 export default {
   components: {},
   props: [],
@@ -358,6 +358,7 @@ export default {
   methods: {
     /** 查询分组列表 */
     getList() {
+      console.log(1)
       configurationVerificationList(this.queryParams).then((response) => {
         this.groupList = response.rows
         this.total = response.total

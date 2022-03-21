@@ -125,43 +125,43 @@
         <el-table-column
           label="攻击者"
           align="center"
-          prop="attack_source"
+          prop="attackSource"
           :show-overflow-tooltip="true"
         />
         <el-table-column
           label="攻击目标"
           align="center"
-          prop="attack_target"
+          prop="attackTarget"
           :show-overflow-tooltip="true"
         />
         <el-table-column
           label="隔离沙箱"
           align="center"
-          prop="isolation_sandbox"
+          prop="isolationSandbox"
           :show-overflow-tooltip="true"
         />
         <el-table-column
           label="开始攻击时间"
           align="center"
-          prop="start_attack_time"
+          prop="startAttackTime"
           :show-overflow-tooltip="true"
         />
         <el-table-column
           label="最后攻击时间"
           align="center"
-          prop="last_attack_time"
+          prop="lastAttackTime"
           :show-overflow-tooltip="true"
         />
         <el-table-column
           label="事件等级"
           align="center"
-          prop="event_level"
+          prop="eventLevel"
           :show-overflow-tooltip="true"
         />
         <el-table-column
           label="处置状态"
           align="center"
-          prop="disposal_status"
+          prop="disposalStatus"
           :show-overflow-tooltip="true"
         />
         <el-table-column

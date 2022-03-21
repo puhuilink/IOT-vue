@@ -143,50 +143,50 @@
         <el-table-column
           label="攻击者IP"
           align="center"
-          prop="attacker_ip"
+          prop="attackerIp"
           :show-overflow-tooltip="true"
         />
         <el-table-column
           label="受害者IP"
           align="center"
-          prop="victim_ip"
+          prop="victimIp"
           :show-overflow-tooltip="true"
         />
         <el-table-column
           label="事件名称"
           align="center"
-          prop="event_name"
+          prop="eventName"
           :show-overflow-tooltip="true"
         />
         <el-table-column
           label="事件类型"
           align="center"
-          prop="event_type"
+          prop="eventType"
           :show-overflow-tooltip="true"
         />
         <el-table-column
           label="事件等级"
           align="center"
-          prop="event_level"
+          prop="eventLevel"
           :show-overflow-tooltip="true"
         />
         <el-table-column
           label="杀伤链阶段"
           align="center"
-          prop="killing_chain_stage"
+          prop="killingChainStage"
           :show-overflow-tooltip="true"
         />
         <el-table-column
           label="处置状态"
           align="center"
-          prop="disposal_status"
+          prop="disposalStatus"
           :show-overflow-tooltip="true"
         />
         <el-table-column label="发生时间" align="center" prop="happen_time" />
         <el-table-column
           label="发现时间"
           align="center"
-          prop="find_time"
+          prop="findTime"
           :show-overflow-tooltip="true"
         />
         <el-table-column

@@ -152,61 +152,61 @@
         <el-table-column
           label="接收时间"
           align="center"
-          prop="receiving_time"
+          prop="receivingTime"
           :show-overflow-tooltip="true"
         />
         <el-table-column
           label="事件名称"
           align="center"
-          prop="event_name"
+          prop="eventName"
           :show-overflow-tooltip="true"
         />
         <el-table-column
           label="事件等级"
           align="center"
-          prop="event_level"
+          prop="eventLevel"
           :show-overflow-tooltip="true"
         />
         <el-table-column
           label="事件类型"
           align="center"
-          prop="event_type"
+          prop="eventType"
           :show-overflow-tooltip="true"
         />
         <el-table-column
           label="操作系统"
           align="center"
-          prop="operating_system"
+          prop="operatingSystem"
           :show-overflow-tooltip="true"
         />
         <el-table-column
           label="客户端名称"
           align="center"
-          prop="client_name"
+          prop="clientName"
           :show-overflow-tooltip="true"
         />
         <el-table-column
           label="客户端IP"
           align="center"
-          prop="client_ip"
+          prop="clientIp"
           :show-overflow-tooltip="true"
         />
         <el-table-column
           label="产生时间"
           align="center"
-          prop="generation_time"
+          prop="generationTime"
           :show-overflow-tooltip="true"
         />
         <el-table-column
           label="日志描述"
           align="center"
-          prop="log_description"
+          prop="logDescription"
           :show-overflow-tooltip="true"
         />
         <el-table-column
           label="处置状态"
           align="center"
-          prop="disposal_status"
+          prop="disposalStatus"
           :show-overflow-tooltip="true"
         />
         <el-table-column

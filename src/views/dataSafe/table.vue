@@ -160,16 +160,16 @@
     </el-card>
     <el-table :data="groupList">
       <el-table-column type="selection" width="55" align="center" />
-      <el-table-column label="检测服务器类型" align="center" :show-overflow-tooltip="true" prop="detect_server_type" min-width="15%" />
-      <el-table-column label="动作类型" align="center" prop="action_type" :show-overflow-tooltip="true" min-width="10%" />
-      <el-table-column label="协议类型" align="center" prop="protocol_type" :show-overflow-tooltip="true" min-width="15%" />
-      <el-table-column label="源IP" align="center" prop="source_ip" :show-overflow-tooltip="true" min-width="10%" />
-      <el-table-column label="发生时间" align="center" prop="happen_time" :show-overflow-tooltip="true" min-width="10%" />
-      <el-table-column label="事件等级" align="center" prop="event_level" :show-overflow-tooltip="true" min-width="10%" />
-      <el-table-column label="命中策略" align="center" prop="hit_strategy" :show-overflow-tooltip="true" min-width="15%" />
-      <el-table-column label="事件SID" align="center" prop="event_sid" :show-overflow-tooltip="true" min-width="10%" />
-      <el-table-column label="事件ID" align="center" prop="event_id" :show-overflow-tooltip="true" min-width="10%" />
-      <el-table-column label="处置状态" align="center" prop="disposal_status" :show-overflow-tooltip="true" min-width="10%" />
+      <el-table-column label="检测服务器类型" align="center" :show-overflow-tooltip="true" prop="detectServerType" min-width="15%" />
+      <el-table-column label="动作类型" align="center" prop="actionType" :show-overflow-tooltip="true" min-width="10%" />
+      <el-table-column label="协议类型" align="center" prop="protocolType" :show-overflow-tooltip="true" min-width="15%" />
+      <el-table-column label="源IP" align="center" prop="sourceIp" :show-overflow-tooltip="true" min-width="10%" />
+      <el-table-column label="发生时间" align="center" prop="happenTime" :show-overflow-tooltip="true" min-width="10%" />
+      <el-table-column label="事件等级" align="center" prop="eventLevel" :show-overflow-tooltip="true" min-width="10%" />
+      <el-table-column label="命中策略" align="center" prop="hitStrategy" :show-overflow-tooltip="true" min-width="15%" />
+      <el-table-column label="事件SID" align="center" prop="eventSid" :show-overflow-tooltip="true" min-width="10%" />
+      <el-table-column label="事件ID" align="center" prop="eventId" :show-overflow-tooltip="true" min-width="10%" />
+      <el-table-column label="处置状态" align="center" prop="disposalStatus" :show-overflow-tooltip="true" min-width="10%" />
       <el-table-column label="区域" align="center" prop="region" :show-overflow-tooltip="true" min-width="10%" />
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width" min-width="15%">
         <template slot-scope="scope">

@@ -6,7 +6,7 @@ import request from '@/utils/request'
 // 异常事件检索
 export function abnormalList(query) {
   return request({
-    url: '/dm/abnormal/list',
+    url: '/dm/abnormal/queryDmAbnormalList',
     method: 'get',
     params: query
   })
@@ -47,7 +47,7 @@ export function honeypotList(query) {
 // 主机安全检索
 export function hostList(query) {
   return request({
-    url: '/dm/hostSecurity/list',
+    url: '/dm/hostSecurity/queryDmHostSecurityList',
     method: 'get',
     params: query
   })
@@ -80,7 +80,7 @@ export function notificationList(query) {
 // 弱口令事件检索
 export function weakList(query) {
   return request({
-    url: '/dm/dmWeakPassword/list',
+    url: '/dm/dmWeakPassword/queryDmWeakPasswordList',
     method: 'get',
     params: query
   })
@@ -88,7 +88,7 @@ export function weakList(query) {
 // 僵木蠕事件检索
 export function zombieList(query) {
   return request({
-    url: '/dm/dmStiffWoodCreep/list',
+    url: '/dm/dmStiffWoodCreep/queryDmStiffWoodCreepList',
     method: 'get',
     params: query
   })
