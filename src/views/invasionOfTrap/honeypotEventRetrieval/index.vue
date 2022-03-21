@@ -125,43 +125,43 @@
         <el-table-column
           label="攻击者"
           align="center"
-          prop="attack"
+          prop="attack_source"
           :show-overflow-tooltip="true"
         />
         <el-table-column
           label="攻击目标"
           align="center"
-          prop="attackAim"
+          prop="attack_target"
           :show-overflow-tooltip="true"
         />
         <el-table-column
           label="隔离沙箱"
           align="center"
-          prop="isolation"
+          prop="isolation_sandbox"
           :show-overflow-tooltip="true"
         />
         <el-table-column
           label="开始攻击时间"
           align="center"
-          prop="happen"
+          prop="start_attack_time"
           :show-overflow-tooltip="true"
         />
         <el-table-column
           label="最后攻击时间"
           align="center"
-          prop="last"
+          prop="last_attack_time"
           :show-overflow-tooltip="true"
         />
         <el-table-column
           label="事件等级"
           align="center"
-          prop="level"
+          prop="event_level"
           :show-overflow-tooltip="true"
         />
         <el-table-column
           label="处置状态"
           align="center"
-          prop="state"
+          prop="disposal_status"
           :show-overflow-tooltip="true"
         />
         <el-table-column
@@ -268,7 +268,7 @@
 <script>
 // import { listGroup } from "@/api/system/group";
 // import { listEvent } from '@/api/system/category'
-import { honeypotList } from '@/api/system/list'
+import { trapList } from '@/api/system/list'
 
 export default {
   components: {},
@@ -441,15 +441,9 @@ export default {
   },
   methods: {
     /** 查询分组列表 */
-    // getCategoryList() {
-    //   listEvent(this.queryParams).then((response) => {
-    //     this.groupList = response.rows
-    //     this.total = response.total
-    //   })
-    // },
     async getList() {
       this.loading = true
-      const res = await honeypotList(this.queryParams)
+      const res = await trapList(this.queryParams)
       this.groupList = res.rows
       this.total = res.total
       this.loading = false

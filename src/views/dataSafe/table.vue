@@ -160,16 +160,16 @@
     </el-card>
     <el-table :data="groupList">
       <el-table-column type="selection" width="55" align="center" />
-      <el-table-column label="检测服务器类型" align="center" :show-overflow-tooltip="true" prop="serviceType" min-width="15%" />
-      <el-table-column label="动作类型" align="center" prop="safeType" :show-overflow-tooltip="true" min-width="10%" />
-      <el-table-column label="协议类型" align="center" prop="protocol" :show-overflow-tooltip="true" min-width="15%" />
-      <el-table-column label="源IP" align="center" prop="sourceIp" :show-overflow-tooltip="true" min-width="10%" />
-      <el-table-column label="发生时间" align="center" prop="happen" :show-overflow-tooltip="true" min-width="10%" />
-      <el-table-column label="事件等级" align="center" prop="level" :show-overflow-tooltip="true" min-width="10%" />
-      <el-table-column label="命中策略" align="center" prop="tactics" :show-overflow-tooltip="true" min-width="15%" />
-      <el-table-column label="事件SID" align="center" prop="eventSid" :show-overflow-tooltip="true" min-width="10%" />
-      <el-table-column label="事件ID" align="center" prop="eventId" :show-overflow-tooltip="true" min-width="10%" />
-      <el-table-column label="处置状态" align="center" prop="state" :show-overflow-tooltip="true" min-width="10%" />
+      <el-table-column label="检测服务器类型" align="center" :show-overflow-tooltip="true" prop="detect_server_type" min-width="15%" />
+      <el-table-column label="动作类型" align="center" prop="action_type" :show-overflow-tooltip="true" min-width="10%" />
+      <el-table-column label="协议类型" align="center" prop="protocol_type" :show-overflow-tooltip="true" min-width="15%" />
+      <el-table-column label="源IP" align="center" prop="source_ip" :show-overflow-tooltip="true" min-width="10%" />
+      <el-table-column label="发生时间" align="center" prop="happen_time" :show-overflow-tooltip="true" min-width="10%" />
+      <el-table-column label="事件等级" align="center" prop="event_level" :show-overflow-tooltip="true" min-width="10%" />
+      <el-table-column label="命中策略" align="center" prop="hit_strategy" :show-overflow-tooltip="true" min-width="15%" />
+      <el-table-column label="事件SID" align="center" prop="event_sid" :show-overflow-tooltip="true" min-width="10%" />
+      <el-table-column label="事件ID" align="center" prop="event_id" :show-overflow-tooltip="true" min-width="10%" />
+      <el-table-column label="处置状态" align="center" prop="disposal_status" :show-overflow-tooltip="true" min-width="10%" />
       <el-table-column label="区域" align="center" prop="region" :show-overflow-tooltip="true" min-width="10%" />
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width" min-width="15%">
         <template slot-scope="scope">
@@ -352,7 +352,7 @@
 </template>
 <script>
 import approval_url from '@/icons/echarts/datail.png'
-import { dataList } from '@/api/system/list'
+import { dataSecurityManagementList } from '@/api/system/list'
 
 export default {
   components: {},
@@ -388,11 +388,7 @@ export default {
       // 分组表格数据
       content: [{ 'time': '2020-10--29 11:15:45', 'type': '策略通知规则', 'user': 'system', 'content': '事件入库操作成功！' },
         { 'time': '2020-10--29 11:15:45', 'type': '审批规则', 'user': 'system', 'content': 'smtp阻断：审批阻断成功！' }],
-      groupList: [{ 'searchValue': '2020-10--29 11:15:45', 'createBy': '753253358804481', 'createTime': '低', 'updateBy': '20201026545-fdaaxa', 'updateTime': '未处置', 'remark': 'SCANFILE', 'params': {}, 'groupId': '终端检测器', 'userId': '记录', 'groupName': '山西燃气厂', 'groupOrder': '192.168.148.168', 'delFlag': 'Kara文件内置财务' },
-        { 'searchValue': '2020-10--29 11:15:45', 'createBy': '753253358804481', 'createTime': '低', 'updateBy': '20201026545-fdaaxa', 'updateTime': '未处置', 'remark': 'SCANFILE', 'params': {}, 'groupId': '终端检测器', 'userId': '记录', 'groupName': '山西燃气厂', 'groupOrder': '192.168.148.168', 'delFlag': 'Kara文件内置财务' },
-        { 'searchValue': '2020-10--29 11:15:45', 'createBy': '753253358804481', 'createTime': '低', 'updateBy': '20201026545-fdaaxa', 'updateTime': '未处置', 'remark': 'SCANFILE', 'params': {}, 'groupId': '终端检测器', 'userId': '记录', 'groupName': '山西燃气厂', 'groupOrder': '192.168.148.168', 'delFlag': 'Kara文件内置财务' },
-        { 'searchValue': '2020-10--29 11:15:45', 'createBy': '753253358804481', 'createTime': '低', 'updateBy': '20201026545-fdaaxa', 'updateTime': '未处置', 'remark': 'SCANFILE', 'params': {}, 'groupId': '终端检测器', 'userId': '记录', 'groupName': '山西燃气厂', 'groupOrder': '192.168.148.168', 'delFlag': 'Kara文件内置财务' },
-        { 'searchValue': '2020-10--29 11:15:45', 'createBy': '753253358804481', 'createTime': '低', 'updateBy': '20201026545-fdaaxa', 'updateTime': '未处置', 'remark': 'SCANFILE', 'params': {}, 'groupId': '终端检测器', 'userId': '记录', 'groupName': '山西燃气厂', 'groupOrder': '192.168.148.168', 'delFlag': 'Kara文件内置财务' }],
+      groupList: [],
       // 创建时间时间范围
       daterangeCreateTime: [],
       // 弹出层标题
@@ -505,7 +501,7 @@ export default {
     /** 查询分组列表 */
     async getList() {
       this.loading = true
-      const res = await dataList(this.queryParams)
+      const res = await dataSecurityManagementList(this.queryParams)
       this.groupList = res.rows
       this.total = res.total
       console.log(this.groupList)

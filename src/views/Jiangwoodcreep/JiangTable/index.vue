@@ -132,15 +132,15 @@
     </el-card>
     <el-table :data="groupList" tooltip-effect="light">
       <el-table-column type="selection" width="55" align="center" />
-      <el-table-column label="攻击者IP" align="center" prop="ip" :show-overflow-tooltip="true" />
-      <el-table-column label="受害者IP" align="center" prop="victimIp" :show-overflow-tooltip="true" />
-      <el-table-column label="事件名称" align="center" prop="name" :show-overflow-tooltip="true" />
-      <el-table-column label="威胁分类" align="center" prop="threat" :show-overflow-tooltip="true" />
-      <el-table-column label="事件等级" align="center" prop="risk" :show-overflow-tooltip="true" />
-      <el-table-column label="杀伤链阶段" align="center" prop="stage" :show-overflow-tooltip="true" />
-      <el-table-column label="处置状态" align="center" prop="state" :show-overflow-tooltip="true" />
-      <el-table-column label="发生时间" align="center" prop="happen" :show-overflow-tooltip="true" />
-      <el-table-column label="发现时间" align="center" prop="found" :show-overflow-tooltip="true" />
+      <el-table-column label="攻击者IP" align="center" prop="attacker_ip" :show-overflow-tooltip="true" />
+      <el-table-column label="受害者IP" align="center" prop="victim_ip" :show-overflow-tooltip="true" />
+      <el-table-column label="事件名称" align="center" prop="event_name" :show-overflow-tooltip="true" />
+      <el-table-column label="威胁分类" align="center" prop="threat_classification" :show-overflow-tooltip="true" />
+      <el-table-column label="事件等级" align="center" prop="event_level" :show-overflow-tooltip="true" />
+      <el-table-column label="杀伤链阶段" align="center" prop="killing_chain_stage" :show-overflow-tooltip="true" />
+      <el-table-column label="处置状态" align="center" prop="disposal_status" :show-overflow-tooltip="true" />
+      <el-table-column label="发生时间" align="center" prop="happen_time" :show-overflow-tooltip="true" />
+      <el-table-column label="发现时间" align="center" prop="find_time" :show-overflow-tooltip="true" />
       <el-table-column label="区域" align="center" prop="region" :show-overflow-tooltip="true" />
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
         <template slot-scope="scope">

@@ -123,16 +123,13 @@
     </el-card>
     <el-table :data="groupList" tooltip-effect="light">
       <el-table-column type="selection" width="55" align="center" />
-      <el-table-column label="控制点类别" align="center" prop="groupId" min-width="10%" />
-      <el-table-column label="控制点" align="center" prop="userId" :show-overflow-tooltip="true" min-width="30%" />
-      <el-table-column label="检查项" align="center" prop="remark" :show-overflow-tooltip="true" min-width="15%" />
-      <el-table-column label="事件等级" align="center" prop="groupOrder" min-width="10%" />
-      <el-table-column label="IP" align="center" prop="searchValue" :show-overflow-tooltip="true" min-width="10%" />
-      <el-table-column label="状态" align="center" prop="createTime" min-width="10%" />
-      <el-table-column label="发布时间" align="center" prop="delFlag" :show-overflow-tooltip="true" min-width="15%" />
-      <el-table-column label="操作系统" align="center" prop="createBy" min-width="10%" />
-      <el-table-column label="处置状态" align="center" prop="updateBy" min-width="10%" />
-      <el-table-column label="区域" align="center" prop="groupName" :show-overflow-tooltip="true" min-width="10%" />
+      <el-table-column label="检查项" align="center" prop="inspection_items" :show-overflow-tooltip="true" min-width="15%" />
+      <el-table-column label="事件等级" align="center" prop="event_level" min-width="10%" />
+      <el-table-column label="IP" align="center" prop="ip" :show-overflow-tooltip="true" min-width="10%" />
+      <el-table-column label="状态" align="center" prop="state" min-width="10%" />
+      <el-table-column label="发布时间" align="center" prop="release_time" :show-overflow-tooltip="true" min-width="15%" />
+      <el-table-column label="处置状态" align="center" prop="disposal_status" min-width="10%" />
+      <el-table-column label="区域" align="center" prop="region" :show-overflow-tooltip="true" min-width="10%" />
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width" min-width="15%">
         <template slot-scope="scope">
           <el-button
@@ -241,6 +238,7 @@
   </div>
 </template>
 <script>
+import { configurationVerificationList } from '@/api/system/category'
 export default {
   components: {},
   props: [],
@@ -264,11 +262,7 @@ export default {
         name12: '已处置'
       },
       // 分组表格数据
-      groupList: [{ 'searchValue': '10.13.20.24', 'createBy': 'linux', 'createTime': '合规', 'updateBy': '未处置', 'updateTime': '2021-05-18 16:35:32', 'remark': '检查账户认证失败次数限制', 'params': {}, 'groupId': '身份鉴别', 'userId': '当远程管理时，应采取必要措施，防止鉴别信息在网络传输过程中被窃听', 'groupName': '山西燃气厂', 'groupOrder': '极低', 'delFlag': '2020-02-27 14:29:40' },
-        { 'searchValue': '10.13.20.24', 'createBy': 'linux', 'createTime': '合规', 'updateBy': '未处置', 'updateTime': '2021-05-18 16:35:32', 'remark': '检查账户认证失败次数限制', 'params': {}, 'groupId': '身份鉴别', 'userId': '当远程管理时，应采取必要措施，防止鉴别信息在网络传输过程中被窃听', 'groupName': '山西燃气厂', 'groupOrder': '极低', 'delFlag': '2020-02-27 14:29:40' },
-        { 'searchValue': '10.13.20.24', 'createBy': 'linux', 'createTime': '合规', 'updateBy': '未处置', 'updateTime': '2021-05-18 16:35:32', 'remark': '检查账户认证失败次数限制', 'params': {}, 'groupId': '身份鉴别', 'userId': '当远程管理时，应采取必要措施，防止鉴别信息在网络传输过程中被窃听', 'groupName': '山西燃气厂', 'groupOrder': '极低', 'delFlag': '2020-02-27 14:29:40' },
-        { 'searchValue': '10.13.20.24', 'createBy': 'linux', 'createTime': '合规', 'updateBy': '未处置', 'updateTime': '2021-05-18 16:35:32', 'remark': '检查账户认证失败次数限制', 'params': {}, 'groupId': '身份鉴别', 'userId': '当远程管理时，应采取必要措施，防止鉴别信息在网络传输过程中被窃听', 'groupName': '山西燃气厂', 'groupOrder': '极低', 'delFlag': '2020-02-27 14:29:40' },
-        { 'searchValue': '10.13.20.24', 'createBy': 'linux', 'createTime': '合规', 'updateBy': '未处置', 'updateTime': '2021-05-18 16:35:32', 'remark': '检查账户认证失败次数限制', 'params': {}, 'groupId': '身份鉴别', 'userId': '当远程管理时，应采取必要措施，防止鉴别信息在网络传输过程中被窃听', 'groupName': '山西燃气厂', 'groupOrder': '极低', 'delFlag': '2020-02-27 14:29:40' }],
+      groupList: [],
       // 创建时间时间范围
       daterangeCreateTime: [],
       // 弹出层标题
@@ -363,6 +357,12 @@ export default {
   },
   methods: {
     /** 查询分组列表 */
+    getList() {
+      configurationVerificationList(this.queryParams).then((response) => {
+        this.groupList = response.rows
+        this.total = response.total
+      })
+    },
     submitdata() {
       this.$refs['elForm'].validate(valid => {
         if (!valid) return

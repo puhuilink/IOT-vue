@@ -143,50 +143,50 @@
         <el-table-column
           label="攻击者IP"
           align="center"
-          prop="attack"
+          prop="attacker_ip"
           :show-overflow-tooltip="true"
         />
         <el-table-column
           label="受害者IP"
           align="center"
-          prop="victim"
+          prop="victim_ip"
           :show-overflow-tooltip="true"
         />
         <el-table-column
           label="事件名称"
           align="center"
-          prop="name"
+          prop="event_name"
           :show-overflow-tooltip="true"
         />
         <el-table-column
           label="事件类型"
           align="center"
-          prop="type"
+          prop="event_type"
           :show-overflow-tooltip="true"
         />
         <el-table-column
           label="事件等级"
           align="center"
-          prop="level"
+          prop="event_level"
           :show-overflow-tooltip="true"
         />
         <el-table-column
           label="杀伤链阶段"
           align="center"
-          prop="stage"
+          prop="killing_chain_stage"
           :show-overflow-tooltip="true"
         />
         <el-table-column
           label="处置状态"
           align="center"
-          prop="state"
+          prop="disposal_status"
           :show-overflow-tooltip="true"
         />
-        <el-table-column label="发生时间" align="center" prop="happen" />
+        <el-table-column label="发生时间" align="center" prop="happen_time" />
         <el-table-column
           label="发现时间"
           align="center"
-          prop="found"
+          prop="find_time"
           :show-overflow-tooltip="true"
         />
         <el-table-column
@@ -352,68 +352,6 @@ export default {
         name13: '2022-2-25'
       },
       // 分组表格数据
-      // groupListData: [
-      //   {
-      //     sgjIP: '192.168.28.8',
-      //     shzIP: '10.13.20.24',
-      //     eventName: 'MALWARE',
-      //     eventType: '规则匹配',
-      //     eventLevel: '低',
-      //     ssljd: '荷载投递',
-      //     czzt: '未处置',
-      //     happenTime: '2020-01-29 10:00:00',
-      //     discoverTime: '2020-01-29 10:01:00',
-      //     area: '山西燃气厂'
-      //   },
-      //   {
-      //     sgjIP: '192.168.28.8',
-      //     shzIP: '10.13.20.24',
-      //     eventName: 'MALWARE',
-      //     eventType: '规则匹配',
-      //     eventLevel: '低',
-      //     ssljd: '荷载投递',
-      //     czzt: '未处置',
-      //     happenTime: '2020-01-29 10:00:00',
-      //     discoverTime: '2020-01-29 10:01:00',
-      //     area: '山西燃气厂'
-      //   },
-      //   {
-      //     sgjIP: '192.168.28.8',
-      //     shzIP: '10.13.20.24',
-      //     eventName: 'MALWARE',
-      //     eventType: '规则匹配',
-      //     eventLevel: '低',
-      //     ssljd: '荷载投递',
-      //     czzt: '未处置',
-      //     happenTime: '2020-01-29 10:00:00',
-      //     discoverTime: '2020-01-29 10:01:00',
-      //     area: '山西燃气厂'
-      //   },
-      //   {
-      //     sgjIP: '192.168.28.8',
-      //     shzIP: '10.13.20.24',
-      //     eventName: 'MALWARE',
-      //     eventType: '规则匹配',
-      //     eventLevel: '低',
-      //     ssljd: '荷载投递',
-      //     czzt: '未处置',
-      //     happenTime: '2020-01-29 10:00:00',
-      //     discoverTime: '2020-01-29 10:01:00',
-      //     area: '山西燃气厂'
-      //   },
-      //   {
-      //     sgjIP: '192.168.28.8',
-      //     shzIP: '10.13.20.24',
-      //     eventName: 'MALWARE',
-      //     eventType: '规则匹配',
-      //     eventLevel: '低',
-      //     ssljd: '荷载投递',
-      //     czzt: '未处置',
-      //     happenTime: '2020-01-29 10:00:00',
-      //     discoverTime: '2020-01-29 10:01:00',
-      //     area: '山西燃气厂'
-      //   }
-      // ],
       groupList: [],
       // 创建时间时间范围
       daterangeCreateTime: [],
@@ -516,12 +454,6 @@ export default {
       console.log(this.groupList)
       this.loading = false
     },
-    // getCategoryList() {
-    //   listEvent(this.queryParams).then((response) => {
-    //     this.groupList = response.rows
-    //     this.total = response.total
-    //   })
-    // },
     submitdata() {
       this.$refs['elForm'].validate((valid) => {
         if (!valid) return

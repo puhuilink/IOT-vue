@@ -152,61 +152,61 @@
         <el-table-column
           label="接收时间"
           align="center"
-          prop="acceptance"
+          prop="receiving_time"
           :show-overflow-tooltip="true"
         />
         <el-table-column
           label="事件名称"
           align="center"
-          prop="name"
+          prop="event_name"
           :show-overflow-tooltip="true"
         />
         <el-table-column
           label="事件等级"
           align="center"
-          prop="level"
+          prop="event_level"
           :show-overflow-tooltip="true"
         />
         <el-table-column
           label="事件类型"
           align="center"
-          prop="type"
+          prop="event_type"
           :show-overflow-tooltip="true"
         />
         <el-table-column
           label="操作系统"
           align="center"
-          prop="os"
+          prop="operating_system"
           :show-overflow-tooltip="true"
         />
         <el-table-column
           label="客户端名称"
           align="center"
-          prop="client"
+          prop="client_name"
           :show-overflow-tooltip="true"
         />
         <el-table-column
           label="客户端IP"
           align="center"
-          prop="clientIp"
+          prop="client_ip"
           :show-overflow-tooltip="true"
         />
         <el-table-column
           label="产生时间"
           align="center"
-          prop="happen"
+          prop="generation_time"
           :show-overflow-tooltip="true"
         />
         <el-table-column
           label="日志描述"
           align="center"
-          prop="log"
+          prop="log_description"
           :show-overflow-tooltip="true"
         />
         <el-table-column
           label="处置状态"
           align="center"
-          prop="state"
+          prop="disposal_status"
           :show-overflow-tooltip="true"
         />
         <el-table-column
@@ -396,107 +396,6 @@ export default {
         name12: '2022-02-22',
         name13: '2022-2-25'
       },
-      // 分组表格数据
-      // groupListData: [
-      //   {
-      //     searchValue: '2022-01-29 10:10:00',
-      //     createBy: '非法外联告警',
-      //     createTime: '高',
-      //     remark: '非法外联事件',
-      //     updateTime: 'Windows7',
-      //     khdmc: 'WIN-gyk',
-      //     groupName: '192.168.19.159',
-      //     groupId: '2022-01-29 10:10:00',
-      //     userId: '116.103.2.11',
-      //     groupName: '产生非法外联、外联地址：www百度.com',
-      //     czzt: '未处置',
-      //     delFlag: '山西三通燃气厂'
-      //   },
-      //   {
-      //     searchValue: '2022-01-29 10:10:00',
-      //     createBy: '非法外联告警',
-      //     createTime: '高',
-      //     remark: '非法外联事件',
-      //     updateTime: 'Windows7',
-      //     khdmc: 'WIN-gyk',
-      //     groupName: '192.168.19.159',
-      //     groupId: '2022-01-29 10:10:00',
-      //     userId: '116.103.2.11',
-      //     groupName: '产生非法外联、外联地址：www百度.com',
-      //     czzt: '未处置',
-      //     delFlag: '山西三通燃气厂'
-      //   },
-      //   {
-      //     searchValue: '2022-01-29 10:10:00',
-      //     createBy: '非法外联告警',
-      //     createTime: '高',
-      //     remark: '非法外联事件',
-      //     updateTime: 'Windows7',
-      //     khdmc: 'WIN-gyk',
-      //     groupName: '192.168.19.159',
-      //     groupId: '2022-01-29 10:10:00',
-      //     userId: '116.103.2.11',
-      //     groupName: '产生非法外联、外联地址：www百度.com',
-      //     czzt: '未处置',
-      //     delFlag: '山西三通燃气厂'
-      //   },
-      //   {
-      //     searchValue: '2022-01-29 10:10:00',
-      //     createBy: '非法外联告警',
-      //     createTime: '高',
-      //     remark: '非法外联事件',
-      //     updateTime: 'Windows7',
-      //     khdmc: 'WIN-gyk',
-      //     groupName: '192.168.19.159',
-      //     groupId: '2022-01-29 10:10:00',
-      //     userId: '116.103.2.11',
-      //     groupName: '产生非法外联、外联地址：www百度.com',
-      //     czzt: '未处置',
-      //     delFlag: '山西三通燃气厂'
-      //   },
-      //   {
-      //     searchValue: '2022-01-29 10:10:00',
-      //     createBy: '非法外联告警',
-      //     createTime: '高',
-      //     remark: '非法外联事件',
-      //     updateTime: 'Windows7',
-      //     khdmc: 'WIN-gyk',
-      //     groupName: '192.168.19.159',
-      //     groupId: '2022-01-29 10:10:00',
-      //     userId: '116.103.2.11',
-      //     groupName: '产生非法外联、外联地址：www百度.com',
-      //     czzt: '未处置',
-      //     delFlag: '山西三通燃气厂'
-      //   },
-      //   {
-      //     searchValue: '2022-01-29 10:10:00',
-      //     createBy: '非法外联告警',
-      //     createTime: '高',
-      //     remark: '非法外联事件',
-      //     updateTime: 'Windows7',
-      //     khdmc: 'WIN-gyk',
-      //     groupName: '192.168.19.159',
-      //     groupId: '2022-01-29 10:10:00',
-      //     userId: '116.103.2.11',
-      //     groupName: '产生非法外联、外联地址：www百度.com',
-      //     czzt: '未处置',
-      //     delFlag: '山西三通燃气厂'
-      //   },
-      //   {
-      //     searchValue: '2022-01-29 10:10:00',
-      //     createBy: '非法外联告警',
-      //     createTime: '高',
-      //     remark: '非法外联事件',
-      //     updateTime: 'Windows7',
-      //     khdmc: 'WIN-gyk',
-      //     groupName: '192.168.19.159',
-      //     groupId: '2022-01-29 10:10:00',
-      //     userId: '116.103.2.11',
-      //     groupName: '产生非法外联、外联地址：www百度.com',
-      //     czzt: '未处置',
-      //     delFlag: '山西三通燃气厂'
-      //   }
-      // ],
       // 分组表格数据
       groupList: [],
       // 创建时间时间范围

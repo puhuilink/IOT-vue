@@ -6,7 +6,7 @@ import request from '@/utils/request'
 // 异常事件检索
 export function abnormalList(query) {
   return request({
-    url: '/m/abnormal/list',
+    url: '/dm/abnormal/list',
     method: 'get',
     params: query
   })
@@ -20,9 +20,9 @@ export function assetList(query) {
   })
 }
 // 数据安全事件检索
-export function dataList(query) {
+export function dataSecurityManagementList(query) {
   return request({
-    url: '/m/date/list',
+    url: '/dm/dataSecurityManagement/list',
     method: 'get',
     params: query
   })
@@ -43,10 +43,11 @@ export function honeypotList(query) {
     params: query
   })
 }
+//
 // 主机安全检索
 export function hostList(query) {
   return request({
-    url: '/m/host/list',
+    url: '/dm/hostSecurity/list',
     method: 'get',
     params: query
   })
@@ -54,7 +55,7 @@ export function hostList(query) {
 // 工业网络审计检索
 export function industryList(query) {
   return request({
-    url: '/m/industry/list',
+    url: '/dm/industrialNetworkAudit/list',
     method: 'get',
     params: query
   })
@@ -62,7 +63,7 @@ export function industryList(query) {
 // 漏洞事件检索
 export function leakList(query) {
   return request({
-    url: '/m/leak/list',
+    url: '/dm/scanning/list',
     method: 'get',
     params: query
   })
@@ -79,7 +80,7 @@ export function notificationList(query) {
 // 弱口令事件检索
 export function weakList(query) {
   return request({
-    url: '/m/weak/list',
+    url: '/dm/dmWeakPassword/list',
     method: 'get',
     params: query
   })
@@ -87,7 +88,31 @@ export function weakList(query) {
 // 僵木蠕事件检索
 export function zombieList(query) {
   return request({
-    url: '/m/zombie/list',
+    url: '/dm/dmStiffWoodCreep/list',
+    method: 'get',
+    params: query
+  })
+}
+// 入侵诱捕检索
+export function trapList(query) {
+  return request({
+    url: '/dm/trap/list',
+    method: 'get',
+    params: query
+  })
+}
+// 威胁情报检索
+export function ThreatIntelligenceList(query) {
+  return request({
+    url: '/dm/dmThreatIntelligence/list',
+    method: 'get',
+    params: query
+  })
+}
+// 配置核查检索
+export function configurationVerificationList(query) {
+  return request({
+    url: '/dm/configurationVerification/list',
     method: 'get',
     params: query
   })

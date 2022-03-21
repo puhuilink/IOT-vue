@@ -135,62 +135,62 @@
         <el-table-column
           label="产生时间"
           align="center"
-          prop="happen"
+          prop="generation_time"
           :show-overflow-tooltip="true"
         />
         <el-table-column
           label="源IP"
           align="center"
-          prop="sourceIp"
+          prop="source_ip"
           :show-overflow-tooltip="true"
         />
         <el-table-column
           label="源端口"
           align="center"
-          prop="sourcePort"
+          prop="source_port"
           :show-overflow-tooltip="true"
         />
         <el-table-column
           label="目的IP"
           align="center"
-          prop="aimIp"
+          prop="destination_ip"
           :show-overflow-tooltip="true"
         />
         <el-table-column
           label="目的端口"
           align="center"
-          prop="aimPort"
+          prop="destination_port"
           :show-overflow-tooltip="true"
         />
         <el-table-column
           label="传输层协议"
           align="center"
-          prop="transportProtocol"
+          prop="transport_layer_protocol"
           :show-overflow-tooltip="true"
         />
         <el-table-column
           label="应用层协议"
           align="center"
-          prop="applyProtocol"
+          prop="application_layer_protocol"
           :show-overflow-tooltip="true"
         />
         <el-table-column
           label="事件级别"
           align="center"
-          prop="level"
+          prop="event_level"
           :show-overflow-tooltip="true"
         />
 
         <el-table-column
           label="事件类型"
           align="center"
-          prop="type"
+          prop="event_category"
           :show-overflow-tooltip="true"
         />
         <el-table-column
           label="处置状态"
           align="center"
-          prop="state"
+          prop="disposal_status"
           :show-overflow-tooltip="true"
         />
         <el-table-column
