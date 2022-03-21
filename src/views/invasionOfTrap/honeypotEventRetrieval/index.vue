@@ -177,13 +177,11 @@
         >
           <template slot-scope="scope">
             <el-button
-             
               size="mini"
               type="text"
-              @click="detail"
+              @click="detail(scope.row.id)"
             >详情</el-button>
             <el-button
-              
               size="mini"
               type="text"
               @click="handleDelete(scope.row)"
@@ -269,6 +267,7 @@
 // import { listGroup } from "@/api/system/group";
 // import { listEvent } from '@/api/system/category'
 import { trapList } from '@/api/system/list'
+import { trapDetail } from '@/api/system/detail'
 
 export default {
   components: {},
@@ -457,7 +456,9 @@ export default {
     resetForm() {
       this.$refs['elForm'].resetFields()
     },
-    detail() {
+    detail(id) {
+      const res = trapDetail(id)
+      this.detailData = res.rows
       this.open = true
       this.title = '事件详情'
     },

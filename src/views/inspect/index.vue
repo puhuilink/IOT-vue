@@ -133,14 +133,14 @@
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width" min-width="15%">
         <template slot-scope="scope">
           <el-button
-           
+
             size="mini"
             type="text"
             icon="el-icon-edit"
-            @click="detail"
+            @click="detail(scope.row.id)"
           >详情</el-button>
           <el-button
-            
+
             size="mini"
             type="text"
             icon="el-icon-delete"
@@ -163,67 +163,67 @@
         <el-row>
           <el-col :span="12">
             <el-form-item label="漏洞名称 :">
-              {{ dataTest.name }}
+              {{ detailData.name }}
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="影响平台 :">
-              {{ dataTest.name1 }}
+              {{ detailData.name1 }}
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="漏洞ID :">
-              {{ dataTest.name2 }}
+              {{ detailData.name2 }}
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="事件等级 :">
-              {{ dataTest.name3 }}
+              {{ detailData.name3 }}
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="CVSS分值 :">
-              {{ dataTest.name4 }}
+              {{ detailData.name4 }}
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="CVE编号 :">
-              {{ dataTest.name5 }}
+              {{ detailData.name5 }}
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="CNCVE编号 :">
-              {{ dataTest.name6 }}
+              {{ detailData.name6 }}
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="CNNVD编号 :">
-              {{ dataTest.name7 }}
+              {{ detailData.name7 }}
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="安全性 :">
-              {{ dataTest.name8 }}
+              {{ detailData.name8 }}
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="CNVD编号 :">
-              {{ dataTest.name9 }}
+              {{ detailData.name9 }}
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="可利用性 :">
-              {{ dataTest.name10 }}
+              {{ detailData.name10 }}
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="区域 :">
-              {{ dataTest.name11 }}
+              {{ detailData.name11 }}
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="处置状态 :">
-              {{ dataTest.name12 }}
+              {{ detailData.name12 }}
             </el-form-item>
           </el-col>
         </el-row>
@@ -239,6 +239,7 @@
 </template>
 <script>
 import { configurationVerificationList } from '@/api/system/list'
+import { configurationVerificationDetail } from '@/api/system/detail'
 export default {
   components: {},
   props: [],
@@ -246,7 +247,7 @@ export default {
     return {
       loading: true,
       name: '测试',
-      dataTest: {
+      detailData: {
         name: '当远程管理时，应采取必要措施，防止鉴别信息在网络传输过程中被窃听',
         name1: 'OpenSSH through 6.4',
         name2: '合规',
@@ -358,7 +359,6 @@ export default {
   methods: {
     /** 查询分组列表 */
     getList() {
-      console.log(1)
       configurationVerificationList(this.queryParams).then((response) => {
         this.groupList = response.rows
         this.total = response.total
@@ -373,7 +373,11 @@ export default {
     resetForm() {
       this.$refs['elForm'].resetFields()
     },
-    detail() {
+    detail(id) {
+      configurationVerificationDetail(id).then((response) => {
+        this.detailData = response.rows
+      })
+
       this.open = true
       this.title = '事件详情'
     },

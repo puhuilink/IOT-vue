@@ -202,13 +202,13 @@
         >
           <template slot-scope="scope">
             <el-button
-             
+
               size="mini"
               type="text"
-              @click="detail"
+              @click="detail(scope.row.id)"
             >详情</el-button>
             <el-button
-              
+
               size="mini"
               type="text"
               @click="handleDelete(scope.row)"
@@ -230,83 +230,83 @@
         <el-row>
           <el-col :span="12">
             <el-form-item label="事件名称 :">
-              {{ dataTest.name }}
+              {{ detailData.name }}
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="事件类型 :">
-              {{ dataTest.name1 }}
+              {{ detailData.name1 }}
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="杀伤链阶段 :">
-              {{ dataTest.name2 }}
+              {{ detailData.name2 }}
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="事件等级 :">
-              {{ dataTest.name3 }}
+              {{ detailData.name3 }}
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="攻击者IP :">
-              {{ dataTest.name4 }}
+              {{ detailData.name4 }}
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="攻击者国家 :">
-              {{ dataTest.name5 }}
+              {{ detailData.name5 }}
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="受害者IP :">
-              {{ dataTest.name6 }}
+              {{ detailData.name6 }}
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="受害者国家 :">
-              {{ dataTest.name7 }}
+              {{ detailData.name7 }}
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="源端口 :">
-              {{ dataTest.name8 }}
+              {{ detailData.name8 }}
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="目标端口 :">
-              {{ dataTest.name9 }}
+              {{ detailData.name9 }}
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="协议 :">
-              {{ dataTest.name11 }}
+              {{ detailData.name11 }}
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="威胁分类 :">
-              {{ dataTest.name10 }}
+              {{ detailData.name10 }}
             </el-form-item>
           </el-col>
 
           <el-col :span="12">
             <el-form-item label="发生时间 :">
-              {{ dataTest.name12 }}
+              {{ detailData.name12 }}
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="发现时间 :">
-              {{ dataTest.name13 }}
+              {{ detailData.name13 }}
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="处置状态 :">
-              {{ dataTest.name12 }}
+              {{ detailData.name12 }}
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="区域 :">
-              {{ dataTest.name13 }}
+              {{ detailData.name13 }}
             </el-form-item>
           </el-col>
         </el-row>
@@ -327,7 +327,7 @@
 <script>
 // import { listEvent } from '@/api/system/category'
 import { abnormalList } from '@/api/system/list'
-
+import { abnormalDetail } from '@/api/system/detail'
 export default {
   components: {},
   props: [],
@@ -335,7 +335,7 @@ export default {
     return {
       loading: false,
       name: '测试',
-      dataTest: {
+      detailData: {
         name: '工业网络审计事件',
         name1: '工业网络审计',
         name2: '高危',
@@ -464,6 +464,8 @@ export default {
       this.$refs['elForm'].resetFields()
     },
     detail() {
+      const res = abnormalDetail(this.queryParams)
+      this.detailData = res.rows
       this.open = true
       this.title = '事件详情'
     },

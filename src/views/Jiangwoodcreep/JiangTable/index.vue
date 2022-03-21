@@ -173,82 +173,78 @@
         <el-row>
           <el-col :span="8">
             <el-form-item label="事件名称 :">
-              {{ detailData.name }}
+              {{ detailData.eventName }}
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="威胁分类 :">
-              {{ detailData.name1 }}
+              {{ detailData.threatClassification }}
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="杀伤链阶段 :">
-              {{ detailData.name2 }}
+              {{ detailData.killingChainStage }}
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="事件等级 :">
-              {{ detailData.name3 }}
+              {{ detailData.eventlevel }}
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="攻击者IP :">
-              {{ detailData.name4 }}
+              {{ detailData.attackerIp }}
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="攻击者国家 :">
-              {{ detailData.name5 }}
+              {{ detailData.attackerState }}
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="受害者IP :">
-              {{ detailData.name6 }}
+              {{ detailData.victimIp }}
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="受害者国家 :">
-              {{ detailData.name7 }}
+              {{ detailData.victimCountry }}
             </el-form-item>
           </el-col>
-          <el-col :span="8">
-            <el-form-item label="上报设备IP :">
-              {{ detailData.name8 }}
-            </el-form-item>
-          </el-col>
+
           <el-col :span="8">
             <el-form-item label="源端口 :">
-              {{ detailData.name9 }}
+              {{ detailData.sourcePort }}
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="目标端口 :">
-              {{ detailData.name10 }}
+              {{ detailData.targetPort }}
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="协议 :">
-              {{ detailData.name11 }}
+              {{ detailData.agreement }}
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="发生时间 :">
-              {{ detailData.name12 }}
+              {{ detailData.happenTime }}
             </el-form-item>
           </el-col>
           <el-col :span="8">
-            <el-form-item label="发生时间:">
-              {{ detailData.name13 }}
+            <el-form-item label="发现时间:">
+              {{ detailData.findTime }}
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="区域 :">
-              {{ detailData.name14 }}
+              {{ detailData.region }}
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="处置状态 :">
-              {{ detailData.name15 }}
+              {{ detailData.disposalStatus }}
             </el-form-item>
           </el-col>
         </el-row>
@@ -267,6 +263,7 @@
 import { zombieList } from '@/api/system/list'
 import { StiffWoodCreepDetail } from '@/api/system/detail'
 export default {
+  name: 'Index',
   components: {},
   props: [],
   data() {
@@ -274,30 +271,9 @@ export default {
       loading: false,
       name: '测试',
       detailData: {
-        name: 'Botnet',
-        name1: '僵尸网络',
-        name2: '载荷投递',
-        name3: '低',
-        name4: '192.168.28.8',
-        name5: '--',
-        name6: '10.13.20.24',
-        name7: '工业网络审计',
-        name8: '--',
-        name9: '55612',
-        name10: '80',
-        name11: 'http',
-        name12: '2022-01-29 10:00:00',
-        name13: '2022-01-29 10:01:00',
-        name14: '山西燃气厂',
-        name15: '已处置'
       },
       // 分组表格数据
       groupList: [],
-      // groupList: [{ 'searchValue': '僵尸网络', 'createBy': '未处置', 'createTime': '2021-05-18 16:35:03', 'updateBy': '山西燃气厂', 'updateTime': '2021-05-18 16:35:32', 'remark': '极低', 'params': {}, 'groupId': 1, 'userId': '116.103.2.11', 'groupName': 'Botnet', 'groupOrder': '10.255.52.10', 'delFlag': '载荷投递' },
-      //   { 'searchValue': '僵尸网络', 'createBy': '未处置', 'createTime': '2021-05-18 16:35:03', 'updateBy': '山西燃气厂', 'updateTime': '2021-05-18 16:35:32', 'remark': '极低', 'params': {}, 'groupId': 2, 'userId': '116.103.2.11', 'groupName': 'Botnet', 'groupOrder': '10.255.52.10', 'delFlag': '载荷投递' },
-      //   { 'searchValue': '僵尸网络', 'createBy': '未处置', 'createTime': '2021-05-18 16:35:03', 'updateBy': '山西燃气厂', 'updateTime': '2021-05-18 16:35:32', 'remark': '极低', 'params': {}, 'groupId': 3, 'userId': '116.103.2.11', 'groupName': 'Botnet', 'groupOrder': '10.255.52.10', 'delFlag': '载荷投递' },
-      //   { 'searchValue': '僵尸网络', 'createBy': '未处置', 'createTime': '2021-05-18 16:35:03', 'updateBy': '山西燃气厂', 'updateTime': '2021-05-18 16:35:32', 'remark': '极低', 'params': {}, 'groupId': 4, 'userId': '116.103.2.11', 'groupName': 'Botnet', 'groupOrder': '10.255.52.10', 'delFlag': '载荷投递' },
-      //   { 'searchValue': '僵尸网络', 'createBy': '未处置', 'createTime': '2021-05-18 16:35:03', 'updateBy': '山西燃气厂', 'updateTime': '2021-05-18 16:35:32', 'remark': '极低', 'params': {}, 'groupId': 5, 'userId': '116.103.2.11', 'groupName': 'Botnet', 'groupOrder': '10.255.52.10', 'delFlag': '载荷投递' }],
       // 创建时间时间范围
       daterangeCreateTime: [],
       // 弹出层标题
@@ -427,9 +403,9 @@ export default {
     resetForm() {
       this.$refs['elForm'].resetFields()
     },
-    detail(id) {
-      const res = StiffWoodCreepDetail(id)
-      this.detailData = res.rows
+    async detail(id) {
+      const { data } = await StiffWoodCreepDetail(id)
+      this.detailData = data
       this.open = true
       this.title = '事件详情'
     },

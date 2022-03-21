@@ -117,14 +117,14 @@
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width" min-width="10%">
         <template slot-scope="scope">
           <el-button
-           
+
             size="mini"
             type="text"
             icon="el-icon-edit"
-            @click="detail"
+            @click="detail(scope.row.weakPasswordId)"
           >详情</el-button>
           <el-button
-            
+
             size="mini"
             type="text"
             icon="el-icon-delete"
@@ -145,7 +145,7 @@
       <el-form ref="form" label-width="100px" label-position="left">
         <el-row>
           <el-col :span="8">
-            <el-form-item label="用户名 :">
+            <el-form-item label="IP地址 :">
               {{ detailData.name }}
             </el-form-item>
           </el-col>
@@ -411,10 +411,9 @@ export default {
     resetForm() {
       this.$refs['elForm'].resetFields()
     },
-    async detail() {
-      const res = await WeakPasswordDetail(this.queryParams)
+    async detail(id) {
+      const res = await WeakPasswordDetail(id)
       this.detailData = res.rows
-
       this.open = true
       this.title = '事件详情'
     },

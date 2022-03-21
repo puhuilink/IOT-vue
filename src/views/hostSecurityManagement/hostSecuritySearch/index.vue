@@ -222,13 +222,13 @@
         >
           <template slot-scope="scope">
             <el-button
-             
+
               size="mini"
               type="text"
               @click="detail(scope.row.stiffWoodCreepId)"
             >详情</el-button>
             <el-button
-              
+
               size="mini"
               type="text"
               @click="handleDelete(scope.row)"
@@ -251,107 +251,107 @@
         <el-row>
           <el-col :span="12">
             <el-form-item label="接收时间 :">
-              {{ dataTest.name }}
+              {{ detailData.name }}
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="病毒类型 :">
-              {{ dataTest.name1 }}
+              {{ detailData.name1 }}
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="事件名称 :">
-              {{ dataTest.name2 }}
+              {{ detailData.name2 }}
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="病毒名 :">
-              {{ dataTest.name3 }}
+              {{ detailData.name3 }}
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="事件等级 :">
-              {{ dataTest.name4 }}
+              {{ detailData.name4 }}
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="用户名称 :">
-              {{ dataTest.name5 }}
+              {{ detailData.name5 }}
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="事件类型 :">
-              {{ dataTest.name6 }}
+              {{ detailData.name6 }}
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="路径 :">
-              {{ dataTest.name7 }}
+              {{ detailData.name7 }}
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="操作系统 :">
-              {{ dataTest.name8 }}
+              {{ detailData.name8 }}
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="目的地址 :">
-              {{ dataTest.name9 }}
+              {{ detailData.name9 }}
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="客户端名称 :">
-              {{ dataTest.name10 }}
+              {{ detailData.name10 }}
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="公司名称 :">
-              {{ dataTest.name11 }}
+              {{ detailData.name11 }}
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="客户端 IP :">
-              {{ dataTest.name12 }}
+              {{ detailData.name12 }}
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="产品名称 :">
-              {{ dataTest.name13 }}
+              {{ detailData.name13 }}
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="产生时间 :">
-              {{ dataTest.name12 }}
+              {{ detailData.name12 }}
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="版本号 :">
-              {{ dataTest.name13 }}
+              {{ detailData.name13 }}
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="日志描述 :">
-              {{ dataTest.name12 }}
+              {{ detailData.name12 }}
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="区域 :">
-              {{ dataTest.name13 }}
+              {{ detailData.name13 }}
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="进程 :">
-              {{ dataTest.name12 }}
+              {{ detailData.name12 }}
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="父进程 :">
-              {{ dataTest.name12 }}
+              {{ detailData.name12 }}
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="处置状态 :">
-              {{ dataTest.name13 }}
+              {{ detailData.name13 }}
             </el-form-item>
           </el-col>
         </el-row>
@@ -372,6 +372,7 @@
 <script>
 // import { listEvent } from '@/api/system/category'
 import { hostList } from '@/api/system/list'
+import { hostSecurityDetail } from '@/api/system/detail'
 
 export default {
   components: {},
@@ -380,7 +381,7 @@ export default {
     return {
       loading: false,
       name: '测试',
-      dataTest: {
+      detailData: {
         name: '工业网络审计事件',
         name1: '工业网络审计',
         name2: '高危',
@@ -514,7 +515,8 @@ export default {
       this.$refs['elForm'].resetFields()
     },
     detail(id) {
-      console.log(id)
+      const res = hostSecurityDetail(id)
+      this.detailData = res.rows
       this.open = true
       this.title = '事件详情'
     },

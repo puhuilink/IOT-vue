@@ -479,6 +479,8 @@
 
 <script>
 import { industryList } from '@/api/system/list'
+import { industrialNetworkAuditDetail } from '@/api/system/detail'
+
 export default {
   name: 'Online',
   data() {
@@ -612,7 +614,8 @@ export default {
       this.title = '批量导入资产'
     },
     detail(row) {
-      this.dialogDetail = row
+      const res = industrialNetworkAuditDetail(row)
+      this.detailData = res.rows
       this.detailDialog = true
       this.title = '事件详情'
     }
