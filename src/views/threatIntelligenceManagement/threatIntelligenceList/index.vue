@@ -186,82 +186,80 @@
                          :show-overflow-tooltip="true" />
         <el-table-column label="操作"
                          align="center"
+                         class-name="small-padding fixed-width" />
+        <template slot-scope="scope">
+          <el-button v-hasPermi="['system:group:edit']"
+                     type="text"
+                     @click="detail">详情</el-button>
+          <el-button v-hasPermi="['system:group:remove']"
+                     type="text"
+                     @click="handleDelete(scope.row)">处置</el-button>
+        </template>
+      </el-table>
+
+      <el-table :data="groupList"
+                tooltip-effect="light">
+        <el-table-column type="selection"
+                         width="55"
+                         align="center" />
+        <el-table-column label="攻击者IP"
+                         align="center"
+                         prop="attackerIp"
+                         :show-overflow-tooltip="true" />
+        <el-table-column label="受害者IP"
+                         align="center"
+                         prop="victimIp"
+                         :show-overflow-tooltip="true" />
+        <el-table-column label="APT组织"
+                         align="center"
+                         prop="aptOrganization"
+                         :show-overflow-tooltip="true" />
+        <el-table-column label="协议"
+                         align="center"
+                         prop="agreement"
+                         :show-overflow-tooltip="true" />
+        <el-table-column label="事件等级"
+                         align="center"
+                         prop="eventLevel"
+                         :show-overflow-tooltip="true" />
+        <el-table-column label="杀伤链阶段"
+                         align="center"
+                         prop="killingChainStage"
+                         :show-overflow-tooltip="true" />
+        <el-table-column label="发生时间"
+                         align="center"
+                         prop="happenTime"
+                         :show-overflow-tooltip="true" />
+        <el-table-column label="发现时间"
+                         align="center"
+                         prop="discoveryTime"
+                         :show-overflow-tooltip="true" />
+        <el-table-column label="处置状态"
+                         align="center"
+                         prop="disposalStatus"
+                         :show-overflow-tooltip="true" />
+        <el-table-column label="区域"
+                         align="center"
+                         prop="region"
+                         :show-overflow-tooltip="true" />
+        <el-table-column label="操作"
+                         align="center"
                          class-name="small-padding fixed-width">
           <template slot-scope="scope">
-            <el-button v-hasPermi="['system:group:edit']"
+            <el-button size="mini"
                        type="text"
-                       @click="detail">详情</el-button>
-            <el-button v-hasPermi="['system:group:remove']"
+                       @click="detail(scope.row.id)">详情</el-button>
+            <el-button size="mini"
                        type="text"
                        @click="handleDelete(scope.row)">处置</el-button>
-            =======
-            <el-button type="primary"
-                       class="export"
-                       @click="submitdata">导出</el-button>
-            <el-table :data="groupList"
-                      tooltip-effect="light">
-              <el-table-column type="selection"
-                               width="55"
-                               align="center" />
-              <el-table-column label="攻击者IP"
-                               align="center"
-                               prop="attackerIp"
-                               :show-overflow-tooltip="true" />
-              <el-table-column label="受害者IP"
-                               align="center"
-                               prop="victimIp"
-                               :show-overflow-tooltip="true" />
-              <el-table-column label="APT组织"
-                               align="center"
-                               prop="aptOrganization"
-                               :show-overflow-tooltip="true" />
-              <el-table-column label="协议"
-                               align="center"
-                               prop="agreement"
-                               :show-overflow-tooltip="true" />
-              <el-table-column label="事件等级"
-                               align="center"
-                               prop="eventLevel"
-                               :show-overflow-tooltip="true" />
-              <el-table-column label="杀伤链阶段"
-                               align="center"
-                               prop="killingChainStage"
-                               :show-overflow-tooltip="true" />
-              <el-table-column label="发生时间"
-                               align="center"
-                               prop="happenTime"
-                               :show-overflow-tooltip="true" />
-              <el-table-column label="发现时间"
-                               align="center"
-                               prop="discoveryTime"
-                               :show-overflow-tooltip="true" />
-              <el-table-column label="处置状态"
-                               align="center"
-                               prop="disposalStatus"
-                               :show-overflow-tooltip="true" />
-              <el-table-column label="区域"
-                               align="center"
-                               prop="region"
-                               :show-overflow-tooltip="true" />
-              <el-table-column label="操作"
-                               align="center"
-                               class-name="small-padding fixed-width">
-                <template slot-scope="scope">
-                  <el-button size="mini"
-                             type="text"
-                             @click="detail(scope.row.id)">详情</el-button>
-                  <el-button size="mini"
-                             type="text"
-                             @click="handleDelete(scope.row)">处置</el-button>
-                  >>>>>>> master
-                </template>
-              </el-table-column>
-            </el-table>
-            <pagination v-show="total > 0"
-                        :total="total"
-                        :page.sync="queryParams.pageNum"
-                        :limit.sync="queryParams.pageSize"
-                        @pagination="getCategoryList" />
+          </template>
+        </el-table-column>
+      </el-table>
+      <pagination v-show="total > 0"
+                  :total="total"
+                  :page.sync="queryParams.pageNum"
+                  :limit.sync="queryParams.pageSize"
+                  @pagination="getCategoryList" />
     </el-card>
 
     <!-- 添加或修改分组对话框 -->

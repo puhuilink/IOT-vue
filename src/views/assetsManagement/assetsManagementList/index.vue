@@ -593,21 +593,21 @@
           资产属性
         </div>
         <el-form ref="form"
-                 label-width="305px"
+                 label-width="105px"
                  label-position="left"
                  class="label-type">
           <el-row>
-            <el-col :span="24">
+            <el-col :span="8">
               <el-form-item label="资产编号 :">
                 {{ dataTest.name }}
               </el-form-item>
             </el-col>
-            <el-col :span="24">
+            <el-col :span="8">
               <el-form-item label="IP地址 :">
                 {{ dataTest.name1 }}
               </el-form-item>
             </el-col>
-            <el-col :span="2">
+            <el-col :span="8">
               <el-form-item label="资产型号 :">
                 {{ dataTest.name2 }}
               </el-form-item>

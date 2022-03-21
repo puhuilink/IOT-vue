@@ -432,14 +432,14 @@
         </el-form>
         <div slot="footer"
              class="dialog-footer">
-          <el-row type="flex"
+          <!-- <el-row type="flex"
                   justify="center">
             <el-button size="small"
                        type="primary"
                        @click="submitForm">保 存</el-button>
             <el-button size="small"
                        @click="cancel">取 消</el-button>
-          </el-row>
+          </el-row> -->
         </div>
         <el-form-item label="操作系统 :"
                       prop="userName">
@@ -483,18 +483,18 @@
                        :disabled="item.disabled" />
           </el-select>
         </el-form-item>
-        </el-form>
-        <div slot="footer"
-             class="dialog-footer">
-          <el-row type="flex"
-                  justify="center">
-            <el-button size="small"
-                       type="primary"
-                       @click="submitForm">保 存</el-button>
-            <el-button size="small"
-                       @click="cancel">取 消</el-button>
-          </el-row>
-        </div>
+      </div>
+      <div slot="footer"
+           class="dialog-footer">
+        <el-row type="flex"
+                justify="center">
+          <el-button size="small"
+                     type="primary"
+                     @click="submitForm">保 存</el-button>
+          <el-button size="small"
+                     @click="cancel">取 消</el-button>
+        </el-row>
+      </div>
 
     </el-dialog>
   </div>
