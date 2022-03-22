@@ -6,7 +6,7 @@
 </template>
 <script>
 import { setNotopt } from '@/utils/emptyEcharts.js'
-import { policyNameEcharts, recipientEcharts, eventLevelEcharts, CreepeventNameEcharts, CreepdisposalStatuEcharts, selectEventLevelGradeEcharts, selectDisposalStatusEcharts, eventCategoryEcharts } from '@/api/system/echarts'
+import { policyNameEcharts, recipientEcharts, eventLevelEcharts, CreepeventNameEcharts, CreepdisposalStatuEcharts, selectEventLevelEcharts, selectDisposalStatusEcharts, eventCategoryEcharts } from '@/api/system/echarts'
 import tip from '@/components/EchartsTip'
 export default {
   name: 'AAA',
@@ -216,7 +216,7 @@ export default {
               break
             case 'weakPassword':
               // 弱口令
-              await selectEventLevelGradeEcharts().then(({ data }) => {
+              await selectEventLevelEcharts().then(({ data }) => {
                 this.datacopy = this.transDic(data)
               })
               break
@@ -286,7 +286,12 @@ export default {
             orient: 'vertical',
             right: 10,
             top: 120,
-            bottom: 20
+            bottom: 20,
+            formatter: function(value) {
+              const val = value.length > 10 ? value.substr(0, 6) + '...' + value.substr(value.length - 3, value.length - 1) : value
+              return val
+            }
+
           },
           series: [
             {
