@@ -6,6 +6,7 @@
 </template>
 <script>
 import { setNotopt } from '@/utils/emptyEcharts.js'
+import { StiffWoodCreepDetail } from '@/api/system/detail'
 import tip from '@/components/EchartsTip'
 export default {
   name: 'AAA',
@@ -56,6 +57,9 @@ export default {
           case 1:
             switch (this.address) {
               case 1:
+                StiffWoodCreepDetail('1773577081639237384').then(({ data }) => {
+                  console.log(data)
+                })
                 this.datacopy = [
                   { value: 1478, name: '僵木蠕事件' },
                   { value: 142, name: '漏洞' },

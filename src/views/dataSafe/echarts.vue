@@ -2,9 +2,9 @@
   <div class="app-container">
     <echarts @getaddress="uploadData" />
     <category :type="1" :tipname="'源IP统计事件TOP10'" :address="address" />
-    <category :type="2" :tipname="'文件大小统计事件TOP10'" :address="address" />
+    <category :type="2" :tipname="'目的IP统计'" :address="address" />
     <eventType :type="5" :tipname="'策略统计事件分析'" :address="address" />
-    <eventType :type="6" :tipname="'文件类型统计事件分析'" :address="address" />
+    <eventType :type="6" :tipname="'邮件统计'" :address="address" />
     <el-col :span="12">
       <tip> 最新数据安全事件 </tip>
       <el-table :data="groupList">
