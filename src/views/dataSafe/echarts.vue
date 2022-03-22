@@ -1,10 +1,10 @@
 <template>
   <div class="app-container">
     <echarts @getaddress="uploadData" />
-    <category :type="1" :tipname="'源IP统计事件TOP10'" :address="address" />
-    <category :type="2" :tipname="'目的IP统计'" :address="address" />
-    <eventType :type="5" :tipname="'策略统计事件分析'" :address="address" />
-    <eventType :type="6" :tipname="'邮件统计'" :address="address" />
+    <category :type="1" :tipname="'源IP统计事件TOP10'" :address="address" :name="'dataSafe'" />
+    <category :type="2" :tipname="'目的IP统计'" :address="address" :name="'dataSafe'" />
+    <eventType :type="5" :tipname="'策略统计事件分析'" :address="address" :name="'dataSafe'" />
+    <eventType :type="6" :tipname="'邮件统计'" :address="address" :name="'dataSafe'" />
     <el-col :span="12">
       <tip> 最新数据安全事件 </tip>
       <el-table :data="groupList">
@@ -18,7 +18,7 @@
         <el-table-column label="区域" align="center" prop="delFlag" :show-overflow-tooltip="true" />
       </el-table>
     </el-col>
-    <eventType :tipname="'事件等级分布'" :type="4" :address="address" />
+    <eventType :tipname="'事件等级分布'" :type="4" :address="address" :name="'dataSafe'" />
   </div>
 </template>
 <script>
