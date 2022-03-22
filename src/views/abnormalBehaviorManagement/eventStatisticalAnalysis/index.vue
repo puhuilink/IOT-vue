@@ -2,21 +2,33 @@
   <div class="app-container">
     <echarts @getaddress="uploadData" />
     <eventTrend :address="address" />
-    <killChainPhaseStatistics :address="address"/>
-    <!-- <eventType :type="1" /> -->
-    <!-- <wordcloud /> -->
-    <pieChartThreats :address="address"/>
-    <killChainPhaseTrafficStatistics :address="address"/>
-    <!-- <eventType :tipname="'事件状态处置图'" :type="2" /> -->
+    <killChainPhaseStatistics :address="address" />
+    <!-- <pieChartThreats :address="address"/> -->
+    <pieChartDisposal :tipname="'事件等级分布'"
+                      :address="address"
+                      :abnormal="1" />
+    <killChainPhaseTrafficStatistics :address="address" />
     <el-col :span="24">
       <tip> 最新威胁事件 </tip>
       <el-table :data="groupList">
-        <el-table-column label="攻击者IP" align="center" prop="gjzIP" />
-        <el-table-column label="受害者IP" align="center" prop="shzIP" />
-        <el-table-column label="事件名称" align="center" prop="eventName" />
-        <el-table-column label="事件等级" align="center" prop="eventLevel" />
-        <el-table-column label="杀伤链阶段" align="center" prop="ssljd" />
-        <el-table-column label="区域" align="center" prop="area" />
+        <el-table-column label="攻击者IP"
+                         align="center"
+                         prop="gjzIP" />
+        <el-table-column label="受害者IP"
+                         align="center"
+                         prop="shzIP" />
+        <el-table-column label="事件名称"
+                         align="center"
+                         prop="eventName" />
+        <el-table-column label="事件等级"
+                         align="center"
+                         prop="eventLevel" />
+        <el-table-column label="杀伤链阶段"
+                         align="center"
+                         prop="ssljd" />
+        <el-table-column label="区域"
+                         align="center"
+                         prop="area" />
       </el-table>
     </el-col>
   </div>
@@ -25,7 +37,8 @@
 import echarts from "@/components/Echarts/searchBar";
 import eventTrend from "@/components/Echarts/eventTrend";
 import killChainPhaseStatistics from "@/components/Echarts/killChainPhaseStatistics";
-import pieChartThreats from "@/components/Echarts/pieChartThreats";
+// import pieChartThreats from "@/components/Echarts/pieChartThreats";
+import pieChartDisposal from "@/components/Echarts/pieChartDisposal";
 import killChainPhaseTrafficStatistics from "@/components/Echarts/killChainPhaseTrafficStatistics";
 import tip from "@/components/EchartsTip";
 export default {
@@ -33,12 +46,13 @@ export default {
     echarts,
     eventTrend,
     killChainPhaseStatistics,
-    pieChartThreats,
+    // pieChartThreats,
+    pieChartDisposal,
     killChainPhaseTrafficStatistics,
     tip,
   },
   props: [],
-  data() {
+  data () {
     return {
       policitalStatus: ["1"],
       address: 1,
@@ -80,10 +94,10 @@ export default {
   },
   computed: {},
   watch: {},
-  created() {},
-  mounted() {},
+  created () { },
+  mounted () { },
   methods: {
-    uploadData(data) {
+    uploadData (data) {
       this.address = data.address;
     },
   },

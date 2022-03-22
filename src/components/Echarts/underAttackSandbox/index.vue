@@ -2,13 +2,15 @@
 <template>
   <el-col :span="12">
     <tip>{{ tipname }}</tip>
-    <div ref="canvas1" style="height: 400px" />
+    <div ref="canvas1"
+         style="height: 400px" />
   </el-col>
 </template>
 <script>
 import { setNotopt } from "@/utils/emptyEcharts.js";
 import tip from "@/components/EchartsTip";
 import echarts from "echarts";
+import { sandboxesAttacked } from '@/api/system/echarts'
 export default {
   components: { tip },
   props: {
@@ -23,7 +25,7 @@ export default {
       type: Number,
     },
   },
-  data() {
+  data () {
     return {
       policitalStatus: ["1"],
       barData: [],
@@ -34,7 +36,7 @@ export default {
   computed: {},
   watch: {
     address: {
-      handler(val, oldVal) {
+      handler (val, oldVal) {
         if (val !== oldVal) {
           this.drawPolicitalStatus();
         }
@@ -42,44 +44,48 @@ export default {
       deep: true,
     },
   },
-  created() {},
-  mounted() {
+  created () { },
+  mounted () {
     this.drawPolicitalStatus();
   },
   methods: {
-    drawPolicitalStatus() {
+    async drawPolicitalStatus () {
       if (this.policitalStatus.length) {
-        switch (this.address) {
-          case 1:
-            (this.category = [180, 160, 75, 30, 10]),
-              // (this.barData = [18, 2, 32, 13, 15]),
-              (this.title = "源IP");
-            break;
-          case 2:
-            (this.category = [80, 160, 175, 30, 10]),
-              // (this.barData = [18, 12, 2, 3, 8]),
-              (this.title = "源IP");
-            break;
-          case 3:
-            (this.category = [180, 160, 75, 30, 10]),
-              // (this.barData = [8, 22, 22, 30, 85]),
-              (this.title = "源IP");
-            break;
-          case 4:
-            (this.category = [180, 160, 75, 30, 10]),
-              // (this.barData = [8, 22, 22, 30, 85]),
-              (this.title = "源IP");
-            break;
-          case 5:
-            (this.category = [180, 160, 75, 30, 10]),
-              // (this.barData = [8, 22, 22, 30, 85]),
-              (this.title = "源IP");
-            break;
-          default:
-            console.log("无数据", this.type);
-            break;
-        }
+        // switch (this.address) {
+        //   case 1:
+        //     (this.category = [180, 160, 75, 30, 10]),
+        //       // (this.barData = [18, 2, 32, 13, 15]),
+        //       (this.title = "源IP");
+        //     break;
+        //   case 2:
+        //     (this.category = [80, 160, 175, 30, 10]),
+        //       // (this.barData = [18, 12, 2, 3, 8]),
+        //       (this.title = "源IP");
+        //     break;
+        //   case 3:
+        //     (this.category = [180, 160, 75, 30, 10]),
+        //       // (this.barData = [8, 22, 22, 30, 85]),
+        //       (this.title = "源IP");
+        //     break;
+        //   case 4:
+        //     (this.category = [180, 160, 75, 30, 10]),
+        //       // (this.barData = [8, 22, 22, 30, 85]),
+        //       (this.title = "源IP");
+        //     break;
+        //   case 5:
+        //     (this.category = [180, 160, 75, 30, 10]),
+        //       // (this.barData = [8, 22, 22, 30, 85]),
+        //       (this.title = "源IP");
+        //     break;
+        //   default:
+        //     console.log("无数据", this.type);
+        //     break;
+        // }
         // 基于准备好的dom，初始化echarts实例
+        const { data } = await sandboxesAttacked()
+        this.category = ["全端口感知沙箱", "WINSERVER2008", "高敏沙箱"]
+        this.barData = [10, 7, 11]
+        // console.log('this.category-沙箱', this.category)
         const myChart = this.$echarts.init(this.$refs.canvas1);
 
         // 绘制图表
@@ -87,14 +93,15 @@ export default {
           color: ["#FFC0CB"],
           xAxis: {
             type: "category",
-            data: ["wikl", "ftp", "test123", "w7-smoking", "w2"],
+            data: this.category,
           },
           yAxis: {
             type: "value",
+            data: this.category,
           },
           series: [
             {
-              data: this.category,
+              data: this.barData,
               type: "bar",
               barWidth: 30, //柱图宽度
             },

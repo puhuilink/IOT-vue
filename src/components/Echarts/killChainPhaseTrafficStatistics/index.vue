@@ -2,13 +2,15 @@
 <template>
   <el-col :span="12">
     <tip>{{ tipname }}</tip>
-    <div ref="canvas1" style="height: 400px" />
+    <div ref="canvas1"
+         style="height: 400px" />
   </el-col>
 </template>
 <script>
 import { setNotopt } from "@/utils/emptyEcharts.js";
 import tip from "@/components/EchartsTip";
 import echarts from "echarts";
+import { KillChain } from '@/api/system/echarts'
 export default {
   components: { tip },
   props: {
@@ -23,7 +25,7 @@ export default {
       type: Number,
     },
   },
-  data() {
+  data () {
     return {
       policitalStatus: ["1"],
       barData: [],
@@ -38,7 +40,7 @@ export default {
   computed: {},
   watch: {
     address: {
-      handler(val, oldVal) {
+      handler (val, oldVal) {
         if (val !== oldVal) {
           this.drawPolicitalStatus();
         }
@@ -46,12 +48,12 @@ export default {
       deep: true,
     },
   },
-  created() {},
-  mounted() {
+  created () { },
+  mounted () {
     this.drawPolicitalStatus();
   },
   methods: {
-    drawPolicitalStatus() {
+    async drawPolicitalStatus () {
       if (this.policitalStatus.length) {
         switch (this.address) {
           case 1:
@@ -112,6 +114,14 @@ export default {
             break;
         }
         // 基于准备好的dom，初始化echarts实例
+        // const { data } = await KillChain()
+        // this.category = [450, 50, 650, 780, 150, 1000, 800],
+        //   this.barData = [580, 280, 100, 560, 50, 900, 760],
+        //   this.categoryThree = [420, 600, 50, 500, 200, 750, 580],
+        //   this.categoryFour = [300, 500, 500, 350, 200, 600, 100],
+        //   this.categoryFive = [820, 932, 901, 934, 290, 1030, 1120],
+        //   this.categorySix = [(230, 220, 580, 220, 700, 200, 1100)],
+        //   this.categorySeven = [(110, 100, 800, 350, 700, 650, 450)];
         const myChart = this.$echarts.init(this.$refs.canvas1);
 
         // 绘制图表

@@ -30,12 +30,12 @@
       </el-row>
     </div>
     <assetsUnderAttack :address="address" />
-    <!-- <eventTrend /> -->
     <toDetectEvents :address="address" />
-    <!-- <eventType :type="1" /> -->
     <underAttackSandbox :address="address" />
-    <eventLevelDistribution :address="address" />
-    <!-- <eventType :tipname="'事件状态处置图'" :type="2" /> -->
+    <!-- <不删eventLevelDistribution :address="address" /> -->
+    <pieChartDisposal :tipname="'事件等级分布'"
+                      :address="address"
+                      :attack="1" />
   </div>
 </template>
 <script>
@@ -43,10 +43,8 @@ import echarts from "@/components/Echarts/searchBar";
 import assetsUnderAttack from "@/components/Echarts/assetsUnderAttack";
 import toDetectEvents from "@/components/Echarts/toDetectEvents";
 import underAttackSandbox from "@/components/Echarts/underAttackSandbox";
-import eventLevelDistribution from "@/components/Echarts/eventLevelDistribution";
-// import eventTrend from "@/components/Echarts/eventTrend";
-// import eventType from "@/components/Echarts/eventType";
-// import wordcloud from "@/components/Echarts/wordcloud";
+// import eventLevelDistribution from "@/components/Echarts/eventLevelDistribution";
+import pieChartDisposal from "@/components/Echarts/pieChartDisposal";
 import tip from "@/components/EchartsTip";
 export default {
   components: {
@@ -54,11 +52,12 @@ export default {
     assetsUnderAttack,
     toDetectEvents,
     underAttackSandbox,
-    eventLevelDistribution,
+    pieChartDisposal,
+    // eventLevelDistribution,
     tip,
   },
   props: [],
-  data() {
+  data () {
     return {
       policitalStatus: ["1"],
       address: 1,
@@ -66,10 +65,10 @@ export default {
   },
   computed: {},
   watch: {},
-  created() {},
-  mounted() {},
+  created () { },
+  mounted () { },
   methods: {
-    uploadData(data) {
+    uploadData (data) {
       this.address = data.address;
     },
   },
