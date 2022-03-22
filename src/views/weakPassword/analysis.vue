@@ -1,10 +1,10 @@
 <template>
   <div class="app-container">
     <echarts @getaddress="uploadData" />
-    <eventTrend :address="address" />
-    <eventType :type="4" :address="address" />
-    <echartsBar :tipname="'攻击者TOP5统计'" :address="address" />
-    <eventType :tipname="'事件状态处置图'" :address="address" :type="2" />
+    <eventTrend :address="address" :name="'weakPassword'" />
+    <eventType :tipname="'事件等级分布'" :type="4" :address="address" :name="'weakPassword'" />
+    <echartsBar :tipname="'攻击者TOP5统计'" :address="address" :name="'weakPassword'" />
+    <eventType :tipname="'事件状态处置图'" :address="address" :type="2" :name="'weakPassword'" />
     <el-col :span="24">
       <tip> 最新弱口令事件 </tip>
       <el-table :data="groupList">

@@ -6,6 +6,7 @@
 </template>
 <script>
 import { setNotopt } from '@/utils/emptyEcharts.js'
+import { sourceIpEcharts, targetIpEcharts } from '@/api/system/echarts'
 import tip from '@/components/EchartsTip'
 export default {
   name: 'AAA',
@@ -13,6 +14,10 @@ export default {
   props: {
     tipname: { // tip内容
       default: '事件类型分布',
+      type: String
+    },
+    name: {
+      default: '',
       type: String
     },
     type: { // tip内容
@@ -44,94 +49,79 @@ export default {
     }
   },
   created() {
-
+    this.getData()
   },
   mounted() {
     this.drawPolicitalStatus()
   },
   methods: {
+    transDicName(data) {
+      var area = []
+      data.forEach((item) => {
+        area.push(item.name)
+      })
+      return area
+    },
+    transDicCount(data) {
+      var area = []
+      data.forEach((item) => {
+        area.push(item.count)
+      })
+      return area
+    },
+    async getData() {
+      switch (this.type) {
+        case 1:
+          switch (this.name) {
+            case 'dataSafe':
+              await sourceIpEcharts().then(({ data }) => {
+                this.category = this.transDicName(data)
+                this.barData = this.transDicCount(data)
+                this.title = '源IP'
+              })
+              break
+            case 2:
+              await sourceIpEcharts().then(({ data }) => {
+                this.category = this.transDicName(data)
+                this.barData = this.transDicCount(data)
+                this.title = '源IP'
+              })
+              break
+            default:
+              console.log('无数据', this.type)
+              break
+          }
+
+          break
+        case 2:
+          switch (this.name) {
+            case 'dataSafe':
+              await targetIpEcharts().then(({ data }) => {
+                this.category = this.transDicName(data)
+                this.barData = this.transDicCount(data)
+                this.title = '文件大小单位/M'
+              })
+              break
+            case 2:
+              await targetIpEcharts().then(({ data }) => {
+                this.category = this.transDicName(data)
+                this.barData = this.transDicCount(data)
+                this.title = '文件大小单位/M'
+              })
+              break
+            default:
+              console.log('无数据', this.type)
+              break
+          }
+          break
+        default:
+          console.log('无数据', this.type)
+          break
+      }
+      this.drawPolicitalStatus()
+    },
     drawPolicitalStatus() {
       if (this.policitalStatus.length) {
-        switch (this.type) {
-          case 1:
-            switch (this.address) {
-              case 1:
-                this.category = ['192.168.148.151', '192.168.154.55', '192.168.148.160', '0.0.0.0', '192.168.148.125', '192.168.148.67', '192.168.154.213', '192.168.154.155', '192.168.154.222', '192.168.154.107']
-                this.barData = [154, 195, 268, 845, 431, 1789, 1400, 1755, 3100, 1449, 4200]
-                this.title = '源IP'
-                break
-              case 2:
-                this.category = ['192.168.148.151', '192.168.154.55', '192.168.148.160', '0.0.0.0', '192.168.148.125', '192.168.148.67', '192.168.154.213', '192.168.154.155', '192.168.154.222', '192.168.154.107']
-                this.barData = [114, 125, 218, 445, 41, 1789, 1200, 1155, 2100, 1449, 2200]
-                this.title = '源IP'
-                break
-              case 3:
-                this.category = ['192.168.148.151', '192.168.154.55', '192.168.148.160', '0.0.0.0', '192.168.148.125', '192.168.148.67', '192.168.154.213', '192.168.154.155', '192.168.154.222', '192.168.154.107']
-                this.barData = [1544, 295, 168, 805, 41, 789, 2400, 1425, 1100, 1049, 2200]
-                this.title = '源IP'
-                break
-              case 4:
-                this.category = ['192.168.148.151', '192.168.154.55', '192.168.148.160', '0.0.0.0', '192.168.148.125', '192.168.148.67', '192.168.154.213', '192.168.154.155', '192.168.154.222', '192.168.154.107']
-                this.barData = [1154, 1455, 2168, 245, 1431, 789, 1000, 1155, 2100, 3449, 2200]
-                this.title = '源IP'
-                break
-              case 5:
-                this.category = ['192.168.148.151', '192.168.154.55', '192.168.148.160', '0.0.0.0', '192.168.148.125', '192.168.148.67', '192.168.154.213', '192.168.154.155', '192.168.154.222', '192.168.154.107']
-                this.barData = [354, 125, 168, 445, 121, 1289, 1300, 1255, 1100, 2449, 4100]
-                this.title = '源IP'
-                break
-              case 6:
-                this.category = ['192.168.148.151', '192.168.154.55', '192.168.148.160', '0.0.0.0', '192.168.148.125', '192.168.148.67', '192.168.154.213', '192.168.154.155', '192.168.154.222', '192.168.154.107']
-                this.barData = [374, 225, 118, 315, 221, 1289, 1800, 1255, 1140, 2449, 3100]
-                this.title = '源IP'
-                break
-              default:
-                console.log('无数据', this.type)
-                break
-            }
-
-            break
-          case 2:
-            switch (this.address) {
-              case 1:
-                this.category = ['1', '2', '11', '6', '5', '3']
-                this.barData = [183, 421, 218, 1161, 1249, 2011]
-                this.title = '文件大小单位/M'
-                break
-              case 2:
-                this.category = ['1', '2', '11', '6', '5', '3']
-                this.barData = [483, 731, 1018, 1161, 1409, 1231]
-                this.title = '文件大小单位/M'
-                break
-              case 3:
-                this.category = ['1', '2', '11', '6', '5', '3']
-                this.barData = [183, 531, 1318, 1161, 1199, 2231]
-                this.title = '文件大小单位/M'
-                break
-              case 4:
-                this.category = ['1', '2', '11', '6', '5', '3']
-                this.barData = [3143, 131, 1718, 461, 1299, 2131]
-                this.title = '文件大小单位/M'
-                break
-              case 5:
-                this.category = ['1', '2', '11', '6', '5', '3']
-                this.barData = [2483, 431, 1418, 1161, 1299, 2131]
-                this.title = '文件大小单位/M'
-                break
-              case 6:
-                this.category = ['1', '2', '11', '6', '5', '3']
-                this.barData = [1483, 331, 1218, 1171, 1499, 1141]
-                this.title = '文件大小单位/M'
-                break
-              default:
-                console.log('无数据', this.type)
-                break
-            }
-            break
-          default:
-            console.log('无数据', this.type)
-            break
-        }
         // 基于准备好的dom，初始化echarts实例
         const myChart = this.$echarts.init(this.$refs.canvas1)
         // 绘制图表

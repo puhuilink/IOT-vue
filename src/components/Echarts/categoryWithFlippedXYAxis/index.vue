@@ -7,6 +7,7 @@
 <script>
 import { setNotopt } from '@/utils/emptyEcharts.js'
 import { quickSort } from '@/utils/hexColorValueOrdering.js'
+import { industrialNetworkAuditsourceIpEcharts, industrialNetworkAudittargetIpEcharts } from '@/api/system/echarts'
 import tip from '@/components/EchartsTip'
 export default {
   name: 'AAA',
@@ -45,36 +46,57 @@ export default {
     }
   },
   created() {
-
+    this.getData()
   },
   mounted() {
     this.drawPolicitalStatus()
   },
   methods: {
+    transDicName(data) {
+      var area = []
+      data.forEach((item) => {
+        area.push(item.name)
+      })
+      return area
+    },
+    transDicCount(data) {
+      var area = []
+      data.forEach((item) => {
+        area.push(item.count)
+      })
+      return area
+    },
+    async  getData() {
+      switch (this.type) {
+        case 1:
+          switch (this.address) {
+            case 1:
+              await industrialNetworkAuditsourceIpEcharts().then(({ data }) => {
+                this.category = this.transDicName(data)
+                this.barData = this.transDicCount(data)
+                this.title = '源IP'
+              })
+              break
+            case 2:
+              await industrialNetworkAudittargetIpEcharts().then(({ data }) => {
+                this.category = this.transDicName(data)
+                this.barData = this.transDicCount(data)
+                this.title = '目的IP'
+              })
+              break
+            default:
+              console.log('无数据', this.type)
+              break
+          }
+          break
+        default:
+          console.log('无数据', this.type)
+          break
+      }
+      this.drawPolicitalStatus()
+    },
     drawPolicitalStatus() {
       if (this.policitalStatus.length) {
-        switch (this.type) {
-          case 1:
-            switch (this.address) {
-              case 1:
-                this.category = ['192.168.148.151', '192.168.154.55', '192.168.148.160', '0.0.0.0', '192.168.148.125', '192.168.148.67', '192.168.154.213', '192.168.154.155', '192.168.154.222', '192.168.154.107']
-                this.barData = [154, 195, 268, 845, 431, 1789, 1400, 1755, 3100, 1449, 4200]
-                this.title = '源IP'
-                break
-              case 2:
-                this.category = ['192.168.148.151', '192.168.154.55', '192.168.148.160', '0.0.0.0', '192.168.148.125', '192.168.148.67', '192.168.154.213', '192.168.154.155', '192.168.154.222', '192.168.154.107']
-                this.barData = [114, 125, 218, 445, 41, 1789, 1200, 1155, 2100, 1449, 2200]
-                this.title = '目的IP'
-                break
-              default:
-                console.log('无数据', this.type)
-                break
-            }
-            break
-          default:
-            console.log('无数据', this.type)
-            break
-        }
         // 基于准备好的dom，初始化echarts实例
         const myChart = this.$echarts.init(this.$refs.canvas1)
         // 绘制图表

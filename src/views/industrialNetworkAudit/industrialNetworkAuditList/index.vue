@@ -207,7 +207,6 @@
         >
           <template #default="{ row }">
             <el-button
-              v-hasPermi="['monitor:online:forceLogout']"
               size="mini"
               type="text"
               icon="el-icon-view"
@@ -215,7 +214,6 @@
             >详情</el-button>
             <el-dropdown @command="batchOperate">
               <el-button
-                v-hasPermi="['monitor:online:forceLogout']"
                 size="mini"
                 type="text"
                 icon="el-icon-s-tools"
