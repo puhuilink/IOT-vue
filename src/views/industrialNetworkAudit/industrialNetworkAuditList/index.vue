@@ -211,7 +211,7 @@
               size="mini"
               type="text"
               icon="el-icon-view"
-              @click="detail(row)"
+              @click="detail(row.auditId)"
             >详情</el-button>
             <el-dropdown @command="batchOperate">
               <el-button
@@ -310,7 +310,7 @@
             <el-col :span="12">
               <el-form-item label="源设备：" prop="field102">
                 <el-input
-                  v-model="dialogDetail.field102"
+                  v-model="dialogDetail.sourceDevice"
                   readonly
                   :style="{ width: '100%' }"
                 />
@@ -328,7 +328,7 @@
             <el-col :span="12">
               <el-form-item label="源MAC：" prop="field104">
                 <el-input
-                  v-model="dialogDetail.field104"
+                  v-model="dialogDetail.sourceMac"
                   readonly
                   :style="{ width: '100%' }"
                 />
@@ -337,7 +337,7 @@
             <el-col :span="12">
               <el-form-item label="目的IP：" prop="aimIp">
                 <el-input
-                  v-model="dialogDetail.aimIp"
+                  v-model="dialogDetail.destinationIp"
                   readonly
                   :style="{ width: '100%' }"
                 />
@@ -346,7 +346,7 @@
             <el-col :span="12">
               <el-form-item label="目的MAC：" prop="field106">
                 <el-input
-                  v-model="dialogDetail.field106"
+                  v-model="dialogDetail.destinationMac"
                   readonly
                   :style="{ width: '100%' }"
                 />
@@ -355,7 +355,7 @@
             <el-col :span="12">
               <el-form-item label="目的设备：" prop="field107">
                 <el-input
-                  v-model="dialogDetail.field107"
+                  v-model="dialogDetail.destinationEquipment"
                   readonly
                   :style="{ width: '100%' }"
                 />
@@ -364,7 +364,7 @@
             <el-col :span="12">
               <el-form-item label="目的端口：" prop="aimPort">
                 <el-input
-                  v-model="dialogDetail.aimPort"
+                  v-model="dialogDetail.destinationPort"
                   readonly
                   :style="{ width: '100%' }"
                 />
@@ -373,7 +373,7 @@
             <el-col :span="12">
               <el-form-item label="传输层协议：" prop="transportProtocol">
                 <el-input
-                  v-model="dialogDetail.transportProtocol"
+                  v-model="dialogDetail.transportLayerProtocol"
                   readonly
                   :style="{ width: '100%' }"
                 />
@@ -382,7 +382,7 @@
             <el-col :span="12">
               <el-form-item label="应用层协议：" prop="applyProtocol">
                 <el-input
-                  v-model="dialogDetail.applyProtocol"
+                  v-model="dialogDetail.applicationLayerProtocol"
                   readonly
                   :style="{ width: '100%' }"
                 />
@@ -391,7 +391,7 @@
             <el-col :span="12">
               <el-form-item label="事件级别：" prop="level">
                 <el-input
-                  v-model="dialogDetail.level"
+                  v-model="dialogDetail.eventLevel"
                   readonly
                   :style="{ width: '100%' }"
                 />
@@ -400,7 +400,7 @@
             <el-col :span="12">
               <el-form-item label=" 事件类型：" prop="type">
                 <el-input
-                  v-model="dialogDetail.type"
+                  v-model="dialogDetail.eventCategory"
                   readonly
                   :style="{ width: '100%' }"
                 />
@@ -409,7 +409,7 @@
             <el-col :span="12">
               <el-form-item label="产生时间：" prop="happen">
                 <el-input
-                  v-model="dialogDetail.happen"
+                  v-model="dialogDetail.generationTime"
                   readonly
                   :style="{ width: '100%' }"
                 />
@@ -418,7 +418,7 @@
             <el-col :span="12">
               <el-form-item label="接收时间：" prop="field114">
                 <el-input
-                  v-model="dialogDetail.field114"
+                  v-model="dialogDetail.receivingTime"
                   readonly
                   :style="{ width: '100%' }"
                 />
@@ -427,7 +427,7 @@
             <el-col :span="12">
               <el-form-item label="智能监测终端IP：" prop="field115">
                 <el-input
-                  v-model="dialogDetail.field115"
+                  v-model="dialogDetail.intelligentMonitoringTerminalIp"
                   readonly
                   :style="{ width: '100%' }"
                 />
@@ -443,18 +443,9 @@
               </el-form-item>
             </el-col>
             <el-col :span="12">
-              <el-form-item label="日志描述：" prop="field117">
-                <el-input
-                  v-model="dialogDetail.field117"
-                  readonly
-                  :style="{ width: '100%' }"
-                />
-              </el-form-item>
-            </el-col>
-            <el-col :span="12">
               <el-form-item label="处置状态：" prop="state">
                 <el-input
-                  v-model="dialogDetail.state"
+                  v-model="dialogDetail.disposalStatus"
                   readonly
                   :style="{ width: '100%' }"
                 />
@@ -613,9 +604,9 @@ export default {
       this.exportDialog = true
       this.title = '批量导入资产'
     },
-    detail(row) {
-      const res = industrialNetworkAuditDetail(row)
-      this.detailData = res.rows
+    async  detail(row) {
+      const { data } = await industrialNetworkAuditDetail(row)
+      this.dialogDetail = data
       this.detailDialog = true
       this.title = '事件详情'
     }

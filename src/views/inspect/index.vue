@@ -137,7 +137,7 @@
             size="mini"
             type="text"
             icon="el-icon-edit"
-            @click="detail(scope.row.id)"
+            @click="detail(scope.row.configurationVerificationId)"
           >详情</el-button>
           <el-button
 
@@ -162,68 +162,38 @@
       <el-form ref="form" label-width="100px" label-position="left">
         <el-row>
           <el-col :span="12">
-            <el-form-item label="漏洞名称 :">
-              {{ detailData.name }}
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
-            <el-form-item label="影响平台 :">
-              {{ detailData.name1 }}
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
-            <el-form-item label="漏洞ID :">
-              {{ detailData.name2 }}
+            <el-form-item label="检查项 :">
+              {{ detailData.inspectionItems }}
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="事件等级 :">
-              {{ detailData.name3 }}
+              {{ detailData.eventLevel }}
             </el-form-item>
           </el-col>
           <el-col :span="12">
-            <el-form-item label="CVSS分值 :">
-              {{ detailData.name4 }}
+            <el-form-item label="IP :">
+              {{ detailData.ip }}
             </el-form-item>
           </el-col>
           <el-col :span="12">
-            <el-form-item label="CVE编号 :">
-              {{ detailData.name5 }}
+            <el-form-item label="状态 :">
+              {{ detailData.state }}
             </el-form-item>
           </el-col>
           <el-col :span="12">
-            <el-form-item label="CNCVE编号 :">
-              {{ detailData.name6 }}
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
-            <el-form-item label="CNNVD编号 :">
-              {{ detailData.name7 }}
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
-            <el-form-item label="安全性 :">
-              {{ detailData.name8 }}
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
-            <el-form-item label="CNVD编号 :">
-              {{ detailData.name9 }}
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
-            <el-form-item label="可利用性 :">
-              {{ detailData.name10 }}
+            <el-form-item label="发布时间 :">
+              {{ detailData.releaseTime }}
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="区域 :">
-              {{ detailData.name11 }}
+              {{ detailData.region }}
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="处置状态 :">
-              {{ detailData.name12 }}
+              {{ detailData.disposalStatus }}
             </el-form-item>
           </el-col>
         </el-row>
@@ -248,19 +218,6 @@ export default {
       loading: true,
       name: '测试',
       detailData: {
-        name: '当远程管理时，应采取必要措施，防止鉴别信息在网络传输过程中被窃听',
-        name1: 'OpenSSH through 6.4',
-        name2: '合规',
-        name3: '高',
-        name4: '7.5',
-        name5: 'CVE2014-1692',
-        name6: 'CN2020-02-27 14:29:40',
-        name7: 'CNNVD-201401-581',
-        name8: 'linux',
-        name9: 'CNVD-2014-00916',
-        name10: '10.0',
-        name11: '山西燃气厂',
-        name12: '已处置'
       },
       // 分组表格数据
       groupList: [],
@@ -373,11 +330,9 @@ export default {
     resetForm() {
       this.$refs['elForm'].resetFields()
     },
-    detail(id) {
-      configurationVerificationDetail(id).then((response) => {
-        this.detailData = response.rows
-      })
-
+    async detail(id) {
+      const { data } = await configurationVerificationDetail(id)
+      this.detailData = data
       this.open = true
       this.title = '事件详情'
     },
