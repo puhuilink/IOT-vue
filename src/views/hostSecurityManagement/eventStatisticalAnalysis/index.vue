@@ -1,25 +1,48 @@
 <template>
   <div class="app-container">
-    <echarts  @getaddress="uploadData"/>
+    <echarts @getaddress="uploadData" />
     <eventTrend :address="address" />
-    <!-- <eventType :type="1" /> -->
-    <pieChartNesting :address="address"/>
-    <wordcloud :address="address" />
-    <pieChartDisposal :tipname="'事件状态处置图'" :address="address"/>
-    <!-- <eventType :tipname="'事件状态处置图'" :type="2" /> -->
+    <pieChartDisposal :tipname="'事件类型分布'"
+                      :address="address"
+                      :EventTypeDistribution="1" />
+    <!-- 不能删<pieChartNesting :address="address" /> -->
+    <wordcloud :address="address"
+               :host="1" />
+    <pieChartDisposal :tipname="'事件状态处置图'"
+                      :address="address" />
     <el-col :span="24">
       <tip> 最新主机安全事件 </tip>
       <el-table :data="groupList">
-        <el-table-column label="接受时间" align="center" prop="groupId" />
-        <el-table-column label="事件名称" align="center" prop="createBy" />
-        <el-table-column label="事件等级" align="center" prop="createTime" />
-        <el-table-column label="事件类型" align="center" prop="remark" />
-        <el-table-column label="操作系统" align="center" prop="updateTime" />
-        <el-table-column label="客户端名称" align="center" prop="khdmc" />
-        <el-table-column label="客户端IP" align="center" prop="groupName" />
-        <el-table-column label="产生时间" align="center" prop="groupId" />
-        <el-table-column label="日志描述" align="center" prop="groupName" />
-        <el-table-column label="区域" align="center" prop="delFlag" />
+        <el-table-column label="接受时间"
+                         align="center"
+                         prop="groupId" />
+        <el-table-column label="事件名称"
+                         align="center"
+                         prop="createBy" />
+        <el-table-column label="事件等级"
+                         align="center"
+                         prop="createTime" />
+        <el-table-column label="事件类型"
+                         align="center"
+                         prop="remark" />
+        <el-table-column label="操作系统"
+                         align="center"
+                         prop="updateTime" />
+        <el-table-column label="客户端名称"
+                         align="center"
+                         prop="khdmc" />
+        <el-table-column label="客户端IP"
+                         align="center"
+                         prop="groupName" />
+        <el-table-column label="产生时间"
+                         align="center"
+                         prop="groupId" />
+        <el-table-column label="日志描述"
+                         align="center"
+                         prop="groupName" />
+        <el-table-column label="区域"
+                         align="center"
+                         prop="delFlag" />
       </el-table>
     </el-col>
   </div>
@@ -41,7 +64,7 @@ export default {
     tip,
   },
   props: [],
-  data() {
+  data () {
     return {
       policitalStatus: ["1"],
       address: 1,
@@ -107,10 +130,10 @@ export default {
   },
   computed: {},
   watch: {},
-  created() {},
-  mounted() {},
-   methods: {
-    uploadData(data) {
+  created () { },
+  mounted () { },
+  methods: {
+    uploadData (data) {
       this.address = data.address;
     },
   },

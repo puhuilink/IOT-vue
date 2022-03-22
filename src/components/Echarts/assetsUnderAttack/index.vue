@@ -2,13 +2,15 @@
 <template>
   <el-col :span="12">
     <tip>{{ tipname }}</tip>
-    <div ref="canvas1" style="height: 400px" />
+    <div ref="canvas1"
+         style="height: 400px" />
   </el-col>
 </template>
 <script>
 import { setNotopt } from "@/utils/emptyEcharts.js";
 import tip from "@/components/EchartsTip";
 import echarts from "echarts";
+import { TopAssetsUnderAttack } from '@/api/system/echarts'
 export default {
   components: { tip },
   props: {
@@ -23,7 +25,7 @@ export default {
       type: Number,
     },
   },
-  data() {
+  data () {
     return {
       policitalStatus: ["1"],
       barData: [],
@@ -34,7 +36,7 @@ export default {
   computed: {},
   watch: {
     address: {
-      handler(val, oldVal) {
+      handler (val, oldVal) {
         if (val !== oldVal) {
           this.drawPolicitalStatus();
         }
@@ -42,74 +44,94 @@ export default {
       deep: true,
     },
   },
-  created() {},
-  mounted() {
+  created () { },
+  mounted () {
     this.drawPolicitalStatus();
   },
   methods: {
-    drawPolicitalStatus() {
+    transDicName (data) {
+      var area = []
+      data.forEach((item) => {
+        area.push(item.name)
+      })
+      return area
+    },
+    transDicCount (data) {
+      var area = []
+      data.forEach((item) => {
+        area.push(item.count)
+      })
+      return area
+    },
+    async drawPolicitalStatus () {
       if (this.policitalStatus.length) {
-        switch (this.address) {
-          case 1:
-            (this.category = [
-              "192.168.199.20(结算系统)",
-              "192.168.1.240(打卡系统)",
-              "192.168.199.55(邮件系统)",
-              "192.168.1.84(财务系统)",
-              "192.168.1.243(OA系统)",
-            ]),
-              (this.barData = [18, 2, 32, 13, 15]),
-              (this.title = "源IP");
-            break;
-          case 2:
-            (this.category = [
-              "192.168.199.20(结算系统)",
-              "192.168.1.240(打卡系统)",
-              "192.168.199.55(邮件系统)",
-              "192.168.1.84(财务系统)",
-              "192.168.1.243(OA系统)",
-            ]),
-              (this.barData = [18, 12, 2, 3, 8]),
-              (this.title = "源IP");
-            break;
-          case 3:
-            (this.category = [
-              "192.168.199.20(结算系统)",
-              "192.168.1.240(打卡系统)",
-              "192.168.199.55(邮件系统)",
-              "192.168.1.84(财务系统)",
-              "192.168.1.243(OA系统)",
-            ]),
-              (this.barData = [8, 22, 22, 30, 85]),
-              (this.title = "源IP");
-            break;
-          case 4:
-            (this.category = [
-              "192.168.199.20(结算系统)",
-              "192.168.1.240(打卡系统)",
-              "192.168.199.55(邮件系统)",
-              "192.168.1.84(财务系统)",
-              "192.168.1.243(OA系统)",
-            ]),
-              (this.barData = [8, 22, 22, 30, 85]),
-              (this.title = "源IP");
-            break;
-          case 5:
-            (this.category = [
-              "192.168.199.20(结算系统)",
-              "192.168.1.240(打卡系统)",
-              "192.168.199.55(邮件系统)",
-              "192.168.1.84(财务系统)",
-              "192.168.1.243(OA系统)",
-            ]),
-              (this.barData = [8, 22, 22, 30, 85]),
-              (this.title = "源IP");
-            break;
-          default:
-            console.log("无数据", this.type);
-            break;
-        }
+        // switch (this.address) {
+        //   case 1:
+        //     (this.category = [
+        //       "192.168.199.20(结算系统)",
+        //       "192.168.1.240(打卡系统)",
+        //       "192.168.199.55(邮件系统)",
+        //       "192.168.1.84(财务系统)",
+        //       "192.168.1.243(OA系统)",
+        //     ]),
+        //       (this.barData = [18, 2, 32, 13, 15]),
+        //       (this.title = "源IP");
+        //     break;
+        //   case 2:
+        //     (this.category = [
+        //       "192.168.199.20(结算系统)",
+        //       "192.168.1.240(打卡系统)",
+        //       "192.168.199.55(邮件系统)",
+        //       "192.168.1.84(财务系统)",
+        //       "192.168.1.243(OA系统)",
+        //     ]),
+        //       (this.barData = [18, 12, 2, 3, 8]),
+        //       (this.title = "源IP");
+        //     break;
+        //   case 3:
+        //     (this.category = [
+        //       "192.168.199.20(结算系统)",
+        //       "192.168.1.240(打卡系统)",
+        //       "192.168.199.55(邮件系统)",
+        //       "192.168.1.84(财务系统)",
+        //       "192.168.1.243(OA系统)",
+        //     ]),
+        //       (this.barData = [8, 22, 22, 30, 85]),
+        //       (this.title = "源IP");
+        //     break;
+        //   case 4:
+        //     (this.category = [
+        //       "192.168.199.20(结算系统)",
+        //       "192.168.1.240(打卡系统)",
+        //       "192.168.199.55(邮件系统)",
+        //       "192.168.1.84(财务系统)",
+        //       "192.168.1.243(OA系统)",
+        //     ]),
+        //       (this.barData = [8, 22, 22, 30, 85]),
+        //       (this.title = "源IP");
+        //     break;
+        //   case 5:
+        //     (this.category = [
+        //       "192.168.199.20(结算系统)",
+        //       "192.168.1.240(打卡系统)",
+        //       "192.168.199.55(邮件系统)",
+        //       "192.168.1.84(财务系统)",
+        //       "192.168.1.243(OA系统)",
+        //     ]),
+        //       (this.barData = [8, 22, 22, 30, 85]),
+        //       (this.title = "源IP");
+        //     break;
+        //   default:
+        //     console.log("无数据", this.type);
+        //     break;
+        // }
         // 基于准备好的dom，初始化echarts实例
+
+
+        await TopAssetsUnderAttack().then(({ data }) => {
+          this.category = this.transDicName(data)
+          this.barData = this.transDicCount(data)
+        })
         const myChart = this.$echarts.init(this.$refs.canvas1);
 
         // 绘制图表
