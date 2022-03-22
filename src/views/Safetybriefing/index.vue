@@ -367,9 +367,10 @@
             </el-col>
             <el-col :span="24">
               <el-form-item label="备注 :">
-                <el-input v-model="dataTest.message"
+                {{ dataTest.name9 }}
+                <!-- <el-input v-model="dataTest.message"
                           placeholder=""
-                          type="textarea" />
+                          type="textarea" /> -->
               </el-form-item>
             </el-col>
             <el-col v-if="upload === true"
@@ -387,12 +388,12 @@
         </el-form>
         <div slot="footer"
              class="dialog-footer">
-          <!-- <el-row type="flex"
-                  justify="center"> -->
-          <el-button type="primary"
-                     @click="submitForm">完 成</el-button>
-          <el-button @click="cancel">取 消</el-button>
-          <!-- </el-row> -->
+          <el-row type="flex"
+                  justify="center">
+            <el-button type="primary"
+                       @click="submitForm">完 成</el-button>
+            <el-button @click="cancel">取 消</el-button>
+          </el-row>
         </div>
       </div>
 
@@ -418,6 +419,7 @@ export default {
         name6: '2021/12/25 08:00:00',
         name7: '2021/12/25 0:00:00',
         name8: '2021/12/26 08:00:00',
+        name9: '',
         message: ''
       },
       fileList: [],
