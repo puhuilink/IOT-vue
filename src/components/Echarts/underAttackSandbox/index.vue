@@ -49,6 +49,20 @@ export default {
     this.drawPolicitalStatus();
   },
   methods: {
+    transDicName (data) {
+      var area = []
+      data.forEach((item) => {
+        area.push(item.name)
+      })
+      return area
+    },
+    transDicCount (data) {
+      var area = []
+      data.forEach((item) => {
+        area.push(item.count)
+      })
+      return area
+    },
     async drawPolicitalStatus () {
       if (this.policitalStatus.length) {
         // switch (this.address) {
@@ -82,10 +96,10 @@ export default {
         //     break;
         // }
         // 基于准备好的dom，初始化echarts实例
-        const { data } = await sandboxesAttacked()
-        this.category = ["全端口感知沙箱", "WINSERVER2008", "高敏沙箱"]
-        this.barData = [10, 7, 11]
-        // console.log('this.category-沙箱', this.category)
+        await sandboxesAttacked().then(({ data }) => {
+          this.category = this.transDicName(data)
+          this.barData = this.transDicCount(data)
+        })
         const myChart = this.$echarts.init(this.$refs.canvas1);
 
         // 绘制图表

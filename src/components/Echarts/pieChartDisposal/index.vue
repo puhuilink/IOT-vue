@@ -67,6 +67,21 @@ export default {
     this.drawPolicitalStatus();
   },
   methods: {
+    transDic (data) {
+      var arr = data
+      var arrNew = []
+      var area = []
+      data.forEach((item) => {
+        area.push(item.name)
+      })
+      arrNew = arr.map((item) => {
+        return {
+          value: item.count,
+          name: item.name
+        }
+      })
+      return arrNew
+    },
     async drawPolicitalStatus () {
       if (this.policitalStatus.length) {
         // switch (this.address) {
@@ -131,27 +146,23 @@ export default {
         // }
         // 基于准备好的dom，初始化echarts实例
         if (this.EventTypeDistribution === 1) {
-          const { data } = await EventTypeDistribution()
-          this.category = [{ "name": "主机卫士非法外联告警(22)", "value": 5 }, { "name": "恶意文件事件告警(30)", "value": 2 }, { "name": "访问控制告警(10)", "value": 2 }, { "name": "外设告警(8)", "value": 8 }, { "name": "程序告警(7)", "value": 3 }]
-          // this.category = data
-          console.log('this.category-3-22', this.category)
+          await EventTypeDistribution().then(({ data }) => {
+            this.category = this.transDic(data)
+          })
         } else if (this.attack === 1) {
-          const { data } = await EventLevelDistribution()
-          this.category = [{ "name": "4", "value": 13 }, { "name": "3", "value": 15 }]
-          // this.category = data
-          // console.log('this.category-3-22', this.category)
+          await EventLevelDistribution().then(({ data }) => {
+            this.category = this.transDic(data)
+          })
         }
         else if (this.abnormal === 1) {
-          const { data } = await abnormalEventLevelDistribution()
-          this.category = [{ "name": "Exploits and Attacks", "value": 8 }, { "name": "Scanning", "value": 10 }, { "name": "Suspicious", "value": 3 }, { "name": "URL_malware", "value": 1 }, { "name": "APT", "value": 2 }]
-          // this.category = data
-          // console.log('this.category-3-22', this.category)
+          await abnormalEventLevelDistribution().then(({ data }) => {
+            this.category = this.transDic(data)
+          })
         }
         else {
-          const { data } = await EventStatusDispositionDiagram()
-          this.category = [{ "name": "待处置", "value": 20 }]
-          // this.category = data
-          console.log('this.category-3-22', this.category)
+          await EventStatusDispositionDiagram().then(({ data }) => {
+            this.category = this.transDic(data)
+          })
         }
 
         const myChart = this.$echarts.init(this.$refs.canvas1);

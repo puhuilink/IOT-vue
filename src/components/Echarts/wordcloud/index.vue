@@ -153,10 +153,9 @@ export default {
             break
         }
       } else if (this.host) {
-        const { data } = await EventNameWordCloudMap()
-        this.datacopy = [{ "name": "系统有非法外联风险", "value": 5 }, { "name": "恶意软件", "value": 1 }, { "name": "文件保护，删除", "value": 2 }, { "name": "使用普通U盘被禁止", "value": 2 }, { "name": "安全U盘禁用", "value": 3 }, { "name": "白名单防篡改，删除被阻止", "value": 2 }, { "name": "普通U盘禁用", "value": 3 }, { "name": "下载器", "value": 1 }, { "name": "白名单防篡改，修改被通过", "value": 1 }]
-        // this.datacopy = data
-        console.log('this.datacopy-3-22', this.datacopy)
+        await EventNameWordCloudMap().then(({ data }) => {
+          this.datacopy = this.transDic(data)
+        })
       } else {
         switch (this.name) {
           case 'Jiangwoodcreep':
