@@ -8,7 +8,7 @@
       <el-col :span="6">
         <el-form-item label="IP地址:"
                       prop="ipaddr">
-          <el-input v-model="queryParams.ipaddr"
+          <el-input v-model="queryParams.ip"
                     placeholder="请输入IP地址"
                     clearable
                     size="small"
@@ -17,39 +17,9 @@
       </el-col>
       <el-col :span="6">
         <el-form-item label="区域:"
-                      prop="userName">
-          <el-input v-model="queryParams.userName"
-                    placeholder="请选择区域"
-                    clearable
-                    size="small"
-                    @keyup.enter.native="handleQuery" />
-        </el-form-item>
-      </el-col>
-      <el-col :span="6">
-        <el-form-item label="风险等级:"
-                      prop="userName">
-          <el-input v-model="queryParams.userName"
-                    placeholder="请选择风险等级"
-                    clearable
-                    size="small"
-                    @keyup.enter.native="handleQuery" />
-        </el-form-item>
-      </el-col>
-      <el-col :span="6">
-        <el-form-item label="责任人:"
-                      prop="ipaddr">
-          <el-input v-model="queryParams.ipaddr"
-                    placeholder="请输入责任人"
-                    clearable
-                    size="small"
-                    @keyup.enter.native="handleQuery" />
-        </el-form-item>
-      </el-col>
-      <el-col :span="6">
-        <el-form-item label="事件等级:"
-                      prop="userName">
-          <el-select v-model="formData.area"
-                     placeholder="请选择事件等级"
+                      prop="region">
+          <el-select v-model="queryParams.region"
+                     placeholder="请选择区域"
                      filterable
                      clearable
                      :style="{ width: '100%' }">
@@ -62,13 +32,76 @@
         </el-form-item>
       </el-col>
       <el-col :span="6">
-        <el-form-item label="资产类型:"
-                      prop="userName">
-          <el-input v-model="queryParams.userName"
-                    placeholder="请选择资产类型"
+        <el-form-item label="风险等级:"
+                      prop="riskState">
+          <el-select v-model="queryParams.riskState"
+                     placeholder="请选择区域"
+                     filterable
+                     clearable
+                     :style="{ width: '100%' }">
+            <el-option v-for="(item, index) in riskStateOptions"
+                       :key="index"
+                       :label="item.label"
+                       :value="item.value"
+                       :disabled="item.disabled" />
+          </el-select>
+        </el-form-item>
+      </el-col>
+      <el-col :span="6">
+        <el-form-item label="责任人:"
+                      prop="leader">
+          <el-input v-model="queryParams.leader"
+                    placeholder="请输入责任人"
                     clearable
                     size="small"
                     @keyup.enter.native="handleQuery" />
+        </el-form-item>
+      </el-col>
+      <el-col :span="6">
+        <el-form-item label="事件等级:"
+                      prop="level">
+          <el-select v-model="queryParams.level"
+                     placeholder="请选择事件等级"
+                     filterable
+                     clearable
+                     :style="{ width: '100%' }">
+            <el-option v-for="(item, index) in levelOptions"
+                       :key="index"
+                       :label="item.label"
+                       :value="item.value"
+                       :disabled="item.disabled" />
+          </el-select>
+        </el-form-item>
+      </el-col>
+      <!-- <el-col :span="7">
+        <el-form-item label="资产类型:"
+                      prop="assetType">
+          <el-select v-model="queryParams.assetType"
+                     placeholder="请选择资产类型"
+                     filterable
+                     clearable
+                     :style="{ width: '100%' }">
+            <el-option v-for="(item, index) in assetTypeOptions"
+                       :key="index"
+                       :label="item.label"
+                       :value="item.value"
+                       :disabled="item.disabled" />
+        </el-form-item>
+      </el-col> -->
+      <el-col :span="6">
+        <el-form-item label="资产类型:"
+                      prop="level">
+          <el-select v-model="queryParams.assetType"
+                     placeholder="请选择资产类型"
+                     filterable
+                     clearable
+                     :style="{ width: '100%' }">
+            <el-option v-for="(item, index) in assetTypeOptions"
+                       :key="index"
+                       :label="item.label"
+                       :value="item.value"
+                       :disabled="item.disabled" />
+          </el-select>
         </el-form-item>
       </el-col>
       <el-col :span="6">
@@ -83,7 +116,7 @@
         </el-form-item>
       </el-col>
     </el-form>
-    <div>
+    <!-- <div>
       <el-row :gutter="10">
         <el-col :span="1.5">
           <el-button v-hasPermi="['system:user:export']"
@@ -110,7 +143,7 @@
                      @click="handleDelete">导入</el-button>
         </el-col>
       </el-row>
-    </div>
+    </div> -->
 
     <el-table :data="groupList"
               tooltip-effect="light">
@@ -1028,6 +1061,32 @@ export default {
       formData: {
         level: ''
       },
+      areaOptions: [
+        {
+          label: '天津管片厂',
+          value: '天津管片厂'
+        },
+        {
+          label: '三亚轨交',
+          value: '三亚轨交'
+        },
+        {
+          label: '北京水厂',
+          value: '北京水厂'
+        },
+        {
+          label: '山西燃气',
+          value: '山西燃气'
+        },
+        {
+          label: '珠海深中通道',
+          value: '珠海深中通道'
+        },
+        {
+          label: '北京水厂',
+          value: '北京水厂'
+        }
+      ],
       field114Options: [
         {
           label: 'IT资产',
@@ -1046,6 +1105,28 @@ export default {
           value: 4
         }
       ],
+      riskStateOptions: [
+        {
+          label: '正常',
+          value: '正常'
+        },
+        {
+          label: '低危',
+          value: '低危'
+        },
+        {
+          label: '中危',
+          value: '中危'
+        },
+        {
+          label: '高危',
+          value: '高危'
+        },
+        {
+          label: '失陷',
+          value: '失陷'
+        }
+      ],
       statusOptions: [
         {
           label: '在线',
@@ -1058,6 +1139,54 @@ export default {
         {
           label: '异常',
           value: 3
+        }
+      ],
+      levelOptions: [
+        {
+          label: '极低',
+          value: '极低'
+        },
+        {
+          label: '低',
+          value: '低'
+        },
+        {
+          label: '中',
+          value: '中'
+        },
+        {
+          label: '高',
+          value: '高'
+        },
+        {
+          label: '致命',
+          value: '致命'
+        }
+      ],
+      assetTypeOptions: [
+        {
+          label: '安全设备-web应用防火墙',
+          value: '安全设备-web应用防火墙'
+        },
+        {
+          label: '服务器-虚拟机 ',
+          value: '服务器-虚拟机 '
+        },
+        {
+          label: '服务器-服务器 ',
+          value: '服务器-服务器 '
+        },
+        {
+          label: '安全设备-蜜罐  ',
+          value: '安全设备-蜜罐  '
+        },
+        {
+          label: '安全设备-工业防火墙',
+          value: '安全设备-工业防火墙'
+        },
+        {
+          label: '服务器-主机',
+          value: '服务器-主机'
         }
       ],
       dataTest: {
@@ -1100,9 +1229,13 @@ export default {
     },
     /** 搜索按钮操作 */
     handleQuery () {
-      this.pageNum = 1
+      // this.queryParams.pageNum = 1
       this.getList()
     },
+    // btnQuery () {
+    //   this.queryParams.pageNum = 1
+    //   this.getList()
+    // },
     /** 重置按钮操作 */
     resetQuery () {
       this.resetForm('queryForm')

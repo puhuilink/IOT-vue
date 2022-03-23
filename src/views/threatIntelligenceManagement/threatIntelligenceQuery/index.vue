@@ -3,17 +3,18 @@
     <el-card class="box-card">
       <el-row :gutter="20">
         <el-form ref="elForm"
-                 :model="formData"
+                 :model="queryParams"
                  :rules="rules"
                  size="mini"
                  label-width="60px"
                  class="label-type"
                  label-position="left">
           <el-col :span="6"
-                  offset="9">
+                  :offset=9>
             <el-form-item label=""
-                          prop="name">
-              <el-input v-model="formData.name"
+                          prop="eventName"
+                          @keyup.enter.native="btnQuery">
+              <el-input v-model="queryParams.eventName"
                         placeholder="请输入威胁情报名称"
                         clearable
                         :style="{ width: '100%' }">
@@ -21,6 +22,13 @@
               </el-input>
             </el-form-item>
           </el-col>
+          <!-- <el-col :span="6">
+            <el-form-item size="mini">
+              <el-button type="primary"
+                         @click="btnQuery">搜索</el-button>
+              <el-button @click="resetForm">重置</el-button>
+            </el-form-item>
+          </el-col> -->
         </el-form>
       </el-row>
     </el-card>
@@ -345,24 +353,11 @@ export default {
       // 总条数
       total: 0,
       // 查询参数
+
       queryParams: {
         pageNum: 1,
         pageSize: 10,
-        userId: null,
-        groupName: null,
-        createTime: null
-      },
-      formData: {
-        name: undefined,
-        level: undefined,
-        type: undefined,
-        area: undefined,
-        agreement: undefined,
-        ip: undefined,
-        newip: undefined,
-        equipment: undefined,
-        date: [''],
-        field114: undefined
+        eventName: ''
       },
       rules: {
         name: [],
@@ -432,8 +427,13 @@ export default {
     getCategoryList () {
       listEvent(this.queryParams).then((response) => {
         this.groupList = response.rows
+        console.log('this.groupList111', this.groupList)
         this.total = response.total
       })
+    },
+    btnQuery () {
+      this.queryParams.pageNum = 1
+      this.getCategoryList()
     },
     submitdata () {
       this.$refs['elForm'].validate((valid) => {
