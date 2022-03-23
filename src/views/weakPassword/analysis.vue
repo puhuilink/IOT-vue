@@ -1,6 +1,6 @@
 <template>
   <div class="app-container">
-    <echarts @getquery="uploadData" />
+    <echarts :event-type="2" @getquery="uploadData" />
     <eventTrend :query="query" :name="'weakPassword'" />
     <eventType :tipname="'事件等级分布'" :type="4" :query="query" :name="'weakPassword'" />
     <echartsBar :tipname="'攻击者TOP5统计'" :query="query" :name="'weakPassword'" />

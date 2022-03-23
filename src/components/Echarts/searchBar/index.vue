@@ -34,10 +34,21 @@
         </el-form-item>
       </el-col>
       <el-col :span="3">
-        <el-form-item label-width="1px" label="">
+        <el-form-item v-if="eventType===1" label-width="1px" label="">
           <el-select v-model="formData.eventLevel" clearable :style="{width: '100%'}">
             <el-option
-              v-for="(item, index) in field102Options"
+              v-for="(item, index) in eventLevelOption"
+              :key="index"
+              :label="item.label"
+              :value="item.value"
+              :disabled="item.disabled"
+            />
+          </el-select>
+        </el-form-item>
+        <el-form-item v-else label-width="1px" label="">
+          <el-select v-model="formData.eventLevel" clearable :style="{width: '100%'}">
+            <el-option
+              v-for="(item, index) in eventLevelOptions"
               :key="index"
               :label="item.label"
               :value="item.value"
@@ -53,7 +64,12 @@
 export default {
   name: 'Echarts',
   components: {},
-  props: [],
+  props: {
+    eventType: {
+      default: null,
+      type: Number
+    }
+  },
   data() {
     return {
       formData: {
@@ -107,10 +123,7 @@ export default {
         'label': '最近30天',
         'value': 3
       }],
-      field102Options: [{
-        'label': '全部威胁等级',
-        'value': 6
-      }, {
+      eventLevelOption: [{
         'label': '致命',
         'value': 5
       }, {
@@ -125,6 +138,22 @@ export default {
       }, {
         'label': '极低',
         'value': 1
+      }],
+      eventLevelOptions: [{
+        'label': '致命',
+        'value': '1'
+      }, {
+        'label': '高危',
+        'value': 'High'
+      }, {
+        'label': '中危',
+        'value': 'Medium'
+      }, {
+        'label': '低危',
+        'value': '1'
+      }, {
+        'label': '极低',
+        'value': '1'
       }]
     }
   },
@@ -144,6 +173,8 @@ export default {
       deep: true,
       handler(val, oldVal) {
         if (val !== oldVal) {
+          this.formData.params['beginGenerationTime'] = this.getdate(val)[0]
+          this.formData.params['endGenerationTime'] = this.getdate(val)[1]
           this.getdata()
         } else {
           return
@@ -168,6 +199,52 @@ export default {
 
   },
   methods: {
+    Twodigits(num) {
+      return num < 10 ? '0' + num : num
+    },
+    getdate(type) {
+      var myDate = new Date()
+      var beforeseven = new Date()
+      var thirty = new Date()
+      myDate.setDate(myDate.getDate())
+      beforeseven.setDate(beforeseven.getDate() - 1 - 6)
+      thirty.setDate(thirty.getDate() - 1 - 29)
+      if (type === 2) {
+        return [
+          beforeseven.getFullYear() +
+      '-' +
+      this.Twodigits(beforeseven.getMonth() + 1) +
+      '-' +
+     this.Twodigits(beforeseven.getDate()),
+          myDate.getFullYear() +
+      '-' +
+     this.Twodigits(myDate.getMonth() + 1) +
+      '-' +
+      this.Twodigits(myDate.getDate())
+        ]
+      } else if (type === 3) {
+        // 最近30天
+        return [
+          thirty.getFullYear() +
+      '-' +
+      this.Twodigits(thirty.getMonth() + 1) +
+      '-' +
+      this.Twodigits(thirty.getDate()),
+          myDate.getFullYear() +
+      '-' +
+      this.Twodigits(myDate.getMonth() + 1) +
+      '-' +
+     this.Twodigits(myDate.getDate())
+        ]
+      } else if (type === 1) {
+        // 昨天
+        var yesterday = this.getDay(-1, '-')
+        return [
+          yesterday,
+          yesterday
+        ]
+      }
+    },
     getdata() {
       this.$emit('getquery', {
         region: this.formData.region,

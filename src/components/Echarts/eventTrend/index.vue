@@ -104,18 +104,16 @@ export default {
     async  getData() {
       switch (this.type) {
         case 1:
-          console.log(this.queryParms)
           await CreepeventLevelEcharts(this.queryParms).then(({ data }) => {
-            console.log(data)
-            this.category = this.transDicName(data)
-            this.barData = this.transDicCount(data)
-            this.title = '源IP'
+            data.filter((e) => e.eventLevel === 'Medium')
+              .map(d => {
+                this.data1 = d.data
+              })
+            data.filter((e) => e.eventLevel === 'High')
+              .map(d => {
+                this.data2 = d.data
+              })
           })
-          this.data1 = [120, 132, 101, 134, 90, 230, 210]
-          this.data2 = [0, 182, 191, 234, 290, 11, 310]
-          this.data3 = [12, 182, 391, 634, 950, 111, 310]
-          this.data4 = [47, 142, 111, 2204, 390, 101, 810]
-          this.data5 = [5, 282, 291, 434, 490, 41, 210]
           break
         case 2:
           this.data1 = [140, 232, 141, 634, 90, 230, 210]

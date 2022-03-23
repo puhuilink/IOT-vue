@@ -1,6 +1,6 @@
 <template>
   <div class="app-container">
-    <echarts @getquery="uploadData" />
+    <echarts :event-type="2" @getquery="uploadData" />
     <eventTrend :query="query" :name="'design'" />
     <eventType :type="1" :name="'design'" :query="query" />
     <categoryWithOtherStyle :type="1" :name="'design'" :tipname="'源IP统计事件TOP 5'" :query="query" />

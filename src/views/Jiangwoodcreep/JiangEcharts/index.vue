@@ -1,6 +1,6 @@
 <template>
   <div class="app-container">
-    <echarts @getquery="uploadData" />
+    <echarts :event-type="2" @getquery="uploadData" />
     <eventTrend :query="query" />
     <eventType
       :query="query"
