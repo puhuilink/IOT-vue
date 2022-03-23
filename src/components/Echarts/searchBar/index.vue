@@ -72,7 +72,7 @@ export default {
           message: '',
           trigger: 'change'
         }],
-        field102: [{
+        time: [{
           required: true,
           message: '',
           trigger: 'change'
@@ -139,6 +139,26 @@ export default {
           return
         }
       }
+    },
+    'formData.date': {
+      deep: true,
+      handler(val, oldVal) {
+        if (val !== oldVal) {
+          this.getdata()
+        } else {
+          return
+        }
+      }
+    },
+    'formData.time': {
+      deep: true,
+      handler(val, oldVal) {
+        if (val !== oldVal) {
+          this.getdata()
+        } else {
+          return
+        }
+      }
     }
   },
   created() {
@@ -150,7 +170,9 @@ export default {
   methods: {
     getdata() {
       this.$emit('getaddress', {
-        address: this.formData.address
+        address: this.formData.address,
+        date: this.formData.date,
+        time: this.formData.time
       })
     }
 

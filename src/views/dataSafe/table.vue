@@ -5,7 +5,7 @@
         <el-row :gutter="20">
           <el-form
             ref="elForm"
-            :model="formData"
+            :model="queryParams"
             :rules="rules"
             size="mini"
             label-width="100px"
@@ -14,23 +14,23 @@
           >
             <el-col :span="6">
               <el-form-item label="源IP地址：" prop="name">
-                <el-input v-model="formData.name" placeholder="请输入源IP地址" clearable :style="{width: '100%'}" />
+                <el-input v-model="queryParams.sourceIp" placeholder="请输入源IP地址" clearable :style="{width: '100%'}" />
               </el-form-item>
             </el-col>
             <el-col :span="6">
               <el-form-item label="动作类型：" prop="area">
                 <el-select
-                  v-model="formData.area"
+                  v-model="queryParams.actionType"
                   placeholder="请选择动作类型"
                   filterable
                   clearable
                   :style="{width: '100%'}"
                 >
                   <el-option
-                    v-for="(item, index) in areaOptions"
+                    v-for="(item, index) in actionTypeOptions"
                     :key="index"
                     :label="item.label"
-                    :value="item.value"
+                    :value="item.label"
                     :disabled="item.disabled"
                   />
                 </el-select>
@@ -39,17 +39,17 @@
             <el-col :span="6">
               <el-form-item label="命中策略：" prop="level">
                 <el-select
-                  v-model="formData.level"
+                  v-model="queryParams.hitStrategy"
                   placeholder="请选择命中策略"
                   filterable
                   clearable
                   :style="{width: '100%'}"
                 >
                   <el-option
-                    v-for="(item, index) in levelOptions"
+                    v-for="(item, index) in hitStrategyOptions"
                     :key="index"
                     :label="item.label"
-                    :value="item.value"
+                    :value="item.label"
                     :disabled="item.disabled"
                   />
                 </el-select>
@@ -58,17 +58,17 @@
             <el-col :span="6">
               <el-form-item label="协议类型：" prop="level">
                 <el-select
-                  v-model="formData.type"
-                  placeholder="请选择命中策略"
+                  v-model="queryParams.protocolType"
+                  placeholder="请选择协议类型"
                   filterable
                   clearable
                   :style="{width: '100%'}"
                 >
                   <el-option
-                    v-for="(item, index) in typeOptions"
+                    v-for="(item, index) in protocolTypeOptions"
                     :key="index"
                     :label="item.label"
-                    :value="item.value"
+                    :value="item.label"
                     :disabled="item.disabled"
                   />
                 </el-select>
@@ -77,14 +77,14 @@
             <el-col :span="6">
               <el-form-item label="区域：" prop="area">
                 <el-select
-                  v-model="formData.area"
+                  v-model="queryParams.region"
                   placeholder="请选择区域"
                   filterable
                   clearable
                   :style="{width: '100%'}"
                 >
                   <el-option
-                    v-for="(item, index) in areaOptions"
+                    v-for="(item, index) in regionOptions"
                     :key="index"
                     :label="item.label"
                     :value="item.value"
@@ -96,14 +96,14 @@
             <el-col :span="6">
               <el-form-item label="事件等级：" prop="area">
                 <el-select
-                  v-model="formData.area"
+                  v-model="queryParams.eventLevel"
                   placeholder="请选择事件等级"
                   filterable
                   clearable
                   :style="{width: '100%'}"
                 >
                   <el-option
-                    v-for="(item, index) in areaOptions"
+                    v-for="(item, index) in eventLevelOptions"
                     :key="index"
                     :label="item.label"
                     :value="item.value"
@@ -114,12 +114,12 @@
             </el-col>
             <el-col :span="6">
               <el-form-item label="处置状态：" prop="field114">
-                <el-select v-model="formData.field114" placeholder="请选择处置状态" clearable :style="{width: '100%'}">
+                <el-select v-model="queryParams.disposalStatus" placeholder="请选择处置状态" clearable :style="{width: '100%'}">
                   <el-option
-                    v-for="(item, index) in field114Options"
+                    v-for="(item, index) in disposalStatusOptions"
                     :key="index"
                     :label="item.label"
-                    :value="item.value"
+                    :value="item.label"
                     :disabled="item.disabled"
                   />
                 </el-select>
@@ -128,7 +128,7 @@
             <el-col :span="9">
               <el-form-item label="发布时间：" prop="date">
                 <el-time-picker
-                  v-model="formData.date"
+                  v-model="queryParams.date"
                   is-range
                   format="HH:mm:ss"
                   value-format="HH:mm:ss"
@@ -375,19 +375,7 @@ export default {
         groupName: null,
         createTime: null
       },
-      formData: {
-        name: undefined,
-        level: undefined,
-        type: undefined,
-        area: undefined,
-        agreement: undefined,
-        ip: undefined,
-        operating: undefined,
-        newip: undefined,
-        equipment: undefined,
-        date: [''],
-        field114: undefined
-      },
+
       rules: {
         name: [],
         level: [],
@@ -400,57 +388,54 @@ export default {
         date: [],
         field114: []
       },
-      typeOptions: [{
-        'label': '正常',
-        'value': 1
-      }, {
-        'label': '低危',
-        'value': 2
-      }, {
-        'label': '中危',
-        'value': 3
-      }, {
-        'label': 'SCANFILE',
+      actionTypeOptions: [{
+        'label': '记录',
         'value': 4
       }, {
-        'label': '失陷',
+        'label': '审计',
         'value': 5
       }],
-      levelOptions: [{
-        'label': '正常',
+      hitStrategyOptions: [{
+        'label': '关键字_身份证',
         'value': 1
       }, {
-        'label': '低危',
+        'label': '邮件审批',
         'value': 2
       }, {
-        'label': '中危',
+        'label': '关键字_数据',
         'value': 3
       }, {
-        'label': 'SCANFILE',
+        'label': '网页阻断',
         'value': 4
       }, {
-        'label': '失陷',
+        'label': '关键字_财政',
+        'value': 5
+      }, {
+        'label': '关键字_表',
         'value': 5
       }],
-      statusptions: [{
-        'label': '低',
+      protocolTypeOptions: [{
+        'label': 'HTTP',
         'value': 1
       }, {
-        'label': '不低',
+        'label': 'SMTP',
         'value': 2
-      }, {
-        'label': '手动',
-        'value': 3
-      }, {
-        'label': '失败',
-        'value': 4
       }],
-      areaOptions: [{
-        'label': '北京',
+      regionOptions: [{
+        'label': '三亚轨交',
         'value': 1
       }, {
-        'label': '重庆',
+        'label': '珠海深中通道',
         'value': 2
+      }, {
+        'label': '山西燃气',
+        'value': 1
+      }, {
+        'label': '北京水厂',
+        'value': 1
+      }, {
+        'label': '天津管片厂',
+        'value': 1
       }],
       field114Options: [{
         'label': '未处置',
@@ -460,7 +445,13 @@ export default {
         'value': 2
       }, {
         'label': '已处置',
-        'value': 3
+        'value': 2
+      }, {
+        'label': '已完成',
+        'value': 2
+      }, {
+        'label': '待处置',
+        'value': 6
       }]
     }
   },
@@ -485,7 +476,14 @@ export default {
       })
     },
     resetForm() {
-      this.$refs['elForm'].resetFields()
+      this.queryParams = {
+        pageNum: 1,
+        pageSize: 10,
+        userId: null,
+        groupName: null,
+        createTime: null
+      }
+      this.getList()
     },
     async  detail(id) {
       const { data } = await dataSecurityManagementDetail(id)

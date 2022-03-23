@@ -5,7 +5,7 @@
         <el-row :gutter="20">
           <el-form
             ref="elForm"
-            :model="formData"
+            :model="queryParams"
             :rules="rules"
             size="mini"
             label-width="80px"
@@ -18,7 +18,7 @@
                 prop="name"
               >
                 <el-input
-                  v-model="formData.name"
+                  v-model="queryParams.eventName"
                   placeholder="请输入事件名称"
                   clearable
                   :style="{width: '100%'}"
@@ -31,7 +31,7 @@
                 prop="area"
               >
                 <el-select
-                  v-model="formData.area"
+                  v-model="queryParams.region"
                   placeholder="请选择区域"
                   filterable
                   clearable
@@ -41,7 +41,7 @@
                     v-for="(item, index) in areaOptions"
                     :key="index"
                     :label="item.label"
-                    :value="item.value"
+                    :value="item.label"
                     :disabled="item.disabled"
                   />
                 </el-select>
@@ -53,7 +53,7 @@
                 prop="level"
               >
                 <el-select
-                  v-model="formData.level"
+                  v-model="queryParams.eventLevel"
                   placeholder="请选择事件等级"
                   filterable
                   clearable
@@ -75,7 +75,7 @@
                 prop="field114"
               >
                 <el-select
-                  v-model="formData.threat"
+                  v-model="queryParams.threatClassification"
                   placeholder="请选择威胁分类"
                   clearable
                   :style="{width: '100%'}"
@@ -96,7 +96,7 @@
                 prop="field114"
               >
                 <el-select
-                  v-model="formData.field114"
+                  v-model="queryParams.disposalStatus"
                   placeholder="请选择处置状态"
                   clearable
                   :style="{width: '100%'}"
@@ -105,7 +105,7 @@
                     v-for="(item, index) in field114Options"
                     :key="index"
                     :label="item.label"
-                    :value="item.value"
+                    :value="item.label"
                     :disabled="item.disabled"
                   />
                 </el-select>
@@ -117,8 +117,8 @@
                 prop="type"
               >
                 <el-input
-                  v-model="formData.type"
-                  placeholder="请输入受害者IP"
+                  v-model="queryParams.victimIp"
+                  placeholder="请输入目的IP"
                   clearable
                   :style="{width: '100%'}"
                 />
@@ -131,8 +131,8 @@
                 prop="agreement"
               >
                 <el-input
-                  v-model="formData.agreement"
-                  placeholder="请输入攻击者IP"
+                  v-model="queryParams.attackerIp"
+                  placeholder="请输入源IP"
                   clearable
                   :style="{width: '100%'}"
                 />
@@ -145,7 +145,7 @@
                 label-width="90px"
               >
                 <el-select
-                  v-model="formData.kill"
+                  v-model="queryParams.killingChainStage"
                   placeholder="请选择杀伤链阶段"
                   clearable
                   :style="{width: '100%'}"
@@ -154,7 +154,7 @@
                     v-for="(item, index) in killle"
                     :key="index"
                     :label="item.label"
-                    :value="item.value"
+                    :value="item.label"
                     :disabled="item.disabled"
                   />
                 </el-select>
@@ -166,7 +166,7 @@
                 prop="date"
               >
                 <el-time-picker
-                  v-model="formData.date"
+                  v-model="queryParams.date"
                   is-range
                   format="HH:mm:ss"
                   value-format="HH:mm:ss"
@@ -434,22 +434,8 @@ export default {
         groupName: null,
         createTime: null
       },
-      formData: {
-        name: undefined,
-        threat: undefined,
-        level: undefined,
-        kill: undefined,
-        type: undefined,
-        area: undefined,
-        agreement: undefined,
-        ip: undefined,
-        newip: undefined,
-        equipment: undefined,
-        date: [''],
-        field114: undefined
-      },
       rules: {
-        name: [],
+        eventName: [],
         level: [],
         type: [],
         area: [],
@@ -477,18 +463,27 @@ export default {
         'value': 5
       }],
       areaOptions: [{
-        'label': '北京',
+        'label': '三亚轨交',
         'value': 1
       }, {
-        'label': '重庆',
+        'label': '珠海深中通道',
         'value': 2
+      }, {
+        'label': '山西燃气',
+        'value': 1
+      }, {
+        'label': '北京水厂',
+        'value': 1
+      }, {
+        'label': '天津管片厂',
+        'value': 1
       }],
       threat: [{
         'label': '僵尸网络',
-        'value': 1
+        'value': 'Botnet'
       }, {
         'label': '网络木马',
-        'value': 2
+        'value': 'Malware'
       }],
       field114Options: [{
         'label': '未处置',
@@ -502,6 +497,9 @@ export default {
       }, {
         'label': '已完成',
         'value': 2
+      }, {
+        'label': '待处置',
+        'value': 6
       }],
       killle: [{
         'label': '侦察跟踪',
@@ -545,7 +543,14 @@ export default {
       })
     },
     resetForm() {
-      this.$refs['elForm'].resetFields()
+      this.queryParams = {
+        pageNum: 1,
+        pageSize: 10,
+        userId: null,
+        groupName: null,
+        createTime: null
+      }
+      this.getList()
     },
     async detail(id) {
       const { data } = await StiffWoodCreepDetail(id)

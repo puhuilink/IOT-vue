@@ -100,6 +100,7 @@ export default {
   },
   methods: {
     uploadData(data) {
+      console.log(data)
       this.address = data.address
     }
   }

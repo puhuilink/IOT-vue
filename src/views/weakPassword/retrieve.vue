@@ -5,7 +5,7 @@
         <el-row :gutter="20">
           <el-form
             ref="elForm"
-            :model="formData"
+            :model="queryParams"
             :rules="rules"
             size="mini"
             label-width="80px"
@@ -14,13 +14,13 @@
           >
             <el-col :span="6">
               <el-form-item label="资产名称" prop="name">
-                <el-input v-model="formData.name" placeholder="请输入资产名称" clearable :style="{width: '100%'}" />
+                <el-input v-model="queryParams.assetName" placeholder="请输入资产名称" clearable :style="{width: '100%'}" />
               </el-form-item>
             </el-col>
             <el-col :span="6">
               <el-form-item label="区域" prop="area">
                 <el-select
-                  v-model="formData.area"
+                  v-model="queryParams.region"
                   placeholder="请选择区域"
                   filterable
                   clearable
@@ -30,7 +30,7 @@
                     v-for="(item, index) in areaOptions"
                     :key="index"
                     :label="item.label"
-                    :value="item.value"
+                    :value="item.label"
                     :disabled="item.disabled"
                   />
                 </el-select>
@@ -39,7 +39,7 @@
             <el-col :span="6">
               <el-form-item label="事件等级" prop="level">
                 <el-select
-                  v-model="formData.level"
+                  v-model="queryParams.level"
                   placeholder="请选择事件等级"
                   filterable
                   clearable
@@ -57,12 +57,12 @@
             </el-col>
             <el-col :span="6">
               <el-form-item label="处置状态" prop="field114">
-                <el-select v-model="formData.field114" placeholder="请选择处置状态" clearable :style="{width: '100%'}">
+                <el-select v-model="queryParams.field114" placeholder="请选择处置状态" clearable :style="{width: '100%'}">
                   <el-option
                     v-for="(item, index) in field114Options"
                     :key="index"
                     :label="item.label"
-                    :value="item.value"
+                    :value="item.label"
                     :disabled="item.disabled"
                   />
                 </el-select>
@@ -70,19 +70,19 @@
             </el-col>
             <el-col :span="6">
               <el-form-item label="IP地址" prop="type">
-                <el-input v-model="formData.type" placeholder="请输入IP地址" clearable :style="{width: '100%'}" />
+                <el-input v-model="queryParams.ipAddress" placeholder="请输入IP地址" clearable :style="{width: '100%'}" />
               </el-form-item>
             </el-col>
 
             <el-col :span="6">
               <el-form-item label="协议" prop="agreement">
-                <el-input v-model="formData.agreement" placeholder="请输入协议" clearable :style="{width: '100%'}" />
+                <el-input v-model="queryParams.agreement" placeholder="请输入协议" clearable :style="{width: '100%'}" />
               </el-form-item>
             </el-col>
             <el-col :span="7">
               <el-form-item label="时间" prop="date">
                 <el-time-picker
-                  v-model="formData.date"
+                  v-model="queryParams.date"
                   is-range
                   format="HH:mm:ss"
                   value-format="HH:mm:ss"
@@ -254,20 +254,6 @@ export default {
         groupName: null,
         createTime: null
       },
-      formData: {
-        name: undefined,
-        threat: undefined,
-        level: undefined,
-        kill: undefined,
-        type: undefined,
-        area: undefined,
-        agreement: undefined,
-        ip: undefined,
-        newip: undefined,
-        equipment: undefined,
-        date: [''],
-        field114: undefined
-      },
       rules: {
         name: [],
         level: [],
@@ -297,18 +283,20 @@ export default {
         'value': 5
       }],
       areaOptions: [{
-        'label': '北京',
+        'label': '三亚轨交',
         'value': 1
       }, {
-        'label': '重庆',
+        'label': '珠海深中通道',
         'value': 2
-      }],
-      threat: [{
-        'label': '53',
+      }, {
+        'label': '山西燃气',
         'value': 1
       }, {
-        'label': '网络木马',
-        'value': 2
+        'label': '北京水厂',
+        'value': 1
+      }, {
+        'label': '天津管片厂',
+        'value': 1
       }],
       field114Options: [{
         'label': '未处置',
@@ -321,6 +309,10 @@ export default {
         'value': 2
       }, {
         'label': '已完成',
+        'value': 2
+      },
+      {
+        'label': '待处置',
         'value': 2
       }],
       killle: [{
@@ -386,7 +378,14 @@ export default {
       })
     },
     resetForm() {
-      this.$refs['elForm'].resetFields()
+      this.queryParams = {
+        pageNum: 1,
+        pageSize: 10,
+        userId: null,
+        groupName: null,
+        createTime: null
+      }
+      this.getList()
     },
     async detail(id) {
       const { data } = await WeakPasswordDetail(id)
