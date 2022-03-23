@@ -14,7 +14,7 @@
             >
               <el-form-item label="源IP地址" prop="ipaddr">
                 <el-input
-                  v-model="queryParams.ipaddr"
+                  v-model="queryParams.sourceIp"
                   placeholder="请输入源IP地址"
                   clearable
                   :style="{ width: '100%' }"
@@ -23,7 +23,7 @@
               </el-form-item>
               <el-form-item label="目的IP地址" prop="userName">
                 <el-input
-                  v-model="queryParams.userName"
+                  v-model="queryParams.destinationIp"
                   placeholder="请输入目的IP地址"
                   clearable
                   :style="{ width: '100%' }"
@@ -32,7 +32,7 @@
               </el-form-item>
               <el-form-item label="区域" prop="userName">
                 <el-select
-                  v-model="formData.area"
+                  v-model="formData.region"
                   placeholder="请选择区域"
                   filterable
                   clearable
@@ -49,7 +49,7 @@
               </el-form-item>
               <el-form-item label="处置状态" prop="ipaddr">
                 <el-select
-                  v-model="formData.field114"
+                  v-model="formData.disposalStatus"
                   placeholder="请选择处置状态"
                   clearable
                   :style="{ width: '100%' }"
@@ -79,13 +79,20 @@
                     :disabled="item.disabled"
                   /> </el-select></el-form-item>
               <el-form-item label="事件类型" prop="userName">
-                <el-input
-                  v-model="queryParams.userName"
+                <el-select
+                  v-model="formData.type"
                   placeholder="请选择事件类型"
+                  filterable
                   clearable
                   :style="{ width: '100%' }"
-                  @keyup.enter.native="handleQuery"
-                />
+                >
+                  <el-option
+                    v-for="(item, index) in levelOptions"
+                    :key="index"
+                    :label="item.label"
+                    :value="item.value"
+                    :disabled="item.disabled"
+                  /> </el-select>
               </el-form-item>
               <el-form-item label="时间段" prop="userName">
                 <el-time-picker
@@ -498,24 +505,38 @@ export default {
       formData: {
         level: ''
       },
-      field114Options: [
-        {
-          label: 'IT资产',
-          value: 1
-        },
-        {
-          label: '无控资产',
-          value: 2
-        },
-        {
-          label: '无',
-          value: 3
-        },
-        {
-          label: '无控资产-服务器',
-          value: 4
-        }
-      ],
+      field114Options: [{
+        'label': '未处置',
+        'value': 1
+      }, {
+        'label': '处置中',
+        'value': 2
+      }, {
+        'label': '已处置',
+        'value': 2
+      }, {
+        'label': '已完成',
+        'value': 2
+      }, {
+        'label': '待处置',
+        'value': 6
+      }],
+      areaOptions: [{
+        'label': '三亚轨交',
+        'value': 1
+      }, {
+        'label': '珠海深中通道',
+        'value': 2
+      }, {
+        'label': '山西燃气',
+        'value': 1
+      }, {
+        'label': '北京水厂',
+        'value': 1
+      }, {
+        'label': '天津管片厂',
+        'value': 1
+      }],
       statusOptions: [
         {
           label: '在线',

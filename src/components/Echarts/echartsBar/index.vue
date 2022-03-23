@@ -21,21 +21,25 @@ export default {
       default: '',
       type: String
     },
-    address: { // 厂家内容
+    query: {
       default: null,
-      type: Number
+      type: Object
     }
   },
   data() {
     return {
-      policitalStatus: ['1']
+      policitalStatus: ['1'],
+      queryParms: {
+      }
     }
   },
   computed: {},
   watch: {
-    address: {
+    query: {
       handler(val, oldVal) {
+        this.queryParms = this.query
         if (val !== oldVal) {
+          this.getData()
           this.drawPolicitalStatus()
         }
       },
@@ -59,36 +63,36 @@ export default {
     async  getData() {
       switch (this.name) {
         case 'weakPassword':
-          await selectAgreementEcharts().then(({ data }) => {
+          await selectAgreementEcharts(this.queryParms).then(({ data }) => {
             this.data1 = this.transDic(data)
           })
           break
         case 2:
-          await selectAgreementEcharts().then(({ data }) => {
+          await selectAgreementEcharts(this.queryParms).then(({ data }) => {
             console.log(data)
             this.data1 = this.transDic(data)
           })
           break
         case 3:
-          await selectAgreementEcharts().then(({ data }) => {
+          await selectAgreementEcharts(this.queryParms).then(({ data }) => {
             console.log(data)
             this.data1 = this.transDic(data)
           })
           break
         case 4:
-          await selectAgreementEcharts().then(({ data }) => {
+          await selectAgreementEcharts(this.queryParms).then(({ data }) => {
             console.log(data)
             this.data1 = this.transDic(data)
           })
           break
         case 5:
-          await selectAgreementEcharts().then(({ data }) => {
+          await selectAgreementEcharts(this.queryParms).then(({ data }) => {
             console.log(data)
             this.data1 = this.transDic(data)
           })
           break
         case 6:
-          await selectAgreementEcharts().then(({ data }) => {
+          await selectAgreementEcharts(this.queryParms).then(({ data }) => {
             console.log(data)
             this.data1 = this.transDic(data)
           })

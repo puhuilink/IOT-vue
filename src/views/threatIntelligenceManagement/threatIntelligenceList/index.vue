@@ -12,7 +12,7 @@
                    label-position="left">
             <el-col :span="6">
               <el-form-item label="APT组织:"
-                            prop="aptOrganization">
+                            prop="name">
                 <el-input v-model="queryParams.aptOrganization"
                           placeholder="请输入APT组织"
                           clearable
@@ -21,7 +21,7 @@
             </el-col>
             <el-col :span="6">
               <el-form-item label="区域:"
-                            prop="region">
+                            prop="area">
                 <el-select v-model="queryParams.region"
                            placeholder="请选择区域"
                            filterable
@@ -30,7 +30,7 @@
                   <el-option v-for="(item, index) in areaOptions"
                              :key="index"
                              :label="item.label"
-                             :value="item.value"
+                             :value="item.label"
                              :disabled="item.disabled" />
                 </el-select>
               </el-form-item>

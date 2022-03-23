@@ -24,22 +24,25 @@ export default {
       default: null,
       type: Number
     },
-    address: { // 厂家内容
+    query: {
       default: null,
-      type: Number
+      type: Object
     }
   },
   data() {
     return {
       policitalStatus: ['1'],
       datacopy: [],
+      queryParms: {
+      },
       nuM: []
     }
   },
   computed: {},
   watch: {
-    address: {
+    query: {
       handler(val, oldVal) {
+        this.queryParms = this.query
         if (val !== oldVal) {
           this.getData()
           this.drawPolicitalStatus()
@@ -57,6 +60,42 @@ export default {
   },
 
   methods: {
+    transTypeDic(data) {
+      var t = [{
+        name: '1',
+        content: '正常'
+      }, {
+        name: '2',
+        content: '低危'
+      }, {
+        name: '3',
+        content: '中危'
+      }, {
+        name: '4',
+        content: '高危'
+      }, {
+        name: '5',
+        content: '失陷'
+      }]
+      var arr = data
+      var arrNew = []
+      var area = []
+      data.forEach((item) => {
+        area.push(item.name)
+      })
+      arr.map(r => {
+        t.map(d => {
+          if (r.name === d.name) {
+            console.log(r, d)
+            arrNew.push({
+              value: r.count,
+              name: d.content
+            })
+          }
+        })
+      })
+      return arrNew
+    },
     transDic(data) {
       var arr = data
       var arrNew = []
@@ -75,9 +114,9 @@ export default {
     async getData() {
       switch (this.type) {
         case 1:
-          switch (this.address) {
+          switch (this.name) {
             case 'Jiangwoodcreep':
-              await CreepeventNameEcharts().then(({ data }) => {
+              await CreepeventNameEcharts(this.queryParms).then(({ data }) => {
                 this.datacopy = this.transDic(data)
               })
               break
@@ -128,25 +167,25 @@ export default {
               break
             case 7:
               // 工业审计
-              await eventCategoryEcharts().then(({ data }) => {
+              await eventCategoryEcharts(this.queryParms).then(({ data }) => {
                 this.datacopy = this.transDic(data)
               })
               break
             default:
-              console.log('这里是项目类型', this.address)
+              console.log('这里是项目类型', this.name)
               break
           }
           break
         case 2:
           switch (this.name) {
             case 'Jiangwoodcreep':
-              await CreepdisposalStatuEcharts().then(({ data }) => {
+              await CreepdisposalStatuEcharts(this.queryParms).then(({ data }) => {
                 this.datacopy = this.transDic(data)
               })
               break
             case 'weakPassword':
               // 弱口令
-              await selectDisposalStatusEcharts().then(({ data }) => {
+              await selectDisposalStatusEcharts(this.queryParms).then(({ data }) => {
                 this.datacopy = this.transDic(data)
               })
               break
@@ -187,7 +226,7 @@ export default {
               ]
               break
             default:
-              console.log('这里是项目类型', this.address)
+              console.log('这里是项目类型', this.name)
               break
           }
 
@@ -196,13 +235,12 @@ export default {
           // 僵木蠕
           switch (this.name) {
             case 'Jiangwoodcreep':
-              console.log('aaaa')
-              await CreepeventNameEcharts().then(({ data }) => {
+              await CreepeventNameEcharts(this.queryParms).then(({ data }) => {
                 this.datacopy = this.transDic(data)
               })
               break
             default:
-              console.log('这里是项目类型', this.address)
+              console.log('这里是项目类型', this.name)
               break
           }
 
@@ -210,23 +248,23 @@ export default {
         case 4:
           switch (this.name) {
             case 'dataSafe':
-              await eventLevelEcharts().then(({ data }) => {
-                this.datacopy = this.transDic(data)
+              await eventLevelEcharts(this.queryParms).then(({ data }) => {
+                this.datacopy = this.transTypeDic(data)
               })
               break
             case 'weakPassword':
               // 弱口令
-              await selectEventLevelEcharts().then(({ data }) => {
-                this.datacopy = this.transDic(data)
+              await selectEventLevelEcharts(this.queryParms).then(({ data }) => {
+                this.datacopy = this.transTypeDic(data)
               })
               break
             case 3:
-              await eventLevelEcharts().then(({ data }) => {
+              await eventLevelEcharts(this.queryParms).then(({ data }) => {
                 this.datacopy = this.transDic(data)
               })
               break
             default:
-              console.log('这里是项目类型', this.address)
+              console.log('这里是项目类型', this.name)
               break
           }
 
@@ -234,34 +272,34 @@ export default {
         case 5:
           switch (this.name) {
             case 'dataSafe':
-              await policyNameEcharts().then(({ data }) => {
+              await policyNameEcharts(this.queryParms).then(({ data }) => {
                 this.datacopy = this.transDic(data)
               })
               break
             case 2:
-              await policyNameEcharts().then(({ data }) => {
+              await policyNameEcharts(this.queryParms).then(({ data }) => {
                 this.datacopy = this.transDic(data)
               })
               break
             default:
-              console.log('这里是项目类型', this.address)
+              console.log('这里是项目类型', this.name)
               break
           }
           break
         case 6:
           switch (this.name) {
             case 'dataSafe':
-              await recipientEcharts().then(({ data }) => {
+              await recipientEcharts(this.queryParms).then(({ data }) => {
                 this.datacopy = this.transDic(data)
               })
               break
             case 2:
-              await recipientEcharts().then(({ data }) => {
+              await recipientEcharts(this.queryParms).then(({ data }) => {
                 this.datacopy = this.transDic(data)
               })
               break
             default:
-              console.log('这里是项目类型', this.address)
+              console.log('这里是项目类型', this.name)
               break
           }
           break
@@ -296,8 +334,7 @@ export default {
           series: [
             {
               label: {
-                show: false,
-                position: 'center'
+                show: true
               },
               type: 'pie',
               radius: '50%',

@@ -9,12 +9,12 @@
     >
       <el-col :span="3">
         <el-form-item label-width="1px" label="">
-          <el-select v-model="formData.address" clearable :style="{width: '100%'}">
+          <el-select v-model="formData.region" clearable :style="{width: '100%'}">
             <el-option
               v-for="(item, index) in addressOptions"
               :key="index"
               :label="item.label"
-              :value="item.value"
+              :value="item.label"
               :disabled="item.disabled"
             />
           </el-select>
@@ -34,10 +34,21 @@
         </el-form-item>
       </el-col>
       <el-col :span="3">
-        <el-form-item label-width="1px" label="">
-          <el-select v-model="formData.field102" clearable :style="{width: '100%'}">
+        <el-form-item v-if="eventType===1" label-width="1px" label="">
+          <el-select v-model="formData.eventLevel" clearable :style="{width: '100%'}">
             <el-option
-              v-for="(item, index) in field102Options"
+              v-for="(item, index) in eventLevelOption"
+              :key="index"
+              :label="item.label"
+              :value="item.value"
+              :disabled="item.disabled"
+            />
+          </el-select>
+        </el-form-item>
+        <el-form-item v-else label-width="1px" label="">
+          <el-select v-model="formData.eventLevel" clearable :style="{width: '100%'}">
+            <el-option
+              v-for="(item, index) in eventLevelOptions"
               :key="index"
               :label="item.label"
               :value="item.value"
@@ -53,13 +64,18 @@
 export default {
   name: 'Echarts',
   components: {},
-  props: [],
+  props: {
+    eventType: {
+      default: null,
+      type: Number
+    }
+  },
   data() {
     return {
       formData: {
-        address: 1,
-        date: '最近一天',
-        field102: '全部威胁等级'
+        region: '',
+        date: '',
+        eventLevel: ''
       },
       rules: {
         address: [{
@@ -72,7 +88,7 @@ export default {
           message: '',
           trigger: 'change'
         }],
-        field102: [{
+        time: [{
           required: true,
           message: '',
           trigger: 'change'
@@ -107,30 +123,65 @@ export default {
         'label': '最近30天',
         'value': 3
       }],
-      field102Options: [{
-        'label': '全部威胁等级',
-        'value': 1
-      }, {
+      eventLevelOption: [{
         'label': '致命',
-        'value': 2
-      }, {
-        'label': '高危',
-        'value': 3
-      }, {
-        'label': '中危',
-        'value': 4
-      }, {
-        'label': '低危',
         'value': 5
       }, {
+        'label': '高危',
+        'value': 4
+      }, {
+        'label': '中危',
+        'value': 3
+      }, {
+        'label': '低危',
+        'value': 2
+      }, {
         'label': '极低',
-        'value': 6
+        'value': 1
+      }],
+      eventLevelOptions: [{
+        'label': '致命',
+        'value': '1'
+      }, {
+        'label': '高危',
+        'value': 'High'
+      }, {
+        'label': '中危',
+        'value': 'Medium'
+      }, {
+        'label': '低危',
+        'value': '1'
+      }, {
+        'label': '极低',
+        'value': '1'
       }]
     }
   },
   computed: {},
   watch: {
-    'formData.address': {
+    'formData.region': {
+      deep: true,
+      handler(val, oldVal) {
+        if (val !== oldVal) {
+          this.getdata()
+        } else {
+          return
+        }
+      }
+    },
+    'formData.date': {
+      deep: true,
+      handler(val, oldVal) {
+        if (val !== oldVal) {
+          this.formData.params['beginGenerationTime'] = this.getdate(val)[0]
+          this.formData.params['endGenerationTime'] = this.getdate(val)[1]
+          this.getdata()
+        } else {
+          return
+        }
+      }
+    },
+    'formData.eventLevel': {
       deep: true,
       handler(val, oldVal) {
         if (val !== oldVal) {
@@ -148,9 +199,57 @@ export default {
 
   },
   methods: {
+    Twodigits(num) {
+      return num < 10 ? '0' + num : num
+    },
+    getdate(type) {
+      var myDate = new Date()
+      var beforeseven = new Date()
+      var thirty = new Date()
+      myDate.setDate(myDate.getDate())
+      beforeseven.setDate(beforeseven.getDate() - 1 - 6)
+      thirty.setDate(thirty.getDate() - 1 - 29)
+      if (type === 2) {
+        return [
+          beforeseven.getFullYear() +
+      '-' +
+      this.Twodigits(beforeseven.getMonth() + 1) +
+      '-' +
+     this.Twodigits(beforeseven.getDate()),
+          myDate.getFullYear() +
+      '-' +
+     this.Twodigits(myDate.getMonth() + 1) +
+      '-' +
+      this.Twodigits(myDate.getDate())
+        ]
+      } else if (type === 3) {
+        // 最近30天
+        return [
+          thirty.getFullYear() +
+      '-' +
+      this.Twodigits(thirty.getMonth() + 1) +
+      '-' +
+      this.Twodigits(thirty.getDate()),
+          myDate.getFullYear() +
+      '-' +
+      this.Twodigits(myDate.getMonth() + 1) +
+      '-' +
+     this.Twodigits(myDate.getDate())
+        ]
+      } else if (type === 1) {
+        // 昨天
+        var yesterday = this.getDay(-1, '-')
+        return [
+          yesterday,
+          yesterday
+        ]
+      }
+    },
     getdata() {
-      this.$emit('getaddress', {
-        address: this.formData.address
+      this.$emit('getquery', {
+        region: this.formData.region,
+        // date: this.formData.date,
+        eventLevel: this.formData.eventLevel
       })
     }
 

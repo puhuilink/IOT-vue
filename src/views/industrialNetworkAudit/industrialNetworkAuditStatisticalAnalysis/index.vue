@@ -1,10 +1,10 @@
 <template>
   <div class="app-container">
-    <echarts @getaddress="uploadData" />
-    <eventTrend :address="1" />
-    <eventType :type="1" :address="address" />
-    <categoryWithOtherStyle :type="1" :tipname="'源IP统计事件TOP 5'" :address="1" />
-    <categoryWithOtherStyle :type="1" :tipname="'目的IP统计TOP 5'" :address="2" />
+    <echarts :event-type="2" @getquery="uploadData" />
+    <eventTrend :query="query" :name="'design'" />
+    <eventType :type="1" :name="'design'" :query="query" />
+    <categoryWithOtherStyle :type="1" :name="'design'" :tipname="'源IP统计事件TOP 5'" :query="query" />
+    <categoryWithOtherStyle :type="2" :name="'design'" :tipname="'目的IP统计TOP 5'" :query="query" />
     <el-col :span="24">
       <tip> 最新工业网络审计事件 </tip>
       <el-table :data="groupList">
@@ -39,7 +39,7 @@ export default {
   props: [],
   data() {
     return {
-      address: 7,
+      query: {},
       groupList: [
         {
           gjzIP: '192.168.28.8',
@@ -78,7 +78,7 @@ export default {
   },
   methods: {
     uploadData(data) {
-      this.address = data.address
+      this.query = data
     }
   }
 }

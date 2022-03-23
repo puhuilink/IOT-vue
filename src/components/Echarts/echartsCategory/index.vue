@@ -24,14 +24,16 @@ export default {
       default: null,
       type: Number
     },
-    address: { // 厂家内容
+    query: {
       default: null,
-      type: Number
+      type: Object
     }
   },
   data() {
     return {
       policitalStatus: ['1'],
+      queryParms: {
+      },
       barData: [],
       category: [],
       title: ''
@@ -39,9 +41,11 @@ export default {
   },
   computed: {},
   watch: {
-    address: {
+    query: {
       handler(val, oldVal) {
+        this.queryParms = this.query
         if (val !== oldVal) {
+          this.getData()
           this.drawPolicitalStatus()
         }
       },
@@ -74,14 +78,14 @@ export default {
         case 1:
           switch (this.name) {
             case 'dataSafe':
-              await sourceIpEcharts().then(({ data }) => {
+              await sourceIpEcharts(this.queryParms).then(({ data }) => {
                 this.category = this.transDicName(data)
                 this.barData = this.transDicCount(data)
                 this.title = '源IP'
               })
               break
             case 2:
-              await sourceIpEcharts().then(({ data }) => {
+              await sourceIpEcharts(this.queryParms).then(({ data }) => {
                 this.category = this.transDicName(data)
                 this.barData = this.transDicCount(data)
                 this.title = '源IP'
@@ -96,14 +100,14 @@ export default {
         case 2:
           switch (this.name) {
             case 'dataSafe':
-              await targetIpEcharts().then(({ data }) => {
+              await targetIpEcharts(this.queryParms).then(({ data }) => {
                 this.category = this.transDicName(data)
                 this.barData = this.transDicCount(data)
                 this.title = '文件大小单位/M'
               })
               break
             case 2:
-              await targetIpEcharts().then(({ data }) => {
+              await targetIpEcharts(this.queryParms).then(({ data }) => {
                 this.category = this.transDicName(data)
                 this.barData = this.transDicCount(data)
                 this.title = '文件大小单位/M'
