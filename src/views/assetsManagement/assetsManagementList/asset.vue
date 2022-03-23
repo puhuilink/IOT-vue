@@ -86,7 +86,8 @@
                        :label="item.label"
                        :value="item.value"
                        :disabled="item.disabled" />
-            <!-- <el-input v-model="queryParams.assetType"
+          </el-select>
+          <!-- <el-input v-model="queryParams.assetType"
                     placeholder="请选择资产类型"
                     clearable
                     size="small"
