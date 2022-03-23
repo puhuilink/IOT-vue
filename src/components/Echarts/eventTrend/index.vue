@@ -6,9 +6,10 @@
 </template>
 <script>
 import { setNotopt } from '@/utils/emptyEcharts.js'
-import { CreepeventLevelsEcharts, CreepeventLevelEcharts } from '@/api/system/echarts'
+import { CreepeventLevelEcharts } from '@/api/system/echarts'
 import tip from '@/components/EchartsTip'
 export default {
+  name: 'AAA',
   components: { tip },
   props: {
     tipname: { // tip内容
@@ -19,13 +20,16 @@ export default {
       default: '',
       type: String
     },
-    address: { // 厂家内容
+    query: {
       default: null,
-      type: Number
+      type: Object
     }
   },
   data() {
     return {
+      type: 1,
+      queryParms: {
+      },
       policitalStatus: ['1'],
       data1: [],
       data2: [],
@@ -36,9 +40,11 @@ export default {
   },
   computed: {},
   watch: {
-    address: {
+    query: {
       handler(val, oldVal) {
+        this.queryParms = this.query
         if (val !== oldVal) {
+          this.getData()
           this.drawPolicitalStatus()
         }
       },
@@ -52,6 +58,42 @@ export default {
     this.drawPolicitalStatus()
   },
   methods: {
+    transTypeDic(data) {
+      var t = [{
+        name: '1',
+        content: '正常'
+      }, {
+        name: '2',
+        content: '低危'
+      }, {
+        name: '3',
+        content: '中危'
+      }, {
+        name: '4',
+        content: '高危'
+      }, {
+        name: '5',
+        content: '失陷'
+      }]
+      var arr = data
+      var arrNew = []
+      var area = []
+      data.forEach((item) => {
+        area.push(item.name)
+      })
+      arr.map(r => {
+        t.map(d => {
+          if (r.name === d.name) {
+            console.log(r, d)
+            arrNew.push({
+              value: r.count,
+              name: d.content
+            })
+          }
+        })
+      })
+      return arrNew
+    },
     transDicCount(data) {
       var area = []
       data.forEach((item) => {
@@ -60,12 +102,11 @@ export default {
       return area
     },
     async  getData() {
-      switch (this.address) {
+      switch (this.type) {
         case 1:
-          await CreepeventLevelsEcharts().then(({ data }) => {
+          console.log(this.queryParms)
+          await CreepeventLevelEcharts(this.queryParms).then(({ data }) => {
             console.log(data)
-          })
-          await CreepeventLevelEcharts().then(({ data }) => {
             this.category = this.transDicName(data)
             this.barData = this.transDicCount(data)
             this.title = '源IP'

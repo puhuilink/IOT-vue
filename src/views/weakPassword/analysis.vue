@@ -1,10 +1,10 @@
 <template>
   <div class="app-container">
-    <echarts @getaddress="uploadData" />
-    <eventTrend :address="address" :name="'weakPassword'" />
-    <eventType :tipname="'事件等级分布'" :type="4" :address="address" :name="'weakPassword'" />
-    <echartsBar :tipname="'攻击者TOP5统计'" :address="address" :name="'weakPassword'" />
-    <eventType :tipname="'事件状态处置图'" :address="address" :type="2" :name="'weakPassword'" />
+    <echarts @getquery="uploadData" />
+    <eventTrend :query="query" :name="'weakPassword'" />
+    <eventType :tipname="'事件等级分布'" :type="4" :query="query" :name="'weakPassword'" />
+    <echartsBar :tipname="'攻击者TOP5统计'" :query="query" :name="'weakPassword'" />
+    <eventType :tipname="'事件状态处置图'" :query="query" :type="2" :name="'weakPassword'" />
     <el-col :span="24">
       <tip> 最新弱口令事件 </tip>
       <el-table :data="groupList">
@@ -35,7 +35,7 @@ export default {
   data() {
     return {
       policitalStatus: ['1'],
-      address: 1,
+      query: {},
       groupList: [{ 'searchValue': 'ZJStream', 'createBy': '山西三通燃气厂', 'createTime': 'Z*****m', 'updateBy': '', 'updateTime': '2021-05-18 16:35:32', 'remark': '53', 'params': {}, 'groupId': '内网DNS', 'userId': '116.103.2.11', 'groupName': '高危', 'groupOrder': 'DNS_TCP', 'delFlag': '未处置' },
         { 'searchValue': 'ZJStream', 'createBy': '北京城乡水厂', 'createTime': 'Z*****m', 'updateBy': '', 'updateTime': '2021-05-18 16:35:32', 'remark': '53', 'params': {}, 'groupId': '内网DNS', 'userId': '116.103.2.11', 'groupName': '高危', 'groupOrder': 'DNS_TCP', 'delFlag': '未处置' },
         { 'searchValue': 'ZJStream', 'createBy': '天津管片厂', 'createTime': 'Z*****m', 'updateBy': '', 'updateTime': '2021-05-18 16:35:32', 'remark': '53', 'params': {}, 'groupId': '内网DNS', 'userId': '116.103.2.11', 'groupName': '高危', 'groupOrder': 'DNS_TCP', 'delFlag': '未处置' },
@@ -56,7 +56,7 @@ export default {
   },
   methods: {
     uploadData(data) {
-      this.address = data.address
+      this.query = data
     }
   }
 }

@@ -3,10 +3,11 @@ import request from '@/utils/request'
  * 数据安全管理
  ******************************************************************************/
 // 查询策略统计事件分析
-export function policyNameEcharts() {
+export function policyNameEcharts(query) {
   return request({
     url: '/dm/dataSecurityManagement/policyName/grp',
-    method: 'get'
+    method: 'get',
+    params: query
   })
 }
 
@@ -19,24 +20,27 @@ export function EventTrendAnalysis() {
 }
 
 // 查询事件等级分析
-export function eventLevelEcharts() {
+export function eventLevelEcharts(query) {
   return request({
     url: '/dm/dataSecurityManagement/eventLevel/grp',
-    method: 'get'
+    method: 'get',
+    params: query
   })
 }
 // 查询邮件统计分析
-export function recipientEcharts() {
+export function recipientEcharts(query) {
   return request({
     url: '/dm/dataSecurityManagement/recipient/grp',
-    method: 'get'
+    method: 'get',
+    params: query
   })
 }
 // 查询源Ip统计事件TOP10分析
-export function sourceIpEcharts() {
+export function sourceIpEcharts(query) {
   return request({
     url: '/dm/dataSecurityManagement/sourceIp/top10',
-    method: 'get'
+    method: 'get',
+    params: query
   })
 }
 
@@ -48,20 +52,22 @@ export function EventTypeDistribution() {
   })
 }
 // 查询目的IP统计TOP10分析
-export function targetIpEcharts() {
+export function targetIpEcharts(query) {
   return request({
     url: '/dm/dataSecurityManagement/targetIp/top10',
-    method: 'get'
+    method: 'get',
+    params: query
   })
 }
 /** ****************************************************************************
  * 僵木蠕
  ******************************************************************************/
 // 查询事件状态分析
-export function CreepdisposalStatuEcharts() {
+export function CreepdisposalStatuEcharts(query) {
   return request({
     url: '/dm/dmStiffWoodCreep/disposalStatus/grp',
-    method: 'get'
+    method: 'get',
+    params: query
   })
 }
 
@@ -132,60 +138,68 @@ export function KillChain() {
 // 查询事件趋势分析
 export function CreepeventLevelEcharts(query) {
   return request({
-    url: '/dm/dmStiffWoodCreep/eventLevel/grp/' + query,
-    method: 'get'
+    url: '/dm/dmStiffWoodCreep/eventLevel/grp',
+    method: 'get',
+    params: query
   })
 }
 // 查询事件等级
-export function CreepeventLevelsEcharts() {
+export function CreepeventLevelsEcharts(query) {
   return request({
     url: '/dm/dmStiffWoodCreep/eventLevels',
-    method: 'get'
+    method: 'get',
+    params: query
   })
 }
 // 查询事件类型分布
-export function CreepeventNameEcharts() {
+export function CreepeventNameEcharts(query) {
   return request({
     url: '/dm/dmStiffWoodCreep/eventName/grp',
-    method: 'get'
+    method: 'get',
+    params: query
   })
 }
 // 查询事件名称词云图
-export function CreepthreatEcharts() {
+export function CreepthreatEcharts(query) {
   return request({
     url: '/dm/dmStiffWoodCreep/threat/grp',
-    method: 'get'
+    method: 'get',
+    params: query
   })
 }
 /** ****************************************************************************
  * 弱口令
  ******************************************************************************/
 // 查询攻击者TOP5
-export function selectAgreementEcharts() {
+export function selectAgreementEcharts(query) {
   return request({
     url: '/dm/dmWeakPassword/selectAgreement',
-    method: 'get'
+    method: 'get',
+    params: query
   })
 }
 // 查询事件状态处置图
-export function selectDisposalStatusEcharts() {
+export function selectDisposalStatusEcharts(query) {
   return request({
     url: '/dm/dmWeakPassword/selectDisposalStatus',
-    method: 'get'
+    method: 'get',
+    params: query
   })
 }
 // 查询事件等级分布
-export function selectEventLevelEcharts() {
+export function selectEventLevelEcharts(query) {
   return request({
     url: '/dm/dmWeakPassword/selectEventLevel',
-    method: 'get'
+    method: 'get',
+    params: query
   })
 }
 // 查询事件等级
-export function selectEventLevelGradeEcharts() {
+export function selectEventLevelGradeEcharts(query) {
   return request({
     url: '/dm/dmWeakPassword/selectEventLevelGrade',
-    method: 'get'
+    method: 'get',
+    params: query
   })
 }
 /** ****************************************************************************
@@ -193,23 +207,26 @@ export function selectEventLevelGradeEcharts() {
  ******************************************************************************/
 
 // 查询事件类型分布
-export function eventCategoryEcharts() {
+export function eventCategoryEcharts(query) {
   return request({
     url: '/dm/industrialNetworkAudit/eventCategory/grp',
-    method: 'get'
+    method: 'get',
+    params: query
   })
 }
 // 查询源IP统计TOP5
-export function industrialNetworkAuditsourceIpEcharts() {
+export function industrialNetworkAuditsourceIpEcharts(query) {
   return request({
     url: '/dm/industrialNetworkAudit/sourceIp/top5',
-    method: 'get'
+    method: 'get',
+    params: query
   })
 }
 // 查询目的IPtop5
-export function industrialNetworkAudittargetIpEcharts() {
+export function industrialNetworkAudittargetIpEcharts(query) {
   return request({
     url: '/dm/industrialNetworkAudit/targetIp/top5',
-    method: 'get'
+    method: 'get',
+    params: query
   })
 }

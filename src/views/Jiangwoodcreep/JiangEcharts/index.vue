@@ -1,19 +1,19 @@
 <template>
   <div class="app-container">
-    <echarts @getaddress="uploadData" />
-    <eventTrend :address="address" />
+    <echarts @getquery="uploadData" />
+    <eventTrend :query="query" />
     <eventType
-      :address="address"
+      :query="query"
       :type="3"
       :name="'Jiangwoodcreep'"
     />
     <wordcloud
-      :address="address"
+      :query="query"
       :type="2"
       :name="'Jiangwoodcreep'"
     />
     <eventType
-      :address="address"
+      :query="query"
       :tipname="'事件状态处置图'"
       :type="2"
       :name="'Jiangwoodcreep'"
@@ -83,7 +83,7 @@ export default {
   data() {
     return {
       policitalStatus: ['1'],
-      address: 1,
+      query: {},
       groupList: [{ 'searchValue': '低', 'createBy': '', 'createTime': '2021-05-18 16:35:03', 'updateBy': '', 'updateTime': '2021-05-18 16:35:32', 'remark': '僵尸网络', 'params': {}, 'groupId': 'Botnet', 'userId': '116.103.2.11', 'groupName': '山西燃气厂', 'groupOrder': '10.255.52.10', 'delFlag': '载荷投递' },
         { 'searchValue': '低', 'createBy': '', 'createTime': '2021-05-18 16:35:03', 'updateBy': '', 'updateTime': '2021-05-18 16:35:32', 'remark': '僵尸网络', 'params': {}, 'groupId': 'Botnet', 'userId': '116.103.2.11', 'groupName': '山西燃气厂', 'groupOrder': '10.255.52.10', 'delFlag': '载荷投递' },
         { 'searchValue': '低', 'createBy': '', 'createTime': '2021-05-18 16:35:03', 'updateBy': '', 'updateTime': '2021-05-18 16:35:32', 'remark': '僵尸网络', 'params': {}, 'groupId': 'Botnet', 'userId': '116.103.2.11', 'groupName': '山西燃气厂', 'groupOrder': '10.255.52.10', 'delFlag': '载荷投递' },
@@ -100,8 +100,7 @@ export default {
   },
   methods: {
     uploadData(data) {
-      console.log(data)
-      this.address = data.address
+      this.query = data
     }
   }
 }

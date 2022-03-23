@@ -1,10 +1,10 @@
 <template>
   <div class="app-container">
-    <echarts @getaddress="uploadData" />
-    <category :type="1" :tipname="'源IP统计事件TOP10'" :address="address" :name="'dataSafe'" />
-    <category :type="2" :tipname="'目的IP统计'" :address="address" :name="'dataSafe'" />
-    <eventType :type="5" :tipname="'策略统计事件分析'" :address="address" :name="'dataSafe'" />
-    <eventType :type="6" :tipname="'邮件统计'" :address="address" :name="'dataSafe'" />
+    <echarts @getquery="uploadData" />
+    <category :type="1" :tipname="'源IP统计事件TOP10'" :query="query" :name="'dataSafe'" />
+    <category :type="2" :tipname="'目的IP统计'" :query="query" :name="'dataSafe'" />
+    <eventType :type="5" :tipname="'策略统计事件分析'" :query="query" :name="'dataSafe'" />
+    <eventType :type="6" :tipname="'邮件统计'" :query="query" :name="'dataSafe'" />
     <el-col :span="12">
       <tip> 最新数据安全事件 </tip>
       <el-table :data="groupList">
@@ -18,7 +18,7 @@
         <el-table-column label="区域" align="center" prop="delFlag" :show-overflow-tooltip="true" />
       </el-table>
     </el-col>
-    <eventType :tipname="'事件等级分布'" :type="4" :address="address" :name="'dataSafe'" />
+    <eventType :tipname="'事件等级分布'" :type="4" :query="query" :name="'dataSafe'" />
   </div>
 </template>
 <script>
@@ -32,7 +32,7 @@ export default {
   data() {
     return {
       policitalStatus: ['1'],
-      address: 1,
+      query: {},
       groupList: [{ 'searchValue': '信息', 'createBy': '', 'createTime': 'Kara文件内置财务', 'updateBy': '', 'updateTime': '2021-05-18 16:35:32', 'remark': '192.168.146.168', 'params': {}, 'groupId': '终端监测器', 'userId': '记录', 'groupName': '753253358804481', 'groupOrder': 'SCANFILE', 'delFlag': '山西燃气厂' },
         { 'searchValue': '信息', 'createBy': '', 'createTime': 'Kara文件内置财务', 'updateBy': '', 'updateTime': '2021-05-18 16:35:32', 'remark': '192.168.146.168', 'params': {}, 'groupId': '终端监测器', 'userId': '记录', 'groupName': '753253358804481', 'groupOrder': 'SCANFILE', 'delFlag': '山西燃气厂' },
         { 'searchValue': '信息', 'createBy': '', 'createTime': 'Kara文件内置财务', 'updateBy': '', 'updateTime': '2021-05-18 16:35:32', 'remark': '192.168.146.168', 'params': {}, 'groupId': '终端监测器', 'userId': '记录', 'groupName': '753253358804481', 'groupOrder': 'SCANFILE', 'delFlag': '山西燃气厂' },
@@ -49,7 +49,7 @@ export default {
   },
   methods: {
     uploadData(data) {
-      this.address = data.address
+      this.query = data
     }
   }
 }

@@ -9,12 +9,12 @@
     >
       <el-col :span="3">
         <el-form-item label-width="1px" label="">
-          <el-select v-model="formData.address" clearable :style="{width: '100%'}">
+          <el-select v-model="formData.region" clearable :style="{width: '100%'}">
             <el-option
               v-for="(item, index) in addressOptions"
               :key="index"
               :label="item.label"
-              :value="item.value"
+              :value="item.label"
               :disabled="item.disabled"
             />
           </el-select>
@@ -35,7 +35,7 @@
       </el-col>
       <el-col :span="3">
         <el-form-item label-width="1px" label="">
-          <el-select v-model="formData.field102" clearable :style="{width: '100%'}">
+          <el-select v-model="formData.eventLevel" clearable :style="{width: '100%'}">
             <el-option
               v-for="(item, index) in field102Options"
               :key="index"
@@ -57,9 +57,9 @@ export default {
   data() {
     return {
       formData: {
-        address: 1,
-        date: '最近一天',
-        field102: '全部威胁等级'
+        region: '',
+        date: '',
+        eventLevel: ''
       },
       rules: {
         address: [{
@@ -109,28 +109,28 @@ export default {
       }],
       field102Options: [{
         'label': '全部威胁等级',
-        'value': 1
+        'value': 6
       }, {
         'label': '致命',
-        'value': 2
-      }, {
-        'label': '高危',
-        'value': 3
-      }, {
-        'label': '中危',
-        'value': 4
-      }, {
-        'label': '低危',
         'value': 5
       }, {
+        'label': '高危',
+        'value': 4
+      }, {
+        'label': '中危',
+        'value': 3
+      }, {
+        'label': '低危',
+        'value': 2
+      }, {
         'label': '极低',
-        'value': 6
+        'value': 1
       }]
     }
   },
   computed: {},
   watch: {
-    'formData.address': {
+    'formData.region': {
       deep: true,
       handler(val, oldVal) {
         if (val !== oldVal) {
@@ -150,7 +150,7 @@ export default {
         }
       }
     },
-    'formData.time': {
+    'formData.eventLevel': {
       deep: true,
       handler(val, oldVal) {
         if (val !== oldVal) {
@@ -169,10 +169,10 @@ export default {
   },
   methods: {
     getdata() {
-      this.$emit('getaddress', {
-        address: this.formData.address,
-        date: this.formData.date,
-        time: this.formData.time
+      this.$emit('getquery', {
+        region: this.formData.region,
+        // date: this.formData.date,
+        eventLevel: this.formData.eventLevel
       })
     }
 

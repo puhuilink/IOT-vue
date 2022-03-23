@@ -21,24 +21,28 @@ export default {
       default: null,
       type: Number
     },
-    address: { // 厂家内容
+    query: {
       default: null,
-      type: Number
+      type: Object
     }
   },
   data() {
     return {
       policitalStatus: ['1'],
       barData: [],
+      queryParms: {
+      },
       category: [],
       title: ''
     }
   },
   computed: {},
   watch: {
-    address: {
+    query: {
       handler(val, oldVal) {
+        this.queryParms = this.query
         if (val !== oldVal) {
+          this.getData()
           this.drawPolicitalStatus()
         }
       },
@@ -69,25 +73,18 @@ export default {
     async  getData() {
       switch (this.type) {
         case 1:
-          switch (this.address) {
-            case 1:
-              await industrialNetworkAuditsourceIpEcharts().then(({ data }) => {
-                this.category = this.transDicName(data)
-                this.barData = this.transDicCount(data)
-                this.title = '源IP'
-              })
-              break
-            case 2:
-              await industrialNetworkAudittargetIpEcharts().then(({ data }) => {
-                this.category = this.transDicName(data)
-                this.barData = this.transDicCount(data)
-                this.title = '目的IP'
-              })
-              break
-            default:
-              console.log('无数据', this.type)
-              break
-          }
+          await industrialNetworkAuditsourceIpEcharts(this.queryParms).then(({ data }) => {
+            this.category = this.transDicName(data)
+            this.barData = this.transDicCount(data)
+            this.title = '源IP'
+          })
+          break
+        case 2:
+          await industrialNetworkAudittargetIpEcharts(this.queryParms).then(({ data }) => {
+            this.category = this.transDicName(data)
+            this.barData = this.transDicCount(data)
+            this.title = '目的IP'
+          })
           break
         default:
           console.log('无数据', this.type)
