@@ -118,6 +118,7 @@ export default {
           },
           xAxis: {
             type: 'value',
+            minInterval: 1,
             position: 'top',
             axisTick: {
               show: false
@@ -126,6 +127,7 @@ export default {
           yAxis: {
             type: 'category',
             inverse: true,
+            minInterval: 1,
             data: this.category,
             splitLine: { show: false },
             axisLine: {

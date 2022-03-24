@@ -335,7 +335,15 @@ export default {
           series: [
             {
               label: {
-                show: true
+                show: true,
+                normal: {
+                  fontSize: 14,
+                  formatter(v) {
+                    const text = v.name
+                    const val = text.length > 10 ? text.substr(0, 6) + '...' + text.substr(text.length - 3, text.length - 1) : text
+                    return val
+                  }
+                }
               },
               type: 'pie',
               radius: '50%',

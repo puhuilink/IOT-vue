@@ -9,7 +9,7 @@
 </template>
 <script>
 import { setNotopt } from '@/utils/emptyEcharts.js'
-import { CreepeventLevelEcharts, EventTrendAnalysis, abnormalAnalysis, selectEventLevelGradeEcharts, industrialNetworkAuditEcharts, scanninghostEcharts, scanningeventLevelEcharts } from '@/api/system/echarts'
+import { CreepeventLevelEcharts, EventTrendAnalysis, abnormalAnalysis, selectEventLevelGradeEcharts, industrialNetworkAuditEcharts, scanningeventLevelEcharts } from '@/api/system/echarts'
 import tip from '@/components/EchartsTip'
 export default {
   name: 'AAA',
@@ -37,7 +37,12 @@ export default {
       queryParms: {
       },
       policitalStatus: ['1'],
-      hasData: []
+      hasData: [],
+      data1: [],
+      data2: [],
+      data3: [],
+      data4: [],
+      data5: []
 
     }
   },
@@ -110,16 +115,24 @@ export default {
           await CreepeventLevelEcharts(this.queryParms).then(({ data }) => {
             this.hasData = data
             if (data.length) {
-              data.filter((e) => e.eventLevel === 'Medium')
-                .map(d => {
-                  this.data1 = d.data
+              const aaa = data.filter((e) => e.eventLevel === 'Medium')
+              if (aaa.length) {
+                aaa.map(d => {
+                  this.data3 = d.data
                   this.date = d.date
                 })
-              data.filter((e) => e.eventLevel === 'High')
-                .map(d => {
-                  this.data2 = d.data
+              } else {
+                this.data3 = []
+              }
+              const bbb = data.filter((e) => e.eventLevel === 'High')
+              if (bbb.length) {
+                bbb.map(d => {
+                  this.data4 = d.data
                   this.date = d.date
                 })
+              } else {
+                this.data4 = []
+              }
             } else {
               this.data1 = []
               this.data2 = []
@@ -133,26 +146,42 @@ export default {
           await selectEventLevelGradeEcharts(this.queryParms).then(({ data }) => {
             this.hasData = data
             if (data.length) {
-              data.filter((e) => e.eventLevel === '1')
-                .map(d => {
+              const aaa = data.filter((e) => e.eventLevel === '1')
+              if (aaa.length) {
+                aaa.map(d => {
                   this.data1 = d.data
                   this.date = d.date
                 })
-              data.filter((e) => e.eventLevel === '2')
-                .map(d => {
+              } else {
+                this.data1 = []
+              }
+              const bbb = data.filter((e) => e.eventLevel === '2')
+              if (bbb.length) {
+                bbb.map(d => {
                   this.data2 = d.data
                   this.date = d.date
                 })
-              data.filter((e) => e.eventLevel === '3')
-                .map(d => {
+              } else {
+                this.data2 = []
+              }
+              const ccc = data.filter((e) => e.eventLevel === '3')
+              if (ccc.length) {
+                ccc.map(d => {
                   this.data3 = d.data
                   this.date = d.date
                 })
-              data.filter((e) => e.eventLevel === '4')
-                .map(d => {
+              } else {
+                this.data3 = []
+              }
+              const ddd = data.filter((e) => e.eventLevel === '4')
+              if (ddd.length) {
+                ddd.map(d => {
                   this.data4 = d.data
                   this.date = d.date
                 })
+              } else {
+                this.data4 = []
+              }
             } else {
               this.data1 = []
               this.data2 = []
@@ -166,26 +195,42 @@ export default {
           await industrialNetworkAuditEcharts(this.queryParms).then(({ data }) => {
             this.hasData = data
             if (data.length) {
-              data.filter((e) => e.eventLevel === '1')
-                .map(d => {
-                  this.date = d.date
+              const aaa = data.filter((e) => e.eventLevel === '1')
+              if (aaa.length) {
+                aaa.map(d => {
                   this.data1 = d.data
-                })
-              data.filter((e) => e.eventLevel === '2')
-                .map(d => {
                   this.date = d.date
+                })
+              } else {
+                this.data1 = []
+              }
+              const bbb = data.filter((e) => e.eventLevel === '2')
+              if (bbb.length) {
+                bbb.map(d => {
                   this.data2 = d.data
-                })
-              data.filter((e) => e.eventLevel === '3')
-                .map(d => {
                   this.date = d.date
+                })
+              } else {
+                this.data2 = []
+              }
+              const ccc = data.filter((e) => e.eventLevel === '3')
+              if (ccc.length) {
+                ccc.map(d => {
                   this.data3 = d.data
-                })
-              data.filter((e) => e.eventLevel === '4')
-                .map(d => {
                   this.date = d.date
-                  this.data4 = d.data
                 })
+              } else {
+                this.data3 = []
+              }
+              const ddd = data.filter((e) => e.eventLevel === '4')
+              if (ddd.length) {
+                ddd.map(d => {
+                  this.data4 = d.data
+                  this.date = d.date
+                })
+              } else {
+                this.data4 = []
+              }
             } else {
               this.data1 = []
               this.data2 = []
@@ -199,26 +244,42 @@ export default {
           await EventTrendAnalysis(this.queryParms).then(({ data }) => {
             this.hasData = data
             if (data.length) {
-              data.filter((e) => e.eventLevel === '1')
-                .map(d => {
-                  this.date = d.date
+              const aaa = data.filter((e) => e.eventLevel === '1')
+              if (aaa.length) {
+                aaa.map(d => {
                   this.data1 = d.data
-                })
-              data.filter((e) => e.eventLevel === '2')
-                .map(d => {
                   this.date = d.date
+                })
+              } else {
+                this.data1 = []
+              }
+              const bbb = data.filter((e) => e.eventLevel === '2')
+              if (bbb.length) {
+                bbb.map(d => {
                   this.data2 = d.data
-                })
-              data.filter((e) => e.eventLevel === '3')
-                .map(d => {
                   this.date = d.date
+                })
+              } else {
+                this.data2 = []
+              }
+              const ccc = data.filter((e) => e.eventLevel === '3')
+              if (ccc.length) {
+                ccc.map(d => {
                   this.data3 = d.data
-                })
-              data.filter((e) => e.eventLevel === '4')
-                .map(d => {
                   this.date = d.date
-                  this.data4 = d.data
                 })
+              } else {
+                this.data3 = []
+              }
+              const ddd = data.filter((e) => e.eventLevel === '4')
+              if (ddd.length) {
+                ddd.map(d => {
+                  this.data4 = d.data
+                  this.date = d.date
+                })
+              } else {
+                this.data4 = []
+              }
             } else {
               this.data1 = []
               this.data2 = []
@@ -232,16 +293,24 @@ export default {
           await abnormalAnalysis(this.queryParms).then(({ data }) => {
             this.hasData = data
             if (data.length) {
-              data.filter((e) => e.eventLevel === 'Medium')
-                .map(d => {
-                  this.data1 = d.data
+              const aaa = data.filter((e) => e.eventLevel === 'Medium')
+              if (aaa.length) {
+                aaa.map(d => {
+                  this.data3 = d.data
                   this.date = d.date
                 })
-              data.filter((e) => e.eventLevel === 'High')
-                .map(d => {
-                  this.data2 = d.data
+              } else {
+                this.data3 = []
+              }
+              const bbb = data.filter((e) => e.eventLevel === 'High')
+              if (bbb.length) {
+                bbb.map(d => {
+                  this.data4 = d.data
                   this.date = d.date
                 })
+              } else {
+                this.data4 = []
+              }
             } else {
               this.data1 = []
               this.data2 = []
@@ -255,26 +324,42 @@ export default {
           await scanningeventLevelEcharts(this.queryParms).then(({ data }) => {
             this.hasData = data
             if (data.length) {
-              data.filter((e) => e.eventLevel === '1')
-                .map(d => {
-                  this.date = d.date
+              const aaa = data.filter((e) => e.eventLevel === '1')
+              if (aaa.length) {
+                aaa.map(d => {
                   this.data1 = d.data
-                })
-              data.filter((e) => e.eventLevel === '2')
-                .map(d => {
                   this.date = d.date
+                })
+              } else {
+                this.data1 = []
+              }
+              const bbb = data.filter((e) => e.eventLevel === '2')
+              if (bbb.length) {
+                bbb.map(d => {
                   this.data2 = d.data
-                })
-              data.filter((e) => e.eventLevel === '3')
-                .map(d => {
                   this.date = d.date
+                })
+              } else {
+                this.data2 = []
+              }
+              const ccc = data.filter((e) => e.eventLevel === '3')
+              if (ccc.length) {
+                ccc.map(d => {
                   this.data3 = d.data
-                })
-              data.filter((e) => e.eventLevel === '4')
-                .map(d => {
                   this.date = d.date
-                  this.data4 = d.data
                 })
+              } else {
+                this.data3 = []
+              }
+              const ddd = data.filter((e) => e.eventLevel === '4')
+              if (ddd.length) {
+                ddd.map(d => {
+                  this.data4 = d.data
+                  this.date = d.date
+                })
+              } else {
+                this.data4 = []
+              }
             } else {
               this.data1 = []
               this.data2 = []
@@ -286,29 +371,45 @@ export default {
           break
         case 'vulnerablity1':
           // scanninghostEcharts
-          await scanninghostEcharts(this.queryParms).then(({ data }) => {
+          await scanningeventLevelEcharts(this.queryParms).then(({ data }) => {
             this.hasData = data
             if (data.length) {
-              data.filter((e) => e.eventLevel === '1')
-                .map(d => {
-                  this.date = d.date
+              const aaa = data.filter((e) => e.eventLevel === '1')
+              if (aaa.length) {
+                aaa.map(d => {
                   this.data1 = d.data
-                })
-              data.filter((e) => e.eventLevel === '2')
-                .map(d => {
                   this.date = d.date
+                })
+              } else {
+                this.data1 = []
+              }
+              const bbb = data.filter((e) => e.eventLevel === '2')
+              if (bbb.length) {
+                bbb.map(d => {
                   this.data2 = d.data
-                })
-              data.filter((e) => e.eventLevel === '3')
-                .map(d => {
                   this.date = d.date
+                })
+              } else {
+                this.data2 = []
+              }
+              const ccc = data.filter((e) => e.eventLevel === '3')
+              if (ccc.length) {
+                ccc.map(d => {
                   this.data3 = d.data
-                })
-              data.filter((e) => e.eventLevel === '4')
-                .map(d => {
                   this.date = d.date
-                  this.data4 = d.data
                 })
+              } else {
+                this.data3 = []
+              }
+              const ddd = data.filter((e) => e.eventLevel === '4')
+              if (ddd.length) {
+                ddd.map(d => {
+                  this.data4 = d.data
+                  this.date = d.date
+                })
+              } else {
+                this.data4 = []
+              }
             } else {
               this.data1 = []
               this.data2 = []
@@ -345,12 +446,14 @@ export default {
           },
           xAxis: {
             type: 'category',
+            minInterval: 1,
             axisTick: { // x轴刻度线
               show: false
             },
             data: this.date
           },
           yAxis: {
+            minInterval: 1,
             axisTick: { // x轴刻度线
               show: false
             },

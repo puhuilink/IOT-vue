@@ -152,12 +152,14 @@ export default {
           },
           xAxis: {
             type: 'value',
+            minInterval: 1,
             axisTick: {
               show: false
             }
           },
           yAxis: {
             type: 'category',
+            minInterval: 1,
             data: this.category,
             splitLine: { show: false },
             axisLine: {
