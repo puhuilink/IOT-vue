@@ -1,13 +1,15 @@
 <template>
   <el-col :span="12">
     <tip>{{ tipname }}</tip>
-    <div ref="canvas1"
-         style="height: 400px;" />
+    <div
+      ref="canvas1"
+      style="height: 400px;"
+    />
   </el-col>
 </template>
 <script>
 import { setNotopt } from '@/utils/emptyEcharts.js'
-import { policyNameEcharts, recipientEcharts, eventLevelEcharts, CreepeventNameEcharts, EventTypeDistribution, abnormalEventLevelDistribution, EventLevelDistribution, CreepdisposalStatuEcharts, selectEventLevelEcharts, selectDisposalStatusEcharts, EventStatusDispositionDiagram, eventCategoryEcharts } from '@/api/system/echarts'
+import { policyNameEcharts, recipientEcharts, eventLevelEcharts, CreepeventNameEcharts, EventTypeDistribution, abnormalEventLevelDistribution, EventLevelDistribution, CreepdisposalStatuEcharts, selectEventLevelEcharts, selectDisposalStatusEcharts, EventStatusDispositionDiagram, eventCategoryEcharts, scanningEcharts, scanningeventStatusEcharts } from '@/api/system/echarts'
 import tip from '@/components/EchartsTip'
 export default {
   name: 'AAA',
@@ -30,7 +32,7 @@ export default {
       type: Object
     }
   },
-  data () {
+  data() {
     return {
       policitalStatus: ['1'],
       datacopy: [],
@@ -42,7 +44,7 @@ export default {
   computed: {},
   watch: {
     query: {
-      handler (val, oldVal) {
+      handler(val, oldVal) {
         this.queryParms = this.query
         if (val !== oldVal) {
           this.getData()
@@ -52,16 +54,16 @@ export default {
       deep: true
     }
   },
-  created () {
+  created() {
     this.getData()
   },
 
-  mounted () {
+  mounted() {
     this.drawPolicitalStatus()
   },
 
   methods: {
-    transTypeDic (data) {
+    transTypeDic(data) {
       var t = [{
         name: '1',
         content: '正常'
@@ -97,7 +99,7 @@ export default {
       })
       return arrNew
     },
-    transDic (data) {
+    transDic(data) {
       var arr = data
       var arrNew = []
       var area = []
@@ -112,7 +114,7 @@ export default {
       })
       return arrNew
     },
-    async getData () {
+    async getData() {
       switch (this.type) {
         case 1:
           switch (this.name) {
@@ -124,16 +126,19 @@ export default {
               break
             case 'host':
               await EventTypeDistribution(this.queryParms).then(({ data }) => {
+                this.hasData = data
                 this.datacopy = this.transDic(data)
               })
               break
             case 'abnormal':
               await abnormalEventLevelDistribution(this.queryParms).then(({ data }) => {
+                this.hasData = data
                 this.datacopy = this.transDic(data)
               })
               break
             case 'statisticalSnalysis':
               await EventLevelDistribution(this.queryParms).then(({ data }) => {
+                this.hasData = data
                 this.datacopy = this.transDic(data)
               })
               break
@@ -184,6 +189,7 @@ export default {
               break
             case 'host':
               await EventStatusDispositionDiagram(this.queryParms).then(({ data }) => {
+                this.hasData = data
                 this.datacopy = this.transDic(data)
               })
               break
@@ -221,6 +227,12 @@ export default {
                 this.datacopy = this.transDic(data)
               })
               break
+            case 'vulnerablity':
+              await scanningeventStatusEcharts(this.queryParms).then(({ data }) => {
+                this.hasData = data
+                this.datacopy = this.transDic(data)
+              })
+              break
             default:
               console.log('这里是项目类型', this.name)
               break
@@ -242,10 +254,10 @@ export default {
                 this.datacopy = this.transTypeDic(data)
               })
               break
-            case 3:
-              await eventLevelEcharts(this.queryParms).then(({ data }) => {
+            case 'vulnerablity':
+              await scanningEcharts(this.queryParms).then(({ data }) => {
                 this.hasData = data
-                this.datacopy = this.transDic(data)
+                this.datacopy = this.transTypeDic(data)
               })
               break
             default:
@@ -298,7 +310,7 @@ export default {
       }
       this.drawPolicitalStatus()
     },
-    drawPolicitalStatus () {
+    drawPolicitalStatus() {
       if (this.hasData.length) {
         // 基于准备好的dom，初始化echarts实例
         const myChart = this.$echarts.init(this.$refs.canvas1)
@@ -314,7 +326,7 @@ export default {
             right: 10,
             top: 120,
             bottom: 20,
-            formatter: function (value) {
+            formatter: function(value) {
               const val = value.length > 10 ? value.substr(0, 6) + '...' + value.substr(value.length - 3, value.length - 1) : value
               return val
             }
@@ -338,7 +350,7 @@ export default {
             }
           ]
         })
-        window.addEventListener('resize', function () {
+        window.addEventListener('resize', function() {
           myChart.resize()
         })
       } else {

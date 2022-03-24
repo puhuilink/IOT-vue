@@ -1,72 +1,102 @@
 <template>
   <div class="app-container">
-    <echarts :event-type="2"
-             @getquery="uploadData" />
-    <eventTrend :query="query"
-                :name="'host'" />
-    <eventType :query="query"
-               :tipname="'事件类型分布'"
-               :type="1"
-               :name="'host'" />
+    <echarts
+      :event-type="1"
+      @getquery="uploadData"
+    />
+    <eventTrend
+      :query="query"
+      :name="'host'"
+    />
+    <eventType
+      :query="query"
+      :tipname="'事件类型分布'"
+      :type="1"
+      :name="'host'"
+    />
     <!-- <pieChartDisposal :query="query"
                       :tipname="'事件类型分布'"
                       :EventTypeDistribution="1" /> -->
     <!-- 不能删<pieChartNesting :address="address" /> -->
-    <wordcloud :query="query"
-               :address="address"
-               :host="1" />
+    <wordcloud
+      :query="query"
+      :address="address"
+      :host="1"
+    />
     <!-- <pieChartDisposal :query="query"
                       :tipname="'事件状态处置图'"
                       :address="address" /> -->
-    <eventType :query="query"
-               :tipname="'事件状态处置图'"
-               :type="2"
-               :name="'host'" />
+    <eventType
+      :query="query"
+      :tipname="'事件状态处置图'"
+      :type="2"
+      :name="'host'"
+    />
     <el-col :span="24">
       <tip> 最新主机安全事件 </tip>
       <el-table :data="groupList">
-        <el-table-column label="接受时间"
-                         align="center"
-                         prop="groupId" />
-        <el-table-column label="事件名称"
-                         align="center"
-                         prop="createBy" />
-        <el-table-column label="事件等级"
-                         align="center"
-                         prop="createTime" />
-        <el-table-column label="事件类型"
-                         align="center"
-                         prop="remark" />
-        <el-table-column label="操作系统"
-                         align="center"
-                         prop="updateTime" />
-        <el-table-column label="客户端名称"
-                         align="center"
-                         prop="khdmc" />
-        <el-table-column label="客户端IP"
-                         align="center"
-                         prop="groupName" />
-        <el-table-column label="产生时间"
-                         align="center"
-                         prop="groupId" />
-        <el-table-column label="日志描述"
-                         align="center"
-                         prop="groupName" />
-        <el-table-column label="区域"
-                         align="center"
-                         prop="delFlag" />
+        <el-table-column
+          label="接受时间"
+          align="center"
+          prop="groupId"
+        />
+        <el-table-column
+          label="事件名称"
+          align="center"
+          prop="createBy"
+        />
+        <el-table-column
+          label="事件等级"
+          align="center"
+          prop="createTime"
+        />
+        <el-table-column
+          label="事件类型"
+          align="center"
+          prop="remark"
+        />
+        <el-table-column
+          label="操作系统"
+          align="center"
+          prop="updateTime"
+        />
+        <el-table-column
+          label="客户端名称"
+          align="center"
+          prop="khdmc"
+        />
+        <el-table-column
+          label="客户端IP"
+          align="center"
+          prop="groupName"
+        />
+        <el-table-column
+          label="产生时间"
+          align="center"
+          prop="groupId"
+        />
+        <el-table-column
+          label="日志描述"
+          align="center"
+          prop="groupName"
+        />
+        <el-table-column
+          label="区域"
+          align="center"
+          prop="delFlag"
+        />
       </el-table>
     </el-col>
   </div>
 </template>
 <script>
-import echarts from "@/components/Echarts/searchBar";
-import eventTrend from "@/components/Echarts/eventTrend";
-import pieChartNesting from "@/components/Echarts/pieChartNesting";
-import wordcloud from "@/components/Echarts/wordcloud";
-import pieChartDisposal from "@/components/Echarts/pieChartDisposal";
+import echarts from '@/components/Echarts/searchBar'
+import eventTrend from '@/components/Echarts/eventTrend'
+import pieChartNesting from '@/components/Echarts/pieChartNesting'
+import wordcloud from '@/components/Echarts/wordcloud'
+import pieChartDisposal from '@/components/Echarts/pieChartDisposal'
 import eventType from '@/components/Echarts/eventType'
-import tip from "@/components/EchartsTip";
+import tip from '@/components/EchartsTip'
 export default {
   components: {
     echarts,
@@ -75,84 +105,84 @@ export default {
     wordcloud,
     pieChartDisposal,
     eventType,
-    tip,
+    tip
   },
   props: [],
-  data () {
+  data() {
     return {
-      policitalStatus: ["1"],
+      policitalStatus: ['1'],
       address: 1,
       query: {},
       groupList: [
         {
-          searchValue: "2022-01-29 10:10:00",
-          createBy: "非法外联告警",
-          createTime: "高",
-          remark: "非法外联事件",
-          updateTime: "Windows7",
-          khdmc: "WIN-gyk",
-          groupName: "192.168.19.159",
-          groupId: "2022-01-29 10:10:00",
-          userId: "116.103.2.11",
-          groupName: "产生非法外联、外联地址：www百度.com",
+          searchValue: '2022-01-29 10:10:00',
+          createBy: '非法外联告警',
+          createTime: '高',
+          remark: '非法外联事件',
+          updateTime: 'Windows7',
+          khdmc: 'WIN-gyk',
+          groupName: '192.168.19.159',
+          groupId: '2022-01-29 10:10:00',
+          userId: '116.103.2.11',
+          groupName: '产生非法外联、外联地址：www百度.com',
           // groupOrder: "10.255.52.10",
-          delFlag: "山西三通燃气厂",
+          delFlag: '山西三通燃气厂'
         },
         {
-          searchValue: "2022-01-29 10:10:00",
-          createBy: "非法外联告警",
-          createTime: "高",
-          remark: "非法外联事件",
-          updateTime: "Windows7",
-          khdmc: "WIN-gyk",
-          groupName: "192.168.19.159",
-          groupId: "2022-01-29 10:10:00",
-          userId: "116.103.2.11",
-          groupName: "产生非法外联、外联地址：www百度.com",
+          searchValue: '2022-01-29 10:10:00',
+          createBy: '非法外联告警',
+          createTime: '高',
+          remark: '非法外联事件',
+          updateTime: 'Windows7',
+          khdmc: 'WIN-gyk',
+          groupName: '192.168.19.159',
+          groupId: '2022-01-29 10:10:00',
+          userId: '116.103.2.11',
+          groupName: '产生非法外联、外联地址：www百度.com',
           // groupOrder: "10.255.52.10",
-          delFlag: "山西三通燃气厂",
+          delFlag: '山西三通燃气厂'
         },
         {
-          searchValue: "2022-01-29 10:10:00",
-          createBy: "非法外联告警",
-          createTime: "高",
-          remark: "非法外联事件",
-          updateTime: "Windows7",
-          khdmc: "WIN-gyk",
-          groupName: "192.168.19.159",
-          groupId: "2022-01-29 10:10:00",
-          userId: "116.103.2.11",
-          groupName: "产生非法外联、外联地址：www百度.com",
+          searchValue: '2022-01-29 10:10:00',
+          createBy: '非法外联告警',
+          createTime: '高',
+          remark: '非法外联事件',
+          updateTime: 'Windows7',
+          khdmc: 'WIN-gyk',
+          groupName: '192.168.19.159',
+          groupId: '2022-01-29 10:10:00',
+          userId: '116.103.2.11',
+          groupName: '产生非法外联、外联地址：www百度.com',
           // groupOrder: "10.255.52.10",
-          delFlag: "山西三通燃气厂",
+          delFlag: '山西三通燃气厂'
         },
         {
-          searchValue: "2022-01-29 10:10:00",
-          createBy: "非法外联告警",
-          createTime: "高",
-          remark: "非法外联事件",
-          updateTime: "Windows7",
-          khdmc: "WIN-gyk",
-          groupName: "192.168.19.159",
-          groupId: "2022-01-29 10:10:00",
-          userId: "116.103.2.11",
-          groupName: "产生非法外联、外联地址：www百度.com",
+          searchValue: '2022-01-29 10:10:00',
+          createBy: '非法外联告警',
+          createTime: '高',
+          remark: '非法外联事件',
+          updateTime: 'Windows7',
+          khdmc: 'WIN-gyk',
+          groupName: '192.168.19.159',
+          groupId: '2022-01-29 10:10:00',
+          userId: '116.103.2.11',
+          groupName: '产生非法外联、外联地址：www百度.com',
           // groupOrder: "10.255.52.10",
-          delFlag: "山西三通燃气厂",
-        },
-      ],
-    };
+          delFlag: '山西三通燃气厂'
+        }
+      ]
+    }
   },
   computed: {},
   watch: {},
-  created () { },
-  mounted () { },
+  created() { },
+  mounted() { },
   methods: {
-    uploadData (data) {
+    uploadData(data) {
       this.query = data
     }
-  },
-};
+  }
+}
 </script>
 <style lang="scss" scoped>
 </style>

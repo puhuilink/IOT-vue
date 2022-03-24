@@ -1,13 +1,15 @@
 <template>
   <el-col :span="12">
     <tip>{{ tipname }}</tip>
-    <div ref="canvas1"
-         style="height: 400px" />
+    <div
+      ref="canvas1"
+      style="height: 400px"
+    />
   </el-col>
 </template>
 <script>
 import { setNotopt } from '@/utils/emptyEcharts.js'
-import { CreepeventLevelEcharts, EventTrendAnalysis, abnormalAnalysis, selectEventLevelGradeEcharts, industrialNetworkAuditEcharts } from '@/api/system/echarts'
+import { CreepeventLevelEcharts, EventTrendAnalysis, abnormalAnalysis, selectEventLevelGradeEcharts, industrialNetworkAuditEcharts, scanningeventLevelEcharts } from '@/api/system/echarts'
 import tip from '@/components/EchartsTip'
 export default {
   name: 'AAA',
@@ -30,7 +32,7 @@ export default {
       type: Number
     }
   },
-  data () {
+  data() {
     return {
       queryParms: {
       },
@@ -42,7 +44,7 @@ export default {
   computed: {},
   watch: {
     query: {
-      handler (val, oldVal) {
+      handler(val, oldVal) {
         this.queryParms = this.query
         if (val !== oldVal) {
           this.getData()
@@ -52,14 +54,14 @@ export default {
       deep: true
     }
   },
-  created () {
+  created() {
     this.getData()
   },
-  mounted () {
+  mounted() {
     this.drawPolicitalStatus()
   },
   methods: {
-    transTypeDic (data) {
+    transTypeDic(data) {
       var t = [{
         name: '1',
         content: '正常'
@@ -95,14 +97,14 @@ export default {
       })
       return arrNew
     },
-    transDicCount (data) {
+    transDicCount(data) {
       var area = []
       data.forEach((item) => {
         area.push(item.count)
       })
       return area
     },
-    async getData () {
+    async getData() {
       switch (this.name) {
         case 'Jiangwoodcreep':
           await CreepeventLevelEcharts(this.queryParms).then(({ data }) => {
@@ -195,39 +197,135 @@ export default {
           break
         case 'host':
           await EventTrendAnalysis(this.queryParms).then(({ data }) => {
-            data.filter((e) => e.eventLevel === '2')
-              .map(d => {
-                this.data1 = d.data
-              })
-            data.filter((e) => e.eventLevel === 'High')
-              .map(d => {
-                this.data2 = d.data
-              })
+            this.hasData = data
+            if (data.length) {
+              data.filter((e) => e.eventLevel === '1')
+                .map(d => {
+                  this.date = d.date
+                  this.data1 = d.data
+                })
+              data.filter((e) => e.eventLevel === '2')
+                .map(d => {
+                  this.date = d.date
+                  this.data2 = d.data
+                })
+              data.filter((e) => e.eventLevel === '3')
+                .map(d => {
+                  this.date = d.date
+                  this.data3 = d.data
+                })
+              data.filter((e) => e.eventLevel === '4')
+                .map(d => {
+                  this.date = d.date
+                  this.data4 = d.data
+                })
+            } else {
+              this.data1 = []
+              this.data2 = []
+              this.data3 = []
+              this.data4 = []
+              this.data5 = []
+            }
           })
           break
         case 'abnormal':
           await abnormalAnalysis(this.queryParms).then(({ data }) => {
-            data.filter((e) => e.eventLevel === 'Medium')
-              .map(d => {
-                this.data1 = d.data
-              })
-            data.filter((e) => e.eventLevel === '3')
-              .map(d => {
-                this.data2 = d.data
-              })
-            data.filter((e) => e.eventLevel === '4')
-              .map(d => {
-                this.data3 = d.data
-              })
+            this.hasData = data
+            if (data.length) {
+              data.filter((e) => e.eventLevel === 'Medium')
+                .map(d => {
+                  this.data1 = d.data
+                  this.date = d.date
+                })
+              data.filter((e) => e.eventLevel === 'High')
+                .map(d => {
+                  this.data2 = d.data
+                  this.date = d.date
+                })
+            } else {
+              this.data1 = []
+              this.data2 = []
+              this.data3 = []
+              this.data4 = []
+              this.data5 = []
+            }
           })
           break
+        case 'vulnerablity':
+          await scanningeventLevelEcharts(this.queryParms).then(({ data }) => {
+            this.hasData = data
+            if (data.length) {
+              data.filter((e) => e.eventLevel === '1')
+                .map(d => {
+                  this.date = d.date
+                  this.data1 = d.data
+                })
+              data.filter((e) => e.eventLevel === '2')
+                .map(d => {
+                  this.date = d.date
+                  this.data2 = d.data
+                })
+              data.filter((e) => e.eventLevel === '3')
+                .map(d => {
+                  this.date = d.date
+                  this.data3 = d.data
+                })
+              data.filter((e) => e.eventLevel === '4')
+                .map(d => {
+                  this.date = d.date
+                  this.data4 = d.data
+                })
+            } else {
+              this.data1 = []
+              this.data2 = []
+              this.data3 = []
+              this.data4 = []
+              this.data5 = []
+            }
+          })
+          break
+        case 'vulnerablity1':
+          // scanninghostEcharts
+          await scanningeventLevelEcharts(this.queryParms).then(({ data }) => {
+            this.hasData = data
+            if (data.length) {
+              data.filter((e) => e.eventLevel === '1')
+                .map(d => {
+                  this.date = d.date
+                  this.data1 = d.data
+                })
+              data.filter((e) => e.eventLevel === '2')
+                .map(d => {
+                  this.date = d.date
+                  this.data2 = d.data
+                })
+              data.filter((e) => e.eventLevel === '3')
+                .map(d => {
+                  this.date = d.date
+                  this.data3 = d.data
+                })
+              data.filter((e) => e.eventLevel === '4')
+                .map(d => {
+                  this.date = d.date
+                  this.data4 = d.data
+                })
+            } else {
+              this.data1 = []
+              this.data2 = []
+              this.data3 = []
+              this.data4 = []
+              this.data5 = []
+            }
+          })
+          break
+
         default:
           console.log('无数据', this.type)
           break
       }
       this.drawPolicitalStatus()
     },
-    drawPolicitalStatus () {
+    drawPolicitalStatus() {
       if (this.hasData.length) {
         // 基于准备好的dom，初始化echarts实例
         const myChart = this.$echarts.init(this.$refs.canvas1)
@@ -291,14 +389,14 @@ export default {
             },
             {
               name: '致命',
-              color: ['#FFFFFF'],
+              color: ['#F73030'],
               type: 'line',
               smooth: true,
               data: this.data5
             }
           ]
         })
-        window.addEventListener('resize', function () {
+        window.addEventListener('resize', function() {
           myChart.resize()
         })
       } else {

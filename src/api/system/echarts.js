@@ -256,5 +256,41 @@ export function industrialNetworkAudittargetIpEcharts(query) {
     params: query
   })
 }
+/** ****************************************************************************
+ * 漏洞管理
+ ******************************************************************************/
 
+// 查询事件等级分布
+export function scanningEcharts(query) {
+  return request({
+    url: '/dm/scanning/eventLevel/grp',
+    method: 'get',
+    params: query
+  })
+}
+// 查询事件趋势分析
+export function scanningeventLevelEcharts(query) {
+  return request({
+    url: '/dm/scanning/eventLevel/grp/',
+    method: 'get',
+    params: query
+  })
+}
+
+// 查询事件处置状态
+export function scanningeventStatusEcharts(query) {
+  return request({
+    url: '/dm/scanning/eventStatus/grp',
+    method: 'get',
+    params: query
+  })
+}
+// 查询主机趋势
+export function scanninghostEcharts(query) {
+  return request({
+    url: '/dm/scanning/host/grp/',
+    method: 'get',
+    params: query
+  })
+}
 
