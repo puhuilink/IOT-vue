@@ -1,6 +1,6 @@
 <template>
   <div class="app-container">
-    <echarts :event-type="2" @getquery="uploadData" />
+    <echarts :event-type="1" @getquery="uploadData" />
     <category :type="1" :tipname="'源IP统计事件TOP10'" :query="query" :name="'dataSafe'" />
     <category :type="2" :tipname="'目的IP统计'" :query="query" :name="'dataSafe'" />
     <eventType :type="5" :tipname="'策略统计事件分析'" :query="query" :name="'dataSafe'" />
