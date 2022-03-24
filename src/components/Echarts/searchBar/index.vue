@@ -9,7 +9,7 @@
     >
       <el-col :span="3">
         <el-form-item label-width="1px" label="">
-          <el-select v-model="formData.region" clearable :style="{width: '100%'}">
+          <el-select v-model="formData.region" placeholder="请选择区域" clearable :style="{width: '100%'}">
             <el-option
               v-for="(item, index) in addressOptions"
               :key="index"
@@ -22,7 +22,7 @@
       </el-col>
       <el-col :span="3">
         <el-form-item label-width="1px" label="">
-          <el-select v-model="formData.date" clearable :style="{width: '100%'}">
+          <el-select v-model="formData.date" placeholder="请选择时间" clearable :style="{width: '100%'}">
             <el-option
               v-for="(item, index) in dateOptions"
               :key="index"
@@ -35,7 +35,7 @@
       </el-col>
       <el-col :span="3">
         <el-form-item v-if="eventType===1" label-width="1px" label="">
-          <el-select v-model="formData.eventLevel" clearable :style="{width: '100%'}">
+          <el-select v-model="formData.eventLevel" placeholder="请选择等级" clearable :style="{width: '100%'}">
             <el-option
               v-for="(item, index) in eventLevelOption"
               :key="index"
@@ -46,7 +46,7 @@
           </el-select>
         </el-form-item>
         <el-form-item v-else label-width="1px" label="">
-          <el-select v-model="formData.eventLevel" clearable :style="{width: '100%'}">
+          <el-select v-model="formData.eventLevel" placeholder="请选择等级" clearable :style="{width: '100%'}">
             <el-option
               v-for="(item, index) in eventLevelOptions"
               :key="index"

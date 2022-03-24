@@ -7,21 +7,74 @@
     <categoryWithOtherStyle :type="2" :name="'design'" :tipname="'目的IP统计TOP 5'" :query="query" />
     <el-col :span="24">
       <tip> 最新工业网络审计事件 </tip>
-      <el-table :data="groupList">
-        <el-table-column label="产生时间" align="center" prop="gjzIP" />
-        <el-table-column label="源IP" align="center" prop="gjzIP" />
-        <el-table-column label="目的IP" align="center" prop="shzIP" />
-        <el-table-column label="目的端口" align="center" prop="eventLevel" />
-        <el-table-column label="传输层协议" align="center" prop="ssljd" />
-        <el-table-column label="应用层协议" align="center" prop="area" />
-        <el-table-column label="事件级别" align="center" prop="eventLevel" />
-        <el-table-column label="事件类型" align="center" prop="ssljd" />
-        <el-table-column label="区域" align="center" prop="area" />
+      <el-table :data="groupList" tooltip-effect="light" height="300">
+        <el-table-column
+          label="产生时间"
+          align="center"
+          prop="generationTime"
+          :show-overflow-tooltip="true"
+        />
+        <el-table-column
+          label="源IP"
+          align="center"
+          prop="sourceIp"
+          :show-overflow-tooltip="true"
+        />
+        <el-table-column
+          label="源端口"
+          align="center"
+          prop="sourcePort"
+          :show-overflow-tooltip="true"
+        />
+        <el-table-column
+          label="目的IP"
+          align="center"
+          prop="destinationIp"
+          :show-overflow-tooltip="true"
+        />
+        <el-table-column
+          label="目的端口"
+          align="center"
+          prop="destinationPort"
+          :show-overflow-tooltip="true"
+        />
+        <el-table-column
+          label="传输层协议"
+          align="center"
+          prop="transportLayerProtocol"
+          :show-overflow-tooltip="true"
+        />
+        <el-table-column
+          label="应用层协议"
+          align="center"
+          prop="applicationLayerProtocol"
+          :show-overflow-tooltip="true"
+        />
+        <el-table-column
+          label="事件级别"
+          align="center"
+          prop="eventLevel"
+          :show-overflow-tooltip="true"
+        />
+
+        <el-table-column
+          label="事件类型"
+          align="center"
+          prop="eventCategory"
+          :show-overflow-tooltip="true"
+        />
+        <el-table-column
+          label="区域"
+          align="center"
+          prop="region"
+          :show-overflow-tooltip="true"
+        />
       </el-table>
     </el-col>
   </div>
 </template>
 <script>
+import { industryList } from '@/api/system/list'
 import echarts from '@/components/Echarts/searchBar'
 import eventTrend from '@/components/Echarts/eventTrend'
 import eventType from '@/components/Echarts/eventType'
@@ -41,42 +94,20 @@ export default {
     return {
       query: {},
       groupList: [
-        {
-          gjzIP: '192.168.28.8',
-          shzIP: '10.13.20.24',
-          eventName: 'MALWARE',
-          eventLevel: '低',
-          ssljd: '荷载投递',
-          area: '山西燃气厂'
-        },
-        {
-          gjzIP: '192.168.28.8',
-          shzIP: '10.13.20.24',
-          eventName: 'MALWARE',
-          eventLevel: '低',
-          ssljd: '荷载投递',
-          area: '山西燃气厂'
-        },
-        {
-          gjzIP: '192.168.28.8',
-          shzIP: '10.13.20.24',
-          eventName: 'MALWARE',
-          eventLevel: '低',
-          ssljd: '荷载投递',
-          area: '山西燃气厂'
-        },
-        {
-          gjzIP: '192.168.28.8',
-          shzIP: '10.13.20.24',
-          eventName: 'MALWARE',
-          eventLevel: '低',
-          ssljd: '荷载投递',
-          area: '山西燃气厂'
-        }
       ]
     }
   },
+  created() {
+    this.getList()
+  },
   methods: {
+    /** 查询分组列表 */
+    async getList() {
+      this.loading = true
+      const res = await industryList(this.queryParams)
+      this.groupList = res.rows
+      this.loading = false
+    },
     uploadData(data) {
       this.query = data
     }

@@ -7,17 +7,16 @@
     <eventType :tipname="'事件状态处置图'" :query="query" :type="2" :name="'weakPassword'" />
     <el-col :span="24">
       <tip> 最新弱口令事件 </tip>
-      <el-table :data="groupList">
-        <el-table-column label="资产名称" align="center" prop="groupId" />
-        <el-table-column label="IP地址" align="center" prop="userId" />
-        <el-table-column label="服务" align="center" prop="groupOrder" />
-        <el-table-column label="端口" align="center" prop="remark" />
-        <el-table-column label="用户名" align="center" prop="searchValue" />
-        <el-table-column label="密码" align="center" prop="createTime" />
-        <el-table-column label="事件等级" align="center" prop="groupName" />
-        <el-table-column label="处置状态" align="center" prop="delFlag" />
-        <el-table-column label="发现时间" align="center" prop="updateTime" />
-        <el-table-column label="区域" align="center" prop="createBy" />
+      <el-table :data="groupList" tooltip-effect="light" height="300">
+        <el-table-column label="资产名称" align="center" prop="assetName" :show-overflow-tooltip="true" min-width="15%" />
+        <el-table-column label="IP地址" align="center" prop="ipAddress" :show-overflow-tooltip="true" min-width="15%" />
+        <el-table-column label="协议" align="center" prop="agreement" :show-overflow-tooltip="true" min-width="15%" />
+        <el-table-column label="端口" align="center" prop="port" :show-overflow-tooltip="true" min-width="15%" />
+        <el-table-column label="事件等级" align="center" prop="eventLevel" min-width="10%" />
+        <el-table-column label="处置状态" align="center" prop="disposalStatus" min-width="8%" />
+        <el-table-column label="发生时间" align="center" prop="findTime" :show-overflow-tooltip="true" min-width="15%" />
+        <el-table-column label="区域" align="center" prop="region" :show-overflow-tooltip="true" min-width="15%" />
+
       </el-table>
     </el-col>
   </div>
@@ -28,6 +27,7 @@ import eventTrend from '@/components/Echarts/eventTrend'
 import eventType from '@/components/Echarts/eventType'
 import echartsBar from '@/components/Echarts/echartsBar'
 import tip from '@/components/EchartsTip'
+import { weakList } from '@/api/system/list'
 export default {
   name: 'Index',
   components: { echarts, eventTrend, eventType, echartsBar, tip },
@@ -36,25 +36,24 @@ export default {
     return {
       policitalStatus: ['1'],
       query: {},
-      groupList: [{ 'searchValue': 'ZJStream', 'createBy': '山西三通燃气厂', 'createTime': 'Z*****m', 'updateBy': '', 'updateTime': '2021-05-18 16:35:32', 'remark': '53', 'params': {}, 'groupId': '内网DNS', 'userId': '116.103.2.11', 'groupName': '高危', 'groupOrder': 'DNS_TCP', 'delFlag': '未处置' },
-        { 'searchValue': 'ZJStream', 'createBy': '北京城乡水厂', 'createTime': 'Z*****m', 'updateBy': '', 'updateTime': '2021-05-18 16:35:32', 'remark': '53', 'params': {}, 'groupId': '内网DNS', 'userId': '116.103.2.11', 'groupName': '高危', 'groupOrder': 'DNS_TCP', 'delFlag': '未处置' },
-        { 'searchValue': 'ZJStream', 'createBy': '天津管片厂', 'createTime': 'Z*****m', 'updateBy': '', 'updateTime': '2021-05-18 16:35:32', 'remark': '53', 'params': {}, 'groupId': '内网DNS', 'userId': '116.103.2.11', 'groupName': '高危', 'groupOrder': 'DNS_TCP', 'delFlag': '未处置' },
-        { 'searchValue': 'ZJStream', 'createBy': '珠海深中通道', 'createTime': 'Z*****m', 'updateBy': '', 'updateTime': '2021-05-18 16:35:32', 'remark': '53', 'params': {}, 'groupId': '内网DNS', 'userId': '116.103.2.11', 'groupName': '高危', 'groupOrder': 'DNS_TCP', 'delFlag': '未处置' },
-        { 'searchValue': 'ZJStream', 'createBy': '三亚海投轨交', 'createTime': 'Z*****m', 'updateBy': '', 'updateTime': '2021-05-18 16:35:32', 'remark': '53', 'params': {}, 'groupId': '内网DNS', 'userId': '116.103.2.11', 'groupName': '高危', 'groupOrder': 'DNS_TCP', 'delFlag': '未处置' },
-        { 'searchValue': 'ZJStream', 'createBy': '珠海深中通道', 'createTime': 'Z*****m', 'updateBy': '', 'updateTime': '2021-05-18 16:35:32', 'remark': '53', 'params': {}, 'groupId': '内网DNS', 'userId': '116.103.2.11', 'groupName': '高危', 'groupOrder': 'DNS_TCP', 'delFlag': '未处置' },
-        { 'searchValue': 'ZJStream', 'createBy': '珠海深中通道', 'createTime': 'Z*****m', 'updateBy': '', 'updateTime': '2021-05-18 16:35:32', 'remark': '53', 'params': {}, 'groupId': '内网DNS', 'userId': '116.103.2.11', 'groupName': '高危', 'groupOrder': 'DNS_TCP', 'delFlag': '未处置' }
-      ]
+      groupList: []
     }
   },
   computed: {},
   watch: {
   },
   created() {
-
+    this.getList()
   },
   mounted() {
   },
   methods: {
+    async getList() {
+      this.loading = true
+      const res = await weakList(this.queryParams)
+      this.groupList = res.rows
+      this.loading = false
+    },
     uploadData(data) {
       this.query = data
     }
