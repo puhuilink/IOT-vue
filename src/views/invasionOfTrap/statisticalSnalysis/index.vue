@@ -1,6 +1,7 @@
 <template>
   <div class="app-container">
-    <echarts @getaddress="uploadData" />
+    <echarts :event-type="2"
+             @getquery="uploadData" />
     <div>
       <el-row :gutter="30">
         <el-col :span="6">
@@ -29,13 +30,20 @@
         </el-col>
       </el-row>
     </div>
-    <assetsUnderAttack :address="address" />
-    <toDetectEvents :address="address" />
-    <underAttackSandbox :address="address" />
+    <assetsUnderAttack :query="query"
+                       :address="address" />
+    <toDetectEvents :query="query"
+                    :address="address" />
+    <underAttackSandbox :query="query"
+                        :address="address" />
     <!-- <不删eventLevelDistribution :address="address" /> -->
-    <pieChartDisposal :tipname="'事件等级分布'"
+    <!-- <pieChartDisposal :tipname="'事件等级分布'"
                       :address="address"
-                      :attack="1" />
+                      :attack="1" /> -->
+    <eventType :tipname="'事件等级分布'"
+               :query="query"
+               :name="'statisticalSnalysis'"
+               :type="1" />
   </div>
 </template>
 <script>
@@ -45,6 +53,7 @@ import toDetectEvents from "@/components/Echarts/toDetectEvents";
 import underAttackSandbox from "@/components/Echarts/underAttackSandbox";
 // import eventLevelDistribution from "@/components/Echarts/eventLevelDistribution";
 import pieChartDisposal from "@/components/Echarts/pieChartDisposal";
+import eventType from "@/components/Echarts/eventType";
 import tip from "@/components/EchartsTip";
 export default {
   components: {
@@ -53,6 +62,7 @@ export default {
     toDetectEvents,
     underAttackSandbox,
     pieChartDisposal,
+    eventType,
     // eventLevelDistribution,
     tip,
   },
@@ -61,6 +71,7 @@ export default {
     return {
       policitalStatus: ["1"],
       address: 1,
+      query: {},
     };
   },
   computed: {},
@@ -69,8 +80,8 @@ export default {
   mounted () { },
   methods: {
     uploadData (data) {
-      this.address = data.address;
-    },
+      this.query = data
+    }
   },
 };
 </script>

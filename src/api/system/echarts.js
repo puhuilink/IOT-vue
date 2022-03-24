@@ -12,10 +12,11 @@ export function policyNameEcharts(query) {
 }
 
 // 安全管理：主机安全管理：事件统计分析:事件趋势分析
-export function EventTrendAnalysis() {
+export function EventTrendAnalysis(query) {
   return request({
-    url: '/dm/hostSecurity/eventLevel/grp/',
-    method: 'get'
+    url: '/dm/hostSecurity/eventLevel/grp/a',
+    method: 'get',
+    params: query
   })
 }
 
@@ -45,10 +46,11 @@ export function sourceIpEcharts(query) {
 }
 
 // 安全管理：主机安全管理：事件统计分析:事件类型分布
-export function EventTypeDistribution() {
+export function EventTypeDistribution(query) {
   return request({
     url: '/dm/hostSecurity/eventType/grp',
-    method: 'get'
+    method: 'get',
+    params: query
   })
 }
 // 查询目的IP统计TOP10分析
@@ -80,58 +82,73 @@ export function EventNameWordCloudMap(query) {
 }
 
 // 安全管理：主机安全管理：事件统计分析:事件处置状态图
-export function EventStatusDispositionDiagram() {
+export function EventStatusDispositionDiagram(query) {
   return request({
     url: '/dm/hostSecurity/eventStatus/grp',
-    method: 'get'
+    method: 'get',
+    params: query
   })
 }
 
 // 安全管理：入侵诱捕：事件统计分析:受攻击的资产TOP5
-export function TopAssetsUnderAttack() {
+export function TopAssetsUnderAttack(query) {
   return request({
     url: '/dm/trap/selectAttackAssets',
-    method: 'get'
+    method: 'get',
+    params: query
   })
 }
 
 // 安全管理：入侵诱捕：事件统计分析:探测事件/入侵事件趋势
-export function UnderAttack() {
+export function UnderAttack(query) {
   return request({
     url: '/dm/trap/eventAttackType/selectType/{type}',
-    method: 'get'
+    method: 'get',
+    params: query
   })
 }
 
 // 安全管理：入侵诱捕：事件统计分析:受攻击沙箱TOP5
-export function sandboxesAttacked() {
+export function sandboxesAttacked(query) {
   return request({
     url: '/dm/trap/selectIsolationSandbox',
-    method: 'get'
+    method: 'get',
+    params: query
   })
 }
 
 // 安全管理：入侵诱捕：事件统计分析:事件等级分布
-export function EventLevelDistribution() {
+export function EventLevelDistribution(query) {
   return request({
     url: '/dm/trap/selectEventLevel',
-    method: 'get'
+    method: 'get',
+    params: query
   })
 }
 
+// 安全管理：异常行为管理：事件统计分析 :事件趋势分析
+export function abnormalAnalysis(query) {
+  return request({
+    url: '/dm/abnormal/eventLevel/selectEventLevels/a',
+    method: 'get',
+    params: query
+  })
+}
 // 安全管理：异常行为管理：事件统计分析 :事件等级分布
-export function abnormalEventLevelDistribution() {
+export function abnormalEventLevelDistribution(query) {
   return request({
     url: '/dm/abnormal/selectThreatClassification',
-    method: 'get'
+    method: 'get',
+    params: query
   })
 }
 
 // 安全管理：异常行为管理：事件统计分析 :杀伤链阶段流量统计
-export function KillChain() {
+export function KillChain(query) {
   return request({
     url: '/dm/abnormal/selectKillingChainStage',
-    method: 'get'
+    method: 'get',
+    params: query
   })
 }
 
@@ -230,3 +247,5 @@ export function industrialNetworkAudittargetIpEcharts(query) {
     params: query
   })
 }
+
+

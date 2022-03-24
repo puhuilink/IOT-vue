@@ -1,15 +1,27 @@
 <template>
   <div class="app-container">
-    <echarts @getaddress="uploadData" />
-    <eventTrend :address="address" />
-    <pieChartDisposal :tipname="'事件类型分布'"
-                      :address="address"
-                      :EventTypeDistribution="1" />
+    <echarts :event-type="2"
+             @getquery="uploadData" />
+    <eventTrend :query="query"
+                :name="'host'" />
+    <eventType :query="query"
+               :tipname="'事件类型分布'"
+               :type="1"
+               :name="'host'" />
+    <!-- <pieChartDisposal :query="query"
+                      :tipname="'事件类型分布'"
+                      :EventTypeDistribution="1" /> -->
     <!-- 不能删<pieChartNesting :address="address" /> -->
-    <wordcloud :address="address"
+    <wordcloud :query="query"
+               :address="address"
                :host="1" />
-    <pieChartDisposal :tipname="'事件状态处置图'"
-                      :address="address" />
+    <!-- <pieChartDisposal :query="query"
+                      :tipname="'事件状态处置图'"
+                      :address="address" /> -->
+    <eventType :query="query"
+               :tipname="'事件状态处置图'"
+               :type="2"
+               :name="'host'" />
     <el-col :span="24">
       <tip> 最新主机安全事件 </tip>
       <el-table :data="groupList">
@@ -53,6 +65,7 @@ import eventTrend from "@/components/Echarts/eventTrend";
 import pieChartNesting from "@/components/Echarts/pieChartNesting";
 import wordcloud from "@/components/Echarts/wordcloud";
 import pieChartDisposal from "@/components/Echarts/pieChartDisposal";
+import eventType from '@/components/Echarts/eventType'
 import tip from "@/components/EchartsTip";
 export default {
   components: {
@@ -61,6 +74,7 @@ export default {
     pieChartNesting,
     wordcloud,
     pieChartDisposal,
+    eventType,
     tip,
   },
   props: [],
@@ -68,6 +82,7 @@ export default {
     return {
       policitalStatus: ["1"],
       address: 1,
+      query: {},
       groupList: [
         {
           searchValue: "2022-01-29 10:10:00",
@@ -134,8 +149,8 @@ export default {
   mounted () { },
   methods: {
     uploadData (data) {
-      this.address = data.address;
-    },
+      this.query = data
+    }
   },
 };
 </script>

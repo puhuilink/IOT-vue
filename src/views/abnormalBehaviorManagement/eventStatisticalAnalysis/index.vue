@@ -1,13 +1,22 @@
 <template>
   <div class="app-container">
-    <echarts @getaddress="uploadData" />
-    <eventTrend :address="address" />
-    <killChainPhaseStatistics :address="address" />
+    <echarts :event-type="2"
+             @getquery="uploadData" />
+    <eventTrend :query="query"
+                :name="'abnormal'" />
+    <killChainPhaseStatistics :query="query"
+                              :address="address" />
+    <eventType :tipname="'事件等级分布'"
+               :query="query"
+               :name="'abnormal'"
+               :type="1" />
     <!-- <pieChartThreats :address="address"/> -->
-    <pieChartDisposal :tipname="'事件等级分布'"
-                      :address="address"
-                      :abnormal="1" />
-    <killChainPhaseTrafficStatistics :address="address" />
+    <!-- <pieChartDisposal :tipname="'事件等级分布'"
+                      :query="query"
+                      :name="'abnormal'"
+                      :type="1" /> -->
+    <killChainPhaseTrafficStatistics :query="query"
+                                     :address="address" />
     <el-col :span="24">
       <tip> 最新威胁事件 </tip>
       <el-table :data="groupList">
@@ -36,6 +45,8 @@
 <script>
 import echarts from "@/components/Echarts/searchBar";
 import eventTrend from "@/components/Echarts/eventTrend";
+import eventType from "@/components/Echarts/eventType";
+
 import killChainPhaseStatistics from "@/components/Echarts/killChainPhaseStatistics";
 // import pieChartThreats from "@/components/Echarts/pieChartThreats";
 import pieChartDisposal from "@/components/Echarts/pieChartDisposal";
@@ -45,6 +56,7 @@ export default {
   components: {
     echarts,
     eventTrend,
+    eventType,
     killChainPhaseStatistics,
     // pieChartThreats,
     pieChartDisposal,
@@ -56,6 +68,7 @@ export default {
     return {
       policitalStatus: ["1"],
       address: 1,
+      query: {},
       groupList: [
         {
           gjzIP: "192.168.28.8",
@@ -98,8 +111,8 @@ export default {
   mounted () { },
   methods: {
     uploadData (data) {
-      this.address = data.address;
-    },
+      this.query = data
+    }
   },
 };
 </script>

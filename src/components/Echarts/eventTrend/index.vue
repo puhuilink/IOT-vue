@@ -1,12 +1,13 @@
 <template>
   <el-col :span="12">
     <tip>{{ tipname }}</tip>
-    <div ref="canvas1" style="height: 400px" />
+    <div ref="canvas1"
+         style="height: 400px" />
   </el-col>
 </template>
 <script>
 import { setNotopt } from '@/utils/emptyEcharts.js'
-import { CreepeventLevelEcharts } from '@/api/system/echarts'
+import { CreepeventLevelEcharts, EventTrendAnalysis, abnormalAnalysis } from '@/api/system/echarts'
 import tip from '@/components/EchartsTip'
 export default {
   name: 'AAA',
@@ -25,7 +26,7 @@ export default {
       type: Object
     }
   },
-  data() {
+  data () {
     return {
       type: 1,
       queryParms: {
@@ -41,7 +42,7 @@ export default {
   computed: {},
   watch: {
     query: {
-      handler(val, oldVal) {
+      handler (val, oldVal) {
         this.queryParms = this.query
         if (val !== oldVal) {
           this.getData()
@@ -51,14 +52,14 @@ export default {
       deep: true
     }
   },
-  created() {
+  created () {
     this.getData()
   },
-  mounted() {
+  mounted () {
     this.drawPolicitalStatus()
   },
   methods: {
-    transTypeDic(data) {
+    transTypeDic (data) {
       var t = [{
         name: '1',
         content: '正常'
@@ -94,26 +95,62 @@ export default {
       })
       return arrNew
     },
-    transDicCount(data) {
+    transDicCount (data) {
       var area = []
       data.forEach((item) => {
         area.push(item.count)
       })
       return area
     },
-    async  getData() {
+    async getData () {
       switch (this.type) {
         case 1:
-          await CreepeventLevelEcharts(this.queryParms).then(({ data }) => {
-            data.filter((e) => e.eventLevel === 'Medium')
-              .map(d => {
-                this.data1 = d.data
+          switch (this.name) {
+            case 'Jiangwoodcreep':
+              await CreepeventLevelEcharts(this.queryParms).then(({ data }) => {
+                data.filter((e) => e.eventLevel === 'Medium')
+                  .map(d => {
+                    this.data1 = d.data
+                  })
+                data.filter((e) => e.eventLevel === 'High')
+                  .map(d => {
+                    this.data2 = d.data
+                  })
               })
-            data.filter((e) => e.eventLevel === 'High')
-              .map(d => {
-                this.data2 = d.data
+              break
+            case 'host':
+              await EventTrendAnalysis(this.queryParms).then(({ data }) => {
+                data.filter((e) => e.eventLevel === '2')
+                  .map(d => {
+                    this.data1 = d.data
+                  })
+                data.filter((e) => e.eventLevel === 'High')
+                  .map(d => {
+                    this.data2 = d.data
+                  })
               })
-          })
+              break
+            case 'abnormal':
+              await abnormalAnalysis(this.queryParms).then(({ data }) => {
+                data.filter((e) => e.eventLevel === 'Medium')
+                  .map(d => {
+                    this.data1 = d.data
+                  })
+                data.filter((e) => e.eventLevel === '3')
+                  .map(d => {
+                    this.data2 = d.data
+                  })
+                data.filter((e) => e.eventLevel === '4')
+                  .map(d => {
+                    this.data3 = d.data
+                  })
+              })
+              break
+            default:
+              console.log('这里是项目类型', this.name)
+              break
+          }
+
           break
         case 2:
           this.data1 = [140, 232, 141, 634, 90, 230, 210]
@@ -128,7 +165,7 @@ export default {
       }
       this.drawPolicitalStatus()
     },
-    drawPolicitalStatus() {
+    drawPolicitalStatus () {
       if (this.policitalStatus.length) {
         // 基于准备好的dom，初始化echarts实例
         const myChart = this.$echarts.init(this.$refs.canvas1)
@@ -194,7 +231,7 @@ export default {
             }
           ]
         })
-        window.addEventListener('resize', function() {
+        window.addEventListener('resize', function () {
           myChart.resize()
         })
       } else {
@@ -208,5 +245,4 @@ export default {
 
 </script>
 <style lang="scss" scoped>
-
 </style>

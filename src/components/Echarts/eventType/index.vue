@@ -1,12 +1,13 @@
 <template>
   <el-col :span="12">
     <tip>{{ tipname }}</tip>
-    <div ref="canvas1" style="height: 400px;" />
+    <div ref="canvas1"
+         style="height: 400px;" />
   </el-col>
 </template>
 <script>
 import { setNotopt } from '@/utils/emptyEcharts.js'
-import { policyNameEcharts, recipientEcharts, eventLevelEcharts, CreepeventNameEcharts, CreepdisposalStatuEcharts, selectEventLevelEcharts, selectDisposalStatusEcharts, eventCategoryEcharts } from '@/api/system/echarts'
+import { policyNameEcharts, recipientEcharts, eventLevelEcharts, CreepeventNameEcharts, EventTypeDistribution, abnormalEventLevelDistribution, EventLevelDistribution, CreepdisposalStatuEcharts, selectEventLevelEcharts, selectDisposalStatusEcharts, EventStatusDispositionDiagram, eventCategoryEcharts } from '@/api/system/echarts'
 import tip from '@/components/EchartsTip'
 export default {
   name: 'AAA',
@@ -29,7 +30,7 @@ export default {
       type: Object
     }
   },
-  data() {
+  data () {
     return {
       policitalStatus: ['1'],
       datacopy: [],
@@ -41,7 +42,7 @@ export default {
   computed: {},
   watch: {
     query: {
-      handler(val, oldVal) {
+      handler (val, oldVal) {
         this.queryParms = this.query
         if (val !== oldVal) {
           this.getData()
@@ -51,16 +52,16 @@ export default {
       deep: true
     }
   },
-  created() {
+  created () {
     this.getData()
   },
 
-  mounted() {
+  mounted () {
     this.drawPolicitalStatus()
   },
 
   methods: {
-    transTypeDic(data) {
+    transTypeDic (data) {
       var t = [{
         name: '1',
         content: '正常'
@@ -96,7 +97,7 @@ export default {
       })
       return arrNew
     },
-    transDic(data) {
+    transDic (data) {
       var arr = data
       var arrNew = []
       var area = []
@@ -111,7 +112,7 @@ export default {
       })
       return arrNew
     },
-    async getData() {
+    async getData () {
       switch (this.type) {
         case 1:
           switch (this.name) {
@@ -120,32 +121,20 @@ export default {
                 this.datacopy = this.transDic(data)
               })
               break
-            case 2:
-              this.datacopy = [
-                { value: 1248, name: '僵木蠕事件' },
-                { value: 1414, name: '漏洞' },
-                { value: 199, name: '配置核查' },
-                { value: 1023, name: '工业网络' },
-                { value: 522, name: '诱捕防护' }
-              ]
+            case 'host':
+              await EventTypeDistribution(this.queryParms).then(({ data }) => {
+                this.datacopy = this.transDic(data)
+              })
               break
-            case 3:
-              this.datacopy = [
-                { value: 3148, name: '僵木蠕事件' },
-                { value: 2514, name: '漏洞' },
-                { value: 1179, name: '配置核查' },
-                { value: 2023, name: '工业网络' },
-                { value: 562, name: '诱捕防护' }
-              ]
+            case 'abnormal':
+              await abnormalEventLevelDistribution(this.queryParms).then(({ data }) => {
+                this.datacopy = this.transDic(data)
+              })
               break
-            case 4:
-              this.datacopy = [
-                { value: 3348, name: '僵木蠕事件' },
-                { value: 2514, name: '漏洞' },
-                { value: 2699, name: '配置核查' },
-                { value: 623, name: '工业网络' },
-                { value: 762, name: '诱捕防护' }
-              ]
+            case 'statisticalSnalysis':
+              await EventLevelDistribution(this.queryParms).then(({ data }) => {
+                this.datacopy = this.transDic(data)
+              })
               break
             case 5:
               this.datacopy = [
@@ -189,24 +178,12 @@ export default {
                 this.datacopy = this.transDic(data)
               })
               break
-            case 3:
-              this.datacopy = [
-                { value: 1948, name: '待上报' },
-                { value: 8514, name: '处置中' },
-                { value: 5699, name: '已处置' },
-                { value: 4023, name: '已完成' },
-                { value: 962, name: '待处置' }
-              ]
+            case 'host':
+              await EventStatusDispositionDiagram(this.queryParms).then(({ data }) => {
+                this.datacopy = this.transDic(data)
+              })
               break
-            case 4:
-              this.datacopy = [
-                { value: 1948, name: '待上报' },
-                { value: 3514, name: '处置中' },
-                { value: 1799, name: '已处置' },
-                { value: 2023, name: '已完成' },
-                { value: 762, name: '待处置' }
-              ]
-              break
+
             case 5:
               this.datacopy = [
                 { value: 3448, name: '待上报' },
@@ -309,7 +286,7 @@ export default {
       }
       this.drawPolicitalStatus()
     },
-    drawPolicitalStatus() {
+    drawPolicitalStatus () {
       if (this.policitalStatus.length) {
         // 基于准备好的dom，初始化echarts实例
         const myChart = this.$echarts.init(this.$refs.canvas1)
@@ -325,7 +302,7 @@ export default {
             right: 10,
             top: 120,
             bottom: 20,
-            formatter: function(value) {
+            formatter: function (value) {
               const val = value.length > 10 ? value.substr(0, 6) + '...' + value.substr(value.length - 3, value.length - 1) : value
               return val
             }
@@ -349,7 +326,7 @@ export default {
             }
           ]
         })
-        window.addEventListener('resize', function() {
+        window.addEventListener('resize', function () {
           myChart.resize()
         })
       } else {
