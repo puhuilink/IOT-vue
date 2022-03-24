@@ -35,7 +35,7 @@ export default {
       datacopy: [],
       queryParms: {
       },
-      nuM: []
+      hasData: []
     }
   },
   computed: {},
@@ -117,6 +117,7 @@ export default {
           switch (this.name) {
             case 'Jiangwoodcreep':
               await CreepeventNameEcharts(this.queryParms).then(({ data }) => {
+                this.hasData = data
                 this.datacopy = this.transDic(data)
               })
               break
@@ -165,9 +166,10 @@ export default {
                 { value: 462, name: '诱捕防护' }
               ]
               break
-            case 7:
+            case 'design':
               // 工业审计
               await eventCategoryEcharts(this.queryParms).then(({ data }) => {
+                this.hasData = data
                 this.datacopy = this.transDic(data)
               })
               break
@@ -180,12 +182,14 @@ export default {
           switch (this.name) {
             case 'Jiangwoodcreep':
               await CreepdisposalStatuEcharts(this.queryParms).then(({ data }) => {
+                this.hasData = data
                 this.datacopy = this.transDic(data)
               })
               break
             case 'weakPassword':
               // 弱口令
               await selectDisposalStatusEcharts(this.queryParms).then(({ data }) => {
+                this.hasData = data
                 this.datacopy = this.transDic(data)
               })
               break
@@ -236,6 +240,7 @@ export default {
           switch (this.name) {
             case 'Jiangwoodcreep':
               await CreepeventNameEcharts(this.queryParms).then(({ data }) => {
+                this.hasData = data
                 this.datacopy = this.transDic(data)
               })
               break
@@ -249,17 +254,20 @@ export default {
           switch (this.name) {
             case 'dataSafe':
               await eventLevelEcharts(this.queryParms).then(({ data }) => {
+                this.hasData = data
                 this.datacopy = this.transTypeDic(data)
               })
               break
             case 'weakPassword':
               // 弱口令
               await selectEventLevelEcharts(this.queryParms).then(({ data }) => {
+                this.hasData = data
                 this.datacopy = this.transTypeDic(data)
               })
               break
             case 3:
               await eventLevelEcharts(this.queryParms).then(({ data }) => {
+                this.hasData = data
                 this.datacopy = this.transDic(data)
               })
               break
@@ -273,11 +281,13 @@ export default {
           switch (this.name) {
             case 'dataSafe':
               await policyNameEcharts(this.queryParms).then(({ data }) => {
+                this.hasData = data
                 this.datacopy = this.transDic(data)
               })
               break
             case 2:
               await policyNameEcharts(this.queryParms).then(({ data }) => {
+                this.hasData = data
                 this.datacopy = this.transDic(data)
               })
               break
@@ -290,11 +300,13 @@ export default {
           switch (this.name) {
             case 'dataSafe':
               await recipientEcharts(this.queryParms).then(({ data }) => {
+                this.hasData = data
                 this.datacopy = this.transDic(data)
               })
               break
             case 2:
               await recipientEcharts(this.queryParms).then(({ data }) => {
+                this.hasData = data
                 this.datacopy = this.transDic(data)
               })
               break
@@ -310,7 +322,7 @@ export default {
       this.drawPolicitalStatus()
     },
     drawPolicitalStatus() {
-      if (this.policitalStatus.length) {
+      if (this.hasData.length) {
         // 基于准备好的dom，初始化echarts实例
         const myChart = this.$echarts.init(this.$refs.canvas1)
         // 绘制图表
@@ -318,7 +330,7 @@ export default {
           tooltip: {
             trigger: 'item'
           },
-          color: ['#2C82FC ', '#ffaf37', '#31B3D2', '#9D6AFF', '#FF7B82', '#43A682 ', '#ca8622'],
+          color: ['#1890FF', '#B592E4', '#F0B144', '#FF8745', '#F73030', '#43A682 ', '#ca8622'],
           legend: {
             type: 'scroll',
             orient: 'vertical',

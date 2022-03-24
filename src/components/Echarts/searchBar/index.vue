@@ -95,9 +95,6 @@ export default {
         }]
       },
       addressOptions: [{
-        'label': '全部地区',
-        'value': 1
-      }, {
         'label': '山西燃气厂',
         'value': 2
       }, {
@@ -173,8 +170,9 @@ export default {
       deep: true,
       handler(val, oldVal) {
         if (val !== oldVal) {
-          this.formData.params['beginGenerationTime'] = this.getdate(val)[0]
-          this.formData.params['endGenerationTime'] = this.getdate(val)[1]
+          this.formData.beginGenerationTime = this.getdate(val)[0]
+          this.formData.endGenerationTime = this.getdate(val)[1]
+          console.log(this.beginGenerationTime, this.endGenerationTime)
           this.getdata()
         } else {
           return
@@ -201,6 +199,18 @@ export default {
   methods: {
     Twodigits(num) {
       return num < 10 ? '0' + num : num
+    },
+    getDay(num, str) {
+      var today = new Date()
+      var nowTime = today.getTime()
+      var ms = 24 * 3600 * 1000 * num
+      today.setTime(parseInt(nowTime + ms))
+      var oYear = today.getFullYear()
+      var oMoth = (today.getMonth() + 1).toString()
+      if (oMoth.length <= 1) oMoth = '0' + oMoth
+      var oDay = today.getDate().toString()
+      if (oDay.length <= 1) oDay = '0' + oDay
+      return oYear + str + oMoth + str + oDay
     },
     getdate(type) {
       var myDate = new Date()
@@ -248,7 +258,8 @@ export default {
     getdata() {
       this.$emit('getquery', {
         region: this.formData.region,
-        // date: this.formData.date,
+        beginGenerationTime: this.formData.beginGenerationTime,
+        endGenerationTime: this.formData.endGenerationTime,
         eventLevel: this.formData.eventLevel
       })
     }

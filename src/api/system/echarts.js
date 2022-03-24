@@ -194,10 +194,10 @@ export function selectEventLevelEcharts(query) {
     params: query
   })
 }
-// 查询事件等级
+// 查询趋势分析
 export function selectEventLevelGradeEcharts(query) {
   return request({
-    url: '/dm/dmWeakPassword/selectEventLevelGrade',
+    url: '/dm/dmWeakPassword/eventLevelAnalysis/selectEventLevelGrade/a',
     method: 'get',
     params: query
   })
@@ -214,6 +214,15 @@ export function eventCategoryEcharts(query) {
     params: query
   })
 }
+// 查询事件趋势分析
+export function industrialNetworkAuditEcharts(query) {
+  return request({
+    url: '/dm/industrialNetworkAudit/eventLevel/grp/a',
+    method: 'get',
+    params: query
+  })
+}
+
 // 查询源IP统计TOP5
 export function industrialNetworkAuditsourceIpEcharts(query) {
   return request({

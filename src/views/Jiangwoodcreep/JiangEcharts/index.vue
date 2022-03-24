@@ -1,7 +1,7 @@
 <template>
   <div class="app-container">
     <echarts :event-type="2" @getquery="uploadData" />
-    <eventTrend :query="query" />
+    <eventTrend :query="query" :event-type="2" :name="'Jiangwoodcreep'" />
     <eventType
       :query="query"
       :type="3"

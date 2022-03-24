@@ -6,7 +6,7 @@
 </template>
 <script>
 import { setNotopt } from '@/utils/emptyEcharts.js'
-import { CreepeventLevelEcharts } from '@/api/system/echarts'
+import { CreepeventLevelEcharts, selectEventLevelGradeEcharts, industrialNetworkAuditEcharts } from '@/api/system/echarts'
 import tip from '@/components/EchartsTip'
 export default {
   name: 'AAA',
@@ -23,19 +23,19 @@ export default {
     query: {
       default: null,
       type: Object
+    },
+    eventType: {
+      default: null,
+      type: Number
     }
   },
   data() {
     return {
-      type: 1,
       queryParms: {
       },
       policitalStatus: ['1'],
-      data1: [],
-      data2: [],
-      data3: [],
-      data4: [],
-      data5: []
+      hasData: []
+
     }
   },
   computed: {},
@@ -102,25 +102,95 @@ export default {
       return area
     },
     async  getData() {
-      switch (this.type) {
-        case 1:
+      switch (this.name) {
+        case 'Jiangwoodcreep':
           await CreepeventLevelEcharts(this.queryParms).then(({ data }) => {
-            data.filter((e) => e.eventLevel === 'Medium')
-              .map(d => {
-                this.data1 = d.data
-              })
-            data.filter((e) => e.eventLevel === 'High')
-              .map(d => {
-                this.data2 = d.data
-              })
+            this.hasData = data
+            if (data.length) {
+              data.filter((e) => e.eventLevel === 'Medium')
+                .map(d => {
+                  this.data1 = d.data
+                  this.date = d.date
+                })
+              data.filter((e) => e.eventLevel === 'High')
+                .map(d => {
+                  this.data2 = d.data
+                  this.date = d.date
+                })
+            } else {
+              this.data1 = []
+              this.data2 = []
+              this.data3 = []
+              this.data4 = []
+              this.data5 = []
+            }
           })
           break
-        case 2:
-          this.data1 = [140, 232, 141, 634, 90, 230, 210]
-          this.data2 = [74, 472, 791, 274, 390, 11, 310]
-          this.data3 = [24, 102, 491, 204, 211, 11, 310]
-          this.data4 = [35, 782, 391, 184, 230, 11, 310]
-          this.data5 = [14, 582, 81, 24, 280, 11, 310]
+        case 'weakPassword':
+          await selectEventLevelGradeEcharts(this.queryParms).then(({ data }) => {
+            this.hasData = data
+            if (data.length) {
+              data.filter((e) => e.eventLevel === '1')
+                .map(d => {
+                  this.data1 = d.data
+                  this.date = d.date
+                })
+              data.filter((e) => e.eventLevel === '2')
+                .map(d => {
+                  this.data2 = d.data
+                  this.date = d.date
+                })
+              data.filter((e) => e.eventLevel === '3')
+                .map(d => {
+                  this.data3 = d.data
+                  this.date = d.date
+                })
+              data.filter((e) => e.eventLevel === '4')
+                .map(d => {
+                  this.data4 = d.data
+                  this.date = d.date
+                })
+            } else {
+              this.data1 = []
+              this.data2 = []
+              this.data3 = []
+              this.data4 = []
+              this.data5 = []
+            }
+          })
+          break
+        case 'design':
+          await industrialNetworkAuditEcharts(this.queryParms).then(({ data }) => {
+            this.hasData = data
+            if (data.length) {
+              data.filter((e) => e.eventLevel === '1')
+                .map(d => {
+                  this.date = d.date
+                  this.data1 = d.data
+                })
+              data.filter((e) => e.eventLevel === '2')
+                .map(d => {
+                  this.date = d.date
+                  this.data2 = d.data
+                })
+              data.filter((e) => e.eventLevel === '3')
+                .map(d => {
+                  this.date = d.date
+                  this.data3 = d.data
+                })
+              data.filter((e) => e.eventLevel === '4')
+                .map(d => {
+                  this.date = d.date
+                  this.data4 = d.data
+                })
+            } else {
+              this.data1 = []
+              this.data2 = []
+              this.data3 = []
+              this.data4 = []
+              this.data5 = []
+            }
+          })
           break
         default:
           console.log('无数据', this.type)
@@ -129,7 +199,7 @@ export default {
       this.drawPolicitalStatus()
     },
     drawPolicitalStatus() {
-      if (this.policitalStatus.length) {
+      if (this.hasData.length) {
         // 基于准备好的dom，初始化echarts实例
         const myChart = this.$echarts.init(this.$refs.canvas1)
         // 绘制图表
@@ -151,7 +221,7 @@ export default {
             axisTick: { // x轴刻度线
               show: false
             },
-            data: ['2022/2/1', '2022/2/2', '2022/2/3', '2022/2/4', '2022/2/5', '2022/2/6', '2022/2/7']
+            data: this.date
           },
           yAxis: {
             axisTick: { // x轴刻度线
@@ -164,30 +234,35 @@ export default {
           series: [
             {
               name: '极低',
+              color: ['#1890FF'],
               type: 'line',
               smooth: true,
               data: this.data1
             },
             {
               name: '低危',
+              color: ['#B592E4'],
               type: 'line',
               smooth: true,
               data: this.data2
             },
             {
               name: '中危',
+              color: ['#F0B144'],
               type: 'line',
               smooth: true,
               data: this.data3
             },
             {
               name: '高危',
+              color: ['#FF8745'],
               type: 'line',
               smooth: true,
               data: this.data4
             },
             {
               name: '致命',
+              color: ['#FFFFFF'],
               type: 'line',
               smooth: true,
               data: this.data5
