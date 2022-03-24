@@ -37,7 +37,7 @@ export default {
   },
   data () {
     return {
-      policitalStatus: ['1'],
+      hasData: [],
       queryParms: {
       }
     }
@@ -158,12 +158,14 @@ export default {
         }
       } else if (this.host) {
         await EventNameWordCloudMap(this.queryParms).then(({ data }) => {
+          this.hasData = data
           this.datacopy = this.transDic(data)
         })
       } else {
         switch (this.name) {
           case 'Jiangwoodcreep':
             await CreepthreatEcharts(this.queryParms).then(({ data }) => {
+              this.hasData = data
               this.datacopy = this.transDic(data)
             })
             break
@@ -175,7 +177,7 @@ export default {
       this.drawPolicitalStatus()
     },
     drawPolicitalStatus () {
-      if (this.policitalStatus.length) {
+      if (this.hasData.length) {
         // 基于准备好的dom，初始化echarts实例
         const myChart = this.$echarts.init(this.$refs.canvas1)
 

@@ -28,7 +28,7 @@ export default {
   },
   data() {
     return {
-      policitalStatus: ['1'],
+      hasData: [],
       queryParms: {
       }
     }
@@ -64,36 +64,7 @@ export default {
       switch (this.name) {
         case 'weakPassword':
           await selectAgreementEcharts(this.queryParms).then(({ data }) => {
-            this.data1 = this.transDic(data)
-          })
-          break
-        case 2:
-          await selectAgreementEcharts(this.queryParms).then(({ data }) => {
-            console.log(data)
-            this.data1 = this.transDic(data)
-          })
-          break
-        case 3:
-          await selectAgreementEcharts(this.queryParms).then(({ data }) => {
-            console.log(data)
-            this.data1 = this.transDic(data)
-          })
-          break
-        case 4:
-          await selectAgreementEcharts(this.queryParms).then(({ data }) => {
-            console.log(data)
-            this.data1 = this.transDic(data)
-          })
-          break
-        case 5:
-          await selectAgreementEcharts(this.queryParms).then(({ data }) => {
-            console.log(data)
-            this.data1 = this.transDic(data)
-          })
-          break
-        case 6:
-          await selectAgreementEcharts(this.queryParms).then(({ data }) => {
-            console.log(data)
+            this.hasData = data
             this.data1 = this.transDic(data)
           })
           break
@@ -104,7 +75,7 @@ export default {
       this.drawPolicitalStatus()
     },
     drawPolicitalStatus() {
-      if (this.policitalStatus.length) {
+      if (this.hasData.length) {
         // 基于准备好的dom，初始化echarts实例
         const myChart = this.$echarts.init(this.$refs.canvas1)
 

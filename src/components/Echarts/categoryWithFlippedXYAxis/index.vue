@@ -30,6 +30,7 @@ export default {
     return {
       policitalStatus: ['1'],
       barData: [],
+      hasData: [],
       queryParms: {
       },
       category: [],
@@ -74,6 +75,7 @@ export default {
       switch (this.type) {
         case 1:
           await industrialNetworkAuditsourceIpEcharts(this.queryParms).then(({ data }) => {
+            this.hasData = data
             this.category = this.transDicName(data)
             this.barData = this.transDicCount(data)
             this.title = '源IP'
@@ -81,6 +83,7 @@ export default {
           break
         case 2:
           await industrialNetworkAudittargetIpEcharts(this.queryParms).then(({ data }) => {
+            this.hasData = data
             this.category = this.transDicName(data)
             this.barData = this.transDicCount(data)
             this.title = '目的IP'
@@ -93,7 +96,7 @@ export default {
       this.drawPolicitalStatus()
     },
     drawPolicitalStatus() {
-      if (this.policitalStatus.length) {
+      if (this.hasData.length) {
         // 基于准备好的dom，初始化echarts实例
         const myChart = this.$echarts.init(this.$refs.canvas1)
         // 绘制图表
@@ -162,7 +165,7 @@ export default {
                 normal: {
                   barBorderRadius: 0,
                   color: function(params) {
-                    var colorList = ['#2C82FC', '#ffaf37', '#31B3D2', '#9D6AFF', '#FF7B82', '#43A682', '#ca8622']
+                    var colorList = ['#1890FF', '#B592E4', '#F0B144', '#FF8745', '#F73030', '#43A682', '#ca8622']
                     var newcolorList = quickSort(colorList)
                     return newcolorList[params.dataIndex]
                   }
