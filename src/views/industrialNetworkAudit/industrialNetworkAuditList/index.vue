@@ -182,12 +182,17 @@
           :show-overflow-tooltip="true"
         />
         <el-table-column
-          label="事件级别"
+          label="事件等级"
           align="center"
           prop="eventLevel"
           :show-overflow-tooltip="true"
-        />
-
+        >
+          <template #default="scope">
+            <span>{{
+              transTypeDic(scope.row.eventLevel)
+            }}</span>
+          </template>
+        </el-table-column>
         <el-table-column
           label="事件类型"
           align="center"
@@ -557,6 +562,29 @@ export default {
     this.getList()
   },
   methods: {
+    transTypeDic(val) {
+      var t = [{
+        name: '1',
+        content: '正常'
+      }, {
+        name: '2',
+        content: '低危'
+      }, {
+        name: '3',
+        content: '中危'
+      }, {
+        name: '4',
+        content: '高危'
+      }, {
+        name: '5',
+        content: '失陷'
+      }]
+      const orgTreeData1 = t.filter((e) => e.name === val)
+        .map(({ content }) => ({
+          content
+        }))
+      return `${orgTreeData1[0].content}`
+    },
     batchOperate(command) {
       let message = ''
       switch (command) {

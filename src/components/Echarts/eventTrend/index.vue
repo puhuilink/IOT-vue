@@ -9,7 +9,7 @@
 </template>
 <script>
 import { setNotopt } from '@/utils/emptyEcharts.js'
-import { CreepeventLevelEcharts, EventTrendAnalysis, abnormalAnalysis, selectEventLevelGradeEcharts, industrialNetworkAuditEcharts, scanningeventLevelEcharts } from '@/api/system/echarts'
+import { CreepeventLevelEcharts, EventTrendAnalysis, abnormalAnalysis, selectEventLevelGradeEcharts, industrialNetworkAuditEcharts, scanninghostEcharts, scanningeventLevelEcharts } from '@/api/system/echarts'
 import tip from '@/components/EchartsTip'
 export default {
   name: 'AAA',
@@ -286,7 +286,7 @@ export default {
           break
         case 'vulnerablity1':
           // scanninghostEcharts
-          await scanningeventLevelEcharts(this.queryParms).then(({ data }) => {
+          await scanninghostEcharts(this.queryParms).then(({ data }) => {
             this.hasData = data
             if (data.length) {
               data.filter((e) => e.eventLevel === '1')
