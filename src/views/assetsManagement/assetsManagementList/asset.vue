@@ -7,7 +7,7 @@
              class="label-type">
       <el-col :span="6">
         <el-form-item label="IP地址:"
-                      prop="ipaddr">
+                      prop="ip">
           <el-input v-model="queryParams.ip"
                     placeholder="请输入IP地址"
                     clearable
@@ -73,7 +73,7 @@
           </el-select>
         </el-form-item>
       </el-col>
-      <!-- <el-col :span="7">
+      <el-col :span="6">
         <el-form-item label="资产类型:"
                       prop="assetType">
           <el-select v-model="queryParams.assetType"
@@ -86,22 +86,12 @@
                        :label="item.label"
                        :value="item.value"
                        :disabled="item.disabled" />
-        </el-form-item>
-      </el-col> -->
-      <el-col :span="6">
-        <el-form-item label="资产类型:"
-                      prop="level">
-          <el-select v-model="queryParams.assetType"
-                     placeholder="请选择资产类型"
-                     filterable
-                     clearable
-                     :style="{ width: '100%' }">
-            <el-option v-for="(item, index) in assetTypeOptions"
-                       :key="index"
-                       :label="item.label"
-                       :value="item.value"
-                       :disabled="item.disabled" />
           </el-select>
+          <!-- <el-input v-model="queryParams.assetType"
+                    placeholder="请选择资产类型"
+                    clearable
+                    size="small"
+                    @keyup.enter.native="handleQuery" /> -->
         </el-form-item>
       </el-col>
       <el-col :span="6">
@@ -109,10 +99,10 @@
           <el-button type="primary"
                      icon="el-icon-search"
                      size="mini"
-                     @click="handleQuery">搜索</el-button>
+                     @click="btnQuery">搜索</el-button>
           <el-button icon="el-icon-refresh"
                      size="mini"
-                     @click="resetQuery">重置</el-button>
+                     @click="resetForm">重置</el-button>
         </el-form-item>
       </el-col>
     </el-form>
@@ -264,7 +254,7 @@
             <el-col :span="24">
               <el-form-item label="资产类型 :"
                             prop="ipaddr">
-                <el-select v-model="formData.field114"
+                <el-select v-model="queryParams.field114"
                            placeholder="请选择资产类型"
                            clearable
                            :style="{ width: '100%' }">
@@ -297,7 +287,7 @@
             <el-col :span="24">
               <el-form-item label="区域 :"
                             prop="ipaddr">
-                <el-select v-model="formData.field114"
+                <el-select v-model="queryParams.field114"
                            placeholder="请选择区域"
                            clearable
                            :style="{ width: '100%' }">
@@ -314,7 +304,7 @@
             <el-col :span="24">
               <el-form-item label="资产组 :"
                             prop="ipaddr">
-                <el-select v-model="formData.field114"
+                <el-select v-model="queryParams.field114"
                            placeholder="请选择资产组"
                            clearable
                            :style="{ width: '100%' }">
@@ -417,7 +407,7 @@
             <el-col :span="24">
               <el-form-item label="资产类型 :"
                             prop="ipaddr">
-                <el-select v-model="formData.field114"
+                <el-select v-model="queryParams.field114"
                            placeholder="请选择资产类型"
                            clearable
                            :style="{ width: '100%' }">
@@ -450,7 +440,7 @@
             <el-col :span="24">
               <el-form-item label="区域 :"
                             prop="ipaddr">
-                <el-select v-model="formData.field114"
+                <el-select v-model="queryParams.field114"
                            placeholder="请选择区域"
                            clearable
                            :style="{ width: '100%' }">
@@ -573,7 +563,7 @@
             <el-col :span="24">
               <el-form-item label="运行状态 :"
                             prop="ipaddr">
-                <el-select v-model="formData.field114"
+                <el-select v-model="queryParams.field114"
                            placeholder="请选择运行状态"
                            clearable
                            :style="{ width: '100%' }">
@@ -588,7 +578,7 @@
             <el-col :span="24">
               <el-form-item label="是否外联 :"
                             prop="ipaddr">
-                <el-select v-model="formData.field114"
+                <el-select v-model="queryParams.field114"
                            placeholder="请选择是否外联"
                            clearable
                            :style="{ width: '100%' }">
@@ -1046,21 +1036,6 @@ export default {
           zhhysj: '2022-01-29 10:10:00'
         }
       ],
-      // 分组表格数据
-      groupList: [],
-      pageNum: 1,
-      pageSize: 10,
-      // 查询参数
-      queryParams: {
-        pageNum: 1,
-        pageSize: 10,
-        userId: null,
-        groupName: null,
-        createTime: null
-      },
-      formData: {
-        level: ''
-      },
       areaOptions: [
         {
           label: '天津管片厂',
@@ -1087,60 +1062,28 @@ export default {
           value: '北京水厂'
         }
       ],
-      field114Options: [
-        {
-          label: 'IT资产',
-          value: 1
-        },
-        {
-          label: '无控资产',
-          value: 2
-        },
-        {
-          label: '无',
-          value: 3
-        },
-        {
-          label: '无控资产-服务器',
-          value: 4
-        }
-      ],
-      riskStateOptions: [
-        {
-          label: '正常',
-          value: '正常'
-        },
-        {
-          label: '低危',
-          value: '低危'
-        },
-        {
-          label: '中危',
-          value: '中危'
-        },
-        {
-          label: '高危',
-          value: '高危'
-        },
-        {
-          label: '失陷',
-          value: '失陷'
-        }
-      ],
-      statusOptions: [
-        {
-          label: '在线',
-          value: 1
-        },
-        {
-          label: '离线',
-          value: 2
-        },
-        {
-          label: '异常',
-          value: 3
-        }
-      ],
+      // riskStateOptions: [
+      //   {
+      //     label: '正常',
+      //     value: '正常'
+      //   },
+      //   {
+      //     label: '低危',
+      //     value: '低危'
+      //   },
+      //   {
+      //     label: '中危',
+      //     value: '中危'
+      //   },
+      //   {
+      //     label: '高危',
+      //     value: '高危'
+      //   },
+      //   {
+      //     label: '失陷',
+      //     value: '失陷'
+      //   }
+      // ],
       levelOptions: [
         {
           label: '极低',
@@ -1163,30 +1106,77 @@ export default {
           value: '致命'
         }
       ],
-      assetTypeOptions: [
+      // assetTypeOptions: [
+      //   {
+      //     label: '安全设备-web应用防火墙',
+      //     value: '安全设备-web应用防火墙'
+      //   },
+      //   {
+      //     label: '服务器-虚拟机 ',
+      //     value: '服务器-虚拟机 '
+      //   },
+      //   {
+      //     label: '服务器-服务器 ',
+      //     value: '服务器-服务器 '
+      //   },
+      //   {
+      //     label: '安全设备-蜜罐  ',
+      //     value: '安全设备-蜜罐  '
+      //   },
+      //   {
+      //     label: '安全设备-工业防火墙',
+      //     value: '安全设备-工业防火墙'
+      //   },
+      //   {
+      //     label: '服务器-主机',
+      //     value: '服务器-主机'
+      //   }
+      // ],
+      // 分组表格数据
+      groupList: [],
+      pageNum: 1,
+      pageSize: 10,
+      // 查询参数
+      queryParams: {
+        pageNum: 1,
+        pageSize: 10,
+        ip: '',
+        region: '',
+        riskState: '',
+        leader: '',
+        level: '',
+        assetType: ''
+      },
+      field114Options: [
         {
-          label: '安全设备-web应用防火墙',
-          value: '安全设备-web应用防火墙'
+          label: 'IT资产',
+          value: 1
         },
         {
-          label: '服务器-虚拟机 ',
-          value: '服务器-虚拟机 '
+          label: '无控资产',
+          value: 2
         },
         {
-          label: '服务器-服务器 ',
-          value: '服务器-服务器 '
+          label: '无',
+          value: 3
         },
         {
-          label: '安全设备-蜜罐  ',
-          value: '安全设备-蜜罐  '
+          label: '无控资产-服务器',
+          value: 4
+        }
+      ],
+      statusOptions: [
+        {
+          label: '在线',
+          value: 1
         },
         {
-          label: '安全设备-工业防火墙',
-          value: '安全设备-工业防火墙'
+          label: '离线',
+          value: 2
         },
         {
-          label: '服务器-主机',
-          value: '服务器-主机'
+          label: '异常',
+          value: 3
         }
       ],
       dataTest: {
@@ -1212,6 +1202,12 @@ export default {
     this.getList()
   },
   methods: {
+    doImport () {
+
+    },
+    beforeUpload () {
+
+    },
     /** 查询登录日志列表 */
     // getCategoryList() {
     //   listEvent(this.queryParams).then((response) => {
@@ -1223,23 +1219,23 @@ export default {
     async getList () {
       this.loading = true
       const res = await assetList(this.queryParams)
+      console.log('res3-23-18:40', res)
       this.groupList = res.rows
       this.total = res.total
       this.loading = false
     },
-    /** 搜索按钮操作 */
-    handleQuery () {
-      // this.queryParams.pageNum = 1
+    btnQuery () {
+      this.queryParams.pageNum = 1
       this.getList()
     },
-    // btnQuery () {
-    //   this.queryParams.pageNum = 1
-    //   this.getList()
-    // },
+    /** 搜索按钮操作 */
+    handleQuery () {
+      this.pageNum = 1
+      this.getList()
+    },
     /** 重置按钮操作 */
-    resetQuery () {
-      this.resetForm('queryForm')
-      this.handleQuery()
+    resetForm () {
+      this.$refs['elForm'].resetFields()
     },
     handleAdd () {
       this.open = true

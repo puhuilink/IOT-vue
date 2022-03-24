@@ -114,7 +114,7 @@ export default {
             break;
         }
         // 基于准备好的dom，初始化echarts实例
-        // const { data } = await KillChain()
+        const { data } = await KillChain()
         // this.category = [450, 50, 650, 780, 150, 1000, 800],
         //   this.barData = [580, 280, 100, 560, 50, 900, 760],
         //   this.categoryThree = [420, 600, 50, 500, 200, 750, 580],
