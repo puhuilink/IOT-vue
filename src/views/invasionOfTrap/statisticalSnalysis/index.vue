@@ -33,6 +33,7 @@
     <assetsUnderAttack :query="query"
                        :address="address" />
     <toDetectEvents :query="query"
+                    :event-type="2"
                     :address="address" />
     <underAttackSandbox :query="query"
                         :address="address" />
