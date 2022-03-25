@@ -1,7 +1,7 @@
 {
   "name": "ruoyi",
   "version": "3.4.0",
-  "description": "安全子平台",
+  "description": "安全监测子平台",
   "author": "若依",
   "license": "MIT",
   "scripts": {

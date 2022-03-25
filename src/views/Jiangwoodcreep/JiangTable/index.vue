@@ -223,7 +223,13 @@
         align="center"
         prop="threatClassification"
         :show-overflow-tooltip="true"
-      />
+      >
+        <template #default="scope">
+          <span>{{
+            translevelDic(scope.row.threatClassification)
+          }}</span>
+        </template>
+      </el-table-column>
       <el-table-column
         label="事件等级"
         align="center"
@@ -274,15 +280,29 @@
           <el-button
             size="mini"
             type="text"
-            icon="el-icon-edit"
             @click="detail(scope.row.stiffWoodCreepId)"
           >详情</el-button>
-          <el-button
-            size="mini"
-            type="text"
-            icon="el-icon-delete"
-            @click="handleDelete(scope.row)"
-          >状态变更</el-button>
+          &nbsp;&nbsp; &nbsp;&nbsp;
+          &nbsp;&nbsp; &nbsp;&nbsp;
+          <el-dropdown @command="batchOperate">
+            <el-button
+              size="mini"
+              type="text"
+            >
+              状态变更<i class="el-icon-arrow-down el-icon--right" />
+            </el-button>
+            <el-dropdown-menu slot="dropdown">
+              <el-dropdown-item
+                command="process"
+              >处置</el-dropdown-item>
+              <el-dropdown-item
+                command="un_process"
+              >不处置</el-dropdown-item>
+              <el-dropdown-item
+                command="false_report"
+              >误报</el-dropdown-item>
+            </el-dropdown-menu>
+          </el-dropdown>
         </template>
       </el-table-column>
     </el-table>
@@ -436,6 +456,8 @@ export default {
         pageNum: 1,
         pageSize: 10,
         userId: null,
+        orderByColumn: 'happen_time',
+        isAsc: 'desc',
         groupName: null,
         createTime: null
       },
@@ -488,7 +510,13 @@ export default {
         'value': 'Botnet'
       }, {
         'label': '网络木马',
+        'value': 'Trojan'
+      }, {
+        'label': '恶意软件',
         'value': 'Malware'
+      }, {
+        'label': '恶意链接',
+        'value': 'URL_malware'
       }],
       field114Options: [{
         'label': '未处置',
@@ -534,16 +562,43 @@ export default {
     this.getList()
   },
   methods: {
-
+    translevelDic(val) {
+      var t = [{
+        'label': '僵尸网络',
+        'value': 'Botnet'
+      }, {
+        'label': '网络木马',
+        'value': 'Trojan'
+      }, {
+        'label': '恶意软件',
+        'value': 'Malware'
+      }, {
+        'label': '恶意链接',
+        'value': 'URL_malware'
+      }]
+      const orgTreeData = t.filter((e) => e.value === val)
+        .map(({ label }) => ({
+          label
+        }))
+      return `${orgTreeData[0].label}`
+    },
     transTypeDic(val) {
-      var t = [
-        {
-          name: 'Medium',
-          content: '中危'
-        }, {
-          name: 'High',
-          content: '高危'
-        }]
+      var t = [{
+        name: '1',
+        content: '正常'
+      }, {
+        name: '2',
+        content: '低危'
+      }, {
+        name: '3',
+        content: '中危'
+      }, {
+        name: '4',
+        content: '高危'
+      }, {
+        name: '5',
+        content: '失陷'
+      }]
       const orgTreeData1 = t.filter((e) => e.name === val)
         .map(({ content }) => ({
           content
@@ -556,6 +611,40 @@ export default {
       this.groupList = res.rows
       this.total = res.total
       this.loading = false
+    },
+    batchOperate(command) {
+      let message = ''
+      switch (command) {
+        case 'process':
+          message = '是否确认变更处置状态？'
+          this.openMessageBox(message)
+          break
+        case 'un_process':
+          message = '是否确认将此事件处置状态修改为不处置？'
+          this.openMessageBox(message)
+          break
+        case 'false_report':
+          message = '是否确认将此事件处置状态修改为误报？'
+          this.openMessageBox(message)
+          break
+      }
+    },
+    openMessageBox(message) {
+      this.$confirm(message, '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        this.$message({
+          type: 'success',
+          message: '修改成功!'
+        })
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '已取消修改！'
+        })
+      })
     },
     submitdata() {
       this.$refs['elForm'].validate(valid => {

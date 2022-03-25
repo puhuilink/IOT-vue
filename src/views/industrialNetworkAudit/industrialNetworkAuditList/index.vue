@@ -504,6 +504,8 @@ export default {
         pageNum: 1,
         pageSize: 10,
         userId: null,
+        orderByColumn: 'happen_time',
+        isAsc: 'desc',
         groupName: null,
         createTime: null
       },
@@ -589,7 +591,7 @@ export default {
       let message = ''
       switch (command) {
         case 'process':
-          message = '是否确认将此事件处置状态修改为误报？'
+          message = '是否确认变更处置状态？'
           this.openMessageBox(message)
           break
         case 'un_process':
@@ -597,7 +599,7 @@ export default {
           this.openMessageBox(message)
           break
         case 'false_report':
-          message = '是否确认变更处置状态？'
+          message = '是否确认将此事件处置状态修改为误报？'
           this.openMessageBox(message)
           break
       }

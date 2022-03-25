@@ -51,7 +51,6 @@ export default {
       const res = await dataSecurityManagementList(this.queryParams)
       this.groupList = res.rows
       this.total = res.total
-      console.log(this.groupList)
       this.loading = false
     },
     uploadData(data) {

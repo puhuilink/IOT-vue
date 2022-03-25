@@ -107,7 +107,7 @@ export default {
                 this.hasData = data
                 this.category = this.transDicName(data)
                 this.barData = this.transDicCount(data)
-                this.title = '文件大小单位/M'
+                this.title = '目的IP'
               })
               break
             case 2:
@@ -115,7 +115,7 @@ export default {
                 this.hasData = data
                 this.category = this.transDicName(data)
                 this.barData = this.transDicCount(data)
-                this.title = '文件大小单位/M'
+                this.title = '目的IP'
               })
               break
             default:
@@ -152,6 +152,7 @@ export default {
           },
           xAxis: {
             type: 'value',
+            position: 'top',
             minInterval: 1,
             axisTick: {
               show: false
@@ -159,8 +160,11 @@ export default {
           },
           yAxis: {
             type: 'category',
+            inverse: true,
             minInterval: 1,
             data: this.category,
+            animationDuration: 300,
+            animationDurationUpdate: 300,
             splitLine: { show: false },
             axisLine: {
               show: false
@@ -186,6 +190,7 @@ export default {
                 normal: {
                   show: true,
                   position: 'right',
+                  valueAnimation: true,
                   offset: [5, -2],
                   textStyle: {
                     color: '#F68300',
@@ -206,7 +211,11 @@ export default {
                 }
               }
             }
-          ]
+          ],
+          animationDuration: 0,
+          animationDurationUpdate: 3000,
+          animationEasing: 'linear',
+          animationEasingUpdate: 'linear'
         })
         window.addEventListener('resize', function() {
           myChart.resize()

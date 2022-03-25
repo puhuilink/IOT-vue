@@ -168,7 +168,7 @@
                          align="center"
                          prop="clientIp"
                          :show-overflow-tooltip="true" />
-        <el-table-column label="产生时间"
+        <el-table-column label="发生时间"
                          align="center"
                          prop="generationTime"
                          :show-overflow-tooltip="true" />

@@ -347,6 +347,8 @@ export default {
         pageNum: 1,
         pageSize: 10,
         userId: null,
+        orderByColumn: 'happen_time',
+        isAsc: 'desc',
         groupName: null,
         createTime: null
       },

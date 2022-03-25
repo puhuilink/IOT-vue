@@ -124,7 +124,7 @@ export default {
               show: true,
               type: 'bar',
               barGap: '-100%',
-              barWidth: '20%',
+              barWidth: '10%',
               z: 2,
               itemStyle: {
                 emphasis: {
