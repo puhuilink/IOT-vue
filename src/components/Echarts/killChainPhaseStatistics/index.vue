@@ -2,10 +2,8 @@
 <template>
   <el-col :span="12">
     <tip>{{ tipname }}</tip>
-    <div
-      ref="canvas1"
-      style="height: 400px"
-    />
+    <div ref="canvas1"
+         style="height: 400px" />
   </el-col>
 </template>
 <script>
@@ -30,11 +28,13 @@ export default {
       type: Number
     }
   },
-  data() {
+  data () {
     return {
       policitalStatus: ['1'],
       barData: [],
       category: [],
+      date: [],
+      categoryName: [],
       axisData: [],
       hasData: []
     }
@@ -42,7 +42,7 @@ export default {
   computed: {},
   watch: {
     query: {
-      handler(val, oldVal) {
+      handler (val, oldVal) {
         this.queryParms = this.query
         if (val !== oldVal) {
           this.getData()
@@ -52,7 +52,25 @@ export default {
       deep: true
     },
     category: {
-      handler(val, oldVal) {
+      handler (val, oldVal) {
+        if (val !== oldVal) {
+          console.log(1)
+          this.drawPolicitalStatus()
+        }
+      },
+      deep: true
+    },
+    categoryName: {
+      handler (val, oldVal) {
+        if (val !== oldVal) {
+          console.log(1)
+          this.drawPolicitalStatus()
+        }
+      },
+      deep: true
+    },
+    date: {
+      handler (val, oldVal) {
         if (val !== oldVal) {
           console.log(1)
           this.drawPolicitalStatus()
@@ -61,48 +79,47 @@ export default {
       deep: true
     }
   },
-  created() {
+  created () {
     this.getData()
   },
-  mounted() {
+  mounted () {
     this.drawPolicitalStatus()
   },
   methods: {
-    async getData() {
+    async getData () {
       const { data } = await KillChain(this.queryParms)
       this.hasData = data
+      this.categoryName = []
       if (this.hasData.length) {
         var dataArray = data[0].data
         for (let j = 0; j < dataArray.length; j++) {
           const dataArr = data[j].data
+
+          this.categoryName.push(data[j].killingChainStage)
           for (let i = 0; i < dataArr.length; i++) {
             const height = dataArr[i]
             const newArr = [j, i, height]
             this.axisData.push(newArr)
           }
-          this.category = this.axisData.map(function(item) {
+          this.category = this.axisData.map(function (item) {
             return [item[1], item[0], item[2]]
-          })
+          }),
+            this.date = data[0].date
         }
       } else {
         this.category = []
+        this.date = []
+        this.categoryName = []
       }
+
     },
-    async drawPolicitalStatus() {
+    async drawPolicitalStatus () {
       if (this.hasData.length) {
         // 基于准备好的dom，初始化echarts实例
         const myChart = this.$echarts.init(this.$refs.canvas1)
-        const hours = [
-          '01-20',
-          '01-21',
-          '01-22',
-          '01-23',
-          '01-24',
-          '01-25',
-          '01-26'
-        ]
+        const hours = this.date
         // prettier-ignore
-        const days = ['侦察跟踪', '武器构建', '荷载投递', '突防利用', '安装植入']
+        const days = this.categoryName
         // 绘制图表
         myChart.setOption({
           title: {
@@ -111,7 +128,7 @@ export default {
           color: ['#ADD8E6'],
           tooltip: {
             position: 'top',
-            formatter: function(params) {
+            formatter: function (params) {
               return (
                 params.value[2] +
                 ' commits in ' +
@@ -148,17 +165,17 @@ export default {
           series: [
             {
               type: 'scatter',
-              symbolSize: function(val) {
+              symbolSize: function (val) {
                 return val[2] * 2
               },
               data: this.category,
-              animationDelay: function(idx) {
+              animationDelay: function (idx) {
                 return idx * 5
               }
             }
           ]
         })
-        window.addEventListener('resize', function() {
+        window.addEventListener('resize', function () {
           myChart.resize()
         })
       } else {
