@@ -212,111 +212,6 @@
         <el-table-column
           label="攻击者IP"
           align="center"
-          prop="sourceIp"
-          :show-overflow-tooltip="true"
-        />
-        <el-table-column
-          label="受害者IP"
-          align="center"
-          prop="victimIp"
-          :show-overflow-tooltip="true"
-        />
-        <el-table-column
-          label="APT组织"
-          align="center"
-          prop="eventName"
-          :show-overflow-tooltip="true"
-        />
-        <el-table-column
-          label="协议"
-          align="center"
-          prop="agreement"
-          :show-overflow-tooltip="true"
-        />
-        <el-table-column
-          label="事件等级"
-          align="center"
-          prop="eventLevel"
-          :show-overflow-tooltip="true"
-        />
-        <el-table-column
-          label="杀伤链阶段"
-          align="center"
-          prop="type"
-          :show-overflow-tooltip="true"
-        />
-        <el-table-column
-          label="发生时间"
-          align="center"
-          prop="startTime"
-          :show-overflow-tooltip="true"
-        />
-        <el-table-column
-          label="发现时间"
-          align="center"
-          prop="endTime"
-          :show-overflow-tooltip="true"
-        />
-        <el-table-column
-          label="处置状态"
-          align="center"
-          prop="status"
-          :show-overflow-tooltip="true"
-        />
-        <el-table-column
-          label="区域"
-          align="center"
-          prop="address"
-          :show-overflow-tooltip="true"
-        />
-        <el-table-column
-          label="操作"
-          align="center"
-          class-name="small-padding fixed-width"
-        />
-        <template>
-          <el-button
-            type="text"
-            @click="detail"
-          >详情</el-button>
-          <el-dropdown @command="batchOperate">
-            <el-button
-              size="mini"
-              type="text"
-              icon="el-icon-s-tools"
-            >
-              状态变更<i class="el-icon-arrow-down el-icon--right" />
-            </el-button>
-            <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item
-                icon="el-icon-check"
-                command="process"
-              >处置</el-dropdown-item>
-              <el-dropdown-item
-                icon="el-icon-close"
-                command="un_process"
-              >不处置</el-dropdown-item>
-              <el-dropdown-item
-                icon="el-icon-bell"
-                command="false_report"
-              >误报</el-dropdown-item>
-            </el-dropdown-menu>
-          </el-dropdown>
-        </template>
-      </el-table>
-
-      <el-table
-        :data="groupList"
-        tooltip-effect="light"
-      >
-        <el-table-column
-          type="selection"
-          width="55"
-          align="center"
-        />
-        <el-table-column
-          label="攻击者IP"
-          align="center"
           prop="attackerIp"
           :show-overflow-tooltip="true"
         />
@@ -385,11 +280,29 @@
               type="text"
               @click="detail(scope.row.id)"
             >详情</el-button>
-            <el-button
-              size="mini"
-              type="text"
-              @click="handleDelete(scope.row)"
-            >状态变更</el-button>
+            <el-dropdown @command="batchOperate">
+              <el-button
+                size="mini"
+                type="text"
+                icon="el-icon-s-tools"
+              >
+                状态变更<i class="el-icon-arrow-down el-icon--right" />
+              </el-button>
+              <el-dropdown-menu slot="dropdown">
+                <el-dropdown-item
+                  icon="el-icon-check"
+                  command="process"
+                >处置</el-dropdown-item>
+                <el-dropdown-item
+                  icon="el-icon-close"
+                  command="un_process"
+                >不处置</el-dropdown-item>
+                <el-dropdown-item
+                  icon="el-icon-bell"
+                  command="false_report"
+                >误报</el-dropdown-item>
+              </el-dropdown-menu>
+            </el-dropdown>
           </template>
         </el-table-column>
       </el-table>
