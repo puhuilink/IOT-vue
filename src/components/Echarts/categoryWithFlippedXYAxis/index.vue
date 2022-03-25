@@ -146,6 +146,7 @@ export default {
               name: '数量',
               type: 'bar',
               data: this.barData,
+              realtimeSort: true,
               barWidth: 14,
               barGap: 10,
               smooth: true,
