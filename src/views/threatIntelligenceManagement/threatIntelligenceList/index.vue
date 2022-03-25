@@ -5,7 +5,7 @@
         <el-row :gutter="20">
           <el-form
             ref="elForm"
-            :model="queryParams"
+            :model="formData"
             :rules="rules"
             size="mini"
             label-width="90px"
@@ -18,7 +18,7 @@
                 prop="name"
               >
                 <el-input
-                  v-model="queryParams.aptOrganization"
+                  v-model="formData.name"
                   placeholder="请输入APT组织"
                   clearable
                   :style="{ width: '100%' }"
@@ -31,7 +31,7 @@
                 prop="area"
               >
                 <el-select
-                  v-model="queryParams.region"
+                  v-model="formData.area"
                   placeholder="请选择区域"
                   filterable
                   clearable
@@ -41,7 +41,7 @@
                     v-for="(item, index) in areaOptions"
                     :key="index"
                     :label="item.label"
-                    :value="item.label"
+                    :value="item.value"
                     :disabled="item.disabled"
                   />
                 </el-select>
@@ -50,10 +50,10 @@
             <el-col :span="6">
               <el-form-item
                 label="事件等级:"
-                prop="eventLevel"
+                prop="level"
               >
                 <el-select
-                  v-model="queryParams.eventLevel"
+                  v-model="formData.level"
                   placeholder="请选择事件等级"
                   filterable
                   clearable
@@ -75,14 +75,14 @@
                 prop="agreement"
               >
                 <el-select
-                  v-model="queryParams.agreement"
+                  v-model="formData.area"
                   placeholder="请选择协议"
                   filterable
                   clearable
                   :style="{ width: '100%' }"
                 >
                   <el-option
-                    v-for="(item, index) in agreementOptions"
+                    v-for="(item, index) in areaOptions"
                     :key="index"
                     :label="item.label"
                     :value="item.value"
@@ -94,17 +94,16 @@
             <el-col :span="6">
               <el-form-item
                 label="处置状态:"
-                prop="disposalStatus"
+                prop="field114"
               >
                 <el-select
-                  v-model="queryParams.disposalStatus"
+                  v-model="formData.field114"
                   placeholder="请选择处置状态"
-                  filterable
                   clearable
                   :style="{ width: '100%' }"
                 >
                   <el-option
-                    v-for="(item, index) in statusOptions"
+                    v-for="(item, index) in field114Options"
                     :key="index"
                     :label="item.label"
                     :value="item.value"
@@ -116,10 +115,10 @@
             <el-col :span="6">
               <el-form-item
                 label="受害者IP:"
-                prop="victimIp"
+                prop="type"
               >
                 <el-input
-                  v-model="queryParams.victimIp"
+                  v-model="formData.type"
                   placeholder="请输入受害者IP"
                   clearable
                   :style="{ width: '100%' }"
@@ -130,10 +129,10 @@
             <el-col :span="6">
               <el-form-item
                 label="攻击者IP:"
-                prop="attackerIp"
+                prop="ip"
               >
                 <el-input
-                  v-model="queryParams.attackerIp"
+                  v-model="formData.ip"
                   placeholder="请输入攻击者IP"
                   clearable
                   :style="{ width: '100%' }"
@@ -146,7 +145,7 @@
                 prop="date"
               >
                 <el-time-picker
-                  v-model="queryParams.date"
+                  v-model="formData.date"
                   is-range
                   format="HH:mm:ss"
                   value-format="HH:mm:ss"
@@ -161,30 +160,20 @@
             <el-col :span="7">
               <el-form-item
                 label="杀伤链阶段:"
-                prop="killingChainStage"
+                prop="newip"
               >
-                <el-select
-                  v-model="queryParams.killingChainStage"
-                  placeholder="请选择杀伤链阶段"
-                  filterable
+                <el-input
+                  v-model="formData.newip"
+                  placeholder="请输入目标IP"
                   clearable
-                  :style="{ width: '100%' }"
-                >
-                  <el-option
-                    v-for="(item, index) in killingChainStageOptions"
-                    :key="index"
-                    :label="item.label"
-                    :value="item.value"
-                    :disabled="item.disabled"
-                  />
-                </el-select>
+                />
               </el-form-item>
             </el-col>
             <el-col :span="6">
               <el-form-item size="mini">
                 <el-button
                   type="primary"
-                  @click="btnQuery"
+                  @click="submitdata"
                 >搜索</el-button>
                 <el-button @click="resetForm">重置</el-button>
               </el-form-item>
@@ -212,19 +201,19 @@
         <el-table-column
           label="攻击者IP"
           align="center"
-          prop="attackerIp"
+          prop="sourceIp"
           :show-overflow-tooltip="true"
         />
         <el-table-column
           label="受害者IP"
           align="center"
-          prop="victimIp"
+          prop="destinationIp"
           :show-overflow-tooltip="true"
         />
         <el-table-column
           label="APT组织"
           align="center"
-          prop="aptOrganization"
+          prop="eventName"
           :show-overflow-tooltip="true"
         />
         <el-table-column
@@ -236,37 +225,37 @@
         <el-table-column
           label="事件等级"
           align="center"
-          prop="eventLevel"
+          prop="level"
           :show-overflow-tooltip="true"
         />
         <el-table-column
           label="杀伤链阶段"
           align="center"
-          prop="killingChainStage"
+          prop="type"
           :show-overflow-tooltip="true"
         />
         <el-table-column
           label="发生时间"
           align="center"
-          prop="happenTime"
+          prop="startTime"
           :show-overflow-tooltip="true"
         />
         <el-table-column
           label="发现时间"
           align="center"
-          prop="discoveryTime"
+          prop="endTime"
           :show-overflow-tooltip="true"
         />
         <el-table-column
           label="处置状态"
           align="center"
-          prop="disposalStatus"
+          prop="status"
           :show-overflow-tooltip="true"
         />
         <el-table-column
           label="区域"
           align="center"
-          prop="region"
+          prop="address"
           :show-overflow-tooltip="true"
         />
         <el-table-column
@@ -276,33 +265,15 @@
         >
           <template slot-scope="scope">
             <el-button
-              size="mini"
+              v-hasPermi="['system:group:edit']"
               type="text"
-              @click="detail(scope.row.id)"
+              @click="detail"
             >详情</el-button>
-            <el-dropdown @command="batchOperate">
-              <el-button
-                size="mini"
-                type="text"
-                icon="el-icon-s-tools"
-              >
-                状态变更<i class="el-icon-arrow-down el-icon--right" />
-              </el-button>
-              <el-dropdown-menu slot="dropdown">
-                <el-dropdown-item
-                  icon="el-icon-check"
-                  command="process"
-                >处置</el-dropdown-item>
-                <el-dropdown-item
-                  icon="el-icon-close"
-                  command="un_process"
-                >不处置</el-dropdown-item>
-                <el-dropdown-item
-                  icon="el-icon-bell"
-                  command="false_report"
-                >误报</el-dropdown-item>
-              </el-dropdown-menu>
-            </el-dropdown>
+            <el-button
+              v-hasPermi="['system:group:remove']"
+              type="text"
+              @click="handleDelete(scope.row)"
+            >处置</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -322,112 +293,115 @@
       width="900px"
       append-to-body
     >
-      <el-form
-        ref="form"
-        label-width="95px"
-        label-position="left"
-      >
-        <el-row>
-          <el-col :span="12">
-            <el-form-item label="APT组织 :">
-              {{ detailData.aptOrganization }}
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
-            <el-form-item label="情报类型 :">
-              {{ detailData.intelligenceType }}
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
-            <el-form-item label="情报IOC :">
-              {{ detailData.intelligenceIoc }}
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
-            <el-form-item label="事件等级 :">
-              {{ detailData.eventLevel }}
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
-            <el-form-item label="攻击者IP :">
-              {{ detailData.attackerIp }}
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
-            <el-form-item label="攻击者国家 :">
-              {{ detailData.attackerState }}
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
-            <el-form-item label="受害者IP :">
-              {{ detailData.victimIp }}
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
-            <el-form-item label="受害者国家 :">
-              {{ detailData.victimCountry }}
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
-            <el-form-item label="源端口 :">
-              {{ detailData.sourcePort }}
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
-            <el-form-item label="目标端口 :">
-              {{ detailData.targetPort }}
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
-            <el-form-item label="协议 :">
-              {{ detailData.agreement }}
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
-            <el-form-item label="杀伤链阶段 :">
-              {{ detailData.killingChainStage }}
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
-            <el-form-item label="发生时间 :">
-              {{ detailData.happenTime }}
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
-            <el-form-item label="发现时间 :">
-              {{ detailData.discoveryTime }}
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
-            <el-form-item label="处置状态 :">
-              {{ detailData.disposalStatus }}
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
-            <el-form-item label="区域 :">
-              {{ detailData.region }}
-            </el-form-item>
-          </el-col>
-        </el-row>
-      </el-form>
-      <div
-        slot="footer"
-        class="dialog-footer"
-      >
-        <el-row
-          type="flex"
-          justify="center"
+      <div class="contentBox">
+        <el-form
+          ref="form"
+          label-width="95px"
+          label-position="left"
+          class="label-type"
         >
-          <el-button
-            size="small"
-            type="primary"
-            @click="submitForm"
-          >确 定</el-button>
-          <el-button
-            size="small"
-            @click="cancel"
-          >取 消</el-button>
-        </el-row>
+          <el-row>
+            <el-col :span="12">
+              <el-form-item label="APT组织1 :">
+                {{ dataTest.name }}
+              </el-form-item>
+            </el-col>
+            <el-col :span="12">
+              <el-form-item label="情报类型 :">
+                {{ dataTest.name1 }}
+              </el-form-item>
+            </el-col>
+            <el-col :span="12">
+              <el-form-item label="情报IOC :">
+                {{ dataTest.name2 }}
+              </el-form-item>
+            </el-col>
+            <el-col :span="12">
+              <el-form-item label="事件等级 :">
+                {{ dataTest.name3 }}
+              </el-form-item>
+            </el-col>
+            <el-col :span="12">
+              <el-form-item label="攻击者IP :">
+                {{ dataTest.name4 }}
+              </el-form-item>
+            </el-col>
+            <el-col :span="12">
+              <el-form-item label="攻击者国家 :">
+                {{ dataTest.name5 }}
+              </el-form-item>
+            </el-col>
+            <el-col :span="12">
+              <el-form-item label="受害者IP :">
+                {{ dataTest.name6 }}
+              </el-form-item>
+            </el-col>
+            <el-col :span="12">
+              <el-form-item label="受害者国家 :">
+                {{ dataTest.name7 }}
+              </el-form-item>
+            </el-col>
+            <el-col :span="12">
+              <el-form-item label="源端口 :">
+                {{ dataTest.name8 }}
+              </el-form-item>
+            </el-col>
+            <el-col :span="12">
+              <el-form-item label="目标端口 :">
+                {{ dataTest.name9 }}
+              </el-form-item>
+            </el-col>
+            <el-col :span="12">
+              <el-form-item label="协议 :">
+                {{ dataTest.name10 }}
+              </el-form-item>
+            </el-col>
+            <el-col :span="12">
+              <el-form-item label="杀伤链阶段 :">
+                {{ dataTest.name11 }}
+              </el-form-item>
+            </el-col>
+            <el-col :span="12">
+              <el-form-item label="杀伤链阶段 :">
+                {{ dataTest.name12 }}
+              </el-form-item>
+            </el-col>
+            <el-col :span="12">
+              <el-form-item label="发现时间 :">
+                {{ dataTest.name13 }}
+              </el-form-item>
+            </el-col>
+            <el-col :span="12">
+              <el-form-item label="处置状态 :">
+                {{ dataTest.name12 }}
+              </el-form-item>
+            </el-col>
+            <el-col :span="12">
+              <el-form-item label="区域 :">
+                {{ dataTest.name13 }}
+              </el-form-item>
+            </el-col>
+          </el-row>
+        </el-form>
+        <div
+          slot="footer"
+          class="dialog-footer"
+        >
+          <el-row
+            type="flex"
+            justify="center"
+          >
+            <el-button
+              size="small"
+              type="primary"
+              @click="submitForm"
+            >确 认</el-button>
+            <el-button
+              size="small"
+              @click="cancel"
+            >取 消</el-button>
+          </el-row>
+        </div>
       </div>
 
     </el-dialog>
@@ -435,8 +409,7 @@
 </template>
 <script>
 // import { listGroup } from "@/api/system/group";
-import { ThreatIntelligenceDetail } from '@/api/system/detail'
-import { ThreatIntelligenceList } from '@/api/system/list'
+import { listEvent } from '@/api/system/category'
 export default {
   components: {},
   props: [],
@@ -444,9 +417,85 @@ export default {
     return {
       loading: true,
       name: '测试',
-      detailData: {
-
+      dataTest: {
+        name: '工业网络审计事件',
+        name1: '工业网络审计',
+        name2: '高危',
+        name3: '未知接口',
+        name4: '10.255.52.84',
+        name5: '192.163.12.63',
+        name6: 'MODBUS协议',
+        name7: '工业网络审计',
+        name8: '10.255.52.83',
+        name9: '失陷',
+        name10: '山西燃气厂',
+        name11: '待处置',
+        name12: '2022-02-22',
+        name13: '2022-2-25'
       },
+      // 分组表格数据
+      groupListData: [
+        {
+          gjzIP: '192.168.28.8',
+          shzIP: '10.13.20.24',
+          APT: 'BITTER',
+          groupOrder: 'DNS',
+          eventLevel: '低',
+          ssljd: '荷载投递',
+          happenTime: '2022-01-29 10:00:00',
+          disTime: '2022-01-29 10:01:00',
+          status: '未处置',
+          area: '山西燃气厂'
+        },
+        {
+          gjzIP: '192.168.28.8',
+          shzIP: '10.13.20.24',
+          APT: 'BITTER',
+          groupOrder: 'DNS',
+          eventLevel: '低',
+          ssljd: '荷载投递',
+          happenTime: '2022-01-29 10:00:00',
+          disTime: '2022-01-29 10:01:00',
+          status: '未处置',
+          area: '山西燃气厂'
+        },
+        {
+          gjzIP: '192.168.28.8',
+          shzIP: '10.13.20.24',
+          APT: 'BITTER',
+          groupOrder: 'DNS',
+          eventLevel: '低',
+          ssljd: '荷载投递',
+          happenTime: '2022-01-29 10:00:00',
+          disTime: '2022-01-29 10:01:00',
+          status: '未处置',
+          area: '山西燃气厂'
+        },
+        {
+          gjzIP: '192.168.28.8',
+          shzIP: '10.13.20.24',
+          APT: 'BITTER',
+          groupOrder: 'DNS',
+          eventLevel: '低',
+          ssljd: '荷载投递',
+          happenTime: '2022-01-29 10:00:00',
+          disTime: '2022-01-29 10:01:00',
+          status: '未处置',
+          area: '山西燃气厂'
+        },
+        {
+          gjzIP: '192.168.28.8',
+          shzIP: '10.13.20.24',
+          APT: 'BITTER',
+          groupOrder: 'DNS',
+          eventLevel: '低',
+          ssljd: '荷载投递',
+          happenTime: '2022-01-29 10:00:00',
+          disTime: '2022-01-29 10:01:00',
+          status: '未处置',
+          area: '山西燃气厂'
+        }
+      ],
       // 分组表格数据
       groupList: [],
       // 创建时间时间范围
@@ -461,26 +510,32 @@ export default {
       queryParams: {
         pageNum: 1,
         pageSize: 10,
-        aptOrganization: undefined,
-        eventLevel: undefined,
+        userId: null,
+        orderByColumn: 'happen_time',
+        isAsc: 'asc',
+        groupName: null,
+        createTime: null
+      },
+      formData: {
+        name: undefined,
+        level: undefined,
         type: undefined,
-        region: undefined,
+        area: undefined,
         agreement: undefined,
-        victimIp: '',
-        attackerIp: undefined,
-        killingChainStage: undefined,
+        ip: undefined,
+        newip: undefined,
         equipment: undefined,
         date: [''],
         field114: undefined
       },
       rules: {
-        aptOrganization: [],
-        eventLevel: [],
+        name: [],
+        level: [],
         type: [],
-        region: [],
+        area: [],
         agreement: [],
-        attackerIp: [],
-        killingChainStage: [],
+        ip: [],
+        newip: [],
         equipment: [],
         date: [],
         field114: []
@@ -509,72 +564,28 @@ export default {
       ],
       areaOptions: [
         {
-          label: '天津管片厂',
-          value: '天津管片厂'
+          label: '北京',
+          value: 1
         },
         {
-          label: '三亚轨交',
-          value: '三亚轨交'
-        },
-        {
-          label: '北京水厂',
-          value: '北京水厂'
-        },
-        {
-          label: '山西燃气',
-          value: '山西燃气'
-        },
-        {
-          label: '珠海深中通道',
-          value: '珠海深中通道'
-        },
-        {
-          label: '北京水厂',
-          value: '北京水厂'
+          label: '重庆',
+          value: 2
         }
       ],
-      agreementOptions: [
+      field114Options: [
         {
-          label: 'TCP',
-          value: 'TCP'
+          label: '未处置',
+          value: 1
         },
         {
-          label: 'dns',
-          value: 'dns'
+          label: '处置中',
+          value: 2
         },
         {
-          label: 'ICMP',
-          value: 'ICMP'
+          label: '已处置',
+          value: 3
         }
-      ],
-      statusOptions: [{
-        label: '待处置',
-        value: '待处置'
-      },
-      {
-        label: '已处置',
-        value: '已处置'
-      },
-      {
-        label: '不处置',
-        value: '不处置'
-      }],
-      killingChainStageOptions: [{
-        label: '载荷投递',
-        value: '载荷投递'
-      },
-      {
-        label: '侦查跟踪',
-        value: '侦查跟踪'
-      },
-      {
-        label: '漏洞利用',
-        value: '漏洞利用'
-      },
-      {
-        label: '安装植入',
-        value: '安装植入'
-      }]
+      ]
     }
   },
   created() {
@@ -583,48 +594,10 @@ export default {
   methods: {
     /** 查询分组列表 */
     getCategoryList() {
-      ThreatIntelligenceList(this.queryParams).then((response) => {
+      listEvent(this.queryParams).then((response) => {
         this.groupList = response.rows
         this.total = response.total
       })
-    },
-    batchOperate(command) {
-      let message = ''
-      switch (command) {
-        case 'process':
-          message = '是否确认将此事件处置状态修改为误报？'
-          this.openMessageBox(message)
-          break
-        case 'un_process':
-          message = '是否确认将此事件处置状态修改为不处置？'
-          this.openMessageBox(message)
-          break
-        case 'false_report':
-          message = '是否确认变更处置状态？'
-          this.openMessageBox(message)
-          break
-      }
-    },
-    openMessageBox(message) {
-      this.$confirm(message, '提示', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning'
-      }).then(() => {
-        this.$message({
-          type: 'success',
-          message: '修改成功!'
-        })
-      }).catch(() => {
-        this.$message({
-          type: 'info',
-          message: '已取消修改！'
-        })
-      })
-    },
-    btnQuery() {
-      this.queryParams.pageNum = 1
-      this.getCategoryList()
     },
     submitdata() {
       this.$refs['elForm'].validate((valid) => {
@@ -635,10 +608,7 @@ export default {
     resetForm() {
       this.$refs['elForm'].resetFields()
     },
-    async detail(id) {
-      const { data } = await ThreatIntelligenceDetail(id)
-      this.detailData = data
-
+    detail() {
       this.open = true
       this.title = '事件详情'
     },

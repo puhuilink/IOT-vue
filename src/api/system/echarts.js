@@ -114,9 +114,6 @@ export function InvandProbe(query) {
   })
 }
 
-
-
-
 // 安全管理：入侵诱捕：事件统计分析:受攻击的资产TOP5
 export function TopAssetsUnderAttack(query) {
   return request({
@@ -315,7 +312,7 @@ export function scanningeventStatusEcharts(query) {
 // 查询主机趋势
 export function scanninghostEcharts(query) {
   return request({
-    url: '/dm/scanning/host/grp',
+    url: '/dm/scanning/host/grp/',
     method: 'get',
     params: query
   })

@@ -27,7 +27,7 @@ export default {
   },
   data() {
     return {
-      title: '安全子平台',
+      title: '安全监测子平台',
       logo: logoImg
     }
   },
