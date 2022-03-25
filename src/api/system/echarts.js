@@ -102,7 +102,7 @@ export function TopAssetsUnderAttack(query) {
 // 安全管理：入侵诱捕：事件统计分析:探测事件/入侵事件趋势
 export function UnderAttack(query) {
   return request({
-    url: '/dm/trap/eventAttackType/selectType/{type}',
+    url: '/dm/trap/eventAttackType/selectType/a',
     method: 'get',
     params: query
   })
@@ -146,7 +146,7 @@ export function abnormalEventLevelDistribution(query) {
 // 安全管理：异常行为管理：事件统计分析 :杀伤链阶段流量统计
 export function KillChain(query) {
   return request({
-    url: '/dm/abnormal/selectKillingChainStage',
+    url: '/dm/abnormal/selectKillingChainStage/selectKillingChainStageType/a',
     method: 'get',
     params: query
   })

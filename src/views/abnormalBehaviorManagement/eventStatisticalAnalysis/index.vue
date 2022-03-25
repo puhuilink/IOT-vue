@@ -19,27 +19,44 @@
                                      :address="address" />
     <el-col :span="24">
       <tip> 最新威胁事件 </tip>
-      <el-table :data="groupList">
+      <el-table :data="groupList"
+                tooltip-effect="light">
         <el-table-column label="攻击者IP"
                          align="center"
-                         prop="gjzIP" />
+                         prop="attackerIp"
+                         :show-overflow-tooltip="true" />
         <el-table-column label="受害者IP"
                          align="center"
-                         prop="shzIP" />
+                         prop="victimIp"
+                         :show-overflow-tooltip="true" />
         <el-table-column label="事件名称"
                          align="center"
                          prop="eventName" />
         <el-table-column label="事件等级"
                          align="center"
-                         prop="eventLevel" />
+                         prop="eventLevel">
+          <template #default="scope">
+            <span>{{
+              transTypeDic(scope.row.eventLevel)
+            }}</span>
+          </template>
+        </el-table-column>
         <el-table-column label="杀伤链阶段"
                          align="center"
-                         prop="ssljd" />
+                         prop="killingChainStage"
+                         :show-overflow-tooltip="true" />
         <el-table-column label="区域"
                          align="center"
-                         prop="area" />
+                         prop="region"
+                         :show-overflow-tooltip="true" />
       </el-table>
+      <pagination v-show="total > 0"
+                  :total="total"
+                  :page.sync="queryParams.pageNum"
+                  :limit.sync="queryParams.pageSize"
+                  @pagination="getList" />
     </el-col>
+
   </div>
 </template>
 <script>
@@ -52,6 +69,7 @@ import killChainPhaseStatistics from "@/components/Echarts/killChainPhaseStatist
 import pieChartDisposal from "@/components/Echarts/pieChartDisposal";
 import killChainPhaseTrafficStatistics from "@/components/Echarts/killChainPhaseTrafficStatistics";
 import tip from "@/components/EchartsTip";
+import { abnormalList } from '@/api/system/list'
 export default {
   components: {
     echarts,
@@ -69,50 +87,54 @@ export default {
       policitalStatus: ["1"],
       address: 1,
       query: {},
-      groupList: [
-        {
-          gjzIP: "192.168.28.8",
-          shzIP: "10.13.20.24",
-          eventName: "MALWARE",
-          eventLevel: "低",
-          ssljd: "荷载投递",
-          area: "山西燃气厂",
-        },
-        {
-          gjzIP: "192.168.28.8",
-          shzIP: "10.13.20.24",
-          eventName: "MALWARE",
-          eventLevel: "低",
-          ssljd: "荷载投递",
-          area: "山西燃气厂",
-        },
-        {
-          gjzIP: "192.168.28.8",
-          shzIP: "10.13.20.24",
-          eventName: "MALWARE",
-          eventLevel: "低",
-          ssljd: "荷载投递",
-          area: "山西燃气厂",
-        },
-        {
-          gjzIP: "192.168.28.8",
-          shzIP: "10.13.20.24",
-          eventName: "MALWARE",
-          eventLevel: "低",
-          ssljd: "荷载投递",
-          area: "山西燃气厂",
-        },
-      ],
+      // 分组表格数据
+      groupList: [],
+      // 总条数
+      total: 0,
+      // 查询参数
+      queryParams: {
+        pageNum: 1,
+        pageSize: 10,
+        userId: null,
+        groupName: null,
+        createTime: null
+      },
     };
   },
   computed: {},
   watch: {},
-  created () { },
+  created () {
+    this.getList()
+  },
   mounted () { },
   methods: {
+    transTypeDic (val) {
+      var t = [
+        {
+          name: 'Medium',
+          content: '中危'
+        }, {
+          name: 'High',
+          content: '高危'
+        }]
+      const orgTreeData1 = t.filter((e) => e.name === val)
+        .map(({ content }) => ({
+          content
+        }))
+      return `${orgTreeData1[0].content}`
+    },
     uploadData (data) {
       this.query = data
-    }
+    },
+    /** 查询分组列表 */
+    async getList () {
+      this.loading = true
+      const res = await abnormalList(this.queryParams)
+      this.groupList = res.rows
+      this.total = res.total
+      console.log(this.groupList)
+      this.loading = false
+    },
   },
 };
 </script>

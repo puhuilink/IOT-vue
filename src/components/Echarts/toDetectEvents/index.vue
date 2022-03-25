@@ -2,13 +2,15 @@
 <template>
   <el-col :span="12">
     <tip>{{ tipname }}</tip>
-    <div ref="canvas1" style="height: 400px" />
+    <div ref="canvas1"
+         style="height: 400px" />
   </el-col>
 </template>
 <script>
 import { setNotopt } from "@/utils/emptyEcharts.js";
 import tip from "@/components/EchartsTip";
 import echarts from "echarts";
+import { UnderAttack } from '@/api/system/echarts'
 export default {
   components: { tip },
   props: {
@@ -22,63 +24,117 @@ export default {
       default: null,
       type: Number,
     },
+    query: {
+      default: null,
+      type: Object
+    },
+    eventType: {
+      default: null,
+      type: Number
+    }
   },
-  data() {
+  data () {
     return {
       policitalStatus: ["1"],
       barData: [],
       category: [],
+      hasData: [],
+      date: [],
       title: "",
     };
   },
   computed: {},
   watch: {
     address: {
-      handler(val, oldVal) {
+      handler (val, oldVal) {
         if (val !== oldVal) {
           this.drawPolicitalStatus();
         }
       },
       deep: true,
     },
+    query: {
+      handler (val, oldVal) {
+        this.queryParms = this.query
+        if (val !== oldVal) {
+          this.getData()
+          this.drawPolicitalStatus()
+        }
+      },
+      deep: true
+    }
   },
-  created() {},
-  mounted() {
+  created () {
+    this.getData()
+  },
+  mounted () {
     this.drawPolicitalStatus();
   },
   methods: {
-    drawPolicitalStatus() {
-      if (this.policitalStatus.length) {
-        switch (this.address) {
-          case 1:
-            (this.category = ["", 0, 0, 0, 0, 6, 10, 0]),
-              (this.barData = ["", 0, 0, 0, 0, 6, 2, 0]),
-              (this.title = "源IP");
-            break;
-          case 2:
-            (this.category = ["", 0, 0, 10, 0, 6, 11, 0]),
-              (this.barData = ["", 0, 0, 0, 0, 6, 9, 0]),
-              (this.title = "源IP");
-            break;
-          case 3:
-            (this.category = ["", 0, 0, 0, 0, 6, 12, 0]),
-              (this.barData = ["", 0, 0, 0, 0, 6, 17, 0]),
-              (this.title = "源IP");
-            break;
-          case 4:
-            (this.category = ["", 0, 0, 0, 0, 6, 13, 0]),
-              (this.barData = ["", 0, 0, 0, 0, 6, 18, 0]),
-              (this.title = "源IP");
-            break;
-          case 5:
-            (this.category = ["", 0, 0, 0, 0, 6, 14, 0]),
-              (this.barData = ["", 0, 0, 0, 0, 5, 19, 0]),
-              (this.title = "源IP");
-            break;
-          default:
-            console.log("无数据", this.type);
-            break;
+    async getData () {
+      await UnderAttack(this.queryParms).then(({ data }) => {
+        this.hasData = data
+        console.log('data', data)
+        if (data.length) {
+          const aaa = data.filter((e) => e.type === 'INVADE')
+          if (aaa.length) {
+            aaa.map(d => {
+              this.category = d.data
+              console.log('this.category', this.category)
+              this.date = d.date
+            })
+          } else {
+            this.category = []
+          }
+          const bbb = data.filter((e) => e.type === 'PROBE')
+          if (bbb.length) {
+            bbb.map(d => {
+              this.barData = d.data
+              this.date = d.date
+            })
+          } else {
+            this.barData = []
+          }
+        } else {
+          this.category = []
+          this.barData = []
         }
+      })
+      this.drawPolicitalStatus();
+    },
+    async drawPolicitalStatus () {
+      if (this.hasData.length) {
+        // switch (this.eventType) {
+        //   case 1:
+        //     (this.category = ["", 0, 0, 0, 0, 6, 10, 0]),
+        //       (this.barData = ["", 0, 0, 0, 0, 6, 2, 0]),
+        //       (this.title = "源IP");
+        //     break;
+        //   case 2:
+        //     (this.category = ["", 0, 0, 10, 0, 6, 11, 0]),
+        //       (this.barData = ["", 0, 0, 0, 0, 6, 9, 0]),
+        //       (this.title = "源IP");
+        //     break;
+        //   case 3:
+        //     (this.category = ["", 0, 0, 0, 0, 6, 12, 0]),
+        //       (this.barData = ["", 0, 0, 0, 0, 6, 17, 0]),
+        //       (this.title = "源IP");
+        //     break;
+        //   case 4:
+        //     (this.category = ["", 0, 0, 0, 0, 6, 13, 0]),
+        //       (this.barData = ["", 0, 0, 0, 0, 6, 18, 0]),
+        //       (this.title = "源IP");
+        //     break;
+        //   case 5:
+        //     (this.category = ["", 0, 0, 0, 0, 6, 14, 0]),
+        //       (this.barData = ["", 0, 0, 0, 0, 5, 19, 0]),
+        //       (this.title = "源IP");
+        //     break;
+        //   default:
+        //     console.log("无数据", this.type);
+        //     break;
+        // }
+        // 基于准备好的dom，
         // 基于准备好的dom，初始化echarts实例
         const myChart = this.$echarts.init(this.$refs.canvas1);
 
@@ -101,8 +157,8 @@ export default {
             data: [
               // "Email",
               // "Union Ads",
-              "Video Ads",
-              "Direct",
+              // "Video Ads",
+              // "Direct",
               // "Search Engine",
             ],
           },
@@ -121,17 +177,7 @@ export default {
             {
               type: "category",
               boundaryGap: false,
-              data: [
-                "12/12",
-                "12/13",
-                "12/14",
-                "12/15",
-                "12/16",
-                "12/17",
-                "12/18",
-                "12/19",
-                "12/20",
-              ],
+              data: this.date,
             },
           ],
           yAxis: [

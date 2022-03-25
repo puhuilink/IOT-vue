@@ -2,10 +2,8 @@
 <template>
   <el-col :span="12">
     <tip>{{ tipname }}</tip>
-    <div
-      ref="canvas1"
-      style="height: 400px"
-    />
+    <div ref="canvas1"
+         style="height: 400px" />
   </el-col>
 </template>
 <script>
@@ -25,9 +23,17 @@ export default {
       // 厂家内容
       default: null,
       type: Number
+    },
+    query: {
+      default: null,
+      type: Object
+    },
+    eventType: {
+      default: null,
+      type: Number
     }
   },
-  data() {
+  data () {
     return {
       policitalStatus: ['1'],
       barData: [],
@@ -41,80 +47,137 @@ export default {
   },
   computed: {},
   watch: {
-    address: {
-      handler(val, oldVal) {
+    query: {
+      handler (val, oldVal) {
+        this.queryParms = this.query
         if (val !== oldVal) {
+          this.getData()
           this.drawPolicitalStatus()
         }
       },
       deep: true
     }
+    // address: {
+    //   handler (val, oldVal) {
+    //     if (val !== oldVal) {
+    //       this.drawPolicitalStatus()
+    //     }
+    //   },
+    //   deep: true
+    // }
   },
-  created() { },
-  mounted() {
+  created () {
+    this.getData()
+  },
+  mounted () {
     this.drawPolicitalStatus()
   },
   methods: {
-    async drawPolicitalStatus() {
-      if (this.policitalStatus.length) {
-        switch (this.address) {
-          case 1:
-            (this.category = [750, 350, 250, 780, 150, 1000, 800]),
-            (this.barData = [580, 280, 100, 560, 50, 900, 760]),
-            (this.categoryThree = [420, 600, 50, 500, 200, 750, 580]),
-            // (this.barData = [580, 280, 100, 560, 50, 900, 760]),
-            (this.categoryFour = [300, 500, 500, 350, 200, 600, 100]),
-            (this.categoryFive = [820, 932, 901, 934, 290, 1030, 1120]),
-            (this.categorySix = [(230, 220, 580, 220, 700, 200, 1100)]),
-            (this.categorySeven = [(110, 100, 800, 350, 700, 650, 450)])
-            // (this.title = "源IP")
-            break
-          case 2:
-            (this.category = [150, 650, 250, 780, 150, 1000, 200]),
-            (this.barData = [550, 350, 750, 780, 150, 1000, 100]),
-            (this.categoryThree = [220, 300, 50, 500, 200, 750, 680]),
-            (this.categoryFour = [100, 600, 500, 350, 200, 600, 330]),
-            (this.categoryFive = [820, 932, 901, 934, 290, 1030, 120]),
-            (this.categorySix = [(510, 300, 800, 350, 700, 650, 450)]),
-            (this.categorySeven = [(310, 500, 800, 350, 700, 650, 450)])
-            // (this.title = "源IP")
-
-            break
-          case 3:
-            (this.category = [550, 750, 250, 780, 150, 1000, 800]),
-            (this.barData = [580, 280, 100, 560, 50, 900, 760]),
-            (this.categoryThree = [420, 600, 50, 500, 200, 750, 1180]),
-            (this.categoryFour = [100, 600, 500, 350, 200, 600, 0]),
-            (this.categoryFive = [820, 932, 901, 934, 290, 1030, 1120]),
-            (this.categorySix = [(230, 220, 580, 220, 700, 200, 1100)]),
-            (this.categorySeven = [(110, 100, 800, 350, 700, 650, 450)])
-            // (this.title = "源IP")
-            break
-          case 4:
-            (this.category = [350, 150, 250, 780, 150, 1000, 800]),
-            (this.barData = [580, 280, 100, 560, 50, 900, 760]),
-            (this.categoryThree = [420, 600, 50, 500, 200, 750, 1180]),
-            (this.categoryFour = [100, 600, 500, 350, 200, 600, 0]),
-            (this.categoryFive = [820, 932, 901, 934, 290, 1030, 1120]),
-            (this.categorySix = [(230, 220, 580, 220, 700, 200, 1100)]),
-            (this.categorySeven = [(110, 100, 800, 350, 700, 650, 450)])
-            // (this.title = "源IP")
-
-            break
-          case 5:
-            (this.category = [450, 50, 650, 780, 150, 1000, 800]),
-            (this.barData = [580, 280, 100, 560, 50, 900, 760]),
-            (this.categoryThree = [420, 600, 50, 500, 200, 750, 1180]),
-            (this.categoryFour = [100, 600, 500, 350, 200, 600, 0]),
-            (this.categoryFive = [820, 932, 901, 934, 290, 1030, 1120]),
-            (this.categorySix = [(230, 220, 580, 220, 700, 200, 1100)]),
-            (this.categorySeven = [(110, 100, 800, 350, 700, 650, 450)])
-            // (this.title = "源IP")
-            break
-          default:
-            console.log('无数据', this.type)
-            break
+    transTypeDic (data) {
+      var t = [{
+        name: '1',
+        content: '正常'
+      }, {
+        name: '2',
+        content: '低危'
+      }, {
+        name: '3',
+        content: '中危'
+      }, {
+        name: '4',
+        content: '高危'
+      }, {
+        name: '5',
+        content: '失陷'
+      }]
+      var arr = data
+      var arrNew = []
+      var area = []
+      data.forEach((item) => {
+        area.push(item.name)
+      })
+      arr.map(r => {
+        t.map(d => {
+          if (r.name === d.name) {
+            console.log(r, d)
+            arrNew.push({
+              value: r.count,
+              name: d.content
+            })
+          }
+        })
+      })
+      return arrNew
+    },
+    transDicCount (data) {
+      var area = []
+      data.forEach((item) => {
+        area.push(item.count)
+      })
+      return area
+    },
+    async getData () {
+      await KillChain(this.queryParms).then(({ data }) => {
+        this.hasData = data
+        if (data.length) {
+          const aaa = data.filter((e) => e.killingChainStage === '载荷投递')
+          if (aaa.length) {
+            aaa.map(d => {
+              this.categoryThree = d.data
+              this.date = d.date
+            })
+          } else {
+            this.categoryThree = []
+          }
+          const bbb = data.filter((e) => e.killingChainStage === '侦查跟踪')
+          if (bbb.length) {
+            bbb.map(d => {
+              this.category = d.data
+              this.date = d.date
+            })
+          } else {
+            this.category = []
+          }
+          const ccc = data.filter((e) => e.killingChainStage === '漏洞利用')
+          if (bbb.length) {
+            bbb.map(d => {
+              this.categoryFour = d.data
+              this.date = d.date
+            })
+          } else {
+            this.categoryFour = []
+          }
+          const ddd = data.filter((e) => e.killingChainStage === '安装植入')
+          if (bbb.length) {
+            bbb.map(d => {
+              this.categoryFive = d.data
+              this.date = d.date
+            })
+          } else {
+            this.categoryFive = []
+          }
+          const eee = data.filter((e) => e.killingChainStage === '命令控制')
+          if (bbb.length) {
+            bbb.map(d => {
+              this.barData = d.data
+              this.date = d.date
+            })
+          } else {
+            this.barData = []
+          }
+        } else {
+          this.categoryThree = []
+          this.category = []
+          this.categoryFour = []
+          this.categoryFive = []
+          this.barData = []
         }
+      })
+      this.drawPolicitalStatus()
+    },
+    async drawPolicitalStatus () {
+      if (this.hasData.length) {
+
         // 基于准备好的dom，初始化echarts实例
         // const { data } = await KillChain()
         // this.category = [450, 50, 650, 780, 150, 1000, 800],
@@ -137,13 +200,11 @@ export default {
           },
           legend: {
             data: [
-              '侦察跟踪',
-              '武器构建',
+              '侦查跟踪',
+              '命令控制',
               '载荷投递',
               '漏洞利用',
-              '安装植入',
-              '命令控制',
-              '目标达成'
+              '安装植入'
             ]
           },
           grid: {
@@ -160,29 +221,20 @@ export default {
           xAxis: {
             type: 'category',
             boundaryGap: false,
-            data: [
-              '2022/02/01',
-              '2022/02/02',
-              '2022/02/03',
-              '2022/02/04',
-              '2022/02/05',
-              '2022/02/06',
-              '2022/02/07',
-              ''
-            ]
+            data: this.date
           },
           yAxis: {
             type: 'value'
           },
           series: [
             {
-              name: '侦察跟踪',
+              name: '侦查跟踪',
               type: 'line',
               stack: 'Total',
               data: this.category
             },
             {
-              name: '武器构建',
+              name: '命令控制',
               type: 'line',
               // stack: "Total",
               data: this.barData
@@ -204,22 +256,10 @@ export default {
               type: 'line',
               // stack: "Total",
               data: this.categoryFive
-            },
-            {
-              name: '命令控制',
-              type: 'line',
-              // stack: "Total",
-              data: this.categorySix
-            },
-            {
-              name: '目标达成',
-              type: 'line',
-              // stack: "Total",
-              data: this.categorySeven
             }
           ]
         })
-        window.addEventListener('resize', function() {
+        window.addEventListener('resize', function () {
           myChart.resize()
         })
       } else {
