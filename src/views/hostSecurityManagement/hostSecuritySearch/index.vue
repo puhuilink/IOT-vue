@@ -233,7 +233,7 @@
           :show-overflow-tooltip="true"
         />
         <el-table-column
-          label="产生时间"
+          label="发生时间"
           align="center"
           prop="generationTime"
           :show-overflow-tooltip="true"
@@ -368,7 +368,7 @@
             </el-form-item>
           </el-col>
           <el-col :span="12">
-            <el-form-item label="产生时间 :">
+            <el-form-item label="发生时间 :">
               {{ detailData.generationTime }}
             </el-form-item>
           </el-col>

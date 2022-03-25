@@ -230,6 +230,7 @@
             type="text"
             @click="detail(scope.row.weakPasswordId)"
           >详情</el-button>
+          &nbsp;&nbsp; &nbsp;&nbsp;
           <el-dropdown @command="batchOperate">
             <el-button
               size="mini"
@@ -384,8 +385,8 @@ export default {
         pageNum: 1,
         pageSize: 10,
         userId: null,
-        orderByColumn: 'happen_time',
-        isAsc: 'asc',
+        orderByColumn: 'find_time',
+        isAsc: 'desc',
         groupName: null,
         createTime: null
       },

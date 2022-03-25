@@ -192,7 +192,7 @@ export default {
         pageSize: 10,
         userId: null,
         orderByColumn: 'happen_time',
-        isAsc: 'asc',
+        isAsc: 'desc',
         groupName: null,
         createTime: null
       },

@@ -223,7 +223,13 @@
         align="center"
         prop="threatClassification"
         :show-overflow-tooltip="true"
-      />
+      >
+        <template #default="scope">
+          <span>{{
+            translevelDic(scope.row.threatClassification)
+          }}</span>
+        </template>
+      </el-table-column>
       <el-table-column
         label="事件等级"
         align="center"
@@ -276,6 +282,8 @@
             type="text"
             @click="detail(scope.row.stiffWoodCreepId)"
           >详情</el-button>
+          &nbsp;&nbsp; &nbsp;&nbsp;
+          &nbsp;&nbsp; &nbsp;&nbsp;
           <el-dropdown @command="batchOperate">
             <el-button
               size="mini"
@@ -449,7 +457,7 @@ export default {
         pageSize: 10,
         userId: null,
         orderByColumn: 'happen_time',
-        isAsc: 'asc',
+        isAsc: 'desc',
         groupName: null,
         createTime: null
       },
@@ -502,7 +510,13 @@ export default {
         'value': 'Botnet'
       }, {
         'label': '网络木马',
+        'value': 'Trojan'
+      }, {
+        'label': '恶意软件',
         'value': 'Malware'
+      }, {
+        'label': '恶意链接',
+        'value': 'URL_malware'
       }],
       field114Options: [{
         'label': '未处置',
@@ -548,6 +562,26 @@ export default {
     this.getList()
   },
   methods: {
+    translevelDic(val) {
+      var t = [{
+        'label': '僵尸网络',
+        'value': 'Botnet'
+      }, {
+        'label': '网络木马',
+        'value': 'Trojan'
+      }, {
+        'label': '恶意软件',
+        'value': 'Malware'
+      }, {
+        'label': '恶意链接',
+        'value': 'URL_malware'
+      }]
+      const orgTreeData = t.filter((e) => e.value === val)
+        .map(({ label }) => ({
+          label
+        }))
+      return `${orgTreeData[0].label}`
+    },
     transTypeDic(val) {
       var t = [{
         name: '1',
