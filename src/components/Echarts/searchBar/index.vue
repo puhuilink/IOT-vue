@@ -172,7 +172,6 @@ export default {
         if (val !== oldVal) {
           this.formData.beginGenerationTime = this.getdate(val)[0]
           this.formData.endGenerationTime = this.getdate(val)[1]
-          console.log(this.beginGenerationTime, this.endGenerationTime)
           this.getdata()
         } else {
           return

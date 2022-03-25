@@ -288,7 +288,7 @@ export function scanningeventStatusEcharts(query) {
 // 查询主机趋势
 export function scanninghostEcharts(query) {
   return request({
-    url: '/dm/scanning/host/grp/',
+    url: '/dm/scanning/host/grp',
     method: 'get',
     params: query
   })
