@@ -27,6 +27,10 @@ export default {
     query: {
       default: null,
       type: Object
+    },
+    eventType: {
+      default: null,
+      type: Number
     }
   },
   data () {
@@ -34,6 +38,7 @@ export default {
       policitalStatus: ["1"],
       barData: [],
       category: [],
+      hasData: [],
       title: "",
     };
   },
@@ -73,15 +78,20 @@ export default {
     },
     async getData () {
       await sandboxesAttacked(this.queryParms).then(({ data }) => {
-        this.category = this.transDicName(data)
-        this.barData = this.transDicCount(data)
+        this.hasData = data
+        if (data.length) {
+          this.category = this.transDicName(data)
+          this.barData = this.transDicCount(data)
+        } else {
+          this.category = []
+          this.barData = []
+        }
       })
       this.drawPolicitalStatus()
     },
     async drawPolicitalStatus () {
-      if (this.policitalStatus.length) {
+      if (this.hasData.length) {
         const myChart = this.$echarts.init(this.$refs.canvas1);
-
         // 绘制图表
         myChart.setOption({
           color: ["#FFC0CB"],

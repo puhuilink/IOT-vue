@@ -2,10 +2,8 @@
 <template>
   <el-col :span="12">
     <tip>{{ tipname }}</tip>
-    <div
-      ref="canvas1"
-      style="height: 400px"
-    />
+    <div ref="canvas1"
+         style="height: 400px" />
   </el-col>
 </template>
 <script>
@@ -29,20 +27,25 @@ export default {
     query: {
       default: null,
       type: Object
+    },
+    eventType: {
+      default: null,
+      type: Number
     }
   },
-  data() {
+  data () {
     return {
       policitalStatus: ['1'],
       barData: [],
       category: [],
+      hasData: [],
       title: ''
     }
   },
   computed: {},
   watch: {
     query: {
-      handler(val, oldVal) {
+      handler (val, oldVal) {
         this.queryParms = this.query
         if (val !== oldVal) {
           this.getData()
@@ -52,36 +55,43 @@ export default {
       deep: true
     }
   },
-  created() {
+  created () {
     this.getData()
   },
-  mounted() {
+  mounted () {
     this.drawPolicitalStatus()
   },
   methods: {
-    transDicName(data) {
+    transDicName (data) {
       var area = []
       data.forEach((item) => {
         area.push(item.name)
       })
       return area
     },
-    transDicCount(data) {
+    transDicCount (data) {
       var area = []
       data.forEach((item) => {
         area.push(item.count)
       })
       return area
     },
-    async getData() {
+    async getData () {
       await TopAssetsUnderAttack(this.queryParms).then(({ data }) => {
-        this.category = this.transDicName(data)
-        this.barData = this.transDicCount(data)
+        this.hasData = data
+        if (data.length) {
+          this.category = this.transDicName(data)
+          this.barData = this.transDicCount(data)
+        } else {
+          this.category = []
+          this.barData = []
+        }
+
       })
       this.drawPolicitalStatus()
     },
-    async drawPolicitalStatus() {
-      if (this.policitalStatus.length) {
+    async drawPolicitalStatus () {
+      if (this.hasData.length) {
         const myChart = this.$echarts.init(this.$refs.canvas1)
 
         // 绘制图表
@@ -120,7 +130,7 @@ export default {
             }
           ]
         })
-        window.addEventListener('resize', function() {
+        window.addEventListener('resize', function () {
           myChart.resize()
         })
       } else {

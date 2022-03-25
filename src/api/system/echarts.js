@@ -89,6 +89,33 @@ export function EventStatusDispositionDiagram(query) {
     params: query
   })
 }
+// 安全管理：入侵诱捕：资产防护数量
+export function AssetsNumber(query) {
+  return request({
+    url: '/dm/trap/selectSandboxAttackSource',
+    method: 'get',
+    params: query
+  })
+}
+// 安全管理：入侵诱捕： 威胁人员数量
+export function attackNumber(query) {
+  return request({
+    url: '/dm/trap/selectAttackSource',
+    method: 'get',
+    params: query
+  })
+}
+// 安全管理：入侵诱捕： 入侵事件/探测事件
+export function InvandProbe(query) {
+  return request({
+    url: '/dm/trap/selectInvandProbe',
+    method: 'get',
+    params: query
+  })
+}
+
+
+
 
 // 安全管理：入侵诱捕：事件统计分析:受攻击的资产TOP5
 export function TopAssetsUnderAttack(query) {
