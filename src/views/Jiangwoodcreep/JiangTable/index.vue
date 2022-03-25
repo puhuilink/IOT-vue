@@ -534,16 +534,23 @@ export default {
     this.getList()
   },
   methods: {
-
     transTypeDic(val) {
-      var t = [
-        {
-          name: 'Medium',
-          content: '中危'
-        }, {
-          name: 'High',
-          content: '高危'
-        }]
+      var t = [{
+        name: '1',
+        content: '正常'
+      }, {
+        name: '2',
+        content: '低危'
+      }, {
+        name: '3',
+        content: '中危'
+      }, {
+        name: '4',
+        content: '高危'
+      }, {
+        name: '5',
+        content: '失陷'
+      }]
       const orgTreeData1 = t.filter((e) => e.name === val)
         .map(({ content }) => ({
           content

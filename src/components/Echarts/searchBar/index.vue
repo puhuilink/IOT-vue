@@ -34,21 +34,10 @@
         </el-form-item>
       </el-col>
       <el-col :span="3">
-        <el-form-item v-if="eventType===1" label-width="1px" label="">
+        <el-form-item label-width="1px" label="">
           <el-select v-model="formData.eventLevel" placeholder="请选择等级" clearable :style="{width: '100%'}">
             <el-option
               v-for="(item, index) in eventLevelOption"
-              :key="index"
-              :label="item.label"
-              :value="item.value"
-              :disabled="item.disabled"
-            />
-          </el-select>
-        </el-form-item>
-        <el-form-item v-else label-width="1px" label="">
-          <el-select v-model="formData.eventLevel" placeholder="请选择等级" clearable :style="{width: '100%'}">
-            <el-option
-              v-for="(item, index) in eventLevelOptions"
               :key="index"
               :label="item.label"
               :value="item.value"
@@ -135,22 +124,6 @@ export default {
       }, {
         'label': '极低',
         'value': 1
-      }],
-      eventLevelOptions: [{
-        'label': '致命',
-        'value': '1'
-      }, {
-        'label': '高危',
-        'value': 'High'
-      }, {
-        'label': '中危',
-        'value': 'Medium'
-      }, {
-        'label': '低危',
-        'value': '1'
-      }, {
-        'label': '极低',
-        'value': '1'
       }]
     }
   },
