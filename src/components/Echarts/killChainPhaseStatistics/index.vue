@@ -105,7 +105,7 @@ export default {
           }
           this.category = this.axisData.map(function(item) {
             return [item[1], item[0], item[2]]
-          }),
+          })
           this.date = data[0].date
         }
       } else {
@@ -164,7 +164,7 @@ export default {
             {
               type: 'scatter',
               symbolSize: function(val) {
-                return val[2] * 2
+                return val[2] * 0.5
               },
               data: this.category,
               animationDelay: function(idx) {
