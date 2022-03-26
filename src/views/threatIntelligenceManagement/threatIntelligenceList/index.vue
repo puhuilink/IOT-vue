@@ -263,17 +263,31 @@
           align="center"
           class-name="small-padding fixed-width"
         >
-          <template slot-scope="scope">
+          <template>
             <el-button
-              v-hasPermi="['system:group:edit']"
               type="text"
               @click="detail"
             >详情</el-button>
-            <el-button
-              v-hasPermi="['system:group:remove']"
-              type="text"
-              @click="handleDelete(scope.row)"
-            >处置</el-button>
+          &nbsp;&nbsp; &nbsp;&nbsp;
+            <el-dropdown @command="batchOperate">
+              <el-button
+                size="mini"
+                type="text"
+              >
+                状态变更<i class="el-icon-arrow-down el-icon--right" />
+              </el-button>
+              <el-dropdown-menu slot="dropdown">
+                <el-dropdown-item
+                  command="process"
+                >处置</el-dropdown-item>
+                <el-dropdown-item
+                  command="un_process"
+                >不处置</el-dropdown-item>
+                <el-dropdown-item
+                  command="false_report"
+                >误报</el-dropdown-item>
+              </el-dropdown-menu>
+            </el-dropdown>
           </template>
         </el-table-column>
       </el-table>
@@ -590,6 +604,40 @@ export default {
     this.getCategoryList()
   },
   methods: {
+    batchOperate(command) {
+      let message = ''
+      switch (command) {
+        case 'process':
+          message = '是否确认变更处置状态？'
+          this.openMessageBox(message)
+          break
+        case 'un_process':
+          message = '是否确认将此事件处置状态修改为不处置？'
+          this.openMessageBox(message)
+          break
+        case 'false_report':
+          message = '是否确认将此事件处置状态修改为误报？'
+          this.openMessageBox(message)
+          break
+      }
+    },
+    openMessageBox(message) {
+      this.$confirm(message, '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        this.$message({
+          type: 'success',
+          message: '修改成功!'
+        })
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '已取消修改！'
+        })
+      })
+    },
     /** 查询分组列表 */
     getCategoryList() {
       listEvent(this.queryParams).then((response) => {

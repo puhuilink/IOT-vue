@@ -114,7 +114,7 @@ export default {
           xAxis: {
             type: 'value',
             minInterval: 1,
-            position: 'top',
+            position: 'bottom',
             axisTick: {
               show: false
             }
