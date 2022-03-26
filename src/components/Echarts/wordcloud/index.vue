@@ -1,14 +1,16 @@
 <template>
   <el-col :span="12">
     <tip>{{ tipname }}</tip>
-    <div ref="canvas1"
-         style="height: 400px" />
+    <div
+      ref="canvas1"
+      style="height: 400px"
+    />
   </el-col>
 </template>
 <script>
 import tip from '@/components/EchartsTip'
 import { setNotopt } from '@/utils/emptyEcharts.js'
-import { CreepthreatEcharts } from '@/api/system/echarts'
+import { eventNameEcharts, CreepthreatEcharts } from '@/api/system/echarts'
 import '@/components/Echarts/echarts-wordcloud.min.js'
 import { EventNameWordCloudMap } from '@/api/system/echarts'
 export default {
@@ -35,7 +37,7 @@ export default {
       type: Number
     }
   },
-  data () {
+  data() {
     return {
       hasData: [],
       queryParms: {
@@ -45,7 +47,7 @@ export default {
   computed: {},
   watch: {
     query: {
-      handler (val, oldVal) {
+      handler(val, oldVal) {
         this.queryParms = this.query
         if (val !== oldVal) {
           this.getData()
@@ -55,14 +57,14 @@ export default {
       deep: true
     }
   },
-  created () {
+  created() {
     this.getData()
   },
-  mounted () {
+  mounted() {
     this.drawPolicitalStatus()
   },
   methods: {
-    transDic (data) {
+    transDic(data) {
       var arr = data
       var arrNew = []
       var area = []
@@ -77,86 +79,8 @@ export default {
       })
       return arrNew
     },
-    async getData () {
-      if (this.type === 1) {
-        switch (this.address) {
-          case 1:
-            this.datacopy = [{ 'name': '僵木蠕管理', 'value': 12.64 },
-            { 'name': '异常行为管理', 'value': 24.03 },
-            { 'name': '弱口令管理', 'value': 54.95 },
-            { 'name': '配置核查管理', 'value': 44.04 },
-            { 'name': '数据安全管理', 'value': 51.27 },
-            { 'name': '威胁情报管理', 'value': 25.40 },
-            { 'name': '诱捕防护', 'value': 33.09 },
-            { 'name': '工业网络审计', 'value': 24.71 },
-            { 'name': '漏洞管理', 'value': 8.66 }
-            ]
-            break
-          case 2:
-            this.datacopy = [{ 'name': '僵木蠕管理', 'value': 12.64 },
-            { 'name': '异常行为管理', 'value': 24.03 },
-            { 'name': '弱口令管理', 'value': 54.95 },
-            { 'name': '配置核查管理', 'value': 44.04 },
-            { 'name': '数据安全管理', 'value': 51.27 },
-            { 'name': '威胁情报管理', 'value': 25.40 },
-            { 'name': '诱捕防护', 'value': 33.09 },
-            { 'name': '工业网络审计', 'value': 24.71 },
-            { 'name': '漏洞管理', 'value': 8.66 }
-            ]
-            break
-          case 3:
-            this.datacopy = [{ 'name': '僵木蠕管理', 'value': 12.14 },
-            { 'name': '异常行为管理', 'value': 24.03 },
-            { 'name': '弱口令管理', 'value': 27.95 },
-            { 'name': '配置核查管理', 'value': 14.84 },
-            { 'name': '数据安全管理', 'value': 12.27 },
-            { 'name': '威胁情报管理', 'value': 42.80 },
-            { 'name': '诱捕防护', 'value': 12.09 },
-            { 'name': '工业网络审计', 'value': 13.71 },
-            { 'name': '漏洞管理', 'value': 25.66 }
-            ]
-            break
-          case 4:
-            this.datacopy = [{ 'name': '僵木蠕管理', 'value': 32.64 },
-            { 'name': '异常行为管理', 'value': 21.03 },
-            { 'name': '弱口令管理', 'value': 34.95 },
-            { 'name': '配置核查管理', 'value': 14.04 },
-            { 'name': '数据安全管理', 'value': 15.27 },
-            { 'name': '威胁情报管理', 'value': 18.80 },
-            { 'name': '诱捕防护', 'value': 34.09 },
-            { 'name': '工业网络审计', 'value': 23.71 },
-            { 'name': '漏洞管理', 'value': 13.66 }
-            ]
-            break
-          case 5:
-            this.datacopy = [{ 'name': '僵木蠕管理', 'value': 14.64 },
-            { 'name': '异常行为管理', 'value': 2.03 },
-            { 'name': '弱口令管理', 'value': 14.95 },
-            { 'name': '配置核查管理', 'value': 24.04 },
-            { 'name': '数据安全管理', 'value': 65.27 },
-            { 'name': '威胁情报管理', 'value': 53.81 },
-            { 'name': '诱捕防护', 'value': 21.09 },
-            { 'name': '工业网络审计', 'value': 27.11 },
-            { 'name': '漏洞管理', 'value': 17.66 }
-            ]
-            break
-          case 6:
-            this.datacopy = [{ 'name': '僵木蠕管理', 'value': 34.64 },
-            { 'name': '异常行为管理', 'value': 15.03 },
-            { 'name': '弱口令管理', 'value': 34.95 },
-            { 'name': '配置核查管理', 'value': 25.04 },
-            { 'name': '数据安全管理', 'value': 16.27 },
-            { 'name': '威胁情报管理', 'value': 13.80 },
-            { 'name': '诱捕防护', 'value': 24.09 },
-            { 'name': '工业网络审计', 'value': 29.71 },
-            { 'name': '漏洞管理', 'value': 34.66 }
-            ]
-            break
-          default:
-            console.log('这里是项目类型', this.address)
-            break
-        }
-      } else if (this.host) {
+    async getData() {
+      if (this.host) {
         await EventNameWordCloudMap(this.queryParms).then(({ data }) => {
           this.hasData = data
           this.datacopy = this.transDic(data)
@@ -169,6 +93,12 @@ export default {
               this.datacopy = this.transDic(data)
             })
             break
+          case 'event':
+            await eventNameEcharts(this.queryParms).then(({ data }) => {
+              this.hasData = data
+              this.datacopy = this.transDic(data)
+            })
+            break
           default:
             console.log('这里是项目类型', this.address)
             break
@@ -176,7 +106,7 @@ export default {
       }
       this.drawPolicitalStatus()
     },
-    drawPolicitalStatus () {
+    drawPolicitalStatus() {
       if (this.hasData.length) {
         // 基于准备好的dom，初始化echarts实例
         const myChart = this.$echarts.init(this.$refs.canvas1)
@@ -185,28 +115,33 @@ export default {
         myChart.setOption({
           series: [{
             type: 'wordCloud',
-            sizeRange: [15, 80],
+            gridSize: 20,
+            sizeRange: [12, 50],
             rotationRange: [0, 0],
-            rotationStep: 45,
-            gridSize: 8,
-            shape: 'pentagon',
-            width: '100%',
-            height: '100%',
+            shape: 'circle',
             textStyle: {
               normal: {
-                color: function () {
-                  return 'rgb(' + [
-                    Math.round(Math.random() * 160),
-                    Math.round(Math.random() * 160),
-                    Math.round(Math.random() * 160)
-                  ].join(',') + ')'
+                color: function() {
+                  return (
+                    'rgb(' +
+              [
+                Math.round(Math.random() * 160),
+                Math.round(Math.random() * 160),
+                Math.round(Math.random() * 160)
+              ].join(',') +
+              ')'
+                  )
                 }
+              },
+              emphasis: {
+                shadowBlur: 10,
+                shadowColor: '#333'
               }
             },
             data: this.datacopy
           }]
         })
-        window.addEventListener('resize', function () {
+        window.addEventListener('resize', function() {
           myChart.resize()
         })
       } else {
