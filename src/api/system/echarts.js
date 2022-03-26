@@ -36,6 +36,14 @@ export function recipientEcharts(query) {
     params: query
   })
 }
+// 查询事件等级分布
+export function dataSecurityManagementEcharts(query) {
+  return request({
+    url: '/dm/dataSecurityManagement/eventLevel/grp',
+    method: 'get',
+    params: query
+  })
+}
 // 查询源Ip统计事件TOP10分析
 export function sourceIpEcharts(query) {
   return request({
@@ -251,6 +259,14 @@ export function selectEventLevelGradeEcharts(query) {
 export function eventCategoryEcharts(query) {
   return request({
     url: '/dm/industrialNetworkAudit/eventCategory/grp',
+    method: 'get',
+    params: query
+  })
+}
+// 查询事件等级分布
+export function industrialNetworkAuditeventLevelEcharts(query) {
+  return request({
+    url: '/dm/industrialNetworkAudit/eventLevel/grp',
     method: 'get',
     params: query
   })

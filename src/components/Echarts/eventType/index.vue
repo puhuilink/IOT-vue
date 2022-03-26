@@ -9,7 +9,7 @@
 </template>
 <script>
 import { setNotopt } from '@/utils/emptyEcharts.js'
-import { policyNameEcharts, recipientEcharts, eventLevelEcharts, CreepeventNameEcharts, EventTypeDistribution, abnormalEventLevelDistribution, EventLevelDistribution, CreepdisposalStatuEcharts, selectEventLevelEcharts, selectDisposalStatusEcharts, EventStatusDispositionDiagram, eventCategoryEcharts, scanningEcharts, scanningeventStatusEcharts } from '@/api/system/echarts'
+import { industrialNetworkAuditeventLevelEcharts, dataSecurityManagementEcharts, policyNameEcharts, recipientEcharts, eventLevelEcharts, CreepeventNameEcharts, EventTypeDistribution, abnormalEventLevelDistribution, EventLevelDistribution, CreepdisposalStatuEcharts, selectEventLevelEcharts, selectDisposalStatusEcharts, EventStatusDispositionDiagram, eventCategoryEcharts, scanningEcharts, scanningeventStatusEcharts } from '@/api/system/echarts'
 import tip from '@/components/EchartsTip'
 export default {
   name: 'AAA',
@@ -142,14 +142,11 @@ export default {
                 this.datacopy = this.transDic(data)
               })
               break
-            case 5:
-              this.datacopy = [
-                { value: 3142, name: '僵木蠕事件' },
-                { value: 2114, name: '漏洞' },
-                { value: 1499, name: '配置核查' },
-                { value: 423, name: '工业网络' },
-                { value: 1362, name: '诱捕防护' }
-              ]
+            case 'dataSafe':
+              await dataSecurityManagementEcharts(this.queryParms).then(({ data }) => {
+                this.hasData = data
+                this.datacopy = this.transTypeDic(data)
+              })
               break
             case 6:
               this.datacopy = [
@@ -194,14 +191,11 @@ export default {
               })
               break
 
-            case 5:
-              this.datacopy = [
-                { value: 3448, name: '待上报' },
-                { value: 1514, name: '处置中' },
-                { value: 1199, name: '已处置' },
-                { value: 1623, name: '已完成' },
-                { value: 562, name: '待处置' }
-              ]
+            case 'design':
+              await industrialNetworkAuditeventLevelEcharts(this.queryParms).then(({ data }) => {
+                this.hasData = data
+                this.datacopy = this.transDic(data)
+              })
               break
             case 6:
               this.datacopy = [
