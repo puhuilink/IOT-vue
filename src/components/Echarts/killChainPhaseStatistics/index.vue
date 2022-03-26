@@ -123,7 +123,7 @@ export default {
         // 绘制图表
         myChart.setOption({
           title: {
-            text: '源IP'
+            // text: '源IP'
           },
           color: ['#ADD8E6'],
           tooltip: {
@@ -166,7 +166,7 @@ export default {
             {
               type: 'scatter',
               symbolSize: function (val) {
-                return val[2] * 2
+                return val[2] * 0.5
               },
               data: this.category,
               animationDelay: function (idx) {
