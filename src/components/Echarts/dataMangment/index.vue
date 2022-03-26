@@ -1,21 +1,21 @@
 
 <template>
   <el-col :span="12">
-    <div
-      :style="[
+    <div :style="[
         { background: id === 3 ? '#e7edf5' : '' },
         { cursor: 'pointer' },
         { width: '100%' },
         { height: '420px' },
-      ]"
-    >
+      ]">
       <tip>{{ tipname }}</tip>
-      <div class="acquisition" @click="log">
+      <div class="acquisition"
+           @click="log">
         <div class="quantity">{{ quantity }}</div>
         <div class="number">{{ number }}</div>
         <div class="leftBox">
           <div class="boxContent">
             <span class="name">{{ network }}</span>
+            <!-- <span class="dataIT">37290</span> -->
           </div>
           <div class="boxContent">
             <span class="name">{{ fwqrz }}</span>
@@ -104,7 +104,7 @@ export default {
       type: Number,
     },
   },
-  data() {
+  data () {
     return {
       quantity: "采集器个数",
       number: "31",
@@ -137,7 +137,7 @@ export default {
   computed: {},
   watch: {
     address: {
-      handler(val, oldVal) {
+      handler (val, oldVal) {
         if (val !== oldVal) {
           this.drawPolicitalStatus();
         }
@@ -145,12 +145,12 @@ export default {
       deep: true,
     },
   },
-  created() {},
-  mounted() {
+  created () { },
+  mounted () {
     // this.drawPolicitalStatus();
   },
   methods: {
-    log() {
+    log () {
       window.open("https://10.201.30.40/search", "_blank");
     },
   },
@@ -211,14 +211,14 @@ export default {
       }
       .dataIT {
         float: right;
-        // margin-right: 20px;
+        margin-left: 20px;
       }
     }
   }
   .leftBox {
     position: absolute;
     top: 20px;
-    left: 270px;
+    left: 290px;
     // margin-top: 10px;
     // float: left;
     padding-right: 20px;
@@ -238,11 +238,11 @@ export default {
       // border-bottom: none;
       .name {
         float: left;
-        margin-left: 20px;
+        // margin-left: 20px;
       }
       .dataIT {
         float: right;
-        margin-right: 20px;
+        // margin-left: 20px;
       }
     }
   }

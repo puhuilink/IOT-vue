@@ -424,6 +424,8 @@ export default {
       queryParams: {
         pageNum: 1,
         pageSize: 10,
+        orderByColumn: 'startTime',
+        isAsc: 'desc',
         userId: null,
         groupName: null,
         createTime: null

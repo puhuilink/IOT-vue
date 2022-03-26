@@ -9,7 +9,9 @@
 </template>
 <script>
 import { setNotopt } from '@/utils/emptyEcharts.js'
+
 import { eventStatusEcharts, eventTypeEcharts, industrialNetworkAuditeventLevelEcharts, dataSecurityManagementEcharts, policyNameEcharts, recipientEcharts, eventLevelEcharts, CreepeventNameEcharts, EventTypeDistribution, abnormalEventLevelDistribution, EventLevelDistribution, CreepdisposalStatuEcharts, selectEventLevelEcharts, selectDisposalStatusEcharts, EventStatusDispositionDiagram, eventCategoryEcharts, scanningEcharts, scanningeventStatusEcharts } from '@/api/system/echarts'
+
 import tip from '@/components/EchartsTip'
 export default {
   name: 'AAA',
@@ -191,7 +193,9 @@ export default {
             case 'design':
               await industrialNetworkAuditeventLevelEcharts(this.queryParms).then(({ data }) => {
                 this.hasData = data
+
                 this.datacopy = this.transTypeDic(data)
+
               })
               break
             case 'event':

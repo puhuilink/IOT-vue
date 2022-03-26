@@ -1,110 +1,79 @@
 <template>
   <div class="app-container">
-    <echarts
-      :event-type="1"
-      @getquery="uploadData"
-    />
-    <eventTrend
-      :query="query"
-      :name="'host'"
-    />
-    <eventType
-      :query="query"
-      :tipname="'事件类型分布'"
-      :type="1"
-      :name="'host'"
-    />
-    <wordcloud
-      :query="query"
-      :address="address"
-      :host="1"
-    />
-    <eventType
-      :query="query"
-      :tipname="'事件状态处置图'"
-      :type="2"
-      :name="'host'"
-    />
+    <echarts :event-type="1"
+             @getquery="uploadData" />
+    <eventTrend :query="query"
+                :name="'host'" />
+    <eventType :query="query"
+               :tipname="'事件类型分布'"
+               :type="1"
+               :name="'host'" />
+    <wordcloud :query="query"
+               :address="address"
+               :host="1" />
+    <eventType :query="query"
+               :tipname="'事件状态处置图'"
+               :type="2"
+               :name="'host'" />
     <el-col :span="24">
       <tip> 最新主机安全事件 </tip>
-      <el-table
-        :data="groupList"
-        tooltip-effect="light"
-      >
-        <el-table-column
-          label="接收时间"
-          align="center"
-          prop="receivingTime"
-          :show-overflow-tooltip="true"
-        />
-        <el-table-column
-          label="事件名称"
-          align="center"
-          prop="eventName"
-          :show-overflow-tooltip="true"
-        />
-        <el-table-column
-          label="事件等级"
-          align="center"
-          prop="eventLevel"
-          :show-overflow-tooltip="true"
-        >
+      <el-table :data="groupList"
+                height="300"
+                tooltip-effect="light">
+        <el-table-column label="接收时间"
+                         align="center"
+                         prop="receivingTime"
+                         :show-overflow-tooltip="true" />
+        <el-table-column label="事件名称"
+                         align="center"
+                         prop="eventName"
+                         :show-overflow-tooltip="true" />
+        <el-table-column label="事件等级"
+                         align="center"
+                         prop="eventLevel"
+                         :show-overflow-tooltip="true">
           <template #default="scope">
             <span>{{
               transTypeDic(scope.row.eventLevel)
             }}</span>
           </template>
         </el-table-column>
-        <el-table-column
-          label="事件类型"
-          align="center"
-          prop="eventType"
-          :show-overflow-tooltip="true"
-        />
-        <el-table-column
-          label="操作系统"
-          align="center"
-          prop="operatingSystem"
-          :show-overflow-tooltip="true"
-        />
-        <el-table-column
-          label="客户端名称"
-          align="center"
-          prop="clientName"
-          :show-overflow-tooltip="true"
-        />
-        <el-table-column
-          label="客户端IP"
-          align="center"
-          prop="clientIp"
-          :show-overflow-tooltip="true"
-        />
-        <el-table-column
-          label="产生时间"
-          align="center"
-          prop="generationTime"
-          :show-overflow-tooltip="true"
-        />
-        <el-table-column
-          label="日志描述"
-          align="center"
-          prop="logDescription"
-          :show-overflow-tooltip="true"
-        />
-        <el-table-column
-          label="区域"
-          align="center"
-          prop="region"
-          :show-overflow-tooltip="true"
-        />
+        <el-table-column label="事件类型"
+                         align="center"
+                         prop="eventType"
+                         :show-overflow-tooltip="true" />
+        <el-table-column label="操作系统"
+                         align="center"
+                         prop="operatingSystem"
+                         :show-overflow-tooltip="true" />
+        <el-table-column label="客户端名称"
+                         align="center"
+                         prop="clientName"
+                         :show-overflow-tooltip="true" />
+        <el-table-column label="客户端IP"
+                         align="center"
+                         prop="clientIp"
+                         :show-overflow-tooltip="true" />
+        <el-table-column label="产生时间"
+                         align="center"
+                         prop="generationTime"
+                         :show-overflow-tooltip="true" />
+        <el-table-column label="日志描述"
+                         align="center"
+                         prop="logDescription"
+                         :show-overflow-tooltip="true" />
+        <el-table-column label="区域"
+                         align="center"
+                         prop="region"
+                         :show-overflow-tooltip="true" />
       </el-table>
-      <pagination
+      <!-- <pagination
         v-show="total > 0"
         :total="total"
         :page.sync="queryParams.pageNum"
         :limit.sync="queryParams.pageSize"
         @pagination="getList"
-      />
+      /> -->
     </el-col>
 
   </div>
@@ -129,7 +98,7 @@ export default {
     tip
   },
   props: [],
-  data() {
+  data () {
     return {
       policitalStatus: ['1'],
       address: 1,
@@ -145,12 +114,12 @@ export default {
   },
   computed: {},
   watch: {},
-  created() {
+  created () {
     this.getList()
   },
-  mounted() { },
+  mounted () { },
   methods: {
-    transTypeDic(val) {
+    transTypeDic (val) {
       var t = [{
         name: '1',
         content: '正常'
@@ -173,10 +142,10 @@ export default {
         }))
       return `${orgTreeData1[0].content}`
     },
-    uploadData(data) {
+    uploadData (data) {
       this.query = data
     },
-    async getList() {
+    async getList () {
       this.loading = true
       const res = await hostList(this.queryParams)
       this.groupList = res.rows

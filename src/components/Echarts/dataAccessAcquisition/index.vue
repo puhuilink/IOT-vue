@@ -1,14 +1,12 @@
 
 <template>
   <el-col :span="12">
-    <div
-      :style="[
+    <div :style="[
         { background: (id === 1 ?'#e7edf5':'') },
         { cursor: 'pointer' },
         { width: '100%' },
         { height: '385px' },
-      ]"
-    >
+      ]">
       <tip>{{ tipname }}</tip>
 
       <div class="acquisition">
@@ -25,11 +23,13 @@
           <span class="name">{{ OT }}</span>
           <span class="dataIT">{{ OTdata }}</span>
         </div>
-        <div class="boxContent" @click="log">
+        <div class="boxContent"
+             @click="log">
           <span class="name">{{ ITdaily }}</span>
           <span class="dataIT">{{ ITdailyData }}</span>
         </div>
-        <div class="boxContent">
+        <div class="boxContent"
+             @click="logToBigScreen">
           <span class="name">{{ OTdaily }}</span>
           <span class="dataIT">{{ OTdailyData }}</span>
         </div>
@@ -60,7 +60,7 @@ export default {
       type: Number,
     },
   },
-  data() {
+  data () {
     return {
       quantity: "日志接入量",
       number: "718.79",
@@ -82,7 +82,7 @@ export default {
   computed: {},
   watch: {
     address: {
-      handler(val, oldVal) {
+      handler (val, oldVal) {
         if (val !== oldVal) {
           this.drawPolicitalStatus();
         }
@@ -90,16 +90,19 @@ export default {
       deep: true,
     },
   },
-  created() {
-    console.log('id:',this.id)
+  created () {
+    console.log('id:', this.id)
   },
-  mounted() {
+  mounted () {
     // this.drawPolicitalStatus();
   },
   methods: {
-    log() {
+    log () {
       window.open("https://10.201.30.40/dashboard", "_blank");
     },
+    logToBigScreen () {
+      window.open("http://116.63.139.209:10003/bigScreen/overallSecurityPosture", "_blank");
+    }
   },
 };
 </script>
