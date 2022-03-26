@@ -150,10 +150,10 @@
       <el-table-column label="资产编号"
                        type="index"
                        align="center" />
-      <el-table-column label="IP地址"
+      <!-- <el-table-column label="IP地址"
                        align="center"
                        prop="ip"
-                       :show-overflow-tooltip="true" />
+                       :show-overflow-tooltip="true" /> -->
       <el-table-column label="资产名称"
                        align="center"
                        prop="assetName"
@@ -199,10 +199,10 @@
                        align="center"
                        prop="leader"
                        :show-overflow-tooltip="true" />
-      <el-table-column label="最后活跃时间"
+      <!-- <el-table-column label="最后活跃时间"
                        align="center"
                        prop="endTime"
-                       :show-overflow-tooltip="true" />
+                       :show-overflow-tooltip="true" /> -->
       <el-table-column label="操作"
                        align="center"
                        class-name="small-padding fixed-width"

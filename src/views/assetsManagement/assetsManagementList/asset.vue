@@ -140,10 +140,10 @@
       <el-table-column label="资产编号"
                        type="index"
                        align="center" />
-      <el-table-column label="IP地址"
+      <!-- <el-table-column label="IP地址"
                        align="center"
                        prop="ip"
-                       :show-overflow-tooltip="true" />
+                       :show-overflow-tooltip="true" /> -->
       <el-table-column label="资产名称"
                        align="center"
                        prop="assetName"
