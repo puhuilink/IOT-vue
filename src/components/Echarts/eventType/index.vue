@@ -194,7 +194,7 @@ export default {
             case 'design':
               await industrialNetworkAuditeventLevelEcharts(this.queryParms).then(({ data }) => {
                 this.hasData = data
-                this.datacopy = this.transDic(data)
+                this.datacopy = this.transTypeDic(data)
               })
               break
             case 6:

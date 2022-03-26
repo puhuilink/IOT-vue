@@ -3,12 +3,12 @@
     <div :class="id===1 ? 'box' : ''" style="height:380px;width:780px;cursor:pointer;" @click="log">
       <tip>{{ tipname }}</tip>
       <div id="bg" style="position: relative; left:200px">
+        <img :src="showPhoto" style="position: absolute;top:200px;left:-100px" alt="HIGH">
+        <img :src="showPhoto" style="position: absolute;top:240px;left:-100px" alt="HIGH">
         <div id="text" style="position: absolute; top: 205px; left: -90px;color:#158CC6;font-weight: bold;font-size: 12px; font-family:Microsoft YaHei;">操作异常事件</div>
         <div id="text" style="position: absolute; top: 205px; left: 10px;color:#402165;font-weight: bold;font-size: 14px; font-family:Microsoft YaHei;">90000</div>
         <div id="text" style="position: absolute; top: 245px; left: -90px;color:#158CC6;font-weight: bold;font-size: 12px; font-family:Microsoft YaHei;">数据异常事件</div>
         <div id="text" style="position: absolute; top: 245px; left: 10px;color:#402165;font-weight: bold;font-size: 14px; font-family:Microsoft YaHei;">90000</div>
-        <img :src="showPhoto" style="position: absolute;top:200px;left:-100px" alt="HIGH">
-        <img :src="showPhoto" style="position: absolute;top:240px;left:-100px" alt="HIGH">
         <div id="text" style="position: absolute; top: 15px; left: 161px;color:#FFFFFF;font-size: 16px; font-family:Microsoft YaHei;">日志接入量</div>
         <div id="text" style="position: absolute; top: 30px; left: 145px;color:#FFFFFF;font-size: 28px; font-family:Microsoft YaHei;">718.79亿</div>
         <div id="text" style="position: absolute; top: 90px; left: 162px;color:#FFFFFF;font-size: 16px; font-family:Microsoft YaHei;">安全告警</div>

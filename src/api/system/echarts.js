@@ -266,7 +266,7 @@ export function eventCategoryEcharts(query) {
 // 查询事件等级分布
 export function industrialNetworkAuditeventLevelEcharts(query) {
   return request({
-    url: '/dm/industrialNetworkAudit/eventLevel/grp',
+    url: '/dm/industrialNetworkAudit/eventLevelGrp',
     method: 'get',
     params: query
   })
