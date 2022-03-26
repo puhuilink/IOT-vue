@@ -9,7 +9,9 @@
 </template>
 <script>
 import { setNotopt } from '@/utils/emptyEcharts.js'
-import { industrialNetworkAuditeventLevelEcharts, dataSecurityManagementEcharts, policyNameEcharts, recipientEcharts, eventLevelEcharts, CreepeventNameEcharts, EventTypeDistribution, abnormalEventLevelDistribution, EventLevelDistribution, CreepdisposalStatuEcharts, selectEventLevelEcharts, selectDisposalStatusEcharts, EventStatusDispositionDiagram, eventCategoryEcharts, scanningEcharts, scanningeventStatusEcharts } from '@/api/system/echarts'
+
+import { eventStatusEcharts, eventTypeEcharts, industrialNetworkAuditeventLevelEcharts, dataSecurityManagementEcharts, policyNameEcharts, recipientEcharts, eventLevelEcharts, CreepeventNameEcharts, EventTypeDistribution, abnormalEventLevelDistribution, EventLevelDistribution, CreepdisposalStatuEcharts, selectEventLevelEcharts, selectDisposalStatusEcharts, EventStatusDispositionDiagram, eventCategoryEcharts, scanningEcharts, scanningeventStatusEcharts } from '@/api/system/echarts'
+
 import tip from '@/components/EchartsTip'
 export default {
   name: 'AAA',
@@ -148,14 +150,11 @@ export default {
                 this.datacopy = this.transTypeDic(data)
               })
               break
-            case 6:
-              this.datacopy = [
-                { value: 3148, name: '僵木蠕事件' },
-                { value: 1614, name: '漏洞' },
-                { value: 2699, name: '配置核查' },
-                { value: 2023, name: '工业网络' },
-                { value: 462, name: '诱捕防护' }
-              ]
+            case 'event':
+              await eventTypeEcharts(this.queryParms).then(({ data }) => {
+                this.hasData = data
+                this.datacopy = this.transDic(data)
+              })
               break
             case 'design':
               // 工业审计
@@ -194,17 +193,16 @@ export default {
             case 'design':
               await industrialNetworkAuditeventLevelEcharts(this.queryParms).then(({ data }) => {
                 this.hasData = data
-                this.datacopy = this.transDic(data)
+
+                this.datacopy = this.transTypeDic(data)
+
               })
               break
-            case 6:
-              this.datacopy = [
-                { value: 1948, name: '待上报' },
-                { value: 1514, name: '处置中' },
-                { value: 699, name: '已处置' },
-                { value: 423, name: '已完成' },
-                { value: 762, name: '待处置' }
-              ]
+            case 'event':
+              await eventStatusEcharts(this.queryParms).then(({ data }) => {
+                this.hasData = data
+                this.datacopy = this.transDic(data)
+              })
               break
             default:
               console.log('这里是项目类型', this.name)

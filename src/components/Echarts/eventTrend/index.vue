@@ -9,7 +9,7 @@
 </template>
 <script>
 import { setNotopt } from '@/utils/emptyEcharts.js'
-import { CreepeventLevelEcharts, EventTrendAnalysis, abnormalAnalysis, selectEventLevelGradeEcharts, industrialNetworkAuditEcharts, scanninghostEcharts, scanningeventLevelEcharts } from '@/api/system/echarts'
+import { eventEcharts, CreepeventLevelEcharts, EventTrendAnalysis, abnormalAnalysis, selectEventLevelGradeEcharts, industrialNetworkAuditEcharts, scanninghostEcharts, scanningeventLevelEcharts } from '@/api/system/echarts'
 import tip from '@/components/EchartsTip'
 export default {
   name: 'AAA',
@@ -455,7 +455,55 @@ export default {
             }
           })
           break
-
+        case 'event':
+          await eventEcharts(this.queryParms).then(({ data }) => {
+            this.hasData = data
+            if (data.length) {
+              const aaa = data.filter((e) => e.eventLevel === '1')
+              if (aaa.length) {
+                aaa.map(d => {
+                  this.data1 = d.data
+                  this.date = d.date
+                })
+              } else {
+                this.data1 = []
+              }
+              const bbb = data.filter((e) => e.eventLevel === '2')
+              if (bbb.length) {
+                bbb.map(d => {
+                  this.data2 = d.data
+                  this.date = d.date
+                })
+              } else {
+                this.data2 = []
+              }
+              const ccc = data.filter((e) => e.eventLevel === '3')
+              if (ccc.length) {
+                ccc.map(d => {
+                  this.data3 = d.data
+                  this.date = d.date
+                })
+              } else {
+                this.data3 = []
+              }
+              const ddd = data.filter((e) => e.eventLevel === '4')
+              if (ddd.length) {
+                ddd.map(d => {
+                  this.data4 = d.data
+                  this.date = d.date
+                })
+              } else {
+                this.data4 = []
+              }
+            } else {
+              this.data1 = []
+              this.data2 = []
+              this.data3 = []
+              this.data4 = []
+              this.data5 = []
+            }
+          })
+          break
         default:
           console.log('无数据', this.type)
           break
@@ -468,6 +516,7 @@ export default {
         const myChart = this.$echarts.init(this.$refs.canvas1)
         // 绘制图表
         myChart.setOption({
+          animationDuration: 5000,
           tooltip: {
             trigger: 'axis'
           },
@@ -482,6 +531,7 @@ export default {
           },
           xAxis: {
             type: 'category',
+            boundaryGap: false,
             minInterval: 1,
             axisTick: { // x轴刻度线
               show: false
@@ -500,6 +550,11 @@ export default {
           series: [
             {
               name: '极低',
+              stack: 'Total',
+              areaStyle: {},
+              emphasis: {
+                focus: 'series'
+              },
               color: ['#1890FF'],
               type: 'line',
               smooth: true,
@@ -507,6 +562,11 @@ export default {
             },
             {
               name: '低危',
+              stack: 'Total',
+              areaStyle: {},
+              emphasis: {
+                focus: 'series'
+              },
               color: ['#B592E4'],
               type: 'line',
               smooth: true,
@@ -514,6 +574,11 @@ export default {
             },
             {
               name: '中危',
+              stack: 'Total',
+              areaStyle: {},
+              emphasis: {
+                focus: 'series'
+              },
               color: ['#F0B144'],
               type: 'line',
               smooth: true,
@@ -521,6 +586,11 @@ export default {
             },
             {
               name: '高危',
+              stack: 'Total',
+              areaStyle: {},
+              emphasis: {
+                focus: 'series'
+              },
               color: ['#FF8745'],
               type: 'line',
               smooth: true,
@@ -528,6 +598,11 @@ export default {
             },
             {
               name: '致命',
+              stack: 'Total',
+              areaStyle: {},
+              emphasis: {
+                focus: 'series'
+              },
               color: ['#F73030'],
               type: 'line',
               smooth: true,

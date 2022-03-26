@@ -3,6 +3,14 @@
  ******************************************************************************/
 import request from '@/utils/request'
 
+// 事件检索
+export function eventList(query) {
+  return request({
+    url: '/dm/event/list',
+    method: 'get',
+    params: query
+  })
+}
 // 异常事件检索
 export function abnormalList(query) {
   return request({
@@ -23,14 +31,6 @@ export function assetList(query) {
 export function dataSecurityManagementList(query) {
   return request({
     url: '/dm/dataSecurityManagement/list',
-    method: 'get',
-    params: query
-  })
-}
-// 事件列表
-export function eventlList(query) {
-  return request({
-    url: '/m/event/list',
     method: 'get',
     params: query
   })

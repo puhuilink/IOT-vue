@@ -11,6 +11,7 @@ import App from './App'
 import store from './store'
 import router from './router'
 import permission from './directive/permission'
+import './components/global_components'
 
 import './assets/icons' // icon
 import './permission' // permission control
