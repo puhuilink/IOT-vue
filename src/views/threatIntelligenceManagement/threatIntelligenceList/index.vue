@@ -263,10 +263,10 @@
           align="center"
           class-name="small-padding fixed-width"
         >
-          <template>
+          <template slot-scope="scope">
             <el-button
               type="text"
-              @click="detail"
+              @click="detail(scope.row)"
             >详情</el-button>
           &nbsp;&nbsp; &nbsp;&nbsp;
             <el-dropdown @command="batchOperate">

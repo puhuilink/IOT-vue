@@ -12,7 +12,17 @@
         <el-table-column label="动作类型" align="center" prop="actionType" :show-overflow-tooltip="true" min-width="10%" />
         <el-table-column label="协议类型" align="center" prop="protocolType" :show-overflow-tooltip="true" min-width="15%" />
         <el-table-column label="源IP" align="center" prop="sourceIp" :show-overflow-tooltip="true" min-width="10%" />
-        <el-table-column label="事件等级" align="center" prop="eventLevel" :show-overflow-tooltip="true" min-width="10%" />
+        <el-table-column
+          label="事件等级"
+          align="center"
+          prop="eventLevel"
+        >
+          <template #default="scope">
+            <span>{{
+              transTypeDic(scope.row.eventLevel)
+            }}</span>
+          </template>
+        </el-table-column>
         <el-table-column label="命中策略" align="center" prop="hitStrategy" :show-overflow-tooltip="true" min-width="15%" />
         <el-table-column label="事件ID" align="center" prop="eventId" :show-overflow-tooltip="true" min-width="10%" />
         <el-table-column label="区域" align="center" prop="region" :show-overflow-tooltip="true" min-width="10%" />
@@ -45,6 +55,29 @@ export default {
   mounted() {
   },
   methods: {
+    transTypeDic(val) {
+      var t = [{
+        name: '1',
+        content: '正常'
+      }, {
+        name: '2',
+        content: '低危'
+      }, {
+        name: '3',
+        content: '中危'
+      }, {
+        name: '4',
+        content: '高危'
+      }, {
+        name: '5',
+        content: '失陷'
+      }]
+      const orgTreeData1 = t.filter((e) => e.name === val)
+        .map(({ content }) => ({
+          content
+        }))
+      return `${orgTreeData1[0].content}`
+    },
     /** 查询分组列表 */
     async getList() {
       this.loading = true

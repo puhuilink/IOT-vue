@@ -14,18 +14,11 @@
       :type="1"
       :name="'host'"
     />
-    <!-- <pieChartDisposal :query="query"
-                      :tipname="'事件类型分布'"
-                      :EventTypeDistribution="1" /> -->
-    <!-- 不能删<pieChartNesting :address="address" /> -->
     <wordcloud
       :query="query"
       :address="address"
       :host="1"
     />
-    <!-- <pieChartDisposal :query="query"
-                      :tipname="'事件状态处置图'"
-                      :address="address" /> -->
     <eventType
       :query="query"
       :tipname="'事件状态处置图'"
