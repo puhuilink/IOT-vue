@@ -2,7 +2,7 @@
   <div class="app-container home">
 
     <iframe id="mobsf"
-            src="http://116.63.139.209:9081/#/previewScreen?id=2GZHP5G7U_20220325083433"
+            src="https://10.201.30.40/situation-awareness/integrated?token=aaed3d71d8a5d4a754172d26cbcff72b9f1da630daa98f056bc8564b81ffcb48"
             scrolling="no"
             frameborder="0" />
 
