@@ -187,22 +187,19 @@
         <el-table-column label="操作"
                          align="center"
                          class-name="small-padding fixed-width">
-          <template #default="{ row }">
-            <el-button v-hasPermi="['system:group:edit']"
-                       type="text"
-                       @click="detail(row.hostSecurityId)">详情</el-button>
+          <template slot-scope="scope">
+            <el-button type="text"
+                       @click="detail(scope.row)">详情</el-button>
+            &nbsp;&nbsp; &nbsp;&nbsp;
             <el-dropdown @command="batchOperate">
               <el-button size="mini"
-                         type="text">状态变更
-                <i class="el-icon-arrow-down el-icon--right" />
+                         type="text">
+                状态变更<i class="el-icon-arrow-down el-icon--right" />
               </el-button>
               <el-dropdown-menu slot="dropdown">
-                <el-dropdown-item icon="el-icon-check"
-                                  command="process">处置</el-dropdown-item>
-                <el-dropdown-item icon="el-icon-close"
-                                  command="un_process">不处置</el-dropdown-item>
-                <el-dropdown-item icon="el-icon-bell"
-                                  command="false_report">误报</el-dropdown-item>
+                <el-dropdown-item command="process">处置</el-dropdown-item>
+                <el-dropdown-item command="un_process">不处置</el-dropdown-item>
+                <el-dropdown-item command="false_report">误报</el-dropdown-item>
               </el-dropdown-menu>
             </el-dropdown>
           </template>
@@ -428,8 +425,6 @@ export default {
         pageNum: 1,
         pageSize: 10,
         userId: null,
-        orderByColumn: 'happen_time',
-        isAsc: 'desc',
         groupName: null,
         createTime: null
       },

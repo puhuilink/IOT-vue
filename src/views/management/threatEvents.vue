@@ -267,11 +267,11 @@
         align="center"
         class-name="small-padding fixed-width"
       >
-        <template>
+        <template slot-scope="scope">
           <el-button
             size="mini"
             type="text"
-            @click="detail"
+            @click="detail(scope.row)"
           >详情</el-button>
           &nbsp; &nbsp; &nbsp; &nbsp;
           <el-dropdown @command="batchOperate">
@@ -453,8 +453,6 @@ export default {
         pageNum: 1,
         pageSize: 10,
         userId: null,
-        orderByColumn: 'happen_time',
-        isAsc: 'desc',
         groupName: null,
         createTime: null
       },

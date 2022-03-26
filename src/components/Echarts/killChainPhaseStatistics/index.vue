@@ -2,8 +2,10 @@
 <template>
   <el-col :span="12">
     <tip>{{ tipname }}</tip>
-    <div ref="canvas1"
-         style="height: 400px" />
+    <div
+      ref="canvas1"
+      style="height: 400px"
+    />
   </el-col>
 </template>
 <script>
@@ -28,7 +30,7 @@ export default {
       type: Number
     }
   },
-  data () {
+  data() {
     return {
       policitalStatus: ['1'],
       barData: [],
@@ -42,7 +44,7 @@ export default {
   computed: {},
   watch: {
     query: {
-      handler (val, oldVal) {
+      handler(val, oldVal) {
         this.queryParms = this.query
         if (val !== oldVal) {
           this.getData()
@@ -52,7 +54,7 @@ export default {
       deep: true
     },
     category: {
-      handler (val, oldVal) {
+      handler(val, oldVal) {
         if (val !== oldVal) {
           console.log(1)
           this.drawPolicitalStatus()
@@ -61,7 +63,7 @@ export default {
       deep: true
     },
     categoryName: {
-      handler (val, oldVal) {
+      handler(val, oldVal) {
         if (val !== oldVal) {
           console.log(1)
           this.drawPolicitalStatus()
@@ -70,7 +72,7 @@ export default {
       deep: true
     },
     date: {
-      handler (val, oldVal) {
+      handler(val, oldVal) {
         if (val !== oldVal) {
           console.log(1)
           this.drawPolicitalStatus()
@@ -79,14 +81,14 @@ export default {
       deep: true
     }
   },
-  created () {
+  created() {
     this.getData()
   },
-  mounted () {
+  mounted() {
     this.drawPolicitalStatus()
   },
   methods: {
-    async getData () {
+    async getData() {
       const { data } = await KillChain(this.queryParms)
       this.hasData = data
       this.categoryName = []
@@ -101,19 +103,18 @@ export default {
             const newArr = [j, i, height]
             this.axisData.push(newArr)
           }
-          this.category = this.axisData.map(function (item) {
+          this.category = this.axisData.map(function(item) {
             return [item[1], item[0], item[2]]
-          }),
-            this.date = data[0].date
+          })
+          this.date = data[0].date
         }
       } else {
         this.category = []
         this.date = []
         this.categoryName = []
       }
-
     },
-    async drawPolicitalStatus () {
+    async drawPolicitalStatus() {
       if (this.hasData.length) {
         // 基于准备好的dom，初始化echarts实例
         const myChart = this.$echarts.init(this.$refs.canvas1)
@@ -122,13 +123,10 @@ export default {
         const days = this.categoryName
         // 绘制图表
         myChart.setOption({
-          title: {
-            // text: '源IP'
-          },
           color: ['#ADD8E6'],
           tooltip: {
             position: 'top',
-            formatter: function (params) {
+            formatter: function(params) {
               return (
                 params.value[2] +
                 ' commits in ' +
@@ -165,17 +163,17 @@ export default {
           series: [
             {
               type: 'scatter',
-              symbolSize: function (val) {
+              symbolSize: function(val) {
                 return val[2] * 0.5
               },
               data: this.category,
-              animationDelay: function (idx) {
+              animationDelay: function(idx) {
                 return idx * 5
               }
             }
           ]
         })
-        window.addEventListener('resize', function () {
+        window.addEventListener('resize', function() {
           myChart.resize()
         })
       } else {

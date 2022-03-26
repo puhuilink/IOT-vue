@@ -1,10 +1,12 @@
 <template>
   <div class="app-container home">
 
-    <iframe id="mobsf"
-            src="https://10.201.30.40/situation-awareness/integrated?token=aaed3d71d8a5d4a754172d26cbcff72b9f1da630daa98f056bc8564b81ffcb48"
-            scrolling="no"
-            frameborder="0" />
+    <iframe
+      id="mobsf"
+      src="https://10.201.30.40/situation-awareness/integrated?token=aaed3d71d8a5d4a754172d26cbcff72b9f1da630daa98f056bc8564b81ffcb48"
+      scrolling="no"
+      frameborder="0"
+    />
 
   </div>
 </template>
@@ -12,17 +14,17 @@
 <script>
 export default {
   name: 'Index',
-  data () {
+  data() {
     return {
       // 版本号
       version: '3.4.0'
     }
   },
-  mounted () {
+  mounted() {
     /**
    * iframe-宽高自适应显示
    */
-    function changeMobsfIframe () {
+    function changeMobsfIframe() {
       const mobsf = document.getElementById('mobsf')
       const deviceWidth = document.body.clientWidth
       const deviceHeight = document.body.clientHeight
@@ -32,7 +34,7 @@ export default {
 
     changeMobsfIframe()
 
-    window.onresize = function () {
+    window.onresize = function() {
       changeMobsfIframe()
     }
   },
