@@ -191,6 +191,7 @@
             <el-button size="mini"
                        type="text"
                        @click="detail(row.hostSecurityId)">详情</el-button>
+            &nbsp;&nbsp; &nbsp;&nbsp;
             <el-dropdown @command="batchOperate">
               <el-button size="mini"
                          type="text">状态变更
@@ -377,8 +378,8 @@ export default {
       queryParams: {
         pageNum: 1,
         pageSize: 10,
-        // orderByColumn: 'happen_time',
-        // isAsc: 'desc',
+        orderByColumn: 'receivingTime',
+        isAsc: 'desc',
         groupName: null,
         createTime: null
         // eventName: '',

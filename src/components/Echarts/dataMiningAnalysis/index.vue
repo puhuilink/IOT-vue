@@ -1,17 +1,16 @@
 
 <template>
   <el-col :span="12">
-    <div
-      :style="[
+    <div :style="[
         { background: id === 2 ? '#e7edf5' : '' },
         { cursor: 'pointer' },
         { width: '100%' },
         { height: '385px' },
-      ]"
-    >
+      ]">
       <tip>{{ tipname }}</tip>
       <div class="acquisition">
-        <div class="leftBox" @click="log">
+        <div class="leftBox"
+             @click="log">
           <div class="boxContent">
             <span class="name">{{ network }}</span>
           </div>
@@ -42,7 +41,8 @@
         </div>
         <div class="quantity">{{ quantity }}</div>
         <div class="number">{{ number }}</div>
-        <div class="datails">
+        <div class="datails"
+             @click="logToDetails">
           <div class="boxContent">
             <span class="name">{{ IT }}</span>
           </div>
@@ -98,7 +98,7 @@ export default {
       type: Number,
     },
   },
-  data() {
+  data () {
     return {
       quantity: "日志",
       number: "类型",
@@ -129,7 +129,7 @@ export default {
   computed: {},
   watch: {
     address: {
-      handler(val, oldVal) {
+      handler (val, oldVal) {
         if (val !== oldVal) {
           this.drawPolicitalStatus();
         }
@@ -137,17 +137,23 @@ export default {
       deep: true,
     },
   },
-  created() {},
-  mounted() {
+  created () { },
+  mounted () {
     // this.drawPolicitalStatus();
   },
   methods: {
-    log() {
+    log () {
       window.open(
         "https://10.201.30.43:8988/noah/access/collector-manager",
         "_blank"
       );
     },
+    logToDetails () {
+      window.open(
+        "http://116.63.139.209:10003/management/eventEcharts",
+        "_blank"
+      );
+    }
   },
 };
 </script>

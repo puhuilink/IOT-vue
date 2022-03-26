@@ -170,6 +170,7 @@
             <el-button size="mini"
                        type="text"
                        @click="detail(scope.row.intrusionTrapId)">详情</el-button>
+            &nbsp;&nbsp; &nbsp;&nbsp;
             <el-dropdown @command="batchOperate">
               <el-button size="mini"
                          type="text">状态变更
@@ -355,6 +356,8 @@ export default {
       queryParams: {
         pageNum: 1,
         pageSize: 10,
+        orderByColumn: 'startAttackTime',
+        isAsc: 'desc',
         attackSource: '',
         eventLevel: '',
         isolationSandbox: '',

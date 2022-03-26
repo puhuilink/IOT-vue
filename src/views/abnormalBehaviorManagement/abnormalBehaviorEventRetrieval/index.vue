@@ -176,7 +176,8 @@
                          :show-overflow-tooltip="true" />
         <el-table-column label="发生时间"
                          align="center"
-                         prop="happenTime" />
+                         prop="happenTime"
+                         :show-overflow-tooltip="true" />
         <el-table-column label="发现时间"
                          align="center"
                          prop="findTime"
@@ -192,6 +193,7 @@
             <el-button size="mini"
                        type="text"
                        @click="detail(scope.row.abnormalId)">详情</el-button>
+            &nbsp;&nbsp; &nbsp;&nbsp;
             <el-dropdown @command="batchOperate">
               <el-button size="mini"
                          type="text">状态变更<i class="el-icon-arrow-down el-icon--right" /></el-button>

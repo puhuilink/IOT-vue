@@ -199,12 +199,11 @@
           <template #default="{ row }">
             <el-button size="mini"
                        type="text"
-                       icon="el-icon-view"
                        @click="detail(row.auditId)">详情</el-button>
+            &nbsp;&nbsp; &nbsp;&nbsp;
             <el-dropdown @command="batchOperate">
               <el-button size="mini"
-                         type="text"
-                         icon="el-icon-s-tools">
+                         type="text">
                 状态变更<i class="el-icon-arrow-down el-icon--right" />
               </el-button>
               <el-dropdown-menu slot="dropdown">

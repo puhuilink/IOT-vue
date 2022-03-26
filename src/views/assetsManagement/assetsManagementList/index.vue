@@ -90,7 +90,7 @@
       </el-col> -->
       <el-col :span="6">
         <el-form-item label="资产类型:"
-                      prop="level">
+                      prop="assetType">
           <el-select v-model="queryParams.assetType"
                      placeholder="请选择资产类型"
                      filterable
@@ -215,15 +215,12 @@
         <template>
           <el-button size="mini"
                      type="text"
-                     icon="el-icon-view"
                      @click="detail">详情</el-button>
           <el-button size="mini"
                      type="text"
-                     icon="el-icon-s-tools"
                      @click="configuration">配置</el-button>
           <el-button size="mini"
                      type="text"
-                     icon="el-icon-edit"
                      @click="edit">修改</el-button>
         </template>
       </el-table-column>
@@ -255,8 +252,8 @@
                       @keyup.enter.native="handleQuery" />
           </el-form-item>
           <el-form-item label="资产名称 :"
-                        prop="userName">
-            <el-input v-model="queryParams.userName"
+                        prop="assetName ">
+            <el-input v-model="queryParams.assetName "
                       placeholder="请输入资产名称"
                       clearable
                       size="small"
@@ -265,7 +262,7 @@
           <el-row>
             <el-col :span="24">
               <el-form-item label="资产类型 :"
-                            prop="ipaddr">
+                            prop="assetType">
                 <el-select v-model="formData.field114"
                            placeholder="请选择资产类型"
                            clearable
@@ -288,8 +285,8 @@
                       @keyup.enter.native="handleQuery" />
           </el-form-item>
           <el-form-item label="负责人 :"
-                        prop="userName">
-            <el-input v-model="queryParams.userName"
+                        prop="leader">
+            <el-input v-model="queryParams.leader"
                       placeholder="请输入负责人"
                       clearable
                       size="small"
@@ -298,7 +295,7 @@
           <el-row>
             <el-col :span="24">
               <el-form-item label="区域 :"
-                            prop="ipaddr">
+                            prop="region">
                 <el-select v-model="formData.field114"
                            placeholder="请选择区域"
                            clearable
@@ -408,8 +405,8 @@
                       @keyup.enter.native="handleQuery" />
           </el-form-item>
           <el-form-item label="资产名称 :"
-                        prop="userName">
-            <el-input v-model="queryParams.userName"
+                        prop="assetName ">
+            <el-input v-model="queryParams.assetName "
                       placeholder="请输入资产名称"
                       clearable
                       size="small"
@@ -418,7 +415,7 @@
           <el-row>
             <el-col :span="24">
               <el-form-item label="资产类型 :"
-                            prop="ipaddr">
+                            prop="assetType">
                 <el-select v-model="formData.field114"
                            placeholder="请选择资产类型"
                            clearable
@@ -441,8 +438,8 @@
                       @keyup.enter.native="handleQuery" />
           </el-form-item>
           <el-form-item label="负责人 :"
-                        prop="userName">
-            <el-input v-model="queryParams.userName"
+                        prop="leader ">
+            <el-input v-model="queryParams.leader "
                       placeholder="请输入负责人"
                       clearable
                       size="small"
@@ -451,7 +448,7 @@
           <el-row>
             <el-col :span="24">
               <el-form-item label="区域 :"
-                            prop="ipaddr">
+                            prop="region">
                 <el-select v-model="formData.field114"
                            placeholder="请选择区域"
                            clearable
@@ -524,16 +521,16 @@
                       @keyup.enter.native="handleQuery" />
           </el-form-item>
           <el-form-item label="资产标签 :"
-                        prop="userName">
-            <el-input v-model="queryParams.userName"
+                        prop="assetlabel">
+            <el-input v-model="queryParams.assetlabel"
                       placeholder="请输入资产标签"
                       clearable
                       size="small"
                       @keyup.enter.native="handleQuery" />
           </el-form-item>
           <el-form-item label="操作系统 :"
-                        prop="userName">
-            <el-input v-model="queryParams.userName"
+                        prop="os">
+            <el-input v-model="queryParams.os"
                       placeholder="请输入操作系统"
                       clearable
                       size="small"
@@ -556,16 +553,16 @@
                       @keyup.enter.native="handleQuery" />
           </el-form-item>
           <el-form-item label="应用协议 :"
-                        prop="userName">
-            <el-input v-model="queryParams.userName"
+                        prop="appProtocol ">
+            <el-input v-model="queryParams.appProtocol "
                       placeholder="请输入应用协议"
                       clearable
                       size="small"
                       @keyup.enter.native="handleQuery" />
           </el-form-item>
           <el-form-item label="风险协议 :"
-                        prop="userName">
-            <el-input v-model="queryParams.userName"
+                        prop="riskProtocol">
+            <el-input v-model="queryParams.riskProtocol"
                       placeholder="请输入风险协议"
                       clearable
                       size="small"
@@ -710,27 +707,27 @@
             </el-col>
             <el-col :span="8">
               <el-form-item label="风险协议 :">
-                {{ dataTest.name12 }}
+                {{ dataTest.name13 }}
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item label="事件等级 :">
-                {{ dataTest.name13 }}
+                {{ dataTest.name15 }}
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item label="资产位置 :">
-                {{ dataTest.name12 }}
-              </el-form-item>
-            </el-col>
-            <el-col :span="8">
-              <el-form-item label="威胁事件 :">
                 {{ dataTest.name13 }}
               </el-form-item>
             </el-col>
             <el-col :span="8">
+              <el-form-item label="威胁事件 :">
+                {{ dataTest.name16 }}
+              </el-form-item>
+            </el-col>
+            <el-col :span="8">
               <el-form-item label="漏洞数量 :">
-                {{ dataTest.name12 }}
+                {{ dataTest.name16 }}
               </el-form-item>
             </el-col>
             <el-col :span="8">
@@ -740,17 +737,17 @@
             </el-col>
             <el-col :span="8">
               <el-form-item label="负责人 :">
-                {{ dataTest.name12 }}
+                {{ dataTest.leader }}
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item label="部门 :">
-                {{ dataTest.name13 }}
+                {{ dataTest.name5 }}
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item label="区域 :">
-                {{ dataTest.name12 }}
+                {{ dataTest.name5 }}
               </el-form-item>
             </el-col>
             <el-col :span="8">
@@ -760,7 +757,7 @@
             </el-col>
             <el-col :span="8">
               <el-form-item label="最后活跃时间 :">
-                {{ dataTest.name13 }}
+                {{ dataTest.time }}
               </el-form-item>
             </el-col>
           </el-row>
@@ -780,12 +777,12 @@
             </el-col>
             <el-col :span="12">
               <el-form-item label="地理位置 :">
-                {{ dataTest.name1 }}
+                {{ dataTest.location }}
               </el-form-item>
             </el-col>
             <el-col :span="12">
               <el-form-item label="组织架构 :">
-                {{ dataTest.name2 }}
+                {{ dataTest.location }}
               </el-form-item>
             </el-col>
           </el-row>
@@ -801,15 +798,15 @@
                            :show-overflow-tooltip="true" />
           <el-table-column label="源IP"
                            align="center"
-                           prop="sourceIp"
+                           prop="ip"
                            :show-overflow-tooltip="true" />
           <el-table-column label="目的IP"
                            align="center"
-                           prop="destinationIp"
+                           prop="ip"
                            :show-overflow-tooltip="true" />
           <el-table-column label="协议"
                            align="center"
-                           prop="agreement"
+                           prop="appProtocol"
                            :show-overflow-tooltip="true"
                            width="60" />
           <el-table-column label="事件等级"
@@ -822,7 +819,7 @@
                            width="60" />
           <el-table-column label="处置状态"
                            align="center"
-                           prop="status"
+                           prop="runstate"
                            width="80" />
           <el-table-column label="事件开始时间"
                            align="center"
@@ -833,7 +830,7 @@
                            prop="startTime" />
           <el-table-column label="区域"
                            align="center"
-                           prop="address"
+                           prop="region"
                            :show-overflow-tooltip="true" />
           <el-table-column label="上报设备"
                            align="center"
@@ -860,7 +857,12 @@
 <script>
 // import { listEvent } from '@/api/system/category'
 import { assetList } from '@/api/system/list'
+import chainStatistics from "@/components/Echarts/chainStatistics";
+import eventType from "@/components/Echarts/eventType";
 export default {
+  components: {
+    chainStatistics, eventType
+  },
   name: 'Online',
   data () {
     return {
@@ -1194,21 +1196,26 @@ export default {
         }
       ],
       dataTest: {
-        name: '工业网络审计事件',
-        name1: '工业网络审计',
-        name2: '高危',
-        name3: '未知接口',
-        name4: '10.255.52.84',
-        name5: '192.163.12.63',
-        name6: 'MODBUS协议',
-        name7: '工业网络审计',
-        name8: '10.255.52.83',
-        name9: '失陷',
-        name10: '山西燃气厂',
-        name11: '待处置',
-        name12: '2022-02-22',
-        name13: '2022-2-25',
-        name14: '是'
+        name: '1',
+        name1: '124.165.254.98',
+        name2: 'TCP/IP',
+        name3: 'SCADA服务器',
+        name4: 'OT设备',
+        name5: '山西燃气厂',
+        name6: '',
+        name7: '--',
+        name8: 'WINDOWS',
+        name9: '',
+        name10: '极低',
+        name11: '--',
+        name12: '正常',
+        name13: '',
+        name14: '是',
+        name15: "低",
+        name16: '3',
+        leader: '张燕强',
+        time: '2022-02-03 21:00:47',
+        location: '--'
       }
     }
   },

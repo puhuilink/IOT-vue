@@ -1,16 +1,16 @@
 
 <template>
   <el-col :span="12">
-    <div
-      :style="[
+    <div :style="[
         { background: id === 3 ? '#e7edf5' : '' },
         { cursor: 'pointer' },
         { width: '100%' },
         { height: '420px' },
       ]"
-    >
+         @click="log">
       <tip>{{ tipname }}</tip>
-      <div ref="canvas1" style="height: 400px;" />
+      <div ref="canvas1"
+           style="height: 400px;" />
     </div>
   </el-col>
 </template>
@@ -37,7 +37,7 @@ export default {
       type: Number,
     },
   },
-  data() {
+  data () {
     return {
       policitalStatus: ["1"],
       barData: [],
@@ -48,7 +48,7 @@ export default {
   computed: {},
   watch: {
     address: {
-      handler(val, oldVal) {
+      handler (val, oldVal) {
         if (val !== oldVal) {
           this.drawPolicitalStatus();
         }
@@ -56,12 +56,12 @@ export default {
       deep: true,
     },
   },
-  created() {},
-  mounted() {
+  created () { },
+  mounted () {
     this.drawPolicitalStatus();
   },
   methods: {
-    drawPolicitalStatus() {
+    drawPolicitalStatus () {
       if (this.policitalStatus.length) {
         switch (this.address) {
           case 1:
@@ -73,13 +73,14 @@ export default {
               "统一管理平台",
               "NDR",
               "NDLP",
-              "蜜罐",
-              "微步",
-              "安全网关",
+              // "蜜罐",
+              // "微步",
+              // "安全网关",
             ]),
               (this.barData = [
-                70000, 60000, 55000, 53000, 52000, 50000, 48000, 46000, 44000,
-                42000,
+                70000, 60000, 55000, 53000, 52000, 50000, 48000,
+                // 46000, 44000,
+                // 42000,
               ]),
               (this.title = "源IP");
             break;
@@ -92,9 +93,9 @@ export default {
               "统一管理平台",
               "NDR",
               "NDLP",
-              "蜜罐",
-              "微步",
-              "安全网关",
+              // "蜜罐",
+              // "微步",
+              // "安全网关",
             ]),
               (this.barData = [18, 12, 2, 3, 8]),
               (this.title = "源IP");
@@ -176,6 +177,7 @@ export default {
           xAxis: {
             type: "value",
             boundaryGap: [0, 0.01],
+            data: ['1000', '2000', '3000', '4000', '5000']
           },
           yAxis: {
             type: "category",
@@ -198,6 +200,9 @@ export default {
         this.$refs.canvas1.removeAttribute("_echarts_instance_");
         return setNotopt(myChart, "暂无数据");
       }
+    },
+    log () {
+      window.open("http://116.63.139.209:10003/management/eventEcharts", "_blank");
     },
   },
 };

@@ -1,86 +1,56 @@
 <template>
   <div class="app-container">
-    <echarts
-      :event-type="2"
-      @getquery="uploadData"
-    />
-    <eventTrend
-      :query="query"
-      :name="'abnormal'"
-    />
-    <killChainPhaseStatistics
-      :query="query"
-      :address="address"
-    />
-    <eventType
-      :tipname="'事件等级分布'"
-      :query="query"
-      :name="'abnormal'"
-      :type="1"
-    />
+    <echarts :event-type="2"
+             @getquery="uploadData" />
+    <eventTrend :query="query"
+                :name="'abnormal'" />
+    <killChainPhaseStatistics :query="query"
+                              :address="address" />
+    <eventType :tipname="'事件等级分布'"
+               :query="query"
+               :name="'abnormal'"
+               :type="1" />
     <!-- <pieChartThreats :address="address"/> -->
     <!-- <pieChartDisposal :tipname="'事件等级分布'"
                       :query="query"
                       :name="'abnormal'"
                       :type="1" /> -->
-    <killChainPhaseTrafficStatistics
-      :query="query"
-      :address="address"
-    />
+    <killChainPhaseTrafficStatistics :query="query"
+                                     :address="address" />
     <el-col :span="24">
       <tip> 最新威胁事件 </tip>
-      <el-table
-        :data="groupList"
-        tooltip-effect="light"
-      >
-        <el-table-column
-          label="攻击者IP"
-          align="center"
-          prop="attackerIp"
-          :show-overflow-tooltip="true"
-        />
-        <el-table-column
-          label="受害者IP"
-          align="center"
-          prop="victimIp"
-          :show-overflow-tooltip="true"
-        />
-        <el-table-column
-          label="事件名称"
-          align="center"
-          prop="eventName"
-        />
-        <el-table-column
-          label="事件等级"
-          align="center"
-          prop="eventLevel"
-        >
+      <el-table :data="groupList"
+                height="300"
+                tooltip-effect="light">
+        <el-table-column label="攻击者IP"
+                         align="center"
+                         prop="attackerIp"
+                         :show-overflow-tooltip="true" />
+        <el-table-column label="受害者IP"
+                         align="center"
+                         prop="victimIp"
+                         :show-overflow-tooltip="true" />
+        <el-table-column label="事件名称"
+                         align="center"
+                         prop="eventName" />
+        <el-table-column label="事件等级"
+                         align="center"
+                         prop="eventLevel">
           <template #default="scope">
             <span>{{
               transTypeDic(scope.row.eventLevel)
             }}</span>
           </template>
         </el-table-column>
-        <el-table-column
-          label="杀伤链阶段"
-          align="center"
-          prop="killingChainStage"
-          :show-overflow-tooltip="true"
-        />
-        <el-table-column
-          label="区域"
-          align="center"
-          prop="region"
-          :show-overflow-tooltip="true"
-        />
+        <el-table-column label="杀伤链阶段"
+                         align="center"
+                         prop="killingChainStage"
+                         :show-overflow-tooltip="true" />
+        <el-table-column label="区域"
+                         align="center"
+                         prop="region"
+                         :show-overflow-tooltip="true" />
       </el-table>
-      <pagination
-        v-show="total > 0"
-        :total="total"
-        :page.sync="queryParams.pageNum"
-        :limit.sync="queryParams.pageSize"
-        @pagination="getList"
-      />
     </el-col>
 
   </div>
@@ -106,7 +76,7 @@ export default {
     tip
   },
   props: [],
-  data() {
+  data () {
     return {
       policitalStatus: ['1'],
       address: 1,
@@ -127,12 +97,12 @@ export default {
   },
   computed: {},
   watch: {},
-  created() {
+  created () {
     this.getList()
   },
-  mounted() { },
+  mounted () { },
   methods: {
-    transTypeDic(val) {
+    transTypeDic (val) {
       var t = [{
         name: '1',
         content: '正常'
@@ -155,11 +125,11 @@ export default {
         }))
       return `${orgTreeData1[0].content}`
     },
-    uploadData(data) {
+    uploadData (data) {
       this.query = data
     },
     /** 查询分组列表 */
-    async getList() {
+    async getList () {
       this.loading = true
       const res = await abnormalList(this.queryParams)
       this.groupList = res.rows

@@ -220,6 +220,7 @@
           <el-button size="mini"
                      type="text"
                      @click="detail(scope.row.dataSecurityManagementId)">详情</el-button>
+          &nbsp;&nbsp; &nbsp;&nbsp;
           <el-dropdown @command="batchOperate">
             <el-button size="mini"
                        type="text"
