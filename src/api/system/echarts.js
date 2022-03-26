@@ -1,5 +1,41 @@
 import request from '@/utils/request'
 /** ****************************************************************************
+ * 事件管理
+ ******************************************************************************/
+// 查询事件趋势分析
+export function eventEcharts(query) {
+  return request({
+    url: '/dm/event/eventLevel/grp/a',
+    method: 'get',
+    params: query
+  })
+}
+// 查询事件名称词云图分析
+export function eventNameEcharts(query) {
+  return request({
+    url: '/dm/event/eventName/grp',
+    method: 'get',
+    params: query
+  })
+}
+// 查询事件状态处置图
+export function eventStatusEcharts(query) {
+  return request({
+    url: '/dm/event/eventStatus/grp',
+    method: 'get',
+    params: query
+  })
+}
+// 查询事件类型分布
+export function eventTypeEcharts(query) {
+  return request({
+    url: '/dm/event/eventType/grp',
+    method: 'get',
+    params: query
+  })
+}
+
+/** ****************************************************************************
  * 数据安全管理
  ******************************************************************************/
 // 查询策略统计事件分析

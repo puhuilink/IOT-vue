@@ -5,7 +5,7 @@
         <el-row :gutter="20">
           <el-form
             ref="elForm"
-            :model="formData"
+            :model="queryParams"
             :rules="rules"
             size="mini"
             label-width="80px"
@@ -18,7 +18,7 @@
                 prop="name"
               >
                 <el-input
-                  v-model="formData.name"
+                  v-model="queryParams.eventName"
                   placeholder="请输入事件名称"
                   clearable
                   :style="{ width: '100%' }"
@@ -27,15 +27,15 @@
             </el-col>
             <el-col :span="6">
               <el-form-item
-                label="事件等级"
-                prop="level"
+                label="事件等级:"
+                prop="eventLevel"
               >
                 <el-select
-                  v-model="formData.level"
+                  v-model="queryParams.level"
                   placeholder="请选择事件等级"
                   filterable
                   clearable
-                  :style="{ width: '100%' }"
+                  :style="{width: '100%'}"
                 >
                   <el-option
                     v-for="(item, index) in levelOptions"
@@ -53,7 +53,7 @@
                 prop="type"
               >
                 <el-input
-                  v-model="formData.type"
+                  v-model="queryParams.type"
                   placeholder="请输入事件类型"
                   clearable
                   :style="{ width: '100%' }"
@@ -66,7 +66,7 @@
                 prop="area"
               >
                 <el-select
-                  v-model="formData.area"
+                  v-model="queryParams.address"
                   placeholder="请选择区域"
                   filterable
                   clearable
@@ -88,7 +88,7 @@
                 prop="agreement"
               >
                 <el-input
-                  v-model="formData.agreement"
+                  v-model="queryParams.agreement"
                   placeholder="请输入目标IP"
                   clearable
                   :style="{ width: '100%' }"
@@ -101,7 +101,7 @@
                 prop="ip"
               >
                 <el-input
-                  v-model="formData.ip"
+                  v-model="queryParams.sourceIp"
                   placeholder="请输入源IP"
                   clearable
                   :style="{ width: '100%' }"
@@ -114,7 +114,7 @@
                 prop="newip"
               >
                 <el-input
-                  v-model="formData.newip"
+                  v-model="queryParams.destinationIp"
                   placeholder="请输入目标IP"
                   clearable
                   :style="{ width: '100%' }"
@@ -127,7 +127,7 @@
                 prop="equipment"
               >
                 <el-input
-                  v-model="formData.equipment"
+                  v-model="queryParams.equipment"
                   placeholder="请输入上报设备"
                   clearable
                   :style="{ width: '100%' }"
@@ -140,7 +140,7 @@
                 prop="date"
               >
                 <el-time-picker
-                  v-model="formData.date"
+                  v-model="queryParams.date"
                   is-range
                   format="HH:mm:ss"
                   value-format="HH:mm:ss"
@@ -158,7 +158,7 @@
                 prop="field114"
               >
                 <el-select
-                  v-model="formData.field114"
+                  v-model="queryParams.status"
                   placeholder="请选择处置状态"
                   clearable
                   :style="{ width: '100%' }"
@@ -223,9 +223,14 @@
       <el-table-column
         label="事件等级"
         align="center"
-        prop="level"
-        :show-overflow-tooltip="true"
-      />
+        prop="eventLevel"
+      >
+        <template #default="scope">
+          <span>{{
+            transTypeDic(scope.row.level)
+          }}</span>
+        </template>
+      </el-table-column>
       <el-table-column
         label="事件类型"
         align="center"
@@ -321,72 +326,72 @@
         <el-row>
           <el-col :span="8">
             <el-form-item label="事件名称 :">
-              {{ dataTest.name }}
+              <tooltip :content=" dataDetail.eventName" :length="20" />
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="事件类型 :">
-              {{ dataTest.name1 }}
+              {{ dataDetail.type }}
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="事件等级 :">
-              {{ dataTest.name2 }}
+              {{ dataDetail.level }}
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="事件描述 :">
-              {{ dataTest.name3 }}
+              {{ "-" }}
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="源IP :">
-              {{ dataTest.name4 }}
+              {{ dataDetail.sourceIp }}
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="目的IP :">
-              {{ dataTest.name5 }}
+              {{ dataDetail.destinationIp }}
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="协议 :">
-              {{ dataTest.name6 }}
+              {{ dataDetail.agreement }}
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="上报设备 :">
-              {{ dataTest.name7 }}
+              {{ dataDetail.equipment }}
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="上报设备IP :">
-              {{ dataTest.name8 }}
+              {{ "-" }}
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="攻击阶段 :">
-              {{ dataTest.name9 }}
+              {{ "-" }}
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="区域 :">
-              {{ dataTest.name10 }}
+              {{ dataDetail.address }}
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="处置状态 :">
-              {{ dataTest.name11 }}
+              {{ dataDetail.status }}
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="开始时间 :">
-              {{ dataTest.name12 }}
+              {{ dataDetail.startTime }}
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="结束时间 :">
-              {{ dataTest.name13 }}
+              {{ dataDetail.endTime }}
             </el-form-item>
           </el-col>
         </el-row>
@@ -414,7 +419,7 @@
   </div>
 </template>
 <script>
-import { eventlList } from '@/api/system/list'
+import { eventList } from '@/api/system/list'
 export default {
   components: {},
   props: [],
@@ -422,21 +427,7 @@ export default {
     return {
       loading: false,
       name: '测试',
-      dataTest: {
-        name: '工业网络审计事件',
-        name1: '工业网络审计',
-        name2: '高危',
-        name3: '未知接口',
-        name4: '10.255.52.84',
-        name5: '192.163.12.63',
-        name6: 'MODBUS协议',
-        name7: '工业网络审计',
-        name8: '10.255.52.83',
-        name9: '失陷',
-        name10: '2022-01-29 10:10:00',
-        name11: '待处置',
-        name12: '2022-02-22',
-        name13: '2022-2-25'
+      dataDetail: {
       },
       // 分组表格数据
       groupList: [],
@@ -451,22 +442,7 @@ export default {
       // 查询参数
       queryParams: {
         pageNum: 1,
-        pageSize: 10,
-        userId: null,
-        groupName: null,
-        createTime: null
-      },
-      formData: {
-        name: undefined,
-        level: undefined,
-        type: undefined,
-        area: undefined,
-        agreement: undefined,
-        ip: undefined,
-        newip: undefined,
-        equipment: undefined,
-        date: [''],
-        field114: undefined
+        pageSize: 10
       },
       rules: {
         name: [],
@@ -502,39 +478,70 @@ export default {
           value: 5
         }
       ],
-      areaOptions: [
-        {
-          label: '北京',
-          value: 1
-        },
-        {
-          label: '重庆',
-          value: 2
-        }
-      ],
-      field114Options: [
-        {
-          label: '未处置',
-          value: 1
-        },
-        {
-          label: '处置中',
-          value: 2
-        },
-        {
-          label: '已处置',
-          value: 3
-        }
-      ]
+      areaOptions: [{
+        'label': '三亚轨交',
+        'value': 1
+      }, {
+        'label': '珠海深中通道',
+        'value': 2
+      }, {
+        'label': '山西燃气',
+        'value': 1
+      }, {
+        'label': '北京水厂',
+        'value': 1
+      }, {
+        'label': '天津管片厂',
+        'value': 1
+      }],
+      field114Options: [{
+        'label': '未处置',
+        'value': 1
+      }, {
+        'label': '处置中',
+        'value': 2
+      }, {
+        'label': '已处置',
+        'value': 2
+      }, {
+        'label': '已完成',
+        'value': 2
+      }, {
+        'label': '待处置',
+        'value': 6
+      }]
     }
   },
   created() {
     this.getCategoryList()
   },
   methods: {
+    transTypeDic(val) {
+      var t = [{
+        name: '1',
+        content: '正常'
+      }, {
+        name: '2',
+        content: '低危'
+      }, {
+        name: '3',
+        content: '中危'
+      }, {
+        name: '4',
+        content: '高危'
+      }, {
+        name: '5',
+        content: '失陷'
+      }]
+      const orgTreeData1 = t.filter((e) => e.name === val)
+        .map(({ content }) => ({
+          content
+        }))
+      return `${orgTreeData1[0].content}`
+    },
     async getCategoryList() {
       this.loading = true
-      const res = await eventlList(this.queryParams)
+      const res = await eventList(this.queryParams)
       this.groupList = res.rows
       this.total = res.total
       this.loading = false
@@ -581,9 +588,14 @@ export default {
       })
     },
     resetForm() {
-      this.$refs['elForm'].resetFields()
+      this.queryParams = {
+        pageNum: 1,
+        pageSize: 10
+      }
+      this.getCategoryList()
     },
-    detail() {
+    detail(row) {
+      this.dataDetail = row
       this.open = true
       this.title = '事件详情'
     },

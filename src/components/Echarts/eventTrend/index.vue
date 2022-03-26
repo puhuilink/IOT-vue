@@ -9,7 +9,7 @@
 </template>
 <script>
 import { setNotopt } from '@/utils/emptyEcharts.js'
-import { CreepeventLevelEcharts, EventTrendAnalysis, abnormalAnalysis, selectEventLevelGradeEcharts, industrialNetworkAuditEcharts, scanninghostEcharts, scanningeventLevelEcharts } from '@/api/system/echarts'
+import { eventEcharts, CreepeventLevelEcharts, EventTrendAnalysis, abnormalAnalysis, selectEventLevelGradeEcharts, industrialNetworkAuditEcharts, scanninghostEcharts, scanningeventLevelEcharts } from '@/api/system/echarts'
 import tip from '@/components/EchartsTip'
 export default {
   name: 'AAA',
@@ -455,7 +455,55 @@ export default {
             }
           })
           break
-
+        case 'event':
+          await eventEcharts(this.queryParms).then(({ data }) => {
+            this.hasData = data
+            if (data.length) {
+              const aaa = data.filter((e) => e.eventLevel === '1')
+              if (aaa.length) {
+                aaa.map(d => {
+                  this.data1 = d.data
+                  this.date = d.date
+                })
+              } else {
+                this.data1 = []
+              }
+              const bbb = data.filter((e) => e.eventLevel === '2')
+              if (bbb.length) {
+                bbb.map(d => {
+                  this.data2 = d.data
+                  this.date = d.date
+                })
+              } else {
+                this.data2 = []
+              }
+              const ccc = data.filter((e) => e.eventLevel === '3')
+              if (ccc.length) {
+                ccc.map(d => {
+                  this.data3 = d.data
+                  this.date = d.date
+                })
+              } else {
+                this.data3 = []
+              }
+              const ddd = data.filter((e) => e.eventLevel === '4')
+              if (ddd.length) {
+                ddd.map(d => {
+                  this.data4 = d.data
+                  this.date = d.date
+                })
+              } else {
+                this.data4 = []
+              }
+            } else {
+              this.data1 = []
+              this.data2 = []
+              this.data3 = []
+              this.data4 = []
+              this.data5 = []
+            }
+          })
+          break
         default:
           console.log('无数据', this.type)
           break
