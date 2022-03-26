@@ -115,22 +115,27 @@ export default {
         myChart.setOption({
           series: [{
             type: 'wordCloud',
-            sizeRange: [15, 80],
+            gridSize: 20,
+            sizeRange: [12, 50],
             rotationRange: [0, 0],
-            rotationStep: 45,
-            gridSize: 8,
-            shape: 'pentagon',
-            width: '100%',
-            height: '100%',
+            shape: 'circle',
             textStyle: {
               normal: {
                 color: function() {
-                  return 'rgb(' + [
-                    Math.round(Math.random() * 160),
-                    Math.round(Math.random() * 160),
-                    Math.round(Math.random() * 160)
-                  ].join(',') + ')'
+                  return (
+                    'rgb(' +
+              [
+                Math.round(Math.random() * 160),
+                Math.round(Math.random() * 160),
+                Math.round(Math.random() * 160)
+              ].join(',') +
+              ')'
+                  )
                 }
+              },
+              emphasis: {
+                shadowBlur: 10,
+                shadowColor: '#333'
               }
             },
             data: this.datacopy

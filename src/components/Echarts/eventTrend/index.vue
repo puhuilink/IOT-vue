@@ -516,6 +516,7 @@ export default {
         const myChart = this.$echarts.init(this.$refs.canvas1)
         // 绘制图表
         myChart.setOption({
+          animationDuration: 5000,
           tooltip: {
             trigger: 'axis'
           },
@@ -530,6 +531,7 @@ export default {
           },
           xAxis: {
             type: 'category',
+            boundaryGap: false,
             minInterval: 1,
             axisTick: { // x轴刻度线
               show: false
@@ -548,6 +550,11 @@ export default {
           series: [
             {
               name: '极低',
+              stack: 'Total',
+              areaStyle: {},
+              emphasis: {
+                focus: 'series'
+              },
               color: ['#1890FF'],
               type: 'line',
               smooth: true,
@@ -555,6 +562,11 @@ export default {
             },
             {
               name: '低危',
+              stack: 'Total',
+              areaStyle: {},
+              emphasis: {
+                focus: 'series'
+              },
               color: ['#B592E4'],
               type: 'line',
               smooth: true,
@@ -562,6 +574,11 @@ export default {
             },
             {
               name: '中危',
+              stack: 'Total',
+              areaStyle: {},
+              emphasis: {
+                focus: 'series'
+              },
               color: ['#F0B144'],
               type: 'line',
               smooth: true,
@@ -569,6 +586,11 @@ export default {
             },
             {
               name: '高危',
+              stack: 'Total',
+              areaStyle: {},
+              emphasis: {
+                focus: 'series'
+              },
               color: ['#FF8745'],
               type: 'line',
               smooth: true,
@@ -576,6 +598,11 @@ export default {
             },
             {
               name: '致命',
+              stack: 'Total',
+              areaStyle: {},
+              emphasis: {
+                focus: 'series'
+              },
               color: ['#F73030'],
               type: 'line',
               smooth: true,
