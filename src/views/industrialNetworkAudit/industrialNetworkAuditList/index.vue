@@ -504,7 +504,7 @@ export default {
         pageNum: 1,
         pageSize: 10,
         userId: null,
-        orderByColumn: 'happen_time',
+        orderByColumn: 'generationTime',
         isAsc: 'desc',
         groupName: null,
         createTime: null

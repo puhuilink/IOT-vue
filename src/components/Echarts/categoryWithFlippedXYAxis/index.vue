@@ -78,7 +78,6 @@ export default {
             this.hasData = data
             this.category = this.transDicName(data)
             this.barData = this.transDicCount(data)
-            this.title = '源IP'
           })
           break
         case 2:
@@ -86,7 +85,6 @@ export default {
             this.hasData = data
             this.category = this.transDicName(data)
             this.barData = this.transDicCount(data)
-            this.title = '目的IP'
           })
           break
         default:
@@ -101,9 +99,6 @@ export default {
         const myChart = this.$echarts.init(this.$refs.canvas1)
         // 绘制图表
         myChart.setOption({
-          title: {
-            subtext: this.title
-          },
           tooltip: {
             trigger: 'axis',
             axisPointer: {
