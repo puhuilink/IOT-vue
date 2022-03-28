@@ -290,13 +290,9 @@ export default {
     position: absolute;
     top: 20px;
     left: 495px;
-    // margin-top: 10px;
-    // float: right;
-    // padding-right: 100px;
     .bigBox {
       height: 30px;
       width: 120px;
-      // background-color: aqua;
       .boxContentleft {
         float: left;
         font-size: 12px;
@@ -305,18 +301,6 @@ export default {
         color: #0e6ccb;
         line-height: 32px;
         text-align: left;
-        .name {
-          float: left;
-        }
-        .numberTen {
-          margin-left: 40px;
-        }
-        .numberOne {
-          margin-left: 30px;
-        }
-        .dataIT {
-          float: right;
-        }
       }
       .boxContentRight {
         float: right;
@@ -333,35 +317,22 @@ export default {
   }
   .leftBox {
     position: absolute;
-    // width: 200px;
-    // background-color: aqua;
     top: 20px;
     left: 290px;
-    // margin-top: 10px;
-    // float: left;
     padding-right: 20px;
     .bigBox {
       height: 30px;
       width: 120px;
-      // background-color: aqua;
       .boxContentleft {
         float: left;
         font-size: 12px;
         font-family: MicrosoftYaHei-Bold, MicrosoftYaHei;
         font-weight: bold;
         color: #402165;
-        // width: 130px;
-        // height: 30px;
         line-height: 32px;
         text-align: left;
-        // border: 1px solid #1f8fff;
-        // margin-bottom: 40px;
-        // border-radius: 50px;
-        // border-top: none;
-        // border-bottom: none;
         .name {
           float: left;
-          // margin-left: 20px;
         }
         .numberTen {
           margin-left: 40px;
@@ -371,7 +342,6 @@ export default {
         }
         .dataIT {
           float: right;
-          // margin-left: 20px;
         }
       }
       .boxContentRight {

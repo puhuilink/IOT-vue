@@ -1,10 +1,8 @@
 <template>
   <el-col :span="12">
     <tip>{{ tipname }}</tip>
-    <div
-      ref="canvas1"
-      style="height: 400px;"
-    />
+    <div ref="canvas1"
+         style="height: 300px;" />
   </el-col>
 </template>
 <script>
@@ -34,7 +32,7 @@ export default {
       type: Object
     }
   },
-  data() {
+  data () {
     return {
       policitalStatus: ['1'],
       datacopy: [],
@@ -47,7 +45,7 @@ export default {
   computed: {},
   watch: {
     query: {
-      handler(val, oldVal) {
+      handler (val, oldVal) {
         this.queryParms = this.query
         if (val !== oldVal) {
           this.getData()
@@ -57,16 +55,16 @@ export default {
       deep: true
     }
   },
-  created() {
+  created () {
     this.getData()
   },
 
-  mounted() {
+  mounted () {
     this.drawPolicitalStatus()
   },
 
   methods: {
-    transTypeDic(data) {
+    transTypeDic (data) {
       var t = [{
         name: '1',
         content: '极低'
@@ -102,7 +100,7 @@ export default {
       })
       return arrNew
     },
-    transDic(data) {
+    transDic (data) {
       var arr = data
       var arrNew = []
       var area = []
@@ -117,7 +115,7 @@ export default {
       })
       return arrNew
     },
-    async getData() {
+    async getData () {
       switch (this.type) {
         case 1:
           switch (this.name) {
@@ -359,7 +357,7 @@ export default {
       }
       this.drawPolicitalStatus()
     },
-    drawPolicitalStatus() {
+    drawPolicitalStatus () {
       if (this.hasData.length) {
         // 基于准备好的dom，初始化echarts实例
         const myChart = this.$echarts.init(this.$refs.canvas1)
@@ -375,7 +373,7 @@ export default {
             right: 10,
             top: 120,
             bottom: 20,
-            formatter: function(value) {
+            formatter: function (value) {
               const val = value.length > 10 ? value.substr(0, 6) + '...' + value.substr(value.length - 3, value.length - 1) : value
               return val
             }
@@ -394,7 +392,7 @@ export default {
                 normal: {
                   show: true,
                   fontSize: 14,
-                  formatter(v) {
+                  formatter (v) {
                     const text = v.name
                     const val = text.length > 10 ? text.substr(0, 6) + '...' + text.substr(text.length - 3, text.length - 1) : text
                     return val
@@ -413,7 +411,7 @@ export default {
             }
           ]
         })
-        window.addEventListener('resize', function() {
+        window.addEventListener('resize', function () {
           myChart.resize()
         })
       } else {
