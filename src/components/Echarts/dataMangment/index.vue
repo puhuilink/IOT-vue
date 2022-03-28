@@ -15,66 +15,86 @@
         <div class="leftBox">
           <div class="boxContent">
             <span class="name">{{ network }}</span>
+            <span class="numberTen">37290</span>
             <!-- <span class="dataIT">37290</span> -->
           </div>
           <div class="boxContent">
             <span class="name">{{ fwqrz }}</span>
+            <span style="margin-left: 30px;">300</span>
           </div>
           <div class="boxContent">
             <span class="name">{{ networkLirz }}</span>
+            <span style="margin-left: 46px;">49</span>
           </div>
           <div class="boxContent">
             <span class="name">{{ safe }}</span>
+            <span style="margin-left: 26px;">360</span>
           </div>
           <div class="boxContent">
             <span class="name">{{ middle }}</span>
+            <span style="margin-left: 50px;">20</span>
           </div>
           <div class="boxContent">
             <span class="name">{{ datadaily }}</span>
+            <span style="margin-left: 32px;">20</span>
           </div>
           <div class="boxContent">
             <span class="name">{{ ldnumber }}</span>
+            <span style="margin-left: 60px;">59</span>
           </div>
           <div class="boxContent">
             <span class="name">{{ safeEquiment }}</span>
+            <span style="margin-left: 33px;">39</span>
           </div>
           <div class="boxContent">
             <span class="name">{{ networkDaily }}</span>
+            <span class="numberTen">37290</span>
           </div>
           <div class="boxContent">
             <span class="name">{{ networkEquimentDaily }}</span>
+            <span style="margin-left: 30px;">68</span>
           </div>
         </div>
         <div class="datails">
           <div class="boxContent">
             <span class="name">{{ IT }}</span>
+            <span class="numberTen">10000</span>
           </div>
           <div class="boxContent">
             <span class="name">{{ ITdata }}</span>
+            <span class="numberTen">925</span>
           </div>
           <div class="boxContent">
             <span class="name">{{ OT }}</span>
+            <span style="margin-left: 30px;">500</span>
           </div>
           <div class="boxContent">
             <span class="name">{{ OTdata }}</span>
+            <span style="margin-left: 44px;">10</span>
           </div>
           <div class="boxContent">
             <span class="name">{{ ITdaily }}</span>
+            <span style="margin-left: 52px;">12</span>
           </div>
           <div class="boxContent">
             <span class="name">{{ OTdaily }}</span>
+            <span style="margin-left: 54px;">8</span>
           </div>
           <div class="boxContent">
             <span class="name">{{ ITdailyData }}</span>
+            <span style="margin-left: 52px;">40</span>
           </div>
           <div class="boxContent">
             <span class="name">{{ OTdailyData }}</span>
+            <span style="margin-left: 50px;">63</span>
           </div>
           <div class="boxContent">
             <span class="name">{{ user }}</span>
+            <span style="margin-left: 50px;">40</span>
           </div>
           <div class="boxContent">
             <span class="name">{{ OTuser }}</span>
+            <span style="margin-left: 50px;">33</span>
           </div>
         </div>
       </div>
@@ -213,6 +233,12 @@ export default {
         float: right;
         margin-left: 20px;
       }
+      .numberTen {
+        margin-left: 30px;
+      }
+      .numberOne {
+        margin-left: 20px;
+      }
     }
   }
   .leftBox {
@@ -239,6 +265,12 @@ export default {
       .name {
         float: left;
         // margin-left: 20px;
+      }
+      .numberTen {
+        margin-left: 40px;
+      }
+      .numberOne {
+        margin-left: 30px;
       }
       .dataIT {
         float: right;

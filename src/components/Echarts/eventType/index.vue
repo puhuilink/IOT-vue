@@ -1,10 +1,8 @@
 <template>
   <el-col :span="12">
     <tip>{{ tipname }}</tip>
-    <div
-      ref="canvas1"
-      style="height: 400px;"
-    />
+    <div ref="canvas1"
+         style="height: 400px;" />
   </el-col>
 </template>
 <script>
@@ -34,10 +32,11 @@ export default {
       type: Object
     }
   },
-  data() {
+  data () {
     return {
       policitalStatus: ['1'],
       datacopy: [],
+      assetsData: [],
       queryParms: {
       },
       hasData: []
@@ -46,7 +45,7 @@ export default {
   computed: {},
   watch: {
     query: {
-      handler(val, oldVal) {
+      handler (val, oldVal) {
         this.queryParms = this.query
         if (val !== oldVal) {
           this.getData()
@@ -56,16 +55,16 @@ export default {
       deep: true
     }
   },
-  created() {
+  created () {
     this.getData()
   },
 
-  mounted() {
+  mounted () {
     this.drawPolicitalStatus()
   },
 
   methods: {
-    transTypeDic(data) {
+    transTypeDic (data) {
       var t = [{
         name: '1',
         content: '正常'
@@ -101,7 +100,7 @@ export default {
       })
       return arrNew
     },
-    transDic(data) {
+    transDic (data) {
       var arr = data
       var arrNew = []
       var area = []
@@ -116,7 +115,7 @@ export default {
       })
       return arrNew
     },
-    async getData() {
+    async getData () {
       switch (this.type) {
         case 1:
           switch (this.name) {
@@ -162,6 +161,17 @@ export default {
                 this.hasData = data
                 this.datacopy = this.transDic(data)
               })
+              break
+            case 'assets':
+              // 资产统计
+              this.assetsData = [
+                { value: 1754, name: '工作主机' },
+                { value: 2272, name: '服务器' },
+                { value: 372, name: '网络设备' },
+                { value: 6999, name: '安全设备' },
+                { value: 45, name: '存储设备' }
+              ]
+              this.datacopy = this.transDic(this.assetsData)
               break
             default:
               console.log('这里是项目类型', this.name)
@@ -301,7 +311,7 @@ export default {
       }
       this.drawPolicitalStatus()
     },
-    drawPolicitalStatus() {
+    drawPolicitalStatus () {
       if (this.hasData.length) {
         // 基于准备好的dom，初始化echarts实例
         const myChart = this.$echarts.init(this.$refs.canvas1)
@@ -317,7 +327,7 @@ export default {
             right: 10,
             top: 120,
             bottom: 20,
-            formatter: function(value) {
+            formatter: function (value) {
               const val = value.length > 10 ? value.substr(0, 6) + '...' + value.substr(value.length - 3, value.length - 1) : value
               return val
             }
@@ -336,7 +346,7 @@ export default {
                 normal: {
                   show: true,
                   fontSize: 14,
-                  formatter(v) {
+                  formatter (v) {
                     const text = v.name
                     const val = text.length > 10 ? text.substr(0, 6) + '...' + text.substr(text.length - 3, text.length - 1) : text
                     return val
@@ -355,7 +365,7 @@ export default {
             }
           ]
         })
-        window.addEventListener('resize', function() {
+        window.addEventListener('resize', function () {
           myChart.resize()
         })
       } else {
