@@ -162,16 +162,61 @@ export default {
                 this.datacopy = this.transDic(data)
               })
               break
-            case 'assets':
-              // 资产统计
-              this.assetsData = [
-                { value: 1754, name: '工作主机' },
-                { value: 2272, name: '服务器' },
-                { value: 372, name: '网络设备' },
-                { value: 6999, name: '安全设备' },
-                { value: 45, name: '存储设备' }
-              ]
-              this.datacopy = this.transDic(this.assetsData)
+            // case 'assets':
+            //   // 资产统计
+            //   this.assetsData = [
+            //     { value: 1754, name: '工作主机' },
+            //     { value: 2272, name: '服务器' },
+            //     { value: 372, name: '网络设备' },
+            //     { value: 6999, name: '安全设备' },
+            //     { value: 45, name: '存储设备' }
+            //   ]
+            //   this.datacopy = this.transDic(this.assetsData)
+            //   break
+            case 'assetsOne':
+              await EventStatusDispositionDiagram(this.queryParms).then(({ data }) => {
+                this.hasData = [
+                  { count: 1754, name: '工作主机' },
+                  { count: 2272, name: '服务器' },
+                  { count: 372, name: '网络设备' },
+                  { count: 6999, name: '安全设备' },
+                  { count: 45, name: '存储设备' }
+                ]
+                this.datacopy = this.transDic(this.hasData)
+              })
+              break
+            case 'assetsTwo':
+              await EventStatusDispositionDiagram(this.queryParms).then(({ data }) => {
+                this.hasData = [
+                  { count: 2460, name: 'Windows' },
+                  { count: 1352, name: 'Linux' }
+                ]
+                this.datacopy = this.transDic(this.hasData)
+              })
+              break
+            case 'assetsThree':
+              await EventStatusDispositionDiagram(this.queryParms).then(({ data }) => {
+                this.hasData = [
+                  { count: 145, name: 'LTE系统' },
+                  { count: 123, name: '安全设备' },
+                  { count: 100, name: '网络设备' },
+                  { count: 236, name: 'PLC控制器' },
+                  { count: 370, name: '服务器' }
+                ]
+                this.datacopy = this.transDic(this.hasData)
+              })
+              break
+            case 'assetsFour':
+              await EventStatusDispositionDiagram(this.queryParms).then(({ data }) => {
+                this.hasData = [
+                  { count: 126, name: 'ModBus协议' },
+                  { count: 97, name: 'OPC协议' },
+                  { count: 83, name: 'ProfiBus协议' },
+                  { count: 64, name: 'DNP3协议' },
+                  { count: 51, name: 'CIP协议' }
+                ]
+                this.datacopy = this.transDic(this.hasData)
+              })
               break
             default:
               console.log('这里是项目类型', this.name)
@@ -213,6 +258,7 @@ export default {
                 this.datacopy = this.transDic(data)
               })
               break
+
             default:
               console.log('这里是项目类型', this.name)
               break

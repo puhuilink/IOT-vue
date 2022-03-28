@@ -93,12 +93,24 @@
         </div>
       </el-col>
     </el-row>
+    <eventType :query="query"
+               :tipname="'IT资产类型分布'"
+               :type="1"
+               :name="'assetsOne'" />
+    <eventType :query="query"
+               :tipname="'操作系统类型分布'"
+               :type="1"
+               :name="'assetsTwo'" />
+    <eventType :query="query"
+               :tipname="'OT资产类型分布'"
+               :type="1"
+               :name="'assetsThree'" />
+    <eventType :query="query"
+               :tipname="'工业协议分布'"
+               :type="1"
+               :name="'assetsFour'" />
 
-    <div id="test1">
-      <!-- <eventType :query="query"
-                 :tipname="'IT资产类型分布'"
-                 :type="1"
-                 :name="'assets'" /> -->
+    <!-- <div id="test1">
       <Tip>
         <span>IT资产类型分布</span>
       </Tip>
@@ -110,8 +122,8 @@
         <span>操作系统类型分布</span>
       </Tip>
       <div id="canvas2" />
-    </div>
-    <div id="test3">
+    </div> -->
+    <!-- <div id="test3">
       <Tip>
         <span>OT资产类型分布</span>
       </Tip>
@@ -122,7 +134,7 @@
         <span>工业协议分布</span>
       </Tip>
       <div id="canvas4" />
-    </div>
+    </div> -->
   </div>
 </template>
 
