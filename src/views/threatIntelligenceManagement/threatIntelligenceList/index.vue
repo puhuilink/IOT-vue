@@ -10,7 +10,7 @@
             size="mini"
             label-width="90px"
             class="label-type"
-            label-position="left"
+            label-position="right"
           >
             <el-col :span="6">
               <el-form-item
@@ -295,15 +295,12 @@
               </el-button>
               <el-dropdown-menu slot="dropdown">
                 <el-dropdown-item
-                  icon="el-icon-check"
                   command="process"
                 >处置</el-dropdown-item>
                 <el-dropdown-item
-                  icon="el-icon-close"
                   command="un_process"
                 >不处置</el-dropdown-item>
                 <el-dropdown-item
-                  icon="el-icon-bell"
                   command="false_report"
                 >误报</el-dropdown-item>
               </el-dropdown-menu>

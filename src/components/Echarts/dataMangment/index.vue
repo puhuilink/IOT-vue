@@ -62,10 +62,10 @@
             <span class="name">{{ ITdaily }}</span>
           </div>
           <div class="boxContent">
-            <span class="name">{{ ITdailyData }}</span>
+            <span class="name">{{ OTdaily }}</span>
           </div>
           <div class="boxContent">
-            <span class="name">{{ OTdaily }}</span>
+            <span class="name">{{ ITdailyData }}</span>
           </div>
           <div class="boxContent">
             <span class="name">{{ OTdailyData }}</span>
@@ -107,7 +107,7 @@ export default {
   data () {
     return {
       quantity: "采集器个数",
-      number: "31",
+      number: "894",
       network: "资产数",
       fwqrz: "僵木蠕事件",
       networkLirz: "配置核查",
@@ -117,11 +117,11 @@ export default {
       ldnumber: "漏洞数",
       safeEquiment: "数据安全事件",
       networkDaily: "弱口令",
-      networkEquimentDaily: "资产数",
+      networkEquimentDaily: "主机安全事件",
       IT: "IT资产数",
       ITdata: "OT资产数",
-      OTdata: "IT配置核查",
       OT: "OT配置核查",
+      OTdata: "IT配置核查",
       ITdaily: "入侵事件",
       OTdaily: "探测事件",
       ITdailyData: "IT漏洞数",
