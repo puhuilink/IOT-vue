@@ -183,7 +183,7 @@
       <el-table-column
         label="上报时间"
         align="center"
-        prop=" reportingTime "
+        prop="reportingTime"
         :show-overflow-tooltip="true"
         min-width="10%"
       />
@@ -435,7 +435,7 @@
             </el-col>
             <el-col :span="12">
               <el-form-item label="通报状态 :">
-                {{ detailData. notificationStatus }}
+                {{ detailData.notificationStatus }}
               </el-form-item>
             </el-col>
             <el-col :span="12">
@@ -445,17 +445,17 @@
             </el-col>
             <el-col :span="12">
               <el-form-item label="创建时间 :">
-                {{ detailData. creationTime }}
+                {{ detailData.creationTime }}
               </el-form-item>
             </el-col>
             <el-col :span="12">
               <el-form-item label="上报时间 :">
-                {{ detailData. reportingTime }}
+                {{ detailData.reportingTime }}
               </el-form-item>
             </el-col>
             <el-col :span="12">
               <el-form-item label="最近更新时间 :">
-                {{ detailData. updateTime }}
+                {{ detailData.updateTime }}
               </el-form-item>
             </el-col>
             <el-col :span="24">
