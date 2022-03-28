@@ -104,7 +104,7 @@
                   :style="{width: '100%'}"
                 >
                   <el-option
-                    v-for="(item, index) in regionOptions"
+                    v-for="(item, index) in areaOptions"
                     :key="index"
                     :label="item.label"
                     :value="item.value"
@@ -126,7 +126,7 @@
                   :style="{width: '100%'}"
                 >
                   <el-option
-                    v-for="(item, index) in eventLevelOptions"
+                    v-for="(item, index) in levelOptions"
                     :key="index"
                     :label="item.label"
                     :value="item.value"
@@ -574,11 +574,36 @@ export default {
         date: [],
         field114: []
       },
+      levelOptions: [
+        {
+          label: '正常',
+          value: 1
+        },
+        {
+          label: '低危',
+          value: 2
+        },
+        {
+          label: '中危',
+          value: 3
+        },
+        {
+          label: '高危',
+          value: 4
+        },
+        {
+          label: '失陷',
+          value: 5
+        }
+      ],
       actionTypeOptions: [{
         'label': '记录',
         'value': 4
       }, {
-        'label': '审计',
+        'label': '阻断',
+        'value': 5
+      }, {
+        'label': '审批',
         'value': 5
       }],
       hitStrategyOptions: [{
@@ -607,17 +632,17 @@ export default {
         'label': 'SMTP',
         'value': 2
       }],
-      regionOptions: [{
-        'label': '海投轨交',
+      areaOptions: [{
+        'label': '三亚海投轨交',
         'value': 1
       }, {
-        'label': '深中通道',
+        'label': '珠海深中通道',
         'value': 2
       }, {
-        'label': '山西燃气厂',
+        'label': '山西三通燃气厂',
         'value': 1
       }, {
-        'label': '北京污水处理厂',
+        'label': '北京城乡水厂',
         'value': 1
       }, {
         'label': '天津管片厂',

@@ -76,7 +76,7 @@
                     v-for="(item, index) in areaOptions"
                     :key="index"
                     :label="item.label"
-                    :value="item.value"
+                    :value="item.label"
                     :disabled="item.disabled"
                   />
                 </el-select>
@@ -479,16 +479,16 @@ export default {
         }
       ],
       areaOptions: [{
-        'label': '三亚轨交',
+        'label': '三亚海投轨交',
         'value': 1
       }, {
         'label': '珠海深中通道',
         'value': 2
       }, {
-        'label': '山西燃气',
+        'label': '山西三通燃气厂',
         'value': 1
       }, {
-        'label': '北京水厂',
+        'label': '北京城乡水厂',
         'value': 1
       }, {
         'label': '天津管片厂',

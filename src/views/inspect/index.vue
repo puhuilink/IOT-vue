@@ -228,7 +228,6 @@
           <el-button
             size="mini"
             type="text"
-            icon="el-icon-edit"
             @click="detail(scope.row.configurationVerificationId)"
           >详情</el-button>
           &nbsp;&nbsp; &nbsp;&nbsp;
@@ -402,16 +401,16 @@ export default {
         'value': 4
       }],
       areaOptions: [{
-        'label': '海投轨交',
+        'label': '三亚海投轨交',
         'value': 1
       }, {
-        'label': '深中通道',
+        'label': '珠海深中通道',
         'value': 2
       }, {
-        'label': '山西燃气厂',
+        'label': '山西三通燃气厂',
         'value': 1
       }, {
-        'label': '北京污水处理厂',
+        'label': '北京城乡水厂',
         'value': 1
       }, {
         'label': '天津管片厂',

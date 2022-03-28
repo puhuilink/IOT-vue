@@ -195,7 +195,6 @@ export default {
                 this.hasData = data
 
                 this.datacopy = this.transTypeDic(data)
-
               })
               break
             case 'event':
@@ -326,9 +325,16 @@ export default {
           },
           series: [
             {
+              radius: ['40%', '70%'],
+              avoidLabelOverlap: false,
+              itemStyle: {
+                borderRadius: 10,
+                borderColor: '#fff',
+                borderWidth: 2
+              },
               label: {
-                show: true,
                 normal: {
+                  show: true,
                   fontSize: 14,
                   formatter(v) {
                     const text = v.name
@@ -338,7 +344,6 @@ export default {
                 }
               },
               type: 'pie',
-              radius: '50%',
               data: this.datacopy,
               emphasis: {
                 itemStyle: {
