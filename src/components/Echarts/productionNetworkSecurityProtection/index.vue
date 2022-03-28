@@ -12,11 +12,11 @@
           <div class="backStyle"
                @click="logToThreat">
             <div class="textThreat">威胁情报</div>
-            <div class="number">509</div>
+            <div class="number">500</div>
             <div class="numberText">事件数</div>
-            <div class="numberDisposal">449</div>
+            <div class="numberDisposal">445</div>
             <div class="disposal">处置数</div>
-            <div class="notDisposalNumber">60</div>
+            <div class="notDisposalNumber">55</div>
             <div class="notDisposal">未处置数</div>
           </div>
         </el-col>
@@ -29,9 +29,9 @@
                @click="logToData">
             <div class="text">数据</div>
             <div class="textTwo">安全防护</div>
-            <div class="number">509</div>
+            <div class="number">519</div>
             <div class="numberText">事件数</div>
-            <div class="numberDisposal">455</div>
+            <div class="numberDisposal">465</div>
             <div class="disposal">处置数</div>
             <div class="notDisposalNumber">54</div>
             <div class="notDisposal">未处置数</div>
@@ -46,11 +46,11 @@
                @click="logToUnNormal">
             <div class="text">异常</div>
             <div class="textTwo">行为分析</div>
-            <div class="number">509</div>
+            <div class="number">504</div>
             <div class="numberText">事件数</div>
             <div class="numberDisposal">464</div>
             <div class="disposal">处置数</div>
-            <div class="notDisposalNumber">45</div>
+            <div class="notDisposalNumber">40</div>
             <div class="notDisposal">未处置数</div>
           </div>
         </el-col>
@@ -63,11 +63,11 @@
                @click="logToHost">
             <div class="text">主机</div>
             <div class="textTwo">安全防护</div>
-            <div class="number">509</div>
+            <div class="number">452</div>
             <div class="numberText">事件数</div>
-            <div class="numberDisposal">449</div>
+            <div class="numberDisposal">442</div>
             <div class="disposal">处置数</div>
-            <div class="notDisposalNumber">60</div>
+            <div class="notDisposalNumber">10</div>
             <div class="notDisposal">未处置数</div>
           </div>
         </el-col>
@@ -80,11 +80,11 @@
                @click="logToNetwork">
             <div class="textThree">工业网络</div>
             <div class="textTwo">安全审计</div>
-            <div class="number">509</div>
+            <div class="number">493</div>
             <div class="numberText">事件数</div>
-            <div class="numberDisposal">446</div>
+            <div class="numberDisposal">440</div>
             <div class="disposal">处置数</div>
-            <div class="notDisposalNumber">63</div>
+            <div class="notDisposalNumber">53</div>
             <div class="notDisposal">未处置数</div>
           </div>
         </el-col>
@@ -99,9 +99,9 @@
           <div class="backStyle"
                @click="logToWeak">
             <div class="textSecond">弱口令监测</div>
-            <div class="number">33</div>
+            <div class="number">43</div>
             <div class="numberText">事件数</div>
-            <div class="numberDisposal">30</div>
+            <div class="numberDisposal">40</div>
             <div class="disposal">处置数</div>
             <div class="notDisposalNumber">3</div>
             <div class="notDisposal">未处置数</div>
@@ -115,11 +115,11 @@
           <div class="backStyle"
                @click="logToInvade">
             <div class="textFour">入侵诱捕</div>
-            <div class="number">509</div>
+            <div class="number">499</div>
             <div class="numberText">事件数</div>
-            <div class="numberDisposal">459</div>
+            <div class="numberDisposal">450</div>
             <div class="disposal">处置数</div>
-            <div class="notDisposalNumber">59</div>
+            <div class="notDisposalNumber">49</div>
             <div class="notDisposal">未处置数</div>
           </div>
         </el-col>
@@ -131,11 +131,11 @@
           <div class="backStyle"
                @click="logToConfiguration">
             <div class="textFour">配置核查</div>
-            <div class="number">509</div>
+            <div class="number">501</div>
             <div class="numberText">事件数</div>
-            <div class="numberDisposal">466</div>
+            <div class="numberDisposal">461</div>
             <div class="disposal">处置数</div>
-            <div class="notDisposalNumber">43</div>
+            <div class="notDisposalNumber">40</div>
             <div class="notDisposal">未处置数</div>
           </div>
         </el-col>
@@ -147,11 +147,11 @@
           <div class="backStyle"
                @click="logToJ">
             <div class="textSecond">僵木蠕监测</div>
-            <div class="number">509</div>
+            <div class="number">502</div>
             <div class="numberText">事件数</div>
-            <div class="numberDisposal">467</div>
+            <div class="numberDisposal">462</div>
             <div class="disposal">处置数</div>
-            <div class="notDisposalNumber">42</div>
+            <div class="notDisposalNumber">40</div>
             <div class="notDisposal">未处置数</div>
           </div>
         </el-col>
@@ -163,11 +163,11 @@
           <div class="backStyle"
                @click="logToVulnerability">
             <div class="textFour">漏洞扫描</div>
-            <div class="number">509</div>
+            <div class="number">464</div>
             <div class="numberText">事件数</div>
-            <div class="numberDisposal">454</div>
+            <div class="numberDisposal">414</div>
             <div class="disposal">处置数</div>
-            <div class="notDisposalNumber">55</div>
+            <div class="notDisposalNumber">50</div>
             <div class="notDisposal">未处置数</div>
           </div>
         </el-col>

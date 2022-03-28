@@ -94,8 +94,7 @@
           <el-select v-model="queryParams.assetType"
                      placeholder="请选择资产类型"
                      filterable
-                     clearable
-                     :style="{ width: '100%' }">
+                     clearable>
             <el-option v-for="(item, index) in assetTypeOptions"
                        :key="index"
                        :label="item.label"
@@ -160,6 +159,7 @@
       <el-table-column label="资产名称"
                        align="center"
                        prop="assetName"
+                       width="300"
                        :show-overflow-tooltip="true" />
       <el-table-column label="资产类型"
                        align="center"
@@ -702,7 +702,7 @@
             </el-col>
             <el-col :span="8">
               <el-form-item label="应用协议 :">
-                {{ dataTest.name13 }}
+                {{ dataTest.nameArgument }}
               </el-form-item>
             </el-col>
             <el-col :span="8">
@@ -717,7 +717,7 @@
             </el-col>
             <el-col :span="8">
               <el-form-item label="资产位置 :">
-                {{ dataTest.name13 }}
+                {{ dataTest.namelocation }}
               </el-form-item>
             </el-col>
             <el-col :span="8">
@@ -732,7 +732,7 @@
             </el-col>
             <el-col :span="8">
               <el-form-item label="发现来源 :">
-                {{ dataTest.name13 }}
+                {{ dataTest.nameFind }}
               </el-form-item>
             </el-col>
             <el-col :span="8">
@@ -742,12 +742,12 @@
             </el-col>
             <el-col :span="8">
               <el-form-item label="部门 :">
-                {{ dataTest.name5 }}
+                {{ dataTest.nameBm }}
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item label="区域 :">
-                {{ dataTest.name5 }}
+                {{ dataTest.nameArea }}
               </el-form-item>
             </el-col>
             <el-col :span="8">
@@ -772,17 +772,17 @@
           <el-row>
             <el-col :span="12">
               <el-form-item label="资产组 :">
-                {{ dataTest.name }}
+                {{ dataTest.nameAssets }}
               </el-form-item>
             </el-col>
             <el-col :span="12">
               <el-form-item label="地理位置 :">
-                {{ dataTest.location }}
+                {{ dataTest.locationGeo }}
               </el-form-item>
             </el-col>
             <el-col :span="12">
               <el-form-item label="组织架构 :">
-                {{ dataTest.location }}
+                {{ dataTest.origation }}
               </el-form-item>
             </el-col>
           </el-row>
@@ -1198,24 +1198,32 @@ export default {
       dataTest: {
         name: '1',
         name1: '124.165.254.98',
-        name2: 'TCP/IP',
+        name2: '29530',
         name3: 'SCADA服务器',
-        name4: 'OT设备',
-        name5: '山西燃气厂',
-        name6: '',
-        name7: '--',
+        name4: '工控设备',
+        name5: 'Dell',
+        nameFind: '导入',
+        name6: '4',
+        name7: '等保一级',
         name8: 'WINDOWS',
-        name9: '',
+        name9: 'Combridge',
         name10: '极低',
-        name11: '--',
+        name11: 'DATAServer',
         name12: '正常',
-        name13: '',
+        name13: '--',
         name14: '是',
+        nameArea: '山西三通燃气厂',
+        nameBm: '--',
         name15: "低",
         name16: '3',
         leader: '张燕强',
         time: '2022-02-03 21:00:47',
-        location: '--'
+        location: '--',
+        locationGeo: '吕梁市汾阳市富民南路东方国际城顶楼机房',
+        nameAssets: '工控设备',
+        namelocation: '楼顶机房内',
+        nameArgument: 'TCP/IP',
+        origation: '中国城乡山西三通燃气厂'
       }
     }
   },
