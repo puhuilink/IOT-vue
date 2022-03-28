@@ -140,7 +140,7 @@ export default {
             case 'statisticalSnalysis':
               await EventLevelDistribution(this.queryParms).then(({ data }) => {
                 this.hasData = data
-                this.datacopy = this.transDic(data)
+                this.datacopy = this.transTypeDic(data)
               })
               break
             case 'dataSafe':

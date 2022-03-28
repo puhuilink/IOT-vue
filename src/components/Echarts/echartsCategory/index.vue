@@ -1,7 +1,8 @@
 <template>
   <el-col :span="12">
     <tip>{{ tipname }}</tip>
-    <div ref="canvas1" style="height: 400px;" />
+    <div ref="canvas1"
+         style="height: 400px;" />
   </el-col>
 </template>
 <script>
@@ -29,7 +30,7 @@ export default {
       type: Object
     }
   },
-  data() {
+  data () {
     return {
       policitalStatus: ['1'],
       queryParms: {
@@ -43,7 +44,7 @@ export default {
   computed: {},
   watch: {
     query: {
-      handler(val, oldVal) {
+      handler (val, oldVal) {
         this.queryParms = this.query
         if (val !== oldVal) {
           this.getData()
@@ -53,28 +54,28 @@ export default {
       deep: true
     }
   },
-  created() {
+  created () {
     this.getData()
   },
-  mounted() {
+  mounted () {
     this.drawPolicitalStatus()
   },
   methods: {
-    transDicName(data) {
+    transDicName (data) {
       var area = []
       data.forEach((item) => {
         area.push(item.name)
       })
       return area
     },
-    transDicCount(data) {
+    transDicCount (data) {
       var area = []
       data.forEach((item) => {
         area.push(item.count)
       })
       return area
     },
-    async getData() {
+    async getData () {
       switch (this.type) {
         case 1:
           switch (this.name) {
@@ -85,11 +86,37 @@ export default {
                 this.barData = this.transDicCount(data)
               })
               break
-            case 2:
+            case 'dataSource':
               await sourceIpEcharts(this.queryParms).then(({ data }) => {
                 this.hasData = data
-                this.category = this.transDicName(data)
-                this.barData = this.transDicCount(data)
+                // this.category = [
+                //   "微步",
+                //   "日志管理平台",
+                //   "安全网关",
+                //   "工业网络审计",
+                //   "漏洞扫描",
+                //   "蜜罐",
+                //   "配置核查",
+                //   "主机卫士",
+                //   "数据防泄漏",
+                //   "流量采集"
+                // ]
+                this.category = [
+                  "流量采集",
+                  "数据防泄漏",
+                  "主机卫士",
+                  "配置核查",
+                  "蜜罐",
+                  "漏洞扫描",
+                  "工业网络审计",
+                  "安全网关",
+                  "日志管理平台",
+                  "微步"
+                ]
+                // this.barData = [
+                //   15, 450, 500, 500, 500, 500, 500, 500, 500, 1033]
+                this.barData = [
+                  1033, 500, 500, 500, 500, 500, 500, 500, 450, 15]
               })
               break
             default:
@@ -125,7 +152,7 @@ export default {
       }
       this.drawPolicitalStatus()
     },
-    drawPolicitalStatus() {
+    drawPolicitalStatus () {
       if (this.hasData.length) {
         // 基于准备好的dom，初始化echarts实例
         const myChart = this.$echarts.init(this.$refs.canvas1)
@@ -146,6 +173,7 @@ export default {
           xAxis: {
             type: 'value',
             position: 'bottom',
+            // name: '条',
             minInterval: 1,
             axisTick: {
               show: false
@@ -197,7 +225,7 @@ export default {
                 },
                 normal: {
                   barBorderRadius: 7,
-                  color: function(params) {
+                  color: function (params) {
                     var colorList = ['#1890FF', '#B592E4', '#F0B144', '#FF8745', '#F73030', '#43A682 ', '#ca8622']
                     return colorList[params.dataIndex % colorList.length]
                   }
@@ -210,7 +238,7 @@ export default {
           animationEasing: 'linear',
           animationEasingUpdate: 'linear'
         })
-        window.addEventListener('resize', function() {
+        window.addEventListener('resize', function () {
           myChart.resize()
         })
       } else {
