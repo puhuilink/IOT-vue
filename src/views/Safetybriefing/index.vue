@@ -569,7 +569,7 @@ export default {
         'label': '极高危',
         'value': 2
       }, {
-        'label': '失陷',
+        'label': '致命',
         'value': 5
       }],
       reportOptions: [{

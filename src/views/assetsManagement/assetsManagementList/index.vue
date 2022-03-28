@@ -953,7 +953,7 @@ export default {
           deptName: '防火墙',
           ipaddr: '安全设备-工业防火墙',
           loginLocation: '在线',
-          fxzt: '失陷',
+          fxzt: '致命',
           os: '致命',
           xt: 'WOS',
           yyxy: 'S7',
@@ -1004,7 +1004,7 @@ export default {
           deptName: '防火墙',
           ipaddr: '安全设备-工业防火墙',
           loginLocation: '在线',
-          fxzt: '失陷',
+          fxzt: '致命',
           os: '致命',
           xt: 'WOS',
           yyxy: 'S7',
@@ -1129,8 +1129,8 @@ export default {
           value: '高危'
         },
         {
-          label: '失陷',
-          value: '失陷'
+          label: '致命',
+          value: '致命'
         }
       ],
       statusOptions: [

@@ -409,7 +409,7 @@ export default {
         'label': '高危',
         'value': 4
       }, {
-        'label': '失陷',
+        'label': '致命',
         'value': 5
       }],
       areaOptions: [{
@@ -476,7 +476,7 @@ export default {
     transTypeDic(val) {
       var t = [{
         name: '1',
-        content: '正常'
+        content: '极低'
       }, {
         name: '2',
         content: '低危'
@@ -488,7 +488,7 @@ export default {
         content: '高危'
       }, {
         name: '5',
-        content: '失陷'
+        content: '致命'
       }]
       const orgTreeData1 = t.filter((e) => e.name === val)
         .map(({ content }) => ({
