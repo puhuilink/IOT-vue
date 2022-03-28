@@ -30,42 +30,38 @@
       </el-form-item>
     </el-form> -->
 
-    <el-row :gutter="270">
-      <el-col :span="4"
-              class="elcolCard">
-        <div class="AssetsBox">
-          <div class="Assets">全部资产</div>
-          <div class="AssetsNumber">{{ this.allAssets }}</div>
-        </div>
-      </el-col>
-      <el-col :span="4"
-              class="elcolCard">
-        <div class="AssetsBoxOnline">
-          <div class="Assets">在线的资产</div>
-          <div class="AssetsNumber">{{ this.onlineAssets }}</div>
-        </div>
-      </el-col>
-      <el-col :span="4"
-              class="elcolCard">
-        <div class="AssetsBoxType">
-          <div class="Assets">资产类型</div>
-          <!-- <div class="AssetsNumber">{{ this.AssetsType }}</div> -->
-          <div class="ITNumberBox">
-            <!-- <div class="left"> -->
+    <div style="padding-left:60px;padding-bottom:10px">
+      <el-row :gutter="270">
+        <el-col :span="4"
+                class="elcolCard">
+          <div class="AssetsBox">
+            <div class="Assets">全部资产</div>
+            <div class="AssetsNumber">{{ this.allAssets }}</div>
+          </div>
+        </el-col>
+        <el-col :span="4"
+                class="elcolCard">
+          <div class="AssetsBoxOnline">
+            <div class="Assets">在线的资产</div>
+            <div class="AssetsNumber">{{ this.onlineAssets }}</div>
+          </div>
+        </el-col>
+        <el-col :span="4"
+                class="elcolCard">
+          <div class="AssetsBoxType">
+            <div class="Assets">资产类型</div>
+            <div class="AssetsNumber">{{ this.AssetsType }}</div>
+            <!-- <div class="ITNumberBox">
             <span class="IT">IT:</span>
             <span class="ITNumber">{{ this.ITNumber }}</span>
-            <!-- </div>
-            <div class="right"> -->
             <span class="IT">OT:</span>
             <span class="ITNumber">{{ this.OTNumber }}</span>
-            <!-- </div> -->
-
-          </div>
-          <!-- <div class="OTNumber">
+          </div> -->
+            <!-- <div class="OTNumber">
             <span class="IT">0T:</span>
             <span class="ITNumber">{{ this.AssetsType }}</span>
           </div> -->
-          <!-- <div class="ITNumberBox">
+            <!-- <div class="ITNumberBox">
             <div class="left">
               <span class="IT">IT:</span>
               <span class="ITNumber">{{ this.ITNumber }}</span>
@@ -76,31 +72,38 @@
               <span class="OTNumber">{{ this.OTNumber }}</span>
             </div>
           </div> -->
-        </div>
-      </el-col>
-      <el-col :span="4"
-              class="elcolCard">
-        <div class="AssetsBoxOffline">
-          <div class="Assets">离线的资产</div>
-          <div class="AssetsNumber">{{ this.offlineAssets }}</div>
-        </div>
-      </el-col>
-      <el-col :span="4"
-              class="elcolCard">
-        <div class="AssetsBoxUnNormal">
-          <div class="Assets">异常的资产</div>
-          <div class="AssetsNumber">{{ this.abnormalAssets }}</div>
-        </div>
-      </el-col>
-    </el-row>
+          </div>
+        </el-col>
+        <el-col :span="4"
+                class="elcolCard">
+          <div class="AssetsBoxOffline">
+            <div class="Assets">离线的资产</div>
+            <div class="AssetsNumber">{{ this.offlineAssets }}</div>
+          </div>
+        </el-col>
+        <el-col :span="4"
+                class="elcolCard">
+          <div class="AssetsBoxUnNormal">
+            <div class="Assets">异常的资产</div>
+            <div class="AssetsNumber">{{ this.abnormalAssets }}</div>
+          </div>
+        </el-col>
+      </el-row>
+    </div>
+
+    <!-- <div style="height:300px;width:50%"> -->
     <eventType :query="query"
                :tipname="'IT资产类型分布'"
                :type="1"
                :name="'assetsOne'" />
+    <!-- </div> -->
+    <!-- <div style="height:300px;width:50%"> -->
     <eventType :query="query"
                :tipname="'操作系统类型分布'"
                :type="1"
                :name="'assetsTwo'" />
+    <!-- </div> -->
+
     <eventType :query="query"
                :tipname="'OT资产类型分布'"
                :type="1"
@@ -168,7 +171,7 @@ export default {
       // ],
       allAssets: '14928',
       onlineAssets: '12304',
-      AssetsType: '18',
+      AssetsType: '10',
       ITNumber: '10',
       OTNumber: '8',
       offlineAssets: '1626',

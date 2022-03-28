@@ -2,7 +2,7 @@
   <el-col :span="12">
     <tip>{{ tipname }}</tip>
     <div ref="canvas1"
-         style="height: 400px;" />
+         style="height: 300px;" />
   </el-col>
 </template>
 <script>
