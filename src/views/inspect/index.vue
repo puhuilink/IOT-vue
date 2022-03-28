@@ -53,7 +53,7 @@
                 prop="level"
               >
                 <el-select
-                  v-model="queryParams.level"
+                  v-model="queryParams.eventLevel"
                   placeholder="请选择事件等级"
                   filterable
                   clearable
@@ -147,7 +147,7 @@
               <el-form-item size="mini">
                 <el-button
                   type="primary"
-                  @click="submitdata"
+                  @click="getList"
                 >搜索</el-button>
                 <el-button @click="resetForm">重置</el-button>
               </el-form-item>
