@@ -228,7 +228,6 @@
           <el-button
             size="mini"
             type="text"
-            icon="el-icon-edit"
             @click="detail(scope.row.configurationVerificationId)"
           >详情</el-button>
           &nbsp;&nbsp; &nbsp;&nbsp;

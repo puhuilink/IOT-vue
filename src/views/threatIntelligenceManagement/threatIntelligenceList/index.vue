@@ -289,7 +289,6 @@
               <el-button
                 size="mini"
                 type="text"
-                icon="el-icon-s-tools"
               >
                 状态变更<i class="el-icon-arrow-down el-icon--right" />
               </el-button>
