@@ -10,67 +10,83 @@
  ******************************************************************************/
 <template>
   <div class="app-container">
-    <el-form
-      v-show="showSearch"
-      ref="queryForm"
-      :model="queryParams"
-      :inline="true"
-      label-width="68px"
-    >
-      <el-form-item label="" prop="categoryId">
-        <el-select
-          v-model="queryParams.categoryId"
-          placeholder="请选择"
-          clearable
-          size="small"
-          @change="selectChanged"
-        >
-          <el-option
-            v-for="item in allTypeList"
-            :key="item.value"
-            :label="item.label"
-            :value="item.value"
-          />
+    <!-- <el-form v-show="showSearch"
+             ref="queryForm"
+             :model="queryParams"
+             :inline="true"
+             label-width="68px">
+      <el-form-item label=""
+                    prop="categoryId">
+        <el-select v-model="queryParams.categoryId"
+                   placeholder="请选择"
+                   clearable
+                   size="small"
+                   @change="selectChanged">
+          <el-option v-for="item in allTypeList"
+                     :key="item.value"
+                     :label="item.label"
+                     :value="item.value" />
         </el-select>
       </el-form-item>
-    </el-form>
+    </el-form> -->
 
     <el-row :gutter="270">
-      <el-col :span="4" class="elcolCard">
+      <el-col :span="4"
+              class="elcolCard">
         <div class="AssetsBox">
           <div class="Assets">全部资产</div>
           <div class="AssetsNumber">{{ this.allAssets }}</div>
         </div>
       </el-col>
-      <el-col :span="4" class="elcolCard">
+      <el-col :span="4"
+              class="elcolCard">
         <div class="AssetsBoxOnline">
           <div class="Assets">在线的资产</div>
           <div class="AssetsNumber">{{ this.onlineAssets }}</div>
         </div>
       </el-col>
-      <el-col :span="4" class="elcolCard">
+      <el-col :span="4"
+              class="elcolCard">
         <div class="AssetsBoxType">
           <div class="Assets">资产类型</div>
-          <div class="AssetsNumber">{{ this.onlineAssets }}</div>
+          <!-- <div class="AssetsNumber">{{ this.AssetsType }}</div> -->
+          <div class="ITNumberBox">
+            <!-- <div class="left"> -->
+            <span class="IT">IT:</span>
+            <span class="ITNumber">{{ this.ITNumber }}</span>
+            <!-- </div>
+            <div class="right"> -->
+            <span class="IT">OT:</span>
+            <span class="ITNumber">{{ this.OTNumber }}</span>
+            <!-- </div> -->
+
+          </div>
+          <!-- <div class="OTNumber">
+            <span class="IT">0T:</span>
+            <span class="ITNumber">{{ this.AssetsType }}</span>
+          </div> -->
           <!-- <div class="ITNumberBox">
-            <div>
-              <span class="IT">IT</span>
-              <span class="OT">OT</span>
-            </div>
-            <div>
+            <div class="left">
+              <span class="IT">IT:</span>
               <span class="ITNumber">{{ this.ITNumber }}</span>
+
+            </div>
+            <div class="right">
+              <span class="OT">OT:</span>
               <span class="OTNumber">{{ this.OTNumber }}</span>
             </div>
           </div> -->
         </div>
       </el-col>
-      <el-col :span="4" class="elcolCard">
+      <el-col :span="4"
+              class="elcolCard">
         <div class="AssetsBoxOffline">
           <div class="Assets">离线的资产</div>
           <div class="AssetsNumber">{{ this.offlineAssets }}</div>
         </div>
       </el-col>
-      <el-col :span="4" class="elcolCard">
+      <el-col :span="4"
+              class="elcolCard">
         <div class="AssetsBoxUnNormal">
           <div class="Assets">异常的资产</div>
           <div class="AssetsNumber">{{ this.abnormalAssets }}</div>
@@ -79,11 +95,16 @@
     </el-row>
 
     <div id="test1">
+      <!-- <eventType :query="query"
+                 :tipname="'IT资产类型分布'"
+                 :type="1"
+                 :name="'assets'" /> -->
       <Tip>
         <span>IT资产类型分布</span>
       </Tip>
       <div id="canvas1" />
     </div>
+
     <div id="test2">
       <Tip>
         <span>操作系统类型分布</span>
@@ -107,6 +128,7 @@
 
 <script>
 import Tip from '@/components/EchartsTip/index'
+import eventType from '@/components/Echarts/eventType'
 import {
   listDevice,
   getDevice,
@@ -122,21 +144,23 @@ import echarts from 'echarts'
 
 export default {
   name: 'Device',
-  components: { Tip },
-  data() {
+  components: { Tip, eventType },
+  data () {
     return {
       charts: '',
+      query: {},
       // opinion:['男','女'],
       // opinionData:[
       //     {value:335, name:'男'},
       //     {value:310, name:'女'},
       // ],
-      allAssets: '40639',
-      onlineAssets: '37247',
-      ITNumber: '40230',
-      OTNumber: '409',
-      offlineAssets: '652',
-      abnormalAssets: '2740',
+      allAssets: '14928',
+      onlineAssets: '12304',
+      AssetsType: '18',
+      ITNumber: '10',
+      OTNumber: '8',
+      offlineAssets: '1626',
+      abnormalAssets: '1052',
       // 遮罩层
       loading: true,
       // 选中数组
@@ -248,14 +272,14 @@ export default {
       }
     }
   },
-  created() {
+  created () {
     this.getPieChartOne()
     this.getPieChartTwo()
     this.getPieChartThree()
     this.getPieChartFour()
   },
-  mounted() {
-    this.$nextTick(function() {
+  mounted () {
+    this.$nextTick(function () {
       this.getPieChartOne('test1')
       this.getPieChartTwo('test2')
       this.getPieChartThree('test3')
@@ -264,7 +288,7 @@ export default {
   },
   methods: {
     /** 行颜色 */
-    tableRowClassName({ row, rowIndex }) {
+    tableRowClassName ({ row, rowIndex }) {
       if (rowIndex === 1) {
         return 'success-row'
       } else if (rowIndex === 3) {
@@ -273,20 +297,20 @@ export default {
       return ''
     },
     // 取消按钮
-    cancel() {
+    cancel () {
       this.open = false
       this.reset()
     },
-    statusCancel() {
+    statusCancel () {
       this.statusOpen = false
       this.statusReset()
     },
-    setCancel() {
+    setCancel () {
       this.setOpen = false
       this.setReset()
     },
     // 表单重置
-    reset() {
+    reset () {
       this.form = {
         deviceId: null,
         deviceNum: null,
@@ -302,7 +326,7 @@ export default {
       }
       this.resetForm('form')
     },
-    statusReset() {
+    statusReset () {
       this.statusForm = {
         deviceStatusId: null,
         deviceId: null,
@@ -330,7 +354,7 @@ export default {
       }
       this.resetForm('statusForm')
     },
-    getPieChartOne() {
+    getPieChartOne () {
       this.charts = echarts.init(document.getElementById('canvas1'))
       // 绘制图表
       this.charts.setOption({
@@ -354,11 +378,11 @@ export default {
             type: 'pie',
             radius: '50%',
             data: [
-              { value: 1048, name: '主机(3948)' },
-              { value: 735, name: '服务器(2514)' },
-              { value: 580, name: '防火墙(1699)' },
-              { value: 484, name: '网闸(1023)' },
-              { value: 300, name: '网关(362)' }
+              { value: 1754, name: '工作主机' },
+              { value: 2272, name: '服务器' },
+              { value: 372, name: '网络设备' },
+              { value: 6999, name: '安全设备' },
+              { value: 45, name: '存储设备' }
             ],
             emphasis: {
               itemStyle: {
@@ -371,7 +395,7 @@ export default {
         ]
       })
     },
-    getPieChartTwo() {
+    getPieChartTwo () {
       this.charts = echarts.init(document.getElementById('canvas2'))
       // 绘制图表
       this.charts.setOption({
@@ -388,18 +412,19 @@ export default {
           left: 'right'
           //  data:this.opinion
         },
-        color: ['#45C2E0', '#C1EBDD', '#FFC851', '#5A5476', '#1869A0'],
+        // color: ['#45C2E0', '#C1EBDD', '#FFC851', '#5A5476', '#1869A0'],
+        color: ['#45C2E0', '#C1EBDD'],
         series: [
           {
             name: 'Access From',
             type: 'pie',
             radius: '50%',
             data: [
-              { value: 1048, name: 'Linux(3948)' },
-              { value: 735, name: 'Window 7(2514)' },
-              { value: 580, name: 'Window XP(1699)' },
-              { value: 484, name: 'Unix(1023)' },
-              { value: 300, name: 'MAC OS(362)' }
+              { value: 2460, name: 'Windows' },
+              { value: 1352, name: 'Linux' }
+              // { value: 580, name: 'Window XP(1699)' },
+              // { value: 484, name: 'Unix(1023)' },
+              // { value: 300, name: 'MAC OS(362)' }
             ],
             emphasis: {
               itemStyle: {
@@ -412,7 +437,7 @@ export default {
         ]
       })
     },
-    getPieChartThree() {
+    getPieChartThree () {
       this.charts = echarts.init(document.getElementById('canvas3'))
       // 绘制图表
       this.charts.setOption({
@@ -436,11 +461,11 @@ export default {
             type: 'pie',
             radius: '50%',
             data: [
-              { value: 1048, name: '主机(3948)' },
-              { value: 735, name: '服务器(2514)' },
-              { value: 580, name: '防火墙(1699)' },
-              { value: 484, name: '网闸(1023)' },
-              { value: 300, name: '网关(362)' }
+              { value: 145, name: 'LTE系统' },
+              { value: 123, name: '安全设备' },
+              { value: 100, name: '网络设备' },
+              { value: 236, name: 'PLC控制器' },
+              { value: 370, name: '服务器' }
             ],
             emphasis: {
               itemStyle: {
@@ -453,7 +478,7 @@ export default {
         ]
       })
     },
-    getPieChartFour() {
+    getPieChartFour () {
       this.charts = echarts.init(document.getElementById('canvas4'))
       // 绘制图表
       this.charts.setOption({
@@ -477,11 +502,11 @@ export default {
             type: 'pie',
             radius: '50%',
             data: [
-              { value: 1048, name: 'S7(3948)' },
-              { value: 735, name: 'MOBUS(2514)' },
-              { value: 580, name: 'DNP3(1699)' },
-              { value: 484, name: 'IEC104(1023)' },
-              { value: 300, name: 'MMS(362)' }
+              { value: 126, name: 'ModBus协议' },
+              { value: 97, name: 'OPC协议' },
+              { value: 83, name: 'ProfiBus协议' },
+              { value: 64, name: 'DNP3协议' },
+              { value: 51, name: 'CIP协议' }
             ],
             emphasis: {
               itemStyle: {
@@ -522,28 +547,12 @@ export default {
         color: #fff;
         text-align: center;
         line-height: 20px;
-      }
-      .ITNumberBox {
-        color: #fff;
-        background-color: #5599ff;
-        width: 100%;
-        height: 100px;
-        font-weight: 800;
-        padding-top: 24px;
-        //  line-height: 100px;
-        .IT {
-          margin-left: 36px;
-          // margin-right: 80px;
-        }
-        .OT {
-          margin-left: 90px;
-        }
-        .ITNumber {
-          margin-left: 20px;
-        }
-        .OTNumber {
-          margin-left: 68px;
-        }
+        // .left {
+        //   float: left;
+        // }
+        // .right {
+        //   float: right;
+        // }
       }
     }
     .AssetsBoxOnline {
@@ -640,6 +649,27 @@ export default {
         color: #fff;
         text-align: center;
         line-height: 20px;
+      }
+      .ITNumberBox {
+        color: #fff;
+        line-height: 20px;
+        margin-bottom: 10px;
+        .IT {
+          color: #ffffff;
+          font-size: 18px;
+          margin-left: 36px;
+        }
+        .ITNumber {
+          color: #ffffff;
+          font-size: 28px;
+          margin-bottom: 10px;
+          margin-right: 30px;
+        }
+        .OTNumber {
+          color: #ffffff;
+          font-size: 28px;
+          margin-bottom: 10px;
+        }
       }
     }
   }
