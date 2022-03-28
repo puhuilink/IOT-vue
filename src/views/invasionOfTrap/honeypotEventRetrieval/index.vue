@@ -418,24 +418,20 @@ export default {
           value: '天津管片厂'
         },
         {
-          label: '三亚轨交',
-          value: '三亚轨交'
+          label: '三亚海投轨交',
+          value: '三亚海投轨交'
         },
         {
-          label: '北京水厂',
-          value: '北京水厂'
+          label: '北京城乡水厂',
+          value: '北京城乡水厂'
         },
         {
-          label: '山西燃气',
-          value: '山西燃气'
+          label: '山西三通燃气厂',
+          value: '山西三通燃气厂'
         },
         {
           label: '珠海深中通道',
           value: '珠海深中通道'
-        },
-        {
-          label: '北京水厂',
-          value: '北京水厂'
         }
       ],
       statusOptions: [{

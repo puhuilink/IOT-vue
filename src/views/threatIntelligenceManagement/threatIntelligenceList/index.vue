@@ -478,12 +478,24 @@ export default {
       ],
       areaOptions: [
         {
-          label: '北京',
-          value: 1
+          label: '天津管片厂',
+          value: '天津管片厂'
         },
         {
-          label: '重庆',
-          value: 2
+          label: '三亚海投轨交',
+          value: '三亚海投轨交'
+        },
+        {
+          label: '北京城乡水厂',
+          value: '北京城乡水厂'
+        },
+        {
+          label: '山西三通燃气厂',
+          value: '山西三通燃气厂'
+        },
+        {
+          label: '珠海深中通道',
+          value: '珠海深中通道'
         }
       ],
       field114Options: [
