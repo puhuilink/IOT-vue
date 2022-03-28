@@ -3,152 +3,112 @@
     <el-card class="box-card">
       <div>
         <el-row :gutter="20">
-          <el-form
-            ref="elForm"
-            :model="queryParams"
-            :rules="rules"
-            size="mini"
-            label-width="90px"
-            class="label-type"
-            label-position="right"
-          >
+          <el-form ref="elForm"
+                   :model="queryParams"
+                   :rules="rules"
+                   size="mini"
+                   label-width="90px"
+                   class="label-type"
+                   label-position="right">
             <el-col :span="6">
-              <el-form-item
-                label="攻击者："
-                prop="attackSource"
-              >
-                <el-select
-                  v-model="queryParams.attackSource"
-                  placeholder="请选择攻击者"
-                  filterable
-                  clearable
-                  :style="{ width: '100%' }"
-                >
-                  <el-option
-                    v-for="(item, index) in attackOptions"
-                    :key="index"
-                    :label="item.label"
-                    :value="item.value"
-                    :disabled="item.disabled"
-                  />
+              <el-form-item label="攻击者："
+                            prop="attackSource">
+                <el-select v-model="queryParams.attackSource"
+                           placeholder="请选择攻击者"
+                           filterable
+                           clearable
+                           :style="{ width: '100%' }">
+                  <el-option v-for="(item, index) in attackOptions"
+                             :key="index"
+                             :label="item.label"
+                             :value="item.value"
+                             :disabled="item.disabled" />
                 </el-select>
               </el-form-item>
             </el-col>
             <el-col :span="6">
-              <el-form-item
-                label="事件等级："
-                prop="eventLevel"
-              >
-                <el-select
-                  v-model="queryParams.eventLevel"
-                  placeholder="请选择事件等级"
-                  filterable
-                  clearable
-                  :style="{ width: '100%' }"
-                >
-                  <el-option
-                    v-for="(item, index) in levelOptions"
-                    :key="index"
-                    :label="item.label"
-                    :value="item.value"
-                    :disabled="item.disabled"
-                  />
+              <el-form-item label="事件等级："
+                            prop="eventLevel">
+                <el-select v-model="queryParams.eventLevel"
+                           placeholder="请选择事件等级"
+                           filterable
+                           clearable
+                           :style="{ width: '100%' }">
+                  <el-option v-for="(item, index) in levelOptions"
+                             :key="index"
+                             :label="item.label"
+                             :value="item.value"
+                             :disabled="item.disabled" />
                 </el-select>
               </el-form-item>
             </el-col>
             <el-col :span="6">
-              <el-form-item
-                label="隔离沙箱："
-                prop="type"
-              >
-                <el-select
-                  v-model="queryParams.isolationSandbox"
-                  placeholder="请选择隔离沙箱"
-                  filterable
-                  clearable
-                  :style="{ width: '100%' }"
-                >
-                  <el-option
-                    v-for="(item, index) in levelOptions"
-                    :key="index"
-                    :label="item.label"
-                    :value="item.value"
-                    :disabled="item.disabled"
-                  />
+              <el-form-item label="隔离沙箱："
+                            prop="type">
+                <el-select v-model="queryParams.isolationSandbox"
+                           placeholder="请选择隔离沙箱"
+                           filterable
+                           clearable
+                           :style="{ width: '100%' }">
+                  <el-option v-for="(item, index) in levelOptions"
+                             :key="index"
+                             :label="item.label"
+                             :value="item.value"
+                             :disabled="item.disabled" />
                 </el-select>
               </el-form-item>
             </el-col>
             <el-col :span="6">
-              <el-form-item
-                label="区域："
-                prop="region"
-              >
-                <el-select
-                  v-model="queryParams.region"
-                  placeholder="请选择区域"
-                  filterable
-                  clearable
-                  :style="{ width: '100%' }"
-                >
-                  <el-option
-                    v-for="(item, index) in areaOptions"
-                    :key="index"
-                    :label="item.label"
-                    :value="item.value"
-                    :disabled="item.disabled"
-                  />
+              <el-form-item label="区域："
+                            prop="region">
+                <el-select v-model="queryParams.region"
+                           placeholder="请选择区域"
+                           filterable
+                           clearable
+                           :style="{ width: '100%' }">
+                  <el-option v-for="(item, index) in areaOptions"
+                             :key="index"
+                             :label="item.label"
+                             :value="item.value"
+                             :disabled="item.disabled" />
                 </el-select>
               </el-form-item>
             </el-col>
             <el-col :span="6">
-              <el-form-item
-                label="处置状态："
-                prop="disposalStatus"
-              >
-                <el-select
-                  v-model="queryParams.disposalStatus"
-                  placeholder="请选择处置状态"
-                  filterable
-                  clearable
-                  :style="{ width: '100%' }"
-                >
-                  <el-option
-                    v-for="(item, index) in statusOptions"
-                    :key="index"
-                    :label="item.label"
-                    :value="item.value"
-                    :disabled="item.disabled"
-                  />
+              <el-form-item label="处置状态："
+                            prop="disposalStatus">
+                <el-select v-model="queryParams.disposalStatus"
+                           placeholder="请选择处置状态"
+                           filterable
+                           clearable
+                           :style="{ width: '100%' }">
+                  <el-option v-for="(item, index) in statusOptions"
+                             :key="index"
+                             :label="item.label"
+                             :value="item.value"
+                             :disabled="item.disabled" />
                 </el-select>
               </el-form-item>
             </el-col>
             <el-col :span="6">
-              <el-form-item
-                label="时间："
-                prop="date"
-              >
-                <el-time-picker
-                  v-model="queryParams.date"
-                  is-range
-                  format="HH:mm:ss"
-                  value-format="HH:mm:ss"
-                  :style="{ width: '100%' }"
-                  start-placeholder="开始时间"
-                  end-placeholder="结束时间"
-                  range-separator="至"
-                  clearable
-                />
+              <el-form-item label="时间："
+                            prop="date">
+                <el-time-picker v-model="queryParams.date"
+                                is-range
+                                format="HH:mm:ss"
+                                value-format="HH:mm:ss"
+                                :style="{ width: '100%' }"
+                                start-placeholder="开始时间"
+                                end-placeholder="结束时间"
+                                range-separator="至"
+                                clearable />
               </el-form-item>
             </el-col>
             <el-col :span="6">
-              <el-form-item
-                size="mini"
-                label-width="50px"
-              >
-                <el-button
-                  type="primary"
-                  @click="btnQuery"
-                >搜索</el-button>
+              <el-form-item size="mini"
+                            label-width="50px">
+                <el-button type="primary"
+                           @click="btnQuery">搜索</el-button>
                 <el-button @click="resetForm">重置</el-button>
               </el-form-item>
             </el-col>
@@ -157,136 +117,93 @@
       </div>
     </el-card>
     <el-card>
-      <el-button
-        type="primary"
-        class="export"
-        @click="submitdata"
-      >导出</el-button>
-      <el-table
-        :data="groupList"
-        tooltip-effect="light"
-      >
-        <el-table-column
-          type="selection"
-          width="55"
-          align="center"
-        />
-        <el-table-column
-          label="攻击者"
-          align="center"
-          prop="attackSource"
-          :show-overflow-tooltip="true"
-        />
-        <el-table-column
-          label="攻击目标"
-          align="center"
-          prop="attackTarget"
-          :show-overflow-tooltip="true"
-        />
-        <el-table-column
-          label="隔离沙箱"
-          align="center"
-          prop="isolationSandbox"
-          :show-overflow-tooltip="true"
-        />
-        <el-table-column
-          label="开始攻击时间"
-          align="center"
-          prop="startAttackTime"
-          :show-overflow-tooltip="true"
-        />
-        <el-table-column
-          label="最后攻击时间"
-          align="center"
-          prop="lastAttackTime"
-          :show-overflow-tooltip="true"
-        />
-        <el-table-column
-          label="事件等级"
-          align="center"
-          prop="eventLevel"
-          :show-overflow-tooltip="true"
-        >
+      <el-button type="primary"
+                 class="export"
+                 @click="submitdata">导出</el-button>
+      <el-table :data="groupList"
+                tooltip-effect="light">
+        <el-table-column type="selection"
+                         width="55"
+                         align="center" />
+        <el-table-column label="攻击者"
+                         align="center"
+                         prop="attackSource"
+                         :show-overflow-tooltip="true" />
+        <el-table-column label="攻击目标"
+                         align="center"
+                         prop="attackTarget"
+                         :show-overflow-tooltip="true" />
+        <el-table-column label="隔离沙箱"
+                         align="center"
+                         prop="isolationSandbox"
+                         :show-overflow-tooltip="true" />
+        <el-table-column label="开始攻击时间"
+                         align="center"
+                         prop="startAttackTime"
+                         :show-overflow-tooltip="true" />
+        <el-table-column label="最后攻击时间"
+                         align="center"
+                         prop="lastAttackTime"
+                         :show-overflow-tooltip="true" />
+        <el-table-column label="事件等级"
+                         align="center"
+                         prop="eventLevel"
+                         :show-overflow-tooltip="true">
           <template #default="scope">
             <span>{{
               transTypeDic(scope.row.eventLevel)
             }}</span>
           </template>
         </el-table-column>
-        <el-table-column
-          label="处置状态"
-          align="center"
-          prop="disposalStatus"
-          :show-overflow-tooltip="true"
-        />
-        <el-table-column
-          label="区域"
-          align="center"
-          prop="region"
-          :show-overflow-tooltip="true"
-        />
-        <el-table-column
-          label="操作"
-          align="center"
-          class-name="small-padding fixed-width"
-        >
+        <el-table-column label="处置状态"
+                         align="center"
+                         prop="disposalStatus"
+                         :show-overflow-tooltip="true" />
+        <el-table-column label="区域"
+                         align="center"
+                         prop="region"
+                         :show-overflow-tooltip="true" />
+        <el-table-column label="操作"
+                         align="center"
+                         class-name="small-padding fixed-width">
           <template slot-scope="scope">
-            <el-button
-              size="mini"
-              type="text"
-              @click="detail(scope.row.intrusionTrapId)"
-            >详情</el-button>
+            <el-button size="mini"
+                       type="text"
+                       @click="detail(scope.row.intrusionTrapId)">详情</el-button>
             &nbsp;&nbsp; &nbsp;&nbsp;
             <el-dropdown @command="batchOperate">
-              <el-button
-                size="mini"
-                type="text"
-              >状态变更
+              <el-button size="mini"
+                         type="text">状态变更
                 <i class="el-icon-arrow-down el-icon--right" />
               </el-button>
               <el-dropdown-menu slot="dropdown">
-                <el-dropdown-item
-                  icon="el-icon-check"
-                  command="process"
-                >处置</el-dropdown-item>
-                <el-dropdown-item
-                  icon="el-icon-close"
-                  command="un_process"
-                >不处置</el-dropdown-item>
-                <el-dropdown-item
-                  icon="el-icon-bell"
-                  command="false_report"
-                >误报</el-dropdown-item>
+                <el-dropdown-item command="process">处置</el-dropdown-item>
+                <el-dropdown-item command="un_process">不处置</el-dropdown-item>
+                <el-dropdown-item command="false_report">误报</el-dropdown-item>
               </el-dropdown-menu>
             </el-dropdown>
           </template>
         </el-table-column>
       </el-table>
-      <pagination
-        v-show="total > 0"
-        :total="total"
-        :page.sync="queryParams.pageNum"
-        :limit.sync="queryParams.pageSize"
-        @pagination="getList"
-      />
+      <pagination v-show="total > 0"
+                  :total="total"
+                  :page.sync="queryParams.pageNum"
+                  :limit.sync="queryParams.pageSize"
+                  @pagination="getList" />
     </el-card>
 
     <!-- 添加或修改分组对话框 -->
-    <el-dialog
-      :title="title"
-      :visible.sync="open"
-      width="900px"
-      append-to-body
-    >
+    <el-dialog :title="title"
+               :visible.sync="open"
+               width="900px"
+               append-to-body>
       <div class="contentBox">
         <div class="information">
           基础信息
         </div>
-        <el-form
-          ref="form"
-          label-width="105px"
-          label-position="left"
-        >
+        <el-form ref="form"
+                 label-width="105px"
+                 label-position="left">
           <el-row>
             <el-col :span="8">
               <el-form-item label="攻击源 :">
@@ -328,61 +245,41 @@
         <div class="information">
           攻击记录
         </div>
-        <el-table
-          v-loading="loading"
-          :data="groupListCopy"
-          tooltip-effect="light"
-        >
-          <el-table-column
-            label="攻击时间"
-            align="center"
-            prop="groupId"
-            min-width="15%"
-            :show-overflow-tooltip="true"
-          />
-          <el-table-column
-            label="来源IP"
-            align="center"
-            prop="userId"
-            min-width="15%"
-          />
-          <el-table-column
-            label="类型"
-            align="center"
-            prop="groupName"
-            min-width="8%"
-          />
-          <el-table-column
-            label="攻击手法"
-            align="center"
-            prop="createTime"
-            min-width="15%"
-          />
-          <el-table-column
-            label="攻击行为"
-            align="center"
-            prop="remark"
-            min-width="55%"
-            :show-overflow-tooltip="true"
-          />
+        <el-table v-loading="loading"
+                  :data="groupListCopy"
+                  tooltip-effect="light">
+          <el-table-column label="攻击时间"
+                           align="center"
+                           prop="groupId"
+                           min-width="15%"
+                           :show-overflow-tooltip="true" />
+          <el-table-column label="来源IP"
+                           align="center"
+                           prop="userId"
+                           min-width="15%" />
+          <el-table-column label="类型"
+                           align="center"
+                           prop="groupName"
+                           min-width="8%" />
+          <el-table-column label="攻击手法"
+                           align="center"
+                           prop="createTime"
+                           min-width="15%" />
+          <el-table-column label="攻击行为"
+                           align="center"
+                           prop="remark"
+                           min-width="55%"
+                           :show-overflow-tooltip="true" />
         </el-table>
-        <div
-          slot="footer"
-          class="dialog-footer"
-        >
-          <el-row
-            type="flex"
-            justify="center"
-          >
-            <el-button
-              size="small"
-              type="primary"
-              @click="submitForm"
-            >确 定</el-button>
-            <el-button
-              size="small"
-              @click="cancel"
-            >取 消</el-button>
+        <div slot="footer"
+             class="dialog-footer">
+          <el-row type="flex"
+                  justify="center">
+            <el-button size="small"
+                       type="primary"
+                       @click="submitForm">确 定</el-button>
+            <el-button size="small"
+                       @click="cancel">取 消</el-button>
           </el-row>
         </div>
       </div>
@@ -398,7 +295,7 @@ import { trapDetail } from '@/api/system/detail'
 export default {
   components: {},
   props: [],
-  data() {
+  data () {
     return {
       loading: false,
       name: '测试',
@@ -548,11 +445,11 @@ export default {
       }]
     }
   },
-  created() {
+  created () {
     this.getList()
   },
   methods: {
-    transTypeDic(val) {
+    transTypeDic (val) {
       var t = [{
         name: '1',
         content: '极低'
@@ -575,7 +472,7 @@ export default {
         }))
       return `${orgTreeData1[0].content}`
     },
-    batchOperate(command) {
+    batchOperate (command) {
       let message = ''
       switch (command) {
         case 'process':
@@ -592,7 +489,7 @@ export default {
           break
       }
     },
-    openMessageBox(message) {
+    openMessageBox (message) {
       this.$confirm(message, '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
@@ -610,7 +507,7 @@ export default {
       })
     },
     /** 查询分组列表 */
-    async getList() {
+    async getList () {
       this.loading = true
       const res = await trapList(this.queryParams)
       console.log('res-3-23', res)
@@ -618,20 +515,20 @@ export default {
       this.total = res.total
       this.loading = false
     },
-    btnQuery() {
+    btnQuery () {
       this.queryParams.pageNum = 1
       this.getList()
     },
-    submitdata() {
+    submitdata () {
       this.$refs['elForm'].validate((valid) => {
         if (!valid) return
         // TODO 提交表单
       })
     },
-    resetForm() {
+    resetForm () {
       this.$refs['elForm'].resetFields()
     },
-    async detail(id) {
+    async detail (id) {
       const { data } = await trapDetail(id)
       this.detailData = data
       this.detailData.eventLevel = this.transTypeDic(this.detailData.eventLevel)
@@ -639,11 +536,11 @@ export default {
       this.title = '事件详情'
     },
     // 取消按钮
-    cancel() {
+    cancel () {
       this.open = false
     },
     /** 提交按钮 */
-    submitForm() {
+    submitForm () {
       this.open = false
     }
   }
