@@ -13,88 +13,171 @@
         <div class="quantity">{{ quantity }}</div>
         <div class="number">{{ number }}</div>
         <div class="leftBox">
-          <div class="boxContent">
-            <span class="name">{{ network }}</span>
-            <span class="numberTen">37290</span>
-            <!-- <span class="dataIT">37290</span> -->
+          <div class="bigBox">
+            <div class="boxContentleft">
+              <span class="name">{{ network }}</span>
+            </div>
+            <div class="boxContentRight">
+              <span class="numberTen">37290</span>
+            </div>
           </div>
-          <div class="boxContent">
-            <span class="name">{{ fwqrz }}</span>
-            <span style="margin-left: 30px;">300</span>
+
+          <div class="bigBox">
+            <div class="boxContentleft">
+              <span class="name">{{ fwqrz }}</span>
+            </div>
+            <div class="boxContentRight">
+              <span class="numberTen">300</span>
+            </div>
           </div>
-          <div class="boxContent">
-            <span class="name">{{ networkLirz }}</span>
-            <span style="margin-left: 46px;">49</span>
+
+          <div class="bigBox">
+            <div class="boxContentleft">
+              <span class="name">{{ networkLirz }}</span>
+            </div>
+            <div class="boxContentRight">
+              <span class="numberTen">49</span>
+            </div>
           </div>
-          <div class="boxContent">
-            <span class="name">{{ safe }}</span>
-            <span style="margin-left: 26px;">360</span>
+
+          <div class="bigBox">
+            <div class="boxContentleft">
+              <span class="name">{{ safe }}</span>
+            </div>
+            <div class="boxContentRight">
+              <span class="numberTen">360</span>
+            </div>
           </div>
-          <div class="boxContent">
-            <span class="name">{{ middle }}</span>
-            <span style="margin-left: 50px;">20</span>
+
+          <div class="bigBox">
+            <div class="boxContentleft">
+              <span class="name">{{ middle }}</span>
+            </div>
+            <div class="boxContentRight">
+              <span class="numberTen">20</span>
+            </div>
           </div>
-          <div class="boxContent">
-            <span class="name">{{ datadaily }}</span>
-            <span style="margin-left: 32px;">20</span>
+          <div class="bigBox">
+            <div class="boxContentleft">
+              <span class="name">{{ datadaily }}</span>
+            </div>
+            <div class="boxContentRight">
+              <span class="numberTen">20</span>
+            </div>
           </div>
-          <div class="boxContent">
-            <span class="name">{{ ldnumber }}</span>
-            <span style="margin-left: 60px;">59</span>
+          <div class="bigBox">
+            <div class="boxContentleft">
+              <span class="name">{{ ldnumber }}</span>
+            </div>
+            <div class="boxContentRight">
+              <span class="numberTen">59</span>
+            </div>
           </div>
-          <div class="boxContent">
-            <span class="name">{{ safeEquiment }}</span>
-            <span style="margin-left: 33px;">39</span>
+          <div class="bigBox">
+            <div class="boxContentleft">
+              <span class="name">{{ safeEquiment }}</span>
+            </div>
+            <div class="boxContentRight">
+              <span class="numberTen">39</span>
+            </div>
           </div>
-          <div class="boxContent">
-            <span class="name">{{ networkDaily }}</span>
-            <span class="numberTen">37290</span>
+          <div class="bigBox">
+            <div class="boxContentleft">
+              <span class="name">{{ networkDaily }}</span>
+            </div>
+            <div class="boxContentRight">
+              <span class="numberTen">39</span>
+            </div>
           </div>
-          <div class="boxContent">
-            <span class="name">{{ networkEquimentDaily }}</span>
-            <span style="margin-left: 30px;">68</span>
+          <div class="bigBox">
+            <div class="boxContentleft">
+              <span class="name">{{ networkEquimentDaily }}</span>
+            </div>
+            <div class="boxContentRight">
+              <span class="numberTen">68</span>
+            </div>
           </div>
         </div>
         <div class="datails">
-          <div class="boxContent">
-            <span class="name">{{ IT }}</span>
-            <span class="numberTen">10000</span>
+          <div class="bigBox">
+            <div class="boxContentleft">
+              <span class="name">{{ IT }}</span>
+            </div>
+            <div class="boxContentRight">
+              <span class="numberTen">10000</span>
+            </div>
           </div>
-          <div class="boxContent">
-            <span class="name">{{ ITdata }}</span>
-            <span class="numberTen">925</span>
+          <div class="bigBox">
+            <div class="boxContentleft">
+              <span class="name">{{ ITdata }}</span>
+            </div>
+            <div class="boxContentRight">
+              <span class="numberTen">925</span>
+            </div>
           </div>
-          <div class="boxContent">
-            <span class="name">{{ OT }}</span>
-            <span style="margin-left: 30px;">500</span>
+          <div class="bigBox">
+            <div class="boxContentleft">
+              <span class="name">{{ OT }}</span>
+            </div>
+            <div class="boxContentRight">
+              <span class="numberTen">500</span>
+            </div>
           </div>
-          <div class="boxContent">
-            <span class="name">{{ OTdata }}</span>
-            <span style="margin-left: 44px;">10</span>
+          <div class="bigBox">
+            <div class="boxContentleft">
+              <span class="name">{{ OTdata }}</span>
+            </div>
+            <div class="boxContentRight">
+              <span class="numberTen">10</span>
+            </div>
           </div>
-          <div class="boxContent">
-            <span class="name">{{ ITdaily }}</span>
-            <span style="margin-left: 52px;">12</span>
+          <div class="bigBox">
+            <div class="boxContentleft">
+              <span class="name">{{ ITdaily }}</span>
+            </div>
+            <div class="boxContentRight">
+              <span class="numberTen">12</span>
+            </div>
           </div>
-          <div class="boxContent">
-            <span class="name">{{ OTdaily }}</span>
-            <span style="margin-left: 54px;">8</span>
+          <div class="bigBox">
+            <div class="boxContentleft">
+              <span class="name">{{ OTdaily }}</span>
+            </div>
+            <div class="boxContentRight">
+              <span class="numberTen">8</span>
+            </div>
           </div>
-          <div class="boxContent">
-            <span class="name">{{ ITdailyData }}</span>
-            <span style="margin-left: 52px;">40</span>
+          <div class="bigBox">
+            <div class="boxContentleft">
+              <span class="name">{{ ITdailyData }}</span>
+            </div>
+            <div class="boxContentRight">
+              <span class="numberTen">40</span>
+            </div>
           </div>
-          <div class="boxContent">
-            <span class="name">{{ OTdailyData }}</span>
-            <span style="margin-left: 50px;">63</span>
+          <div class="bigBox">
+            <div class="boxContentleft">
+              <span class="name">{{ OTdailyData }}</span>
+            </div>
+            <div class="boxContentRight">
+              <span class="numberTen">63</span>
+            </div>
           </div>
-          <div class="boxContent">
-            <span class="name">{{ user }}</span>
-            <span style="margin-left: 50px;">40</span>
+          <div class="bigBox">
+            <div class="boxContentleft">
+              <span class="name">{{ user }}</span>
+            </div>
+            <div class="boxContentRight">
+              <span class="numberTen">40</span>
+            </div>
           </div>
-          <div class="boxContent">
-            <span class="name">{{ OTuser }}</span>
-            <span style="margin-left: 50px;">33</span>
+          <div class="bigBox">
+            <div class="boxContentleft">
+              <span class="name">{{ OTuser }}</span>
+            </div>
+            <div class="boxContentRight">
+              <span class="numberTen">33</span>
+            </div>
           </div>
         </div>
       </div>
@@ -197,7 +280,7 @@ export default {
   .number {
     position: absolute;
     top: 160px;
-    left: 78px;
+    left: 70px;
     font-size: 48px;
     font-family: PingFangSC-Semibold, PingFang SC;
     font-weight: 600;
@@ -210,45 +293,101 @@ export default {
     // margin-top: 10px;
     // float: right;
     // padding-right: 100px;
-    .boxContent {
-      font-size: 12px;
-      font-family: MicrosoftYaHei-Bold, MicrosoftYaHei;
-      font-weight: bold;
-      color: #0e6ccb;
-      line-height: 32px;
-      // width: 200px;
-      // height: 30px;
-      // line-height: 30px;
-      // text-align: left;
-      // // border: 1px solid #1f8fff;
-      // margin-bottom: 10px;
-      // border-radius: 50px;
-      // border-top: none;
-      // border-bottom: none;
-      .name {
+    .bigBox {
+      height: 30px;
+      width: 120px;
+      // background-color: aqua;
+      .boxContentleft {
         float: left;
-        // margin-left: 20px;
+        font-size: 12px;
+        font-family: MicrosoftYaHei-Bold, MicrosoftYaHei;
+        font-weight: bold;
+        color: #0e6ccb;
+        line-height: 32px;
+        text-align: left;
+        .name {
+          float: left;
+        }
+        .numberTen {
+          margin-left: 40px;
+        }
+        .numberOne {
+          margin-left: 30px;
+        }
+        .dataIT {
+          float: right;
+        }
       }
-      .dataIT {
+      .boxContentRight {
         float: right;
-        margin-left: 20px;
-      }
-      .numberTen {
-        margin-left: 30px;
-      }
-      .numberOne {
-        margin-left: 20px;
+        font-size: 12px;
+        line-height: 32px;
+        font-family: MicrosoftYaHei-Bold, MicrosoftYaHei;
+        font-weight: bold;
+        color: #0e6ccb;
+        .numberTen {
+          margin-top: 10px;
+        }
       }
     }
   }
   .leftBox {
     position: absolute;
+    // width: 200px;
+    // background-color: aqua;
     top: 20px;
     left: 290px;
     // margin-top: 10px;
     // float: left;
     padding-right: 20px;
+    .bigBox {
+      height: 30px;
+      width: 120px;
+      // background-color: aqua;
+      .boxContentleft {
+        float: left;
+        font-size: 12px;
+        font-family: MicrosoftYaHei-Bold, MicrosoftYaHei;
+        font-weight: bold;
+        color: #402165;
+        // width: 130px;
+        // height: 30px;
+        line-height: 32px;
+        text-align: left;
+        // border: 1px solid #1f8fff;
+        // margin-bottom: 40px;
+        // border-radius: 50px;
+        // border-top: none;
+        // border-bottom: none;
+        .name {
+          float: left;
+          // margin-left: 20px;
+        }
+        .numberTen {
+          margin-left: 40px;
+        }
+        .numberOne {
+          margin-left: 30px;
+        }
+        .dataIT {
+          float: right;
+          // margin-left: 20px;
+        }
+      }
+      .boxContentRight {
+        float: right;
+        font-size: 12px;
+        line-height: 32px;
+        font-family: MicrosoftYaHei-Bold, MicrosoftYaHei;
+        font-weight: bold;
+        color: #402165;
+        .numberTen {
+          margin-top: 10px;
+        }
+      }
+    }
     .boxContent {
+      // float: left;
       font-size: 12px;
       font-family: MicrosoftYaHei-Bold, MicrosoftYaHei;
       font-weight: bold;
