@@ -522,6 +522,7 @@ export default {
     async detail(id) {
       const { data } = await configurationVerificationDetail(id)
       this.detailData = data
+      this.detailData.eventLevel = this.transTypeDic(this.detailData.eventLevel)
       this.open = true
       this.title = '事件详情'
     },

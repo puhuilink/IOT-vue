@@ -596,6 +596,7 @@ export default {
     },
     detail(row) {
       this.dataDetail = row
+      this.dataDetail.level = this.transTypeDic(this.dataDetail.level)
       this.open = true
       this.title = '事件详情'
     },

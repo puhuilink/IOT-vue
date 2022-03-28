@@ -340,7 +340,7 @@
           type="flex"
           justify="center"
         >
-          <span class="textarea">事件7525948311879681</span>
+          <span class="textarea">事件{{ detailData.eventId }}</span>
         </el-row>
         <el-divider />
         <el-row>
@@ -716,7 +716,6 @@ export default {
       const res = await dataSecurityManagementList(this.queryParams)
       this.groupList = res.rows
       this.total = res.total
-      console.log(this.groupList)
       this.loading = false
     },
     /** 查询分组列表 */
@@ -739,6 +738,7 @@ export default {
     async detail(id) {
       const { data } = await dataSecurityManagementDetail(id)
       this.detailData = data
+      this.detailData.eventLevel = this.transTypeDic(this.detailData.eventLevel)
       this.open = true
       this.title = '事件详情'
     },

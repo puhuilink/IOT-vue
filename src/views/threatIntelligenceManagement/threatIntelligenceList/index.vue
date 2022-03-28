@@ -323,114 +323,115 @@
       width="900px"
       append-to-body
     >
-      <el-form
-        ref="form"
-        label-width="95px"
-        label-position="left"
-      >
-        <el-row>
-          <el-col :span="12">
-            <el-form-item label="APT组织 :">
-              {{ detailData.aptOrganization }}
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
-            <el-form-item label="情报类型 :">
-              {{ detailData.intelligenceType }}
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
-            <el-form-item label="情报IOC :">
-              {{ detailData.intelligenceIoc }}
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
-            <el-form-item label="事件等级 :">
-              {{ detailData.eventLevel }}
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
-            <el-form-item label="攻击者IP :">
-              {{ detailData.attackerIp }}
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
-            <el-form-item label="攻击者国家 :">
-              {{ detailData.attackerState }}
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
-            <el-form-item label="受害者IP :">
-              {{ detailData.victimIp }}
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
-            <el-form-item label="受害者国家 :">
-              {{ detailData.victimCountry }}
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
-            <el-form-item label="源端口 :">
-              {{ detailData.sourcePort }}
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
-            <el-form-item label="目标端口 :">
-              {{ detailData.targetPort }}
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
-            <el-form-item label="协议 :">
-              {{ detailData.agreement }}
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
-            <el-form-item label="杀伤链阶段 :">
-              {{ detailData.killingChainStage }}
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
-            <el-form-item label="发生时间 :">
-              {{ detailData.happenTime }}
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
-            <el-form-item label="发现时间 :">
-              {{ detailData.discoveryTime }}
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
-            <el-form-item label="处置状态 :">
-              {{ detailData.disposalStatus }}
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
-            <el-form-item label="区域 :">
-              {{ detailData.region }}
-            </el-form-item>
-          </el-col>
-        </el-row>
-      </el-form>
-      <div
-        slot="footer"
-        class="dialog-footer"
-      >
-        <el-row
-          type="flex"
-          justify="center"
+      <div class="contentBox">
+        <el-form
+          ref="form"
+          label-width="95px"
+          label-position="left"
         >
-          <el-button
-            size="small"
-            type="primary"
-            @click="submitForm"
-          >确 定</el-button>
-          <el-button
-            size="small"
-            @click="cancel"
-          >取 消</el-button>
-        </el-row>
+          <el-row>
+            <el-col :span="12">
+              <el-form-item label="APT组织 :">
+                {{ detailData.aptOrganization }}
+              </el-form-item>
+            </el-col>
+            <el-col :span="12">
+              <el-form-item label="情报类型 :">
+                {{ detailData.intelligenceType }}
+              </el-form-item>
+            </el-col>
+            <el-col :span="12">
+              <el-form-item label="情报IOC :">
+                {{ detailData.intelligenceIoc }}
+              </el-form-item>
+            </el-col>
+            <el-col :span="12">
+              <el-form-item label="事件等级 :">
+                {{ detailData.eventLevel }}
+              </el-form-item>
+            </el-col>
+            <el-col :span="12">
+              <el-form-item label="攻击者IP :">
+                {{ detailData.attackerIp }}
+              </el-form-item>
+            </el-col>
+            <el-col :span="12">
+              <el-form-item label="攻击者国家 :">
+                {{ detailData.attackerState }}
+              </el-form-item>
+            </el-col>
+            <el-col :span="12">
+              <el-form-item label="受害者IP :">
+                {{ detailData.victimIp }}
+              </el-form-item>
+            </el-col>
+            <el-col :span="12">
+              <el-form-item label="受害者国家 :">
+                {{ detailData.victimCountry }}
+              </el-form-item>
+            </el-col>
+            <el-col :span="12">
+              <el-form-item label="源端口 :">
+                {{ detailData.sourcePort }}
+              </el-form-item>
+            </el-col>
+            <el-col :span="12">
+              <el-form-item label="目标端口 :">
+                {{ detailData.targetPort }}
+              </el-form-item>
+            </el-col>
+            <el-col :span="12">
+              <el-form-item label="协议 :">
+                {{ detailData.agreement }}
+              </el-form-item>
+            </el-col>
+            <el-col :span="12">
+              <el-form-item label="杀伤链阶段 :">
+                {{ detailData.killingChainStage }}
+              </el-form-item>
+            </el-col>
+            <el-col :span="12">
+              <el-form-item label="发生时间 :">
+                {{ detailData.happenTime }}
+              </el-form-item>
+            </el-col>
+            <el-col :span="12">
+              <el-form-item label="发现时间 :">
+                {{ detailData.discoveryTime }}
+              </el-form-item>
+            </el-col>
+            <el-col :span="12">
+              <el-form-item label="处置状态 :">
+                {{ detailData.disposalStatus }}
+              </el-form-item>
+            </el-col>
+            <el-col :span="12">
+              <el-form-item label="区域 :">
+                {{ detailData.region }}
+              </el-form-item>
+            </el-col>
+          </el-row>
+        </el-form>
+        <div
+          slot="footer"
+          class="dialog-footer"
+        >
+          <el-row
+            type="flex"
+            justify="center"
+          >
+            <el-button
+              size="small"
+              type="primary"
+              @click="submitForm"
+            >确 定</el-button>
+            <el-button
+              size="small"
+              @click="cancel"
+            >取 消</el-button>
+          </el-row>
+        </div>
       </div>
-
     </el-dialog>
   </div>
 </template>
@@ -646,7 +647,7 @@ export default {
     async detail(id) {
       const { data } = await ThreatIntelligenceDetail(id)
       this.detailData = data
-
+      this.detailData.eventLevel = this.transTypeDic(this.detailData.eventLevel)
       this.open = true
       this.title = '事件详情'
     },

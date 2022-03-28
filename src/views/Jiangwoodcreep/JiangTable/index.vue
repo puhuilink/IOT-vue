@@ -323,7 +323,7 @@
         <el-row>
           <el-col :span="8">
             <el-form-item label="事件名称 :">
-              {{ detailData.eventName }}
+              <tooltip :content="detailData.eventName" :length="20" />
             </el-form-item>
           </el-col>
           <el-col :span="8">
@@ -659,6 +659,8 @@ export default {
     async detail(id) {
       const { data } = await StiffWoodCreepDetail(id)
       this.detailData = data
+      this.detailData.threatClassification = this.translevelDic(this.detailData.threatClassification)
+      this.detailData.eventLevel = this.transTypeDic(this.detailData.eventLevel)
       this.open = true
       this.title = '事件详情'
     },
