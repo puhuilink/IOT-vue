@@ -5,7 +5,7 @@
         <el-row :gutter="20">
           <el-form
             ref="elForm"
-            :model="formData"
+            :model="queryParams"
             :rules="rules"
             size="mini"
             label-width="100px"
@@ -18,7 +18,7 @@
                 prop="id"
               >
                 <el-input
-                  v-model="formData.id"
+                  v-model="queryParams.notificationManagementId"
                   placeholder="请输入通报编号"
                   clearable
                   :style="{width: '100%'}"
@@ -27,18 +27,18 @@
             </el-col>
             <el-col :span="6">
               <el-form-item
-                label="通报类型："
-                prop="area"
+                label="事件类型："
+                prop="eventType"
               >
                 <el-select
-                  v-model="formData.area"
-                  placeholder="请选择通报类型"
+                  v-model="queryParams.eventType"
+                  placeholder="请选择事件类型"
                   filterable
                   clearable
                   :style="{width: '100%'}"
                 >
                   <el-option
-                    v-for="(item, index) in areaOptions"
+                    v-for="(item, index) in eventTypeOptions"
                     :key="index"
                     :label="item.label"
                     :value="item.value"
@@ -53,7 +53,7 @@
                 prop="name"
               >
                 <el-input
-                  v-model="formData.name"
+                  v-model="queryParams.eventName"
                   placeholder="请输入通报名称"
                   clearable
                   :style="{width: '100%'}"
@@ -66,17 +66,17 @@
                 prop="level"
               >
                 <el-select
-                  v-model="formData.level"
+                  v-model="queryParams.notificationStatus"
                   placeholder="请选择通报状态"
                   filterable
                   clearable
                   :style="{width: '100%'}"
                 >
                   <el-option
-                    v-for="(item, index) in levelOptions"
+                    v-for="(item, index) in notificationStatusOptions"
                     :key="index"
                     :label="item.label"
-                    :value="item.value"
+                    :value="item.label"
                     :disabled="item.disabled"
                   />
                 </el-select>
@@ -88,7 +88,7 @@
                 prop="type"
               >
                 <el-input
-                  v-model="formData.type"
+                  v-model="queryParams.leader"
                   placeholder="请输入创建人"
                   clearable
                   :style="{width: '100%'}"
@@ -98,24 +98,20 @@
 
             <el-col :span="6">
               <el-form-item
-                label="上报时间："
-                prop="area"
+                label="时间:"
+                prop="date"
               >
-                <el-select
-                  v-model="formData.area"
-                  placeholder="请选择上报时间"
-                  filterable
-                  clearable
+                <el-time-picker
+                  v-model="queryParams.date"
+                  is-range
+                  format="HH:mm:ss"
+                  value-format="HH:mm:ss"
                   :style="{width: '100%'}"
-                >
-                  <el-option
-                    v-for="(item, index) in areaOptions"
-                    :key="index"
-                    :label="item.label"
-                    :value="item.value"
-                    :disabled="item.disabled"
-                  />
-                </el-select>
+                  start-placeholder="开始时间"
+                  end-placeholder="结束时间"
+                  range-separator="至"
+                  clearable
+                />
               </el-form-item>
             </el-col>
             <el-col :span="6">
@@ -135,14 +131,12 @@
         >
           <el-col :span="1.5">
             <el-button
-              v-hasPermi="['system:user:export']"
               type="primary"
               size="mini"
             >导出</el-button>
           </el-col>
           <el-col :span="1.5">
             <el-button
-              v-hasPermi="['system:user:add']"
               type="primary"
               size="mini"
               @click="handleAdd"
@@ -150,14 +144,12 @@
           </el-col>
           <el-col :span="1.5">
             <el-button
-              v-hasPermi="['system:user:remove']"
               type="primary"
               size="mini"
             >删除</el-button>
           </el-col>
           <el-col :span="1.5">
             <el-button
-              v-hasPermi="['system:user:remove']"
               type="primary"
               size="mini"
             >上报</el-button>
@@ -176,51 +168,54 @@
       />
       <el-table-column
         label="通报编号"
-        type="index"
+        prop="notificationManagementId"
+        :show-overflow-tooltip="true"
         min-width="10%"
+        align="center"
       />
       <el-table-column
         label="通报名称"
         align="center"
-        prop="notifiedName"
+        prop="notificationName"
         :show-overflow-tooltip="true"
         min-width="10%"
       />
       <el-table-column
         label="上报时间"
         align="center"
-        prop="createTime"
+        prop=" reportingTime "
         :show-overflow-tooltip="true"
         min-width="10%"
       />
       <el-table-column
         label="事件类型"
         align="center"
-        prop="type"
+        prop="eventType"
         min-width="10%"
       />
       <el-table-column
         label="事件名称"
         align="center"
-        prop="name"
+        prop="eventName"
+        :show-overflow-tooltip="true"
         min-width="10%"
       />
       <el-table-column
         label="优先级"
         align="center"
-        prop="level"
+        prop="priority"
         min-width="8%"
       />
       <el-table-column
         label="通报状态"
         align="center"
-        prop="state"
+        prop="notificationStatus"
         min-width="10%"
       />
       <el-table-column
         label="创建人"
         align="center"
-        prop="creator"
+        prop="leader"
         min-width="8%"
       />
       <el-table-column
@@ -233,7 +228,7 @@
       <el-table-column
         label="创建时间"
         align="center"
-        prop="createTime"
+        prop="creationTime"
         min-width="10%"
         :show-overflow-tooltip="true"
       />
@@ -249,16 +244,16 @@
         class-name="small-padding fixed-width"
         min-width="22%"
       >
-        <template>
+        <template #default="scope">
           <el-button
             size="mini"
             type="text"
-            @click="lookdetail()"
+            @click="lookdetail(scope.row)"
           >查看</el-button>
           <el-button
             size="mini"
             type="text"
-            @click="edit()"
+            @click="edit(scope.row)"
           >编辑</el-button>
           <el-button
             size="mini"
@@ -267,7 +262,7 @@
           <el-button
             size="mini"
             type="text"
-            @click="end()"
+            @click="end(scope.row)"
           >完成</el-button>
         </template>
       </el-table-column>
@@ -300,7 +295,7 @@
             prop="userId"
           >
             <el-input
-              v-model="form.userId"
+              v-model="form.eventName"
               placeholder=""
             />
           </el-form-item>
@@ -316,10 +311,10 @@
               :style="{width: '100%'}"
             >
               <el-option
-                v-for="(item, index) in reportTypeOptions"
+                v-for="(item, index) in eventTypeOptions"
                 :key="index"
                 :label="item.label"
-                :value="item.value"
+                :value="item.label"
                 :disabled="item.disabled"
               />
             </el-select>
@@ -412,7 +407,7 @@
       <div class="contentBox">
         <el-form
           ref="form"
-          :model="dataTest"
+          :model="detailData"
           :rules="rules"
           label-width="110px"
           class="label-type"
@@ -420,77 +415,53 @@
           <el-row>
             <el-col :span="12">
               <el-form-item label="通报名称 :">
-                {{ dataTest.name }}
+                {{ detailData.notificationName }}
               </el-form-item>
             </el-col>
-            <!-- <el-col v-else
-                    :span="12">
-              <el-form-item label="通报名称 :">
-                <el-input v-model="dataTest.name"
-                          placeholder="" />
-              </el-form-item>
-            </el-col> -->
             <el-col :span="12">
               <el-form-item label="事件类型 :">
-                {{ dataTest.name1 }}
+                {{ detailData. eventType }}
               </el-form-item>
             </el-col>
             <el-col :span="12">
               <el-form-item label="事件名称 :">
-                {{ dataTest.name2 }}
+                {{ detailData.eventName }}
               </el-form-item>
             </el-col>
             <el-col :span="12">
               <el-form-item label="优先级 :">
-                {{ dataTest.name3 }}
+                {{ detailData.priority }}
               </el-form-item>
             </el-col>
-            <!-- <el-col v-else
-                    :span="12">
-              <el-form-item label="优先级:"
-                            prop="remark">
-                <el-select v-model="dataTest.name3"
-                           placeholder=""
-                           filterable
-                           clearable
-                           :style="{width: '100%'}">
-                  <el-option v-for="(item, index) in reportLevelOptions"
-                             :key="index"
-                             :label="item.label"
-                             :value="item.value"
-                             :disabled="item.disabled" />
-                </el-select>
-              </el-form-item>
-            </el-col> -->
             <el-col :span="12">
               <el-form-item label="通报状态 :">
-                {{ dataTest.name4 }}
+                {{ detailData. notificationStatus }}
               </el-form-item>
             </el-col>
             <el-col :span="12">
               <el-form-item label="创建人 :">
-                {{ dataTest.name5 }}
+                {{ detailData.leader }}
               </el-form-item>
             </el-col>
             <el-col :span="12">
               <el-form-item label="创建时间 :">
-                {{ dataTest.name6 }}
+                {{ detailData. creationTime }}
               </el-form-item>
             </el-col>
             <el-col :span="12">
               <el-form-item label="上报时间 :">
-                {{ dataTest.name7 }}
+                {{ detailData. reportingTime }}
               </el-form-item>
             </el-col>
             <el-col :span="12">
               <el-form-item label="最近更新时间 :">
-                {{ dataTest.name8 }}
+                {{ detailData. updateTime }}
               </el-form-item>
             </el-col>
             <el-col :span="24">
               <el-form-item label="备注 :">
-                {{ dataTest.name9 }}
-                <!-- <el-input v-model="dataTest.message"
+                {{ detailData.remark }}
+                <!-- <el-input v-model="detailData.message"
                           placeholder=""
                           type="textarea" /> -->
               </el-form-item>
@@ -541,18 +512,7 @@ export default {
     return {
       loading: true,
       name: '测试',
-      dataTest: {
-        name: '漏洞通报',
-        name1: '漏洞',
-        name2: '漏洞2022-01-19',
-        name3: '极高',
-        name4: '已通报',
-        name5: '管理员',
-        name6: '2021/12/25 08:00:00',
-        name7: '2021/12/25 0:00:00',
-        name8: '2021/12/26 08:00:00',
-        name9: '',
-        message: ''
+      detailData: {
       },
       fileList: [],
       // 分组表格数据
@@ -572,28 +532,11 @@ export default {
       queryParams: {
         pageNum: 1,
         pageSize: 10,
-        userId: null,
-        orderByColumn: 'happen_time',
-        isAsc: 'desc',
-        groupName: null,
-        createTime: null
+        orderByColumn: 'creation_time ',
+        isAsc: 'desc'
       },
       // 表单参数
       form: {},
-      formData: {
-        id: undefined,
-        name: undefined,
-        level: undefined,
-        type: undefined,
-        area: undefined,
-        agreement: undefined,
-        ip: undefined,
-        operating: undefined,
-        newip: undefined,
-        equipment: undefined,
-        date: [''],
-        field114: undefined
-      },
       rules: {
         name: [],
         level: [],
@@ -606,103 +549,66 @@ export default {
         date: [],
         field114: []
       },
-      typeOptions: [{
-        'label': '正常',
+      notificationStatusOptions: [{
+        'label': '已通报',
         'value': 1
       }, {
-        'label': '极高危',
+        'label': '未通报',
         'value': 2
-      }, {
-        'label': '中危',
-        'value': 3
-      }, {
-        'label': '2021-12-25 09:00:00',
-        'value': 4
-      }, {
-        'label': '失陷',
-        'value': 5
-      }],
-      reportTypeOptions: [{
-        'label': '通用',
-        'value': 1
-      }, {
-        'label': '漏洞',
-        'value': 2
-      }, {
-        'label': '告警',
-        'value': 3
-      }, {
-        'label': '弱口令',
-        'value': 4
-      }, {
-        'label': '配置审核',
-        'value': 5
       }],
       reportLevelOptions: [{
-        'label': '极高',
-        'value': 1
-      }, {
-        'label': '高',
-        'value': 2
-      }, {
-        'label': '中',
-        'value': 3
-      }, {
-        'label': '低',
-        'value': 4
-      }],
-      levelOptions: [{
         'label': '正常',
         'value': 1
-      }, {
-        'label': '极高危',
-        'value': 2
       }, {
         'label': '中危',
         'value': 3
       }, {
-        'label': '2021-12-25 09:00:00',
+        'label': '高危',
         'value': 4
+      }, {
+        'label': '极高危',
+        'value': 2
       }, {
         'label': '失陷',
         'value': 5
       }],
-      statusptions: [{
-        'label': '极高',
-        'value': 1
-      }, {
-        'label': '不极高',
-        'value': 2
-      }, {
-        'label': '手动',
-        'value': 3
-      }, {
-        'label': '失败',
-        'value': 4
-      }],
-      areaOptions: [{
-        'label': '北京',
-        'value': 1
-      }, {
-        'label': '重庆',
-        'value': 2
-      }],
-      field114Options: [{
-        'label': '2021-12-25 08:00:00',
-        'value': 1
-      }, {
-        'label': '处置中',
-        'value': 2
-      }, {
-        'label': '已处置',
-        'value': 3
-      }],
       reportOptions: [{
-        'label': '是',
+        'label': '已上报',
         'value': 1
       }, {
-        'label': '否',
+        'label': '未上报',
+        'value': 3
+      }],
+      eventTypeOptions: [{
+        'label': '僵木蠕事件',
+        'value': 1
+      }, {
+        'label': '弱口令事件',
         'value': 2
+      }, {
+        'label': '漏洞事件',
+        'value': 1
+      }, {
+        'label': '主机安全事件',
+        'value': 1
+      }, {
+        'label': '配置核查事件',
+        'value': 1
+      }, {
+        'label': '异常行为事件',
+        'value': 1
+      }, {
+        'label': '威胁情报事件',
+        'value': 1
+      }, {
+        'label': '入侵诱捕事件',
+        'value': 1
+      }, {
+        'label': '数据安全事件',
+        'value': 1
+      }, {
+        'label': '工业网络审计事件',
+        'value': 1
       }]
     }
   },
@@ -734,30 +640,31 @@ export default {
       this.title = '新增通报'
     },
     /** 查看按钮操作 */
-    lookdetail() {
+    lookdetail(row) {
       this.openlook = true
+      this.detailData = row
       this.title = '通报详情'
       this.editTrue = false
-      this.dataTest.name4 = '已通报'
-      this.dataTest.message = ''
+      this.detailData.name4 = '已通报'
+      this.detailData.message = ''
       this.upload = false
     },
     /** 编辑按钮操作 */
-    edit() {
+    edit(row) {
       this.openlook = true
       this.title = '编辑通报'
       this.editTrue = false
-      this.dataTest.name4 = '未通报'
-      this.dataTest.message = '这是一个备注'
+      this.detailData.name4 = '未通报'
+      this.detailData.message = '这是一个备注'
       this.upload = false
     },
     /** 完成按钮操作 */
-    end() {
+    end(row) {
       this.openlook = true
       this.title = '完结通报'
       this.editTrue = true
-      this.dataTest.name4 = '已通报'
-      this.dataTest.message = ''
+      this.detailData.name4 = '已通报'
+      this.detailData.message = ''
       this.upload = true
     },
     // 取消按钮

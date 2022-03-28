@@ -50,7 +50,7 @@
                   prop="userName"
                 >
                   <el-select
-                    v-model="formData.region"
+                    v-model="queryParams.region"
                     placeholder="请选择区域"
                     filterable
                     clearable
@@ -72,13 +72,13 @@
                   prop="ipaddr"
                 >
                   <el-select
-                    v-model="formData.disposalStatus"
+                    v-model="queryParams.disposalStatus"
                     placeholder="请选择处置状态"
                     clearable
                     :style="{ width: '100%' }"
                   >
                     <el-option
-                      v-for="(item, index) in field114Options"
+                      v-for="(item, index) in disposalStatusOptions"
                       :key="index"
                       :label="item.label"
                       :value="item.value"
@@ -93,7 +93,7 @@
                   prop="userName"
                 >
                   <el-select
-                    v-model="formData.level"
+                    v-model="queryParams.eventLevel"
                     placeholder="请选择事件等级"
                     filterable
                     clearable
@@ -114,21 +114,13 @@
                   label="事件类型："
                   prop="userName"
                 >
-                  <el-select
-                    v-model="formData.type"
-                    placeholder="请选择事件类型"
-                    filterable
+                  <el-input
+                    v-model="queryParams.eventCategory"
+                    placeholder="请输入事件类型"
                     clearable
                     :style="{ width: '100%' }"
-                  >
-                    <el-option
-                      v-for="(item, index) in levelOptions"
-                      :key="index"
-                      :label="item.label"
-                      :value="item.value"
-                      :disabled="item.disabled"
-                    />
-                  </el-select>
+                    @keyup.enter.native="handleQuery"
+                  />
                 </el-form-item>
               </el-col>
               <el-col :span="9">
@@ -137,7 +129,7 @@
                   prop="userName"
                 >
                   <el-time-picker
-                    v-model="formData.date"
+                    v-model="queryParams.date"
                     is-range
                     format="HH:mm:ss"
                     value-format="HH:mm:ss"
@@ -533,7 +525,7 @@
             <el-col :span="12">
               <el-form-item
                 label="接收时间："
-                prop="field114"
+                prop="disposalStatus"
               >
                 <el-input
                   v-model="dialogDetail.receivingTime"
@@ -635,10 +627,23 @@ export default {
         groupName: null,
         createTime: null
       },
-      formData: {
-        level: ''
-      },
-      field114Options: [{
+      levelOptions: [{
+        'label': '正常',
+        'value': 1
+      }, {
+        'label': '低危',
+        'value': 2
+      }, {
+        'label': '中危',
+        'value': 3
+      }, {
+        'label': '高危',
+        'value': 4
+      }, {
+        'label': '失陷',
+        'value': 5
+      }],
+      disposalStatusOptions: [{
         'label': '未处置',
         'value': 1
       }, {
@@ -655,16 +660,16 @@ export default {
         'value': 6
       }],
       areaOptions: [{
-        'label': '海投轨交',
+        'label': '三亚海投轨交',
         'value': 1
       }, {
-        'label': '深中通道',
+        'label': '珠海深中通道',
         'value': 2
       }, {
-        'label': '山西燃气厂',
+        'label': '山西三通燃气厂',
         'value': 1
       }, {
-        'label': '北京污水处理厂',
+        'label': '北京城乡水厂',
         'value': 1
       }, {
         'label': '天津管片厂',

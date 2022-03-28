@@ -72,16 +72,16 @@
             <el-col :span="6">
               <el-form-item
                 label="处置状态:"
-                prop="field114"
+                prop="disposalStatus"
               >
                 <el-select
-                  v-model="queryParams.field114"
+                  v-model="queryParams.disposalStatus"
                   placeholder="请选择处置状态"
                   clearable
                   :style="{width: '100%'}"
                 >
                   <el-option
-                    v-for="(item, index) in field114Options"
+                    v-for="(item, index) in disposalStatusOptions"
                     :key="index"
                     :label="item.label"
                     :value="item.label"
@@ -394,7 +394,7 @@ export default {
         newip: [],
         equipment: [],
         date: [],
-        field114: []
+        disposalStatus: []
       },
       levelOptions: [{
         'label': '正常',
@@ -413,22 +413,22 @@ export default {
         'value': 5
       }],
       areaOptions: [{
-        'label': '海投轨交',
+        'label': '三亚海投轨交',
         'value': 1
       }, {
-        'label': '深中通道',
+        'label': '珠海深中通道',
         'value': 2
       }, {
-        'label': '山西燃气厂',
+        'label': '山西三通燃气厂',
         'value': 1
       }, {
-        'label': '北京污水处理厂',
+        'label': '北京城乡水厂',
         'value': 1
       }, {
         'label': '天津管片厂',
         'value': 1
       }],
-      field114Options: [{
+      disposalStatusOptions: [{
         'label': '未处置',
         'value': 1
       }, {
