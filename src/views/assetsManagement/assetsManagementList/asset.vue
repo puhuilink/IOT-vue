@@ -939,7 +939,7 @@ export default {
           deptName: '防火墙',
           ipaddr: '安全设备-工业防火墙',
           loginLocation: '在线',
-          fxzt: '失陷',
+          fxzt: '致命',
           os: '致命',
           xt: 'WOS',
           yyxy: 'S7',
@@ -990,7 +990,7 @@ export default {
           deptName: '防火墙',
           ipaddr: '安全设备-工业防火墙',
           loginLocation: '在线',
-          fxzt: '失陷',
+          fxzt: '致命',
           os: '致命',
           xt: 'WOS',
           yyxy: 'S7',
@@ -1080,8 +1080,8 @@ export default {
       //     value: '高危'
       //   },
       //   {
-      //     label: '失陷',
-      //     value: '失陷'
+      //     label: '致命',
+      //     value: '致命'
       //   }
       // ],
       levelOptions: [
@@ -1189,7 +1189,7 @@ export default {
         name6: 'MODBUS协议',
         name7: '工业网络审计',
         name8: '10.255.52.83',
-        name9: '失陷',
+        name9: '致命',
         name10: '山西燃气厂',
         name11: '待处置',
         name12: '2022-02-22',

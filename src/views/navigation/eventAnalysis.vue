@@ -34,7 +34,7 @@
             <div class="tip1 flex j-s a-c">
               <span class="text">通报率</span>
               <br>
-              <span class="textNumber">69.3%</span>
+              <span class="textNumber">100%</span>
 
             </div>
           </el-col>
@@ -42,7 +42,7 @@
             <div class="tip2 flex j-s a-c">
               <span class="text">事件总数</span>
               <br>
-              <span class="textNumber">3200</span>
+              <span class="textNumber">486</span>
 
             </div>
           </el-col>
@@ -50,7 +50,7 @@
             <div class="tip3 flex j-s a-c">
               <span class="text">通报数</span>
               <br>
-              <span class="textNumber">2217.6</span>
+              <span class="textNumber">486</span>
             </div>
           </el-col>
           <el-col :span="6">
@@ -62,13 +62,46 @@
             </div>
           </el-col>
         </el-row>
-        <el-table :data="groupList" height="360">
-          <el-table-column label="通报编号" align="center" prop="userId" min-width="15%" />
-          <el-table-column label="事件名称" align="center" prop="groupOrder" min-width="20%" />
-          <el-table-column label="事件类型" align="center" prop="groupName" min-width="15%" />
-          <el-table-column label="优先级" align="center" prop="groupId" min-width="10%" />
-          <el-table-column label="通报状态" align="center" prop="searchValue" min-width="15%" />
-          <el-table-column label="最近更新时间" align="center" prop="delFlag" min-width="25%" />
+        <el-table :data="groupList" height="360" tooltip-effect="light">
+          <el-table-column
+            label="通报名称"
+            align="center"
+            prop="notificationName"
+            :show-overflow-tooltip="true"
+            min-width="10%"
+          />
+          <el-table-column
+            label="事件名称"
+            align="center"
+            prop="eventName"
+            :show-overflow-tooltip="true"
+            min-width="10%"
+          />
+          <el-table-column
+            label="事件类型"
+            align="center"
+            prop="eventType"
+            min-width="10%"
+          />
+          <el-table-column
+            label="优先级"
+            align="center"
+            prop="priority"
+            min-width="8%"
+          />
+          <el-table-column
+            label="通报状态"
+            align="center"
+            prop="notificationStatus"
+            min-width="10%"
+          />
+          <el-table-column
+            label="最近更新时间"
+            align="center"
+            prop="updateTime"
+            min-width="15%"
+            :show-overflow-tooltip="true"
+          />
         </el-table>
       </div>
     </el-col>
@@ -76,6 +109,7 @@
 </template>
 <script>
 import funnel from '@/components/Echarts/funnel'
+import { notificationList } from '@/api/system/list'
 import tree from '@/components/Echarts/tree'
 import treecopy from '@/components/Echarts/treeCopy'
 import tip from '@/components/EchartsTip'
@@ -92,6 +126,13 @@ export default {
       formData: {
         date: '最近30天'
       },
+      // 查询参数
+      queryParams: {
+        pageNum: 1,
+        pageSize: 6,
+        orderByColumn: 'creation_time ',
+        isAsc: 'desc'
+      },
       dateOptions: [{
         'label': '最近一天',
         'value': 1
@@ -104,21 +145,24 @@ export default {
       }],
       policitalStatus: ['1'],
       address: 1,
-      groupList: [{ 'searchValue': '已完成', 'remark': '已完成', 'groupId': '极低', 'userId': '1', 'groupName': '僵木蠕', 'groupOrder': '僵木蠕通报', 'delFlag': '2022-01-29 10:10:00' },
-        { 'searchValue': '已完成', 'remark': '已完成', 'groupId': '极低', 'userId': '2', 'groupName': '僵木蠕', 'groupOrder': '僵木蠕通报', 'delFlag': '2022-01-29 10:10:00' },
-        { 'searchValue': '已完成', 'remark': '已完成', 'groupId': '极低', 'userId': '3', 'groupName': '僵木蠕', 'groupOrder': '僵木蠕通报', 'delFlag': '2022-01-29 10:10:00' },
-        { 'searchValue': '已完成', 'remark': '已完成', 'groupId': '极低', 'userId': '4', 'groupName': '僵木蠕', 'groupOrder': '僵木蠕通报', 'delFlag': '2022-01-29 10:10:00' },
-        { 'searchValue': '已完成', 'remark': '已完成', 'groupId': '极低', 'userId': '3', 'groupName': '僵木蠕', 'groupOrder': '僵木蠕通报', 'delFlag': '2022-01-29 10:10:00' }]
+      groupList: []
     }
   },
   computed: {},
   watch: {},
   created() {
-
+    this.getCategoryList()
   },
   mounted() {
   },
   methods: {
+    getCategoryList() {
+      this.loading = true
+      notificationList(this.queryParams).then((response) => {
+        this.groupList = response.rows
+        this.loading = false
+      })
+    },
     log() {
       this.$router.push('/safety/InformManagement')
     }

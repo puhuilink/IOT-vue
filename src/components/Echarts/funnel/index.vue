@@ -6,24 +6,24 @@
         <img :src="showPhoto" style="position: absolute;top:200px;left:-100px" alt="HIGH">
         <img :src="showPhoto" style="position: absolute;top:240px;left:-100px" alt="HIGH">
         <div id="text" style="position: absolute; top: 205px; left: -90px;color:#158CC6;font-weight: bold;font-size: 12px; font-family:Microsoft YaHei;">操作异常事件</div>
-        <div id="text" style="position: absolute; top: 205px; left: 10px;color:#402165;font-weight: bold;font-size: 14px; font-family:Microsoft YaHei;">90000</div>
+        <div id="text" style="position: absolute; top: 205px; left: 10px;color:#402165;font-weight: bold;font-size: 14px; font-family:Microsoft YaHei;">17133</div>
         <div id="text" style="position: absolute; top: 245px; left: -90px;color:#158CC6;font-weight: bold;font-size: 12px; font-family:Microsoft YaHei;">数据异常事件</div>
-        <div id="text" style="position: absolute; top: 245px; left: 10px;color:#402165;font-weight: bold;font-size: 14px; font-family:Microsoft YaHei;">90000</div>
+        <div id="text" style="position: absolute; top: 245px; left: 10px;color:#402165;font-weight: bold;font-size: 14px; font-family:Microsoft YaHei;">11422</div>
         <div id="text" style="position: absolute; top: 15px; left: 161px;color:#FFFFFF;font-size: 16px; font-family:Microsoft YaHei;">日志接入量</div>
-        <div id="text" style="position: absolute; top: 30px; left: 145px;color:#FFFFFF;font-size: 28px; font-family:Microsoft YaHei;">718.79亿</div>
+        <div id="text" style="position: absolute; top: 30px; left: 145px;color:#FFFFFF;font-size: 28px; font-family:Microsoft YaHei;">26877958</div>
         <div id="text" style="position: absolute; top: 90px; left: 162px;color:#FFFFFF;font-size: 16px; font-family:Microsoft YaHei;">安全告警</div>
-        <div id="text" style="position: absolute; top: 105px; left: 157px;color:#FFFFFF;font-size: 28px; font-family:Microsoft YaHei;">5.03亿</div>
+        <div id="text" style="position: absolute; top: 105px; left: 157px;color:#FFFFFF;font-size: 28px; font-family:Microsoft YaHei;">69752391</div>
         <div id="text" style="position: absolute; top: 165px; left: 162px;color:#FFFFFF;font-size: 16px; font-family:Microsoft YaHei;">有效告警</div>
-        <div id="text" style="position: absolute; top: 180px; left: 140px;color:#FFFFFF;font-size: 28px; font-family:Microsoft YaHei;">2415134</div>
+        <div id="text" style="position: absolute; top: 180px; left: 140px;color:#FFFFFF;font-size: 28px; font-family:Microsoft YaHei;">3415134</div>
         <div id="text" style="position: absolute; top: 240px; left: 162px;color:#FFFFFF;font-size: 16px; font-family:Microsoft YaHei;">安全事件</div>
-        <div id="text" style="position: absolute; top: 255px; left: 140px;color:#FFFFFF;font-size: 28px; font-family:Microsoft YaHei;">2415134</div>
+        <div id="text" style="position: absolute; top: 255px; left: 140px;color:#FFFFFF;font-size: 28px; font-family:Microsoft YaHei;">57113</div>
         <img :src="showPhoto2" alt="HIGH">
         <img :src="showPhoto" style="position: absolute;top:200px;left:320px" alt="HIGH">
         <img :src="showPhoto" style="position: absolute;top:240px;left:320px" alt="HIGH">
         <div id="text" style="position: absolute; top: 205px; left: 325px;color:#158CC6;font-weight: bold;font-size: 12px; font-family:Microsoft YaHei;">恶意软件事件</div>
-        <div id="text" style="position: absolute; top: 205px; left: 425px;color:#402165;font-weight: bold;font-size: 14px; font-family:Microsoft YaHei;">50000</div>
+        <div id="text" style="position: absolute; top: 205px; left: 425px;color:#402165;font-weight: bold;font-size: 14px; font-family:Microsoft YaHei;">5712</div>
         <div id="text" style="position: absolute; top: 245px; left: 325px;color:#158CC6;font-weight: bold;font-size: 12px; font-family:Microsoft YaHei;">其他事件</div>
-        <div id="text" style="position: absolute; top: 245px; left: 425px;color:#402165;font-weight: bold;font-size: 14px; font-family:Microsoft YaHei;">115134</div>
+        <div id="text" style="position: absolute; top: 245px; left: 425px;color:#402165;font-weight: bold;font-size: 14px; font-family:Microsoft YaHei;">22845</div>
       </div>
     </div>
   </el-col>

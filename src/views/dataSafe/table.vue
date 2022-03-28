@@ -340,7 +340,7 @@
           type="flex"
           justify="center"
         >
-          <span class="textarea">事件7525948311879681</span>
+          <span class="textarea">事件{{ detailData.eventId }}</span>
         </el-row>
         <el-divider />
         <el-row>
@@ -592,7 +592,7 @@ export default {
           value: 4
         },
         {
-          label: '失陷',
+          label: '致命',
           value: 5
         }
       ],
@@ -673,7 +673,7 @@ export default {
     transTypeDic(val) {
       var t = [{
         name: '1',
-        content: '正常'
+        content: '极低'
       }, {
         name: '2',
         content: '低危'
@@ -685,7 +685,7 @@ export default {
         content: '高危'
       }, {
         name: '5',
-        content: '失陷'
+        content: '致命'
       }]
       const orgTreeData1 = t.filter((e) => e.name === val)
         .map(({ content }) => ({
@@ -716,7 +716,6 @@ export default {
       const res = await dataSecurityManagementList(this.queryParams)
       this.groupList = res.rows
       this.total = res.total
-      console.log(this.groupList)
       this.loading = false
     },
     /** 查询分组列表 */
@@ -739,6 +738,7 @@ export default {
     async detail(id) {
       const { data } = await dataSecurityManagementDetail(id)
       this.detailData = data
+      this.detailData.eventLevel = this.transTypeDic(this.detailData.eventLevel)
       this.open = true
       this.title = '事件详情'
     },

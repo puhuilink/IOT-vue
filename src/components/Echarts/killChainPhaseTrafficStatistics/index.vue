@@ -2,8 +2,10 @@
 <template>
   <el-col :span="12">
     <tip>{{ tipname }}</tip>
-    <div ref="canvas1"
-         style="height: 400px" />
+    <div
+      ref="canvas1"
+      style="height: 400px"
+    />
   </el-col>
 </template>
 <script>
@@ -33,7 +35,7 @@ export default {
       type: Number
     }
   },
-  data () {
+  data() {
     return {
       policitalStatus: ['1'],
       barData: [],
@@ -48,7 +50,7 @@ export default {
   computed: {},
   watch: {
     query: {
-      handler (val, oldVal) {
+      handler(val, oldVal) {
         this.queryParms = this.query
         if (val !== oldVal) {
           this.getData()
@@ -66,17 +68,17 @@ export default {
     //   deep: true
     // }
   },
-  created () {
+  created() {
     this.getData()
   },
-  mounted () {
+  mounted() {
     this.drawPolicitalStatus()
   },
   methods: {
-    transTypeDic (data) {
+    transTypeDic(data) {
       var t = [{
         name: '1',
-        content: '正常'
+        content: '极低'
       }, {
         name: '2',
         content: '低危'
@@ -88,7 +90,7 @@ export default {
         content: '高危'
       }, {
         name: '5',
-        content: '失陷'
+        content: '致命'
       }]
       var arr = data
       var arrNew = []
@@ -109,14 +111,14 @@ export default {
       })
       return arrNew
     },
-    transDicCount (data) {
+    transDicCount(data) {
       var area = []
       data.forEach((item) => {
         area.push(item.count)
       })
       return area
     },
-    async getData () {
+    async getData() {
       await KillChain(this.queryParms).then(({ data }) => {
         this.hasData = data
         if (data.length) {
@@ -175,9 +177,8 @@ export default {
       })
       this.drawPolicitalStatus()
     },
-    async drawPolicitalStatus () {
+    async drawPolicitalStatus() {
       if (this.hasData.length) {
-
         // 基于准备好的dom，初始化echarts实例
         // const { data } = await KillChain()
         // this.category = [450, 50, 650, 780, 150, 1000, 800],
@@ -259,7 +260,7 @@ export default {
             }
           ]
         })
-        window.addEventListener('resize', function () {
+        window.addEventListener('resize', function() {
           myChart.resize()
         })
       } else {

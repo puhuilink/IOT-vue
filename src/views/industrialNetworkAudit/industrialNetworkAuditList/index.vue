@@ -362,7 +362,7 @@
         <el-row :gutter="25">
           <el-form
             ref="elForm"
-            :model="dialogDetail"
+            :model="detailData"
             size="mini"
             label-width="133px"
           >
@@ -371,23 +371,14 @@
                 label="源IP："
                 prop="sourceIp"
               >
-                <el-input
-                  v-model="dialogDetail.sourceIp"
-                  readonly
-                  :style="{ width: '100%' }"
-                />
+                <tooltip :content="detailData.sourceIp" :length="20" />
               </el-form-item>
             </el-col>
             <el-col :span="12">
               <el-form-item
                 label="源设备："
-                prop="field102"
               >
-                <el-input
-                  v-model="dialogDetail.sourceDevice"
-                  readonly
-                  :style="{ width: '100%' }"
-                />
+                <tooltip :content="detailData.sourceDevice" :length="20" />
               </el-form-item>
             </el-col>
             <el-col :span="12">
@@ -395,23 +386,16 @@
                 label="源端口："
                 prop="sourcePort"
               >
-                <el-input
-                  v-model="dialogDetail.sourcePort"
-                  readonly
-                  :style="{ width: '100%' }"
-                />
+                <tooltip :content="detailData.sourcePort" :length="20" />
+
               </el-form-item>
             </el-col>
             <el-col :span="12">
               <el-form-item
                 label="源MAC："
-                prop="field104"
               >
-                <el-input
-                  v-model="dialogDetail.sourceMac"
-                  readonly
-                  :style="{ width: '100%' }"
-                />
+                <tooltip :content="detailData.sourceMac" :length="20" />
+
               </el-form-item>
             </el-col>
             <el-col :span="12">
@@ -419,11 +403,7 @@
                 label="目的IP："
                 prop="aimIp"
               >
-                <el-input
-                  v-model="dialogDetail.destinationIp"
-                  readonly
-                  :style="{ width: '100%' }"
-                />
+                <tooltip :content="detailData.destinationIp" :length="20" />
               </el-form-item>
             </el-col>
             <el-col :span="12">
@@ -431,11 +411,7 @@
                 label="目的MAC："
                 prop="field106"
               >
-                <el-input
-                  v-model="dialogDetail.destinationMac"
-                  readonly
-                  :style="{ width: '100%' }"
-                />
+                <tooltip :content="detailData.destinationMac" :length="20" />
               </el-form-item>
             </el-col>
             <el-col :span="12">
@@ -443,11 +419,8 @@
                 label="目的设备："
                 prop="field107"
               >
-                <el-input
-                  v-model="dialogDetail.destinationEquipment"
-                  readonly
-                  :style="{ width: '100%' }"
-                />
+                <tooltip :content="detailData.destinationEquipment" :length="20" />
+
               </el-form-item>
             </el-col>
             <el-col :span="12">
@@ -455,11 +428,7 @@
                 label="目的端口："
                 prop="aimPort"
               >
-                <el-input
-                  v-model="dialogDetail.destinationPort"
-                  readonly
-                  :style="{ width: '100%' }"
-                />
+                <tooltip :content="detailData.destinationPort" :length="20" />
               </el-form-item>
             </el-col>
             <el-col :span="12">
@@ -467,11 +436,7 @@
                 label="传输层协议："
                 prop="transportProtocol"
               >
-                <el-input
-                  v-model="dialogDetail.transportLayerProtocol"
-                  readonly
-                  :style="{ width: '100%' }"
-                />
+                <tooltip :content="detailData.transportLayerProtocol" :length="20" />
               </el-form-item>
             </el-col>
             <el-col :span="12">
@@ -479,11 +444,8 @@
                 label="应用层协议："
                 prop="applyProtocol"
               >
-                <el-input
-                  v-model="dialogDetail.applicationLayerProtocol"
-                  readonly
-                  :style="{ width: '100%' }"
-                />
+                <tooltip :content="detailData.applicationLayerProtocol" :length="20" />
+
               </el-form-item>
             </el-col>
             <el-col :span="12">
@@ -491,11 +453,8 @@
                 label="事件级别："
                 prop="level"
               >
-                <el-input
-                  v-model="dialogDetail.eventLevel"
-                  readonly
-                  :style="{ width: '100%' }"
-                />
+                <tooltip :content="detailData.eventLevel" :length="20" />
+
               </el-form-item>
             </el-col>
             <el-col :span="12">
@@ -503,11 +462,8 @@
                 label=" 事件类型："
                 prop="type"
               >
-                <el-input
-                  v-model="dialogDetail.eventCategory"
-                  readonly
-                  :style="{ width: '100%' }"
-                />
+                <tooltip :content="detailData.eventCategory" :length="20" />
+
               </el-form-item>
             </el-col>
             <el-col :span="12">
@@ -515,11 +471,8 @@
                 label="产生时间："
                 prop="happen"
               >
-                <el-input
-                  v-model="dialogDetail.generationTime"
-                  readonly
-                  :style="{ width: '100%' }"
-                />
+                <tooltip :content="detailData.generationTime" :length="20" />
+
               </el-form-item>
             </el-col>
             <el-col :span="12">
@@ -527,11 +480,8 @@
                 label="接收时间："
                 prop="disposalStatus"
               >
-                <el-input
-                  v-model="dialogDetail.receivingTime"
-                  readonly
-                  :style="{ width: '100%' }"
-                />
+                <tooltip :content="detailData.receivingTime" :length="20" />
+
               </el-form-item>
             </el-col>
             <el-col :span="12">
@@ -539,11 +489,8 @@
                 label="智能监测终端IP："
                 prop="field115"
               >
-                <el-input
-                  v-model="dialogDetail.intelligentMonitoringTerminalIp"
-                  readonly
-                  :style="{ width: '100%' }"
-                />
+                <tooltip :content="detailData.intelligentMonitoringTerminalIp" :length="20" />
+
               </el-form-item>
             </el-col>
             <el-col :span="12">
@@ -551,11 +498,8 @@
                 label="区域："
                 prop="region"
               >
-                <el-input
-                  v-model="dialogDetail.region"
-                  readonly
-                  :style="{ width: '100%' }"
-                />
+                <tooltip :content="detailData.region" :length="20" />
+
               </el-form-item>
             </el-col>
             <el-col :span="12">
@@ -563,11 +507,7 @@
                 label="处置状态："
                 prop="state"
               >
-                <el-input
-                  v-model="dialogDetail.disposalStatus"
-                  readonly
-                  :style="{ width: '100%' }"
-                />
+                <tooltip :content="detailData.disposalStatus" :length="20" />
               </el-form-item>
             </el-col>
           </el-form>
@@ -606,7 +546,7 @@ export default {
     return {
       activeNames: ['1'],
       title: '',
-      dialogDetail: {},
+      detailData: {},
       exportDialog: false,
       detailDialog: false,
       // 遮罩层
@@ -640,7 +580,7 @@ export default {
         'label': '高危',
         'value': 4
       }, {
-        'label': '失陷',
+        'label': '致命',
         'value': 5
       }],
       disposalStatusOptions: [{
@@ -698,7 +638,7 @@ export default {
     transTypeDic(val) {
       var t = [{
         name: '1',
-        content: '正常'
+        content: '极低'
       }, {
         name: '2',
         content: '低危'
@@ -710,7 +650,7 @@ export default {
         content: '高危'
       }, {
         name: '5',
-        content: '失陷'
+        content: '致命'
       }]
       const orgTreeData1 = t.filter((e) => e.name === val)
         .map(({ content }) => ({
@@ -786,7 +726,8 @@ export default {
     },
     async detail(row) {
       const { data } = await industrialNetworkAuditDetail(row)
-      this.dialogDetail = data
+      this.detailData = data
+      this.detailData.eventLevel = this.transTypeDic(this.detailData.eventLevel)
       this.detailDialog = true
       this.title = '事件详情'
     }
