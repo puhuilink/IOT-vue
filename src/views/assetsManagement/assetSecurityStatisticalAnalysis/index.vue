@@ -49,18 +49,18 @@
               class="elcolCard">
         <div class="AssetsBoxType">
           <div class="Assets">资产类型</div>
-          <div class="AssetsNumber">{{ this.AssetsType }}</div>
-          <!-- <div class="ITNumberBox">
-            <div class="left">
-              <span class="IT">IT:</span>
-              <span class="ITNumber">{{ this.AssetsType }}</span>
-            </div>
-            <div class="right">
-              <span class="IT">IT:</span>
-              <span class="ITNumber">{{ this.AssetsType }}</span>
-            </div>
+          <!-- <div class="AssetsNumber">{{ this.AssetsType }}</div> -->
+          <div class="ITNumberBox">
+            <!-- <div class="left"> -->
+            <span class="IT">IT:</span>
+            <span class="ITNumber">{{ this.ITNumber }}</span>
+            <!-- </div>
+            <div class="right"> -->
+            <span class="IT">OT:</span>
+            <span class="ITNumber">{{ this.OTNumber }}</span>
+            <!-- </div> -->
 
-          </div> -->
+          </div>
           <!-- <div class="OTNumber">
             <span class="IT">0T:</span>
             <span class="ITNumber">{{ this.AssetsType }}</span>
@@ -95,11 +95,16 @@
     </el-row>
 
     <div id="test1">
+      <!-- <eventType :query="query"
+                 :tipname="'IT资产类型分布'"
+                 :type="1"
+                 :name="'assets'" /> -->
       <Tip>
         <span>IT资产类型分布</span>
       </Tip>
       <div id="canvas1" />
     </div>
+
     <div id="test2">
       <Tip>
         <span>操作系统类型分布</span>
@@ -123,6 +128,7 @@
 
 <script>
 import Tip from '@/components/EchartsTip/index'
+import eventType from '@/components/Echarts/eventType'
 import {
   listDevice,
   getDevice,
@@ -138,10 +144,11 @@ import echarts from 'echarts'
 
 export default {
   name: 'Device',
-  components: { Tip },
+  components: { Tip, eventType },
   data () {
     return {
       charts: '',
+      query: {},
       // opinion:['男','女'],
       // opinionData:[
       //     {value:335, name:'男'},
@@ -150,8 +157,8 @@ export default {
       allAssets: '14928',
       onlineAssets: '12304',
       AssetsType: '18',
-      ITNumber: '17',
-      OTNumber: '18',
+      ITNumber: '10',
+      OTNumber: '8',
       offlineAssets: '1626',
       abnormalAssets: '1052',
       // 遮罩层
@@ -547,33 +554,6 @@ export default {
         //   float: right;
         // }
       }
-      .ITNumberBox {
-        color: #fff;
-        background-color: #5599ff;
-        // width: 100%;
-        // height: 100px;
-        font-weight: 800;
-        // padding-top: 24px;
-        //  line-height: 100px;
-        .left {
-          float: left;
-          // .IT {
-          // }
-          // .ITNumber {
-          //   // margin-left: 20px;
-          // }
-        }
-        .right {
-          float: right;
-          // .OT {
-          //   // margin-left: 90px;
-          // }
-
-          // .OTNumber {
-          //   // margin-left: 68px;
-          // }
-        }
-      }
     }
     .AssetsBoxOnline {
       width: 240px;
@@ -597,30 +577,6 @@ export default {
         color: #fff;
         text-align: center;
         line-height: 20px;
-      }
-      .ITNumber {
-        float: left;
-        // width: 50%;
-        // height: 100px;
-        // // background-color: #5599ff;
-        // // color: #ffff77;
-        // // font-weight: 800;
-        // font-size: 28px;
-        // color: #fff;
-        // text-align: center;
-        // line-height: 20px;
-      }
-      .OTNumber {
-        float: right;
-        // width: 50%;
-        // height: 100px;
-        // // background-color: #5599ff;
-        // // color: #ffff77;
-        // // font-weight: 800;
-        // font-size: 28px;
-        // color: #fff;
-        // text-align: center;
-        // line-height: 20px;
       }
     }
     .AssetsBoxOffline {
@@ -693,6 +649,27 @@ export default {
         color: #fff;
         text-align: center;
         line-height: 20px;
+      }
+      .ITNumberBox {
+        color: #fff;
+        line-height: 20px;
+        margin-bottom: 10px;
+        .IT {
+          color: #ffffff;
+          font-size: 18px;
+          margin-left: 36px;
+        }
+        .ITNumber {
+          color: #ffffff;
+          font-size: 28px;
+          margin-bottom: 10px;
+          margin-right: 30px;
+        }
+        .OTNumber {
+          color: #ffffff;
+          font-size: 28px;
+          margin-bottom: 10px;
+        }
       }
     }
   }
