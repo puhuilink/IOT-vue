@@ -71,7 +71,7 @@ export function leakList(query) {
 // 通报管理
 export function notificationList(query) {
   return request({
-    url: '/m/notification/list',
+    url: '/dm/notificationManagement/list',
     method: 'get',
     params: query
   })

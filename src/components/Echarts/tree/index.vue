@@ -13,7 +13,7 @@
         <div id="text" style="position: absolute; top: 126px; left: 10px;color:#0E6CCB;font-weight: bold;font-size: 12px; font-family:Microsoft YaHei;">木马类</div>
         <div id="text" style="position: absolute; top: 126px; right: 680px;color:#0E6CCB;font-weight: bold;font-size: 14px; font-family:Microsoft YaHei;">13</div>
         <div id="text" style="position: absolute; top: 162px; left: 10px;color:#F73030;font-weight: bold;font-size: 12px; font-family:Microsoft YaHei;">工控僵木蠕类</div>
-        <div id="text" style="position: absolute; top: 162px; right: 680px;color:#F73030;font-weight: bold;font-size: 14px; font-family:Microsoft YaHei;">10</div>
+        <div id="text" style="position: absolute; top: 162px; right: 680px;color:#F73030;font-weight: bold;font-size: 14px; font-family:Microsoft YaHei;">1</div>
         <div id="text" style="position: absolute; top: 198px; left: 10px;color:#0E6CCB;font-weight: bold;font-size: 12px; font-family:Microsoft YaHei;">其他</div>
         <div id="text" style="position: absolute; top: 198px; right: 680px;color:#0E6CCB;font-weight: bold;font-size: 14px; font-family:Microsoft YaHei;">53</div>
         <div id="text" style="position: absolute; top: 234px; left: 10px;color:#0E6CCB;font-weight: bold;font-size: 12px; font-family:Microsoft YaHei;">Webshell</div>
@@ -35,7 +35,7 @@
         <div id="text" style="position: absolute; top: 22px; left: 630px;color:#0E6CCB;color:#0E6CCB;font-weight: bold;font-size: 12px; font-family:Microsoft YaHei;">信息泄露</div>
         <div id="text" style="position: absolute; top: 22px; right: 60px;color:#0E6CCB;font-weight: bold;font-size: 14px; font-family:Microsoft YaHei;">5</div>
         <div id="text" style="position: absolute;top: 76px; left: 630px;;color:#F73030;;font-weight: bold;font-size: 12px; font-family:Microsoft YaHei;">工控数据安全</div>
-        <div id="text" style="position: absolute; top: 76px; right: 60px;color:#F73030;font-weight: bold;font-size: 14px; font-family:Microsoft YaHei;">2</div>
+        <div id="text" style="position: absolute; top: 76px; right: 60px;color:#F73030;font-weight: bold;font-size: 14px; font-family:Microsoft YaHei;">1</div>
         <div id="text" style="position: absolute; top: 134px;left: 630px;color:#0E6CCB;font-weight: bold;font-size: 12px; font-family:Microsoft YaHei;">其他</div>
         <div id="text" style="position: absolute; top: 134px; right: 60px;color:#0E6CCB;font-weight: bold;font-size: 14px; font-family:Microsoft YaHei;">1</div>
         <div id="text" style="position: absolute; top: 188px; left: 630px;;color:#0E6CCB;font-weight: bold;font-size: 12px; font-family:Microsoft YaHei;">APT事件</div>
@@ -43,7 +43,7 @@
         <div id="text" style="position: absolute; top: 246px; left: 630px;color:#0E6CCB;font-weight: bold;font-size: 12px; font-family:Microsoft YaHei;">其他</div>
         <div id="text" style="position: absolute; top: 246px; right: 60px;color:#0E6CCB;font-weight: bold;font-size: 14px; font-family:Microsoft YaHei;">1</div>
         <div id="text" style="position: absolute; top: 300px; left: 630px;color:#F73030;;font-weight: bold;font-size: 12px; font-family:Microsoft YaHei;">工控协议审计</div>
-        <div id="text" style="position: absolute; top: 300px; right: 60px;color:#F73030;font-weight: bold;font-size: 14px; font-family:Microsoft YaHei;">2</div>
+        <div id="text" style="position: absolute; top: 300px; right: 60px;color:#F73030;font-weight: bold;font-size: 14px; font-family:Microsoft YaHei;">4</div>
         <div id="text" style="position: absolute; top: 20px; left: 500px;color:#402165;font-weight: bold;font-size: 12px; font-family:Microsoft YaHei;">数据异常规则</div>
         <div id="text" style="position: absolute; top: 35px; left: 500px;color:#402165;font-weight: bold;font-size: 14px; font-family:Microsoft YaHei;">5</div>
         <div id="text" style="position: absolute; top: 110px; left: 500px;color:#402165;font-weight: bold;font-size: 12px; font-family:Microsoft YaHei;">其他规则</div>

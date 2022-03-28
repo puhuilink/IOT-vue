@@ -3,228 +3,310 @@
     <el-card class="box-card">
       <div>
         <el-row :gutter="20">
-          <el-form ref="elForm"
-                   :model="queryParams"
-                   :rules="rules"
-                   size="mini"
-                   label-width="100px"
-                   class="label-type"
-                   label-position="right">
+          <el-form
+            ref="elForm"
+            :model="queryParams"
+            :rules="rules"
+            size="mini"
+            label-width="100px"
+            class="label-type"
+            label-position="right"
+          >
             <el-col :span="6">
-              <el-form-item label="源IP地址："
-                            prop="name">
-                <el-input v-model="queryParams.sourceIp"
-                          placeholder="请输入源IP地址"
-                          clearable
-                          :style="{width: '100%'}" />
+              <el-form-item
+                label="源IP地址："
+                prop="name"
+              >
+                <el-input
+                  v-model="queryParams.sourceIp"
+                  placeholder="请输入源IP地址"
+                  clearable
+                  :style="{width: '100%'}"
+                />
               </el-form-item>
             </el-col>
             <el-col :span="6">
-              <el-form-item label="动作类型："
-                            prop="area">
-                <el-select v-model="queryParams.actionType"
-                           placeholder="请选择动作类型"
-                           filterable
-                           clearable
-                           :style="{width: '100%'}">
-                  <el-option v-for="(item, index) in actionTypeOptions"
-                             :key="index"
-                             :label="item.label"
-                             :value="item.label"
-                             :disabled="item.disabled" />
+              <el-form-item
+                label="动作类型："
+                prop="area"
+              >
+                <el-select
+                  v-model="queryParams.actionType"
+                  placeholder="请选择动作类型"
+                  filterable
+                  clearable
+                  :style="{width: '100%'}"
+                >
+                  <el-option
+                    v-for="(item, index) in actionTypeOptions"
+                    :key="index"
+                    :label="item.label"
+                    :value="item.label"
+                    :disabled="item.disabled"
+                  />
                 </el-select>
               </el-form-item>
             </el-col>
             <el-col :span="6">
-              <el-form-item label="命中策略："
-                            prop="level">
-                <el-select v-model="queryParams.hitStrategy"
-                           placeholder="请选择命中策略"
-                           filterable
-                           clearable
-                           :style="{width: '100%'}">
-                  <el-option v-for="(item, index) in hitStrategyOptions"
-                             :key="index"
-                             :label="item.label"
-                             :value="item.label"
-                             :disabled="item.disabled" />
+              <el-form-item
+                label="命中策略："
+                prop="level"
+              >
+                <el-select
+                  v-model="queryParams.hitStrategy"
+                  placeholder="请选择命中策略"
+                  filterable
+                  clearable
+                  :style="{width: '100%'}"
+                >
+                  <el-option
+                    v-for="(item, index) in hitStrategyOptions"
+                    :key="index"
+                    :label="item.label"
+                    :value="item.label"
+                    :disabled="item.disabled"
+                  />
                 </el-select>
               </el-form-item>
             </el-col>
             <el-col :span="6">
-              <el-form-item label="协议类型："
-                            prop="level">
-                <el-select v-model="queryParams.protocolType"
-                           placeholder="请选择协议类型"
-                           filterable
-                           clearable
-                           :style="{width: '100%'}">
-                  <el-option v-for="(item, index) in protocolTypeOptions"
-                             :key="index"
-                             :label="item.label"
-                             :value="item.label"
-                             :disabled="item.disabled" />
+              <el-form-item
+                label="协议类型："
+                prop="level"
+              >
+                <el-select
+                  v-model="queryParams.protocolType"
+                  placeholder="请选择协议类型"
+                  filterable
+                  clearable
+                  :style="{width: '100%'}"
+                >
+                  <el-option
+                    v-for="(item, index) in protocolTypeOptions"
+                    :key="index"
+                    :label="item.label"
+                    :value="item.label"
+                    :disabled="item.disabled"
+                  />
                 </el-select>
               </el-form-item>
             </el-col>
             <el-col :span="6">
-              <el-form-item label="区域："
-                            prop="area">
-                <el-select v-model="queryParams.region"
-                           placeholder="请选择区域"
-                           filterable
-                           clearable
-                           :style="{width: '100%'}">
-                  <el-option v-for="(item, index) in regionOptions"
-                             :key="index"
-                             :label="item.label"
-                             :value="item.value"
-                             :disabled="item.disabled" />
+              <el-form-item
+                label="区域："
+                prop="area"
+              >
+                <el-select
+                  v-model="queryParams.region"
+                  placeholder="请选择区域"
+                  filterable
+                  clearable
+                  :style="{width: '100%'}"
+                >
+                  <el-option
+                    v-for="(item, index) in regionOptions"
+                    :key="index"
+                    :label="item.label"
+                    :value="item.value"
+                    :disabled="item.disabled"
+                  />
                 </el-select>
               </el-form-item>
             </el-col>
             <el-col :span="6">
-              <el-form-item label="事件等级："
-                            prop="area">
-                <el-select v-model="queryParams.eventLevel"
-                           placeholder="请选择事件等级"
-                           filterable
-                           clearable
-                           :style="{width: '100%'}">
-                  <el-option v-for="(item, index) in eventLevelOptions"
-                             :key="index"
-                             :label="item.label"
-                             :value="item.value"
-                             :disabled="item.disabled" />
+              <el-form-item
+                label="事件等级："
+                prop="area"
+              >
+                <el-select
+                  v-model="queryParams.eventLevel"
+                  placeholder="请选择事件等级"
+                  filterable
+                  clearable
+                  :style="{width: '100%'}"
+                >
+                  <el-option
+                    v-for="(item, index) in eventLevelOptions"
+                    :key="index"
+                    :label="item.label"
+                    :value="item.value"
+                    :disabled="item.disabled"
+                  />
                 </el-select>
               </el-form-item>
             </el-col>
             <el-col :span="6">
-              <el-form-item label="处置状态："
-                            prop="field114">
-                <el-select v-model="queryParams.disposalStatus"
-                           placeholder="请选择处置状态"
-                           clearable
-                           :style="{width: '100%'}">
-                  <el-option v-for="(item, index) in disposalStatusOptions"
-                             :key="index"
-                             :label="item.label"
-                             :value="item.label"
-                             :disabled="item.disabled" />
+              <el-form-item
+                label="处置状态："
+                prop="field114"
+              >
+                <el-select
+                  v-model="queryParams.disposalStatus"
+                  placeholder="请选择处置状态"
+                  clearable
+                  :style="{width: '100%'}"
+                >
+                  <el-option
+                    v-for="(item, index) in disposalStatusOptions"
+                    :key="index"
+                    :label="item.label"
+                    :value="item.label"
+                    :disabled="item.disabled"
+                  />
                 </el-select>
               </el-form-item>
             </el-col>
             <el-col :span="9">
-              <el-form-item label="发布时间："
-                            prop="date">
-                <el-time-picker v-model="queryParams.date"
-                                is-range
-                                format="HH:mm:ss"
-                                value-format="HH:mm:ss"
-                                :style="{width: '100%'}"
-                                start-placeholder="开始时间"
-                                end-placeholder="结束时间"
-                                range-separator="至"
-                                clearable />
+              <el-form-item
+                label="发布时间："
+                prop="date"
+              >
+                <el-time-picker
+                  v-model="queryParams.date"
+                  is-range
+                  format="HH:mm:ss"
+                  value-format="HH:mm:ss"
+                  :style="{width: '100%'}"
+                  start-placeholder="开始时间"
+                  end-placeholder="结束时间"
+                  range-separator="至"
+                  clearable
+                />
               </el-form-item>
             </el-col>
             <el-col :span="6">
               <el-form-item size="mini">
-                <el-button type="primary"
-                           @click="getList">搜索</el-button>
+                <el-button
+                  type="primary"
+                  @click="getList"
+                >搜索</el-button>
                 <el-button @click="resetForm">重置</el-button>
               </el-form-item>
             </el-col>
           </el-form>
         </el-row>
-        <el-row :gutter="10"
-                class="mb8">
+        <el-row
+          :gutter="10"
+          class="mb8"
+        >
           <el-col :span="1.5">
-            <el-button v-hasPermi="['system:user:export']"
-                       type="primary"
-                       size="mini">导出</el-button>
+            <el-button
+              v-hasPermi="['system:user:export']"
+              type="primary"
+              size="mini"
+            >导出</el-button>
           </el-col>
         </el-row>
       </div>
     </el-card>
     <el-table :data="groupList">
-      <el-table-column type="selection"
-                       width="55"
-                       align="center" />
-      <el-table-column label="检测服务器类型"
-                       align="center"
-                       :show-overflow-tooltip="true"
-                       prop="detectServerType"
-                       min-width="15%" />
-      <el-table-column label="动作类型"
-                       align="center"
-                       prop="actionType"
-                       :show-overflow-tooltip="true"
-                       min-width="10%" />
-      <el-table-column label="协议类型"
-                       align="center"
-                       prop="protocolType"
-                       :show-overflow-tooltip="true"
-                       min-width="15%" />
-      <el-table-column label="源IP"
-                       align="center"
-                       prop="sourceIp"
-                       :show-overflow-tooltip="true"
-                       min-width="10%" />
-      <el-table-column label="发生时间"
-                       align="center"
-                       prop="happenTime"
-                       :show-overflow-tooltip="true"
-                       min-width="10%" />
-      <el-table-column label="事件等级"
-                       align="center"
-                       prop="eventLevel"
-                       :show-overflow-tooltip="true"
-                       min-width="10%">
+      <el-table-column
+        type="selection"
+        width="55"
+        align="center"
+      />
+      <el-table-column
+        label="检测服务器类型"
+        align="center"
+        :show-overflow-tooltip="true"
+        prop="detectServerType"
+        min-width="15%"
+      />
+      <el-table-column
+        label="动作类型"
+        align="center"
+        prop="actionType"
+        :show-overflow-tooltip="true"
+        min-width="10%"
+      />
+      <el-table-column
+        label="协议类型"
+        align="center"
+        prop="protocolType"
+        :show-overflow-tooltip="true"
+        min-width="15%"
+      />
+      <el-table-column
+        label="源IP"
+        align="center"
+        prop="sourceIp"
+        :show-overflow-tooltip="true"
+        min-width="10%"
+      />
+      <el-table-column
+        label="发生时间"
+        align="center"
+        prop="happenTime"
+        :show-overflow-tooltip="true"
+        min-width="10%"
+      />
+      <el-table-column
+        label="事件等级"
+        align="center"
+        prop="eventLevel"
+        :show-overflow-tooltip="true"
+        min-width="10%"
+      >
         <template #default="scope">
           <span>{{
             transTypeDic(scope.row.eventLevel)
           }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="命中策略"
-                       align="center"
-                       prop="hitStrategy"
-                       :show-overflow-tooltip="true"
-                       min-width="15%" />
-      <el-table-column label="事件SID"
-                       align="center"
-                       prop="eventSid"
-                       :show-overflow-tooltip="true"
-                       min-width="10%" />
-      <el-table-column label="事件ID"
-                       align="center"
-                       prop="eventId"
-                       :show-overflow-tooltip="true"
-                       min-width="10%" />
-      <el-table-column label="处置状态"
-                       align="center"
-                       prop="disposalStatus"
-                       :show-overflow-tooltip="true"
-                       min-width="10%" />
-      <el-table-column label="区域"
-                       align="center"
-                       prop="region"
-                       :show-overflow-tooltip="true"
-                       min-width="10%" />
-      <el-table-column label="操作"
-                       align="center"
-                       class-name="small-padding fixed-width"
-                       min-width="15%">
+      <el-table-column
+        label="命中策略"
+        align="center"
+        prop="hitStrategy"
+        :show-overflow-tooltip="true"
+        min-width="15%"
+      />
+      <el-table-column
+        label="事件SID"
+        align="center"
+        prop="eventSid"
+        :show-overflow-tooltip="true"
+        min-width="10%"
+      />
+      <el-table-column
+        label="事件ID"
+        align="center"
+        prop="eventId"
+        :show-overflow-tooltip="true"
+        min-width="10%"
+      />
+      <el-table-column
+        label="处置状态"
+        align="center"
+        prop="disposalStatus"
+        :show-overflow-tooltip="true"
+        min-width="10%"
+      />
+      <el-table-column
+        label="区域"
+        align="center"
+        prop="region"
+        :show-overflow-tooltip="true"
+        min-width="10%"
+      />
+      <el-table-column
+        label="操作"
+        align="center"
+        class-name="small-padding fixed-width"
+        min-width="15%"
+      >
         <template slot-scope="scope">
-          <el-button size="mini"
-                     type="text"
-                     @click="detail(scope.row.dataSecurityManagementId)">详情</el-button>
+          <el-button
+            size="mini"
+            type="text"
+            @click="detail(scope.row.dataSecurityManagementId)"
+          >详情</el-button>
           &nbsp;&nbsp; &nbsp;&nbsp;
           <el-dropdown @command="batchOperate">
-            <el-button size="mini"
-                       type="text"
-                       @click="handleDelete(scope.row)">状态变更<i class="el-icon-arrow-down el-icon--right" /></el-button>
+            <el-button
+              size="mini"
+              type="text"
+              @click="handleDelete(scope.row)"
+            >状态变更<i class="el-icon-arrow-down el-icon--right" /></el-button>
             <el-dropdown-menu slot="dropdown">
               <el-dropdown-item command="process">处置</el-dropdown-item>
               <el-dropdown-item command="un_process">不处置</el-dropdown-item>
@@ -235,21 +317,29 @@
       </el-table-column>
     </el-table>
 
-    <pagination v-show="total>0"
-                :total="total"
-                :page.sync="queryParams.pageNum"
-                :limit.sync="queryParams.pageSize"
-                @pagination="getList" />
+    <pagination
+      v-show="total>0"
+      :total="total"
+      :page.sync="queryParams.pageNum"
+      :limit.sync="queryParams.pageSize"
+      @pagination="getList"
+    />
     <!-- 添加或修改分组对话框 -->
-    <el-dialog :title="title"
-               :visible.sync="open"
-               width="900px"
-               append-to-body>
-      <el-form ref="form"
-               label-width="105px"
-               label-position="left">
-        <el-row type="flex"
-                justify="center">
+    <el-dialog
+      :title="title"
+      :visible.sync="open"
+      width="900px"
+      append-to-body
+    >
+      <el-form
+        ref="form"
+        label-width="105px"
+        label-position="left"
+      >
+        <el-row
+          type="flex"
+          justify="center"
+        >
           <span class="textarea">事件7525948311879681</span>
         </el-row>
         <el-divider />
@@ -342,8 +432,10 @@
           </el-col>
         </el-row>
         <br>
-        <el-row type="flex"
-                justify="center">
+        <el-row
+          type="flex"
+          justify="center"
+        >
           <span class="textarea">命中策略</span>
         </el-row>
         <el-divider />
@@ -364,50 +456,70 @@
             </el-form-item>
           </el-col>
         </el-row>
-        <el-row type="flex"
-                justify="center">
+        <el-row
+          type="flex"
+          justify="center"
+        >
           <span class="textarea">操作记录</span>
         </el-row>
         <el-divider />
 
         <el-table :data="content">
-          <el-table-column label="操作时间"
-                           align="center"
-                           :show-overflow-tooltip="true"
-                           prop="time"
-                           min-width="20%" />
-          <el-table-column label="操作类型"
-                           align="center"
-                           prop="type"
-                           :show-overflow-tooltip="true"
-                           min-width="15%" />
-          <el-table-column label="操作人"
-                           align="center"
-                           prop="user"
-                           :show-overflow-tooltip="true"
-                           min-width="15%" />
-          <el-table-column label="操作内容"
-                           align="center"
-                           prop="content"
-                           :show-overflow-tooltip="true"
-                           min-width="50%" />
+          <el-table-column
+            label="操作时间"
+            align="center"
+            :show-overflow-tooltip="true"
+            prop="time"
+            min-width="20%"
+          />
+          <el-table-column
+            label="操作类型"
+            align="center"
+            prop="type"
+            :show-overflow-tooltip="true"
+            min-width="15%"
+          />
+          <el-table-column
+            label="操作人"
+            align="center"
+            prop="user"
+            :show-overflow-tooltip="true"
+            min-width="15%"
+          />
+          <el-table-column
+            label="操作内容"
+            align="center"
+            prop="content"
+            :show-overflow-tooltip="true"
+            min-width="50%"
+          />
         </el-table>
         <br>
-        <el-row type="flex"
-                justify="center">
+        <el-row
+          type="flex"
+          justify="center"
+        >
           <span class="textarea">注释</span>
         </el-row>
         <el-divider />
       </el-form>
-      <div slot="footer"
-           class="dialog-footer">
-        <el-row type="flex"
-                justify="center">
-          <el-button size="small"
-                     type="primary"
-                     @click="submitForm">确 定</el-button>
-          <el-button size="small"
-                     @click="cancel">取 消</el-button>
+      <div
+        slot="footer"
+        class="dialog-footer"
+      >
+        <el-row
+          type="flex"
+          justify="center"
+        >
+          <el-button
+            size="small"
+            type="primary"
+            @click="submitForm"
+          >确 定</el-button>
+          <el-button
+            size="small"
+            @click="cancel"
+          >取 消</el-button>
         </el-row>
       </div>
     </el-dialog>
@@ -420,7 +532,7 @@ import { dataSecurityManagementDetail } from '@/api/system/detail'
 export default {
   components: {},
   props: [],
-  data () {
+  data() {
     return {
       loading: false,
       showPhoto: approval_url,
@@ -429,7 +541,7 @@ export default {
       },
       // 分组表格数据
       content: [{ 'time': '2020-10--29 11:15:45', 'type': '策略通知规则', 'user': 'system', 'content': '事件入库操作成功！' },
-      { 'time': '2020-10--29 11:15:45', 'type': '审批规则', 'user': 'system', 'content': 'smtp阻断：审批阻断成功！' }],
+        { 'time': '2020-10--29 11:15:45', 'type': '审批规则', 'user': 'system', 'content': 'smtp阻断：审批阻断成功！' }],
       groupList: [],
       // 创建时间时间范围
       daterangeCreateTime: [],
@@ -496,16 +608,16 @@ export default {
         'value': 2
       }],
       regionOptions: [{
-        'label': '三亚轨交',
+        'label': '海投轨交',
         'value': 1
       }, {
-        'label': '珠海深中通道',
+        'label': '深中通道',
         'value': 2
       }, {
-        'label': '山西燃气',
+        'label': '山西燃气厂',
         'value': 1
       }, {
-        'label': '北京水厂',
+        'label': '北京污水处理厂',
         'value': 1
       }, {
         'label': '天津管片厂',
@@ -529,11 +641,11 @@ export default {
       }]
     }
   },
-  created () {
+  created() {
     this.getList()
   },
   methods: {
-    transTypeDic (val) {
+    transTypeDic(val) {
       var t = [{
         name: '1',
         content: '正常'
@@ -556,7 +668,7 @@ export default {
         }))
       return `${orgTreeData1[0].content}`
     },
-    batchOperate (command) {
+    batchOperate(command) {
       let message = ''
       switch (command) {
         case 'process':
@@ -574,7 +686,7 @@ export default {
       }
     },
     /** 查询分组列表 */
-    async getList () {
+    async getList() {
       this.loading = true
       const res = await dataSecurityManagementList(this.queryParams)
       this.groupList = res.rows
@@ -583,13 +695,13 @@ export default {
       this.loading = false
     },
     /** 查询分组列表 */
-    submitdata () {
+    submitdata() {
       this.$refs['elForm'].validate(valid => {
         if (!valid) return
         // TODO 提交表单
       })
     },
-    resetForm () {
+    resetForm() {
       this.queryParams = {
         pageNum: 1,
         pageSize: 10,
@@ -599,18 +711,18 @@ export default {
       }
       this.getList()
     },
-    async detail (id) {
+    async detail(id) {
       const { data } = await dataSecurityManagementDetail(id)
       this.detailData = data
       this.open = true
       this.title = '事件详情'
     },
     // 取消按钮
-    cancel () {
+    cancel() {
       this.open = false
     },
     /** 提交按钮 */
-    submitForm () {
+    submitForm() {
       this.open = false
     }
   }
