@@ -3,14 +3,18 @@
     <!-- <tip>{{ tipname }}</tip> -->
     <div>
       <el-row>
-        <el-col :xs="24"
-                :sm="4"
-                :md="4"
-                :lg="4"
-                :xl="4"
-                :offset="2">
-          <div class="backStyle"
-               @click="logToThreat">
+        <el-col
+          :xs="24"
+          :sm="4"
+          :md="4"
+          :lg="4"
+          :xl="4"
+          :offset="2"
+        >
+          <div
+            class="backStyle"
+            @click="logToThreat"
+          >
             <div class="textThreat">威胁情报</div>
             <div class="number">123</div>
             <div class="numberText">事件数</div>
@@ -20,13 +24,17 @@
             <div class="notDisposal">未处置数</div>
           </div>
         </el-col>
-        <el-col :xs="24"
-                :sm="4"
-                :md="4"
-                :lg="4"
-                :xl="4">
-          <div class="backStyle"
-               @click="logToData">
+        <el-col
+          :xs="24"
+          :sm="4"
+          :md="4"
+          :lg="4"
+          :xl="4"
+        >
+          <div
+            class="backStyle"
+            @click="logToData"
+          >
             <div class="text">数据</div>
             <div class="textTwo">安全防护</div>
             <div class="number">123</div>
@@ -37,13 +45,17 @@
             <div class="notDisposal">未处置数</div>
           </div>
         </el-col>
-        <el-col :xs="24"
-                :sm="4"
-                :md="4"
-                :lg="4"
-                :xl="4">
-          <div class="backStyle"
-               @click="logToUnNormal">
+        <el-col
+          :xs="24"
+          :sm="4"
+          :md="4"
+          :lg="4"
+          :xl="4"
+        >
+          <div
+            class="backStyle"
+            @click="logToUnNormal"
+          >
             <div class="text">异常</div>
             <div class="textTwo">行为分析</div>
             <div class="number">123</div>
@@ -54,13 +66,17 @@
             <div class="notDisposal">未处置数</div>
           </div>
         </el-col>
-        <el-col :xs="24"
-                :sm="4"
-                :md="4"
-                :lg="4"
-                :xl="4">
-          <div class="backStyle"
-               @click="logToHost">
+        <el-col
+          :xs="24"
+          :sm="4"
+          :md="4"
+          :lg="4"
+          :xl="4"
+        >
+          <div
+            class="backStyle"
+            @click="logToHost"
+          >
             <div class="text">主机</div>
             <div class="textTwo">安全防护</div>
             <div class="number">123</div>
@@ -71,13 +87,17 @@
             <div class="notDisposal">未处置数</div>
           </div>
         </el-col>
-        <el-col :xs="24"
-                :sm="4"
-                :md="4"
-                :lg="4"
-                :xl="4">
-          <div class="backStyle"
-               @click="logToNetwork">
+        <el-col
+          :xs="24"
+          :sm="4"
+          :md="4"
+          :lg="4"
+          :xl="4"
+        >
+          <div
+            class="backStyle"
+            @click="logToNetwork"
+          >
             <div class="textThree">工业网络</div>
             <div class="textTwo">安全审计</div>
             <div class="number">123</div>
@@ -90,14 +110,18 @@
         </el-col>
       </el-row>
       <el-row>
-        <el-col :xs="24"
-                :sm="4"
-                :md="4"
-                :lg="4"
-                :xl="4"
-                :offset="2">
-          <div class="backStyle"
-               @click="logToWeak">
+        <el-col
+          :xs="24"
+          :sm="4"
+          :md="4"
+          :lg="4"
+          :xl="4"
+          :offset="2"
+        >
+          <div
+            class="backStyle"
+            @click="logToWeak"
+          >
             <div class="textSecond">弱口令监测</div>
             <div class="number">123</div>
             <div class="numberText">事件数</div>
@@ -107,13 +131,17 @@
             <div class="notDisposal">未处置数</div>
           </div>
         </el-col>
-        <el-col :xs="24"
-                :sm="4"
-                :md="4"
-                :lg="4"
-                :xl="4">
-          <div class="backStyle"
-               @click="logToInvade">
+        <el-col
+          :xs="24"
+          :sm="4"
+          :md="4"
+          :lg="4"
+          :xl="4"
+        >
+          <div
+            class="backStyle"
+            @click="logToInvade"
+          >
             <div class="textFour">入侵诱捕</div>
             <div class="number">123</div>
             <div class="numberText">事件数</div>
@@ -123,13 +151,17 @@
             <div class="notDisposal">未处置数</div>
           </div>
         </el-col>
-        <el-col :xs="24"
-                :sm="4"
-                :md="4"
-                :lg="4"
-                :xl="4">
-          <div class="backStyle"
-               @click="logToConfiguration">
+        <el-col
+          :xs="24"
+          :sm="4"
+          :md="4"
+          :lg="4"
+          :xl="4"
+        >
+          <div
+            class="backStyle"
+            @click="logToConfiguration"
+          >
             <div class="textFour">配置核查</div>
             <div class="number">123</div>
             <div class="numberText">事件数</div>
@@ -139,13 +171,17 @@
             <div class="notDisposal">未处置数</div>
           </div>
         </el-col>
-        <el-col :xs="24"
-                :sm="4"
-                :md="4"
-                :lg="4"
-                :xl="4">
-          <div class="backStyle"
-               @click="logToJ">
+        <el-col
+          :xs="24"
+          :sm="4"
+          :md="4"
+          :lg="4"
+          :xl="4"
+        >
+          <div
+            class="backStyle"
+            @click="logToJ"
+          >
             <div class="textSecond">僵木蠕监测</div>
             <div class="number">123</div>
             <div class="numberText">事件数</div>
@@ -155,13 +191,17 @@
             <div class="notDisposal">未处置数</div>
           </div>
         </el-col>
-        <el-col :xs="24"
-                :sm="4"
-                :md="4"
-                :lg="4"
-                :xl="4">
-          <div class="backStyle"
-               @click="logToVulnerability">
+        <el-col
+          :xs="24"
+          :sm="4"
+          :md="4"
+          :lg="4"
+          :xl="4"
+        >
+          <div
+            class="backStyle"
+            @click="logToVulnerability"
+          >
             <div class="textFour">漏洞扫描</div>
             <div class="number">123</div>
             <div class="numberText">事件数</div>
@@ -176,8 +216,8 @@
   </el-col>
 </template>
 <script>
-import { setNotopt } from "@/utils/emptyEcharts.js";
-import tip from "@/components/EchartsTip";
+import { setNotopt } from '@/utils/emptyEcharts.js'
+import tip from '@/components/EchartsTip'
 export default {
   components: { tip },
   //   props: {
@@ -190,55 +230,53 @@ export default {
   //       type: Number
   //     }
   //   },
-  data () {
+  data() {
     return {
-      policitalStatus: ["1"],
+      policitalStatus: ['1'],
       data1: [],
       data2: [],
       data3: [],
       data4: [],
-      data5: [],
-    };
+      data5: []
+    }
   },
   computed: {},
-  created () { },
-  mounted () { },
+  created() { },
+  mounted() { },
   methods: {
-    logToThreat () {
-      window.open("http://116.63.139.209:10003/security/threatIntelligenceManagement/threatIntelligenceList", "_blank");
+    logToThreat() {
+      window.open('http://116.63.139.209:10003/security/threatIntelligenceManagement/threatIntelligenceList', '_blank')
     },
-    logToData () {
-      window.open("http://116.63.139.209:10003/security/dataSafe/echarts", "_blank");
+    logToData() {
+      window.open('http://116.63.139.209:10003/security/dataSafe/echarts', '_blank')
     },
-    logToUnNormal () {
-      window.open("http://116.63.139.209:10003/security/abnormalBehaviorManagement/eventStatisticalAnalysis", "_blank");
+    logToUnNormal() {
+      window.open('http://116.63.139.209:10003/security/abnormalBehaviorManagement/eventStatisticalAnalysis', '_blank')
     },
-    logToHost () {
-      window.open("http://116.63.139.209:10003/security/hostSecurityManagement/eventStatisticalAnalysis", "_blank");
+    logToHost() {
+      window.open('http://116.63.139.209:10003/security/hostSecurityManagement/eventStatisticalAnalysis', '_blank')
     },
-    logToNetwork () {
-      window.open("http://116.63.139.209:10003/industrialNetworkAudit/industrialNetworkAuditStatisticalAnalysis", "_blank");
+    logToNetwork() {
+      window.open('http://116.63.139.209:10003/industrialNetworkAudit/industrialNetworkAuditStatisticalAnalysis', '_blank')
     },
-    logToWeak () {
-      window.open("http://116.63.139.209:10003/security/weakpassword/analysis", "_blank");
+    logToWeak() {
+      window.open('http://116.63.139.209:10003/security/weakpassword/analysis', '_blank')
     },
-    logToInvade () {
-      window.open("http://116.63.139.209:10003/security/invasionOfTrap/statisticalSnalysis", "_blank");
+    logToInvade() {
+      window.open('http://116.63.139.209:10003/security/invasionOfTrap/statisticalSnalysis', '_blank')
     },
-    logToConfiguration () {
-      window.open("http://116.63.139.209:10003/security/inspect", "_blank");
+    logToConfiguration() {
+      window.open('http://116.63.139.209:10003/security/inspect', '_blank')
     },
-    logToJ () {
-      window.open("http://116.63.139.209:10003/security/Jiangwoodcreep/echarts", "_blank");
+    logToJ() {
+      window.open('http://116.63.139.209:10003/security/Jiangwoodcreep/echarts', '_blank')
     },
-    logToVulnerability () {
-      window.open("http://116.63.139.209:10003/security/vulnerability/vulnerability/echarts", "_blank");
+    logToVulnerability() {
+      window.open('http://116.63.139.209:10003/security/vulnerability/vulnerability/echarts', '_blank')
     }
 
-
-
-  },
-};
+  }
+}
 </script>
 <style lang="scss" scoped>
 .backStyle {
