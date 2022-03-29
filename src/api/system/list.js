@@ -22,7 +22,8 @@ export function abnormalList(query) {
 // 资产列表
 export function assetList(query) {
   return request({
-    url: '/m/asset/list',
+    // url: '/m/asset/list',
+    url:'/dm/asset/list',
     method: 'get',
     params: query
   })
