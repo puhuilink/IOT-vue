@@ -5,7 +5,7 @@
     <eventType :type="1" :tipname="'事件等级分布'" :query="query" :name="'dataSafe'" />
     <eventType :type="5" :tipname="'策略统计事件分析'" :query="query" :name="'dataSafe'" />
     <eventType :type="6" :tipname="'邮件统计'" :query="query" :name="'dataSafe'" />
-    <el-col :span="12">
+    <el-col :span="24">
       <tip> 最新数据安全事件 </tip>
       <el-table :data="groupList" height="400">
         <el-table-column label="检测服务器类型" align="center" :show-overflow-tooltip="true" prop="detectServerType" min-width="15%" />
@@ -29,7 +29,6 @@
         <el-table-column label="区域" align="center" prop="region" :show-overflow-tooltip="true" min-width="10%" />
       </el-table>
     </el-col>
-    <eventType :tipname="'事件等级分布'" :type="4" :query="query" :name="'dataSafe'" />
   </div>
 </template>
 <script>
