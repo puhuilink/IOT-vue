@@ -4,39 +4,74 @@
     <tip>{{ tipname }}</tip>
     <div>
       <el-row>
-        <el-col :xs="24" :sm="5" :md="5" :lg="5" :xl="5" offset="2">
+        <el-col :xs="24"
+                :sm="5"
+                :md="5"
+                :lg="5"
+                :xl="5"
+                offset="2">
           <div class="circularWeakPassword"></div>
-          <span class="text">低危(2514)</span>
+          <span class="text">危急</span>
         </el-col>
-        <el-col :xs="24" :sm="5" :md="5" :lg="5" :xl="5">
+        <el-col :xs="24"
+                :sm="5"
+                :md="5"
+                :lg="5"
+                :xl="5">
           <div class="circularPortScanning"></div>
-          <span class="text">高危(468)</span>
+          <span class="text">高危</span>
         </el-col>
-        <el-col :xs="24" :sm="5" :md="5" :lg="5" :xl="5">
+        <el-col :xs="24"
+                :sm="5"
+                :md="5"
+                :lg="5"
+                :xl="5">
           <div class="circularInvolvingaTrojan"></div>
-          <span class="text">中危(1699)</span>
+          <span class="text">中危</span>
         </el-col>
-        <el-col :xs="24" :sm="5" :md="5" :lg="5" :xl="5">
+        <el-col :xs="24"
+                :sm="5"
+                :md="5"
+                :lg="5"
+                :xl="5">
           <div class="circularHotlinking"></div>
-          <span class="text">危机(13)</span>
+          <span class="text">低危</span>
         </el-col>
       </el-row>
       <el-row>
-        <el-col :xs="24" :sm="5" :md="5" :lg="5" :xl="5" offset="2">
+        <el-col :xs="24"
+                :sm="5"
+                :md="5"
+                :lg="5"
+                :xl="5"
+                offset="2">
           <div class="number">{{ remoteControlTrojan }}</div>
         </el-col>
-        <el-col :xs="24" :sm="5" :md="5" :lg="5" :xl="5">
+        <el-col :xs="24"
+                :sm="5"
+                :md="5"
+                :lg="5"
+                :xl="5">
           <div class="number">{{ weakPassword }}</div>
         </el-col>
-        <el-col :xs="24" :sm="5" :md="5" :lg="5" :xl="5">
+        <el-col :xs="24"
+                :sm="5"
+                :md="5"
+                :lg="5"
+                :xl="5">
           <div class="number">{{ portScanning }}</div>
         </el-col>
-        <el-col :xs="24" :sm="5" :md="5" :lg="5" :xl="5">
+        <el-col :xs="24"
+                :sm="5"
+                :md="5"
+                :lg="5"
+                :xl="5">
           <div class="number">{{ InvolvingaTrojan }}</div>
         </el-col>
       </el-row>
     </div>
-    <div ref="canvas1" style="height: 400px" />
+    <div ref="canvas1"
+         style="height: 400px" />
   </el-col>
 </template>
 <script>
@@ -57,22 +92,22 @@ export default {
       type: Number,
     },
   },
-  data() {
+  data () {
     return {
       policitalStatus: ["1"],
       barData: [],
       category: [],
       title: "",
-      remoteControlTrojan: "5924",
-      weakPassword: "5843",
-      portScanning: "4814",
-      InvolvingaTrojan: "110",
+      remoteControlTrojan: "290",
+      weakPassword: "2366",
+      portScanning: "3188",
+      InvolvingaTrojan: "2481",
     };
   },
   computed: {},
   watch: {
     address: {
-      handler(val, oldVal) {
+      handler (val, oldVal) {
         if (val !== oldVal) {
           this.drawPolicitalStatus();
         }
@@ -80,12 +115,12 @@ export default {
       deep: true,
     },
   },
-  created() {},
-  mounted() {
+  created () { },
+  mounted () {
     this.drawPolicitalStatus();
   },
   methods: {
-    drawPolicitalStatus() {
+    drawPolicitalStatus () {
       if (this.policitalStatus.length) {
         switch (this.address) {
           case 1:

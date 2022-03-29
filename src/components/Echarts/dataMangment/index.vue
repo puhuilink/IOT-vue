@@ -53,7 +53,7 @@
               {{ middle }}
             </div>
             <div class="boxContentRightBox">
-              20
+              186
             </div>
           </div>
           <div class="bigBox">
@@ -61,7 +61,7 @@
               {{ datadaily }}
             </div>
             <div class="boxContentRightBox">
-              <span>20</span>
+              218
             </div>
           </div>
           <div class="bigBox">
@@ -77,7 +77,7 @@
               {{ safeEquiment }}
             </div>
             <div class="boxContentRightBox">
-              39
+              198
             </div>
           </div>
           <div class="bigBox">
@@ -93,7 +93,7 @@
               {{ networkEquimentDaily }}
             </div>
             <div class="boxContentRightBox">
-              68
+              135
             </div>
           </div>
         </div>
@@ -119,7 +119,7 @@
               {{ OT }}
             </div>
             <div class="boxContentRight">
-              500
+              216
             </div>
           </div>
           <div class="bigBoxDetails">
@@ -127,7 +127,7 @@
               {{ OTdata }}
             </div>
             <div class="boxContentRight">
-              10
+              0
             </div>
           </div>
           <div class="bigBoxDetails">
@@ -135,7 +135,7 @@
               {{ ITdaily }}
             </div>
             <div class="boxContentRight">
-              12
+              67
             </div>
           </div>
 
@@ -144,7 +144,7 @@
               {{ OTdaily }}
             </div>
             <div class="boxContentRight">
-              8
+              119
             </div>
           </div>
           <div class="bigBoxDetails">
@@ -152,7 +152,7 @@
               {{ ITdailyData }}
             </div>
             <div class="boxContentRight">
-              40
+              2
             </div>
           </div>
           <div class="bigBoxDetails">
@@ -160,7 +160,7 @@
               {{ OTdailyData }}
             </div>
             <div class="boxContentRight">
-              63
+              247
             </div>
           </div>
           <div class="bigBoxDetails">
@@ -168,7 +168,7 @@
               {{ user }}
             </div>
             <div class="boxContentRight">
-              40
+              1401
             </div>
           </div>
           <div class="bigBoxDetails">
@@ -176,7 +176,7 @@
               {{ OTuser }}
             </div>
             <div class="boxContentRight">
-              33
+              23
             </div>
           </div>
         </div>
@@ -210,7 +210,7 @@ export default {
   data () {
     return {
       quantity: "采集器个数",
-      number: "894",
+      number: "108",
       network: "资产数",
       fwqrz: "僵木蠕事件",
       networkLirz: "配置核查",
@@ -280,7 +280,7 @@ export default {
   .number {
     position: absolute;
     top: 160px;
-    left: 70px;
+    left: 62px;
     font-size: 48px;
     font-family: PingFangSC-Semibold, PingFang SC;
     font-weight: 600;

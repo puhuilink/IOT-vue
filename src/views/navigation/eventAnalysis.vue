@@ -44,7 +44,7 @@
             <div class="tip2 flex j-s a-c">
               <span class="text">事件总数</span>
               <br>
-              <span class="textNumber">4613</span>
+              <span class="textNumber">1896</span>
 
             </div>
           </el-col>
@@ -52,7 +52,7 @@
             <div class="tip3 flex j-s a-c">
               <span class="text">通报数</span>
               <br>
-              <span class="textNumber">3967</span>
+              <span class="textNumber">1630</span>
             </div>
           </el-col>
           <el-col :span="6">

@@ -3,30 +3,60 @@
     <tip>{{ tipname }}</tip>
     <div>
       <el-row>
-        <el-col :xs="24" :sm="10" :md="10" :lg="10" :xl="10" offset="2">
+        <el-col :xs="24"
+                :sm="10"
+                :md="10"
+                :lg="10"
+                :xl="10"
+                offset="2">
           <div class="item">
-            <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12">
+            <el-col :xs="24"
+                    :sm="12"
+                    :md="12"
+                    :lg="12"
+                    :xl="12">
               <div class="circularWeakPassword"></div>
-              <span class="text">低危(2514)</span>
+              <span class="text">低危(1085)</span>
             </el-col>
-            <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12">
+            <el-col :xs="24"
+                    :sm="12"
+                    :md="12"
+                    :lg="12"
+                    :xl="12">
               <div class="circularPortScanning"></div>
-              <span class="text">高危(468)</span>
+              <span class="text">高危(2251)</span>
             </el-col>
-            <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12">
+            <el-col :xs="24"
+                    :sm="12"
+                    :md="12"
+                    :lg="12"
+                    :xl="12">
               <div class="circularInvolvingaTrojan"></div>
-              <span class="text">中危(1699)</span>
+              <span class="text">中危(1万)</span>
             </el-col>
-            <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12">
+            <el-col :xs="24"
+                    :sm="12"
+                    :md="12"
+                    :lg="12"
+                    :xl="12">
               <div class="circularHotlinking"></div>
-              <span class="text">危机(13)</span>
+              <span class="text">危急(125)</span>
             </el-col>
           </div>
         </el-col>
-        <el-col :xs="24" :sm="4" :md="4" :lg="4" :xl="4">
-          <div ref="canvas1" style="height: 66px"
-        /></el-col>
-        <el-col :xs="24" :sm="8" :md="8" :lg="8" :xl="8">
+        <el-col :xs="24"
+                :sm="4"
+                :md="4"
+                :lg="4"
+                :xl="4">
+          <div ref="canvas1"
+               style="height: 66px" />
+        </el-col>
+        <el-col :xs="24"
+                :sm="8"
+                :md="8"
+                :lg="8"
+                :xl="8">
           <div class="tip">
             <div class="total">总数</div>
             <div class="totalNumber">{{ total }}</div>
@@ -35,7 +65,8 @@
       </el-row>
     </div>
     <div class="title">攻击者TOP5</div>
-    <barEcharts :tipname="'攻击者TOP5统计'" :address="address" />
+    <barEcharts :tipname="'攻击者TOP5统计'"
+                :address="address" />
   </el-col>
 </template>
 <script>
@@ -56,7 +87,7 @@ export default {
       type: Number,
     },
   },
-  data() {
+  data () {
     return {
       policitalStatus: ["1"],
       data1: [],
@@ -69,13 +100,13 @@ export default {
       portScanning: "1516",
       InvolvingaTrojan: "1493",
       hotlinking: "1249",
-      total: "3934",
+      total: "2万",
     };
   },
   computed: {},
   watch: {
     address: {
-      handler(val, oldVal) {
+      handler (val, oldVal) {
         if (val !== oldVal) {
           this.drawPolicitalStatus();
         }
@@ -83,12 +114,12 @@ export default {
       deep: true,
     },
   },
-  created() {},
-  mounted() {
+  created () { },
+  mounted () {
     this.drawPolicitalStatus();
   },
   methods: {
-    drawPolicitalStatus() {
+    drawPolicitalStatus () {
       if (this.policitalStatus.length) {
         switch (this.address) {
           case 1:
