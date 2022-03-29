@@ -4,53 +4,112 @@
     <tip>{{ tipname }}</tip>
     <div>
       <el-row>
-        <el-col :xs="24" :sm="3" :md="3" :lg="3" :xl="3" offset="1">
+        <el-col :xs="24"
+                :sm="3"
+                :md="3"
+                :lg="3"
+                :xl="3"
+                offset="1">
           <span class="text">侦查跟踪</span>
         </el-col>
-        <el-col :xs="24" :sm="3" :md="3" :lg="3" :xl="3">
+        <el-col :xs="24"
+                :sm="3"
+                :md="3"
+                :lg="3"
+                :xl="3">
           <span class="text">武器构建</span>
         </el-col>
-        <el-col :xs="24" :sm="3" :md="3" :lg="3" :xl="3">
+        <el-col :xs="24"
+                :sm="3"
+                :md="3"
+                :lg="3"
+                :xl="3">
           <span class="text">载荷投递</span>
         </el-col>
-        <el-col :xs="24" :sm="3" :md="3" :lg="3" :xl="3">
+        <el-col :xs="24"
+                :sm="3"
+                :md="3"
+                :lg="3"
+                :xl="3">
           <span class="text">突防利用</span>
         </el-col>
-        <el-col :xs="24" :sm="3" :md="3" :lg="3" :xl="3">
+        <el-col :xs="24"
+                :sm="3"
+                :md="3"
+                :lg="3"
+                :xl="3">
           <span class="text">安装植入</span>
         </el-col>
-        <el-col :xs="24" :sm="3" :md="3" :lg="3" :xl="3">
+        <el-col :xs="24"
+                :sm="3"
+                :md="3"
+                :lg="3"
+                :xl="3">
           <span class="text">通信控制</span>
         </el-col>
-        <el-col :xs="24" :sm="3" :md="3" :lg="3" :xl="3">
+        <el-col :xs="24"
+                :sm="3"
+                :md="3"
+                :lg="3"
+                :xl="3">
           <span class="text">达成目标</span>
         </el-col>
       </el-row>
       <el-row>
-        <el-col :xs="24" :sm="3" :md="3" :lg="3" :xl="3" offset="1">
+        <el-col :xs="24"
+                :sm="3"
+                :md="3"
+                :lg="3"
+                :xl="3"
+                offset="1">
           <div class="number">{{ remoteControlTrojan }}</div>
         </el-col>
-        <el-col :xs="24" :sm="3" :md="3" :lg="3" :xl="3">
+        <el-col :xs="24"
+                :sm="3"
+                :md="3"
+                :lg="3"
+                :xl="3">
           <div class="number">{{ remoteControlTrojan1 }}</div>
         </el-col>
-        <el-col :xs="24" :sm="3" :md="3" :lg="3" :xl="3">
+        <el-col :xs="24"
+                :sm="3"
+                :md="3"
+                :lg="3"
+                :xl="3">
           <div class="number">{{ remoteControlTrojan2 }}</div>
         </el-col>
-        <el-col :xs="24" :sm="3" :md="3" :lg="3" :xl="3">
+        <el-col :xs="24"
+                :sm="3"
+                :md="3"
+                :lg="3"
+                :xl="3">
           <div class="number">{{ remoteControlTrojan3 }}</div>
         </el-col>
-        <el-col :xs="24" :sm="3" :md="3" :lg="3" :xl="3">
+        <el-col :xs="24"
+                :sm="3"
+                :md="3"
+                :lg="3"
+                :xl="3">
           <div class="number">{{ remoteControlTrojan4 }}</div>
         </el-col>
-        <el-col :xs="24" :sm="3" :md="3" :lg="3" :xl="3">
+        <el-col :xs="24"
+                :sm="3"
+                :md="3"
+                :lg="3"
+                :xl="3">
           <div class="number">{{ remoteControlTrojan5 }}</div>
         </el-col>
-        <el-col :xs="24" :sm="3" :md="3" :lg="3" :xl="3">
+        <el-col :xs="24"
+                :sm="3"
+                :md="3"
+                :lg="3"
+                :xl="3">
           <div class="number">{{ remoteControlTrojan6 }}</div>
         </el-col>
       </el-row>
     </div>
-    <div ref="canvas1" style="height: 400px" />
+    <div ref="canvas1"
+         style="height: 400px" />
   </el-col>
 </template>
 <script>
@@ -71,25 +130,25 @@ export default {
       type: Number,
     },
   },
-  data() {
+  data () {
     return {
       policitalStatus: ["1"],
       barData: [],
       category: [],
       title: "",
-      remoteControlTrojan: "2175",
+      remoteControlTrojan: "2373",
       remoteControlTrojan1: "0",
       remoteControlTrojan2: "0",
-      remoteControlTrojan3: "2739",
+      remoteControlTrojan3: "2999",
       remoteControlTrojan4: "0",
-      remoteControlTrojan5: "7148",
-      remoteControlTrojan6: "1",
+      remoteControlTrojan5: "2177",
+      remoteControlTrojan6: "0",
     };
   },
   computed: {},
   watch: {
     address: {
-      handler(val, oldVal) {
+      handler (val, oldVal) {
         if (val !== oldVal) {
           this.drawPolicitalStatus();
         }
@@ -97,12 +156,12 @@ export default {
       deep: true,
     },
   },
-  created() {},
-  mounted() {
+  created () { },
+  mounted () {
     this.drawPolicitalStatus();
   },
   methods: {
-    drawPolicitalStatus() {
+    drawPolicitalStatus () {
       if (this.policitalStatus.length) {
         switch (this.address) {
           case 1:
@@ -268,7 +327,7 @@ export default {
           "01-26",
         ];
         // prettier-ignore
-        const days = [  '侦察跟踪','武器构建','荷载投递','突防利用','安装植入','通信控制','达成目标'];
+        const days = ['侦察跟踪', '武器构建', '荷载投递', '突防利用', '安装植入', '通信控制', '达成目标'];
         // prettier-ignore
         //         const data = [[0, 0, 5], [0, 1, 5], [0, 2, 5], [0, 3, 5], [0, 4, 5], [0, 5, 5], [0, 6, 5],  [1, 0, 4], [1, 1,4], [1, 2, 4], [1, 3, 4], [1, 4, 4], [1, 5,4], [1, 6, 4],  [2, 0, 0], [2, 1, 0], [2, 2, 0], [2, 3, 0], [2, 4, 0], [2, 5, 0], [2, 6, 0],  [3, 0, 5], [3, 1, 5], [3, 2, 5], [3, 3, 5], [3, 4, 5], [3, 5, 5], [3, 6, 5],  [4, 0, 6], [4, 1, 6], [4, 2, 6], [4, 3, 6], [4, 4, 6], [4, 5, 6], [4, 6, 6],  [5, 0, 9], [5, 1, 9], [5, 2, 9], [5, 3, 9], [5, 4, 9], [5, 5, 9], [5, 6, 9], [6, 0, 2], [6, 1, 2], [6, 2, 2], [6, 3, 2], [6, 4, 2], [6, 5, 2], [6, 6, 2]]
         //     .map(function (item) {
@@ -322,7 +381,7 @@ export default {
           },
           series: [
             {
-            //   name: "Punch Card",
+              //   name: "Punch Card",
               type: "scatter",
               symbolSize: function (val) {
                 return val[2] * 2;

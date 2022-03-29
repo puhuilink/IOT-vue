@@ -3,48 +3,91 @@
     <tip>{{ tipname }}</tip>
     <div>
       <el-row>
-        <el-col :xs="24" :sm="4" :md="4" :lg="4" :xl="4" :offset="2">
+        <el-col :xs="24"
+                :sm="4"
+                :md="4"
+                :lg="4"
+                :xl="4"
+                :offset="2">
           <div class="circular"></div>
-          <span class="text">远控木马</span>
-        </el-col>
-        <el-col :xs="24" :sm="4" :md="4" :lg="4" :xl="4">
-          <div class="circularWeakPassword"></div>
-          <span class="text">弱口令</span>
-        </el-col>
-        <el-col :xs="24" :sm="4" :md="4" :lg="4" :xl="4">
-          <div class="circularPortScanning"></div>
           <span class="text">端口扫描</span>
         </el-col>
-        <el-col :xs="24" :sm="4" :md="4" :lg="4" :xl="4">
-          <div class="circularInvolvingaTrojan"></div>
-          <span class="text">窃密木马</span>
+        <el-col :xs="24"
+                :sm="4"
+                :md="4"
+                :lg="4"
+                :xl="4">
+          <div class="circularWeakPassword"></div>
+          <span class="text">代码执行</span>
         </el-col>
-        <el-col :xs="24" :sm="4" :md="4" :lg="4" :xl="4">
+        <el-col :xs="24"
+                :sm="4"
+                :md="4"
+                :lg="4"
+                :xl="4">
+          <div class="circularPortScanning"></div>
+          <span class="text">命令执行</span>
+        </el-col>
+        <el-col :xs="24"
+                :sm="4"
+                :md="4"
+                :lg="4"
+                :xl="4">
+          <div class="circularInvolvingaTrojan"></div>
+          <span class="text">远控木马</span>
+        </el-col>
+        <el-col :xs="24"
+                :sm="4"
+                :md="4"
+                :lg="4"
+                :xl="4">
           <div class="circularHotlinking"></div>
-          <span class="text">盗链</span>
+          <span class="text">其他类攻击利用</span>
         </el-col>
       </el-row>
       <el-row>
-        <el-col :xs="24" :sm="4" :md="4" :lg="4" :xl="4" :offset="2">
+        <el-col :xs="24"
+                :sm="4"
+                :md="4"
+                :lg="4"
+                :xl="4"
+                :offset="2">
           <div class="number">{{ remoteControlTrojan }}</div>
         </el-col>
-        <el-col :xs="24" :sm="4" :md="4" :lg="4" :xl="4">
+        <el-col :xs="24"
+                :sm="4"
+                :md="4"
+                :lg="4"
+                :xl="4">
           <div class="number">{{ weakPassword }}</div>
         </el-col>
-        <el-col :xs="24" :sm="4" :md="4" :lg="4" :xl="4">
+        <el-col :xs="24"
+                :sm="4"
+                :md="4"
+                :lg="4"
+                :xl="4">
           <div class="number">{{ portScanning }}</div>
         </el-col>
-        <el-col :xs="24" :sm="4" :md="4" :lg="4" :xl="4">
+        <el-col :xs="24"
+                :sm="4"
+                :md="4"
+                :lg="4"
+                :xl="4">
           <div class="number">
             {{ InvolvingaTrojan }}
           </div>
         </el-col>
-        <el-col :xs="24" :sm="4" :md="4" :lg="4" :xl="4">
+        <el-col :xs="24"
+                :sm="4"
+                :md="4"
+                :lg="4"
+                :xl="4">
           <div class="number">{{ hotlinking }}</div>
         </el-col>
       </el-row>
     </div>
-    <div ref="canvas1" style="height: 400px" />
+    <div ref="canvas1"
+         style="height: 400px" />
   </el-col>
 </template>
 <script>
@@ -64,7 +107,7 @@ export default {
       type: Number,
     },
   },
-  data() {
+  data () {
     return {
       policitalStatus: ["1"],
       data1: [],
@@ -72,17 +115,17 @@ export default {
       data3: [],
       data4: [],
       data5: [],
-      remoteControlTrojan: "3786",
-      weakPassword: "2926",
-      portScanning: "1516",
-      InvolvingaTrojan: "1493",
-      hotlinking: "1249",
+      remoteControlTrojan: "1650",
+      weakPassword: "1409",
+      portScanning: "852",
+      InvolvingaTrojan: "729",
+      hotlinking: "650",
     };
   },
   computed: {},
   watch: {
     address: {
-      handler(val, oldVal) {
+      handler (val, oldVal) {
         if (val !== oldVal) {
           this.drawPolicitalStatus();
         }
@@ -90,20 +133,20 @@ export default {
       deep: true,
     },
   },
-  created() {},
-  mounted() {
+  created () { },
+  mounted () {
     this.drawPolicitalStatus();
   },
   methods: {
-    drawPolicitalStatus() {
+    drawPolicitalStatus () {
       if (this.policitalStatus.length) {
         switch (this.address) {
           case 1:
-            this.data1 = [200, 200, 200, 2500, 90, 230, 210];
-            this.data2 = [200, 200, 200, 200, 290, 11, 310];
-            this.data3 = [200, 200, 200, 200, 950, 111, 310];
-            this.data4 = [200, 200, 200, 200, 390, 101, 810];
-            this.data5 = [200, 200, 200, 200, 200, 200, 200];
+            this.data1 = [200, 200, 200, 1650, 90, 230, 210];
+            this.data2 = [200, 200, 1409, 200, 290, 11, 310];
+            this.data3 = [200, 200, 200, 200, 852, 111, 310];
+            this.data4 = [200, 200, 200, 200, 729, 101, 810];
+            this.data5 = [200, 200, 200, 200, 200, 650, 200];
             break;
           case 2:
             this.data1 = [140, 232, 141, 634, 90, 230, 210];
