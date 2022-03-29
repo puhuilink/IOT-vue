@@ -164,7 +164,13 @@ export default {
             {
               type: 'scatter',
               symbolSize: function(val) {
-                return val[2] * 0.5
+                // TODO 根据不同值设置不同散点大小
+                // if (val[2] < 20) {
+                //   return val[2] * 4
+                // } else if (val[2] > 20 < 50) {
+                //   return val[2] * 2
+                // }
+                return val[2] * 2
               },
               data: this.category,
               animationDelay: function(idx) {
