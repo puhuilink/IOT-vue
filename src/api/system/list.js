@@ -3,6 +3,15 @@
  ******************************************************************************/
 import request from '@/utils/request'
 
+
+export function postAction(url, parameter) {
+  return request({
+    url: url,
+    method: 'post',
+    data: parameter
+  })
+}
+
 // 事件检索
 export function eventList(query) {
   return request({
@@ -22,9 +31,19 @@ export function abnormalList(query) {
 // 资产列表
 export function assetList(query) {
   return request({
-    url: '/m/asset/list',
+    // url: '/m/asset/list',
+    url:'/dm/asset/list',
     method: 'get',
     params: query
+  })
+}
+
+// 资产列表 excel导入功能
+export function uploadExcel(url,query) {
+  return request({
+    url:url,
+    method: 'post',
+    data: query
   })
 }
 // 数据安全事件检索

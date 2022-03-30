@@ -169,7 +169,7 @@ export default {
       //     {value:335, name:'男'},
       //     {value:310, name:'女'},
       // ],
-      allAssets: '14928',
+      allAssets: '14982',
       onlineAssets: '12304',
       AssetsType: '10',
       ITNumber: '10',

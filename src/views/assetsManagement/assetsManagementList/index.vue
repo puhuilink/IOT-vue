@@ -7,12 +7,12 @@
              class="label-type">
       <el-col :span="6">
         <el-form-item label="IP地址:"
-                      prop="ipaddr">
-          <el-input v-model="queryParams.ip"
+                      prop="IPaddress ">
+          <el-input v-model="queryParams.IPaddress"
                     placeholder="请输入IP地址"
                     clearable
                     size="small"
-                    @keyup.enter.native="handleQuery" />
+                    @keyup.enter.native="btnQuery" />
         </el-form-item>
       </el-col>
       <el-col :span="6">
@@ -33,8 +33,8 @@
       </el-col>
       <el-col :span="6">
         <el-form-item label="风险等级:"
-                      prop="riskState">
-          <el-select v-model="queryParams.riskState"
+                      prop="assetType">
+          <el-select v-model="queryParams.assetType"
                      placeholder="请选择区域"
                      filterable
                      clearable
@@ -54,13 +54,13 @@
                     placeholder="请输入责任人"
                     clearable
                     size="small"
-                    @keyup.enter.native="handleQuery" />
+                    @keyup.enter.native="btnQuery" />
         </el-form-item>
       </el-col>
       <el-col :span="6">
         <el-form-item label="事件等级:"
-                      prop="level">
-          <el-select v-model="queryParams.level"
+                      prop="eventLevel">
+          <el-select v-model="queryParams.eventLevel"
                      placeholder="请选择事件等级"
                      filterable
                      clearable
@@ -73,25 +73,10 @@
           </el-select>
         </el-form-item>
       </el-col>
-      <!-- <el-col :span="7">
-        <el-form-item label="资产类型:"
-                      prop="assetType">
-          <el-select v-model="queryParams.assetType"
-                     placeholder="请选择资产类型"
-                     filterable
-                     clearable
-                     :style="{ width: '100%' }">
-            <el-option v-for="(item, index) in assetTypeOptions"
-                       :key="index"
-                       :label="item.label"
-                       :value="item.value"
-                       :disabled="item.disabled" />
-        </el-form-item>
-      </el-col> -->
       <el-col :span="6">
         <el-form-item label="资产类型:"
-                      prop="assetType">
-          <el-select v-model="queryParams.assetType"
+                      prop="assetType ">
+          <el-select v-model="queryParams.assetType "
                      placeholder="请选择资产类型"
                      filterable
                      clearable>
@@ -104,14 +89,29 @@
         </el-form-item>
       </el-col>
       <el-col :span="6">
+        <el-form-item label="资产分组:"
+                      prop="Asset_group ">
+          <el-select v-model="queryParams.Asset_group "
+                     placeholder="请选择资产类型"
+                     filterable
+                     clearable>
+            <el-option v-for="(item, index) in assetGroupOptions"
+                       :key="index"
+                       :label="item.label"
+                       :value="item.value"
+                       :disabled="item.disabled" />
+          </el-select>
+        </el-form-item>
+      </el-col>
+      <el-col :span="6">
         <el-form-item>
           <el-button type="primary"
                      icon="el-icon-search"
                      size="mini"
-                     @click="handleQuery">搜索</el-button>
+                     @click="btnQuery">搜索</el-button>
           <el-button icon="el-icon-refresh"
                      size="mini"
-                     @click="resetQuery">重置</el-button>
+                     @click="resetForm">重置</el-button>
         </el-form-item>
       </el-col>
     </el-form>
@@ -143,88 +143,100 @@
         </el-col>
       </el-row>
     </div> -->
+    <el-card>
+      <el-row type="flex"
+              justify="left">
+        <el-button type="primary"
+                   class="export"
+                   size="mini">新增</el-button>
+        <el-upload :http-request="importExcel"
+                   accept=".xls, .xlsx, .doc, .docx, .pdf"
+                   :before-upload="beforeUpload"
+                   :show-file-list="false"
+                   size="mini"
+                   action>
+          <el-button icon="el-icon-download"
+                     class="export"
+                     size="mini"
+                     type="primary"> 导入</el-button>
+        </el-upload>
+        <el-button type="primary"
+                   class="export"
+                   size="mini">导出</el-button>
+        <el-button type="primary"
+                   class="export"
+                   size="mini">删除</el-button>
+      </el-row>
+      <el-table :data="groupList"
+                tooltip-effect="light">
+        <el-table-column label="资产编号"
+                         type="index"
+                         align="center"
+                         width="100px" />
+        <el-table-column label="资产名称"
+                         align="center"
+                         prop="assetName"
+                         width="300"
+                         :show-overflow-tooltip="true" />
+        <el-table-column label="资产类型"
+                         align="center"
+                         prop="assetType "
+                         :show-overflow-tooltip="true" />
+        <el-table-column label="运行状态"
+                         align="center"
+                         prop="runState"
+                         :show-overflow-tooltip="true" />
+        <el-table-column label="风险状态"
+                         align="center"
+                         prop="riskState"
+                         :show-overflow-tooltip="true" />
+        <el-table-column label="事件等级"
+                         align="center"
+                         prop="eventLevel"
+                         :show-overflow-tooltip="true" />
+        <el-table-column label="操作系统"
+                         align="center"
+                         prop="operatingSystem"
+                         :show-overflow-tooltip="true" />
 
-    <el-table :data="groupList"
-              tooltip-effect="light">
-      <el-table-column label="资产编号"
-                       type="index"
-                       align="center"
-                       width="100px" />
-      <!-- <el-table-column
-        label="IP地址"
-        align="center"
-        prop="ip"
-        :show-overflow-tooltip="true"
-      /> -->
-      <el-table-column label="资产名称"
-                       align="center"
-                       prop="assetName"
-                       width="300"
-                       :show-overflow-tooltip="true" />
-      <el-table-column label="资产类型"
-                       align="center"
-                       prop="assetType"
-                       :show-overflow-tooltip="true" />
-      <el-table-column label="运行状态"
-                       align="center"
-                       prop="runState"
-                       :show-overflow-tooltip="true" />
-      <el-table-column label="风险状态"
-                       align="center"
-                       prop="riskState"
-                       :show-overflow-tooltip="true" />
-      <el-table-column label="事件等级"
-                       align="center"
-                       prop="level"
-                       :show-overflow-tooltip="true" />
-      <el-table-column label="操作系统"
-                       align="center"
-                       prop="os"
-                       :show-overflow-tooltip="true" />
-
-      <el-table-column label="应用协议"
-                       align="center"
-                       prop="appProtocol"
-                       :show-overflow-tooltip="true" />
-      <el-table-column label="风险协议"
-                       align="center"
-                       prop="riskProtocol"
-                       :show-overflow-tooltip="true" />
-      <el-table-column label="资产标签"
-                       align="center"
-                       prop="assetLabel"
-                       :show-overflow-tooltip="true" />
-      <el-table-column label="区域"
-                       align="center"
-                       prop="region"
-                       :show-overflow-tooltip="true" />
-      <el-table-column label="负责人"
-                       align="center"
-                       prop="leader"
-                       :show-overflow-tooltip="true" />
-      <!-- <el-table-column
-        label="最后活跃时间"
-        align="center"
-        prop="endTime"
-        :show-overflow-tooltip="true"
-      /> -->
-      <el-table-column label="操作"
-                       align="center"
-                       class-name="small-padding fixed-width"
-                       width="180">
-        <template>
-          <el-button size="mini"
-                     type="text"
-                     @click="detail">详情</el-button>
-          <el-button size="mini"
-                     type="text"
-                     @click="configuration">配置</el-button>
-          <el-button size="mini"
-                     type="text"
-                     @click="edit">修改</el-button>
-        </template>
-      </el-table-column>
-    </el-table>
+        <el-table-column label="应用协议"
+                         align="center"
+                         prop="applicationProtocol"
+                         :show-overflow-tooltip="true" />
+        <el-table-column label="风险协议"
+                         align="center"
+                         prop="riskProtocol"
+                         :show-overflow-tooltip="true" />
+        <el-table-column label="资产标签"
+                         align="center"
+                         prop="assetTag"
+                         :show-overflow-tooltip="true" />
+        <el-table-column label="区域"
+                         align="center"
+                         prop="region"
+                         :show-overflow-tooltip="true" />
+        <el-table-column label="负责人"
+                         align="center"
+                         prop="leader"
+                         :show-overflow-tooltip="true" />
+        <el-table-column label="操作"
+                         align="center"
+                         class-name="small-padding fixed-width"
+                         width="180">
+          <template>
+            <el-button size="mini"
+                       type="text"
+                       @click="detail">详情</el-button>
+            <el-button size="mini"
+                       type="text"
+                       @click="configuration">配置</el-button>
+            <el-button size="mini"
+                       type="text"
+                       @click="edit">修改</el-button>
+          </template>
+        </el-table-column>
+      </el-table>
+    </el-card>
 
     <pagination v-show="total > 0"
                 :total="total"
@@ -249,7 +261,7 @@
                       placeholder="请输入资产编号"
                       clearable
                       size="small"
-                      @keyup.enter.native="handleQuery" />
+                      @keyup.enter.native="btnQuery" />
           </el-form-item>
           <el-form-item label="资产名称 :"
                         prop="assetName ">
@@ -257,13 +269,13 @@
                       placeholder="请输入资产名称"
                       clearable
                       size="small"
-                      @keyup.enter.native="handleQuery" />
+                      @keyup.enter.native="btnQuery" />
           </el-form-item>
           <el-row>
             <el-col :span="24">
               <el-form-item label="资产类型 :"
-                            prop="assetType">
-                <el-select v-model="formData.field114"
+                            prop="assetType ">
+                <el-select v-model="formData.assetType"
                            placeholder="请选择资产类型"
                            clearable
                            :style="{ width: '100%' }">
@@ -277,12 +289,12 @@
             </el-col>
           </el-row>
           <el-form-item label="IP地址 :"
-                        prop="userName">
-            <el-input v-model="queryParams.userName"
+                        prop="IPaddress">
+            <el-input v-model="queryParams.IPaddress"
                       placeholder="请输入IP地址"
                       clearable
                       size="small"
-                      @keyup.enter.native="handleQuery" />
+                      @keyup.enter.native="btnQuery" />
           </el-form-item>
           <el-form-item label="负责人 :"
                         prop="leader">
@@ -290,13 +302,13 @@
                       placeholder="请输入负责人"
                       clearable
                       size="small"
-                      @keyup.enter.native="handleQuery" />
+                      @keyup.enter.native="btnQuery" />
           </el-form-item>
           <el-row>
             <el-col :span="24">
               <el-form-item label="区域 :"
                             prop="region">
-                <el-select v-model="formData.field114"
+                <el-select v-model="formData.region"
                            placeholder="请选择区域"
                            clearable
                            :style="{ width: '100%' }">
@@ -348,36 +360,14 @@
                append-to-body
                class="label-type">
       <div class="contentBox">
-        <el-form ref="queryForm"
-                 :model="queryParams"
-                 :inline="true"
-                 label-width="300px"
-                 class="label-type">
-          <el-form-item label="请选择文件 :"
-                        prop="userName">
-            <el-upload class="upload-demo"
-                       drag
-                       action
-                       :show-file-list="false"
-                       :before-upload="beforeUpload"
-                       :http-request="doImport">
-              <i class="el-icon-upload" />
-            </el-upload>
-            <!-- <el-input v-model="queryParams.userName"
-                      placeholder="请上传csv文件"
-                      clearable
-                      size="small"
-                      @keyup.enter.native="handleQuery" /> -->
-          </el-form-item>
-          <el-button class="downLoad">下载导入模板</el-button>
-        </el-form>
+
         <div slot="footer"
              class="dialog-footer">
           <el-row type="flex"
                   justify="center">
             <el-button size="small"
                        type="primary"
-                       @click="submitForm">导 入</el-button>
+                       @click="handleExport">导 入</el-button>
             <el-button size="small"
                        @click="cancel">取 消</el-button>
           </el-row>
@@ -402,7 +392,7 @@
                       placeholder="请输入资产编号"
                       clearable
                       size="small"
-                      @keyup.enter.native="handleQuery" />
+                      @keyup.enter.native="btnQuery" />
           </el-form-item>
           <el-form-item label="资产名称 :"
                         prop="assetName ">
@@ -410,13 +400,13 @@
                       placeholder="请输入资产名称"
                       clearable
                       size="small"
-                      @keyup.enter.native="handleQuery" />
+                      @keyup.enter.native="btnQuery" />
           </el-form-item>
           <el-row>
             <el-col :span="24">
               <el-form-item label="资产类型 :"
-                            prop="assetType">
-                <el-select v-model="formData.field114"
+                            prop="assetType ">
+                <el-select v-model="formData.assetType"
                            placeholder="请选择资产类型"
                            clearable
                            :style="{ width: '100%' }">
@@ -430,12 +420,12 @@
             </el-col>
           </el-row>
           <el-form-item label="IP地址 :"
-                        prop="userName">
-            <el-input v-model="queryParams.userName"
+                        prop="IPaddress">
+            <el-input v-model="queryParams.IPaddress"
                       placeholder="请输入IP地址"
                       clearable
                       size="small"
-                      @keyup.enter.native="handleQuery" />
+                      @keyup.enter.native="btnQuery" />
           </el-form-item>
           <el-form-item label="负责人 :"
                         prop="leader ">
@@ -443,13 +433,13 @@
                       placeholder="请输入负责人"
                       clearable
                       size="small"
-                      @keyup.enter.native="handleQuery" />
+                      @keyup.enter.native="btnQuery" />
           </el-form-item>
           <el-row>
             <el-col :span="24">
               <el-form-item label="区域 :"
                             prop="region">
-                <el-select v-model="formData.field114"
+                <el-select v-model="formData.region"
                            placeholder="请选择区域"
                            clearable
                            :style="{ width: '100%' }">
@@ -489,76 +479,76 @@
                  class="label-type"
                  label-width="280px">
           <el-form-item label="资产型号 :"
-                        prop="userName">
-            <el-input v-model="queryParams.userName"
+                        prop="Asset_model">
+            <el-input v-model="queryParams.Asset_model"
                       placeholder="请输入资产型号"
                       clearable
                       size="small"
-                      @keyup.enter.native="handleQuery" />
+                      @keyup.enter.native="btnQuery" />
           </el-form-item>
           <el-form-item label="生产厂商 :"
-                        prop="userName">
-            <el-input v-model="queryParams.userName"
+                        prop="manufacturer">
+            <el-input v-model="queryParams.manufacturer"
                       placeholder="请输入生产厂商"
                       clearable
                       size="small"
-                      @keyup.enter.native="handleQuery" />
+                      @keyup.enter.native="btnQuery" />
           </el-form-item>
           <el-form-item label="资产价值 :"
-                        prop="userName">
-            <el-input v-model="queryParams.userName"
+                        prop="Asset_value">
+            <el-input v-model="queryParams.Asset_value"
                       placeholder="请输入资产价值"
                       clearable
                       size="small"
-                      @keyup.enter.native="handleQuery" />
+                      @keyup.enter.native="btnQuery" />
           </el-form-item>
           <el-form-item label="资产描述 :"
-                        prop="userName">
-            <el-input v-model="queryParams.userName"
+                        prop="Asset_description">
+            <el-input v-model="queryParams.Asset_description"
                       placeholder="请输入资产描述"
                       clearable
                       size="small"
-                      @keyup.enter.native="handleQuery" />
+                      @keyup.enter.native="btnQuery" />
           </el-form-item>
           <el-form-item label="资产标签 :"
-                        prop="assetlabel">
-            <el-input v-model="queryParams.assetlabel"
+                        prop="assetTag">
+            <el-input v-model="queryParams.assetTag"
                       placeholder="请输入资产标签"
                       clearable
                       size="small"
-                      @keyup.enter.native="handleQuery" />
+                      @keyup.enter.native="btnQuery" />
           </el-form-item>
           <el-form-item label="操作系统 :"
-                        prop="os">
-            <el-input v-model="queryParams.os"
+                        prop="operatingSystem">
+            <el-input v-model="queryParams.operatingSystem"
                       placeholder="请输入操作系统"
                       clearable
                       size="small"
-                      @keyup.enter.native="handleQuery" />
+                      @keyup.enter.native="btnQuery" />
           </el-form-item>
           <el-form-item label="数据库 :"
-                        prop="userName">
-            <el-input v-model="queryParams.userName"
+                        prop="database">
+            <el-input v-model="queryParams.database"
                       placeholder="请输入数据库"
                       clearable
                       size="small"
-                      @keyup.enter.native="handleQuery" />
+                      @keyup.enter.native="btnQuery" />
           </el-form-item>
           <el-form-item label="运行软件 :"
-                        prop="userName">
-            <el-input v-model="queryParams.userName"
+                        prop="run_software">
+            <el-input v-model="queryParams.run_software"
                       placeholder="请输入运行软件"
                       clearable
                       size="small"
-                      @keyup.enter.native="handleQuery" />
+                      @keyup.enter.native="btnQuery" />
           </el-form-item>
           <el-form-item label="应用协议 :"
-                        prop="appProtocol ">
-            <el-input v-model="queryParams.appProtocol "
+                        prop="applicationProtocol ">
+            <el-input v-model="queryParams.applicationProtocol "
                       placeholder="请输入应用协议"
                       clearable
                       size="small"
-                      @keyup.enter.native="handleQuery" />
+                      @keyup.enter.native="btnQuery" />
           </el-form-item>
           <el-form-item label="风险协议 :"
                         prop="riskProtocol">
@@ -566,13 +556,13 @@
                       placeholder="请输入风险协议"
                       clearable
                       size="small"
-                      @keyup.enter.native="handleQuery" />
+                      @keyup.enter.native="btnQuery" />
           </el-form-item>
           <el-row>
             <el-col :span="24">
               <el-form-item label="运行状态 :"
-                            prop="ipaddr">
-                <el-select v-model="formData.field114"
+                            prop="runState">
+                <el-select v-model="formData.runState"
                            placeholder="请选择运行状态"
                            clearable
                            :style="{ width: '100%' }">
@@ -586,8 +576,8 @@
             </el-col>
             <el-col :span="24">
               <el-form-item label="是否外联 :"
-                            prop="ipaddr">
-                <el-select v-model="formData.field114"
+                            prop="whether_Outreach">
+                <el-select v-model="formData.whether_Outreach"
                            placeholder="请选择是否外联"
                            clearable
                            :style="{ width: '100%' }">
@@ -641,7 +631,7 @@
             </el-col>
             <el-col :span="8">
               <el-form-item label="资产型号 :">
-                {{ dataTest.name2 }}
+                {{ dataTest.Asset_model }}
               </el-form-item>
             </el-col>
             <el-col :span="8">
@@ -651,17 +641,17 @@
             </el-col>
             <el-col :span="8">
               <el-form-item label="资产类型 :">
-                {{ dataTest.name4 }}
+                {{ dataTest.assetType }}
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item label="生产厂商 :">
-                {{ dataTest.name5 }}
+                {{ dataTest.manufacturer }}
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item label="资产价值 :">
-                {{ dataTest.name6 }}
+                {{ dataTest.Asset_value }}
               </el-form-item>
             </el-col>
             <el-col :span="8">
@@ -671,7 +661,7 @@
             </el-col>
             <el-col :span="8">
               <el-form-item label="资产描述 :">
-                {{ dataTest.name8 }}
+                {{ dataTest.Asset_description }}
               </el-form-item>
             </el-col>
             <el-col :span="8">
@@ -681,7 +671,7 @@
             </el-col>
             <el-col :span="8">
               <el-form-item label="运行软件 :">
-                {{ dataTest.name9 }}
+                {{ dataTest.run_software }}
               </el-form-item>
             </el-col>
             <el-col :span="8">
@@ -691,7 +681,7 @@
             </el-col>
             <el-col :span="8">
               <el-form-item label="风险状态 :">
-                {{ dataTest.name10 }}
+                {{ dataTest.riskState }}
               </el-form-item>
             </el-col>
 
@@ -712,12 +702,12 @@
             </el-col>
             <el-col :span="8">
               <el-form-item label="事件等级 :">
-                {{ dataTest.name15 }}
+                {{ dataTest.eventLevel }}
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item label="资产位置 :">
-                {{ dataTest.namelocation }}
+                {{ dataTest.Asset_locationh }}
               </el-form-item>
             </el-col>
             <el-col :span="8">
@@ -742,7 +732,7 @@
             </el-col>
             <el-col :span="8">
               <el-form-item label="部门 :">
-                {{ dataTest.nameBm }}
+                {{ dataTest.department }}
               </el-form-item>
             </el-col>
             <el-col :span="8">
@@ -794,7 +784,7 @@
                   style="width: 100%">
           <el-table-column label="事件名称"
                            align="center"
-                           prop="eventName"
+                           prop="assetName"
                            :show-overflow-tooltip="true" />
           <el-table-column label="源IP"
                            align="center"
@@ -806,16 +796,16 @@
                            :show-overflow-tooltip="true" />
           <el-table-column label="协议"
                            align="center"
-                           prop="appProtocol"
+                           prop="applicationProtocol"
                            :show-overflow-tooltip="true"
                            width="60" />
           <el-table-column label="事件等级"
                            align="center"
-                           prop="level"
+                           prop="eventLevel"
                            width="60" />
           <el-table-column label="事件类型"
                            align="center"
-                           prop="os"
+                           prop="operating_system"
                            width="60" />
           <el-table-column label="处置状态"
                            align="center"
@@ -856,9 +846,10 @@
 
 <script>
 // import { listEvent } from '@/api/system/category'
-import { assetList } from '@/api/system/list'
+import { assetList, uploadExcel, postAction } from '@/api/system/list'
 import chainStatistics from "@/components/Echarts/chainStatistics";
 import eventType from "@/components/Echarts/eventType";
+import { Message } from 'element-ui'
 export default {
   components: {
     chainStatistics, eventType
@@ -886,7 +877,7 @@ export default {
           ipaddr: '安全设备-web应用防火墙',
           loginLocation: '在线',
           fxzt: '正常',
-          os: '极低',
+          operating_system: '极低',
           xt: 'Linux',
           yyxy: '--',
           fxxy: '--',
@@ -903,7 +894,7 @@ export default {
           ipaddr: '服务器-虚拟机',
           loginLocation: '在线',
           fxzt: '低危',
-          os: '低',
+          operating_system: '低',
           xt: 'CentOS7.6',
           yyxy: '--',
           fxxy: '--',
@@ -920,7 +911,7 @@ export default {
           ipaddr: '服务器-服务器',
           loginLocation: '在线',
           fxzt: '中危',
-          os: '中',
+          operating_system: '中',
           xt: 'Linux2.6x',
           yyxy: '--',
           fxxy: '--',
@@ -937,7 +928,7 @@ export default {
           ipaddr: '安全设备-蜜罐',
           loginLocation: '异常',
           fxzt: '高危',
-          os: '高',
+          operating_system: '高',
           xt: '--',
           yyxy: '--',
           fxxy: '--',
@@ -954,7 +945,7 @@ export default {
           ipaddr: '安全设备-工业防火墙',
           loginLocation: '在线',
           fxzt: '致命',
-          os: '致命',
+          operating_system: '致命',
           xt: 'WOS',
           yyxy: 'S7',
           fxxy: 'S7',
@@ -971,7 +962,7 @@ export default {
           ipaddr: '服务器-主机',
           loginLocation: '离线',
           fxzt: '正常',
-          os: '极低',
+          operating_system: '极低',
           xt: 'Linux',
           yyxy: '--',
           fxxy: '--',
@@ -988,7 +979,7 @@ export default {
           ipaddr: '服务器-主机',
           loginLocation: '离线',
           fxzt: '正常',
-          os: '极低',
+          operating_system: '极低',
           xt: 'Linux',
           yyxy: '--',
           fxxy: '--',
@@ -1005,7 +996,7 @@ export default {
           ipaddr: '安全设备-工业防火墙',
           loginLocation: '在线',
           fxzt: '致命',
-          os: '致命',
+          operating_system: '致命',
           xt: 'WOS',
           yyxy: 'S7',
           fxxy: 'S7',
@@ -1022,7 +1013,7 @@ export default {
           ipaddr: '服务器-主机',
           loginLocation: '离线',
           fxzt: '正常',
-          os: '极低',
+          operating_system: '极低',
           xt: 'Linux',
           yyxy: '--',
           fxxy: '--',
@@ -1039,7 +1030,7 @@ export default {
           ipaddr: '服务器-主机',
           loginLocation: '离线',
           fxzt: '正常',
-          os: '极低',
+          operating_system: '极低',
           xt: 'Linux',
           yyxy: '--',
           fxxy: '--',
@@ -1052,20 +1043,22 @@ export default {
       ],
       // 分组表格数据
       groupList: [],
-      pageNum: 1,
-      pageSize: 10,
+      // pageNum: 1,
+      // pageSize: 10,
       // 查询参数
       queryParams: {
         pageNum: 1,
         pageSize: 10,
-        userId: null,
-        orderByColumn: 'happen_time',
-        isAsc: 'desc',
-        groupName: null,
-        createTime: null
+        // IPaddress: '',
+        // region: '',
+        // assetType: '',
+        // leader: '',
+        // eventLevel: '',
+        // assetType: '',
+        // assetType: ''
       },
       formData: {
-        level: ''
+        event_level: ''
       },
       areaOptions: [
         {
@@ -1163,10 +1156,6 @@ export default {
         {
           label: '高',
           value: '高'
-        },
-        {
-          label: '致命',
-          value: '致命'
         }
       ],
       assetTypeOptions: [
@@ -1195,33 +1184,55 @@ export default {
           value: '服务器-主机'
         }
       ],
+      assetGroupOptions: [
+        {
+          label: '极低',
+          value: '极低'
+        },
+        {
+          label: '低',
+          value: '低'
+        },
+        {
+          label: '中',
+          value: '中'
+        },
+        {
+          label: '高',
+          value: '高'
+        },
+        {
+          label: '致命',
+          value: '致命'
+        }
+      ],
       dataTest: {
         name: '1',
         name1: '124.165.254.98',
-        name2: '29530',
+        Asset_model: '29530',
         name3: 'SCADA服务器',
-        name4: '工控设备',
-        name5: 'Dell',
+        assetType: '工控设备',
+        manufacturer: 'Dell',
         nameFind: '导入',
-        name6: '4',
+        Asset_value: '4',
         name7: '等保一级',
-        name8: 'WINDOWS',
-        name9: 'Combridge',
-        name10: '极低',
+        Asset_description: 'WINDOWS',
+        run_software: 'Combridge',
+        riskState: '极低',
         name11: 'DATAServer',
         name12: '正常',
         name13: '--',
         name14: '是',
         nameArea: '山西三通燃气厂',
-        nameBm: '--',
-        name15: "低",
+        department: '--',
+        eventLevel: "低",
         name16: '3',
         leader: '张燕强',
         time: '2022-02-03 21:00:47',
         location: '--',
         locationGeo: '吕梁市汾阳市富民南路东方国际城顶楼机房',
         nameAssets: '工控设备',
-        namelocation: '楼顶机房内',
+        Asset_locationh: '楼顶机房内',
         nameArgument: 'TCP/IP',
         origation: '中国城乡山西三通燃气厂'
       }
@@ -1246,19 +1257,39 @@ export default {
       this.total = res.total
       this.loading = false
     },
+    // 上传前格式与大小校验
+    beforeUpload (file) {
+      var testmsg = file.name.substring(file.name.lastIndexOf('.') + 1)
+      const extension = testmsg === 'xls'
+      const extension1 = testmsg === 'xlsx'
+      const isLt2M = file.size / 1024 / 1024 < 10
+      if (!extension && !extension1) {
+        this.$message.warning('上传文件只能是 xls、xlsx格式')
+      }
+      if (!isLt2M) {
+        this.$message.warning('上传文件大小不能超过 10MB!')
+      }
+      return extension || extension1 || isLt2M
+    },
+    async importExcel (fileObj) {
+      const formData = new FormData()
+      formData.set('file', fileObj.file)
+
+      const { msg } = await uploadExcel(
+        '/dm/asset/excelFile',
+        formData
+      )
+      this.getList()
+      this.$message.success(msg)
+
+    },
     /** 搜索按钮操作 */
-    handleQuery () {
-      // this.queryParams.pageNum = 1
+    btnQuery () {
       this.getList()
     },
-    // btnQuery () {
-    //   this.queryParams.pageNum = 1
-    //   this.getList()
-    // },
     /** 重置按钮操作 */
-    resetQuery () {
-      this.resetForm('queryForm')
-      this.handleQuery()
+    resetForm () {
+      this.$refs['elForm'].resetFields()
     },
     handleAdd () {
       this.open = true
@@ -1294,9 +1325,8 @@ export default {
           this.msgSuccess('强退成功')
         })
     },
-    handleExport () {
-      this.exportDialog = true
-      this.title = '批量导入资产'
+    async handleExport () {
+      await uploadExcel(this.queryParams)
     },
     edit () {
       this.editDialog = true
@@ -1314,6 +1344,10 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+.export {
+  margin-bottom: 10px;
+  margin-left: 10px;
+}
 ::v-deep .el-dialog__body {
   padding: 0 !important;
 }
