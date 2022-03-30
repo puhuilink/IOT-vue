@@ -1305,7 +1305,11 @@ export default {
     },
     /** 重置按钮操作 */
     resetForm () {
-      this.$refs['elForm'].resetFields()
+      this.queryParams = {
+        pageNum: 1,
+        pageSize: 10,
+      }
+      this.getList()
     },
     handleAdd () {
       this.open = true
