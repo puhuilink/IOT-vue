@@ -18,7 +18,7 @@
                 prop="name"
               >
                 <el-input
-                  v-model="queryParams.sourceIp"
+                  v-model.trim="queryParams.sourceIp"
                   placeholder="请输入源IP地址"
                   clearable
                   :style="{width: '100%'}"
@@ -31,7 +31,7 @@
                 prop="area"
               >
                 <el-select
-                  v-model="queryParams.actionType"
+                  v-model.trim="queryParams.actionType"
                   placeholder="请选择动作类型"
                   filterable
                   clearable
@@ -53,7 +53,7 @@
                 prop="level"
               >
                 <el-select
-                  v-model="queryParams.hitStrategy"
+                  v-model.trim="queryParams.hitStrategy"
                   placeholder="请选择命中策略"
                   filterable
                   clearable
@@ -75,7 +75,7 @@
                 prop="level"
               >
                 <el-select
-                  v-model="queryParams.protocolType"
+                  v-model.trim="queryParams.protocolType"
                   placeholder="请选择协议类型"
                   filterable
                   clearable
@@ -97,7 +97,7 @@
                 prop="area"
               >
                 <el-select
-                  v-model="queryParams.region"
+                  v-model.trim="queryParams.region"
                   placeholder="请选择区域"
                   filterable
                   clearable
@@ -119,7 +119,7 @@
                 prop="area"
               >
                 <el-select
-                  v-model="queryParams.eventLevel"
+                  v-model.trim="queryParams.eventLevel"
                   placeholder="请选择事件等级"
                   filterable
                   clearable
@@ -141,7 +141,7 @@
                 prop="field114"
               >
                 <el-select
-                  v-model="queryParams.disposalStatus"
+                  v-model.trim="queryParams.disposalStatus"
                   placeholder="请选择处置状态"
                   clearable
                   :style="{width: '100%'}"
@@ -162,7 +162,7 @@
                 prop="date"
               >
                 <el-time-picker
-                  v-model="queryParams.date"
+                  v-model.trim="queryParams.date"
                   is-range
                   format="HH:mm:ss"
                   value-format="HH:mm:ss"
@@ -619,11 +619,26 @@ export default {
         'label': '网页阻断',
         'value': 4
       }, {
-        'label': '关键字_财政',
+        'label': '网页记录',
         'value': 5
       }, {
+        'label': '关键字_财政',
+        'value': 6
+      }, {
         'label': '关键字_表',
-        'value': 5
+        'value': 7
+      }, {
+        'label': '关键字_pdf',
+        'value': 8
+      }, {
+        'label': '关键字_策略',
+        'value': 9
+      }, {
+        'label': '关键字_审批',
+        'value': 10
+      }, {
+        'label': '关键字_流量',
+        'value': 11
       }],
       protocolTypeOptions: [{
         'label': 'HTTP',
