@@ -1,120 +1,128 @@
 <template>
   <div class="app-container">
-    <el-form ref="queryForm"
-             :model="queryParams"
-             :inline="true"
-             label-width="75px"
-             class="label-type">
-      <el-col :span="6">
-        <el-form-item label="IP地址:"
+    <el-card class="box-card">
+      <div>
+        <el-row :gutter="20">
+          <el-form ref="queryForm"
+                   :model="queryParams"
+                   :rules="rules"
+                   label-width="75px"
+                   class="label-type">
+            <el-col :span="6">
+              <el-form-item label="资产分组:"
+                            prop="Asset_group ">
+                <el-select v-model="queryParams.Asset_group "
+                           placeholder="请选择资产类型"
+                           filterable
+                           clearable
+                           :style="{ width: '100%' }">
+                  <el-option v-for="(item, index) in assetGroupOptions"
+                             :key="index"
+                             :label="item.label"
+                             :value="item.value"
+                             :disabled="item.disabled" />
+                </el-select>
+              </el-form-item>
+              <!-- <el-form-item label="IP地址:"
                       prop="IPaddress ">
           <el-input v-model="queryParams.IPaddress"
                     placeholder="请输入IP地址"
                     clearable
                     size="small"
                     @keyup.enter.native="btnQuery" />
-        </el-form-item>
-      </el-col>
-      <el-col :span="6">
-        <el-form-item label="区域:"
-                      prop="region">
-          <el-select v-model="queryParams.region"
-                     placeholder="请选择区域"
-                     filterable
-                     clearable
-                     :style="{ width: '100%' }">
-            <el-option v-for="(item, index) in areaOptions"
-                       :key="index"
-                       :label="item.label"
-                       :value="item.value"
-                       :disabled="item.disabled" />
-          </el-select>
-        </el-form-item>
-      </el-col>
-      <el-col :span="6">
-        <el-form-item label="风险等级:"
-                      prop="assetType">
-          <el-select v-model="queryParams.assetType"
-                     placeholder="请选择区域"
-                     filterable
-                     clearable
-                     :style="{ width: '100%' }">
-            <el-option v-for="(item, index) in riskStateOptions"
-                       :key="index"
-                       :label="item.label"
-                       :value="item.value"
-                       :disabled="item.disabled" />
-          </el-select>
-        </el-form-item>
-      </el-col>
-      <el-col :span="6">
-        <el-form-item label="责任人:"
-                      prop="leader">
-          <el-input v-model="queryParams.leader"
-                    placeholder="请输入责任人"
-                    clearable
-                    size="small"
-                    @keyup.enter.native="btnQuery" />
-        </el-form-item>
-      </el-col>
-      <el-col :span="6">
-        <el-form-item label="事件等级:"
-                      prop="eventLevel">
-          <el-select v-model="queryParams.eventLevel"
-                     placeholder="请选择事件等级"
-                     filterable
-                     clearable
-                     :style="{ width: '100%' }">
-            <el-option v-for="(item, index) in levelOptions"
-                       :key="index"
-                       :label="item.label"
-                       :value="item.value"
-                       :disabled="item.disabled" />
-          </el-select>
-        </el-form-item>
-      </el-col>
-      <el-col :span="6">
-        <el-form-item label="资产类型:"
-                      prop="assetType ">
-          <el-select v-model="queryParams.assetType "
-                     placeholder="请选择资产类型"
-                     filterable
-                     clearable>
-            <el-option v-for="(item, index) in assetTypeOptions"
-                       :key="index"
-                       :label="item.label"
-                       :value="item.value"
-                       :disabled="item.disabled" />
-          </el-select>
-        </el-form-item>
-      </el-col>
-      <el-col :span="6">
-        <el-form-item label="资产分组:"
-                      prop="Asset_group ">
-          <el-select v-model="queryParams.Asset_group "
-                     placeholder="请选择资产类型"
-                     filterable
-                     clearable>
-            <el-option v-for="(item, index) in assetGroupOptions"
-                       :key="index"
-                       :label="item.label"
-                       :value="item.value"
-                       :disabled="item.disabled" />
-          </el-select>
-        </el-form-item>
-      </el-col>
-      <el-col :span="6">
-        <el-form-item>
-          <el-button type="primary"
-                     icon="el-icon-search"
-                     size="mini"
-                     @click="btnQuery">搜索</el-button>
-          <el-button icon="el-icon-refresh"
-                     size="mini"
-                     @click="resetForm">重置</el-button>
-        </el-form-item>
-      </el-col>
-    </el-form>
+        </el-form-item> -->
+            </el-col>
+            <el-col :span="6">
+              <el-form-item label="区域:"
+                            prop="region">
+                <el-select v-model="queryParams.region"
+                           placeholder="请选择区域"
+                           filterable
+                           clearable
+                           :style="{ width: '100%' }">
+                  <el-option v-for="(item, index) in areaOptions"
+                             :key="index"
+                             :label="item.label"
+                             :value="item.value"
+                             :disabled="item.disabled" />
+                </el-select>
+              </el-form-item>
+            </el-col>
+            <el-col :span="6">
+              <el-form-item label="风险等级:"
+                            prop="assetType">
+                <el-select v-model="queryParams.assetType"
+                           placeholder="请选择风险等级"
+                           filterable
+                           clearable
+                           :style="{ width: '100%' }">
+                  <el-option v-for="(item, index) in riskStateOptions"
+                             :key="index"
+                             :label="item.label"
+                             :value="item.value"
+                             :disabled="item.disabled" />
+                </el-select>
+              </el-form-item>
+            </el-col>
+            <el-col :span="6">
+              <el-form-item label="负责人:"
+                            prop="leader">
+                <el-input v-model="queryParams.leader"
+                          placeholder="请输入负责人"
+                          clearable
+                          size="small"
+                          @keyup.enter.native="btnQuery" />
+              </el-form-item>
+            </el-col>
+            <el-col :span="6">
+              <el-form-item label="事件等级:"
+                            prop="eventLevel">
+                <el-select v-model="queryParams.eventLevel"
+                           placeholder="请选择事件等级"
+                           filterable
+                           clearable
+                           :style="{ width: '100%' }">
+                  <el-option v-for="(item, index) in levelOptions"
+                             :key="index"
+                             :label="item.label"
+                             :value="item.value"
+                             :disabled="item.disabled" />
+                </el-select>
+              </el-form-item>
+            </el-col>
+            <el-col :span="6">
+              <el-form-item label="资产类型:"
+                            prop="assetType ">
+                <el-select v-model="queryParams.assetType "
+                           placeholder="请选择资产类型"
+                           filterable
+                           clearable
+                           :style="{ width: '100%' }">
+                  <el-option v-for="(item, index) in assetTypeOptions"
+                             :key="index"
+                             :label="item.label"
+                             :value="item.value"
+                             :disabled="item.disabled" />
+                </el-select>
+              </el-form-item>
+            </el-col>
+            <el-col :span="6">
+              <el-form-item>
+                <el-button type="primary"
+                           icon="el-icon-search"
+                           size="mini"
+                           @click="btnQuery">搜索</el-button>
+                <el-button icon="el-icon-refresh"
+                           size="mini"
+                           @click="resetForm">重置</el-button>
+              </el-form-item>
+            </el-col>
+
+          </el-form>
+        </el-row>
+      </div>
+    </el-card>
+
     <!-- <div>
       <el-row :gutter="10">
         <el-col :span="1.5">
@@ -144,35 +152,38 @@
       </el-row>
     </div> -->
     <el-card>
-      <el-row type="flex"
-              justify="left">
-        <el-button type="primary"
-                   class="export"
-                   size="mini">新增</el-button>
-        <el-upload :http-request="importExcel"
-                   accept=".xls, .xlsx, .doc, .docx, .pdf"
-                   :before-upload="beforeUpload"
-                   :show-file-list="false"
-                   size="mini"
-                   action>
-          <el-button icon="el-icon-download"
+      <div style="height:40px">
+        <el-row type="flex"
+                justify="left">
+          <el-button type="primary"
                      class="export"
+                     size="mini">新增</el-button>
+          <el-upload :http-request="importExcel"
+                     accept=".xls, .xlsx, .doc, .docx, .pdf"
+                     :before-upload="beforeUpload"
+                     :show-file-list="false"
                      size="mini"
-                     type="primary"> 导入</el-button>
-        </el-upload>
-        <el-button type="primary"
-                   class="export"
-                   size="mini">导出</el-button>
-        <el-button type="primary"
-                   class="export"
-                   size="mini">删除</el-button>
-      </el-row>
+                     action>
+            <el-button icon="el-icon-download"
+                       class="export"
+                       size="mini"
+                       type="primary"> 导入</el-button>
+          </el-upload>
+          <el-button type="primary"
+                     class="export"
+                     size="mini">导出</el-button>
+          <el-button type="primary"
+                     class="export"
+                     size="mini">删除</el-button>
+        </el-row>
+      </div>
+
       <el-table :data="groupList"
                 tooltip-effect="light">
         <el-table-column label="资产编号"
                          type="index"
                          align="center"
-                         width="100px" />
+                         width="100" />
         <el-table-column label="资产名称"
                          align="center"
                          prop="assetName"
@@ -180,8 +191,13 @@
                          :show-overflow-tooltip="true" />
         <el-table-column label="资产类型"
                          align="center"
-                         prop="assetType "
+                         prop="assetType"
+                         width="100"
                          :show-overflow-tooltip="true" />
+        <!-- <el-table-column label="资产类型1"
+                         align="center"
+                         prop="assetType "
+                         :show-overflow-tooltip="true" /> -->
         <el-table-column label="运行状态"
                          align="center"
                          prop="runState"

@@ -421,13 +421,20 @@ export default {
         value: '待处置'
       },
       {
+        label: '处置中',
+        value: '处置中'
+      },
+      {
         label: '已处置',
         value: '已处置'
       },
       {
+        label: '误报',
+        value: '误报'
+      },
+      {
         label: '不处置',
         value: '不处置'
-
       }],
       killingChainStageOptions: [{
         label: '载荷投递',
