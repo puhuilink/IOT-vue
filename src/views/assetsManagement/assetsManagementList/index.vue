@@ -111,7 +111,7 @@
                      @click="btnQuery">搜索</el-button>
           <el-button icon="el-icon-refresh"
                      size="mini"
-                     @click="resetQuery">重置</el-button>
+                     @click="resetForm">重置</el-button>
         </el-form-item>
       </el-col>
     </el-form>
@@ -143,88 +143,100 @@
         </el-col>
       </el-row>
     </div> -->
+    <el-card>
+      <el-row type="flex"
+              justify="left">
+        <el-button type="primary"
+                   class="export"
+                   size="mini">新增</el-button>
+        <el-upload :http-request="importExcel"
+                   accept=".xls, .xlsx, .doc, .docx, .pdf"
+                   :before-upload="beforeUpload"
+                   :show-file-list="false"
+                   size="mini"
+                   action>
+          <el-button icon="el-icon-download"
+                     class="export"
+                     size="mini"
+                     type="primary"> 导入</el-button>
+        </el-upload>
+        <el-button type="primary"
+                   class="export"
+                   size="mini">导出</el-button>
+        <el-button type="primary"
+                   class="export"
+                   size="mini">删除</el-button>
+      </el-row>
+      <el-table :data="groupList"
+                tooltip-effect="light">
+        <el-table-column label="资产编号"
+                         type="index"
+                         align="center"
+                         width="100px" />
+        <el-table-column label="资产名称"
+                         align="center"
+                         prop="assetName"
+                         width="300"
+                         :show-overflow-tooltip="true" />
+        <el-table-column label="资产类型"
+                         align="center"
+                         prop="assetType "
+                         :show-overflow-tooltip="true" />
+        <el-table-column label="运行状态"
+                         align="center"
+                         prop="runState"
+                         :show-overflow-tooltip="true" />
+        <el-table-column label="风险状态"
+                         align="center"
+                         prop="riskState"
+                         :show-overflow-tooltip="true" />
+        <el-table-column label="事件等级"
+                         align="center"
+                         prop="eventLevel"
+                         :show-overflow-tooltip="true" />
+        <el-table-column label="操作系统"
+                         align="center"
+                         prop="operatingSystem"
+                         :show-overflow-tooltip="true" />
 
-    <el-table :data="groupList"
-              tooltip-effect="light">
-      <el-table-column label="资产编号"
-                       type="index"
-                       align="center"
-                       width="100px" />
-      <!-- <el-table-column
-        label="IP地址"
-        align="center"
-        prop="ip"
-        :show-overflow-tooltip="true"
-      /> -->
-      <el-table-column label="资产名称"
-                       align="center"
-                       prop="assetName"
-                       width="300"
-                       :show-overflow-tooltip="true" />
-      <el-table-column label="资产类型"
-                       align="center"
-                       prop="assetType "
-                       :show-overflow-tooltip="true" />
-      <el-table-column label="运行状态"
-                       align="center"
-                       prop="runState"
-                       :show-overflow-tooltip="true" />
-      <el-table-column label="风险状态"
-                       align="center"
-                       prop="riskState"
-                       :show-overflow-tooltip="true" />
-      <el-table-column label="事件等级"
-                       align="center"
-                       prop="eventLevel"
-                       :show-overflow-tooltip="true" />
-      <el-table-column label="操作系统"
-                       align="center"
-                       prop="operatingSystem"
-                       :show-overflow-tooltip="true" />
-
-      <el-table-column label="应用协议"
-                       align="center"
-                       prop="applicationProtocol"
-                       :show-overflow-tooltip="true" />
-      <el-table-column label="风险协议"
-                       align="center"
-                       prop="riskProtocol"
-                       :show-overflow-tooltip="true" />
-      <el-table-column label="资产标签"
-                       align="center"
-                       prop="assetTag"
-                       :show-overflow-tooltip="true" />
-      <el-table-column label="区域"
-                       align="center"
-                       prop="region"
-                       :show-overflow-tooltip="true" />
-      <el-table-column label="负责人"
-                       align="center"
-                       prop="leader"
-                       :show-overflow-tooltip="true" />
-      <!-- <el-table-column
-        label="最后活跃时间"
-        align="center"
-        prop="endTime"
-        :show-overflow-tooltip="true"
-      /> -->
-      <el-table-column label="操作"
-                       align="center"
-                       class-name="small-padding fixed-width"
-                       width="180">
-        <template>
-          <el-button size="mini"
-                     type="text"
-                     @click="detail">详情</el-button>
-          <el-button size="mini"
-                     type="text"
-                     @click="configuration">配置</el-button>
-          <el-button size="mini"
-                     type="text"
-                     @click="edit">修改</el-button>
-        </template>
-      </el-table-column>
-    </el-table>
+        <el-table-column label="应用协议"
+                         align="center"
+                         prop="applicationProtocol"
+                         :show-overflow-tooltip="true" />
+        <el-table-column label="风险协议"
+                         align="center"
+                         prop="riskProtocol"
+                         :show-overflow-tooltip="true" />
+        <el-table-column label="资产标签"
+                         align="center"
+                         prop="assetTag"
+                         :show-overflow-tooltip="true" />
+        <el-table-column label="区域"
+                         align="center"
+                         prop="region"
+                         :show-overflow-tooltip="true" />
+        <el-table-column label="负责人"
+                         align="center"
+                         prop="leader"
+                         :show-overflow-tooltip="true" />
+        <el-table-column label="操作"
+                         align="center"
+                         class-name="small-padding fixed-width"
+                         width="180">
+          <template>
+            <el-button size="mini"
+                       type="text"
+                       @click="detail">详情</el-button>
+            <el-button size="mini"
+                       type="text"
+                       @click="configuration">配置</el-button>
+            <el-button size="mini"
+                       type="text"
+                       @click="edit">修改</el-button>
+          </template>
+        </el-table-column>
+      </el-table>
+    </el-card>
 
     <pagination v-show="total > 0"
                 :total="total"
@@ -348,36 +360,14 @@
                append-to-body
                class="label-type">
       <div class="contentBox">
-        <el-form ref="queryForm"
-                 :model="queryParams"
-                 :inline="true"
-                 label-width="300px"
-                 class="label-type">
-          <el-form-item label="请选择文件 :"
-                        prop="userName">
-            <el-upload class="upload-demo"
-                       drag
-                       action
-                       :show-file-list="false"
-                       :before-upload="beforeUpload"
-                       :http-request="doImport">
-              <i class="el-icon-upload" />
-            </el-upload>
-            <!-- <el-input v-model="queryParams.userName"
-                      placeholder="请上传csv文件"
-                      clearable
-                      size="small"
-                      @keyup.enter.native="btnQuery" /> -->
-          </el-form-item>
-          <el-button class="downLoad">下载导入模板</el-button>
-        </el-form>
+
         <div slot="footer"
              class="dialog-footer">
           <el-row type="flex"
                   justify="center">
             <el-button size="small"
                        type="primary"
-                       @click="submitForm">导 入</el-button>
+                       @click="handleExport">导 入</el-button>
             <el-button size="small"
                        @click="cancel">取 消</el-button>
           </el-row>
@@ -856,9 +846,10 @@
 
 <script>
 // import { listEvent } from '@/api/system/category'
-import { assetList } from '@/api/system/list'
+import { assetList, uploadExcel, postAction } from '@/api/system/list'
 import chainStatistics from "@/components/Echarts/chainStatistics";
 import eventType from "@/components/Echarts/eventType";
+import { Message } from 'element-ui'
 export default {
   components: {
     chainStatistics, eventType
@@ -1052,19 +1043,19 @@ export default {
       ],
       // 分组表格数据
       groupList: [],
-      pageNum: 1,
-      pageSize: 10,
+      // pageNum: 1,
+      // pageSize: 10,
       // 查询参数
       queryParams: {
         pageNum: 1,
         pageSize: 10,
-        IPaddress: '',
-        region: '',
-        assetType: '',
-        leader: '',
-        eventLevel: '',
-        assetType: '',
-        assetType: ''
+        // IPaddress: '',
+        // region: '',
+        // assetType: '',
+        // leader: '',
+        // eventLevel: '',
+        // assetType: '',
+        // assetType: ''
       },
       formData: {
         event_level: ''
@@ -1266,6 +1257,32 @@ export default {
       this.total = res.total
       this.loading = false
     },
+    // 上传前格式与大小校验
+    beforeUpload (file) {
+      var testmsg = file.name.substring(file.name.lastIndexOf('.') + 1)
+      const extension = testmsg === 'xls'
+      const extension1 = testmsg === 'xlsx'
+      const isLt2M = file.size / 1024 / 1024 < 10
+      if (!extension && !extension1) {
+        this.$message.warning('上传文件只能是 xls、xlsx格式')
+      }
+      if (!isLt2M) {
+        this.$message.warning('上传文件大小不能超过 10MB!')
+      }
+      return extension || extension1 || isLt2M
+    },
+    async importExcel (fileObj) {
+      const formData = new FormData()
+      formData.set('file', fileObj.file)
+
+      const { msg } = await uploadExcel(
+        '/dm/asset/excelFile',
+        formData
+      )
+      this.getList()
+      this.$message.success(msg)
+
+    },
     /** 搜索按钮操作 */
     btnQuery () {
       this.getList()
@@ -1308,9 +1325,8 @@ export default {
           this.msgSuccess('强退成功')
         })
     },
-    handleExport () {
-      this.exportDialog = true
-      this.title = '批量导入资产'
+    async handleExport () {
+      await uploadExcel(this.queryParams)
     },
     edit () {
       this.editDialog = true
@@ -1328,6 +1344,10 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+.export {
+  margin-bottom: 10px;
+  margin-left: 10px;
+}
 ::v-deep .el-dialog__body {
   padding: 0 !important;
 }
