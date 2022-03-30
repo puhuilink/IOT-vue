@@ -18,7 +18,7 @@
                 prop="name"
               >
                 <el-input
-                  v-model="queryParams.eventName"
+                  v-model.trim="queryParams.eventName"
                   placeholder="请输入事件名称"
                   clearable
                   :style="{ width: '100%' }"
@@ -31,7 +31,7 @@
                 prop="eventLevel"
               >
                 <el-select
-                  v-model="queryParams.level"
+                  v-model.trim="queryParams.level"
                   placeholder="请选择事件等级"
                   filterable
                   clearable
@@ -53,7 +53,7 @@
                 prop="type"
               >
                 <el-input
-                  v-model="queryParams.type"
+                  v-model.trim="queryParams.type"
                   placeholder="请输入事件类型"
                   clearable
                   :style="{ width: '100%' }"
@@ -66,7 +66,7 @@
                 prop="area"
               >
                 <el-select
-                  v-model="queryParams.address"
+                  v-model.trim="queryParams.address"
                   placeholder="请选择区域"
                   filterable
                   clearable
@@ -88,7 +88,7 @@
                 prop="agreement"
               >
                 <el-input
-                  v-model="queryParams.agreement"
+                  v-model.trim="queryParams.agreement"
                   placeholder="请输入协议"
                   clearable
                   :style="{ width: '100%' }"
@@ -101,7 +101,7 @@
                 prop="ip"
               >
                 <el-input
-                  v-model="queryParams.sourceIp"
+                  v-model.trim="queryParams.sourceIp"
                   placeholder="请输入源IP"
                   clearable
                   :style="{ width: '100%' }"
@@ -114,7 +114,7 @@
                 prop="newip"
               >
                 <el-input
-                  v-model="queryParams.destinationIp"
+                  v-model.trim="queryParams.destinationIp"
                   placeholder="请输入目标IP"
                   clearable
                   :style="{ width: '100%' }"
@@ -127,7 +127,7 @@
                 prop="equipment"
               >
                 <el-input
-                  v-model="queryParams.equipment"
+                  v-model.trim="queryParams.equipment"
                   placeholder="请输入上报设备"
                   clearable
                   :style="{ width: '100%' }"
@@ -140,13 +140,13 @@
                 prop="date"
               >
                 <el-time-picker
-                  v-model="queryParams.date"
+                  v-model.trim="queryParams.date"
                   is-range
                   format="HH:mm:ss"
                   value-format="HH:mm:ss"
                   :style="{ width: '100%' }"
-                  start-placeholder="开始时间"
-                  end-placeholder="结束时间"
+                  start-placeholder="事件开始时间"
+                  end-placeholder="事件结束时间"
                   range-separator="至"
                   clearable
                 />
@@ -158,7 +158,7 @@
                 prop="field114"
               >
                 <el-select
-                  v-model="queryParams.status"
+                  v-model.trim="queryParams.status"
                   placeholder="请选择处置状态"
                   clearable
                   :style="{ width: '100%' }"

@@ -18,7 +18,7 @@
                 prop="name"
               >
                 <el-input
-                  v-model="queryParams.aptOrganization"
+                  v-model.trim="queryParams.aptOrganization"
                   placeholder="请输入APT组织"
                   clearable
                   :style="{ width: '100%' }"
@@ -31,7 +31,7 @@
                 prop="area"
               >
                 <el-select
-                  v-model="queryParams.region"
+                  v-model.trim="queryParams.region"
                   placeholder="请选择区域"
                   filterable
                   clearable
@@ -53,7 +53,7 @@
                 prop="eventLevel"
               >
                 <el-select
-                  v-model="queryParams.eventLevel"
+                  v-model.trim="queryParams.eventLevel"
                   placeholder="请选择事件等级"
                   filterable
                   clearable
@@ -75,7 +75,7 @@
                 prop="agreement"
               >
                 <el-select
-                  v-model="queryParams.agreement"
+                  v-model.trim="queryParams.agreement"
                   placeholder="请选择协议"
                   filterable
                   clearable
@@ -97,7 +97,7 @@
                 prop="disposalStatus"
               >
                 <el-select
-                  v-model="queryParams.disposalStatus"
+                  v-model.trim="queryParams.disposalStatus"
                   placeholder="请选择处置状态"
                   filterable
                   clearable
@@ -119,7 +119,7 @@
                 prop="victimIp"
               >
                 <el-input
-                  v-model="queryParams.victimIp"
+                  v-model.trim="queryParams.victimIp"
                   placeholder="请输入受害者IP"
                   clearable
                   :style="{ width: '100%' }"
@@ -133,7 +133,7 @@
                 prop="attackerIp"
               >
                 <el-input
-                  v-model="queryParams.attackerIp"
+                  v-model.trim="queryParams.attackerIp"
                   placeholder="请输入攻击者IP"
                   clearable
                   :style="{ width: '100%' }"
@@ -146,7 +146,7 @@
                 prop="date"
               >
                 <el-time-picker
-                  v-model="queryParams.date"
+                  v-model.trim="queryParams.date"
                   is-range
                   format="HH:mm:ss"
                   value-format="HH:mm:ss"
@@ -164,7 +164,7 @@
                 prop="killingChainStage"
               >
                 <el-select
-                  v-model="queryParams.killingChainStage"
+                  v-model.trim="queryParams.killingChainStage"
                   placeholder="请选择杀伤链阶段"
                   filterable
                   clearable
@@ -463,8 +463,8 @@ export default {
       queryParams: {
         pageNum: 1,
         pageSize: 10,
-        // orderByColumn: 'startTime',
-        // isAsc: 'desc',
+        orderByColumn: 'happenTime',
+        isAsc: 'desc',
         userId: null,
         groupName: null,
         createTime: null
@@ -642,7 +642,13 @@ export default {
       })
     },
     resetForm() {
-      this.$refs['elForm'].resetFields()
+      this.queryParams = {
+        pageNum: 1,
+        pageSize: 10,
+        orderByColumn: 'happenTime',
+        isAsc: 'desc'
+      }
+      this.getCategoryList()
     },
     async detail(id) {
       const { data } = await ThreatIntelligenceDetail(id)
