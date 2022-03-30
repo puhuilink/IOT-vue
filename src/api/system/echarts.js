@@ -361,10 +361,10 @@ export function scanningeventStatusEcharts(query) {
     params: query
   })
 }
-// 查询主机趋势
+// 查询主机趋势TOP5
 export function scanninghostEcharts(query) {
   return request({
-    url: '/dm/scanning/host/grp/',
+    url: '/dm/scanning/host/top5',
     method: 'get',
     params: query
   })

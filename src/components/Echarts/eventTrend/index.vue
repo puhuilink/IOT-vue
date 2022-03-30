@@ -9,7 +9,7 @@
 </template>
 <script>
 import { setNotopt } from '@/utils/emptyEcharts.js'
-import { eventEcharts, CreepeventLevelEcharts, EventTrendAnalysis, abnormalAnalysis, selectEventLevelGradeEcharts, industrialNetworkAuditEcharts, scanninghostEcharts, scanningeventLevelEcharts } from '@/api/system/echarts'
+import { eventEcharts, CreepeventLevelEcharts, EventTrendAnalysis, abnormalAnalysis, selectEventLevelGradeEcharts, industrialNetworkAuditEcharts, scanningeventLevelEcharts } from '@/api/system/echarts'
 import tip from '@/components/EchartsTip'
 export default {
   name: 'AAA',
@@ -109,399 +109,123 @@ export default {
       })
       return area
     },
+    transDicData(data) {
+      if (data.length) {
+        const aaa = data.filter((e) => e.eventLevel === '1')
+        if (aaa.length) {
+          aaa.map(d => {
+            this.data1 = d.data
+            this.date = d.date
+          })
+        } else {
+          this.data1 = []
+        }
+        const bbb = data.filter((e) => e.eventLevel === '2')
+        if (bbb.length) {
+          bbb.map(d => {
+            this.data2 = d.data
+            this.date = d.date
+          })
+        } else {
+          this.data2 = []
+        }
+        const ccc = data.filter((e) => e.eventLevel === '3')
+        if (ccc.length) {
+          ccc.map(d => {
+            this.data3 = d.data
+            this.date = d.date
+          })
+        } else {
+          this.data3 = []
+        }
+        const ddd = data.filter((e) => e.eventLevel === '4')
+        if (ddd.length) {
+          ddd.map(d => {
+            this.data4 = d.data
+            this.date = d.date
+          })
+        } else {
+          this.data4 = []
+        }
+      } else {
+        this.data1 = []
+        this.data2 = []
+        this.data3 = []
+        this.data4 = []
+        this.data5 = []
+      }
+      return [this.data1, this.data2, this.data3, this.data4, this.data5]
+    },
     async getData() {
       switch (this.name) {
         case 'Jiangwoodcreep':
           await CreepeventLevelEcharts(this.queryParms).then(({ data }) => {
             this.hasData = data
-            if (data.length) {
-              const aaa = data.filter((e) => e.eventLevel === '1')
-              if (aaa.length) {
-                aaa.map(d => {
-                  this.data1 = d.data
-                  this.date = d.date
-                })
-              } else {
-                this.data1 = []
-              }
-              const bbb = data.filter((e) => e.eventLevel === '2')
-              if (bbb.length) {
-                bbb.map(d => {
-                  this.data2 = d.data
-                  this.date = d.date
-                })
-              } else {
-                this.data2 = []
-              }
-              const ccc = data.filter((e) => e.eventLevel === '3')
-              if (ccc.length) {
-                ccc.map(d => {
-                  this.data3 = d.data
-                  this.date = d.date
-                })
-              } else {
-                this.data3 = []
-              }
-              const ddd = data.filter((e) => e.eventLevel === '4')
-              if (ddd.length) {
-                ddd.map(d => {
-                  this.data4 = d.data
-                  this.date = d.date
-                })
-              } else {
-                this.data4 = []
-              }
-            } else {
-              this.data1 = []
-              this.data2 = []
-              this.data3 = []
-              this.data4 = []
-              this.data5 = []
-            }
+            this.data1 = this.transDicData(data)[0]
+            this.data2 = this.transDicData(data)[1]
+            this.data3 = this.transDicData(data)[2]
+            this.data4 = this.transDicData(data)[3]
+            this.data5 = this.transDicData(data)[4]
           })
           break
         case 'weakPassword':
           await selectEventLevelGradeEcharts(this.queryParms).then(({ data }) => {
             this.hasData = data
-            if (data.length) {
-              const aaa = data.filter((e) => e.eventLevel === '1')
-              if (aaa.length) {
-                aaa.map(d => {
-                  this.data1 = d.data
-                  this.date = d.date
-                })
-              } else {
-                this.data1 = []
-              }
-              const bbb = data.filter((e) => e.eventLevel === '2')
-              if (bbb.length) {
-                bbb.map(d => {
-                  this.data2 = d.data
-                  this.date = d.date
-                })
-              } else {
-                this.data2 = []
-              }
-              const ccc = data.filter((e) => e.eventLevel === '3')
-              if (ccc.length) {
-                ccc.map(d => {
-                  this.data3 = d.data
-                  this.date = d.date
-                })
-              } else {
-                this.data3 = []
-              }
-              const ddd = data.filter((e) => e.eventLevel === '4')
-              if (ddd.length) {
-                ddd.map(d => {
-                  this.data4 = d.data
-                  this.date = d.date
-                })
-              } else {
-                this.data4 = []
-              }
-            } else {
-              this.data1 = []
-              this.data2 = []
-              this.data3 = []
-              this.data4 = []
-              this.data5 = []
-            }
+            this.data1 = this.transDicData(data)[0]
+            this.data2 = this.transDicData(data)[1]
+            this.data3 = this.transDicData(data)[2]
+            this.data4 = this.transDicData(data)[3]
+            this.data5 = this.transDicData(data)[4]
           })
           break
         case 'design':
           await industrialNetworkAuditEcharts(this.queryParms).then(({ data }) => {
             this.hasData = data
-            if (data.length) {
-              const aaa = data.filter((e) => e.eventLevel === '1')
-              if (aaa.length) {
-                aaa.map(d => {
-                  this.data1 = d.data
-                  this.date = d.date
-                })
-              } else {
-                this.data1 = []
-              }
-              const bbb = data.filter((e) => e.eventLevel === '2')
-              if (bbb.length) {
-                bbb.map(d => {
-                  this.data2 = d.data
-                  this.date = d.date
-                })
-              } else {
-                this.data2 = []
-              }
-              const ccc = data.filter((e) => e.eventLevel === '3')
-              if (ccc.length) {
-                ccc.map(d => {
-                  this.data3 = d.data
-                  this.date = d.date
-                })
-              } else {
-                this.data3 = []
-              }
-              const ddd = data.filter((e) => e.eventLevel === '4')
-              if (ddd.length) {
-                ddd.map(d => {
-                  this.data4 = d.data
-                  this.date = d.date
-                })
-              } else {
-                this.data4 = []
-              }
-            } else {
-              this.data1 = []
-              this.data2 = []
-              this.data3 = []
-              this.data4 = []
-              this.data5 = []
-            }
+            this.data1 = this.transDicData(data)[0]
+            this.data2 = this.transDicData(data)[1]
+            this.data3 = this.transDicData(data)[2]
+            this.data4 = this.transDicData(data)[3]
+            this.data5 = this.transDicData(data)[4]
           })
           break
         case 'host':
           await EventTrendAnalysis(this.queryParms).then(({ data }) => {
             this.hasData = data
-            if (data.length) {
-              const aaa = data.filter((e) => e.eventLevel === '1')
-              if (aaa.length) {
-                aaa.map(d => {
-                  this.data1 = d.data
-                  this.date = d.date
-                })
-              } else {
-                this.data1 = []
-              }
-              const bbb = data.filter((e) => e.eventLevel === '2')
-              if (bbb.length) {
-                bbb.map(d => {
-                  this.data2 = d.data
-                  this.date = d.date
-                })
-              } else {
-                this.data2 = []
-              }
-              const ccc = data.filter((e) => e.eventLevel === '3')
-              if (ccc.length) {
-                ccc.map(d => {
-                  this.data3 = d.data
-                  this.date = d.date
-                })
-              } else {
-                this.data3 = []
-              }
-              const ddd = data.filter((e) => e.eventLevel === '4')
-              if (ddd.length) {
-                ddd.map(d => {
-                  this.data4 = d.data
-                  this.date = d.date
-                })
-              } else {
-                this.data4 = []
-              }
-            } else {
-              this.data1 = []
-              this.data2 = []
-              this.data3 = []
-              this.data4 = []
-              this.data5 = []
-            }
+            this.data1 = this.transDicData(data)[0]
+            this.data2 = this.transDicData(data)[1]
+            this.data3 = this.transDicData(data)[2]
+            this.data4 = this.transDicData(data)[3]
+            this.data5 = this.transDicData(data)[4]
           })
           break
         case 'abnormal':
           await abnormalAnalysis(this.queryParms).then(({ data }) => {
             this.hasData = data
-            if (data.length) {
-              const aaa = data.filter((e) => e.eventLevel === '1')
-              if (aaa.length) {
-                aaa.map(d => {
-                  this.data1 = d.data
-                  this.date = d.date
-                })
-              } else {
-                this.data1 = []
-              }
-              const bbb = data.filter((e) => e.eventLevel === '2')
-              if (bbb.length) {
-                bbb.map(d => {
-                  this.data2 = d.data
-                  this.date = d.date
-                })
-              } else {
-                this.data2 = []
-              }
-              const ccc = data.filter((e) => e.eventLevel === '3')
-              if (ccc.length) {
-                ccc.map(d => {
-                  this.data3 = d.data
-                  this.date = d.date
-                })
-              } else {
-                this.data3 = []
-              }
-              const ddd = data.filter((e) => e.eventLevel === '4')
-              if (ddd.length) {
-                ddd.map(d => {
-                  this.data4 = d.data
-                  this.date = d.date
-                })
-              } else {
-                this.data4 = []
-              }
-            } else {
-              this.data1 = []
-              this.data2 = []
-              this.data3 = []
-              this.data4 = []
-              this.data5 = []
-            }
+            this.data1 = this.transDicData(data)[0]
+            this.data2 = this.transDicData(data)[1]
+            this.data3 = this.transDicData(data)[2]
+            this.data4 = this.transDicData(data)[3]
+            this.data5 = this.transDicData(data)[4]
           })
           break
         case 'vulnerablity':
           await scanningeventLevelEcharts(this.queryParms).then(({ data }) => {
             this.hasData = data
-            if (data.length) {
-              const aaa = data.filter((e) => e.eventLevel === '1')
-              if (aaa.length) {
-                aaa.map(d => {
-                  this.data1 = d.data
-                  this.date = d.date
-                })
-              } else {
-                this.data1 = []
-              }
-              const bbb = data.filter((e) => e.eventLevel === '2')
-              if (bbb.length) {
-                bbb.map(d => {
-                  this.data2 = d.data
-                  this.date = d.date
-                })
-              } else {
-                this.data2 = []
-              }
-              const ccc = data.filter((e) => e.eventLevel === '3')
-              if (ccc.length) {
-                ccc.map(d => {
-                  this.data3 = d.data
-                  this.date = d.date
-                })
-              } else {
-                this.data3 = []
-              }
-              const ddd = data.filter((e) => e.eventLevel === '4')
-              if (ddd.length) {
-                ddd.map(d => {
-                  this.data4 = d.data
-                  this.date = d.date
-                })
-              } else {
-                this.data4 = []
-              }
-            } else {
-              this.data1 = []
-              this.data2 = []
-              this.data3 = []
-              this.data4 = []
-              this.data5 = []
-            }
-          })
-          break
-        case 'vulnerablity1':
-          // scanninghostEcharts
-          await scanninghostEcharts(this.queryParms).then(({ data }) => {
-            this.hasData = data
-            if (data.length) {
-              const aaa = data.filter((e) => e.eventLevel === '1')
-              if (aaa.length) {
-                aaa.map(d => {
-                  this.data1 = d.data
-                  this.date = d.date
-                })
-              } else {
-                this.data1 = []
-              }
-              const bbb = data.filter((e) => e.eventLevel === '2')
-              if (bbb.length) {
-                bbb.map(d => {
-                  this.data2 = d.data
-                  this.date = d.date
-                })
-              } else {
-                this.data2 = []
-              }
-              const ccc = data.filter((e) => e.eventLevel === '3')
-              if (ccc.length) {
-                ccc.map(d => {
-                  this.data3 = d.data
-                  this.date = d.date
-                })
-              } else {
-                this.data3 = []
-              }
-              const ddd = data.filter((e) => e.eventLevel === '4')
-              if (ddd.length) {
-                ddd.map(d => {
-                  this.data4 = d.data
-                  this.date = d.date
-                })
-              } else {
-                this.data4 = []
-              }
-            } else {
-              this.data1 = []
-              this.data2 = []
-              this.data3 = []
-              this.data4 = []
-              this.data5 = []
-            }
+            this.data1 = this.transDicData(data)[0]
+            this.data2 = this.transDicData(data)[1]
+            this.data3 = this.transDicData(data)[2]
+            this.data4 = this.transDicData(data)[3]
+            this.data5 = this.transDicData(data)[4]
           })
           break
         case 'event':
           await eventEcharts(this.queryParms).then(({ data }) => {
             this.hasData = data
-            if (data.length) {
-              const aaa = data.filter((e) => e.eventLevel === '1')
-              if (aaa.length) {
-                aaa.map(d => {
-                  this.data1 = d.data
-                  this.date = d.date
-                })
-              } else {
-                this.data1 = []
-              }
-              const bbb = data.filter((e) => e.eventLevel === '2')
-              if (bbb.length) {
-                bbb.map(d => {
-                  this.data2 = d.data
-                  this.date = d.date
-                })
-              } else {
-                this.data2 = []
-              }
-              const ccc = data.filter((e) => e.eventLevel === '3')
-              if (ccc.length) {
-                ccc.map(d => {
-                  this.data3 = d.data
-                  this.date = d.date
-                })
-              } else {
-                this.data3 = []
-              }
-              const ddd = data.filter((e) => e.eventLevel === '4')
-              if (ddd.length) {
-                ddd.map(d => {
-                  this.data4 = d.data
-                  this.date = d.date
-                })
-              } else {
-                this.data4 = []
-              }
-            } else {
-              this.data1 = []
-              this.data2 = []
-              this.data3 = []
-              this.data4 = []
-              this.data5 = []
-            }
+            this.data1 = this.transDicData(data)[0]
+            this.data2 = this.transDicData(data)[1]
+            this.data3 = this.transDicData(data)[2]
+            this.data4 = this.transDicData(data)[3]
+            this.data5 = this.transDicData(data)[4]
           })
           break
         default:
