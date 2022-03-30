@@ -468,7 +468,7 @@ export default {
         field114: []
       },
       levelOptions: [{
-        'label': '正常',
+        'label': '极低',
         'value': 1
       }, {
         'label': '低危',
