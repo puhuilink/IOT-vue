@@ -136,7 +136,7 @@
                          align="center" />
         <el-table-column label="接收时间"
                          align="center"
-                         prop="receivingTime"
+                         prop="generationTime"
                          :show-overflow-tooltip="true" />
         <el-table-column label="事件名称"
                          align="center"
@@ -170,7 +170,7 @@
                          :show-overflow-tooltip="true" />
         <el-table-column label="发生时间"
                          align="center"
-                         prop="generationTime"
+                         prop="receivingTime"
                          :show-overflow-tooltip="true" />
         <el-table-column label="日志描述"
                          align="center"
@@ -226,7 +226,7 @@
           <el-row>
             <el-col :span="12">
               <el-form-item label="接收时间 :">
-                {{ detailData.receivingTime }}
+                {{ detailData.generationTime }}
               </el-form-item>
             </el-col>
             <el-col :span="12">
@@ -405,7 +405,7 @@ export default {
       },
       levelOptions: [
         {
-          label: '正常',
+          label: '极低',
           value: 1
         },
         {
@@ -452,8 +452,16 @@ export default {
         value: '待处置'
       },
       {
+        label: '处置中',
+        value: '处置中'
+      },
+      {
         label: '已处置',
         value: '已处置'
+      },
+      {
+        label: '误报',
+        value: '误报'
       },
       {
         label: '不处置',
