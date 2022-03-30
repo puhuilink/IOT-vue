@@ -18,7 +18,7 @@
                 prop="name"
               >
                 <el-input
-                  v-model="queryParams.assetName"
+                  v-model.trim="queryParams.assetName"
                   placeholder="请输入资产名称"
                   clearable
                   :style="{width: '100%'}"
@@ -31,7 +31,7 @@
                 prop="area"
               >
                 <el-select
-                  v-model="queryParams.region"
+                  v-model.trim="queryParams.region"
                   placeholder="请选择区域"
                   filterable
                   clearable
@@ -53,7 +53,7 @@
                 prop="level"
               >
                 <el-select
-                  v-model="queryParams.level"
+                  v-model.trim="queryParams.eventLevel"
                   placeholder="请选择事件等级"
                   filterable
                   clearable
@@ -75,7 +75,7 @@
                 prop="disposalStatus"
               >
                 <el-select
-                  v-model="queryParams.disposalStatus"
+                  v-model.trim="queryParams.disposalStatus"
                   placeholder="请选择处置状态"
                   clearable
                   :style="{width: '100%'}"
@@ -96,7 +96,7 @@
                 prop="type"
               >
                 <el-input
-                  v-model="queryParams.ipAddress"
+                  v-model.trim="queryParams.ipAddress"
                   placeholder="请输入IP地址"
                   clearable
                   :style="{width: '100%'}"
@@ -110,7 +110,7 @@
                 prop="agreement"
               >
                 <el-input
-                  v-model="queryParams.agreement"
+                  v-model.trim="queryParams.agreement"
                   placeholder="请输入协议"
                   clearable
                   :style="{width: '100%'}"
@@ -123,7 +123,7 @@
                 prop="date"
               >
                 <el-time-picker
-                  v-model="queryParams.date"
+                  v-model.trim="queryParams.date"
                   is-range
                   format="HH:mm:ss"
                   value-format="HH:mm:ss"
@@ -380,9 +380,7 @@ export default {
         pageSize: 10,
         userId: null,
         orderByColumn: 'find_time',
-        isAsc: 'desc',
-        groupName: null,
-        createTime: null
+        isAsc: 'desc'
       },
       rules: {
         name: [],
@@ -569,8 +567,8 @@ export default {
         pageNum: 1,
         pageSize: 10,
         userId: null,
-        groupName: null,
-        createTime: null
+        orderByColumn: 'find_time',
+        isAsc: 'desc'
       }
       this.getList()
     },

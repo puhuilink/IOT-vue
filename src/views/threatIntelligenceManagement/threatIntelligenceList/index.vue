@@ -13,7 +13,7 @@
             <el-col :span="6">
               <el-form-item label="APT组织:"
                             prop="name">
-                <el-input v-model="queryParams.aptOrganization"
+                <el-input v-model.trim="queryParams.aptOrganization"
                           placeholder="请输入APT组织"
                           clearable
                           :style="{ width: '100%' }" />
@@ -22,7 +22,7 @@
             <el-col :span="6">
               <el-form-item label="区域:"
                             prop="area">
-                <el-select v-model="queryParams.region"
+                <el-select v-model.trim="queryParams.region"
                            placeholder="请选择区域"
                            filterable
                            clearable
@@ -38,7 +38,7 @@
             <el-col :span="6">
               <el-form-item label="事件等级:"
                             prop="eventLevel">
-                <el-select v-model="queryParams.eventLevel"
+                <el-select v-model.trim="queryParams.eventLevel"
                            placeholder="请选择事件等级"
                            filterable
                            clearable
@@ -54,7 +54,7 @@
             <el-col :span="6">
               <el-form-item label="协议:"
                             prop="agreement">
-                <el-select v-model="queryParams.agreement"
+                <el-select v-model.trim="queryParams.agreement"
                            placeholder="请选择协议"
                            filterable
                            clearable
@@ -70,7 +70,7 @@
             <el-col :span="6">
               <el-form-item label="处置状态:"
                             prop="disposalStatus">
-                <el-select v-model="queryParams.disposalStatus"
+                <el-select v-model.trim="queryParams.disposalStatus"
                            placeholder="请选择处置状态"
                            filterable
                            clearable
@@ -86,7 +86,7 @@
             <el-col :span="6">
               <el-form-item label="受害者IP:"
                             prop="victimIp">
-                <el-input v-model="queryParams.victimIp"
+                <el-input v-model.trim="queryParams.victimIp"
                           placeholder="请输入受害者IP"
                           clearable
                           :style="{ width: '100%' }" />
@@ -96,7 +96,7 @@
             <el-col :span="6">
               <el-form-item label="攻击者IP:"
                             prop="attackerIp">
-                <el-input v-model="queryParams.attackerIp"
+                <el-input v-model.trim="queryParams.attackerIp"
                           placeholder="请输入攻击者IP"
                           clearable
                           :style="{ width: '100%' }" />
@@ -105,7 +105,7 @@
             <el-col :span="6">
               <el-form-item label="时间段:"
                             prop="date">
-                <el-time-picker v-model="queryParams.date"
+                <el-time-picker v-model.trim="queryParams.date"
                                 is-range
                                 format="HH:mm:ss"
                                 value-format="HH:mm:ss"
@@ -119,7 +119,7 @@
             <el-col :span="7">
               <el-form-item label="杀伤链阶段:"
                             prop="killingChainStage">
-                <el-select v-model="queryParams.killingChainStage"
+                <el-select v-model.trim="queryParams.killingChainStage"
                            placeholder="请选择杀伤链阶段"
                            filterable
                            clearable
@@ -361,8 +361,8 @@ export default {
       queryParams: {
         pageNum: 1,
         pageSize: 10,
-        // orderByColumn: 'startTime',
-        // isAsc: 'desc',
+        orderByColumn: 'happenTime',
+        isAsc: 'desc',
         userId: null,
         groupName: null,
         createTime: null
@@ -548,7 +548,13 @@ export default {
       })
     },
     resetForm () {
-      this.$refs['elForm'].resetFields()
+      this.queryParams = {
+        pageNum: 1,
+        pageSize: 10,
+        orderByColumn: 'happenTime',
+        isAsc: 'desc'
+      }
+      this.getCategoryList()
     },
     async detail (id) {
       const { data } = await ThreatIntelligenceDetail(id)
