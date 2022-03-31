@@ -54,17 +54,10 @@
             <el-col :span="6">
               <el-form-item label="协议:"
                             prop="agreement">
-                <el-select v-model.trim="queryParams.agreement"
-                           placeholder="请选择协议"
-                           filterable
-                           clearable
-                           :style="{ width: '100%' }">
-                  <el-option v-for="(item, index) in agreementOptions"
-                             :key="index"
-                             :label="item.label"
-                             :value="item.value"
-                             :disabled="item.disabled" />
-                </el-select>
+                <el-input v-model.trim="queryParams.agreement"
+                          placeholder="请输入协议"
+                          clearable
+                          :style="{ width: '100%' }" />
               </el-form-item>
             </el-col>
             <el-col :span="6">
@@ -381,7 +374,7 @@ export default {
       },
       levelOptions: [
         {
-          label: '正常',
+          label: '极低',
           value: 1
         },
         {
@@ -466,6 +459,18 @@ export default {
       {
         label: '安装植入',
         value: '安装植入'
+      },
+      {
+        label: '武器构建',
+        value: '武器构建'
+      },
+      {
+        label: '命令控制',
+        value: '命令控制'
+      },
+      {
+        label: '目标达成',
+        value: '目标达成'
       }]
     }
   },
