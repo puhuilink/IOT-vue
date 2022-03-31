@@ -13,17 +13,10 @@
             <el-col :span="6">
               <el-form-item label="攻击者："
                             prop="attackSource">
-                <el-select v-model="queryParams.attackSource"
-                           placeholder="请选择攻击者"
-                           filterable
-                           clearable
-                           :style="{ width: '100%' }">
-                  <el-option v-for="(item, index) in attackOptions"
-                             :key="index"
-                             :label="item.label"
-                             :value="item.value"
-                             :disabled="item.disabled" />
-                </el-select>
+                <el-input v-model="queryParams.attackSource"
+                          placeholder="请输入事件名称"
+                          clearable
+                          :style="{ width: '100%' }" />
               </el-form-item>
             </el-col>
             <el-col :span="6">
@@ -45,17 +38,10 @@
             <el-col :span="6">
               <el-form-item label="隔离沙箱："
                             prop="type">
-                <el-select v-model="queryParams.isolationSandbox"
-                           placeholder="请选择隔离沙箱"
-                           filterable
-                           clearable
-                           :style="{ width: '100%' }">
-                  <el-option v-for="(item, index) in levelOptions"
-                             :key="index"
-                             :label="item.label"
-                             :value="item.value"
-                             :disabled="item.disabled" />
-                </el-select>
+                <el-input v-model="queryParams.isolationSandbox"
+                          placeholder="请输入事件名称"
+                          clearable
+                          :style="{ width: '100%' }" />
               </el-form-item>
             </el-col>
             <el-col :span="6">
@@ -393,20 +379,6 @@ export default {
         {
           label: '致命',
           value: 5
-        }
-      ],
-      attackOptions: [
-        {
-          label: '所有',
-          value: ''
-        },
-        {
-          label: '扫描工具',
-          value: '扫描工具'
-        },
-        {
-          label: 'H-007',
-          value: 'H-007'
         }
       ],
       areaOptions: [
