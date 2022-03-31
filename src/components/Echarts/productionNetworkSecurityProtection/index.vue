@@ -1,7 +1,7 @@
 <template>
   <el-col :span="12">
     <!-- <tip>{{ tipname }}</tip> -->
-    <div>
+    <div style="margin-top:50px">
       <el-row>
         <el-col :xs="24"
                 :sm="4"
