@@ -374,7 +374,7 @@ export default {
       },
       levelOptions: [
         {
-          label: '正常',
+          label: '极低',
           value: 1
         },
         {
@@ -451,6 +451,18 @@ export default {
       {
         label: '安装植入',
         value: '安装植入'
+      },
+      {
+        label: '武器构建',
+        value: '武器构建'
+      },
+      {
+        label: '命令控制',
+        value: '命令控制'
+      },
+      {
+        label: '目标达成',
+        value: '目标达成'
       }]
     }
   },
