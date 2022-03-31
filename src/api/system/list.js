@@ -3,22 +3,6 @@
  ******************************************************************************/
 import request from '@/utils/request'
 
-// 入侵诱捕事件列表查询
-export function logList(parameter) {
-  return request({
-    url: '/eventlog/_search',
-    method: 'post',
-    data: parameter
-  })
-}
-export function postAction(url, parameter) {
-  return request({
-    url: url,
-    method: 'post',
-    data: parameter
-  })
-}
-
 // 事件检索
 export function eventList(query) {
   return request({

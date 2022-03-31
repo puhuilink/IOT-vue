@@ -1,10 +1,8 @@
 <template>
   <el-col :span="12">
     <tip>{{ tipname }}</tip>
-    <div
-      ref="canvas1"
-      style="height: 400px"
-    />
+    <div ref="canvas1"
+         style="height: 400px" />
   </el-col>
 </template>
 <script>
@@ -32,7 +30,7 @@ export default {
       type: Number
     }
   },
-  data() {
+  data () {
     return {
       queryParms: {
       },
@@ -49,7 +47,7 @@ export default {
   computed: {},
   watch: {
     query: {
-      handler(val, oldVal) {
+      handler (val, oldVal) {
         this.queryParms = this.query
         if (val !== oldVal) {
           this.getData()
@@ -59,14 +57,14 @@ export default {
       deep: true
     }
   },
-  created() {
+  created () {
     this.getData()
   },
-  mounted() {
+  mounted () {
     this.drawPolicitalStatus()
   },
   methods: {
-    transTypeDic(data) {
+    transTypeDic (data) {
       var t = [{
         name: '1',
         content: '极低'
@@ -102,14 +100,14 @@ export default {
       })
       return arrNew
     },
-    transDicCount(data) {
+    transDicCount (data) {
       var area = []
       data.forEach((item) => {
         area.push(item.count)
       })
       return area
     },
-    transDicData(data) {
+    transDicData (data) {
       if (data.length) {
         const aaa = data.filter((e) => e.eventLevel === '1')
         if (aaa.length) {
@@ -156,7 +154,7 @@ export default {
       }
       return [this.data1, this.data2, this.data3, this.data4, this.data5]
     },
-    async getData() {
+    async getData () {
       switch (this.name) {
         case 'Jiangwoodcreep':
           await CreepeventLevelEcharts(this.queryParms).then(({ data }) => {
@@ -190,6 +188,7 @@ export default {
           break
         case 'host':
           await EventTrendAnalysis(this.queryParms).then(({ data }) => {
+            console.log('data-3-31', data)
             this.hasData = data
             this.data1 = this.transDicData(data)[0]
             this.data2 = this.transDicData(data)[1]
@@ -234,7 +233,7 @@ export default {
       }
       this.drawPolicitalStatus()
     },
-    drawPolicitalStatus() {
+    drawPolicitalStatus () {
       if (this.hasData.length) {
         // 基于准备好的dom，初始化echarts实例
         const myChart = this.$echarts.init(this.$refs.canvas1)
@@ -334,7 +333,7 @@ export default {
             }
           ]
         })
-        window.addEventListener('resize', function() {
+        window.addEventListener('resize', function () {
           myChart.resize()
         })
       } else {

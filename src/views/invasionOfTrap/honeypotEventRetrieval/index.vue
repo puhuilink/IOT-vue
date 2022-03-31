@@ -574,7 +574,6 @@ export default {
             'size': 100
           }).then((res) => {
             res.data.hits.hits.map((item) => {
-              console.log(item)
               if (item._source.cmdb_kpi_name === 'ev_com_socket_src_ip') {
                 t.attackSource = item._source.value
               }

@@ -374,7 +374,7 @@ export default {
       },
       levelOptions: [
         {
-          label: '正常',
+          label: '极低',
           value: 1
         },
         {
@@ -421,13 +421,20 @@ export default {
         value: '待处置'
       },
       {
+        label: '处置中',
+        value: '处置中'
+      },
+      {
         label: '已处置',
         value: '已处置'
       },
       {
+        label: '误报',
+        value: '误报'
+      },
+      {
         label: '不处置',
         value: '不处置'
-
       }],
       killingChainStageOptions: [{
         label: '载荷投递',
@@ -444,6 +451,18 @@ export default {
       {
         label: '安装植入',
         value: '安装植入'
+      },
+      {
+        label: '武器构建',
+        value: '武器构建'
+      },
+      {
+        label: '命令控制',
+        value: '命令控制'
+      },
+      {
+        label: '目标达成',
+        value: '目标达成'
       }]
     }
   },
@@ -528,7 +547,13 @@ export default {
       })
     },
     resetForm () {
-      this.$refs['elForm'].resetFields()
+      this.queryParams = {
+        pageNum: 1,
+        pageSize: 10,
+        orderByColumn: 'happen_time',
+        isAsc: 'desc',
+      }
+      this.getList()
     },
     async detail (id) {
       const { data } = await abnormalDetail(id)

@@ -163,13 +163,13 @@ export default {
   position: relative;
   // display: inline-block;
   // float: left;
-  height: 344px;
+  height: 340px;
   width: 607px;
   // border-radius: 107.5px;
   background: url("../../../assets/logo/treeBK_02.png") no-repeat !important;
   // border: 10px solid #1f8fff;
   // margin-left: 20px;
-  margin-top: 10px;
+  margin-top: 0px;
   font-size: 24px;
   .quantity {
     position: absolute;
