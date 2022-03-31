@@ -3,7 +3,14 @@
  ******************************************************************************/
 import request from '@/utils/request'
 
-
+// 入侵诱捕事件列表查询
+export function logList(parameter) {
+  return request({
+    url: '/eventlog/_search',
+    method: 'post',
+    data: parameter
+  })
+}
 export function postAction(url, parameter) {
   return request({
     url: url,
@@ -32,16 +39,16 @@ export function abnormalList(query) {
 export function assetList(query) {
   return request({
     // url: '/m/asset/list',
-    url:'/dm/asset/list',
+    url: '/dm/asset/list',
     method: 'get',
     params: query
   })
 }
 
 // 资产列表 excel导入功能
-export function uploadExcel(url,query) {
+export function uploadExcel(url, query) {
   return request({
-    url:url,
+    url: url,
     method: 'post',
     data: query
   })

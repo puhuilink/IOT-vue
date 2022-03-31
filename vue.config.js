@@ -32,6 +32,13 @@ module.exports = {
     port: port,
     open: true,
     proxy: {
+      '/api': {
+        target: 'http://192.168.2.61:9200', // 地址1   //表示/eventlog替换成该地址
+        changeOrigin: true,
+        pathRewrite: {
+          '^/api': '' // 重写api为空
+        }
+      },
       // detail: https://cli.vuejs.org/config/#devserver-proxy
       [process.env.VUE_APP_BASE_API]: {
         target: `http://192.168.2.103:8088`,
