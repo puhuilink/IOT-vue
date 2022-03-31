@@ -180,10 +180,10 @@
 
       <el-table :data="groupList"
                 tooltip-effect="light">
-        <el-table-column label="资产编号"
+        <!-- <el-table-column label="资产编号"
                          type="index"
                          align="center"
-                         width="100" />
+                         width="100" /> -->
         <el-table-column label="资产名称"
                          align="center"
                          prop="assetName"
@@ -239,10 +239,10 @@
                          align="center"
                          class-name="small-padding fixed-width"
                          width="180">
-          <template>
+          <template #default="{ row }">
             <el-button size="mini"
                        type="text"
-                       @click="detail">详情</el-button>
+                       @click="detail(row.assetId)">详情</el-button>
             <el-button size="mini"
                        type="text"
                        @click="configuration">配置</el-button>
@@ -511,8 +511,8 @@
                       @keyup.enter.native="btnQuery" />
           </el-form-item>
           <el-form-item label="资产价值 :"
-                        prop="Asset_value">
-            <el-input v-model="queryParams.Asset_value"
+                        prop="assetValue">
+            <el-input v-model="queryParams.assetValue"
                       placeholder="请输入资产价值"
                       clearable
                       size="small"
@@ -551,8 +551,8 @@
                       @keyup.enter.native="btnQuery" />
           </el-form-item>
           <el-form-item label="运行软件 :"
-                        prop="run_software">
-            <el-input v-model="queryParams.run_software"
+                        prop="runSoftware">
+            <el-input v-model="queryParams.runSoftware"
                       placeholder="请输入运行软件"
                       clearable
                       size="small"
@@ -637,133 +637,133 @@
           <el-row>
             <el-col :span="8">
               <el-form-item label="资产编号 :">
-                {{ dataTest.name }}
+                {{ dataDetails.name }}
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item label="IP地址 :">
-                {{ dataTest.name1 }}
+                {{ dataDetails.ipAddress }}
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item label="资产型号 :">
-                {{ dataTest.Asset_model }}
+                {{ dataDetails.assetModel }}
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item label="资产名称 :">
-                {{ dataTest.name3 }}
+                {{ dataDetails.assetName  }}
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item label="资产类型 :">
-                {{ dataTest.assetType }}
+                {{ dataDetails.assetType }}
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item label="生产厂商 :">
-                {{ dataTest.manufacturer }}
+                {{ dataDetails.manufacturer }}
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item label="资产价值 :">
-                {{ dataTest.Asset_value }}
+                {{ dataDetails.assetValue }}
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item label="资产标签 :">
-                {{ dataTest.name7 }}
+                {{ dataDetails.assetTag }}
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item label="资产描述 :">
-                {{ dataTest.Asset_description }}
+                {{ dataDetails.Asset_description }}
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item label="操作系统 :">
-                {{ dataTest.name8 }}
+                {{ dataDetails.assetDescription }}
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item label="运行软件 :">
-                {{ dataTest.run_software }}
+                {{ dataDetails.runSoftware }}
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item label="数据库 :">
-                {{ dataTest.name11 }}
+                {{ dataDetails.db }}
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item label="风险状态 :">
-                {{ dataTest.riskState }}
+                {{ dataDetails.riskState }}
               </el-form-item>
             </el-col>
 
             <el-col :span="8">
               <el-form-item label="运行状态 :">
-                {{ dataTest.name12 }}
+                {{ dataDetails.eventLevel }}
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item label="应用协议 :">
-                {{ dataTest.nameArgument }}
+                {{ dataDetails.applicationProtocol }}
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item label="风险协议 :">
-                {{ dataTest.name13 }}
+                {{ dataDetails.riskProtocol }}
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item label="事件等级 :">
-                {{ dataTest.eventLevel }}
+                {{ dataDetails.eventLevel }}
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item label="资产位置 :">
-                {{ dataTest.Asset_locationh }}
+                {{ dataDetails.assetLocation }}
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item label="威胁事件 :">
-                {{ dataTest.name16 }}
+                <!-- {{ dataDetails }} -->
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item label="漏洞数量 :">
-                {{ dataTest.name16 }}
+                <!-- {{ dataDetails }} -->
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item label="发现来源 :">
-                {{ dataTest.nameFind }}
+                <!-- {{ dataDetails}} -->
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item label="负责人 :">
-                {{ dataTest.leader }}
+                {{ dataDetails.leader }}
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item label="部门 :">
-                {{ dataTest.department }}
+                {{ dataDetails.department }}
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item label="区域 :">
-                {{ dataTest.nameArea }}
+                {{ dataDetails.region }}
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item label="是否外联 :">
-                {{ dataTest.name14 }}
+                {{ dataDetails.whetherOutreach }}
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item label="最后活跃时间 :">
-                {{ dataTest.time }}
+                <!-- {{ dataDetails.time }} -->
               </el-form-item>
             </el-col>
           </el-row>
@@ -771,24 +771,24 @@
         <div class="information">
           资产分组
         </div>
-        <el-form ref="form"
+        <el-form ref=""
                  label-width="105px"
                  label-position="left"
                  class="label-type">
           <el-row>
             <el-col :span="12">
               <el-form-item label="资产组 :">
-                {{ dataTest.nameAssets }}
+                {{ dataDetails.assetGroup }}
               </el-form-item>
             </el-col>
             <el-col :span="12">
               <el-form-item label="地理位置 :">
-                {{ dataTest.locationGeo }}
+                <!-- {{ dataDetails }} -->
               </el-form-item>
             </el-col>
             <el-col :span="12">
               <el-form-item label="组织架构 :">
-                {{ dataTest.origation }}
+                <!-- {{ dataDetails.origation }} -->
               </el-form-item>
             </el-col>
           </el-row>
@@ -862,10 +862,10 @@
 
 <script>
 // import { listEvent } from '@/api/system/category'
-import { assetList, uploadExcel, postAction } from '@/api/system/list'
+import { assetList, uploadExcel } from '@/api/system/list'
 import chainStatistics from "@/components/Echarts/chainStatistics";
 import eventType from "@/components/Echarts/eventType";
-import { Message } from 'element-ui'
+import { assetDetail } from '@/api/system/detail'
 export default {
   components: {
     chainStatistics, eventType
@@ -884,197 +884,17 @@ export default {
       loading: false,
       // 总条数
       total: 0,
-      // 表格数据
-      dataList: [
-        {
-          index: 1,
-          userName: '10.255.52.84',
-          deptName: '长亭WAF',
-          ipaddr: '安全设备-web应用防火墙',
-          loginLocation: '在线',
-          fxzt: '正常',
-          operating_system: '极低',
-          xt: 'Linux',
-          yyxy: '--',
-          fxxy: '--',
-          // browser: "--",
-          zcbq: '--',
-          area: '山西三通燃气厂',
-          fzr: '张三',
-          zhhysj: '2022-01-29 10:10:00'
-        },
-        {
-          index: 2,
-          userName: '10.255.52.67',
-          deptName: '4AOIM',
-          ipaddr: '服务器-虚拟机',
-          loginLocation: '在线',
-          fxzt: '低危',
-          operating_system: '低',
-          xt: 'CentOS7.6',
-          yyxy: '--',
-          fxxy: '--',
-          // browser: "--",
-          zcbq: '--',
-          area: '天津管片厂',
-          fzr: '张三',
-          zhhysj: '2022-01-29 10:10:00'
-        },
-        {
-          index: 3,
-          userName: '10.255.52.27',
-          deptName: '4A流量监控管理系统',
-          ipaddr: '服务器-服务器',
-          loginLocation: '在线',
-          fxzt: '中危',
-          operating_system: '中',
-          xt: 'Linux2.6x',
-          yyxy: '--',
-          fxxy: '--',
-          // browser: "--",
-          zcbq: '--',
-          area: '北京城乡水厂',
-          fzr: '张三',
-          zhhysj: '2022-01-29 10:10:00'
-        },
-        {
-          index: 4,
-          userName: '10.20.51.82',
-          deptName: '蜜罐',
-          ipaddr: '安全设备-蜜罐',
-          loginLocation: '异常',
-          fxzt: '高危',
-          operating_system: '高',
-          xt: '--',
-          yyxy: '--',
-          fxxy: '--',
-          // browser: "--",
-          zcbq: '--',
-          area: '珠海深中通道',
-          fzr: '张三',
-          zhhysj: '2022-01-29 10:10:00'
-        },
-        {
-          index: 5,
-          userName: '10.255.52.84',
-          deptName: '防火墙',
-          ipaddr: '安全设备-工业防火墙',
-          loginLocation: '在线',
-          fxzt: '致命',
-          operating_system: '致命',
-          xt: 'WOS',
-          yyxy: 'S7',
-          fxxy: 'S7',
-          // browser: "--",
-          zcbq: '--',
-          area: '三亚海投轨交',
-          fzr: '张三',
-          zhhysj: '2022-01-29 10:10:00'
-        },
-        {
-          index: 6,
-          userName: '10.255.52.84',
-          deptName: '主机',
-          ipaddr: '服务器-主机',
-          loginLocation: '离线',
-          fxzt: '正常',
-          operating_system: '极低',
-          xt: 'Linux',
-          yyxy: '--',
-          fxxy: '--',
-          // browser: "--",
-          zcbq: '--',
-          area: '山西三通燃气厂',
-          fzr: '张三',
-          zhhysj: '2022-01-29 10:10:00'
-        },
-        {
-          index: 7,
-          userName: '10.255.52.84',
-          deptName: '主机',
-          ipaddr: '服务器-主机',
-          loginLocation: '离线',
-          fxzt: '正常',
-          operating_system: '极低',
-          xt: 'Linux',
-          yyxy: '--',
-          fxxy: '--',
-          // browser: "--",
-          zcbq: '--',
-          area: '山西三通燃气厂',
-          fzr: '张三',
-          zhhysj: '2022-01-29 10:10:00'
-        },
-        {
-          index: 8,
-          userName: '10.255.52.84',
-          deptName: '防火墙',
-          ipaddr: '安全设备-工业防火墙',
-          loginLocation: '在线',
-          fxzt: '致命',
-          operating_system: '致命',
-          xt: 'WOS',
-          yyxy: 'S7',
-          fxxy: 'S7',
-          // browser: "--",
-          zcbq: '--',
-          area: '三亚海投轨交',
-          fzr: '张三',
-          zhhysj: '2022-01-29 10:10:00'
-        },
-        {
-          index: 9,
-          userName: '10.255.52.84',
-          deptName: '主机',
-          ipaddr: '服务器-主机',
-          loginLocation: '离线',
-          fxzt: '正常',
-          operating_system: '极低',
-          xt: 'Linux',
-          yyxy: '--',
-          fxxy: '--',
-          // browser: "--",
-          zcbq: '--',
-          area: '山西三通燃气厂',
-          fzr: '张三',
-          zhhysj: '2022-01-29 10:10:00'
-        },
-        {
-          index: 10,
-          userName: '10.255.52.84',
-          deptName: '主机',
-          ipaddr: '服务器-主机',
-          loginLocation: '离线',
-          fxzt: '正常',
-          operating_system: '极低',
-          xt: 'Linux',
-          yyxy: '--',
-          fxxy: '--',
-          // browser: "--",
-          zcbq: '--',
-          area: '山西三通燃气厂',
-          fzr: '张三',
-          zhhysj: '2022-01-29 10:10:00'
-        }
-      ],
       // 分组表格数据
       groupList: [],
-      // pageNum: 1,
-      // pageSize: 10,
-      // 查询参数
       queryParams: {
         pageNum: 1,
         pageSize: 10,
-        // IPaddress: '',
-        // region: '',
-        // assetType: '',
-        // leader: '',
-        // eventLevel: '',
-        // assetType: '',
-        // assetType: ''
       },
       formData: {
         event_level: ''
+      },
+      rules: {
+
       },
       areaOptions: [
         {
@@ -1222,35 +1042,35 @@ export default {
           value: '致命'
         }
       ],
-      dataTest: {
-        name: '1',
-        name1: '124.165.254.98',
-        Asset_model: '29530',
-        name3: 'SCADA服务器',
-        assetType: '工控设备',
-        manufacturer: 'Dell',
-        nameFind: '导入',
-        Asset_value: '4',
-        name7: '等保一级',
-        Asset_description: 'WINDOWS',
-        run_software: 'Combridge',
-        riskState: '极低',
-        name11: 'DATAServer',
-        name12: '正常',
-        name13: '--',
-        name14: '是',
-        nameArea: '山西三通燃气厂',
-        department: '--',
-        eventLevel: "低",
-        name16: '3',
-        leader: '张燕强',
-        time: '2022-02-03 21:00:47',
-        location: '--',
-        locationGeo: '吕梁市汾阳市富民南路东方国际城顶楼机房',
-        nameAssets: '工控设备',
-        Asset_locationh: '楼顶机房内',
-        nameArgument: 'TCP/IP',
-        origation: '中国城乡山西三通燃气厂'
+      dataDetails: {
+        // name: '1',
+        // name1: '124.165.254.98',
+        // Asset_model: '29530',
+        // name3: 'SCADA服务器',
+        // assetType: '工控设备',
+        // manufacturer: 'Dell',
+        // nameFind: '导入',
+        // assetValue: '4',
+        // name7: '等保一级',
+        // Asset_description: 'WINDOWS',
+        // runSoftware: 'Combridge',
+        // riskState: '极低',
+        // name11: 'DATAServer',
+        // name12: '正常',
+        // name13: '--',
+        // name14: '是',
+        // nameArea: '山西三通燃气厂',
+        // department: '--',
+        // eventLevel: "低",
+        // name16: '3',
+        // leader: '张燕强',
+        // time: '2022-02-03 21:00:47',
+        // location: '--',
+        // locationGeo: '吕梁市汾阳市富民南路东方国际城顶楼机房',
+        // nameAssets: '工控设备',
+        // assetLocation: '楼顶机房内',
+        // nameArgument: 'TCP/IP',
+        // origation: '中国城乡山西三通燃气厂'
       }
     }
   },
@@ -1305,7 +1125,11 @@ export default {
     },
     /** 重置按钮操作 */
     resetForm () {
-      this.$refs['elForm'].resetFields()
+      this.queryParams = {
+        pageNum: 1,
+        pageSize: 10,
+      }
+      this.getList()
     },
     handleAdd () {
       this.open = true
@@ -1352,7 +1176,11 @@ export default {
       this.configurationDialog = true
       this.title = '配置资产'
     },
-    detail () {
+    async detail (id) {
+      const { data } = await assetDetail(id)
+      this.dataDetails = data
+      console.log('this.dataDetails', this.dataDetails)
+      // this.dataDetails.eventLevel = this.transTypeDic(this.dataDetails.eventLevel)
       this.detailDialog = true
       this.title = '资产详情'
     }

@@ -535,7 +535,13 @@ export default {
       })
     },
     resetForm () {
-      this.$refs['elForm'].resetFields()
+      this.queryParams = {
+        pageNum: 1,
+        pageSize: 10,
+        orderByColumn: 'happen_time',
+        isAsc: 'desc',
+      }
+      this.getList()
     },
     async detail (id) {
       const { data } = await abnormalDetail(id)

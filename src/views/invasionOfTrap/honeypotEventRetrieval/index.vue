@@ -526,7 +526,13 @@ export default {
       })
     },
     resetForm () {
-      this.$refs['elForm'].resetFields()
+      this.queryParams = {
+        pageNum: 1,
+        pageSize: 10,
+        orderByColumn: 'startAttackTime',
+        isAsc: 'desc',
+      }
+      this.getList()
     },
     async detail (id) {
       const { data } = await trapDetail(id)
