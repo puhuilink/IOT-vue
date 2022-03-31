@@ -4,14 +4,6 @@
 import request from '@/utils/request'
 
 
-export function postAction(url, parameter) {
-  return request({
-    url: url,
-    method: 'post',
-    data: parameter
-  })
-}
-
 // 事件检索
 export function eventList(query) {
   return request({

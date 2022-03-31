@@ -70,3 +70,11 @@ export function configurationVerificationDetail(query) {
     method: 'get'
   })
 }
+
+// 查询资产详情
+export function assetDetail(query) {
+  return request({
+    url: '/dm/asset/' + query,
+    method: 'get'
+  })
+}
