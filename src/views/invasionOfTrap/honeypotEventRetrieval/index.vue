@@ -37,10 +37,10 @@
             <el-col :span="6">
               <el-form-item
                 label="事件等级："
-                prop="eventLevel"
+                prop="severity"
               >
                 <el-select
-                  v-model="queryParams.eventLevel"
+                  v-model="queryParams.severity"
                   placeholder="请选择事件等级"
                   filterable
                   clearable
@@ -163,7 +163,7 @@
         @click="submitdata"
       >导出</el-button>
       <el-table
-        :data="groupList"
+        :data="List"
         tooltip-effect="light"
       >
         <el-table-column
@@ -204,7 +204,7 @@
         <el-table-column
           label="事件等级"
           align="center"
-          prop="eventLevel"
+          prop="severity"
           :show-overflow-tooltip="true"
         >
           <template #default="scope">
@@ -234,7 +234,7 @@
             <el-button
               size="mini"
               type="text"
-              @click="detail(scope.row.intrusionTrapId)"
+              @click="detail(scope.row)"
             >详情</el-button>
             &nbsp;&nbsp; &nbsp;&nbsp;
             <el-dropdown @command="batchOperate">
@@ -253,13 +253,13 @@
           </template>
         </el-table-column>
       </el-table>
-      <!-- <pagination
+      <pagination
         v-show="total > 0"
         :total="total"
-        :page.sync="queryParams.pageNum"
-        :limit.sync="queryParams.pageSize"
-        @pagination="getList"
-      /> -->
+        :page.sync="querys.from"
+        :limit.sync="querys.size"
+        @pagination="searchClick"
+      />
     </el-card>
 
     <!-- 添加或修改分组对话框 -->
@@ -291,7 +291,7 @@
             </el-col>
             <el-col :span="8">
               <el-form-item label="事件等级 :">
-                {{ detailData.eventLevel }}
+                {{ detailData.severity }}
               </el-form-item>
             </el-col>
             <el-col :span="8">
@@ -301,7 +301,7 @@
             </el-col>
             <el-col :span="8">
               <el-form-item label="结束攻击时间 :">
-                {{ detailData.lastAttackTime }}
+                <tooltip :content="detailData.lastAttackTime" :length="20" />
               </el-form-item>
             </el-col>
             <el-col :span="8">
@@ -311,7 +311,7 @@
             </el-col>
             <el-col :span="8">
               <el-form-item label="处置状态 :">
-                {{ detailData.disposalStatus }}
+                {{ detailData.procedure }}
               </el-form-item>
             </el-col>
           </el-row>
@@ -321,38 +321,38 @@
         </div>
         <el-table
           v-loading="loading"
-          :data="groupListCopy"
+          :data="List"
           tooltip-effect="light"
         >
           <el-table-column
             label="攻击时间"
             align="center"
-            prop="groupId"
+            prop="attackTime"
             min-width="15%"
             :show-overflow-tooltip="true"
           />
           <el-table-column
             label="来源IP"
             align="center"
-            prop="userId"
+            prop="attackip"
             min-width="15%"
           />
           <el-table-column
             label="类型"
             align="center"
-            prop="groupName"
-            min-width="8%"
+            prop="attackType"
+            min-width="10%"
           />
           <el-table-column
             label="攻击手法"
             align="center"
-            prop="createTime"
+            prop="method"
             min-width="15%"
           />
           <el-table-column
             label="攻击行为"
             align="center"
-            prop="remark"
+            prop="description"
             min-width="55%"
             :show-overflow-tooltip="true"
           />
@@ -382,10 +382,8 @@
 </template>
 <script>
 import { getElasticDate, getkpi } from '@/utils/request'
-// import { listGroup } from "@/api/system/group";
-// import { listEvent } from '@/api/system/category'
 // import { trapList } from '@/api/system/list'
-import { trapDetail } from '@/api/system/detail'
+// import { trapDetail } from '@/api/system/detail'
 
 export default {
   name: 'AAA',
@@ -395,49 +393,12 @@ export default {
     return {
       loading: false,
       name: '测试',
-      sour: {},
+      aaa: {},
       detailData: {
       },
       // 分组表格数据
-
+      List: [],
       groupList: [],
-      // 详情页表格数据
-      groupListCopy: [{
-        groupId: '2022-01-29 10:10:00',
-        userId: '10.255.52.84',
-        groupName: '入侵',
-        createTime: '文件反制',
-        remark: '打开高管邮件，邮箱为1234567@163.com.邮件为安全监测子平台系统，访问时长：4秒'
-      },
-      {
-        groupId: '2022-01-29 10:10:00',
-        userId: '10.255.52.84',
-        groupName: '入侵',
-        createTime: '文件反制',
-        remark: '打开高管邮件，邮箱为1234567@163.com.邮件为安全监测子平台系统，访问时长：4秒'
-      },
-      {
-        groupId: '2022-01-29 10:10:00',
-        userId: '10.255.52.84',
-        groupName: '入侵',
-        createTime: '文件反制',
-        remark: '打开高管邮件，邮箱为1234567@163.com.邮件为安全监测子平台系统，访问时长：4秒'
-      },
-      {
-        groupId: '2022-01-29 10:10:00',
-        userId: '10.255.52.84',
-        groupName: '入侵',
-        createTime: '文件反制',
-        remark: '打开高管邮件，邮箱为1234567@163.com.邮件为安全监测子平台系统，访问时长：4秒'
-      },
-      {
-        groupId: '2022-01-29 10:10:00',
-        userId: '10.255.52.84',
-        groupName: '入侵',
-        createTime: '文件反制',
-        remark: '打开高管邮件，邮箱为1234567@163.com.邮件为安全监测子平台系统，访问时长：4秒'
-      }
-      ],
       // 创建时间时间范围
       daterangeCreateTime: [],
       // 弹出层标题
@@ -446,14 +407,6 @@ export default {
       open: false,
       // 总条数
       total: 0,
-      // 查询参数
-      // query: {
-      //   query: {
-      //     'match_all': {}
-      //   },
-      //   from: 0,
-      //   size: 10000
-      // },
       querys: {
         query: {
           'match_all': {}
@@ -467,14 +420,13 @@ export default {
         orderByColumn: 'startAttackTime',
         isAsc: 'desc',
         attackSource: '',
-        eventLevel: '',
+        severity: '',
         isolationSandbox: '',
         region: '',
         disposalStatus: ''
       },
       rules: {
         name: [],
-        eventLevel: [],
         type: [],
         region: [],
         agreement: [],
@@ -560,50 +512,53 @@ export default {
     this.searchClick()
     // this.getList()
   },
+
   methods: {
     searchClick() {
       getElasticDate(this.querys).then((res) => {
+        this.total = res.data.hits.total
         res.data.hits.hits.map(t => {
+          const sour = t._source
           getkpi({
             'query': {
               'match': {
                 'event_id': t._id
               }
             },
-            'from': 0,
-            'size': 100
+            'from': this.querys.from,
+            'size': this.querys.size
           }).then((res) => {
             res.data.hits.hits.map((item) => {
               if (item._source.cmdb_kpi_name === 'ev_com_socket_src_ip') {
-                t.attackSource = item._source.value
+                sour.attackSource = item._source.value
               }
               if (item._source.cmdb_kpi_name === 'ev_com_socket_dst_ip') {
-                t.attackTarget = item._source.value
+                sour.attackTarget = item._source.value
               }
               if (item._source.cmdb_kpi_name === 'ev_msec_attack_ip') {
-                t.attackip = item._source.value
+                sour.attackip = item._source.value
               }
               if (item._source.cmdb_kpi_name === 'ev_msec_asset_name') {
-                t.isolationSandbox = item._source.value
+                sour.isolationSandbox = item._source.value
               }
               if (item._source.cmdb_kpi_name === 'ev_msec_detail_start_time') {
-                t.startAttackTime = item._source.value
+                sour.startAttackTime = item._source.value
               }
               if (item._source.cmdb_kpi_name === 'ev_msec_detail_timestamp') {
-                t.lastAttackTime = item._source.value
+                sour.lastAttackTime = item._source.value
               }
               if (item._source.cmdb_kpi_name === 'ev_msec_attack_method_desc') {
-                t.method = item._source.value
+                sour.method = item._source.value
               }
               if (item._source.cmdb_kpi_name === 'ev_msec_attack_type') {
-                t.attackType = item._source.value
+                sour.attackType = item._source.value
               }
               if (item._source.cmdb_kpi_name === 'ev_msec_attack_time') {
-                t.attackTime = item._source.value
+                sour.attackTime = item._source.value
               }
-              console.log(t)
-            }
-            )
+              this.groupList.push(sour)
+              this.List = Array.from(new Set(this.groupList))
+            })
           })
         })
       })
@@ -686,10 +641,9 @@ export default {
     resetForm() {
       this.$refs['elForm'].resetFields()
     },
-    async detail(id) {
-      const { data } = await trapDetail(id)
-      this.detailData = data
-      this.detailData.eventLevel = this.transTypeDic(this.detailData.eventLevel)
+    detail(row) {
+      this.detailData = row
+      this.detailData.severity = this.transTypeDic(this.detailData.severity)
       this.open = true
       this.title = '事件详情'
     },

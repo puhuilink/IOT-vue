@@ -27,16 +27,6 @@ const service = axios.create({
 })
 // request拦截器
 service.interceptors.request.use(config => {
-  // console.log(config)
-  // const type = config.url.split('/')[1]
-  // switch (type) {
-  //   case 'dm':
-  //     config.baseURL = 'http://192.168.2.103:8088'
-  //     break
-  //   case 'eventlog':
-  //     config.baseURL = 'http://192.168.2.61:9200'
-  //     break
-  // }
   // 是否需要设置 token
   const isToken = (config.headers || {}).isToken === false
   if (getToken() && !isToken) {
