@@ -261,7 +261,9 @@
             </el-col>
             <el-col :span="12">
               <el-form-item label="路径 :">
-                {{ detailData.route }}
+                <!-- {{ detailData.route }} -->
+                <tooltip :content="detailData.route"
+                         :length="50" />
               </el-form-item>
             </el-col>
             <el-col :span="12">
@@ -321,7 +323,9 @@
             </el-col>
             <el-col :span="12">
               <el-form-item label="父进程 :">
-                {{ detailData.parentProcess }}
+                <!-- {{ detailData.parentProcess }} -->
+                <tooltip :content="detailData.parentProcess"
+                         :length="50" />
               </el-form-item>
             </el-col>
             <el-col :span="12">
