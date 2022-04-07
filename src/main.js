@@ -10,7 +10,7 @@ import '@/assets/styles/ruoyi.scss' // ruoyi css
 import App from './App'
 import store from './store'
 import router from './router'
-import permission from './directive/permission'
+import './directive'
 import './components/global_components'
 
 import './assets/icons' // icon
@@ -51,8 +51,6 @@ Vue.prototype.msgInfo = function(msg) {
 // 全局组件挂载
 Vue.component('Pagination', Pagination)
 Vue.component('RightToolbar', RightToolbar)
-
-Vue.use(permission)
 
 /**
  * If you don't want to use mock-server
