@@ -22,7 +22,7 @@
             <el-col :span="6">
               <el-form-item label="区域："
                             prop="area">
-                <el-select v-model="queryParams.region"
+                <el-select v-model="queryParams.location"
                            placeholder="请选择区域"
                            filterable
                            clearable
@@ -157,7 +157,7 @@
                        min-width="10%" />
       <el-table-column label="区域"
                        align="center"
-                       prop="region"
+                       prop="location"
                        :show-overflow-tooltip="true"
                        min-width="10%" />
       <el-table-column label="操作"
@@ -200,7 +200,9 @@
         <el-row>
           <el-col :span="12">
             <el-form-item label="检查项 :">
-              {{ detailData.event_name }}
+              <tooltip :content="detailData.event_name"
+                       :length="30" />
+              <!-- {{ detailData.event_name }} -->
             </el-form-item>
           </el-col>
           <el-col :span="12">
@@ -225,7 +227,7 @@
           </el-col>
           <el-col :span="12">
             <el-form-item label="区域 :">
-              {{ detailData.region }}
+              {{ detailData.location }}
             </el-form-item>
           </el-col>
           <el-col :span="12">
