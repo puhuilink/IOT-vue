@@ -12,8 +12,8 @@
                    label-position="right">
             <el-col :span="6">
               <el-form-item label="事件名称:"
-                            prop="eventName">
-                <el-input v-model="queryParams.eventName"
+                            prop="event_name">
+                <el-input v-model="queryParams.event_name"
                           placeholder="请输入事件名称"
                           clearable
                           :style="{ width: '100%' }" />
@@ -21,8 +21,8 @@
             </el-col>
             <el-col :span="6">
               <el-form-item label="区域:"
-                            prop="region">
-                <el-select v-model="queryParams.region"
+                            prop="location">
+                <el-select v-model="queryParams.location"
                            placeholder="请选择区域"
                            filterable
                            clearable
@@ -37,8 +37,8 @@
             </el-col>
             <el-col :span="6">
               <el-form-item label="事件等级:"
-                            prop="eventLevel">
-                <el-select v-model="queryParams.eventLevel"
+                            prop="severity">
+                <el-select v-model="queryParams.severity"
                            placeholder="请选择事件等级"
                            filterable
                            clearable
@@ -53,8 +53,8 @@
             </el-col>
             <el-col :span="6">
               <el-form-item label="事件类型:"
-                            prop="eventType">
-                <el-input v-model="queryParams.eventType"
+                            prop="ev_wsec_hsme_format_label">
+                <el-input v-model="queryParams.ev_wsec_hsme_format_label"
                           placeholder="请输入事件类型"
                           clearable
                           :style="{ width: '100%' }" />
@@ -63,8 +63,8 @@
 
             <el-col :span="6">
               <el-form-item label="处置状态:"
-                            prop="disposalStatus">
-                <el-select v-model="queryParams.disposalStatus"
+                            prop="procedure">
+                <el-select v-model="queryParams.procedure"
                            placeholder="请选择处置状态"
                            filterable
                            clearable
@@ -80,8 +80,8 @@
 
             <el-col :span="6">
               <el-form-item label="客户端IP:"
-                            prop="clientIp">
-                <el-input v-model="queryParams.clientIp"
+                            prop="ev_wsec_hsme_system_ip">
+                <el-input v-model="queryParams.ev_wsec_hsme_system_ip"
                           placeholder="请输入客户端IP"
                           clearable
                           :style="{ width: '100%' }" />
@@ -89,8 +89,8 @@
             </el-col>
             <el-col :span="6">
               <el-form-item label="操作系统:"
-                            prop="operatingSystem">
-                <el-input v-model="queryParams.operatingSystem"
+                            prop="ev_wsec_hsme_system_osname">
+                <el-input v-model="queryParams.ev_wsec_hsme_system_osname"
                           placeholder="请输入操作系统"
                           clearable
                           :style="{ width: '100%' }" />
@@ -129,60 +129,60 @@
                    size="mini"
                    @click="submitdata">导出</el-button>
       </el-row>
-      <el-table :data="groupList"
+      <el-table :data="List"
                 tooltip-effect="light">
         <el-table-column type="selection"
                          width="55"
                          align="center" />
         <el-table-column label="接收时间"
                          align="center"
-                         prop="generationTime"
+                         prop="receive_time"
                          :show-overflow-tooltip="true" />
         <el-table-column label="事件名称"
                          align="center"
-                         prop="eventName"
+                         prop="event_name"
                          :show-overflow-tooltip="true" />
         <el-table-column label="事件等级"
                          align="center"
-                         prop="eventLevel"
+                         prop="severity"
                          :show-overflow-tooltip="true">
           <template #default="scope">
             <span>{{
-              transTypeDic(scope.row.eventLevel)
+              transTypeDic(scope.row.severity)
             }}</span>
           </template>
         </el-table-column>
         <el-table-column label="事件类型"
                          align="center"
-                         prop="eventType"
+                         prop="ev_wsec_hsme_format_label"
                          :show-overflow-tooltip="true" />
         <el-table-column label="操作系统"
                          align="center"
-                         prop="operatingSystem"
+                         prop="ev_wsec_hsme_system_osname"
                          :show-overflow-tooltip="true" />
         <el-table-column label="客户端名称"
                          align="center"
-                         prop="clientName"
+                         prop="ev_wsec_hsme_system_osuser"
                          :show-overflow-tooltip="true" />
         <el-table-column label="客户端IP"
                          align="center"
-                         prop="clientIp"
+                         prop="ev_wsec_hsme_system_ip"
                          :show-overflow-tooltip="true" />
         <el-table-column label="发生时间"
                          align="center"
-                         prop="receivingTime"
+                         prop="occur_time"
                          :show-overflow-tooltip="true" />
         <el-table-column label="日志描述"
                          align="center"
-                         prop="logDescription"
+                         prop="description"
                          :show-overflow-tooltip="true" />
         <el-table-column label="处置状态"
                          align="center"
-                         prop="disposalStatus"
+                         prop="procedure"
                          :show-overflow-tooltip="true" />
         <el-table-column label="区域"
                          align="center"
-                         prop="region"
+                         prop="location"
                          :show-overflow-tooltip="true" />
         <el-table-column label="操作"
                          align="center"
@@ -190,7 +190,7 @@
           <template #default="{ row }">
             <el-button size="mini"
                        type="text"
-                       @click="detail(row.hostSecurityId)">详情</el-button>
+                       @click="detail(row)">详情</el-button>
             &nbsp;&nbsp; &nbsp;&nbsp;
             <el-dropdown @command="batchOperate">
               <el-button size="mini"
@@ -210,9 +210,9 @@
 
     <pagination v-show="total > 0"
                 :total="total"
-                :page.sync="queryParams.pageNum"
-                :limit.sync="queryParams.pageSize"
-                @pagination="getList" />
+                :page.sync="querys.from"
+                :limit.sync="querys.size"
+                @pagination="getTableList" />
     <!-- 添加或修改分组对话框 -->
     <el-dialog :title="title"
                :visible.sync="open"
@@ -226,59 +226,61 @@
           <el-row>
             <el-col :span="12">
               <el-form-item label="接收时间 :">
-                {{ detailData.generationTime }}
+                {{ detailData.receive_time }}
               </el-form-item>
             </el-col>
             <el-col :span="12">
               <el-form-item label="病毒类型 :">
-                {{ detailData.virusType }}
+                <!-- {{ detailData.ev_wsec_hsme_virus_type }} -->
+                <tooltip :content="detailData.ev_wsec_hsme_virus_type"
+                         :length="40" />
               </el-form-item>
             </el-col>
             <el-col :span="12">
               <el-form-item label="事件名称 :">
-                {{ detailData.eventName }}
+                {{ detailData.event_name }}
               </el-form-item>
             </el-col>
             <el-col :span="12">
               <el-form-item label="病毒名 :">
-                {{ detailData.virusName }}
+                {{ detailData.ev_wsec_hsme_virus_name }}
               </el-form-item>
             </el-col>
             <el-col :span="12">
               <el-form-item label="事件等级 :">
-                {{ detailData.eventLevel }}
+                {{ detailData.severity }}
               </el-form-item>
             </el-col>
             <el-col :span="12">
               <el-form-item label="用户名称 :">
-                {{ detailData.username }}
+                {{ detailData.ev_wsec_hsme_system_osuser }}
               </el-form-item>
             </el-col>
             <el-col :span="12">
               <el-form-item label="事件类型 :">
-                {{ detailData.eventType }}
+                {{ detailData.ev_wsec_hsme_format_label }}
               </el-form-item>
             </el-col>
             <el-col :span="12">
               <el-form-item label="路径 :">
                 <!-- {{ detailData.route }} -->
-                <tooltip :content="detailData.route"
-                         :length="50" />
+                <tooltip :content="detailData.ev_wsec_hsme_process_location"
+                         :length="40" />
               </el-form-item>
             </el-col>
             <el-col :span="12">
               <el-form-item label="操作系统 :">
-                {{ detailData.operatingSystem }}
+                {{ detailData.ev_wsec_hsme_system_osname }}
               </el-form-item>
             </el-col>
             <el-col :span="12">
               <el-form-item label="目的地址 :">
-                {{ detailData.destinationAddress }}
+                {{ detailData.ev_wsec_hsme_dst_addr }}
               </el-form-item>
             </el-col>
             <el-col :span="12">
               <el-form-item label="客户端名称 :">
-                {{ detailData.clientName }}
+                {{ detailData.ev_wsec_hsme_system_osuser }}
               </el-form-item>
             </el-col>
             <el-col :span="12">
@@ -288,7 +290,7 @@
             </el-col>
             <el-col :span="12">
               <el-form-item label="客户端IP :">
-                {{ detailData.clientIp }}
+                {{ detailData.ev_wsec_hsme_system_ip }}
               </el-form-item>
             </el-col>
             <el-col :span="12">
@@ -308,29 +310,35 @@
             </el-col>
             <el-col :span="12">
               <el-form-item label="日志描述 :">
-                {{ detailData.logDescription }}
+                <!-- {{ detailData.description }} -->
+                <!-- <tooltip :content="detailData.description"
+                         :length="30" /> -->
+                <tooltip :content="detailData.description"
+                         :length="20" />
               </el-form-item>
             </el-col>
             <el-col :span="12">
               <el-form-item label="区域 :">
-                {{ detailData.region }}
+                {{ detailData.location }}
               </el-form-item>
             </el-col>
             <el-col :span="12">
               <el-form-item label="进程 :">
-                {{ detailData.process }}
+                <!-- {{ detailData.ev_wsec_hsme_process_location }} -->
+                <tooltip :content="detailData.ev_wsec_hsme_process_location"
+                         :length="40" />
               </el-form-item>
             </el-col>
             <el-col :span="12">
               <el-form-item label="父进程 :">
                 <!-- {{ detailData.parentProcess }} -->
-                <tooltip :content="detailData.parentProcess"
-                         :length="50" />
+                <tooltip :content="detailData.ev_wsec_hsme_process_parent_location"
+                         :length="40" />
               </el-form-item>
             </el-col>
             <el-col :span="12">
               <el-form-item label="处置状态 :">
-                {{ detailData.disposalStatus }}
+                {{ detailData.procedure }}
               </el-form-item>
             </el-col>
           </el-row>
@@ -352,6 +360,7 @@
 </template>
 <script>
 // import { listEvent } from '@/api/system/category'
+import { getHostSecurityData } from '@/utils/request'
 import { hostList } from '@/api/system/list'
 import { hostSecurityDetail } from '@/api/system/detail'
 
@@ -365,8 +374,10 @@ export default {
       detailData: {
 
       },
-      // 分组表格数据
       groupList: [],
+      // 分组表格数据
+      List: [],
+      groupListDeatils: [],
       // 创建时间时间范围
       daterangeCreateTime: [],
       // 弹出层标题
@@ -375,35 +386,42 @@ export default {
       open: false,
       // 总条数
       total: 0,
+      querys: {
+        query: {
+          'match_all': {}
+        },
+        from: 0,
+        size: 10
+      },
       // 查询参数
       queryParams: {
         pageNum: 1,
         pageSize: 10,
-        orderByColumn: 'receivingTime',
+        orderByColumn: 'occur_time',
         isAsc: 'desc',
         groupName: null,
         createTime: null,
-        eventName: '',
-        operatingSystem: '',
-        eventLevel: undefined,
-        eventType: undefined,
-        region: undefined,
-        disposalStatus: undefined,
+        event_name: '',
+        ev_wsec_hsme_system_osname: '',
+        severity: undefined,
+        ev_wsec_hsme_format_label: '',
+        location: undefined,
+        procedure: '',
         ip: undefined,
         newip: undefined,
-        clientIp: undefined,
+        ev_wsec_hsme_system_ip: undefined,
         date: [''],
         field114: undefined
       },
       rules: {
         name: [],
-        eventLevel: [],
-        eventType: [],
-        region: [],
-        disposalStatus: [],
+        severity: [],
+        ev_wsec_hsme_format_label: [],
+        location: [],
+        procedure: [],
         ip: [],
         newip: [],
-        clientIp: [],
+        ev_wsec_hsme_system_ip: [],
         date: [],
         field114: []
       },
@@ -488,9 +506,21 @@ export default {
     }
   },
   created () {
-    this.getList()
+    this.getTableList()
+    // this.getList()
   },
   methods: {
+    getTableList () {
+      getHostSecurityData(this.querys).then((res) => {
+        this.groupList = []
+        this.total = res.data.hits.total
+        res.data.hits.hits.map(t => {
+          const sour = t._source
+          this.groupList.push(sour)
+          this.List = Array.from(new Set(this.groupList))
+        })
+      })
+    },
     transTypeDic (val) {
       var t = [{
         name: '1',
@@ -555,9 +585,60 @@ export default {
       this.total = res.total
       this.loading = false
     },
+    // btnQuery () {
+    //   this.queryParams.pageNum = 1
+    //   this.getList()
+    // },
     btnQuery () {
-      this.queryParams.pageNum = 1
-      this.getList()
+      getHostSecurityData({
+        query: {
+          // match: {
+          //   'procedure': this.queryParams.procedure
+          // },
+          "bool": {
+            "must": [
+              {
+                "wildcard": {
+                  "procedure.keyword": {
+                    "value": '*' + this.queryParams.procedure + '*'
+                  }
+                },
+              },
+              {
+                "wildcard": {
+                  "ev_wsec_hsme_format_label.keyword": {
+                    "value": '*' + this.queryParams.ev_wsec_hsme_format_label + '*'
+                  }
+                },
+              },
+              {
+                "wildcard": {
+                  "event_name.keyword": {
+                    "value": '*' + this.queryParams.event_name + '*'
+                  }
+                },
+              }
+            ]
+          }
+        },
+        from: 0,
+        size: 10
+      }).then(res => {
+        if (res.data.hits.total != 0) {
+          this.groupList = []
+          this.total = res.data.hits.total
+          res.data.hits.hits.map(t => {
+            const sour = t._source
+            this.groupList.push(sour)
+            this.List = Array.from(new Set(this.groupList))
+          })
+        } else {
+          this.List = []
+          this.total = res.data.hits.total
+        }
+
+      })
+      this.detailData.severity = this.transTypeDic(this.detailData.severity)
     },
     submitdata () {
       this.$refs['elForm'].validate((valid) => {
@@ -569,17 +650,25 @@ export default {
       this.queryParams = {
         pageNum: 1,
         pageSize: 10,
-        orderByColumn: 'receivingTime',
+        orderByColumn: 'occur_time',
         isAsc: 'desc',
       }
-      this.getList()
+      // this.getList()
+      this.getTableList(this.querys)
     },
-    async detail (id) {
-      const { data } = await hostSecurityDetail(id)
-      this.detailData = data
-      this.detailData.eventLevel = this.transTypeDic(this.detailData.eventLevel)
+    //  detail (row) {
+    //   const { data } = await hostSecurityDetail(id)
+    //   this.detailData = data
+    //   this.detailData.severity = this.transTypeDic(this.detailData.severity)
+    //   this.open = true
+    //   this.title = '事件详情'
+    // },
+    detail (row) {
       this.open = true
       this.title = '事件详情'
+      this.detailData = row
+      this.detailData.severity = this.transTypeDic(this.detailData.severity)
+
     },
     // 取消按钮
     cancel () {

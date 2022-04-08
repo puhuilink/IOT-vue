@@ -324,29 +324,12 @@ export default {
       open: false,
       // 总条数
       total: 0,
-      // querys: {
-      //   query: {
-      //     bool: {
-      //       must: [{
-      //         match: {
-      //           'detail_src_ip': this.queryParams.detail_src_ip
-      //           // "category": "小米"
-      //         }
-      //       }, {
-      //         match: {
-      //           // "price": 3999.00
-      //           'occur_time ': this.queryParams.occur_time
-      //         }
-      //       }]
-      //     }
-      //   },
-      //   from: 0,
-      //   size: 10
-      // },
       querys: {
         query: {
-          'match_all': {}
+          'match_all': {},
+
         },
+        sort: [{ "receive_time": "desc" }],
         from: 0,
         size: 10
       },
@@ -354,6 +337,7 @@ export default {
         pageNum: 1,
         pageSize: 10,
         orderByColumn: 'occur_time',
+
         isAsc: 'desc',
         detail_src_ip: '',
         severity: '',
@@ -461,7 +445,6 @@ export default {
     searchClick () {
       getElasticDate(this.querys).then((res) => {
         this.groupList = []
-        console.log('res-4-7', res)
         this.total = res.data.hits.total
         res.data.hits.hits.map(t => {
           const sour = t._source
@@ -576,47 +559,40 @@ export default {
     // },
     btnQuery () {
       getElasticDate({
-        query: {
-          bool: {
-            must: [
+        "query": {
+          "bool": {
+            "must": [
+              // {
+              //   match: {
+              //     "disposalStatus": this.queryParams.disposalStatus,
+              //   }
+              // },
               {
-                match: {
-                  exkpi_msec_asset_name: this.queryParams.exkpi_msec_asset_name,
-                }
+                "wildcard": {
+                  "exkpi_msec_asset_name.keyword": {
+                    "value": '*' + this.queryParams.exkpi_msec_asset_name + '*'
+                  }
+                },
               },
               {
-                match: {
-                  detail_src_ip: this.queryParams.detail_src_ip,
+                "wildcard": {
+                  "detail_src_ip.keyword": {
+                    "value": '*' + this.queryParams.detail_src_ip + '*'
+                  }
                 },
-              }]
+              }
+            ]
           }
-
-
         },
-        // query: {
-        //   bool: {
-        //     must: [{
-        //       'match': {
-        //         'detail_src_ip': this.queryParams.detail_src_ip
-        //       },
-        //       'match': {
-        //         'exkpi_msec_asset_name': this.queryParams.exkpi_msec_asset_name
-        //       }
-        //     }]
-        //   }
-
-        // },
         from: 0,
         size: 10
       }).then(res => {
         this.groupList = []
-        console.log('res - 4 - 7-btnQuery', res)
         this.total = res.data.hits.total
         res.data.hits.hits.map(t => {
           const sour = t._source
           this.groupList.push(sour)
           this.List = Array.from(new Set(this.groupList))
-          console.log('this.ListDetails', this.List)
         })
       })
       this.detailData.severity = this.transTypeDic(this.detailData.severity)
@@ -631,6 +607,8 @@ export default {
       this.$refs['elForm'].resetFields()
     },
     detail (row) {
+      this.open = true
+      this.title = '事件详情'
       this.groupListDeatils = []
       getElasticDate({
         query: {
@@ -641,18 +619,15 @@ export default {
         from: 0,
         size: 10
       }).then(res => {
-        console.log('res - 4 - 7-details', res)
         res.data.hits.hits.map(t => {
           const sour = t._source
           this.groupListDeatils.push(sour)
           this.ListDetails = Array.from(new Set(this.groupListDeatils))
-          console.log('this.ListDetails', this.ListDetails)
         })
       })
       this.detailData = row
       this.detailData.severity = this.transTypeDic(this.detailData.severity)
-      this.open = true
-      this.title = '事件详情'
+
     },
     // 取消按钮
     cancel () {
