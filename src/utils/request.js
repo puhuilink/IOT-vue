@@ -6,11 +6,34 @@ import errorCode from '@/utils/errorCode'
 
 axios.defaults.headers.post['Content-Type'] = 'application/json'
 
-const base = '/api/event_intrusion_trap/_search'
+//入侵诱捕
+const base = '/api/event_ivtp/_search'
 
 export const getElasticDate = params => {
   return axios.post(`${base}`, params)
 }
+
+// 主机安全
+const baseHostSecurity = '/api/event_hsme/_search'
+
+export const getHostSecurityData = params => {
+  return axios.post(`${baseHostSecurity}`, params)
+}
+
+// 配置核查
+const baseConfiguration = '/api/event_scce/_search'
+
+export const getConfigurationData = params => {
+  return axios.post(`${baseConfiguration}`, params)
+}
+
+// 工业网络审计
+const baseIndustrialNetworkAudit = '/api/event_inpa/_search'
+
+export const getIndustrialNetworkAuditData = params => {
+  return axios.post(`${baseIndustrialNetworkAudit}`, params)
+}
+
 
 const base1 = '/api/eventkpi/_search'
 
