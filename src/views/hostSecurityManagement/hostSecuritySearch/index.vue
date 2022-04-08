@@ -136,53 +136,53 @@
                          align="center" />
         <el-table-column label="接收时间"
                          align="center"
-                         prop="receive_time"
+                         prop="_source.receive_time"
                          :show-overflow-tooltip="true" />
         <el-table-column label="事件名称"
                          align="center"
-                         prop="event_name"
+                         prop="_source.event_name"
                          :show-overflow-tooltip="true" />
         <el-table-column label="事件等级"
                          align="center"
-                         prop="severity"
+                         prop="_source.severity"
                          :show-overflow-tooltip="true">
           <template #default="scope">
             <span>{{
-              transTypeDic(scope.row.severity)
+              transTypeDic(scope.row._source.severity)
             }}</span>
           </template>
         </el-table-column>
         <el-table-column label="事件类型"
                          align="center"
-                         prop="ev_wsec_hsme_format_label"
+                         prop="_source.ev_wsec_hsme_format_label"
                          :show-overflow-tooltip="true" />
         <el-table-column label="操作系统"
                          align="center"
-                         prop="ev_wsec_hsme_system_osname"
+                         prop="_source.ev_wsec_hsme_system_osname"
                          :show-overflow-tooltip="true" />
         <el-table-column label="客户端名称"
                          align="center"
-                         prop="ev_wsec_hsme_system_osuser"
+                         prop="_source.ev_wsec_hsme_system_osuser"
                          :show-overflow-tooltip="true" />
         <el-table-column label="客户端IP"
                          align="center"
-                         prop="ev_wsec_hsme_system_ip"
+                         prop="_source.ev_wsec_hsme_system_ip"
                          :show-overflow-tooltip="true" />
         <el-table-column label="发生时间"
                          align="center"
-                         prop="occur_time"
+                         prop="_source.occur_time"
                          :show-overflow-tooltip="true" />
         <el-table-column label="日志描述"
                          align="center"
-                         prop="description"
+                         prop="_source.description"
                          :show-overflow-tooltip="true" />
         <el-table-column label="处置状态"
                          align="center"
-                         prop="procedure"
+                         prop="_source.procedure"
                          :show-overflow-tooltip="true" />
         <el-table-column label="区域"
                          align="center"
-                         prop="location"
+                         prop="_source.location"
                          :show-overflow-tooltip="true" />
         <el-table-column label="操作"
                          align="center"
@@ -190,7 +190,7 @@
           <template #default="{ row }">
             <el-button size="mini"
                        type="text"
-                       @click="detail(row)">详情</el-button>
+                       @click="detail(row._source)">详情</el-button>
             &nbsp;&nbsp; &nbsp;&nbsp;
             <el-dropdown @command="batchOperate">
               <el-button size="mini"
@@ -210,8 +210,8 @@
 
     <pagination v-show="total > 0"
                 :total="total"
-                :page.sync="querys.from"
-                :limit.sync="querys.size"
+                :page.sync="query.from"
+                :limit.sync="query.size"
                 @pagination="getTableList" />
     <!-- 添加或修改分组对话框 -->
     <el-dialog :title="title"
@@ -386,13 +386,23 @@ export default {
       open: false,
       // 总条数
       total: 0,
-      querys: {
+      query: {
         query: {
-          'match_all': {}
+          bool: {
+            must: []
+          }
         },
+        sort: [{ 'receive_time': 'desc' }],
         from: 0,
         size: 10
       },
+      // querys: {
+      //   query: {
+      //     'match_all': {}
+      //   },
+      //   from: 0,
+      //   size: 10
+      // },
       // 查询参数
       queryParams: {
         pageNum: 1,
@@ -510,17 +520,72 @@ export default {
     // this.getList()
   },
   methods: {
-    getTableList () {
-      getHostSecurityData(this.querys).then((res) => {
+    async getTableList () {
+      if (this.queryParams.event_name) {
+        this.query.query.bool.must.push({
+          match: {
+            'event_name': this.queryParams.event_name
+          }
+        })
+      }
+      if (this.queryParams.location) {
+        this.query.query.bool.must.push({
+          match: {
+            'location': this.queryParams.location
+          }
+        })
+      }
+      if (this.queryParams.severity) {
+        this.query.query.bool.must.push({
+          match: {
+            'severity': this.queryParams.severity
+          }
+        })
+      }
+      if (this.queryParams.ev_wsec_hsme_format_label) {
+        this.query.query.bool.must.push({
+          match: {
+            'ev_wsec_hsme_format_label': this.queryParams.ev_wsec_hsme_format_label
+          }
+        })
+      }
+      if (this.queryParams.procedure) {
+        this.query.query.bool.must.push({
+          match: {
+            'procedure': this.queryParams.procedure
+          }
+        })
+      }
+      if (this.queryParams.ev_wsec_hsme_system_ip) {
+        this.query.query.bool.must.push({
+          match: {
+            'ev_wsec_hsme_system_ip': this.queryParams.ev_wsec_hsme_system_ip
+          }
+        })
+      }
+      if (this.queryParams.ev_wsec_hsme_system_osname) {
+        this.query.query.bool.must.push({
+          match: {
+            'ev_wsec_hsme_system_osname': this.queryParams.ev_wsec_hsme_system_osname
+          }
+        })
+      }
+      getHostSecurityData(this.query).then((res) => {
+        // this.groupList = []
+        // this.total = res.data.hits.total
+        // res.data.hits.hits.map(t => {
+        //   const sour = t._source
+        //   this.groupList.push(sour)
+        //   this.List = Array.from(new Set(this.groupList))
+        // })
+        this.query.query.bool.must = []
         this.groupList = []
         this.total = res.data.hits.total
-        res.data.hits.hits.map(t => {
-          const sour = t._source
-          this.groupList.push(sour)
-          this.List = Array.from(new Set(this.groupList))
-        })
+        this.List = res.data.hits.hits
       })
+      this.detailData.severity = this.transTypeDic(this.detailData.severity)
     },
+
     transTypeDic (val) {
       var t = [{
         name: '1',
@@ -585,60 +650,57 @@ export default {
       this.total = res.total
       this.loading = false
     },
-    // btnQuery () {
-    //   this.queryParams.pageNum = 1
-    //   this.getList()
-    // },
     btnQuery () {
-      getHostSecurityData({
-        query: {
-          // match: {
-          //   'procedure': this.queryParams.procedure
-          // },
-          "bool": {
-            "must": [
-              {
-                "wildcard": {
-                  "procedure.keyword": {
-                    "value": '*' + this.queryParams.procedure + '*'
-                  }
-                },
-              },
-              {
-                "wildcard": {
-                  "ev_wsec_hsme_format_label.keyword": {
-                    "value": '*' + this.queryParams.ev_wsec_hsme_format_label + '*'
-                  }
-                },
-              },
-              {
-                "wildcard": {
-                  "event_name.keyword": {
-                    "value": '*' + this.queryParams.event_name + '*'
-                  }
-                },
-              }
-            ]
-          }
-        },
-        from: 0,
-        size: 10
-      }).then(res => {
-        if (res.data.hits.total != 0) {
-          this.groupList = []
-          this.total = res.data.hits.total
-          res.data.hits.hits.map(t => {
-            const sour = t._source
-            this.groupList.push(sour)
-            this.List = Array.from(new Set(this.groupList))
-          })
-        } else {
-          this.List = []
-          this.total = res.data.hits.total
-        }
+      this.getTableList()
+      // getHostSecurityData({
+      //   query: {
+      //     // match: {
+      //     //   'procedure': this.queryParams.procedure
+      //     // },
+      //     "bool": {
+      //       "must": [
+      //         {
+      //           "wildcard": {
+      //             "procedure.keyword": {
+      //               "value": '*' + this.queryParams.procedure + '*'
+      //             }
+      //           },
+      //         },
+      //         {
+      //           "wildcard": {
+      //             "ev_wsec_hsme_format_label.keyword": {
+      //               "value": '*' + this.queryParams.ev_wsec_hsme_format_label + '*'
+      //             }
+      //           },
+      //         },
+      //         {
+      //           "wildcard": {
+      //             "event_name.keyword": {
+      //               "value": '*' + this.queryParams.event_name + '*'
+      //             }
+      //           },
+      //         }
+      //       ]
+      //     }
+      //   },
+      //   from: 0,
+      //   size: 10
+      // }).then(res => {
+      //   if (res.data.hits.total != 0) {
+      //     this.groupList = []
+      //     this.total = res.data.hits.total
+      //     res.data.hits.hits.map(t => {
+      //       const sour = t._source
+      //       this.groupList.push(sour)
+      //       this.List = Array.from(new Set(this.groupList))
+      //     })
+      //   } else {
+      //     this.List = []
+      //     this.total = res.data.hits.total
+      //   }
 
-      })
-      this.detailData.severity = this.transTypeDic(this.detailData.severity)
+      // })
+      // this.detailData.severity = this.transTypeDic(this.detailData.severity)
     },
     submitdata () {
       this.$refs['elForm'].validate((valid) => {
@@ -654,7 +716,7 @@ export default {
         isAsc: 'desc',
       }
       // this.getList()
-      this.getTableList(this.querys)
+      this.getTableList()
     },
     //  detail (row) {
     //   const { data } = await hostSecurityDetail(id)
