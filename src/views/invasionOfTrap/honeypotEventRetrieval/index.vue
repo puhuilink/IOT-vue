@@ -109,16 +109,13 @@
                 label="时间："
                 prop="date"
               >
-                <el-time-picker
+                <el-date-picker
                   v-model="queryParams.date"
-                  is-range
-                  format="HH:mm:ss"
-                  value-format="HH:mm:ss"
-                  :style="{ width: '100%' }"
-                  start-placeholder="开始时间"
-                  end-placeholder="结束时间"
+                  type="daterange"
+                  value-format="timestamp"
                   range-separator="至"
-                  clearable
+                  start-placeholder="开始日期"
+                  end-placeholder="结束日期"
                 />
               </el-form-item>
             </el-col>
@@ -409,7 +406,8 @@ export default {
         severity: '',
         exkpi_msec_asset_name: '',
         location: '',
-        procedure: ''
+        procedure: '',
+        date: []
       },
       rules: {
         name: [],
@@ -508,42 +506,33 @@ export default {
   },
 
   methods: {
+    // 根据对象中的key是否值为空x向数组中添加对象
+    addQuery(query, key, value) {
+      if (value !== '') {
+        query.query.bool.must.push({
+          match: {
+            [key]: value
+          }
+        })
+      }
+    },
     async  searchClick() {
-      if (this.queryParams.detail_src_ip) {
-        this.query.query.bool.must.push({
-          match: {
-            'detail_src_ip': this.queryParams.detail_src_ip
-          }
-        })
-      }
-      if (this.queryParams.severity) {
-        this.query.query.bool.must.push({
-          match: {
-            'severity': this.queryParams.severity
-          }
-        })
-      }
-      if (this.queryParams.exkpi_msec_asset_name) {
-        this.query.query.bool.must.push({
-          match: {
-            'exkpi_msec_asset_name': this.queryParams.exkpi_msec_asset_name
-          }
-        })
-      }
-      if (this.queryParams.location) {
-        this.query.query.bool.must.push({
-          match: {
-            'location': this.queryParams.location
-          }
-        })
-      }
-      if (this.queryParams.procedure) {
-        this.query.query.bool.must.push({
-          match: {
-            'procedure': this.queryParams.procedure
-          }
-        })
-      }
+      this.addQuery(this.query, 'detail_src_ip', this.queryParams.detail_src_ip)
+
+      this.addQuery(this.query, 'severity', this.queryParams.severity)
+
+      this.addQuery(this.query, 'exkpi_msec_asset_name', this.queryParams.exkpi_msec_asset_name)
+
+      this.addQuery(this.query, 'location', this.queryParams.location)
+
+      this.addQuery(this.query, 'procedure', this.queryParams.procedure)
+
+      // this.query.range = {
+      //   'receive_time': {
+      //     'gte': this.queryParams.date[0],
+      //     'lte': this.queryParams.date[1]
+      //   }
+      // }
       getElasticDate(this.query).then(res => {
         this.query.query.bool.must = []
         this.groupList = []
