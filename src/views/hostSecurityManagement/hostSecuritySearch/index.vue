@@ -97,7 +97,7 @@
               </el-form-item>
             </el-col>
             <el-col :span="6">
-              <el-form-item label="时间段:"
+              <el-form-item label="时间："
                             prop="date">
                 <el-time-picker v-model="queryParams.date"
                                 is-range
@@ -396,13 +396,6 @@ export default {
         from: 0,
         size: 10
       },
-      // querys: {
-      //   query: {
-      //     'match_all': {}
-      //   },
-      //   from: 0,
-      //   size: 10
-      // },
       // 查询参数
       queryParams: {
         pageNum: 1,

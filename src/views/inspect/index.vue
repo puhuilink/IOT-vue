@@ -92,7 +92,7 @@
               </el-form-item>
             </el-col>
             <el-col :span="6">
-              <el-form-item label="时间段："
+              <el-form-item label="时间："
                             prop="date">
                 <el-time-picker v-model="queryParams.date"
                                 is-range
@@ -123,7 +123,7 @@
                        align="center" />
       <el-table-column label="检查项"
                        align="center"
-                       prop="event_name"
+                       prop="_source.event_name"
                        :show-overflow-tooltip="true"
                        min-width="15%" />
       <el-table-column label="事件等级"
@@ -133,31 +133,31 @@
                        min-width="10%">
         <template #default="scope">
           <span>{{
-            transTypeDic(scope.row.severity)
+            transTypeDic(scope.row._source.severity)
           }}</span>
         </template>
       </el-table-column>
       <el-table-column label="IP"
                        align="center"
-                       prop="detail_src_ip"
+                       prop="_source.detail_src_ip"
                        :show-overflow-tooltip="true"
                        min-width="10%" />
       <el-table-column label="状态"
                        align="center"
-                       prop="ev_wsec_scce_scc_result"
+                       prop="_source.ev_wsec_scce_scc_result"
                        min-width="10%" />
       <el-table-column label="发布时间"
                        align="center"
-                       prop="occur_time"
+                       prop="_source.occur_time"
                        :show-overflow-tooltip="true"
                        min-width="15%" />
       <el-table-column label="处置状态"
                        align="center"
-                       prop="procedure"
+                       prop="_source.procedure"
                        min-width="10%" />
       <el-table-column label="区域"
                        align="center"
-                       prop="location"
+                       prop="_source.location"
                        :show-overflow-tooltip="true"
                        min-width="10%" />
       <el-table-column label="操作"
@@ -167,7 +167,7 @@
         <template slot-scope="scope">
           <el-button size="mini"
                      type="text"
-                     @click="detail(scope.row)">详情</el-button>
+                     @click="detail(scope.row._source)">详情</el-button>
           &nbsp;&nbsp; &nbsp;&nbsp;
           <el-dropdown @command="batchOperate">
             <el-button size="mini"
@@ -186,8 +186,8 @@
 
     <pagination v-show="total>0"
                 :total="total"
-                :page.sync="querys.from"
-                :limit.sync="querys.size"
+                :page.sync="query.from"
+                :limit.sync="query.size"
                 @pagination="getTableList" />
     <!-- 添加或修改分组对话框 -->
     <el-dialog :title="title"
@@ -201,7 +201,7 @@
           <el-col :span="12">
             <el-form-item label="检查项 :">
               <tooltip :content="detailData.event_name"
-                       :length="30" />
+                       :length="20" />
               <!-- {{ detailData.event_name }} -->
             </el-form-item>
           </el-col>
@@ -275,20 +275,24 @@ export default {
       open: false,
       // 总条数
       total: 6,
-      querys: {
+      query: {
         query: {
-          'match_all': {}
+          bool: {
+            must: []
+          }
         },
+        sort: [{ 'receive_time': 'desc' }],
         from: 0,
         size: 10
       },
       // 查询参数
       queryParams: {
-        pageNum: 1,
-        pageSize: 10,
-        userId: null,
-        orderByColumn: 'occur_time',
-        isAsc: 'desc'
+        event_name: '',
+        location: '',
+        severity: '',
+        procedure: '',
+        ev_wsec_scce_scc_result: '',
+        detail_src_ip: ''
       },
       rules: {
         name: [],
@@ -371,16 +375,36 @@ export default {
     this.getTableList()
   },
   methods: {
-    getTableList () {
-      getConfigurationData(this.querys).then((res) => {
+    // 根据对象中的key是否值为空x向数组中添加对象
+    addQuery (query, key, value) {
+      if (value !== '') {
+        query.query.bool.must.push({
+          match: {
+            [key]: value
+          }
+        })
+      }
+    },
+    async getTableList () {
+      this.addQuery(this.query, 'event_name', this.queryParams.event_name)
+
+      this.addQuery(this.query, 'location', this.queryParams.location)
+
+      this.addQuery(this.query, 'severity', this.queryParams.severity)
+
+      this.addQuery(this.query, 'procedure', this.queryParams.procedure)
+
+      this.addQuery(this.query, 'ev_wsec_scce_scc_result', this.queryParams.ev_wsec_scce_scc_result)
+
+      this.addQuery(this.query, 'detail_src_ip', this.queryParams.detail_src_ip)
+
+      getConfigurationData(this.query).then((res) => {
+        this.query.query.bool.must = []
         this.groupList = []
         this.total = res.data.hits.total
-        res.data.hits.hits.map(t => {
-          const sour = t._source
-          this.groupList.push(sour)
-          this.List = Array.from(new Set(this.groupList))
-        })
+        this.List = res.data.hits.hits
       })
+      this.detailData.severity = this.transTypeDic(this.detailData.severity)
     },
     transTypeDic (val) {
       var t = [{
@@ -454,41 +478,18 @@ export default {
     },
     resetForm () {
       this.queryParams = {
-        pageNum: 1,
-        pageSize: 10,
-        userId: null,
-        orderByColumn: 'occur_time',
-        isAsc: 'desc'
+        event_name: '',
+        location: '',
+        severity: '',
+        procedure: '',
+        ev_wsec_scce_scc_result: '',
+        detail_src_ip: ''
       }
       // this.getList()
-      this.getTableList(this.querys)
+      this.getTableList()
     },
     btnQuery () {
-      getConfigurationData({
-        query: {
-          match: {
-            'severity': this.queryParams.severity
-          }
-        },
-        from: 0,
-        size: 10
-
-      }).then(res => {
-        if (res.data.hits.total != 0) {
-          this.groupList = []
-          this.total = res.data.hits.total
-          res.data.hits.hits.map(t => {
-            const sour = t._source
-            this.groupList.push(sour)
-            this.List = Array.from(new Set(this.groupList))
-          })
-        } else {
-          this.List = []
-          this.total = res.data.hits.total
-        }
-
-      })
-      this.detailData.severity = this.transTypeDic(this.detailData.severity)
+      this.getTableList()
     },
     async detail (row) {
       // const { data } = await configurationVerificationDetail(id)

@@ -90,7 +90,7 @@
                 </el-form-item>
               </el-col>
               <el-col :span="9">
-                <el-form-item label="时间段："
+                <el-form-item label="时间："
                               prop="userName">
                   <el-time-picker v-model="queryParams.date"
                                   is-range
@@ -138,53 +138,53 @@
 
         <el-table-column label="产生时间"
                          align="center"
-                         prop="occur_time"
+                         prop="_source.occur_time"
                          :show-overflow-tooltip="true" />
         <el-table-column label="源IP"
                          align="center"
-                         prop="detail_src_ip"
+                         prop="_source.detail_src_ip"
                          :show-overflow-tooltip="true" />
         <el-table-column label="源端口"
                          align="center"
-                         prop="ev_com_socket_src_port"
+                         prop="_source.ev_com_socket_src_port"
                          :show-overflow-tooltip="true" />
         <el-table-column label="目的IP"
                          align="center"
-                         prop="detail_dst_ip"
+                         prop="_source.detail_dst_ip"
                          :show-overflow-tooltip="true" />
         <el-table-column label="目的端口"
                          align="center"
-                         prop="ev_com_socket_dst_port"
+                         prop="_source.ev_com_socket_dst_port"
                          :show-overflow-tooltip="true" />
         <el-table-column label="传输层协议"
                          align="center"
-                         prop="ev_wsec_inpa_transport_layer_protocol"
+                         prop="_source.ev_wsec_inpa_transport_layer_protocol"
                          :show-overflow-tooltip="true" />
         <el-table-column label="应用层协议"
                          align="center"
-                         prop="ev_wsec_inpa_application_layer_protocol"
+                         prop="_source.ev_wsec_inpa_application_layer_protocol"
                          :show-overflow-tooltip="true" />
         <el-table-column label="事件等级"
                          align="center"
-                         prop="severity"
+                         prop="_source.severity"
                          :show-overflow-tooltip="true">
           <template #default="scope">
             <span>{{
-              transTypeDic(scope.row.severity)
+              transTypeDic(scope.row._source.severity)
             }}</span>
           </template>
         </el-table-column>
         <el-table-column label="事件类型"
                          align="center"
-                         prop="ev_wsec_hsme_format_label"
+                         prop="_source.ev_wsec_hsme_format_label"
                          :show-overflow-tooltip="true" />
         <el-table-column label="处置状态"
                          align="center"
-                         prop="procedure"
+                         prop="_source.procedure"
                          :show-overflow-tooltip="true" />
         <el-table-column label="区域"
                          align="center"
-                         prop="location"
+                         prop="_source.location"
                          :show-overflow-tooltip="true" />
         <el-table-column label="操作"
                          align="center"
@@ -193,7 +193,7 @@
           <template #default="{ row }">
             <el-button size="mini"
                        type="text"
-                       @click="detail(row)">详情</el-button>
+                       @click="detail(row._source)">详情</el-button>
             &nbsp;&nbsp; &nbsp;&nbsp;
             <el-dropdown @command="batchOperate">
               <el-button size="mini"
@@ -215,8 +215,8 @@
 
       <pagination v-show="total > 0"
                   :total="total"
-                  :page.sync="querys.from"
-                  :limit.sync="querys.size"
+                  :page.sync="query.from"
+                  :limit.sync="query.size"
                   @pagination="getTableList" />
     </el-card>
     <!-- 批量导出对话框 -->
@@ -423,10 +423,13 @@ export default {
       loading: false,
       // 总条数
       total: 0,
-      querys: {
+      query: {
         query: {
-          'match_all': {}
+          bool: {
+            must: []
+          }
         },
+        sort: [{ 'receive_time': 'desc' }],
         from: 0,
         size: 10
       },
@@ -437,13 +440,13 @@ export default {
       pageSize: 10,
       // 查询参数
       queryParams: {
-        pageNum: 1,
-        pageSize: 10,
-        userId: null,
-        orderByColumn: 'occur_time',
-        isAsc: 'desc',
-        groupName: null,
-        createTime: null
+        detail_src_ip: '',
+        detail_dst_ip: '',
+        location: '',
+        procedure: '',
+        severity: '',
+        ev_wsec_hsme_format_label: '',
+        date: ''
       },
       levelOptions: [{
         'label': '极低',
@@ -514,16 +517,38 @@ export default {
     this.getTableList()
   },
   methods: {
+    // 根据对象中的key是否值为空x向数组中添加对象
+    addQuery (query, key, value) {
+      if (value !== '') {
+        query.query.bool.must.push({
+          match: {
+            [key]: value
+          }
+        })
+      }
+    },
     getTableList () {
-      getIndustrialNetworkAuditData(this.querys).then((res) => {
+      this.addQuery(this.query, 'detail_src_ip', this.queryParams.detail_src_ip)
+
+      this.addQuery(this.query, 'detail_dst_ip', this.queryParams.detail_dst_ip)
+
+      this.addQuery(this.query, 'location', this.queryParams.location)
+
+      this.addQuery(this.query, 'procedure', this.queryParams.procedure)
+
+      this.addQuery(this.query, 'severity', this.queryParams.severity)
+
+      this.addQuery(this.query, 'ev_wsec_hsme_format_label', this.queryParams.ev_wsec_hsme_format_label)
+
+      this.addQuery(this.query, 'date', this.queryParams.date)
+
+      getIndustrialNetworkAuditData(this.query).then((res) => {
+        this.query.query.bool.must = []
         this.groupList = []
         this.total = res.data.hits.total
-        res.data.hits.hits.map(t => {
-          const sour = t._source
-          this.groupList.push(sour)
-          this.List = Array.from(new Set(this.groupList))
-        })
+        this.List = res.data.hits.hits
       })
+      this.detailData.severity = this.transTypeDic(this.detailData.severity)
     },
     transTypeDic (val) {
       var t = [{
@@ -596,60 +621,20 @@ export default {
     //   this.getList()
     // },
     handleQuery () {
-      getIndustrialNetworkAuditData({
-        "query": {
-          match: {
-            'detail_src_ip': this.queryParams.detail_src_ip
-          },
-
-          // "bool": {
-          //   "must": [
-          //     {
-          //       "wildcard": {
-          //         "detail_src_ip.keyword": {
-          //           "value": '*' + this.queryParams.detail_src_ip + '*'
-          //         }
-          //       },
-          //     },
-          //     {
-          //       "wildcard": {
-          //         "detail_dst_ip.keyword": {
-          //           "value": '*' + this.queryParams.detail_dst_ip + '*'
-          //         }
-          //       },
-          //     }
-          //   ]
-          // }
-        },
-        from: 0,
-        size: 10
-      }).then(res => {
-        if (res.data.hits.total != 0) {
-          this.groupList = []
-          this.total = res.data.hits.total
-          res.data.hits.hits.map(t => {
-            const sour = t._source
-            this.groupList.push(sour)
-            this.List = Array.from(new Set(this.groupList))
-          })
-        } else {
-          this.List = []
-          this.total = res.data.hits.total
-        }
-
-      })
-      this.detailData.severity = this.transTypeDic(this.detailData.severity)
+      this.getTableList()
     },
     /** 重置按钮操作 */
     resetQuery () {
       this.queryParams = {
-        pageNum: 1,
-        pageSize: 10,
-        userId: null,
-        orderByColumn: 'occur_time',
-        isAsc: 'desc'
+        detail_src_ip: '',
+        detail_dst_ip: '',
+        location: '',
+        procedure: '',
+        severity: '',
+        ev_wsec_hsme_format_label: '',
+        date: ''
       }
-      this.getTableList(this.querys)
+      this.getTableList()
     },
     // 取消按钮
     cancel () {
