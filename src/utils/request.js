@@ -6,7 +6,7 @@ import errorCode from '@/utils/errorCode'
 
 axios.defaults.headers.post['Content-Type'] = 'application/json'
 
-//入侵诱捕
+// 入侵诱捕
 const base = '/api/event_ivtp/_search'
 
 export const getElasticDate = params => {
@@ -32,13 +32,6 @@ const baseIndustrialNetworkAudit = '/api/event_inpa/_search'
 
 export const getIndustrialNetworkAuditData = params => {
   return axios.post(`${baseIndustrialNetworkAudit}`, params)
-}
-
-
-const base1 = '/api/eventkpi/_search'
-
-export const getkpi = params => {
-  return axios.post(`${base1}`, params)
 }
 axios.defaults.headers['Content-Type'] = 'application/json;charset=utf-8'
 // 创建axios实例
