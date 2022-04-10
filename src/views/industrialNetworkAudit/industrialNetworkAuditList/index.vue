@@ -82,7 +82,7 @@
               <el-col :span="6">
                 <el-form-item label="事件类型："
                               prop="userName">
-                  <el-input v-model="queryParams.ev_wsec_hsme_format_label"
+                  <el-input v-model="queryParams.event_format"
                             placeholder="请输入事件类型"
                             clearable
                             :style="{ width: '100%' }"
@@ -176,7 +176,7 @@
         </el-table-column>
         <el-table-column label="事件类型"
                          align="center"
-                         prop="_source.ev_wsec_hsme_format_label"
+                         prop="_source.event_format"
                          :show-overflow-tooltip="true" />
         <el-table-column label="处置状态"
                          align="center"
@@ -343,7 +343,7 @@
             <el-col :span="12">
               <el-form-item label=" 事件类型："
                             prop="type">
-                <tooltip :content="detailData.ev_wsec_hsme_format_label"
+                <tooltip :content="detailData.event_format"
                          :length="20" />
 
               </el-form-item>
@@ -358,8 +358,8 @@
             </el-col>
             <el-col :span="12">
               <el-form-item label="接收时间："
-                            prop="procedure">
-                <tooltip :content="detailData.receivingTime"
+                            prop="receive_time">
+                <tooltip :content="detailData.receive_time"
                          :length="20" />
 
               </el-form-item>
@@ -367,7 +367,7 @@
             <el-col :span="12">
               <el-form-item label="智能监测终端IP："
                             prop="field115">
-                <tooltip :content="detailData.intelligentMonitoringTerminalIp"
+                <tooltip :content="detailData.ev_wsec_inpa_monitor_terminal_ip"
                          :length="20" />
 
               </el-form-item>
@@ -382,7 +382,7 @@
             </el-col>
             <el-col :span="12">
               <el-form-item label="处置状态："
-                            prop="state">
+                            prop="procedure">
                 <tooltip :content="detailData.procedure"
                          :length="20" />
               </el-form-item>
@@ -445,7 +445,7 @@ export default {
         location: '',
         procedure: '',
         severity: '',
-        ev_wsec_hsme_format_label: '',
+        event_format: '',
         date: ''
       },
       levelOptions: [{
@@ -538,7 +538,7 @@ export default {
 
       this.addQuery(this.query, 'severity', this.queryParams.severity)
 
-      this.addQuery(this.query, 'ev_wsec_hsme_format_label', this.queryParams.ev_wsec_hsme_format_label)
+      this.addQuery(this.query, 'event_format', this.queryParams.event_format)
 
       this.addQuery(this.query, 'date', this.queryParams.date)
 
@@ -631,7 +631,7 @@ export default {
         location: '',
         procedure: '',
         severity: '',
-        ev_wsec_hsme_format_label: '',
+        event_format: '',
         date: ''
       }
       this.getTableList()
@@ -653,9 +653,9 @@ export default {
     async detail (row) {
       // const { data } = await industrialNetworkAuditDetail(row)
       this.detailData = row
-      this.detailData.severity = this.transTypeDic(this.detailData.severity)
       this.detailDialog = true
       this.title = '事件详情'
+      this.detailData.severity = this.transTypeDic(this.detailData.severity)
     }
   }
 }

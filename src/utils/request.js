@@ -34,6 +34,36 @@ export const getIndustrialNetworkAuditData = params => {
   return axios.post(`${baseIndustrialNetworkAudit}`, params)
 }
 
+// 僵木蠕
+const baseJiangTable = '/api/event_ztwe/_search'
+
+export const getbaseJiangTableData = params => {
+  return axios.post(`${baseJiangTable}`, params)
+}
+
+// 弱口令
+const baseWeakPassword = '/api/event_wkpw/_search'
+
+export const getWeakPasswordData = params => {
+  return axios.post(`${baseWeakPassword}`, params)
+}
+
+// 异常行为管理
+const baseAbnormalBehaviorEventRetrieval = '/api/event_abbm/_search'
+
+export const getAbnormalBehaviorEventRetrievalData = params => {
+  return axios.post(`${baseAbnormalBehaviorEventRetrieval}`, params)
+}
+
+// 威胁情报列表
+const baseThreatIntelligenceList = '/api/event_iocm/_search'
+
+export const getThreatIntelligenceListData = params => {
+  return axios.post(`${baseThreatIntelligenceList}`, params)
+}
+
+
+
 
 const base1 = '/api/eventkpi/_search'
 

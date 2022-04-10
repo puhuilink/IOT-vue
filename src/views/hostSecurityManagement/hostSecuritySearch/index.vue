@@ -147,7 +147,8 @@
                          prop="_source.severity"
                          :show-overflow-tooltip="true">
           <template #default="scope">
-            <span>{{
+            <span v-if="scope.row._source.severity == '' || scope.row._source.severity == null"></span>
+            <span v-else>{{
               transTypeDic(scope.row._source.severity)
             }}</span>
           </template>
@@ -300,7 +301,7 @@
             </el-col>
             <el-col :span="12">
               <el-form-item label="产生时间 :">
-                {{ detailData.generationTime }}
+                {{ detailData.occur_time }}
               </el-form-item>
             </el-col>
             <el-col :span="12">

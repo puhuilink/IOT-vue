@@ -3,144 +3,106 @@
     <el-card class="box-card">
       <div>
         <el-row :gutter="20">
-          <el-form
-            ref="elForm"
-            :model="queryParams"
-            :rules="rules"
-            size="mini"
-            label-width="80px"
-            class="label-type"
-            label-position="right"
-          >
+          <el-form ref="elForm"
+                   :model="queryParams"
+                   :rules="rules"
+                   size="mini"
+                   label-width="80px"
+                   class="label-type"
+                   label-position="right">
             <el-col :span="6">
-              <el-form-item
-                label="资产名称:"
-                prop="name"
-              >
-                <el-input
-                  v-model.trim="queryParams.assetName"
-                  placeholder="请输入资产名称"
-                  clearable
-                  :style="{width: '100%'}"
-                />
+              <el-form-item label="资产名称:"
+                            prop="event_name">
+                <el-input v-model.trim="queryParams.event_name"
+                          placeholder="请输入资产名称"
+                          clearable
+                          :style="{width: '100%'}" />
               </el-form-item>
             </el-col>
             <el-col :span="6">
-              <el-form-item
-                label="区域:"
-                prop="area"
-              >
-                <el-select
-                  v-model.trim="queryParams.region"
-                  placeholder="请选择区域"
-                  filterable
-                  clearable
-                  :style="{width: '100%'}"
-                >
-                  <el-option
-                    v-for="(item, index) in areaOptions"
-                    :key="index"
-                    :label="item.label"
-                    :value="item.label"
-                    :disabled="item.disabled"
-                  />
+              <el-form-item label="区域:"
+                            prop="location ">
+                <el-select v-model.trim="queryParams.location"
+                           placeholder="请选择区域"
+                           filterable
+                           clearable
+                           :style="{width: '100%'}">
+                  <el-option v-for="(item, index) in areaOptions"
+                             :key="index"
+                             :label="item.label"
+                             :value="item.label"
+                             :disabled="item.disabled" />
                 </el-select>
               </el-form-item>
             </el-col>
             <el-col :span="6">
-              <el-form-item
-                label="事件等级:"
-                prop="level"
-              >
-                <el-select
-                  v-model.trim="queryParams.eventLevel"
-                  placeholder="请选择事件等级"
-                  filterable
-                  clearable
-                  :style="{width: '100%'}"
-                >
-                  <el-option
-                    v-for="(item, index) in levelOptions"
-                    :key="index"
-                    :label="item.label"
-                    :value="item.value"
-                    :disabled="item.disabled"
-                  />
+              <el-form-item label="事件等级:"
+                            prop="severity ">
+                <el-select v-model.trim="queryParams.severity"
+                           placeholder="请选择事件等级"
+                           filterable
+                           clearable
+                           :style="{width: '100%'}">
+                  <el-option v-for="(item, index) in levelOptions"
+                             :key="index"
+                             :label="item.label"
+                             :value="item.value"
+                             :disabled="item.disabled" />
                 </el-select>
               </el-form-item>
             </el-col>
             <el-col :span="6">
-              <el-form-item
-                label="处置状态:"
-                prop="disposalStatus"
-              >
-                <el-select
-                  v-model.trim="queryParams.disposalStatus"
-                  placeholder="请选择处置状态"
-                  clearable
-                  :style="{width: '100%'}"
-                >
-                  <el-option
-                    v-for="(item, index) in disposalStatusOptions"
-                    :key="index"
-                    :label="item.label"
-                    :value="item.label"
-                    :disabled="item.disabled"
-                  />
+              <el-form-item label="处置状态:"
+                            prop="procedure">
+                <el-select v-model.trim="queryParams.procedure"
+                           placeholder="请选择处置状态"
+                           clearable
+                           :style="{width: '100%'}">
+                  <el-option v-for="(item, index) in disposalStatusOptions"
+                             :key="index"
+                             :label="item.label"
+                             :value="item.label"
+                             :disabled="item.disabled" />
                 </el-select>
               </el-form-item>
             </el-col>
             <el-col :span="6">
-              <el-form-item
-                label="IP地址:"
-                prop="type"
-              >
-                <el-input
-                  v-model.trim="queryParams.ipAddress"
-                  placeholder="请输入IP地址"
-                  clearable
-                  :style="{width: '100%'}"
-                />
+              <el-form-item label="IP地址:"
+                            prop="detail_src_ip">
+                <el-input v-model.trim="queryParams.detail_src_ip"
+                          placeholder="请输入IP地址"
+                          clearable
+                          :style="{width: '100%'}" />
               </el-form-item>
             </el-col>
 
             <el-col :span="6">
-              <el-form-item
-                label="协议:"
-                prop="agreement"
-              >
-                <el-input
-                  v-model.trim="queryParams.agreement"
-                  placeholder="请输入协议"
-                  clearable
-                  :style="{width: '100%'}"
-                />
+              <el-form-item label="协议:"
+                            prop="ev_com_socket_protocol">
+                <el-input v-model.trim="queryParams.ev_com_socket_protocol"
+                          placeholder="请输入协议"
+                          clearable
+                          :style="{width: '100%'}" />
               </el-form-item>
             </el-col>
             <el-col :span="7">
-              <el-form-item
-                label="时间:"
-                prop="date"
-              >
-                <el-time-picker
-                  v-model.trim="queryParams.date"
-                  is-range
-                  format="HH:mm:ss"
-                  value-format="HH:mm:ss"
-                  :style="{width: '100%'}"
-                  start-placeholder="开始时间"
-                  end-placeholder="结束时间"
-                  range-separator="至"
-                  clearable
-                />
+              <el-form-item label="时间:"
+                            prop="date">
+                <el-time-picker v-model.trim="queryParams.date"
+                                is-range
+                                format="HH:mm:ss"
+                                value-format="HH:mm:ss"
+                                :style="{width: '100%'}"
+                                start-placeholder="开始时间"
+                                end-placeholder="结束时间"
+                                range-separator="至"
+                                clearable />
               </el-form-item>
             </el-col>
             <el-col :span="5">
               <el-form-item size="mini">
-                <el-button
-                  type="primary"
-                  @click="getList"
-                >搜索</el-button>
+                <el-button type="primary"
+                           @click="btnQuery">搜索</el-button>
                 <el-button @click="resetForm">重置</el-button>
               </el-form-item>
             </el-col>
@@ -148,94 +110,68 @@
         </el-row>
       </div>
     </el-card>
-    <el-table
-      :data="groupList"
-      tooltip-effect="light"
-    >
-      <el-table-column
-        type="selection"
-        width="55"
-        align="center"
-      />
-      <el-table-column
-        label="资产名称"
-        align="center"
-        prop="assetName"
-        :show-overflow-tooltip="true"
-        min-width="15%"
-      />
-      <el-table-column
-        label="IP地址"
-        align="center"
-        prop="ipAddress"
-        :show-overflow-tooltip="true"
-        min-width="15%"
-      />
-      <el-table-column
-        label="协议"
-        align="center"
-        prop="agreement"
-        :show-overflow-tooltip="true"
-        min-width="15%"
-      />
-      <el-table-column
-        label="端口"
-        align="center"
-        prop="port"
-        :show-overflow-tooltip="true"
-        min-width="15%"
-      />
-      <el-table-column
-        label="事件等级"
-        align="center"
-        prop="eventLevel"
-        min-width="10%"
-      >
+    <el-table :data="List"
+              tooltip-effect="light">
+      <el-table-column type="selection"
+                       width="55"
+                       align="center" />
+      <el-table-column label="资产名称"
+                       align="center"
+                       prop="_source.event_name"
+                       :show-overflow-tooltip="true"
+                       min-width="15%" />
+      <el-table-column label="IP地址"
+                       align="center"
+                       prop="_source.detail_src_ip"
+                       :show-overflow-tooltip="true"
+                       min-width="15%" />
+      <el-table-column label="协议"
+                       align="center"
+                       prop="_source.ev_com_socket_protocol"
+                       :show-overflow-tooltip="true"
+                       min-width="15%" />
+      <el-table-column label="端口"
+                       align="center"
+                       prop="_source.ev_com_socket_dst_port"
+                       :show-overflow-tooltip="true"
+                       min-width="15%" />
+      <el-table-column label="事件等级"
+                       align="center"
+                       prop="severity "
+                       min-width="10%">
         <template #default="scope">
           <span>{{
-            transTypeDic(scope.row.eventLevel)
+            transTypeDic(scope.row._source.severity)
           }}</span>
         </template>
       </el-table-column>
 
-      <el-table-column
-        label="处置状态"
-        align="center"
-        prop="disposalStatus"
-        min-width="8%"
-      />
-      <el-table-column
-        label="发生时间"
-        align="center"
-        prop="findTime"
-        :show-overflow-tooltip="true"
-        min-width="15%"
-      />
-      <el-table-column
-        label="区域"
-        align="center"
-        prop="region"
-        :show-overflow-tooltip="true"
-        min-width="15%"
-      />
-      <el-table-column
-        label="操作"
-        align="center"
-        class-name="small-padding fixed-width"
-        min-width="10%"
-      >
+      <el-table-column label="处置状态"
+                       align="center"
+                       prop="_source.procedure"
+                       min-width="8%" />
+      <el-table-column label="发生时间"
+                       align="center"
+                       prop="_source.occur_time"
+                       :show-overflow-tooltip="true"
+                       min-width="15%" />
+      <el-table-column label="区域"
+                       align="center"
+                       prop="_source.location"
+                       :show-overflow-tooltip="true"
+                       min-width="15%" />
+      <el-table-column label="操作"
+                       align="center"
+                       class-name="small-padding fixed-width"
+                       min-width="10%">
         <template slot-scope="scope">
-          <el-button
-            size="mini"
-            type="text"
-            @click="detail(scope.row.weakPasswordId)"
-          >详情</el-button>
+          <el-button size="mini"
+                     type="text"
+                     @click="detail(scope.row._source)">详情</el-button>
           &nbsp;&nbsp; &nbsp;&nbsp;
           <el-dropdown @command="batchOperate">
-            <el-button
-              size="mini"
-              type="text"
-            >
+            <el-button size="mini"
+                       type="text">
               状态变更<i class="el-icon-arrow-down el-icon--right" />
             </el-button>
             <el-dropdown-menu slot="dropdown">
@@ -247,59 +183,53 @@
         </template>
       </el-table-column>
     </el-table>
-    <pagination
-      :current-page="currentPage"
-      :page.sync="queryParams.pageNum"
-      :limit.sync="queryParams.pageSize"
-      :total="total"
-      @pagination="getList"
-    />
+    <pagination v-show="total > 0"
+                :page.sync="query.from"
+                :limit.sync="query.size"
+                :total="total"
+                @pagination="getTableList" />
     <!-- 添加或修改分组对话框 -->
-    <el-dialog
-      :title="title"
-      :visible.sync="open"
-      width="900px"
-      append-to-body
-    >
-      <el-form
-        ref="form"
-        label-width="100px"
-        label-position="left"
-      >
+    <el-dialog :title="title"
+               :visible.sync="open"
+               width="900px"
+               append-to-body>
+      <el-form ref="form"
+               label-width="100px"
+               label-position="left">
         <el-row>
           <el-col :span="8">
             <el-form-item label="IP地址 :">
-              {{ detailData.ipAddress }}
+              {{ detailData.detail_src_ip }}
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="资产类型 :">
-              {{ detailData.assetType }}
+              {{ detailData.event_format }}
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="协议 :">
-              {{ detailData.agreement }}
+              {{ detailData.ev_com_socket_protocol }}
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="端口 :">
-              {{ detailData.port }}
+              {{ detailData.ev_com_socket_dst_port }}
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="处置状态 :">
-              {{ detailData.disposalStatus }}
+              {{ detailData.procedure }}
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="发现时间 :">
-              {{ detailData.findTime }}
+              {{ detailData.occur_time }}
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="资产名称 :">
-              {{ detailData. assetName }}
+              {{ detailData.event_name }}
             </el-form-item>
           </el-col>
           <el-col :span="8">
@@ -319,42 +249,34 @@
           </el-col>
           <el-col :span="8">
             <el-form-item label="区域 :">
-              {{ detailData.region }}
+              {{ detailData.location }}
             </el-form-item>
           </el-col>
         </el-row>
       </el-form>
-      <div
-        slot="footer"
-        class="dialog-footer"
-      >
-        <el-row
-          type="flex"
-          justify="center"
-        >
-          <el-button
-            size="small"
-            type="primary"
-            @click="submitForm"
-          >确 定</el-button>
-          <el-button
-            size="small"
-            @click="cancel"
-          >取 消</el-button>
+      <div slot="footer"
+           class="dialog-footer">
+        <el-row type="flex"
+                justify="center">
+          <el-button size="small"
+                     type="primary"
+                     @click="submitForm">确 定</el-button>
+          <el-button size="small"
+                     @click="cancel">取 消</el-button>
         </el-row>
       </div>
     </el-dialog>
   </div>
 </template>
 <script>
-
+import { getWeakPasswordData } from '@/utils/request'
 import { weakList } from '@/api/system/list'
 import { WeakPasswordDetail } from '@/api/system/detail'
 
 export default {
   components: {},
   props: [],
-  data() {
+  data () {
     return {
       loading: false,
       name: '测试',
@@ -363,6 +285,8 @@ export default {
       },
       // 分组表格数据
       groupList: [],
+      // 分组表格数据
+      List: [],
       // 创建时间时间范围
       daterangeCreateTime: [],
       // 弹出层标题
@@ -373,26 +297,37 @@ export default {
       currentPage: 1, // 初始页
       pagesize: 10, // 每页的数据
       total: 0, // 总条数
+      query: {
+        query: {
+          bool: {
+            must: []
+          }
+        },
+        // sort: [{ 'receive_time': 'desc' }],
+        from: 0,
+        size: 10
+      },
       newArry: [], // 循环数据
       // 查询参数
       queryParams: {
-        pageNum: 1,
-        pageSize: 10,
-        userId: null,
-        orderByColumn: 'find_time',
-        isAsc: 'desc'
+        event_name: '',
+        location: '',
+        severity: '',
+        procedure: '',
+        detail_src_ip: '',
+        ev_com_socket_protocol: ''
       },
       rules: {
         name: [],
         level: [],
         type: [],
         area: [],
-        agreement: [],
+        detail_src_ip: [],
         ip: [],
         newip: [],
         equipment: [],
         date: [],
-        disposalStatus: []
+        procedure: []
       },
       levelOptions: [{
         'label': '极低',
@@ -467,11 +402,42 @@ export default {
       }]
     }
   },
-  created() {
-    this.getList()
+  created () {
+    // this.getList()
+    this.getTableList()
   },
   methods: {
-    transTypeDic(val) {
+    // 根据对象中的key是否值为空x向数组中添加对象
+    addQuery (query, key, value) {
+      if (value !== '') {
+        query.query.bool.must.push({
+          match: {
+            [key]: value
+          }
+        })
+      }
+    },
+    async getTableList () {
+      this.addQuery(this.query, 'event_name', this.queryParams.event_name)
+
+      this.addQuery(this.query, 'location', this.queryParams.location)
+
+      this.addQuery(this.query, 'severity', this.queryParams.severity)
+
+      this.addQuery(this.query, 'procedure', this.queryParams.procedure)
+
+      this.addQuery(this.query, 'detail_src_ip', this.queryParams.detail_src_ip)
+
+      this.addQuery(this.query, 'ev_com_socket_protocol', this.queryParams.ev_com_socket_protocol)
+      getWeakPasswordData(this.query).then(res => {
+        this.query.query.bool.must = []
+        this.groupList = []
+        this.total = res.data.hits.total
+        this.List = res.data.hits.hits
+      })
+      // this.detailData.severity = this.transTypeDic(this.detailData.severity)
+    },
+    transTypeDic (val) {
       var t = [{
         name: '1',
         content: '极低'
@@ -494,22 +460,22 @@ export default {
         }))
       return `${orgTreeData1[0].content}`
     },
-    async getList() {
+    async getList () {
       this.loading = true
       const res = await weakList(this.queryParams)
       this.groupList = res.rows
       this.total = res.total
       this.loading = false
     },
-    handleSizeChange: function(size) {
+    handleSizeChange: function (size) {
       this.pagesize = size
       this.getResultsData()
     },
-    handleCurrentChange: function(page) {
+    handleCurrentChange: function (page) {
       this.currentPage = page
       this.getResultsData()
     },
-    batchOperate(command) {
+    batchOperate (command) {
       let message = ''
       switch (command) {
         case 'process':
@@ -526,7 +492,7 @@ export default {
           break
       }
     },
-    openMessageBox(message) {
+    openMessageBox (message) {
       this.$confirm(message, '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
@@ -544,7 +510,7 @@ export default {
       })
     },
     // 前端自己分页
-    getResultsData: function() {
+    getResultsData: function () {
       // this指向改一下
       var that = this
       var list = that.groupList // 后端回来表格的数据
@@ -556,34 +522,39 @@ export default {
       ) // 根据页数显示相应的内容
       this.total = list.length
     },
-    submitdata() {
+    submitdata () {
       this.$refs['elForm'].validate(valid => {
         if (!valid) return
         // TODO 提交表单
       })
     },
-    resetForm() {
-      this.queryParams = {
-        pageNum: 1,
-        pageSize: 10,
-        userId: null,
-        orderByColumn: 'find_time',
-        isAsc: 'desc'
-      }
-      this.getList()
+    btnQuery () {
+      this.getTableList()
     },
-    async detail(id) {
-      const { data } = await WeakPasswordDetail(id)
-      this.detailData = data
+    resetForm () {
+      this.queryParams = {
+        event_name: '',
+        location: '',
+        severity: '',
+        procedure: '',
+        detail_src_ip: '',
+        ev_com_socket_protocol: ''
+      }
+      this.getTableList()
+    },
+    async detail (row) {
+      // const { data } = await WeakPasswordDetail(id)
+      this.detailData = row
       this.open = true
       this.title = '事件详情'
+      this.detailData.severity = this.transTypeDic(this.detailData.severity)
     },
     // 取消按钮
-    cancel() {
+    cancel () {
       this.open = false
     },
     /** 提交按钮 */
-    submitForm() {
+    submitForm () {
       this.open = false
     }
   }

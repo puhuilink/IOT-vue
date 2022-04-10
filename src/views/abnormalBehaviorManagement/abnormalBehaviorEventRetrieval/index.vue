@@ -12,8 +12,8 @@
                    label-position="right">
             <el-col :span="6">
               <el-form-item label="事件名称:"
-                            prop="eventName">
-                <el-input v-model="queryParams.eventName"
+                            prop="event_name">
+                <el-input v-model="queryParams.event_name"
                           placeholder="请输入事件名称"
                           clearable
                           :style="{ width: '100%' }" />
@@ -21,8 +21,8 @@
             </el-col>
             <el-col :span="6">
               <el-form-item label="区域:"
-                            prop="region">
-                <el-select v-model="queryParams.region"
+                            prop="location">
+                <el-select v-model="queryParams.location"
                            placeholder="请选择区域"
                            filterable
                            clearable
@@ -37,8 +37,8 @@
             </el-col>
             <el-col :span="6">
               <el-form-item label="事件等级:"
-                            prop="eventLevel">
-                <el-select v-model="queryParams.eventLevel"
+                            prop="severity">
+                <el-select v-model="queryParams.severity"
                            placeholder="请选择事件等级"
                            filterable
                            clearable
@@ -53,8 +53,8 @@
             </el-col>
             <el-col :span="6">
               <el-form-item label="事件类型:"
-                            prop="eventType">
-                <el-input v-model="queryParams.eventType"
+                            prop="event_format">
+                <el-input v-model="queryParams.event_format"
                           placeholder="请输入事件类型"
                           clearable
                           :style="{ width: '100%' }" />
@@ -63,8 +63,8 @@
 
             <el-col :span="6">
               <el-form-item label="处置状态:"
-                            prop="disposalStatus">
-                <el-select v-model="queryParams.disposalStatus"
+                            prop="procedure">
+                <el-select v-model="queryParams.procedure"
                            placeholder="请选择处置状态"
                            filterable
                            clearable
@@ -79,8 +79,8 @@
             </el-col>
             <el-col :span="6">
               <el-form-item label="受害者IP:"
-                            prop="victimIp">
-                <el-input v-model="queryParams.victimIp"
+                            prop="ev_com_socket_dst_ip">
+                <el-input v-model="queryParams.ev_com_socket_dst_ip"
                           placeholder="请输入受害者IP"
                           clearable
                           :style="{ width: '100%' }" />
@@ -88,8 +88,8 @@
             </el-col>
             <el-col :span="6">
               <el-form-item label="攻击者IP:"
-                            prop="attackerIp">
-                <el-input v-model="queryParams.attackerIp"
+                            prop="ev_com_socket_src_ip">
+                <el-input v-model="queryParams.ev_com_socket_src_ip"
                           placeholder="请输入攻击者IP"
                           clearable
                           :style="{ width: '100%' }" />
@@ -111,8 +111,8 @@
             </el-col>
             <el-col :span="7">
               <el-form-item label="杀伤链阶段:"
-                            prop="killingChainStage">
-                <el-select v-model="queryParams.killingChainStage"
+                            prop="ev_ksec_killchain">
+                <el-select v-model="queryParams.ev_ksec_killchain"
                            placeholder="请选择杀伤链阶段"
                            filterable
                            clearable
@@ -140,55 +140,56 @@
       <el-button type="primary"
                  class="export"
                  @click="submitdata">导出</el-button>
-      <el-table :data="groupList"
+      <el-table :data="List"
                 tooltip-effect="light">
         <el-table-column type="selection"
                          width="55"
                          align="center" />
         <el-table-column label="攻击者IP"
                          align="center"
-                         prop="attackerIp"
+                         prop="_source.ev_com_socket_src_ip"
                          :show-overflow-tooltip="true" />
         <el-table-column label="受害者IP"
                          align="center"
-                         prop="victimIp"
+                         prop="_source.ev_com_socket_dst_ip"
                          :show-overflow-tooltip="true" />
         <el-table-column label="事件名称"
                          align="center"
-                         prop="eventName"
+                         prop="_source.event_name"
                          :show-overflow-tooltip="true" />
         <el-table-column label="事件类型"
                          align="center"
-                         prop="eventType"
+                         prop="_source.event_format"
                          :show-overflow-tooltip="true" />
         <el-table-column label="事件等级"
                          align="center"
-                         prop="eventLevel">
+                         prop="severity">
           <template #default="scope">
-            <span>{{
-              transTypeDic(scope.row.eventLevel)
+            <span v-if="scope.row._source.severity == '' || scope.row._source.severity == null"></span>
+            <span v-else>{{
+              transTypeDic(scope.row._source.severity)
             }}</span>
           </template>
         </el-table-column>
         <el-table-column label="杀伤链阶段"
                          align="center"
-                         prop="killingChainStage"
+                         prop="_source.ev_ksec_killchain"
                          :show-overflow-tooltip="true" />
         <el-table-column label="处置状态"
                          align="center"
-                         prop="disposalStatus"
+                         prop="_source.procedure"
                          :show-overflow-tooltip="true" />
         <el-table-column label="发生时间"
                          align="center"
-                         prop="happenTime"
+                         prop="_source.occur_time"
                          :show-overflow-tooltip="true" />
         <el-table-column label="发现时间"
                          align="center"
-                         prop="findTime"
+                         prop="_source.receive_time"
                          :show-overflow-tooltip="true" />
         <el-table-column label="区域"
                          align="center"
-                         prop="region"
+                         prop="_source.location"
                          :show-overflow-tooltip="true" />
         <el-table-column label="操作"
                          align="center"
@@ -196,7 +197,7 @@
           <template slot-scope="scope">
             <el-button size="mini"
                        type="text"
-                       @click="detail(scope.row.abnormalId)">详情</el-button>
+                       @click="detail(scope.row._source)">详情</el-button>
             &nbsp;&nbsp; &nbsp;&nbsp;
             <el-dropdown @command="batchOperate">
               <el-button size="mini"
@@ -213,9 +214,9 @@
     </el-card>
     <pagination v-show="total > 0"
                 :total="total"
-                :page.sync="queryParams.pageNum"
-                :limit.sync="queryParams.pageSize"
-                @pagination="getList" />
+                :page.sync="query.from"
+                :limit.sync="query.size"
+                @pagination="getTableList" />
     <!-- 添加或修改分组对话框 -->
     <el-dialog :title="title"
                :visible.sync="open"
@@ -229,83 +230,83 @@
           <el-row>
             <el-col :span="12">
               <el-form-item label="事件名称 :">
-                {{ detailData.eventName }}
+                {{ detailData.event_name }}
               </el-form-item>
             </el-col>
             <el-col :span="12">
               <el-form-item label="事件类型 :">
-                {{ detailData.eventType }}
+                {{ detailData.event_format }}
               </el-form-item>
             </el-col>
             <el-col :span="12">
               <el-form-item label="杀伤链阶段 :">
-                {{ detailData.killingChainStage }}
+                {{ detailData.ev_ksec_killchain }}
               </el-form-item>
             </el-col>
             <el-col :span="12">
               <el-form-item label="事件等级 :">
-                {{ detailData.eventLevel }}
+                {{ detailData.severity }}
               </el-form-item>
             </el-col>
             <el-col :span="12">
               <el-form-item label="攻击者IP :">
-                {{ detailData.attackerIp }}
+                {{ detailData.ev_com_socket_src_ip }}
               </el-form-item>
             </el-col>
             <el-col :span="12">
               <el-form-item label="攻击者国家 :">
-                {{ detailData.attackerState }}
+                {{ detailData.ev_com_socket_src_ip_country }}
               </el-form-item>
             </el-col>
             <el-col :span="12">
               <el-form-item label="受害者IP :">
-                {{ detailData.victimIp }}
+                {{ detailData.ev_com_socket_dst_ip }}
               </el-form-item>
             </el-col>
             <el-col :span="12">
               <el-form-item label="受害者国家 :">
-                {{ detailData.victimCountry }}
+                {{ detailData.ev_com_socket_dst_ip_country }}
               </el-form-item>
             </el-col>
             <el-col :span="12">
               <el-form-item label="源端口 :">
-                {{ detailData.sourcePort }}
+                {{ detailData.ev_com_socket_src_port }}
               </el-form-item>
             </el-col>
             <el-col :span="12">
               <el-form-item label="目标端口 :">
-                {{ detailData.targetPort }}
+                {{ detailData.ev_com_socket_dst_port }}
               </el-form-item>
             </el-col>
             <el-col :span="12">
               <el-form-item label="协议 :">
-                {{ detailData.agreement }}
+                {{ detailData.ev_com_socket_protocol }}
               </el-form-item>
             </el-col>
             <el-col :span="12">
               <el-form-item label="威胁分类 :">
-                {{ detailData.threatClassification }}
+                {{ detailData.event_format }}
               </el-form-item>
             </el-col>
 
             <el-col :span="12">
               <el-form-item label="发生时间 :">
-                {{ detailData.happenTime }}
+                {{ detailData.occur_time }}
               </el-form-item>
             </el-col>
             <el-col :span="12">
               <el-form-item label="发现时间 :">
-                {{ detailData.findTime }}
+                {{ detailData.receive_time }}
               </el-form-item>
             </el-col>
             <el-col :span="12">
               <el-form-item label="处置状态 :">
-                {{ detailData.disposalStatus }}
+                {{ detailData.procedure }}
               </el-form-item>
             </el-col>
             <el-col :span="12">
               <el-form-item label="区域 :">
-                {{ detailData.region }}
+                {{ detailData.location }}
               </el-form-item>
             </el-col>
           </el-row>
@@ -327,6 +328,7 @@
   </div>
 </template>
 <script>
+import { getAbnormalBehaviorEventRetrievalData } from '@/utils/request'
 // import { listEvent } from '@/api/system/category'
 import { abnormalList } from '@/api/system/list'
 import { abnormalDetail } from '@/api/system/detail'
@@ -350,25 +352,36 @@ export default {
       open: false,
       // 总条数
       total: 0,
+      query: {
+        query: {
+          bool: {
+            must: []
+          }
+        },
+        // sort: [{ 'receive_time': 'desc' }],
+        from: 0,
+        size: 10
+      },
+      List: [],
       // 查询参数
       queryParams: {
-        pageNum: 1,
-        pageSize: 10,
-        userId: null,
-        region: '',
-        orderByColumn: 'happen_time',
-        isAsc: 'desc',
-        groupName: null,
-        createTime: null
+        event_name: '',
+        location: '',
+        severity: '',
+        event_format: '',
+        procedure: '',
+        ev_com_socket_dst_ip: '',
+        ev_com_socket_src_ip: '',
+        ev_ksec_killchain: ''
       },
       rules: {
         name: [],
-        eventLevel: [],
+        severity: [],
         type: [],
-        region: [],
-        agreement: [],
-        victimIp: [],
-        attackerIp: [],
+        location: [],
+        ev_com_socket_protocol: [],
+        ev_com_socket_dst_ip: [],
+        ev_com_socket_src_ip: [],
         equipment: [],
         date: []
       },
@@ -467,9 +480,45 @@ export default {
     }
   },
   created () {
-    this.getList()
+    // this.getList()
+    this.getTableList()
   },
   methods: {
+    // 根据对象中的key是否值为空x向数组中添加对象
+    addQuery (query, key, value) {
+      if (value !== '') {
+        query.query.bool.must.push({
+          match: {
+            [key]: value
+          }
+        })
+      }
+    },
+    async getTableList () {
+      this.addQuery(this.query, 'event_name', this.queryParams.event_name)
+
+      this.addQuery(this.query, 'location', this.queryParams.location)
+
+      this.addQuery(this.query, 'severity', this.queryParams.severity)
+
+      this.addQuery(this.query, 'event_format', this.queryParams.event_format)
+
+      this.addQuery(this.query, 'procedure', this.queryParams.procedure)
+
+      this.addQuery(this.query, 'ev_com_socket_dst_ip', this.queryParams.ev_com_socket_dst_ip)
+
+      this.addQuery(this.query, 'ev_com_socket_src_ip', this.queryParams.ev_com_socket_src_ip)
+
+      this.addQuery(this.query, 'ev_ksec_killchain', this.queryParams.ev_ksec_killchain)
+      getAbnormalBehaviorEventRetrievalData(this.query).then(res => {
+        this.query.query.bool.must = []
+        this.groupList = []
+        this.total = res.data.hits.total
+        this.List = res.data.hits.hits
+      })
+
+      this.detailData.severity = this.transTypeDic(this.detailData.severity)
+    },
     transTypeDic (val) {
       var t = [{
         name: '1',
@@ -537,8 +586,7 @@ export default {
       this.loading = false
     },
     btnQuery () {
-      this.queryParams.pageNum = 1
-      this.getList()
+      this.getTableList()
     },
     submitdata () {
       this.$refs['elForm'].validate((valid) => {
@@ -548,19 +596,23 @@ export default {
     },
     resetForm () {
       this.queryParams = {
-        pageNum: 1,
-        pageSize: 10,
-        orderByColumn: 'happen_time',
-        isAsc: 'desc',
+        event_name: '',
+        location: '',
+        severity: '',
+        event_format: '',
+        procedure: '',
+        ev_com_socket_dst_ip: '',
+        ev_com_socket_src_ip: '',
+        ev_ksec_killchain: ''
       }
-      this.getList()
+      this.getTableList()
     },
-    async detail (id) {
-      const { data } = await abnormalDetail(id)
-      this.detailData = data
-      this.detailData.eventLevel = this.transTypeDic(this.detailData.eventLevel)
+    async detail (row) {
+      // const { data } = await abnormalDetail(id)
+      this.detailData = row
       this.open = true
       this.title = '事件详情'
+      this.detailData.severity = this.transTypeDic(this.detailData.severity)
     },
     // 取消按钮
     cancel () {
