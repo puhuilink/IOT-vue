@@ -97,7 +97,7 @@
               </el-form-item>
             </el-col>
             <el-col :span="6">
-              <el-form-item label="时间："
+              <el-form-item label="时间段:"
                             prop="date">
                 <el-time-picker v-model="queryParams.date"
                                 is-range
@@ -232,7 +232,6 @@
             </el-col>
             <el-col :span="12">
               <el-form-item label="病毒类型 :">
-                <!-- {{ detailData.ev_wsec_hsme_virus_type }} -->
                 <tooltip :content="detailData.ev_wsec_hsme_virus_type"
                          :length="40" />
               </el-form-item>
@@ -264,7 +263,6 @@
             </el-col>
             <el-col :span="12">
               <el-form-item label="路径 :">
-                <!-- {{ detailData.route }} -->
                 <tooltip :content="detailData.ev_wsec_hsme_process_location"
                          :length="40" />
               </el-form-item>
@@ -311,9 +309,6 @@
             </el-col>
             <el-col :span="12">
               <el-form-item label="日志描述 :">
-                <!-- {{ detailData.description }} -->
-                <!-- <tooltip :content="detailData.description"
-                         :length="30" /> -->
                 <tooltip :content="detailData.description"
                          :length="20" />
               </el-form-item>
@@ -325,14 +320,14 @@
             </el-col>
             <el-col :span="12">
               <el-form-item label="进程 :">
-                <!-- {{ detailData.ev_wsec_hsme_process_location }} -->
+
                 <tooltip :content="detailData.ev_wsec_hsme_process_location"
                          :length="40" />
               </el-form-item>
             </el-col>
             <el-col :span="12">
               <el-form-item label="父进程 :">
-                <!-- {{ detailData.parentProcess }} -->
+
                 <tooltip :content="detailData.ev_wsec_hsme_process_parent_location"
                          :length="40" />
               </el-form-item>
@@ -360,10 +355,8 @@
   </div>
 </template>
 <script>
-// import { listEvent } from '@/api/system/category'
 import { getHostSecurityData } from '@/utils/request'
 import { hostList } from '@/api/system/list'
-import { hostSecurityDetail } from '@/api/system/detail'
 
 export default {
   components: {},
@@ -565,13 +558,6 @@ export default {
         })
       }
       getHostSecurityData(this.query).then((res) => {
-        // this.groupList = []
-        // this.total = res.data.hits.total
-        // res.data.hits.hits.map(t => {
-        //   const sour = t._source
-        //   this.groupList.push(sour)
-        //   this.List = Array.from(new Set(this.groupList))
-        // })
         this.query.query.bool.must = []
         this.groupList = []
         this.total = res.data.hits.total
@@ -646,55 +632,6 @@ export default {
     },
     btnQuery () {
       this.getTableList()
-      // getHostSecurityData({
-      //   query: {
-      //     // match: {
-      //     //   'procedure': this.queryParams.procedure
-      //     // },
-      //     "bool": {
-      //       "must": [
-      //         {
-      //           "wildcard": {
-      //             "procedure.keyword": {
-      //               "value": '*' + this.queryParams.procedure + '*'
-      //             }
-      //           },
-      //         },
-      //         {
-      //           "wildcard": {
-      //             "ev_wsec_hsme_format_label.keyword": {
-      //               "value": '*' + this.queryParams.ev_wsec_hsme_format_label + '*'
-      //             }
-      //           },
-      //         },
-      //         {
-      //           "wildcard": {
-      //             "event_name.keyword": {
-      //               "value": '*' + this.queryParams.event_name + '*'
-      //             }
-      //           },
-      //         }
-      //       ]
-      //     }
-      //   },
-      //   from: 0,
-      //   size: 10
-      // }).then(res => {
-      //   if (res.data.hits.total != 0) {
-      //     this.groupList = []
-      //     this.total = res.data.hits.total
-      //     res.data.hits.hits.map(t => {
-      //       const sour = t._source
-      //       this.groupList.push(sour)
-      //       this.List = Array.from(new Set(this.groupList))
-      //     })
-      //   } else {
-      //     this.List = []
-      //     this.total = res.data.hits.total
-      //   }
-
-      // })
-      // this.detailData.severity = this.transTypeDic(this.detailData.severity)
     },
     submitdata () {
       this.$refs['elForm'].validate((valid) => {
@@ -707,7 +644,7 @@ export default {
         pageNum: 1,
         pageSize: 10,
         orderByColumn: 'occur_time',
-        isAsc: 'desc',
+        isAsc: 'desc'
       }
       // this.getList()
       this.getTableList()
@@ -724,7 +661,6 @@ export default {
       this.title = '事件详情'
       this.detailData = row
       this.detailData.severity = this.transTypeDic(this.detailData.severity)
-
     },
     // 取消按钮
     cancel () {

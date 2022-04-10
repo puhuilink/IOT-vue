@@ -92,7 +92,7 @@
               </el-form-item>
             </el-col>
             <el-col :span="6">
-              <el-form-item label="时间："
+              <el-form-item label="时间段："
                             prop="date">
                 <el-time-picker v-model="queryParams.date"
                                 is-range
@@ -128,11 +128,12 @@
                        min-width="15%" />
       <el-table-column label="事件等级"
                        align="center"
-                       prop="severity"
+                       prop="_source.severity"
                        :show-overflow-tooltip="true"
                        min-width="10%">
         <template #default="scope">
-          <span>{{
+          <span v-if="scope.row._source.severity == '' || scope.row._source.severity == null"></span>
+          <span v-else>{{
             transTypeDic(scope.row._source.severity)
           }}</span>
         </template>
@@ -186,8 +187,8 @@
 
     <pagination v-show="total>0"
                 :total="total"
-                :page.sync="query.from"
-                :limit.sync="query.size"
+                :page.sync="querys.from"
+                :limit.sync="querys.size"
                 @pagination="getTableList" />
     <!-- 添加或修改分组对话框 -->
     <el-dialog :title="title"
@@ -201,7 +202,7 @@
           <el-col :span="12">
             <el-form-item label="检查项 :">
               <tooltip :content="detailData.event_name"
-                       :length="20" />
+                       :length="30" />
               <!-- {{ detailData.event_name }} -->
             </el-form-item>
           </el-col>
@@ -253,9 +254,8 @@
 </template>
 <script>
 import { getConfigurationData } from '@/utils/request'
-import { configurationVerificationList } from '@/api/system/list'
-import { configurationVerificationDetail } from '@/api/system/detail'
 export default {
+  name: 'EventDetail',
   components: {},
   props: [],
   data () {
@@ -274,8 +274,8 @@ export default {
       // linux否显示弹出层
       open: false,
       // 总条数
-      total: 6,
-      query: {
+      total: 0,
+      querys: {
         query: {
           bool: {
             must: []
@@ -288,11 +288,12 @@ export default {
       // 查询参数
       queryParams: {
         event_name: '',
-        location: '',
         severity: '',
-        procedure: '',
+        detail_src_ip: '',
         ev_wsec_scce_scc_result: '',
-        detail_src_ip: ''
+        occur_time: '',
+        location: '',
+        procedure: ''
       },
       rules: {
         name: [],
@@ -371,14 +372,13 @@ export default {
     }
   },
   created () {
-    // this.getList()
     this.getTableList()
   },
   methods: {
     // 根据对象中的key是否值为空x向数组中添加对象
     addQuery (query, key, value) {
       if (value !== '') {
-        query.query.bool.must.push({
+        query.bool.must.push({
           match: {
             [key]: value
           }
@@ -386,21 +386,15 @@ export default {
       }
     },
     async getTableList () {
-      this.addQuery(this.query, 'event_name', this.queryParams.event_name)
-
-      this.addQuery(this.query, 'location', this.queryParams.location)
-
-      this.addQuery(this.query, 'severity', this.queryParams.severity)
-
-      this.addQuery(this.query, 'procedure', this.queryParams.procedure)
-
-      this.addQuery(this.query, 'ev_wsec_scce_scc_result', this.queryParams.ev_wsec_scce_scc_result)
-
-      this.addQuery(this.query, 'detail_src_ip', this.queryParams.detail_src_ip)
-
-      getConfigurationData(this.query).then((res) => {
-        this.query.query.bool.must = []
-        this.groupList = []
+      this.addQuery(this.querys.query, 'event_name', this.queryParams.event_name)
+      this.addQuery(this.querys.query, 'severity', this.queryParams.severity)
+      this.addQuery(this.querys.query, 'detail_src_ip', this.queryParams.detail_src_ip)
+      this.addQuery(this.querys.query, 'ev_wsec_scce_scc_result', this.queryParams.ev_wsec_scce_scc_result)
+      this.addQuery(this.querys.query, 'occur_time', this.queryParams.occur_time)
+      this.addQuery(this.querys.query, 'location', this.queryParams.location)
+      this.addQuery(this.querys.query, 'procedure', this.queryParams.procedure)
+      getConfigurationData(this.querys).then(res => {
+        this.querys.query.bool.must = []
         this.total = res.data.hits.total
         this.List = res.data.hits.hits
       })
@@ -463,13 +457,6 @@ export default {
         })
       })
     },
-    /** 查询分组列表 */
-    getList () {
-      configurationVerificationList(this.queryParams).then((response) => {
-        this.groupList = response.rows
-        this.total = response.total
-      })
-    },
     submitdata () {
       this.$refs['elForm'].validate(valid => {
         if (!valid) return
@@ -479,13 +466,13 @@ export default {
     resetForm () {
       this.queryParams = {
         event_name: '',
-        location: '',
         severity: '',
-        procedure: '',
+        detail_src_ip: '',
         ev_wsec_scce_scc_result: '',
-        detail_src_ip: ''
+        occur_time: '',
+        location: '',
+        procedure: ''
       }
-      // this.getList()
       this.getTableList()
     },
     btnQuery () {

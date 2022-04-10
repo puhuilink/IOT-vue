@@ -6,7 +6,7 @@ import errorCode from '@/utils/errorCode'
 
 axios.defaults.headers.post['Content-Type'] = 'application/json'
 
-//入侵诱捕
+// 入侵诱捕
 const base = '/api/event_ivtp/_search'
 
 export const getElasticDate = params => {
