@@ -195,7 +195,7 @@
                        :show-overflow-tooltip="true" />
       <el-table-column label="发现时间"
                        align="center"
-                       prop="_source.occur_time"
+                       prop="_source.receive_time"
                        :show-overflow-tooltip="true" />
       <el-table-column label="区域"
                        align="center"
@@ -303,7 +303,7 @@
           </el-col>
           <el-col :span="8">
             <el-form-item label="发现时间:">
-              {{ detailData.occur_time }}
+              {{ detailData.receive_time }}
             </el-form-item>
           </el-col>
           <el-col :span="8">
