@@ -98,11 +98,10 @@
             <el-col :span="6">
               <el-form-item label="时间:"
                             prop="date">
-                <el-time-picker v-model.trim="queryParams.date"
-                                is-range
-                                format="HH:mm:ss"
-                                value-format="HH:mm:ss"
-                                :style="{ width: '100%' }"
+                <el-date-picker v-model.trim="queryParams.date"
+                                type="daterange"
+                                format="yyyy 年 MM 月 dd 日"
+                                value-format="yyyy-MM-dd"
                                 start-placeholder="开始时间"
                                 end-placeholder="结束时间"
                                 range-separator="至"
@@ -237,12 +236,12 @@
             </el-col>
             <el-col :span="12">
               <el-form-item label="情报类型 :">
-                {{ detailData.intelligenceType }}
+                {{ detailData.event_format }}
               </el-form-item>
             </el-col>
             <el-col :span="12">
               <el-form-item label="情报IOC :">
-                {{ detailData.intelligenceIoc }}
+                {{ detailData.ev_ksec_ioc }}
               </el-form-item>
             </el-col>
             <el-col :span="12">
@@ -371,7 +370,8 @@ export default {
         procedure: '',
         ev_com_socket_dst_ip: '',
         ev_com_socket_src_ip: '',
-        ev_ksec_killchain: ''
+        ev_ksec_killchain: '',
+        date: []
       },
       rules: {
         ev_ksec_aptOrganization: [],
@@ -487,6 +487,13 @@ export default {
       }]
     }
   },
+  watch: {
+    'queryParams.date' (newVal) {
+      if (newVal == null) {
+        this.queryParams.date = []
+      }
+    }
+  },
   created () {
     // this.getCategoryList()
     this.getTableList()
@@ -518,6 +525,18 @@ export default {
       this.addQuery(this.query, 'ev_com_socket_src_ip', this.queryParams.ev_com_socket_src_ip)
 
       this.addQuery(this.query, 'ev_ksec_killchain', this.queryParams.ev_ksec_killchain)
+
+      if (this.queryParams.date.length > 0) {
+        this.query.query.bool.must.push({
+          range: {
+            occur_time: {
+              gte: this.queryParams.date[0],
+              lte: this.queryParams.date[1]
+            }
+          }
+        })
+      }
+
       getThreatIntelligenceListData(this.query).then(res => {
         this.query.query.bool.must = []
         this.groupList = []
@@ -609,7 +628,8 @@ export default {
         procedure: '',
         ev_com_socket_dst_ip: '',
         ev_com_socket_src_ip: '',
-        ev_ksec_killchain: ''
+        ev_ksec_killchain: '',
+        date: []
       }
       this.getTableList()
     },
