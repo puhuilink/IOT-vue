@@ -112,6 +112,8 @@
                 <el-date-picker
                   v-model="queryParams.date"
                   type="daterange"
+                  format="yyyy 年 MM 月 dd 日"
+                  value-format="yyyy-MM-dd"
                   range-separator="至"
                   start-placeholder="开始日期"
                   end-placeholder="结束日期"
@@ -499,6 +501,13 @@ export default {
       }]
     }
   },
+  watch: {
+    'queryParams.date'(newVal) {
+      if (newVal == null) {
+        this.queryParams.date = []
+      }
+    }
+  },
   created() {
     this.searchClick()
     // this.getList()
@@ -525,13 +534,16 @@ export default {
       this.addQuery(this.query, 'location', this.queryParams.location)
 
       this.addQuery(this.query, 'procedure', this.queryParams.procedure)
-
-      // this.query.range = {
-      //   'occur_time': {
-      //     'gte': this.queryParams.date[0],
-      //     'lte': this.queryParams.date[1]
-      //   }
-      // }
+      if (this.queryParams.date.length > 0) {
+        this.query.query.bool.must.push({
+          range: {
+            occur_time: {
+              gte: this.queryParams.date[0],
+              lte: this.queryParams.date[1]
+            }
+          }
+        })
+      }
       getElasticDate(this.query).then(res => {
         this.query.query.bool.must = []
         this.groupList = []
@@ -612,7 +624,8 @@ export default {
         severity: '',
         exkpi_msec_asset_name: '',
         location: '',
-        procedure: ''
+        procedure: '',
+        date: []
       }
       this.searchClick()
     },
