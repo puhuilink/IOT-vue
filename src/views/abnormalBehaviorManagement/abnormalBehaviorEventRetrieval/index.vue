@@ -622,7 +622,8 @@ export default {
         procedure: '',
         ev_com_socket_dst_ip: '',
         ev_com_socket_src_ip: '',
-        ev_ksec_killchain: ''
+        ev_ksec_killchain: '',
+        date: []
       }
       this.getTableList()
     },

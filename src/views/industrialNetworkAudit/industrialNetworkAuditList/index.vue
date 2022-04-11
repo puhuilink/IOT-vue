@@ -511,6 +511,13 @@ export default {
       ]
     }
   },
+  watch: {
+    'queryParams.date' (newVal) {
+      if (newVal == null) {
+        this.queryParams.date = []
+      }
+    }
+  },
   created () {
     // this.getList()
     this.getTableList()
@@ -538,8 +545,6 @@ export default {
       this.addQuery(this.query, 'severity', this.queryParams.severity)
 
       this.addQuery(this.query, 'event_format', this.queryParams.event_format)
-
-      this.addQuery(this.query, 'date', this.queryParams.date)
 
       if (this.queryParams.date.length > 0) {
         this.query.query.bool.must.push({
@@ -642,7 +647,7 @@ export default {
         procedure: '',
         severity: '',
         event_format: '',
-        date: ''
+        date: []
       }
       this.getTableList()
     },

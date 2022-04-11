@@ -490,7 +490,8 @@ export default {
         ev_wsec_scce_scc_result: '',
         occur_time: '',
         location: '',
-        procedure: ''
+        procedure: '',
+        date: []
       }
       this.getTableList()
     },

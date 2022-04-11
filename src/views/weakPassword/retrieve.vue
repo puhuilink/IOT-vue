@@ -557,7 +557,8 @@ export default {
         severity: '',
         procedure: '',
         detail_src_ip: '',
-        ev_com_socket_protocol: ''
+        ev_com_socket_protocol: '',
+        date: []
       }
       this.getTableList()
     },
