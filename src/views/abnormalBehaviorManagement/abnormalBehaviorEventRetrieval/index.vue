@@ -96,13 +96,12 @@
               </el-form-item>
             </el-col>
             <el-col :span="6">
-              <el-form-item label="时间段:"
+              <el-form-item label="时间:"
                             prop="date">
                 <el-time-picker v-model="queryParams.date"
-                                is-range
-                                format="HH:mm:ss"
-                                value-format="HH:mm:ss"
-                                :style="{ width: '100%' }"
+                                type="daterange"
+                                format="yyyy 年 MM 月 dd 日"
+                                value-format="yyyy-MM-dd"
                                 start-placeholder="开始时间"
                                 end-placeholder="结束时间"
                                 range-separator="至"
@@ -372,7 +371,8 @@ export default {
         procedure: '',
         ev_com_socket_dst_ip: '',
         ev_com_socket_src_ip: '',
-        ev_ksec_killchain: ''
+        ev_ksec_killchain: '',
+        date: []
       },
       rules: {
         name: [],
@@ -479,6 +479,13 @@ export default {
       }]
     }
   },
+  watch: {
+    'queryParams.date' (newVal) {
+      if (newVal == null) {
+        this.queryParams.date = []
+      }
+    }
+  },
   created () {
     // this.getList()
     this.getTableList()
@@ -510,6 +517,18 @@ export default {
       this.addQuery(this.query, 'ev_com_socket_src_ip', this.queryParams.ev_com_socket_src_ip)
 
       this.addQuery(this.query, 'ev_ksec_killchain', this.queryParams.ev_ksec_killchain)
+
+      if (this.queryParams.date.length > 0) {
+        this.query.query.bool.must.push({
+          range: {
+            occur_time: {
+              gte: this.queryParams.date[0],
+              lte: this.queryParams.date[1]
+            }
+          }
+        })
+      }
+
       getAbnormalBehaviorEventRetrievalData(this.query).then(res => {
         this.query.query.bool.must = []
         this.groupList = []

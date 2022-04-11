@@ -89,17 +89,16 @@
                             @keyup.enter.native="handleQuery" />
                 </el-form-item>
               </el-col>
-              <el-col :span="9">
+              <el-col :span="7">
                 <el-form-item label="时间："
-                              prop="userName">
+                              prop="date">
                   <el-time-picker v-model="queryParams.date"
-                                  is-range
-                                  format="HH:mm:ss"
-                                  value-format="HH:mm:ss"
-                                  :style="{ width: '100%' }"
+                                  type="daterange"
+                                  format="yyyy 年 MM 月 dd 日"
+                                  value-format="yyyy-MM-dd"
                                   start-placeholder="开始时间"
                                   end-placeholder="结束时间"
-                                  range-separator="--"
+                                  range-separator="至"
                                   clearable />
                 </el-form-item>
               </el-col>
@@ -446,7 +445,7 @@ export default {
         procedure: '',
         severity: '',
         event_format: '',
-        date: ''
+        date: []
       },
       levelOptions: [{
         'label': '极低',
@@ -541,6 +540,17 @@ export default {
       this.addQuery(this.query, 'event_format', this.queryParams.event_format)
 
       this.addQuery(this.query, 'date', this.queryParams.date)
+
+      if (this.queryParams.date.length > 0) {
+        this.query.query.bool.must.push({
+          range: {
+            occur_time: {
+              gte: this.queryParams.date[0],
+              lte: this.queryParams.date[1]
+            }
+          }
+        })
+      }
 
       getIndustrialNetworkAuditData(this.query).then((res) => {
         this.query.query.bool.must = []

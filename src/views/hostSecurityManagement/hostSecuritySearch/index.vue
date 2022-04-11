@@ -97,13 +97,12 @@
               </el-form-item>
             </el-col>
             <el-col :span="6">
-              <el-form-item label="时间段:"
+              <el-form-item label="时间:"
                             prop="date">
                 <el-time-picker v-model="queryParams.date"
-                                is-range
-                                format="HH:mm:ss"
-                                value-format="HH:mm:ss"
-                                :style="{ width: '100%' }"
+                                type="daterange"
+                                format="yyyy 年 MM 月 dd 日"
+                                value-format="yyyy-MM-dd"
                                 start-placeholder="开始时间"
                                 end-placeholder="结束时间"
                                 range-separator="至"
@@ -392,23 +391,14 @@ export default {
       },
       // 查询参数
       queryParams: {
-        pageNum: 1,
-        pageSize: 10,
-        orderByColumn: 'occur_time',
-        isAsc: 'desc',
-        groupName: null,
-        createTime: null,
         event_name: '',
-        ev_wsec_hsme_system_osname: '',
-        severity: undefined,
+        location: '',
+        severity: '',
         ev_wsec_hsme_format_label: '',
-        location: undefined,
         procedure: '',
-        ip: undefined,
-        newip: undefined,
-        ev_wsec_hsme_system_ip: undefined,
-        date: [''],
-        field114: undefined
+        ev_wsec_hsme_system_ip: '',
+        ev_wsec_hsme_system_osname: '',
+        date: []
       },
       rules: {
         name: [],
@@ -502,69 +492,118 @@ export default {
       ]
     }
   },
+  watch: {
+    'queryParams.date' (newVal) {
+      if (newVal == null) {
+        this.queryParams.date = []
+      }
+    }
+  },
   created () {
     this.getTableList()
     // this.getList()
   },
   methods: {
+    // 根据对象中的key是否值为空x向数组中添加对象
+    addQuery (query, key, value) {
+      if (value !== '') {
+        query.query.bool.must.push({
+          match: {
+            [key]: value
+          }
+        })
+      }
+    },
     async getTableList () {
-      if (this.queryParams.event_name) {
+      this.addQuery(this.query, 'event_name', this.queryParams.event_name)
+
+      this.addQuery(this.query, 'location', this.queryParams.location)
+
+      this.addQuery(this.query, 'severity', this.queryParams.severity)
+
+      this.addQuery(this.query, 'ev_wsec_hsme_format_label', this.queryParams.ev_wsec_hsme_format_label)
+
+      this.addQuery(this.query, 'procedure', this.queryParams.procedure)
+
+      this.addQuery(this.query, 'ev_wsec_hsme_system_ip', this.queryParams.ev_wsec_hsme_system_ip)
+
+      this.addQuery(this.query, 'ev_wsec_hsme_system_osname', this.queryParams.ev_wsec_hsme_system_osname)
+
+      if (this.queryParams.date.length > 0) {
         this.query.query.bool.must.push({
-          match: {
-            'event_name': this.queryParams.event_name
+          range: {
+            occur_time: {
+              gte: this.queryParams.date[0],
+              lte: this.queryParams.date[1]
+            }
           }
         })
       }
-      if (this.queryParams.location) {
-        this.query.query.bool.must.push({
-          match: {
-            'location': this.queryParams.location
-          }
-        })
-      }
-      if (this.queryParams.severity) {
-        this.query.query.bool.must.push({
-          match: {
-            'severity': this.queryParams.severity
-          }
-        })
-      }
-      if (this.queryParams.ev_wsec_hsme_format_label) {
-        this.query.query.bool.must.push({
-          match: {
-            'ev_wsec_hsme_format_label': this.queryParams.ev_wsec_hsme_format_label
-          }
-        })
-      }
-      if (this.queryParams.procedure) {
-        this.query.query.bool.must.push({
-          match: {
-            'procedure': this.queryParams.procedure
-          }
-        })
-      }
-      if (this.queryParams.ev_wsec_hsme_system_ip) {
-        this.query.query.bool.must.push({
-          match: {
-            'ev_wsec_hsme_system_ip': this.queryParams.ev_wsec_hsme_system_ip
-          }
-        })
-      }
-      if (this.queryParams.ev_wsec_hsme_system_osname) {
-        this.query.query.bool.must.push({
-          match: {
-            'ev_wsec_hsme_system_osname': this.queryParams.ev_wsec_hsme_system_osname
-          }
-        })
-      }
-      getHostSecurityData(this.query).then((res) => {
+      getHostSecurityData(this.query).then(res => {
         this.query.query.bool.must = []
         this.groupList = []
         this.total = res.data.hits.total
         this.List = res.data.hits.hits
       })
-      this.detailData.severity = this.transTypeDic(this.detailData.severity)
     },
+    // async getTableList () {
+    //   if (this.queryParams.event_name) {
+    //     this.query.query.bool.must.push({
+    //       match: {
+    //         'event_name': this.queryParams.event_name
+    //       }
+    //     })
+    //   }
+    //   if (this.queryParams.location) {
+    //     this.query.query.bool.must.push({
+    //       match: {
+    //         'location': this.queryParams.location
+    //       }
+    //     })
+    //   }
+    //   if (this.queryParams.severity) {
+    //     this.query.query.bool.must.push({
+    //       match: {
+    //         'severity': this.queryParams.severity
+    //       }
+    //     })
+    //   }
+    //   if (this.queryParams.ev_wsec_hsme_format_label) {
+    //     this.query.query.bool.must.push({
+    //       match: {
+    //         'ev_wsec_hsme_format_label': this.queryParams.ev_wsec_hsme_format_label
+    //       }
+    //     })
+    //   }
+    //   if (this.queryParams.procedure) {
+    //     this.query.query.bool.must.push({
+    //       match: {
+    //         'procedure': this.queryParams.procedure
+    //       }
+    //     })
+    //   }
+    //   if (this.queryParams.ev_wsec_hsme_system_ip) {
+    //     this.query.query.bool.must.push({
+    //       match: {
+    //         'ev_wsec_hsme_system_ip': this.queryParams.ev_wsec_hsme_system_ip
+    //       }
+    //     })
+    //   }
+    //   if (this.queryParams.ev_wsec_hsme_system_osname) {
+    //     this.query.query.bool.must.push({
+    //       match: {
+    //         'ev_wsec_hsme_system_osname': this.queryParams.ev_wsec_hsme_system_osname
+    //       }
+    //     })
+    //   }
+    //   getHostSecurityData(this.query).then((res) => {
+    //     this.query.query.bool.must = []
+    //     this.groupList = []
+    //     this.total = res.data.hits.total
+    //     this.List = res.data.hits.hits
+    //   })
+    //   this.detailData.severity = this.transTypeDic(this.detailData.severity)
+    // },
 
     transTypeDic (val) {
       var t = [{
@@ -641,10 +680,14 @@ export default {
     },
     resetForm () {
       this.queryParams = {
-        pageNum: 1,
-        pageSize: 10,
-        orderByColumn: 'occur_time',
-        isAsc: 'desc'
+        event_name: '',
+        location: '',
+        severity: '',
+        ev_wsec_hsme_format_label: '',
+        procedure: '',
+        ev_wsec_hsme_system_ip: '',
+        ev_wsec_hsme_system_osname: '',
+        date: []
       }
       // this.getList()
       this.getTableList()
