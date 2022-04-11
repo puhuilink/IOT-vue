@@ -283,7 +283,7 @@
             </el-col>
             <el-col :span="12">
               <el-form-item label="公司名称 :">
-                {{ detailData.corporateName }}
+                {{ detailData.ev_wsec_hsme_process_app_vendor }}
               </el-form-item>
             </el-col>
             <el-col :span="12">
@@ -293,7 +293,7 @@
             </el-col>
             <el-col :span="12">
               <el-form-item label="产品名称 :">
-                {{ detailData.productName }}
+                {{ detailData.ev_wsec_hsme_process_app_name }}
               </el-form-item>
             </el-col>
             <el-col :span="12">
@@ -303,7 +303,7 @@
             </el-col>
             <el-col :span="12">
               <el-form-item label="版本号 :">
-                {{ detailData.versionNumber }}
+                {{ detailData.ev_wsec_hsme_process_app_version }}
               </el-form-item>
             </el-col>
             <el-col :span="12">
