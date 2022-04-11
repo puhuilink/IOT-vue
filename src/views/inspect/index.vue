@@ -94,7 +94,7 @@
             <el-col :span="6">
               <el-form-item label="时间："
                             prop="date">
-                <el-time-picker v-model="queryParams.date"
+                <el-date-picker v-model="queryParams.date"
                                 type="daterange"
                                 format="yyyy 年 MM 月 dd 日"
                                 value-format="yyyy-MM-dd"
