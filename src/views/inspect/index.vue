@@ -186,7 +186,7 @@
 
     <pagination v-show="total>0"
                 :total="total"
-                :page.sync="querys.from"
+                :page.sync="from"
                 :limit.sync="querys.size"
                 @pagination="getTableList" />
     <!-- 添加或修改分组对话框 -->
@@ -259,6 +259,7 @@ export default {
   props: [],
   data () {
     return {
+      from: 1,
       loading: true,
       name: '测试',
       detailData: {
@@ -280,7 +281,7 @@ export default {
             must: []
           }
         },
-        sort: [{ 'receive_time': 'desc' }],
+        sort: [{ 'occur_time': { order: 'desc' } }],
         from: 0,
         size: 10
       },
@@ -400,7 +401,7 @@ export default {
       this.addQuery(this.querys.query, 'occur_time', this.queryParams.occur_time)
       this.addQuery(this.querys.query, 'location', this.queryParams.location)
       this.addQuery(this.querys.query, 'procedure', this.queryParams.procedure)
-
+      this.query.from = this.from - 1
       if (this.queryParams.date.length > 0) {
         this.query.query.bool.must.push({
           range: {

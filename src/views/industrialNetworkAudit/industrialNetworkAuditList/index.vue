@@ -214,7 +214,7 @@
 
       <pagination v-show="total > 0"
                   :total="total"
-                  :page.sync="query.from"
+                  :page.sync="from"
                   :limit.sync="query.size"
                   @pagination="getTableList" />
     </el-card>
@@ -413,6 +413,7 @@ export default {
   name: 'Online',
   data () {
     return {
+      from: 1,
       activeNames: ['1'],
       title: '',
       detailData: {},
@@ -428,7 +429,7 @@ export default {
             must: []
           }
         },
-        sort: [{ 'receive_time': 'desc' }],
+        sort: [{ 'occur_time': { order: 'desc' } }],
         from: 0,
         size: 10
       },
@@ -533,7 +534,7 @@ export default {
         })
       }
     },
-    getTableList () {
+    async getTableList () {
       this.addQuery(this.query, 'detail_src_ip', this.queryParams.detail_src_ip)
 
       this.addQuery(this.query, 'detail_dst_ip', this.queryParams.detail_dst_ip)
@@ -545,6 +546,8 @@ export default {
       this.addQuery(this.query, 'severity', this.queryParams.severity)
 
       this.addQuery(this.query, 'event_format', this.queryParams.event_format)
+
+      this.query.from = this.from - 1
 
       if (this.queryParams.date.length > 0) {
         this.query.query.bool.must.push({
