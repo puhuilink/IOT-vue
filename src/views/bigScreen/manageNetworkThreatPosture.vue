@@ -3,7 +3,7 @@
 
     <iframe
       id="mobsf"
-      src="https://10.201.30.40/situation-awareness/integrated?token=aaed3d71d8a5d4a754172d26cbcff72b9f1da630daa98f056bc8564b81ffcb48"
+      src="https://10.201.30.40/microapps/app-sso/index.html?token=e1a08736dede6c2f0f0ad2bfef727ce4d72b10ffd6ea32888cc0fd4e26bcaf15&redirectUrl=https://10.201.30.40/situation-awareness/integrated"
       scrolling="no"
       frameborder="0"
     />
