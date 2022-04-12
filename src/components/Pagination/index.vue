@@ -58,10 +58,10 @@ export default {
   computed: {
     currentPage: {
       get() {
-        return this.page - 1
+        return this.page
       },
       set(val) {
-        this.$emit('update:page', val - 1)
+        this.$emit('update:page', val)
       }
     },
     pageSize: {
