@@ -171,7 +171,7 @@
       </el-table>
       <pagination v-show="total > 0"
                   :total="total"
-                  :page.sync="query.from"
+                  :page.sync="from"
                   :limit.sync="query.size"
                   @pagination="searchClick" />
     </el-card>
@@ -282,6 +282,7 @@ export default {
   props: [],
   data () {
     return {
+      from: 1,
       loading: false,
       name: '测试',
       aaa: {},
@@ -306,7 +307,7 @@ export default {
             must: []
           }
         },
-        sort: [{ 'receive_time': 'desc' }],
+        sort: [{ 'occur_time': { order: 'desc' } }],
         from: 0,
         size: 10
       },
@@ -442,6 +443,8 @@ export default {
       this.addQuery(this.query, 'location', this.queryParams.location)
 
       this.addQuery(this.query, 'procedure', this.queryParams.procedure)
+
+      this.query.from = this.from - 1
       if (this.queryParams.date.length > 0) {
         this.query.query.bool.must.push({
           range: {

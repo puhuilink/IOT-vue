@@ -184,7 +184,7 @@
       </el-table-column>
     </el-table>
     <pagination v-show="total > 0"
-                :page.sync="query.from"
+                :page.sync="from"
                 :limit.sync="query.size"
                 :total="total"
                 @pagination="getTableList" />
@@ -278,6 +278,7 @@ export default {
   props: [],
   data () {
     return {
+      from: 1,
       loading: false,
       name: '测试',
       detailData: {
@@ -303,7 +304,7 @@ export default {
             must: []
           }
         },
-        // sort: [{ 'receive_time': 'desc' }],
+        sort: [{ 'occur_time': { order: 'desc' } }],
         from: 0,
         size: 10
       },
@@ -438,6 +439,7 @@ export default {
 
       this.addQuery(this.query, 'ev_com_socket_protocol', this.queryParams.ev_com_socket_protocol)
 
+      this.query.from = this.from - 1
       if (this.queryParams.date.length > 0) {
         this.query.query.bool.must.push({
           range: {
