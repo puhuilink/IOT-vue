@@ -1,107 +1,77 @@
 <template>
   <div class="app-container">
-    <echarts
-      :event-type="2"
-      @getquery="uploadData"
-    />
-    <eventTrend
-      :query="query"
-      :event-type="2"
-      :name="'Jiangwoodcreep'"
-    />
-    <eventType
-      :query="query"
-      :type="'severity'"
-      :name="'Jiangwoodcreep'"
-    />
-    <wordcloud
-      :query="query"
-      :type="2"
-      :name="'Jiangwoodcreep'"
-    />
-    <eventType
-      :query="query"
-      :tipname="'事件状态处置图'"
-      :type="'procedure'"
-      :name="'Jiangwoodcreep'"
-    />
+    <echarts :event-type="2"
+             @getquery="uploadData" />
+    <eventTrend :query="query"
+                :event-type="2"
+                :name="'Jiangwoodcreep'" />
+    <eventType :query="query"
+               :type="'severity'"
+               :name="'Jiangwoodcreep'" />
+    <wordcloud :query="query"
+               :type="2"
+               :name="'Jiangwoodcreep'" />
+    <eventType :query="query"
+               :tipname="'事件状态处置图'"
+               :type="'procedure'"
+               :name="'Jiangwoodcreep'" />
     <el-col :span="24">
       <tip> 最新僵木蠕事件 </tip>
-      <el-table
-        :data="groupList"
-        tooltip-effect="light"
-        height="300"
-      >
-        <el-table-column
-          label="源IP"
-          align="center"
-          prop="attackerIp"
-          :show-overflow-tooltip="true"
-        />
-        <el-table-column
-          label="目的IP"
-          align="center"
-          prop="victimIp"
-          :show-overflow-tooltip="true"
-        />
-        <el-table-column
-          label="事件名称"
-          align="center"
-          prop="eventName"
-          :show-overflow-tooltip="true"
-        />
-        <el-table-column
-          label="威胁分类"
-          align="center"
-          prop="threatClassification"
-          :show-overflow-tooltip="true"
-        >
+      <el-table :data="List"
+                tooltip-effect="light"
+                height="300">
+        <el-table-column label="源IP"
+                         align="center"
+                         prop="_source.ev_com_socket_src_ip"
+                         :show-overflow-tooltip="true" />
+        <el-table-column label="目的IP"
+                         align="center"
+                         prop="_source.ev_com_socket_dst_ip"
+                         :show-overflow-tooltip="true" />
+        <el-table-column label="事件名称"
+                         align="center"
+                         prop="_source.event_name"
+                         :show-overflow-tooltip="true" />
+        <el-table-column label="威胁分类"
+                         align="center"
+                         prop="_source.event_format"
+                         :show-overflow-tooltip="true" />
+        <el-table-column label="事件等级"
+                         align="center"
+                         prop="severity">
           <template #default="scope">
-            <span>{{
-              translevelDic(scope.row.threatClassification)
-            }}</span>
+            <span v-if="scope.row._source.severity == null || scope.row._source.severity == ''" />
+            <span v-else>{{
+            transTypeDic(scope.row._source.severity)
+          }}</span>
           </template>
         </el-table-column>
-        <el-table-column
-          label="事件等级"
-          align="center"
-          prop="eventLevel"
-        >
-          <template #default="scope">
-            <span>{{
-              transTypeDic(scope.row.eventLevel)
-            }}</span>
-          </template>
-        </el-table-column>
-        <el-table-column
-          label="杀伤链阶段"
-          align="center"
-          prop="killingChainStage"
-          :show-overflow-tooltip="true"
-        />
-        <el-table-column
-          label="发生时间"
-          align="center"
-          prop="happenTime"
-          :show-overflow-tooltip="true"
-        />
-        <el-table-column
-          label="发现时间"
-          align="center"
-          prop="findTime"
-          :show-overflow-tooltip="true"
-        />
-        <el-table-column
-          label="区域"
-          align="center"
-          prop="region"
-          :show-overflow-tooltip="true"
-        />
+        <el-table-column label="杀伤链阶段"
+                         align="center"
+                         prop="_source.ev_ksec_killchainCN"
+                         :show-overflow-tooltip="true" />
+        <el-table-column label="处置状态"
+                         align="center"
+                         prop="_source.procedure"
+                         :show-overflow-tooltip="true" />
+        <el-table-column label="发生时间"
+                         align="center"
+                         prop="_source.occur_time"
+                         :show-overflow-tooltip="true" />
+        <el-table-column label="发现时间"
+                         align="center"
+                         prop="_source.receive_time"
+                         :show-overflow-tooltip="true" />
+        <el-table-column label="区域"
+                         align="center"
+                         prop="_source.location"
+                         :show-overflow-tooltip="true" />
       </el-table>
     </el-col>
   </div>
 </template>
 <script>
+import { getbaseJiangTableData } from '@/utils/request'
 import echarts from '@/components/Echarts/searchBar'
 import eventTrend from '@/components/Echarts/eventTrend'
 import eventType from '@/components/Echarts/eventType'
@@ -111,26 +81,35 @@ import { zombieList } from '@/api/system/list'
 export default {
   components: { echarts, eventTrend, eventType, wordcloud, tip },
   props: [],
-  data() {
+  data () {
     return { // 查询参数
+      List: [],
       queryParams: {
         pageNum: 1,
         pageSize: 10
       },
       policitalStatus: ['1'],
-      query: {},
+      query: {
+        query: {
+          bool: {
+            must: []
+          }
+        },
+        sort: [{ 'occur_time': { order: 'desc' } }],
+        from: 0,
+      },
       groupList: []
     }
   },
   computed: {},
   watch: {},
-  created() {
+  created () {
     this.getList()
   },
-  mounted() {
+  mounted () {
   },
   methods: {
-    translevelDic(val) {
+    translevelDic (val) {
       var t = [{
         'label': '僵尸网络',
         'value': 'Botnet'
@@ -150,7 +129,7 @@ export default {
         }))
       return `${orgTreeData[0].label}`
     },
-    transTypeDic(val) {
+    transTypeDic (val) {
       var t = [{
         name: '1',
         content: '极低'
@@ -173,13 +152,19 @@ export default {
         }))
       return `${orgTreeData1[0].content}`
     },
-    async getList() {
-      this.loading = true
-      const res = await zombieList(this.queryParams)
-      this.groupList = res.rows
-      this.loading = false
+    async getList () {
+      // this.loading = true
+      // const res = await zombieList(this.queryParams)
+      // this.groupList = res.rows
+      // this.loading = false
+      getbaseJiangTableData(this.query).then(res => {
+        this.query.query.bool.must = []
+        this.groupList = []
+        this.total = res.data.hits.total
+        this.List = res.data.hits.hits
+      })
     },
-    uploadData(data) {
+    uploadData (data) {
       this.query = data
     }
   }

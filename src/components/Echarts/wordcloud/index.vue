@@ -6,12 +6,12 @@
   </el-col>
 </template>
 <script>
+import { getbaseJiangTableData, getHostSecurityData } from '@/utils/request'
 import tip from '@/components/EchartsTip'
 import { setNotopt } from '@/utils/emptyEcharts.js'
 import { eventNameEcharts, CreepthreatEcharts } from '@/api/system/echarts'
 import '@/components/Echarts/echarts-wordcloud.min.js'
 import { EventNameWordCloudMap } from '@/api/system/echarts'
-import { getbaseJiangTableData, getHostSecurityData } from '@/utils/request'
 export default {
   name: 'wordcloud',
   components: { tip },
@@ -94,16 +94,25 @@ export default {
     async getData () {
       if (this.host) {
         await getHostSecurityData(this.queryParms).then(({ data }) => {
+          console.log('4-13-词云图数据', data)
           this.hasData = data.aggregations.field.buckets
           this.datacopy = this.transDic(data.aggregations.field.buckets)
+          console.log('4-13-this.datacopy', this.datacopy)
         })
       } else {
         switch (this.name) {
           case 'Jiangwoodcreep':
             await getbaseJiangTableData(this.queryParms).then(({ data }) => {
-              console.log(data);
+              // console.log('4-13-词云图数据', data)
               this.hasData = data.aggregations.field.buckets
               this.datacopy = this.transDic(data.aggregations.field.buckets)
+              // console.log('4-13-this.datacopy', this.datacopy)
+            })
+            break
+          case 'event':
+            await eventNameEcharts(this.queryParms).then(({ data }) => {
+              this.hasData = data
+              this.datacopy = this.transDic(data)
             })
             break
           default:

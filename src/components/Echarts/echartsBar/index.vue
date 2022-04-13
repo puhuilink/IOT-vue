@@ -2,10 +2,12 @@
 <template>
   <el-col :span="12">
     <tip>{{ tipname }}</tip>
-    <div ref="canvas1" style="height: 400px" />
+    <div ref="canvas1"
+         style="height: 400px" />
   </el-col>
 </template>
 <script>
+import { getWeakPasswordData } from '@/utils/request'
 import { setNotopt } from '@/utils/emptyEcharts.js'
 import tip from '@/components/EchartsTip'
 import { selectAgreementEcharts } from '@/api/system/echarts'
@@ -26,17 +28,31 @@ export default {
       type: Object
     }
   },
-  data() {
+  data () {
     return {
       hasData: [],
       queryParms: {
-      }
+        query: {
+          bool: {
+            must: [
+            ]
+          }
+        },
+        aggs: {
+          field: {
+            terms: {
+              field: "detail_protocol",
+              size: 5
+            }
+          }
+        }
+      },
     }
   },
   computed: {},
   watch: {
     query: {
-      handler(val, oldVal) {
+      handler (val, oldVal) {
         this.queryParms = this.query
         if (val !== oldVal) {
           this.getData()
@@ -46,26 +62,27 @@ export default {
       deep: true
     }
   },
-  created() {
+  created () {
     this.getData()
   },
-  mounted() {
+  mounted () {
     this.drawPolicitalStatus()
   },
   methods: {
-    transDic(data) {
+    transDic (data) {
       var area = []
       data.forEach((item) => {
         area.push(item)
       })
       return area
     },
-    async  getData() {
+    async getData () {
       switch (this.name) {
         case 'weakPassword':
-          await selectAgreementEcharts(this.queryParms).then(({ data }) => {
-            this.hasData = data
-            this.data1 = this.transDic(data)
+          await getWeakPasswordData(this.queryParms).then(({ data }) => {
+            console.log('4-13-getWeakPasswordData', data)
+            this.hasData = data.aggregations.field.buckets
+            this.data1 = this.transDic(data.aggregations.field.buckets)
           })
           break
         default:
@@ -74,7 +91,7 @@ export default {
       }
       this.drawPolicitalStatus()
     },
-    drawPolicitalStatus() {
+    drawPolicitalStatus () {
       if (this.hasData.length) {
         // 基于准备好的dom，初始化echarts实例
         const myChart = this.$echarts.init(this.$refs.canvas1)
@@ -132,7 +149,7 @@ export default {
                 },
                 normal: {
                   barBorderRadius: 7,
-                  color: function(params) {
+                  color: function (params) {
                     return new echarts.graphic.LinearGradient(0, 0.4, 0.8, 1, [
                       { offset: 0, color: '#2A86E3' },
                       { offset: 1, color: '#48A3F1' }
@@ -153,7 +170,7 @@ export default {
             }
           ]
         })
-        window.addEventListener('resize', function() {
+        window.addEventListener('resize', function () {
           myChart.resize()
         })
       } else {
@@ -167,5 +184,4 @@ export default {
 
 </script>
 <style lang="scss" scoped>
-
 </style>

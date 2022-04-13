@@ -1,10 +1,12 @@
 <template>
   <el-col :span="12">
     <tip>{{ tipname }}</tip>
-    <div ref="canvas1" style="height: 400px;" />
+    <div ref="canvas1"
+         style="height: 400px;" />
   </el-col>
 </template>
 <script>
+import { getIndustrialNetworkAuditData } from '@/utils/request'
 import { setNotopt } from '@/utils/emptyEcharts.js'
 import { quickSort } from '@/utils/hexColorValueOrdering.js'
 import { industrialNetworkAuditsourceIpEcharts, industrialNetworkAudittargetIpEcharts } from '@/api/system/echarts'
@@ -26,12 +28,26 @@ export default {
       type: Object
     }
   },
-  data() {
+  data () {
     return {
       policitalStatus: ['1'],
       barData: [],
       hasData: [],
       queryParms: {
+        query: {
+          bool: {
+            must: [
+            ]
+          }
+        },
+        aggs: {
+          field: {
+            terms: {
+              field: "detail_src_ip",
+              size: 5
+            }
+          }
+        }
       },
       category: [],
       title: ''
@@ -40,7 +56,7 @@ export default {
   computed: {},
   watch: {
     query: {
-      handler(val, oldVal) {
+      handler (val, oldVal) {
         this.queryParms = this.query
         if (val !== oldVal) {
           this.getData()
@@ -50,34 +66,47 @@ export default {
       deep: true
     }
   },
-  created() {
+  created () {
     this.getData()
   },
-  mounted() {
+  mounted () {
     this.drawPolicitalStatus()
   },
   methods: {
-    transDicName(data) {
+    transDic (data) {
+      var arr = data
+      var arrNew = []
+      arrNew = arr.map((item) => {
+        return {
+          value: item.doc_count,
+          name: item.key
+        }
+      })
+      return arrNew
+    },
+    transDicName (data) {
       var area = []
       data.forEach((item) => {
-        area.push(item.name)
+        area.push(item.key)
       })
       return area
     },
-    transDicCount(data) {
+    transDicCount (data) {
       var area = []
       data.forEach((item) => {
-        area.push(item.count)
+        area.push(item.doc_count)
       })
       return area
     },
-    async  getData() {
+    async getData () {
       switch (this.type) {
         case 1:
-          await industrialNetworkAuditsourceIpEcharts(this.queryParms).then(({ data }) => {
-            this.hasData = data
-            this.category = this.transDicName(data)
-            this.barData = this.transDicCount(data)
+          await getIndustrialNetworkAuditData(this.queryParms).then(({ data }) => {
+            console.log('4-13-getWeakPasswordData', data)
+            this.hasData = data.aggregations.field.buckets
+            // this.data1 = this.transDic(data.aggregations.field.buckets)
+            this.category = this.transDicName(data.aggregations.field.buckets)
+            this.barData = this.transDicCount(data.aggregations.field.buckets)
           })
           break
         case 2:
@@ -93,7 +122,7 @@ export default {
       }
       this.drawPolicitalStatus()
     },
-    drawPolicitalStatus() {
+    drawPolicitalStatus () {
       if (this.hasData.length) {
         // 基于准备好的dom，初始化echarts实例
         const myChart = this.$echarts.init(this.$refs.canvas1)
@@ -162,7 +191,7 @@ export default {
                 },
                 normal: {
                   barBorderRadius: 0,
-                  color: function(params) {
+                  color: function (params) {
                     var colorList = ['#1890FF', '#B592E4', '#F0B144', '#FF8745', '#F73030', '#43A682', '#ca8622']
                     var newcolorList = quickSort(colorList)
                     return newcolorList[params.dataIndex]
@@ -172,7 +201,7 @@ export default {
             }
           ]
         })
-        window.addEventListener('resize', function() {
+        window.addEventListener('resize', function () {
           myChart.resize()
         })
       } else {

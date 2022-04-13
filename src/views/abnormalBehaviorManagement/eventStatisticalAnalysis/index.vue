@@ -9,7 +9,7 @@
     <eventType :tipname="'事件等级分布'"
                :query="query"
                :name="'abnormal'"
-               :type="1" />
+               :type="'severity'" />
     <!-- <pieChartThreats :address="address"/> -->
     <!-- <pieChartDisposal :tipname="'事件等级分布'"
                       :query="query"
