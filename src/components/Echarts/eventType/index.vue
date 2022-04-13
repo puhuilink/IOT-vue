@@ -9,7 +9,7 @@
 </template>
 <script>
 import { setNotopt } from '@/utils/emptyEcharts.js'
-
+import { getWeakPasswordData,getbaseJiangTableData,getIndustrialNetworkAuditData } from '@/utils/request'
 import { eventStatusEcharts, scanninghostEcharts, eventTypeEcharts, industrialNetworkAuditeventLevelEcharts, dataSecurityManagementEcharts, policyNameEcharts, recipientEcharts, eventLevelEcharts, CreepeventNameEcharts, EventTypeDistribution, abnormalEventLevelDistribution, EventLevelDistribution, CreepdisposalStatuEcharts, selectEventLevelEcharts, selectDisposalStatusEcharts, EventStatusDispositionDiagram, eventCategoryEcharts, scanningEcharts, scanningeventStatusEcharts } from '@/api/system/echarts'
 
 import tip from '@/components/EchartsTip'
@@ -27,7 +27,7 @@ export default {
     },
     type: { // tip内容
       default: null,
-      type: Number
+      type:String
     },
     query: {
       default: null,
@@ -40,6 +40,20 @@ export default {
       datacopy: [],
       assetsData: [],
       queryParms: {
+             query: {
+        bool: {
+            must: [
+            ]
+        }
+    },
+    aggs: {
+        field: {
+            terms: {
+                field: "",
+                size: 10
+            }
+        }
+    }
       },
       hasData: []
     }
@@ -47,17 +61,17 @@ export default {
   computed: {},
   watch: {
     query: {
-      handler(val, oldVal) {
-        this.queryParms = this.query
+        handler(val, oldVal) {
         if (val !== oldVal) {
           this.getData()
           this.drawPolicitalStatus()
         }
       },
       deep: true
-    }
+    },
   },
   created() {
+    this.getType()
     this.getData()
   },
 
@@ -68,33 +82,32 @@ export default {
   methods: {
     transTypeDic(data) {
       var t = [{
-        name: '1',
+        key: '1',
         content: '极低'
       }, {
-        name: '2',
+        key: '2',
         content: '低危'
       }, {
-        name: '3',
+        key: '3',
         content: '中危'
       }, {
-        name: '4',
+        key: '4',
         content: '高危'
       }, {
-        name: '5',
+        key: '5',
         content: '致命'
       }]
       var arr = data
       var arrNew = []
       var area = []
       data.forEach((item) => {
-        area.push(item.name)
+        area.push(item.key)
       })
       arr.map(r => {
         t.map(d => {
-          if (r.name === d.name) {
-            console.log(r, d)
+          if (r.key === d.key) {
             arrNew.push({
-              value: r.count,
+              value: r.doc_count,
               name: d.content
             })
           }
@@ -105,139 +118,139 @@ export default {
     transDic(data) {
       var arr = data
       var arrNew = []
-      var area = []
-      data.forEach((item) => {
-        area.push(item.name)
-      })
       arrNew = arr.map((item) => {
         return {
-          value: item.count,
-          name: item.name
+          value: item.doc_count,
+          name: item.key
         }
       })
       return arrNew
     },
+    getType(){
+     this.queryParms.aggs.field.terms.field = this.type
+    },
     async getData() {
+        //根据type值进行不同的参数区分
       switch (this.type) {
-        case 1:
+        //事件等级
+        case 'severity':
           switch (this.name) {
+             case 'weakPassword':
+              // 弱口令
+             await getWeakPasswordData(this.queryParms).then(({ data }) => {
+                this.hasData =data.aggregations.field.buckets
+                this.datacopy = this.transTypeDic(data.aggregations.field.buckets)
+              })
+              break
             case 'Jiangwoodcreep':
-              await CreepeventNameEcharts(this.queryParms).then(({ data }) => {
-                this.hasData = data
-                this.datacopy = this.transDic(data)
+               // 僵木蠕
+              await getbaseJiangTableData(this.queryParms).then(({ data }) => {
+                this.hasData =data.aggregations.field.buckets
+                this.datacopy = this.transTypeDic(data.aggregations.field.buckets)
               })
               break
-            case 'host':
-              await EventTypeDistribution(this.queryParms).then(({ data }) => {
-                this.hasData = data
-                this.datacopy = this.transDic(data)
-              })
-              break
-            case 'abnormal':
-              await abnormalEventLevelDistribution(this.queryParms).then(({ data }) => {
-                this.hasData = data
-                this.datacopy = this.transDic(data)
-              })
-              break
-            case 'statisticalSnalysis':
-              await EventLevelDistribution(this.queryParms).then(({ data }) => {
-                this.hasData = data
-                this.datacopy = this.transTypeDic(data)
-              })
-              break
-            case 'dataSafe':
-              await dataSecurityManagementEcharts(this.queryParms).then(({ data }) => {
-                this.hasData = data
-                this.datacopy = this.transTypeDic(data)
-              })
-              break
-            case 'event':
-              await eventTypeEcharts(this.queryParms).then(({ data }) => {
-                this.hasData = data
-                this.datacopy = this.transDic(data)
-              })
-              break
+            // case 'host':
+            //   await EventTypeDistribution(this.queryParms).then(({ data }) => {
+            //     this.hasData = data
+            //     this.datacopy = this.transDic(data)
+            //   })
+            //   break
+            // case 'abnormal':
+            //   await abnormalEventLevelDistribution(this.queryParms).then(({ data }) => {
+            //     this.hasData = data
+            //     this.datacopy = this.transDic(data)
+            //   })
+            //   break
+            // case 'statisticalSnalysis':
+            //   await EventLevelDistribution(this.queryParms).then(({ data }) => {
+            //     this.hasData = data
+            //     this.datacopy = this.transTypeDic(data)
+            //   })
+            //   break
+            // case 'dataSafe':
+            //   await dataSecurityManagementEcharts(this.queryParms).then(({ data }) => {
+            //     this.hasData = data
+            //     this.datacopy = this.transTypeDic(data)
+            //   })
+            //   break
+            // case 'event':
+            //   await eventTypeEcharts(this.queryParms).then(({ data }) => {
+            //     this.hasData = data
+            //     this.datacopy = this.transDic(data)
+            //   })
+            //   break
             case 'design':
               // 工业审计
-              await eventCategoryEcharts(this.queryParms).then(({ data }) => {
-                this.hasData = data
-                this.datacopy = this.transDic(data)
+               await getIndustrialNetworkAuditData(this.queryParms).then(({ data }) => {
+                this.hasData =data.aggregations.field.buckets
+                this.datacopy = this.transTypeDic(data.aggregations.field.buckets)
               })
               break
-            // case 'assets':
-            //   // 资产统计
-            //   this.assetsData = [
-            //     { value: 1754, name: '工作主机' },
-            //     { value: 2272, name: '服务器' },
-            //     { value: 372, name: '网络设备' },
-            //     { value: 6999, name: '安全设备' },
-            //     { value: 45, name: '存储设备' }
-            //   ]
-            //   this.datacopy = this.transDic(this.assetsData)
+            // case 'assetsOne':
+            //   await EventStatusDispositionDiagram(this.queryParms).then(({ data }) => {
+            //     this.hasData = [
+            //       { count: 1754, name: '工作主机' },
+            //       { count: 2272, name: '服务器' },
+            //       { count: 372, name: '网络设备' },
+            //       { count: 6999, name: '安全设备' },
+            //       { count: 45, name: '存储设备' }
+            //     ]
+            //     this.datacopy = this.transDic(this.hasData)
+            //   })
             //   break
-            case 'assetsOne':
-              await EventStatusDispositionDiagram(this.queryParms).then(({ data }) => {
-                this.hasData = [
-                  { count: 1754, name: '工作主机' },
-                  { count: 2272, name: '服务器' },
-                  { count: 372, name: '网络设备' },
-                  { count: 6999, name: '安全设备' },
-                  { count: 45, name: '存储设备' }
-                ]
-                this.datacopy = this.transDic(this.hasData)
-              })
-              break
-            case 'assetsTwo':
-              await EventStatusDispositionDiagram(this.queryParms).then(({ data }) => {
-                this.hasData = [
-                  { count: 2460, name: 'Windows' },
-                  { count: 1352, name: 'Linux' }
-                ]
-                this.datacopy = this.transDic(this.hasData)
-              })
-              break
-            case 'assetsThree':
-              await EventStatusDispositionDiagram(this.queryParms).then(({ data }) => {
-                this.hasData = [
-                  { count: 145, name: 'LTE系统' },
-                  { count: 123, name: '安全设备' },
-                  { count: 100, name: '网络设备' },
-                  { count: 236, name: 'PLC控制器' },
-                  { count: 370, name: '服务器' }
-                ]
-                this.datacopy = this.transDic(this.hasData)
-              })
-              break
-            case 'assetsFour':
-              await EventStatusDispositionDiagram(this.queryParms).then(({ data }) => {
-                this.hasData = [
-                  { count: 126, name: 'ModBus协议' },
-                  { count: 97, name: 'OPC协议' },
-                  { count: 83, name: 'ProfiBus协议' },
-                  { count: 64, name: 'DNP3协议' },
-                  { count: 51, name: 'CIP协议' }
-                ]
-                this.datacopy = this.transDic(this.hasData)
-              })
-              break
+            // case 'assetsTwo':
+            //   await EventStatusDispositionDiagram(this.queryParms).then(({ data }) => {
+            //     this.hasData = [
+            //       { count: 2460, name: 'Windows' },
+            //       { count: 1352, name: 'Linux' }
+            //     ]
+            //     this.datacopy = this.transDic(this.hasData)
+            //   })
+            //   break
+            // case 'assetsThree':
+            //   await EventStatusDispositionDiagram(this.queryParms).then(({ data }) => {
+            //     this.hasData = [
+            //       { count: 145, name: 'LTE系统' },
+            //       { count: 123, name: '安全设备' },
+            //       { count: 100, name: '网络设备' },
+            //       { count: 236, name: 'PLC控制器' },
+            //       { count: 370, name: '服务器' }
+            //     ]
+            //     this.datacopy = this.transDic(this.hasData)
+            //   })
+            //   break
+            // case 'assetsFour':
+            //   await EventStatusDispositionDiagram(this.queryParms).then(({ data }) => {
+            //     this.hasData = [
+            //       { count: 126, name: 'ModBus协议' },
+            //       { count: 97, name: 'OPC协议' },
+            //       { count: 83, name: 'ProfiBus协议' },
+            //       { count: 64, name: 'DNP3协议' },
+            //       { count: 51, name: 'CIP协议' }
+            //     ]
+            //     this.datacopy = this.transDic(this.hasData)
+            //   })
+            //   break
             default:
               console.log('这里是项目类型', this.name)
               break
           }
           break
-        case 2:
+          //处置状态
+        case 'procedure':
           switch (this.name) {
             case 'Jiangwoodcreep':
-              await CreepdisposalStatuEcharts(this.queryParms).then(({ data }) => {
-                this.hasData = data
-                this.datacopy = this.transDic(data)
+              // 僵木蠕
+             await getbaseJiangTableData(this.queryParms).then(({ data }) => {
+                this.hasData =data.aggregations.field.buckets
+                this.datacopy = this.transDic(data.aggregations.field.buckets)
               })
               break
             case 'weakPassword':
               // 弱口令
-              await selectDisposalStatusEcharts(this.queryParms).then(({ data }) => {
-                this.hasData = data
-                this.datacopy = this.transDic(data)
+               await getWeakPasswordData(this.queryParms).then(({ data }) => {
+                this.hasData =data.aggregations.field.buckets
+                this.datacopy = this.transDic(data.aggregations.field.buckets)
               })
               break
             case 'host':
@@ -265,42 +278,21 @@ export default {
               console.log('这里是项目类型', this.name)
               break
           }
-
-          break
-        case 3:
-          // 僵木蠕
+             break
+         //事件类型
+         case 'event_format':
           switch (this.name) {
-            case 'Jiangwoodcreep':
-              await CreepeventNameEcharts(this.queryParms).then(({ data }) => {
-                this.hasData = data
-                this.datacopy = this.transDic(data)
-              })
-              break
-            case 'vulnerablity':
-              await scanningeventStatusEcharts(this.queryParms).then(({ data }) => {
-                this.hasData = data
-                this.datacopy = this.transDic(data)
-              })
-              break
-            default:
-              console.log('这里是项目类型', this.name)
-              break
-          }
-
-          break
-        case 4:
-          switch (this.name) {
-            case 'dataSafe':
-              await eventLevelEcharts(this.queryParms).then(({ data }) => {
-                this.hasData = data
-                this.datacopy = this.transTypeDic(data)
+            case 'design':
+                await getIndustrialNetworkAuditData(this.queryParms).then(({ data }) => {
+                this.hasData =data.aggregations.field.buckets
+                this.datacopy = this.transDic(data.aggregations.field.buckets)
               })
               break
             case 'weakPassword':
               // 弱口令
-              await selectEventLevelEcharts(this.queryParms).then(({ data }) => {
-                this.hasData = data
-                this.datacopy = this.transTypeDic(data)
+             await getWeakPasswordData(this.queryParms).then(({ data }) => {
+                this.hasData =data.aggregations.field.buckets
+                this.datacopy = this.transTypeDic(data.aggregations.field.buckets)
               })
               break
             case 'vulnerablity':
@@ -313,9 +305,9 @@ export default {
               console.log('这里是项目类型', this.name)
               break
           }
-
           break
-        case 5:
+         //统计事件分析
+       case 4:
           switch (this.name) {
             case 'dataSafe':
               await policyNameEcharts(this.queryParms).then(({ data }) => {
@@ -334,7 +326,8 @@ export default {
               break
           }
           break
-        case 6:
+       //威胁分类
+        case 5:
           switch (this.name) {
             case 'dataSafe':
               await recipientEcharts(this.queryParms).then(({ data }) => {
