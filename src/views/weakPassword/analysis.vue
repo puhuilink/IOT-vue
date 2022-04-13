@@ -1,32 +1,69 @@
 <template>
   <div class="app-container">
     <!-- <echarts :event-type="1" @getquery="uploadData" /> -->
-    <eventTrend :query="query" :event-type="1" :name="'weakPassword'" />
-    <eventType :tipname="'事件等级分布'" :type="'severity'" :query="query" :name="'weakPassword'" />
-    <echartsBar :tipname="'攻击者TOP5统计'" :query="query" :name="'weakPassword'" />
-    <eventType :tipname="'事件状态处置图'" :query="query" :type="'procedure'" :name="'weakPassword'" />
+    <eventTrend :query="query"
+                :event-type="1"
+                :name="'weakPassword'" />
+    <eventType :tipname="'事件等级分布'"
+               :type="'severity'"
+               :query="query"
+               :name="'weakPassword'" />
+    <echartsBar :tipname="'协议TOP5统计'"
+                :query="query"
+                :name="'weakPassword'" />
+    <eventType :tipname="'事件状态处置图'"
+               :query="query"
+               :type="'procedure'"
+               :name="'weakPassword'" />
     <el-col :span="24">
       <tip> 最新弱口令事件 </tip>
-      <el-table :data="groupList" tooltip-effect="light" height="300">
-        <el-table-column label="资产名称" align="center" prop="assetName" :show-overflow-tooltip="true" min-width="15%" />
-        <el-table-column label="IP地址" align="center" prop="ipAddress" :show-overflow-tooltip="true" min-width="15%" />
-        <el-table-column label="协议" align="center" prop="agreement" :show-overflow-tooltip="true" min-width="15%" />
-        <el-table-column label="端口" align="center" prop="port" :show-overflow-tooltip="true" min-width="15%" />
-        <el-table-column
-          label="事件等级"
-          align="center"
-          prop="eventLevel"
-          min-width="10%"
-        >
+      <el-table :data="groupList"
+                tooltip-effect="light"
+                height="300">
+        <el-table-column label="资产名称"
+                         align="center"
+                         prop="assetName"
+                         :show-overflow-tooltip="true"
+                         min-width="15%" />
+        <el-table-column label="IP地址"
+                         align="center"
+                         prop="ipAddress"
+                         :show-overflow-tooltip="true"
+                         min-width="15%" />
+        <el-table-column label="协议"
+                         align="center"
+                         prop="agreement"
+                         :show-overflow-tooltip="true"
+                         min-width="15%" />
+        <el-table-column label="端口"
+                         align="center"
+                         prop="port"
+                         :show-overflow-tooltip="true"
+                         min-width="15%" />
+        <el-table-column label="事件等级"
+                         align="center"
+                         prop="eventLevel"
+                         min-width="10%">
           <template #default="scope">
             <span>{{
               transTypeDic(scope.row.eventLevel)
             }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="处置状态" align="center" prop="disposalStatus" min-width="8%" />
-        <el-table-column label="发生时间" align="center" prop="findTime" :show-overflow-tooltip="true" min-width="15%" />
-        <el-table-column label="区域" align="center" prop="region" :show-overflow-tooltip="true" min-width="15%" />
+        <el-table-column label="处置状态"
+                         align="center"
+                         prop="disposalStatus"
+                         min-width="8%" />
+        <el-table-column label="发生时间"
+                         align="center"
+                         prop="findTime"
+                         :show-overflow-tooltip="true"
+                         min-width="15%" />
+        <el-table-column label="区域"
+                         align="center"
+                         prop="region"
+                         :show-overflow-tooltip="true"
+                         min-width="15%" />
 
       </el-table>
     </el-col>
@@ -43,7 +80,7 @@ export default {
   name: 'Index',
   components: { echarts, eventTrend, eventType, echartsBar, tip },
   props: [],
-  data() {
+  data () {
     return {
       query: {
       },
@@ -53,13 +90,13 @@ export default {
   computed: {},
   watch: {
   },
-  created() {
+  created () {
     this.getList()
   },
-  mounted() {
+  mounted () {
   },
   methods: {
-    transTypeDic(val) {
+    transTypeDic (val) {
       var t = [{
         name: '1',
         content: '极低'
@@ -82,7 +119,7 @@ export default {
         }))
       return `${orgTreeData1[0].content}`
     },
-    async getList() {
+    async getList () {
       this.loading = true
       const res = await weakList(this.queryParams)
       this.groupList = res.rows

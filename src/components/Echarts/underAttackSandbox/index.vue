@@ -7,7 +7,7 @@
   </el-col>
 </template>
 <script>
-import { getUnderAttackSandboxData } from '@/utils/request'
+import { getElasticDate } from '@/utils/request'
 import { setNotopt } from "@/utils/emptyEcharts.js";
 import tip from "@/components/EchartsTip";
 import echarts from "echarts";
@@ -36,18 +36,18 @@ export default {
   },
   data () {
     return {
-      querys: {
-        size: 0,
+      queryParms: {
         query: {
-          match: {
-            cmdb_kpi_name: "ev_msec_asset_name"
+          bool: {
+            must: [
+            ]
           }
         },
         aggs: {
-          corp_name_agg: {
+          field: {
             terms: {
-              field: "value",
-              size: 10
+              field: "ev_msec_asset_name",
+              size: 5
             }
           }
         }
@@ -96,15 +96,15 @@ export default {
       return area
     },
     async getAnalysisData () {
-      await getUnderAttackSandboxData(this.querys).then(res => {
-        console.log('4-12-res', res.data.aggregations.corp_name_agg.buckets)
-        this.hasData = res.data.aggregations.corp_name_agg.buckets
-        // this.AnalysisData = res.data.aggregations.corp_name_agg.buckets
-        if (res.data.aggregations.corp_name_agg.buckets.length) {
-          this.category = this.transDicName(res.data.aggregations.corp_name_agg.buckets)
-          this.barData = this.transDicCount(res.data.aggregations.corp_name_agg.buckets)
-          console.log('this.category', this.category)
-          console.log('this.barData', this.barData)
+      await getElasticDate(this.queryParms).then(res => {
+        console.log('4-13-res', res)
+        this.hasData = res.data.aggregations.field.buckets
+        // this.AnalysisData = res.data.aggregations.field.buckets
+        if (res.data.aggregations.field.buckets.length) {
+          this.category = this.transDicName(res.data.aggregations.field.buckets)
+          this.barData = this.transDicCount(res.data.aggregations.field.buckets)
+          console.log('4-13-this.category', this.category)
+          console.log('4-13-this.barData', this.barData)
         } else {
           this.category = []
           this.barData = []

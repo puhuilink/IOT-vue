@@ -1,13 +1,12 @@
 <template>
   <el-col :span="12">
     <tip>{{ tipname }}</tip>
-    <div
-      ref="canvas1"
-      style="height: 400px"
-    />
+    <div ref="canvas1"
+         style="height: 400px" />
   </el-col>
 </template>
 <script>
+import { getbaseJiangTableData, getHostSecurityData } from '@/utils/request'
 import tip from '@/components/EchartsTip'
 import { setNotopt } from '@/utils/emptyEcharts.js'
 import { eventNameEcharts, CreepthreatEcharts } from '@/api/system/echarts'
@@ -37,17 +36,31 @@ export default {
       type: Number
     }
   },
-  data() {
+  data () {
     return {
       hasData: [],
       queryParms: {
-      }
+        query: {
+          bool: {
+            must: [
+            ]
+          }
+        },
+        aggs: {
+          field: {
+            terms: {
+              field: "event_name",
+              size: 10
+            }
+          }
+        }
+      },
     }
   },
   computed: {},
   watch: {
     query: {
-      handler(val, oldVal) {
+      handler (val, oldVal) {
         this.queryParms = this.query
         if (val !== oldVal) {
           this.getData()
@@ -57,14 +70,14 @@ export default {
       deep: true
     }
   },
-  created() {
+  created () {
     this.getData()
   },
-  mounted() {
+  mounted () {
     this.drawPolicitalStatus()
   },
   methods: {
-    transDic(data) {
+    transDic (data) {
       var arr = data
       var arrNew = []
       var area = []
@@ -73,24 +86,28 @@ export default {
       })
       arrNew = arr.map((item) => {
         return {
-          value: item.count,
-          name: item.name
+          value: item.doc_count,
+          name: item.key
         }
       })
       return arrNew
     },
-    async getData() {
+    async getData () {
       if (this.host) {
-        await EventNameWordCloudMap(this.queryParms).then(({ data }) => {
-          this.hasData = data
-          this.datacopy = this.transDic(data)
+        await getHostSecurityData(this.queryParms).then(({ data }) => {
+          console.log('4-13-词云图数据', data)
+          this.hasData = data.aggregations.field.buckets
+          this.datacopy = this.transDic(data.aggregations.field.buckets)
+          console.log('4-13-this.datacopy', this.datacopy)
         })
       } else {
         switch (this.name) {
           case 'Jiangwoodcreep':
-            await CreepthreatEcharts(this.queryParms).then(({ data }) => {
-              this.hasData = data
-              this.datacopy = this.transDic(data)
+            await getbaseJiangTableData(this.queryParms).then(({ data }) => {
+              // console.log('4-13-词云图数据', data)
+              this.hasData = data.aggregations.field.buckets
+              this.datacopy = this.transDic(data.aggregations.field.buckets)
+              // console.log('4-13-this.datacopy', this.datacopy)
             })
             break
           case 'event':
@@ -106,7 +123,7 @@ export default {
       }
       this.drawPolicitalStatus()
     },
-    drawPolicitalStatus() {
+    drawPolicitalStatus () {
       if (this.hasData.length) {
         // 基于准备好的dom，初始化echarts实例
         const myChart = this.$echarts.init(this.$refs.canvas1)
@@ -121,15 +138,15 @@ export default {
             shape: 'circle',
             textStyle: {
               normal: {
-                color: function() {
+                color: function () {
                   return (
                     'rgb(' +
-              [
-                Math.round(Math.random() * 160),
-                Math.round(Math.random() * 160),
-                Math.round(Math.random() * 160)
-              ].join(',') +
-              ')'
+                    [
+                      Math.round(Math.random() * 160),
+                      Math.round(Math.random() * 160),
+                      Math.round(Math.random() * 160)
+                    ].join(',') +
+                    ')'
                   )
                 }
               },
@@ -141,7 +158,7 @@ export default {
             data: this.datacopy
           }]
         })
-        window.addEventListener('resize', function() {
+        window.addEventListener('resize', function () {
           myChart.resize()
         })
       } else {

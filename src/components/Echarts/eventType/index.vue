@@ -1,15 +1,13 @@
 <template>
   <el-col :span="12">
     <tip>{{ tipname }}</tip>
-    <div
-      ref="canvas1"
-      style="height: 400px;"
-    />
+    <div ref="canvas1"
+         style="height: 400px;" />
   </el-col>
 </template>
 <script>
 import { setNotopt } from '@/utils/emptyEcharts.js'
-import { getWeakPasswordData,getbaseJiangTableData,getIndustrialNetworkAuditData } from '@/utils/request'
+import { getWeakPasswordData, getbaseJiangTableData, getIndustrialNetworkAuditData, getHostSecurityData, getAbnormalBehaviorEventRetrievalData, getElasticDate } from '@/utils/request'
 import { eventStatusEcharts, scanninghostEcharts, eventTypeEcharts, industrialNetworkAuditeventLevelEcharts, dataSecurityManagementEcharts, policyNameEcharts, recipientEcharts, eventLevelEcharts, CreepeventNameEcharts, EventTypeDistribution, abnormalEventLevelDistribution, EventLevelDistribution, CreepdisposalStatuEcharts, selectEventLevelEcharts, selectDisposalStatusEcharts, EventStatusDispositionDiagram, eventCategoryEcharts, scanningEcharts, scanningeventStatusEcharts } from '@/api/system/echarts'
 
 import tip from '@/components/EchartsTip'
@@ -27,33 +25,33 @@ export default {
     },
     type: { // tip内容
       default: null,
-      type:String
+      type: String
     },
     query: {
       default: null,
       type: Object
     }
   },
-  data() {
+  data () {
     return {
       policitalStatus: ['1'],
       datacopy: [],
       assetsData: [],
       queryParms: {
-             query: {
-        bool: {
+        query: {
+          bool: {
             must: [
             ]
-        }
-    },
-    aggs: {
-        field: {
+          }
+        },
+        aggs: {
+          field: {
             terms: {
-                field: "",
-                size: 10
+              field: "",
+              size: 10
             }
+          }
         }
-    }
       },
       hasData: []
     }
@@ -61,7 +59,7 @@ export default {
   computed: {},
   watch: {
     query: {
-        handler(val, oldVal) {
+      handler (val, oldVal) {
         if (val !== oldVal) {
           this.getData()
           this.drawPolicitalStatus()
@@ -70,17 +68,17 @@ export default {
       deep: true
     },
   },
-  created() {
+  created () {
     this.getType()
     this.getData()
   },
 
-  mounted() {
+  mounted () {
     this.drawPolicitalStatus()
   },
 
   methods: {
-    transTypeDic(data) {
+    transTypeDic (data) {
       var t = [{
         key: '1',
         content: '极低'
@@ -115,7 +113,7 @@ export default {
       })
       return arrNew
     },
-    transDic(data) {
+    transDic (data) {
       var arr = data
       var arrNew = []
       arrNew = arr.map((item) => {
@@ -126,41 +124,43 @@ export default {
       })
       return arrNew
     },
-    getType(){
-     this.queryParms.aggs.field.terms.field = this.type
+    getType () {
+      this.queryParms.aggs.field.terms.field = this.type
     },
-    async getData() {
-        //根据type值进行不同的参数区分
+    async getData () {
+      //根据type值进行不同的参数区分
       switch (this.type) {
         //事件等级
         case 'severity':
           switch (this.name) {
-             case 'weakPassword':
+            case 'weakPassword':
               // 弱口令
-             await getWeakPasswordData(this.queryParms).then(({ data }) => {
-                this.hasData =data.aggregations.field.buckets
+              await getWeakPasswordData(this.queryParms).then(({ data }) => {
+                this.hasData = data.aggregations.field.buckets
                 this.datacopy = this.transTypeDic(data.aggregations.field.buckets)
               })
               break
             case 'Jiangwoodcreep':
-               // 僵木蠕
+              // 僵木蠕
               await getbaseJiangTableData(this.queryParms).then(({ data }) => {
-                this.hasData =data.aggregations.field.buckets
+                this.hasData = data.aggregations.field.buckets
                 this.datacopy = this.transTypeDic(data.aggregations.field.buckets)
               })
               break
-            // case 'host':
-            //   await EventTypeDistribution(this.queryParms).then(({ data }) => {
-            //     this.hasData = data
-            //     this.datacopy = this.transDic(data)
-            //   })
-            //   break
-            // case 'abnormal':
-            //   await abnormalEventLevelDistribution(this.queryParms).then(({ data }) => {
-            //     this.hasData = data
-            //     this.datacopy = this.transDic(data)
-            //   })
-            //   break
+            case 'abnormal':
+              //异常行为
+              await getAbnormalBehaviorEventRetrievalData(this.queryParms).then(({ data }) => {
+                this.hasData = data.aggregations.field.buckets
+                this.datacopy = this.transTypeDic(data.aggregations.field.buckets)
+              })
+              break
+            case 'statisticalSnalysis':
+              //入侵诱捕--事件等级分布
+              await getElasticDate(this.queryParms).then(({ data }) => {
+                this.hasData = data.aggregations.field.buckets
+                this.datacopy = this.transTypeDic(data.aggregations.field.buckets)
+              })
+              break
             // case 'statisticalSnalysis':
             //   await EventLevelDistribution(this.queryParms).then(({ data }) => {
             //     this.hasData = data
@@ -181,8 +181,8 @@ export default {
             //   break
             case 'design':
               // 工业审计
-               await getIndustrialNetworkAuditData(this.queryParms).then(({ data }) => {
-                this.hasData =data.aggregations.field.buckets
+              await getIndustrialNetworkAuditData(this.queryParms).then(({ data }) => {
+                this.hasData = data.aggregations.field.buckets
                 this.datacopy = this.transTypeDic(data.aggregations.field.buckets)
               })
               break
@@ -236,27 +236,29 @@ export default {
               break
           }
           break
-          //处置状态
+        //处置状态
         case 'procedure':
           switch (this.name) {
             case 'Jiangwoodcreep':
               // 僵木蠕
-             await getbaseJiangTableData(this.queryParms).then(({ data }) => {
-                this.hasData =data.aggregations.field.buckets
+              await getbaseJiangTableData(this.queryParms).then(({ data }) => {
+                this.hasData = data.aggregations.field.buckets
+                // console.log('4-13-data.aggregations.field.buckets', data.aggregations.field.buckets)
                 this.datacopy = this.transDic(data.aggregations.field.buckets)
+                // console.log('4-13-PIEthis.datacopy', this.datacopy)
               })
               break
             case 'weakPassword':
               // 弱口令
-               await getWeakPasswordData(this.queryParms).then(({ data }) => {
-                this.hasData =data.aggregations.field.buckets
+              await getWeakPasswordData(this.queryParms).then(({ data }) => {
+                this.hasData = data.aggregations.field.buckets
                 this.datacopy = this.transDic(data.aggregations.field.buckets)
               })
               break
             case 'host':
-              await EventStatusDispositionDiagram(this.queryParms).then(({ data }) => {
-                this.hasData = data
-                this.datacopy = this.transDic(data)
+              await getHostSecurityData(this.queryParms).then(({ data }) => {
+                this.hasData = data.aggregations.field.buckets
+                this.datacopy = this.transDic(data.aggregations.field.buckets)
               })
               break
 
@@ -278,20 +280,20 @@ export default {
               console.log('这里是项目类型', this.name)
               break
           }
-             break
-         //事件类型
-         case 'event_format':
+          break
+        //事件类型
+        case 'event_format':
           switch (this.name) {
             case 'design':
-                await getIndustrialNetworkAuditData(this.queryParms).then(({ data }) => {
-                this.hasData =data.aggregations.field.buckets
+              await getIndustrialNetworkAuditData(this.queryParms).then(({ data }) => {
+                this.hasData = data.aggregations.field.buckets
                 this.datacopy = this.transDic(data.aggregations.field.buckets)
               })
               break
             case 'weakPassword':
               // 弱口令
-             await getWeakPasswordData(this.queryParms).then(({ data }) => {
-                this.hasData =data.aggregations.field.buckets
+              await getWeakPasswordData(this.queryParms).then(({ data }) => {
+                this.hasData = data.aggregations.field.buckets
                 this.datacopy = this.transTypeDic(data.aggregations.field.buckets)
               })
               break
@@ -306,9 +308,15 @@ export default {
               break
           }
           break
-         //统计事件分析
-       case 4:
+        //事件类型--主机安全页面的， 其他页面的类型不一定是这个字段
+        case 'ev_wsec_hsme_format_label':
           switch (this.name) {
+            case 'host':
+              await getHostSecurityData(this.queryParms).then(({ data }) => {
+                this.hasData = data.aggregations.field.buckets
+                this.datacopy = this.transDic(data.aggregations.field.buckets)
+              })
+              break
             case 'dataSafe':
               await policyNameEcharts(this.queryParms).then(({ data }) => {
                 this.hasData = data
@@ -326,7 +334,7 @@ export default {
               break
           }
           break
-       //威胁分类
+        //威胁分类
         case 5:
           switch (this.name) {
             case 'dataSafe':
@@ -352,7 +360,7 @@ export default {
       }
       this.drawPolicitalStatus()
     },
-    drawPolicitalStatus() {
+    drawPolicitalStatus () {
       if (this.hasData.length) {
         // 基于准备好的dom，初始化echarts实例
         const myChart = this.$echarts.init(this.$refs.canvas1)
@@ -368,7 +376,7 @@ export default {
             right: 10,
             top: 120,
             bottom: 20,
-            formatter: function(value) {
+            formatter: function (value) {
               const val = value.length > 10 ? value.substr(0, 6) + '...' + value.substr(value.length - 3, value.length - 1) : value
               return val
             }
@@ -387,7 +395,7 @@ export default {
                 normal: {
                   show: true,
                   fontSize: 14,
-                  formatter(v) {
+                  formatter (v) {
                     const text = v.name
                     const val = text.length > 10 ? text.substr(0, 6) + '...' + text.substr(text.length - 3, text.length - 1) : text
                     return val
@@ -406,7 +414,7 @@ export default {
             }
           ]
         })
-        window.addEventListener('resize', function() {
+        window.addEventListener('resize', function () {
           myChart.resize()
         })
       } else {

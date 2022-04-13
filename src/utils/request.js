@@ -13,16 +13,6 @@ export const getElasticDate = params => {
   return axios.post(`${base}`, params)
 }
 
-//入侵诱捕-分析页面-受攻击沙箱TOP5
-const baseUnderAttackSandbox = '/api/eventkpi/_search'
-
-export const getUnderAttackSandboxData = params => {
-  return axios.post(`${baseUnderAttackSandbox}`, params)
-}
-
-
-
-
 
 // 主机安全
 const baseHostSecurity = '/api/event_hsme/_search'
@@ -59,12 +49,6 @@ export const getWeakPasswordData = params => {
   return axios.post(`${baseWeakPassword}`, params)
 }
 
-// 弱口令-事件等级分布
-const baseWeakPasswordEventType = '/api/eventlog/_search'
-
-export const getWeakPasswordEventTypeData = params => {
-  return axios.post(`${baseWeakPasswordEventType}`, params)
-}
 
 // 异常行为管理
 const baseAbnormalBehaviorEventRetrieval = '/api/event_abbm/_search'
