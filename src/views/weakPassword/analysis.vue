@@ -1,10 +1,10 @@
 <template>
   <div class="app-container">
-    <echarts :event-type="1" @getquery="uploadData" />
+    <!-- <echarts :event-type="1" @getquery="uploadData" /> -->
     <eventTrend :query="query" :event-type="1" :name="'weakPassword'" />
-    <eventType :tipname="'事件等级分布'" :type="4" :query="query" :name="'weakPassword'" />
+    <eventType :tipname="'事件等级分布'" :type="'severity'" :query="query" :name="'weakPassword'" />
     <echartsBar :tipname="'攻击者TOP5统计'" :query="query" :name="'weakPassword'" />
-    <eventType :tipname="'事件状态处置图'" :query="query" :type="2" :name="'weakPassword'" />
+    <eventType :tipname="'事件状态处置图'" :query="query" :type="'procedure'" :name="'weakPassword'" />
     <el-col :span="24">
       <tip> 最新弱口令事件 </tip>
       <el-table :data="groupList" tooltip-effect="light" height="300">
@@ -45,8 +45,8 @@ export default {
   props: [],
   data() {
     return {
-      policitalStatus: ['1'],
-      query: {},
+      query: {
+      },
       groupList: []
     }
   },
@@ -88,9 +88,18 @@ export default {
       this.groupList = res.rows
       this.loading = false
     },
-    uploadData(data) {
-      this.query = data
-    }
+    // uploadData(data) {
+    //    if (data.beginGenerationTime && data.endGenerationTime) {
+    //     this.query.query.bool.must.push({
+    //       range: {
+    //         occur_time: {
+    //           gte: data.beginGenerationTime,
+    //           lte: data.endGenerationTime
+    //         }
+    //       }
+    //     })
+    //   }
+    // }
   }
 }
 

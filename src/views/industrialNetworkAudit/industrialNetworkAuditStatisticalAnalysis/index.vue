@@ -2,9 +2,9 @@
   <div class="app-container">
     <echarts :event-type="1" @getquery="uploadData" />
     <eventTrend :query="query" :name="'design'" />
-    <eventType :type="1" :name="'design'" :query="query" />
+    <eventType :type="'event_format'" :name="'design'" :query="query" />
     <categoryWithOtherStyle :type="1" :name="'design'" :tipname="'源IP统计TOP 5'" :query="query" />
-    <eventType :type="2" :tipname="'事件等级分布'" :name="'design'" :query="query" />
+    <eventType :type="'severity'" :tipname="'事件等级分布'" :name="'design'" :query="query" />
     <el-col :span="24">
       <tip> 最新工业网络审计事件 </tip>
       <el-table :data="groupList" tooltip-effect="light" height="300">

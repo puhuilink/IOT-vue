@@ -6,7 +6,7 @@
                 :name="'host'" />
     <eventType :query="query"
                :tipname="'事件类型分布'"
-               :type="1"
+               :type="'event_format'"
                :name="'host'" />
     <wordcloud :query="query"
                :address="address"

@@ -11,7 +11,7 @@
     />
     <eventType
       :query="query"
-      :type="3"
+      :type="'severity'"
       :name="'Jiangwoodcreep'"
     />
     <wordcloud
@@ -22,7 +22,7 @@
     <eventType
       :query="query"
       :tipname="'事件状态处置图'"
-      :type="2"
+      :type="'procedure'"
       :name="'Jiangwoodcreep'"
     />
     <el-col :span="24">

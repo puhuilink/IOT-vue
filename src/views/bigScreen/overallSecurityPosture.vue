@@ -1,9 +1,9 @@
 <template>
   <div class="app-container home">
 
-    <iframe
+   <iframe
       id="mobsf"
-      src="http://10.1.13.118:8003/#/previewScreen?id=2GZHP5G7U_20220325083433"
+      src="http://10.1.13.118:8003/#/previewScreen?id=2GZ4KU458_20220412075741"
       scrolling="no"
       frameborder="0"
     />
