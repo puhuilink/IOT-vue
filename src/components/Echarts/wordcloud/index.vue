@@ -12,7 +12,6 @@ import { setNotopt } from '@/utils/emptyEcharts.js'
 import { eventNameEcharts, CreepthreatEcharts } from '@/api/system/echarts'
 import '@/components/Echarts/echarts-wordcloud.min.js'
 import { EventNameWordCloudMap } from '@/api/system/echarts'
-import { getbaseJiangTableData, getHostSecurityData } from '@/utils/request'
 export default {
   name: 'wordcloud',
   components: { tip },
