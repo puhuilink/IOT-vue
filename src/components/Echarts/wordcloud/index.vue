@@ -12,7 +12,9 @@ import { setNotopt } from '@/utils/emptyEcharts.js'
 import { eventNameEcharts, CreepthreatEcharts } from '@/api/system/echarts'
 import '@/components/Echarts/echarts-wordcloud.min.js'
 import { EventNameWordCloudMap } from '@/api/system/echarts'
+import { getbaseJiangTableData, getHostSecurityData } from '@/utils/request'
 export default {
+  name: 'wordcloud',
   components: { tip },
   props: {
     tipname: { // tip内容
@@ -22,10 +24,6 @@ export default {
     name: { // 组件名称
       default: '',
       type: String
-    },
-    type: { // tip内容
-      default: null,
-      type: Number
     },
     query: {
       default: null,
@@ -39,6 +37,8 @@ export default {
   data () {
     return {
       hasData: [],
+      datacopy: [
+      ],
       queryParms: {
         query: {
           bool: {
@@ -82,7 +82,7 @@ export default {
       var arrNew = []
       var area = []
       data.forEach((item) => {
-        area.push(item.name)
+        area.push(item.key)
       })
       arrNew = arr.map((item) => {
         return {
@@ -127,36 +127,47 @@ export default {
       if (this.hasData.length) {
         // 基于准备好的dom，初始化echarts实例
         const myChart = this.$echarts.init(this.$refs.canvas1)
-
         // 绘制图表
         myChart.setOption({
-          series: [{
-            type: 'wordCloud',
-            gridSize: 20,
-            sizeRange: [12, 50],
-            rotationRange: [0, 0],
-            shape: 'circle',
-            textStyle: {
-              normal: {
-                color: function () {
-                  return (
-                    'rgb(' +
-                    [
+          tooltip: {
+            show: true,
+            formatter: function (params) {
+              return params.name + ' : ' + params.value
+            }
+          },
+          series: [
+            {
+              type: 'wordCloud',
+              shape: 'circle',
+              left: 'center',
+              top: 'center',
+              width: '100%',
+              height: '100%',
+              right: null,
+              bottom: null,
+              sizeRange: [12, 30],
+              rotationRange: [0, 0],
+              rotationStep: 45,
+              gridSize: 8,
+              drawOutOfBound: true,
+              textStyle: {
+                normal: {
+                  color: function () {
+                    return 'rgb(' + [
                       Math.round(Math.random() * 160),
                       Math.round(Math.random() * 160),
                       Math.round(Math.random() * 160)
-                    ].join(',') +
-                    ')'
-                  )
+                    ].join(',') + ')'
+                  }
+                },
+                emphasis: {
+                  shadowBlur: 10,
+                  shadowColor: '#333'
                 }
               },
-              emphasis: {
-                shadowBlur: 10,
-                shadowColor: '#333'
-              }
-            },
-            data: this.datacopy
-          }]
+              data: this.datacopy
+            }
+          ]
         })
         window.addEventListener('resize', function () {
           myChart.resize()
