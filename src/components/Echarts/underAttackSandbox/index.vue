@@ -7,6 +7,7 @@
   </el-col>
 </template>
 <script>
+import { getUnderAttackSandboxData } from '@/utils/request'
 import { setNotopt } from "@/utils/emptyEcharts.js";
 import tip from "@/components/EchartsTip";
 import echarts from "echarts";
@@ -35,10 +36,27 @@ export default {
   },
   data () {
     return {
+      querys: {
+        size: 0,
+        query: {
+          match: {
+            cmdb_kpi_name: "ev_msec_asset_name"
+          }
+        },
+        aggs: {
+          corp_name_agg: {
+            terms: {
+              field: "value",
+              size: 10
+            }
+          }
+        }
+      },
       policitalStatus: ["1"],
       barData: [],
       category: [],
       hasData: [],
+      AnalysisData: [],
       title: "",
     };
   },
@@ -56,7 +74,8 @@ export default {
     }
   },
   created () {
-    this.getData()
+    // this.getData()
+    this.getAnalysisData()
   },
   mounted () {
     this.drawPolicitalStatus();
@@ -65,23 +84,27 @@ export default {
     transDicName (data) {
       var area = []
       data.forEach((item) => {
-        area.push(item.name)
+        area.push(item.key)
       })
       return area
     },
     transDicCount (data) {
       var area = []
       data.forEach((item) => {
-        area.push(item.count)
+        area.push(item.doc_count)
       })
       return area
     },
-    async getData () {
-      await sandboxesAttacked(this.queryParms).then(({ data }) => {
-        this.hasData = data
-        if (data.length) {
-          this.category = this.transDicName(data)
-          this.barData = this.transDicCount(data)
+    async getAnalysisData () {
+      await getUnderAttackSandboxData(this.querys).then(res => {
+        console.log('4-12-res', res.data.aggregations.corp_name_agg.buckets)
+        this.hasData = res.data.aggregations.corp_name_agg.buckets
+        // this.AnalysisData = res.data.aggregations.corp_name_agg.buckets
+        if (res.data.aggregations.corp_name_agg.buckets.length) {
+          this.category = this.transDicName(res.data.aggregations.corp_name_agg.buckets)
+          this.barData = this.transDicCount(res.data.aggregations.corp_name_agg.buckets)
+          console.log('this.category', this.category)
+          console.log('this.barData', this.barData)
         } else {
           this.category = []
           this.barData = []
@@ -89,6 +112,20 @@ export default {
       })
       this.drawPolicitalStatus()
     },
+    // async getData () {
+    //   await sandboxesAttacked(this.queryParms).then(({ data }) => {
+    //     console.log('data-4-12', data)
+    //     this.hasData = data
+    //     if (data.length) {
+    //       this.category = this.transDicName(data)
+    //       this.barData = this.transDicCount(data)
+    //     } else {
+    //       this.category = []
+    //       this.barData = []
+    //     }
+    //   })
+    //   this.drawPolicitalStatus()
+    // },
     async drawPolicitalStatus () {
       if (this.hasData.length) {
         const myChart = this.$echarts.init(this.$refs.canvas1);
