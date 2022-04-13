@@ -6,14 +6,14 @@
                 :name="'host'" />
     <eventType :query="query"
                :tipname="'事件类型分布'"
-               :type="'event_format'"
+               :type="'ev_wsec_hsme_format_label'"
                :name="'host'" />
     <wordcloud :query="query"
                :address="address"
                :host="1" />
     <eventType :query="query"
                :tipname="'事件状态处置图'"
-               :type="2"
+               :type="'procedure'"
                :name="'host'" />
     <el-col :span="24">
       <tip> 最新主机安全事件 </tip>

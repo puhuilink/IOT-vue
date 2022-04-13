@@ -44,7 +44,7 @@
     <eventType :tipname="'事件等级分布'"
                :query="query"
                :name="'statisticalSnalysis'"
-               :type="1" />
+               :type="'severity'" />
   </div>
 </template>
 <script>

@@ -137,12 +137,13 @@
                        min-width="15%" />
       <el-table-column label="事件等级"
                        align="center"
-                       prop="severity "
+                       prop="severity"
                        min-width="10%">
         <template #default="scope">
-          <span>{{
-            transTypeDic(scope.row._source.severity)
-          }}</span>
+          <!-- <span >{{scope.row._source.severity}}</span> -->
+
+          <span v-if="scope.row._source.severity == null || scope.row._source.severity == ''" />
+          <span v-else>{{scope.row._source.severity}}</span>
         </template>
       </el-table-column>
 

@@ -13,6 +13,7 @@ export const getElasticDate = params => {
   return axios.post(`${base}`, params)
 }
 
+
 // 主机安全
 const baseHostSecurity = '/api/event_hsme/_search'
 
@@ -47,6 +48,7 @@ const baseWeakPassword = '/api/event_wkpw/_search'
 export const getWeakPasswordData = params => {
   return axios.post(`${baseWeakPassword}`, params)
 }
+
 
 // 异常行为管理
 const baseAbnormalBehaviorEventRetrieval = '/api/event_abbm/_search'
