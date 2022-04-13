@@ -2,26 +2,24 @@
   <div class="app-container home">
 
     <iframe id="mobsf"
-            src="http://10.201.30.60:8080/intelligence/login-with-params?username=TIP&token=TIPzywxb2&redirect=manage-intel"
+            src="http://10.201.30.60:8080/intelligence/login-with-params?username=jiance&token=dd3fc4f8b58f39e176bc76f9d46b70b72d1d1d2a&redirect=manage-intel"
             scrolling="no"
             frameborder="0" />
-    <!-- <iframe id="mobsf"
-            style="margin-top:-110px;margin-left:-220px;width:1900px;"
-            src="http://localhost/security/threatIntelligenceManagement/threatIntelligenceList"
-            scrolling="no"
-            frameborder="0" /> -->
-
   </div>
 </template>
 
 <script>
 export default {
   name: 'Index',
+  inject: ['closeCurrentTab'],
   data () {
     return {
       // 版本号
       version: '3.4.0'
     }
+  },
+  created () {
+    this.log()
   },
   mounted () {
     /**
@@ -42,6 +40,10 @@ export default {
     }
   },
   methods: {
+    log () {
+      window.open('http://10.201.30.60:8080/intelligence/login-with-params?username=jiance&token=dd3fc4f8b58f39e176bc76f9d46b70b72d1d1d2a&redirect=manage-intel', '_blank')
+      this.closeCurrentTab()
+    }
   }
 }
 </script>
