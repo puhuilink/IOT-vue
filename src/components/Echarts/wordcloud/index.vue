@@ -1,10 +1,8 @@
 <template>
   <el-col :span="12">
     <tip>{{ tipname }}</tip>
-    <div
-      ref="canvas1"
-      style="height: 400px"
-    />
+    <div ref="canvas1"
+         style="height: 400px" />
   </el-col>
 </template>
 <script>
@@ -13,7 +11,9 @@ import { setNotopt } from '@/utils/emptyEcharts.js'
 import { eventNameEcharts, CreepthreatEcharts } from '@/api/system/echarts'
 import '@/components/Echarts/echarts-wordcloud.min.js'
 import { EventNameWordCloudMap } from '@/api/system/echarts'
+import { getbaseJiangTableData, getHostSecurityData } from '@/utils/request'
 export default {
+  name: 'wordcloud',
   components: { tip },
   props: {
     tipname: { // tip内容
@@ -24,10 +24,6 @@ export default {
       default: '',
       type: String
     },
-    type: { // tip内容
-      default: null,
-      type: Number
-    },
     query: {
       default: null,
       type: Object
@@ -37,17 +33,33 @@ export default {
       type: Number
     }
   },
-  data() {
+  data () {
     return {
       hasData: [],
+      datacopy: [
+      ],
       queryParms: {
-      }
+        query: {
+          bool: {
+            must: [
+            ]
+          }
+        },
+        aggs: {
+          field: {
+            terms: {
+              field: "event_name",
+              size: 10
+            }
+          }
+        }
+      },
     }
   },
   computed: {},
   watch: {
     query: {
-      handler(val, oldVal) {
+      handler (val, oldVal) {
         this.queryParms = this.query
         if (val !== oldVal) {
           this.getData()
@@ -57,46 +69,41 @@ export default {
       deep: true
     }
   },
-  created() {
+  created () {
     this.getData()
   },
-  mounted() {
+  mounted () {
     this.drawPolicitalStatus()
   },
   methods: {
-    transDic(data) {
+    transDic (data) {
       var arr = data
       var arrNew = []
       var area = []
       data.forEach((item) => {
-        area.push(item.name)
+        area.push(item.key)
       })
       arrNew = arr.map((item) => {
         return {
-          value: item.count,
-          name: item.name
+          value: item.doc_count,
+          name: item.key
         }
       })
       return arrNew
     },
-    async getData() {
+    async getData () {
       if (this.host) {
-        await EventNameWordCloudMap(this.queryParms).then(({ data }) => {
-          this.hasData = data
-          this.datacopy = this.transDic(data)
+        await getHostSecurityData(this.queryParms).then(({ data }) => {
+          this.hasData = data.aggregations.field.buckets
+          this.datacopy = this.transDic(data.aggregations.field.buckets)
         })
       } else {
         switch (this.name) {
           case 'Jiangwoodcreep':
-            await CreepthreatEcharts(this.queryParms).then(({ data }) => {
-              this.hasData = data
-              this.datacopy = this.transDic(data)
-            })
-            break
-          case 'event':
-            await eventNameEcharts(this.queryParms).then(({ data }) => {
-              this.hasData = data
-              this.datacopy = this.transDic(data)
+            await getbaseJiangTableData(this.queryParms).then(({ data }) => {
+              console.log(data);
+              this.hasData = data.aggregations.field.buckets
+              this.datacopy = this.transDic(data.aggregations.field.buckets)
             })
             break
           default:
@@ -106,42 +113,53 @@ export default {
       }
       this.drawPolicitalStatus()
     },
-    drawPolicitalStatus() {
+    drawPolicitalStatus () {
       if (this.hasData.length) {
         // 基于准备好的dom，初始化echarts实例
         const myChart = this.$echarts.init(this.$refs.canvas1)
-
         // 绘制图表
         myChart.setOption({
-          series: [{
-            type: 'wordCloud',
-            gridSize: 20,
-            sizeRange: [12, 50],
-            rotationRange: [0, 0],
-            shape: 'circle',
-            textStyle: {
-              normal: {
-                color: function() {
-                  return (
-                    'rgb(' +
-              [
-                Math.round(Math.random() * 160),
-                Math.round(Math.random() * 160),
-                Math.round(Math.random() * 160)
-              ].join(',') +
-              ')'
-                  )
+          tooltip: {
+            show: true,
+            formatter: function (params) {
+              return params.name + ' : ' + params.value
+            }
+          },
+          series: [
+            {
+              type: 'wordCloud',
+              shape: 'circle',
+              left: 'center',
+              top: 'center',
+              width: '100%',
+              height: '100%',
+              right: null,
+              bottom: null,
+              sizeRange: [12, 30],
+              rotationRange: [0, 0],
+              rotationStep: 45,
+              gridSize: 8,
+              drawOutOfBound: true,
+              textStyle: {
+                normal: {
+                  color: function () {
+                    return 'rgb(' + [
+                      Math.round(Math.random() * 160),
+                      Math.round(Math.random() * 160),
+                      Math.round(Math.random() * 160)
+                    ].join(',') + ')'
+                  }
+                },
+                emphasis: {
+                  shadowBlur: 10,
+                  shadowColor: '#333'
                 }
               },
-              emphasis: {
-                shadowBlur: 10,
-                shadowColor: '#333'
-              }
-            },
-            data: this.datacopy
-          }]
+              data: this.datacopy
+            }
+          ]
         })
-        window.addEventListener('resize', function() {
+        window.addEventListener('resize', function () {
           myChart.resize()
         })
       } else {
