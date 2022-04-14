@@ -1,55 +1,105 @@
 <template>
   <div class="app-container">
-    <echarts :event-type="2"
-             @getquery="uploadData" />
-    <eventTrend :query="query"
-                :name="'abnormal'" />
-    <killChainPhaseStatistics :query="query"
-                              :address="address" />
-    <eventType :tipname="'事件等级分布'"
-               :query="query"
-               :name="'abnormal'"
-               :type="'severity'" />
+    <echarts
+      :event-type="2"
+      @getquery="uploadData"
+    />
+    <eventTrend
+      :query="query"
+      :name="'abnormal'"
+    />
+    <killChainPhaseStatistics
+      :query="query"
+      :address="address"
+    />
+    <eventType
+      :tipname="'事件等级分布'"
+      :query="query"
+      :name="'abnormal'"
+      :type="'severity'"
+    />
     <!-- <pieChartThreats :address="address"/> -->
     <!-- <pieChartDisposal :tipname="'事件等级分布'"
                       :query="query"
                       :name="'abnormal'"
                       :type="1" /> -->
-    <killChainPhaseTrafficStatistics :query="query"
-                                     :address="address" />
+    <killChainPhaseTrafficStatistics
+      :query="query"
+      :address="address"
+    />
     <el-col :span="24">
       <tip> 最新威胁事件 </tip>
-      <el-table :data="groupList"
-                height="300"
-                tooltip-effect="light">
-        <el-table-column label="攻击者IP"
-                         align="center"
-                         prop="attackerIp"
-                         :show-overflow-tooltip="true" />
-        <el-table-column label="受害者IP"
-                         align="center"
-                         prop="victimIp"
-                         :show-overflow-tooltip="true" />
-        <el-table-column label="事件名称"
-                         align="center"
-                         prop="eventName" />
-        <el-table-column label="事件等级"
-                         align="center"
-                         prop="eventLevel">
+      <el-table
+        :data="List"
+        tooltip-effect="light"
+        height="320"
+      >
+        <el-table-column
+          label="攻击者IP"
+          align="center"
+          prop="_source.ev_com_socket_src_ip"
+          :show-overflow-tooltip="true"
+        />
+        <el-table-column
+          label="受害者IP"
+          align="center"
+          prop="_source.ev_com_socket_dst_ip"
+          :show-overflow-tooltip="true"
+        />
+        <el-table-column
+          label="事件名称"
+          align="center"
+          prop="_source.event_name"
+          :show-overflow-tooltip="true"
+        />
+        <el-table-column
+          label="事件类型"
+          align="center"
+          prop="_source.event_format"
+          :show-overflow-tooltip="true"
+        />
+        <el-table-column
+          label="事件等级"
+          align="center"
+          prop="severity"
+        >
           <template #default="scope">
-            <span>{{
-              transTypeDic(scope.row.eventLevel)
+            <span v-if="scope.row._source.severity == '' || scope.row._source.severity == null" />
+            <span v-else>{{
+              transTypeDic(scope.row._source.severity)
             }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="杀伤链阶段"
-                         align="center"
-                         prop="killingChainStage"
-                         :show-overflow-tooltip="true" />
-        <el-table-column label="区域"
-                         align="center"
-                         prop="region"
-                         :show-overflow-tooltip="true" />
+        <el-table-column
+          label="杀伤链阶段"
+          align="center"
+          prop="_source.ev_ksec_killchain"
+          :show-overflow-tooltip="true"
+        />
+        <el-table-column
+          label="处置状态"
+          align="center"
+          prop="_source.procedure"
+          :show-overflow-tooltip="true"
+        />
+        <el-table-column
+          label="发生时间"
+          align="center"
+          prop="_source.occur_time"
+          :show-overflow-tooltip="true"
+        />
+        <el-table-column
+          label="发现时间"
+          align="center"
+          prop="_source.receive_time"
+          :show-overflow-tooltip="true"
+        />
+        <el-table-column
+          label="区域"
+          align="center"
+          prop="_source.location"
+          :show-overflow-tooltip="true"
+        />
       </el-table>
     </el-col>
 
@@ -61,10 +111,9 @@ import eventTrend from '@/components/Echarts/eventTrend'
 import eventType from '@/components/Echarts/eventType'
 
 import killChainPhaseStatistics from '@/components/Echarts/killChainPhaseStatistics'
-// import pieChartThreats from "@/components/Echarts/pieChartThreats";
 import killChainPhaseTrafficStatistics from '@/components/Echarts/killChainPhaseTrafficStatistics'
 import tip from '@/components/EchartsTip'
-import { abnormalList } from '@/api/system/list'
+import { getAbnormalBehaviorEventRetrievalData } from '@/utils/request'
 export default {
   components: {
     echarts,
@@ -76,33 +125,36 @@ export default {
     tip
   },
   props: [],
-  data () {
+  data() {
     return {
       policitalStatus: ['1'],
       address: 1,
       query: {},
       // 分组表格数据
-      groupList: [],
+      List: [],
       // 总条数
       total: 0,
       // 查询参数
       queryParams: {
-        pageNum: 1,
-        pageSize: 10,
-        userId: null,
-        groupName: null,
-        createTime: null
+        query: {
+          bool: {
+            must: []
+          }
+        },
+        sort: [{ 'occur_time': { order: 'desc' }}],
+        from: 0,
+        size: 6
       }
     }
   },
   computed: {},
   watch: {},
-  created () {
+  created() {
     this.getList()
   },
-  mounted () { },
+  mounted() { },
   methods: {
-    transTypeDic (val) {
+    transTypeDic(val) {
       var t = [{
         name: '1',
         content: '极低'
@@ -125,17 +177,16 @@ export default {
         }))
       return `${orgTreeData1[0].content}`
     },
-    uploadData (data) {
+    uploadData(data) {
       this.query = data
     },
     /** 查询分组列表 */
-    async getList () {
-      this.loading = true
-      const res = await abnormalList(this.queryParams)
-      this.groupList = res.rows
-      this.total = res.total
-      console.log(this.groupList)
-      this.loading = false
+    async getList() {
+      getAbnormalBehaviorEventRetrievalData(this.queryParams).then(res => {
+        this.queryParams.query.bool.must = []
+        this.total = res.data.hits.total
+        this.List = res.data.hits.hits
+      })
     }
   }
 }

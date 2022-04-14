@@ -30,7 +30,7 @@
       <el-table
         :data="List"
         tooltip-effect="light"
-        height="300"
+        height="320"
       >
         <el-table-column
           label="源IP"
@@ -115,19 +115,18 @@ export default {
   data() {
     return { // 查询参数
       List: [],
-      queryParams: {
-        pageNum: 1,
-        pageSize: 10
-      },
       policitalStatus: ['1'],
       query: {
+      },
+      queryParams: {
         query: {
           bool: {
             must: []
           }
         },
         sort: [{ 'occur_time': { order: 'desc' }}],
-        from: 0
+        from: 0,
+        size: 6
       },
       groupList: []
     }
@@ -184,13 +183,8 @@ export default {
       return `${orgTreeData1[0].content}`
     },
     async getList() {
-      // this.loading = true
-      // const res = await zombieList(this.queryParams)
-      // this.groupList = res.rows
-      // this.loading = false
-      getbaseJiangTableData(this.query).then(res => {
-        this.query.query.bool.must = []
-        this.groupList = []
+      getbaseJiangTableData(this.queryParams).then(res => {
+        this.queryParams.query.bool.must = []
         this.total = res.data.hits.total
         this.List = res.data.hits.hits
       })

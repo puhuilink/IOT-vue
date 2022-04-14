@@ -26,71 +26,72 @@
     <el-col :span="24">
       <tip> 最新弱口令事件 </tip>
       <el-table
-        :data="groupList"
+        :data="List"
         tooltip-effect="light"
-        height="300"
+        height="320"
       >
         <el-table-column
           label="资产名称"
           align="center"
-          prop="assetName"
+          prop="_source.event_name"
           :show-overflow-tooltip="true"
           min-width="15%"
         />
         <el-table-column
           label="IP地址"
           align="center"
-          prop="ipAddress"
+          prop="_source.detail_src_ip"
           :show-overflow-tooltip="true"
           min-width="15%"
         />
         <el-table-column
           label="协议"
           align="center"
-          prop="agreement"
+          prop="_source.ev_com_socket_protocol"
           :show-overflow-tooltip="true"
           min-width="15%"
         />
         <el-table-column
           label="端口"
           align="center"
-          prop="port"
+          prop="_source.ev_com_socket_dst_port"
           :show-overflow-tooltip="true"
           min-width="15%"
         />
         <el-table-column
           label="事件等级"
-          align="center"
-          prop="eventLevel"
           min-width="10%"
+          align="center"
+          prop="severity"
         >
           <template #default="scope">
-            <span>{{
-              transTypeDic(scope.row.eventLevel)
+            <span v-if="scope.row._source.severity == null || scope.row._source.severity == ''" />
+            <span v-else>{{
+              scope.row._source.severity
             }}</span>
           </template>
         </el-table-column>
+
         <el-table-column
           label="处置状态"
           align="center"
-          prop="disposalStatus"
+          prop="_source.procedure"
           min-width="8%"
         />
         <el-table-column
           label="发生时间"
           align="center"
-          prop="findTime"
+          prop="_source.occur_time"
           :show-overflow-tooltip="true"
           min-width="15%"
         />
         <el-table-column
           label="区域"
           align="center"
-          prop="region"
+          prop="_source.location"
           :show-overflow-tooltip="true"
           min-width="15%"
         />
-
       </el-table>
     </el-col>
   </div>
@@ -101,7 +102,7 @@ import eventTrend from '@/components/Echarts/eventTrend'
 import eventType from '@/components/Echarts/eventType'
 import echartsBar from '@/components/Echarts/echartsBar'
 import tip from '@/components/EchartsTip'
-import { weakList } from '@/api/system/list'
+import { getWeakPasswordData } from '@/utils/request'
 export default {
   name: 'Index',
   components: { echarts, eventTrend, eventType, echartsBar, tip },
@@ -110,7 +111,17 @@ export default {
     return {
       query: {
       },
-      groupList: []
+      queryParams: {
+        query: {
+          bool: {
+            must: []
+          }
+        },
+        sort: [{ 'occur_time': { order: 'desc' }}],
+        from: 0,
+        size: 6
+      },
+      List: []
     }
   },
   computed: {},
@@ -145,11 +156,12 @@ export default {
         }))
       return `${orgTreeData1[0].content}`
     },
-    async getList() {
-      this.loading = true
-      const res = await weakList(this.queryParams)
-      this.groupList = res.rows
-      this.loading = false
+    async  getList() {
+      getWeakPasswordData(this.queryParams).then(res => {
+        this.queryParams.query.bool.must = []
+        this.total = res.data.hits.total
+        this.List = res.data.hits.hits
+      })
     },
     uploadData(data) {
       this.query = data

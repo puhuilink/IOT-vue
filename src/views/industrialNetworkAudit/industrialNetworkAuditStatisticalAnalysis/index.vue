@@ -7,72 +7,81 @@
     <eventType :type="'severity'" :tipname="'事件等级分布'" :name="'design'" :query="query" />
     <el-col :span="24">
       <tip> 最新工业网络审计事件 </tip>
-      <el-table :data="groupList" tooltip-effect="light" height="300">
+      <el-table
+        :data="List"
+        tooltip-effect="light"
+        height="320"
+      >
         <el-table-column
           label="产生时间"
           align="center"
-          prop="generationTime"
+          prop="_source.occur_time"
           :show-overflow-tooltip="true"
         />
         <el-table-column
           label="源IP"
           align="center"
-          prop="sourceIp"
+          prop="_source.detail_src_ip"
           :show-overflow-tooltip="true"
         />
         <el-table-column
           label="源端口"
           align="center"
-          prop="sourcePort"
+          prop="_source.ev_com_socket_src_port"
           :show-overflow-tooltip="true"
         />
         <el-table-column
           label="目的IP"
           align="center"
-          prop="destinationIp"
+          prop="_source.detail_dst_ip"
           :show-overflow-tooltip="true"
         />
         <el-table-column
           label="目的端口"
           align="center"
-          prop="destinationPort"
+          prop="_source.ev_com_socket_dst_port"
           :show-overflow-tooltip="true"
         />
         <el-table-column
           label="传输层协议"
           align="center"
-          prop="transportLayerProtocol"
+          prop="_source.ev_wsec_inpa_transport_layer_protocol"
           :show-overflow-tooltip="true"
         />
         <el-table-column
           label="应用层协议"
           align="center"
-          prop="applicationLayerProtocol"
+          prop="_source.ev_wsec_inpa_application_layer_protocol"
           :show-overflow-tooltip="true"
         />
         <el-table-column
           label="事件等级"
           align="center"
-          prop="eventLevel"
+          prop="_source.severity"
           :show-overflow-tooltip="true"
         >
           <template #default="scope">
             <span>{{
-              transTypeDic(scope.row.eventLevel)
+              transTypeDic(scope.row._source.severity)
             }}</span>
           </template>
         </el-table-column>
-
         <el-table-column
           label="事件类型"
           align="center"
-          prop="eventCategory"
+          prop="_source.event_format"
+          :show-overflow-tooltip="true"
+        />
+        <el-table-column
+          label="处置状态"
+          align="center"
+          prop="_source.procedure"
           :show-overflow-tooltip="true"
         />
         <el-table-column
           label="区域"
           align="center"
-          prop="region"
+          prop="_source.location"
           :show-overflow-tooltip="true"
         />
       </el-table>
@@ -80,7 +89,7 @@
   </div>
 </template>
 <script>
-import { industryList } from '@/api/system/list'
+import { getIndustrialNetworkAuditData } from '@/utils/request'
 import echarts from '@/components/Echarts/searchBar'
 import eventTrend from '@/components/Echarts/eventTrend'
 import eventType from '@/components/Echarts/eventType'
@@ -99,8 +108,17 @@ export default {
   data() {
     return {
       query: {},
-      groupList: [
-      ]
+      queryParams: {
+        query: {
+          bool: {
+            must: []
+          }
+        },
+        sort: [{ 'occur_time': { order: 'desc' }}],
+        from: 0,
+        size: 6
+      },
+      List: []
     }
   },
   created() {
@@ -132,10 +150,11 @@ export default {
     },
     /** 查询分组列表 */
     async getList() {
-      this.loading = true
-      const res = await industryList(this.queryParams)
-      this.groupList = res.rows
-      this.loading = false
+      getIndustrialNetworkAuditData(this.queryParams).then((res) => {
+        this.queryParams.query.bool.must = []
+        this.total = res.data.hits.total
+        this.List = res.data.hits.hits
+      })
     },
     uploadData(data) {
       this.query = data

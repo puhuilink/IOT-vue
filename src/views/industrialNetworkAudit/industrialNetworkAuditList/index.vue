@@ -4,114 +4,156 @@
       <div>
         <el-collapse v-model="activeNames">
           <el-collapse-item name="1">
-            <span slot="title"
-                  class="collapse-title">搜索条件</span>
-            <el-form ref="queryForm"
-                     :model="queryParams"
-                     size="mini"
-                     :inline="true"
-                     label-width="95px"
-                     class="label-type">
+            <span
+              slot="title"
+              class="collapse-title"
+            >搜索条件</span>
+            <el-form
+              ref="queryForm"
+              :model="queryParams"
+              size="mini"
+              :inline="true"
+              label-width="95px"
+              class="label-type"
+            >
               <el-col :span="6">
-                <el-form-item label="源IP地址："
-                              prop="ipaddr">
-                  <el-input v-model="queryParams.detail_src_ip"
-                            placeholder="请输入源IP地址"
-                            clearable
-                            :style="{ width: '100%' }"
-                            @keyup.enter.native="handleQuery" />
+                <el-form-item
+                  label="源IP地址："
+                  prop="ipaddr"
+                >
+                  <el-input
+                    v-model="queryParams.detail_src_ip"
+                    placeholder="请输入源IP地址"
+                    clearable
+                    :style="{ width: '100%' }"
+                    @keyup.enter.native="handleQuery"
+                  />
                 </el-form-item>
               </el-col>
               <el-col :span="6">
-                <el-form-item label="目的IP地址："
-                              prop="userName">
-                  <el-input v-model="queryParams.detail_dst_ip"
-                            placeholder="请输入目的IP地址"
-                            clearable
-                            :style="{ width: '100%' }"
-                            @keyup.enter.native="handleQuery" />
+                <el-form-item
+                  label="目的IP地址："
+                  prop="userName"
+                >
+                  <el-input
+                    v-model="queryParams.detail_dst_ip"
+                    placeholder="请输入目的IP地址"
+                    clearable
+                    :style="{ width: '100%' }"
+                    @keyup.enter.native="handleQuery"
+                  />
                 </el-form-item>
               </el-col>
               <el-col :span="6">
-                <el-form-item label="区域："
-                              prop="userName">
-                  <el-select v-model="queryParams.location"
-                             placeholder="请选择区域"
-                             filterable
-                             clearable
-                             :style="{ width: '100%' }">
-                    <el-option v-for="(item, index) in areaOptions"
-                               :key="index"
-                               :label="item.label"
-                               :value="item.value"
-                               :disabled="item.disabled" />
+                <el-form-item
+                  label="区域："
+                  prop="userName"
+                >
+                  <el-select
+                    v-model="queryParams.location"
+                    placeholder="请选择区域"
+                    filterable
+                    clearable
+                    :style="{ width: '100%' }"
+                  >
+                    <el-option
+                      v-for="(item, index) in areaOptions"
+                      :key="index"
+                      :label="item.label"
+                      :value="item.value"
+                      :disabled="item.disabled"
+                    />
                   </el-select>
                 </el-form-item>
               </el-col>
               <el-col :span="6">
-                <el-form-item label="处置状态："
-                              prop="ipaddr">
-                  <el-select v-model="queryParams.procedure"
-                             placeholder="请选择处置状态"
-                             clearable
-                             :style="{ width: '100%' }">
-                    <el-option v-for="(item, index) in disposalStatusOptions"
-                               :key="index"
-                               :label="item.label"
-                               :value="item.label"
-                               :disabled="item.disabled" />
+                <el-form-item
+                  label="处置状态："
+                  prop="ipaddr"
+                >
+                  <el-select
+                    v-model="queryParams.procedure"
+                    placeholder="请选择处置状态"
+                    clearable
+                    :style="{ width: '100%' }"
+                  >
+                    <el-option
+                      v-for="(item, index) in disposalStatusOptions"
+                      :key="index"
+                      :label="item.label"
+                      :value="item.label"
+                      :disabled="item.disabled"
+                    />
                   </el-select>
                 </el-form-item>
               </el-col>
               <el-col :span="6">
-                <el-form-item label="事件等级："
-                              prop="userName">
-                  <el-select v-model="queryParams.severity"
-                             placeholder="请选择事件等级"
-                             filterable
-                             clearable
-                             :style="{ width: '100%' }">
-                    <el-option v-for="(item, index) in levelOptions"
-                               :key="index"
-                               :label="item.label"
-                               :value="item.value"
-                               :disabled="item.disabled" />
+                <el-form-item
+                  label="事件等级："
+                  prop="userName"
+                >
+                  <el-select
+                    v-model="queryParams.severity"
+                    placeholder="请选择事件等级"
+                    filterable
+                    clearable
+                    :style="{ width: '100%' }"
+                  >
+                    <el-option
+                      v-for="(item, index) in levelOptions"
+                      :key="index"
+                      :label="item.label"
+                      :value="item.value"
+                      :disabled="item.disabled"
+                    />
                   </el-select>
                 </el-form-item>
               </el-col>
               <el-col :span="6">
-                <el-form-item label="事件类型："
-                              prop="userName">
-                  <el-input v-model="queryParams.event_format"
-                            placeholder="请输入事件类型"
-                            clearable
-                            :style="{ width: '100%' }"
-                            @keyup.enter.native="handleQuery" />
+                <el-form-item
+                  label="事件类型："
+                  prop="userName"
+                >
+                  <el-input
+                    v-model="queryParams.event_format"
+                    placeholder="请输入事件类型"
+                    clearable
+                    :style="{ width: '100%' }"
+                    @keyup.enter.native="handleQuery"
+                  />
                 </el-form-item>
               </el-col>
               <el-col :span="7">
-                <el-form-item label="时间："
-                              prop="date">
-                  <el-date-picker v-model="queryParams.date"
-                                  type="daterange"
-                                  format="yyyy 年 MM 月 dd 日"
-                                  value-format="yyyy-MM-dd"
-                                  start-placeholder="开始时间"
-                                  end-placeholder="结束时间"
-                                  range-separator="至"
-                                  clearable />
+                <el-form-item
+                  label="时间："
+                  prop="date"
+                >
+                  <el-date-picker
+                    v-model="queryParams.date"
+                    type="daterange"
+                    format="yyyy 年 MM 月 dd 日"
+                    value-format="yyyy-MM-dd"
+                    start-placeholder="开始时间"
+                    end-placeholder="结束时间"
+                    range-separator="至"
+                    clearable
+                  />
                 </el-form-item>
               </el-col>
 
               <el-col :span="3">
                 <el-form-item>
-                  <el-button type="primary"
-                             icon="el-icon-search"
-                             size="mini"
-                             @click="handleQuery">搜索</el-button>
-                  <el-button icon="el-icon-refresh"
-                             size="mini"
-                             @click="resetQuery">重置</el-button>
+                  <el-button
+                    type="primary"
+                    icon="el-icon-search"
+                    size="mini"
+                    @click="handleQuery"
+                  >搜索</el-button>
+                  <el-button
+                    icon="el-icon-refresh"
+                    size="mini"
+                    @click="resetQuery"
+                  >重置</el-button>
                 </el-form-item>
               </el-col>
             </el-form>
@@ -120,283 +162,419 @@
       </div>
     </el-card>
     <el-card style="margin-top: 10px">
-      <el-row :gutter="10"
-              class="mb8">
+      <el-row
+        :gutter="10"
+        class="mb8"
+      >
         <el-col :span="1.5">
-          <el-button v-hasPermi="['system:user:export']"
-                     type="primary"
-                     size="mini"
-                     @click="handleExport">导出</el-button>
+          <el-button
+            v-hasPermi="['system:user:export']"
+            type="primary"
+            size="mini"
+            @click="handleExport"
+          >导出</el-button>
         </el-col>
       </el-row>
-      <el-table :data="List"
-                tooltip-effect="light">
-        <el-table-column type="selection"
-                         width="55"
-                         align="center" />
+      <el-table
+        :data="List"
+        tooltip-effect="light"
+      >
+        <el-table-column
+          type="selection"
+          width="55"
+          align="center"
+        />
 
-        <el-table-column label="产生时间"
-                         align="center"
-                         prop="_source.occur_time"
-                         :show-overflow-tooltip="true" />
-        <el-table-column label="源IP"
-                         align="center"
-                         prop="_source.detail_src_ip"
-                         :show-overflow-tooltip="true" />
-        <el-table-column label="源端口"
-                         align="center"
-                         prop="_source.ev_com_socket_src_port"
-                         :show-overflow-tooltip="true" />
-        <el-table-column label="目的IP"
-                         align="center"
-                         prop="_source.detail_dst_ip"
-                         :show-overflow-tooltip="true" />
-        <el-table-column label="目的端口"
-                         align="center"
-                         prop="_source.ev_com_socket_dst_port"
-                         :show-overflow-tooltip="true" />
-        <el-table-column label="传输层协议"
-                         align="center"
-                         prop="_source.ev_wsec_inpa_transport_layer_protocol"
-                         :show-overflow-tooltip="true" />
-        <el-table-column label="应用层协议"
-                         align="center"
-                         prop="_source.ev_wsec_inpa_application_layer_protocol"
-                         :show-overflow-tooltip="true" />
-        <el-table-column label="事件等级"
-                         align="center"
-                         prop="_source.severity"
-                         :show-overflow-tooltip="true">
+        <el-table-column
+          label="产生时间"
+          align="center"
+          prop="_source.occur_time"
+          :show-overflow-tooltip="true"
+        />
+        <el-table-column
+          label="源IP"
+          align="center"
+          prop="_source.detail_src_ip"
+          :show-overflow-tooltip="true"
+        />
+        <el-table-column
+          label="源端口"
+          align="center"
+          prop="_source.ev_com_socket_src_port"
+          :show-overflow-tooltip="true"
+        />
+        <el-table-column
+          label="目的IP"
+          align="center"
+          prop="_source.detail_dst_ip"
+          :show-overflow-tooltip="true"
+        />
+        <el-table-column
+          label="目的端口"
+          align="center"
+          prop="_source.ev_com_socket_dst_port"
+          :show-overflow-tooltip="true"
+        />
+        <el-table-column
+          label="传输层协议"
+          align="center"
+          prop="_source.ev_wsec_inpa_transport_layer_protocol"
+          :show-overflow-tooltip="true"
+        />
+        <el-table-column
+          label="应用层协议"
+          align="center"
+          prop="_source.ev_wsec_inpa_application_layer_protocol"
+          :show-overflow-tooltip="true"
+        />
+        <el-table-column
+          label="事件等级"
+          align="center"
+          prop="_source.severity"
+          :show-overflow-tooltip="true"
+        >
           <template #default="scope">
             <span>{{
               transTypeDic(scope.row._source.severity)
             }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="事件类型"
-                         align="center"
-                         prop="_source.event_format"
-                         :show-overflow-tooltip="true" />
-        <el-table-column label="处置状态"
-                         align="center"
-                         prop="_source.procedure"
-                         :show-overflow-tooltip="true" />
-        <el-table-column label="区域"
-                         align="center"
-                         prop="_source.location"
-                         :show-overflow-tooltip="true" />
-        <el-table-column label="操作"
-                         align="center"
-                         class-name="small-padding fixed-width"
-                         width="180">
+        <el-table-column
+          label="事件类型"
+          align="center"
+          prop="_source.event_format"
+          :show-overflow-tooltip="true"
+        />
+        <el-table-column
+          label="处置状态"
+          align="center"
+          prop="_source.procedure"
+          :show-overflow-tooltip="true"
+        />
+        <el-table-column
+          label="区域"
+          align="center"
+          prop="_source.location"
+          :show-overflow-tooltip="true"
+        />
+        <el-table-column
+          label="操作"
+          align="center"
+          class-name="small-padding fixed-width"
+          width="180"
+        >
           <template #default="{ row }">
-            <el-button size="mini"
-                       type="text"
-                       @click="detail(row._source)">详情</el-button>
+            <el-button
+              size="mini"
+              type="text"
+              @click="detail(row._source)"
+            >详情</el-button>
             &nbsp;&nbsp; &nbsp;&nbsp;
             <el-dropdown @command="batchOperate">
-              <el-button size="mini"
-                         type="text">
+              <el-button
+                size="mini"
+                type="text"
+              >
                 状态变更<i class="el-icon-arrow-down el-icon--right" />
               </el-button>
               <el-dropdown-menu slot="dropdown">
-                <el-dropdown-item icon="el-icon-check"
-                                  command="process">处置</el-dropdown-item>
-                <el-dropdown-item icon="el-icon-close"
-                                  command="un_process">不处置</el-dropdown-item>
-                <el-dropdown-item icon="el-icon-bell"
-                                  command="false_report">误报</el-dropdown-item>
+                <el-dropdown-item
+                  icon="el-icon-check"
+                  command="process"
+                >处置</el-dropdown-item>
+                <el-dropdown-item
+                  icon="el-icon-close"
+                  command="un_process"
+                >不处置</el-dropdown-item>
+                <el-dropdown-item
+                  icon="el-icon-bell"
+                  command="false_report"
+                >误报</el-dropdown-item>
               </el-dropdown-menu>
             </el-dropdown>
           </template>
         </el-table-column>
       </el-table>
 
-      <pagination v-show="total > 0"
-                  :total="total"
-                  :page.sync="from"
-                  :limit.sync="query.size"
-                  @pagination="getTableList" />
+      <pagination
+        v-show="total > 0"
+        :total="total"
+        :page.sync="from"
+        :limit.sync="query.size"
+        @pagination="getTableList"
+      />
     </el-card>
     <!-- 批量导出对话框 -->
-    <el-dialog :title="title"
-               :visible.sync="exportDialog"
-               width="900px"
-               append-to-body>
-      <el-form ref="queryForm"
-               :model="queryParams"
-               :inline="true"
-               label-width="300px">
-        <el-form-item label="请选择文件 :"
-                      prop="userName">
-          <el-input v-model="queryParams.userName"
-                    placeholder="请输入资产编号"
-                    clearable
-                    size="small"
-                    @keyup.enter.native="handleQuery" />
+    <el-dialog
+      :title="title"
+      :visible.sync="exportDialog"
+      width="900px"
+      append-to-body
+    >
+      <el-form
+        ref="queryForm"
+        :model="queryParams"
+        :inline="true"
+        label-width="300px"
+      >
+        <el-form-item
+          label="请选择文件 :"
+          prop="userName"
+        >
+          <el-input
+            v-model="queryParams.userName"
+            placeholder="请输入资产编号"
+            clearable
+            size="small"
+            @keyup.enter.native="handleQuery"
+          />
         </el-form-item>
       </el-form>
-      <div slot="footer"
-           class="dialog-footer">
-        <el-row type="flex"
-                justify="center">
-          <el-button size="small"
-                     type="primary"
-                     @click="submitForm">导 入</el-button>
-          <el-button size="small"
-                     @click="cancel">取 消</el-button>
+      <div
+        slot="footer"
+        class="dialog-footer"
+      >
+        <el-row
+          type="flex"
+          justify="center"
+        >
+          <el-button
+            size="small"
+            type="primary"
+            @click="submitForm"
+          >导 入</el-button>
+          <el-button
+            size="small"
+            @click="cancel"
+          >取 消</el-button>
         </el-row>
       </div>
     </el-dialog>
     <!--   详情分组对话框 -->
-    <el-dialog :title="title"
-               :visible.sync="detailDialog"
-               width="860px"
-               append-to-body>
+    <el-dialog
+      :title="title"
+      :visible.sync="detailDialog"
+      width="860px"
+      append-to-body
+    >
       <div class="el-dialog-div">
         <el-row :gutter="25">
-          <el-form ref="elForm"
-                   :model="detailData"
-                   size="mini"
-                   label-width="133px">
+          <el-form
+            ref="elForm"
+            :model="detailData"
+            size="mini"
+            label-width="133px"
+          >
             <el-col :span="12">
-              <el-form-item label="源IP："
-                            prop="detail_src_ip">
-                <tooltip :content="detailData.detail_src_ip"
-                         :length="20" />
+              <el-form-item
+                label="源IP："
+                prop="detail_src_ip"
+              >
+                <tooltip
+                  :content="detailData.detail_src_ip"
+                  :length="20"
+                />
               </el-form-item>
             </el-col>
             <el-col :span="12">
               <el-form-item label="源设备：">
-                <tooltip :content="detailData.ev_com_socket_src_hostname"
-                         :length="20" />
+                <tooltip
+                  :content="detailData.ev_com_socket_src_hostname"
+                  :length="20"
+                />
               </el-form-item>
             </el-col>
             <el-col :span="12">
-              <el-form-item label="源端口："
-                            prop="ev_com_socket_src_port">
-                <tooltip :content="detailData.ev_com_socket_src_port"
-                         :length="20" />
+              <el-form-item
+                label="源端口："
+                prop="ev_com_socket_src_port"
+              >
+                <tooltip
+                  :content="detailData.ev_com_socket_src_port"
+                  :length="20"
+                />
 
               </el-form-item>
             </el-col>
             <el-col :span="12">
               <el-form-item label="源MAC：">
-                <tooltip :content="detailData.ev_com_link_src_mac"
-                         :length="20" />
+                <tooltip
+                  :content="detailData.ev_com_link_src_mac"
+                  :length="20"
+                />
 
               </el-form-item>
             </el-col>
             <el-col :span="12">
-              <el-form-item label="目的IP："
-                            prop="aimIp">
-                <tooltip :content="detailData.detail_dst_ip"
-                         :length="20" />
+              <el-form-item
+                label="目的IP："
+                prop="aimIp"
+              >
+                <tooltip
+                  :content="detailData.detail_dst_ip"
+                  :length="20"
+                />
               </el-form-item>
             </el-col>
             <el-col :span="12">
-              <el-form-item label="目的MAC："
-                            prop="field106">
-                <tooltip :content="detailData.ev_com_link_dst_mac"
-                         :length="20" />
+              <el-form-item
+                label="目的MAC："
+                prop="field106"
+              >
+                <tooltip
+                  :content="detailData.ev_com_link_dst_mac"
+                  :length="20"
+                />
               </el-form-item>
             </el-col>
             <el-col :span="12">
-              <el-form-item label="目的设备："
-                            prop="field107">
-                <tooltip :content="detailData.ev_com_socket_dst_hostname"
-                         :length="20" />
+              <el-form-item
+                label="目的设备："
+                prop="field107"
+              >
+                <tooltip
+                  :content="detailData.ev_com_socket_dst_hostname"
+                  :length="20"
+                />
 
               </el-form-item>
             </el-col>
             <el-col :span="12">
-              <el-form-item label="目的端口："
-                            prop="aimPort">
-                <tooltip :content="detailData.ev_com_socket_dst_port"
-                         :length="20" />
+              <el-form-item
+                label="目的端口："
+                prop="aimPort"
+              >
+                <tooltip
+                  :content="detailData.ev_com_socket_dst_port"
+                  :length="20"
+                />
               </el-form-item>
             </el-col>
             <el-col :span="12">
-              <el-form-item label="传输层协议："
-                            prop="transportProtocol">
-                <tooltip :content="detailData.ev_wsec_inpa_transport_layer_protocol"
-                         :length="20" />
+              <el-form-item
+                label="传输层协议："
+                prop="transportProtocol"
+              >
+                <tooltip
+                  :content="detailData.ev_wsec_inpa_transport_layer_protocol"
+                  :length="20"
+                />
               </el-form-item>
             </el-col>
             <el-col :span="12">
-              <el-form-item label="应用层协议："
-                            prop="applyProtocol">
-                <tooltip :content="detailData.ev_wsec_inpa_application_layer_protocol"
-                         :length="20" />
+              <el-form-item
+                label="应用层协议："
+                prop="applyProtocol"
+              >
+                <tooltip
+                  :content="detailData.ev_wsec_inpa_application_layer_protocol"
+                  :length="20"
+                />
 
               </el-form-item>
             </el-col>
             <el-col :span="12">
-              <el-form-item label="事件级别："
-                            prop="level">
-                <tooltip :content="detailData.severity"
-                         :length="20" />
+              <el-form-item
+                label="事件级别："
+                prop="level"
+              >
+                <tooltip
+                  :content="detailData.severity"
+                  :length="20"
+                />
 
               </el-form-item>
             </el-col>
             <el-col :span="12">
-              <el-form-item label=" 事件类型："
-                            prop="type">
-                <tooltip :content="detailData.event_format"
-                         :length="20" />
+              <el-form-item
+                label=" 事件类型："
+                prop="type"
+              >
+                <tooltip
+                  :content="detailData.event_format"
+                  :length="20"
+                />
 
               </el-form-item>
             </el-col>
             <el-col :span="12">
-              <el-form-item label="产生时间："
-                            prop="happen">
-                <tooltip :content="detailData.occur_time"
-                         :length="20" />
+              <el-form-item
+                label="产生时间："
+                prop="happen"
+              >
+                <tooltip
+                  :content="detailData.occur_time"
+                  :length="20"
+                />
 
               </el-form-item>
             </el-col>
             <el-col :span="12">
-              <el-form-item label="接收时间："
-                            prop="receive_time">
-                <tooltip :content="detailData.receive_time"
-                         :length="20" />
+              <el-form-item
+                label="接收时间："
+                prop="receive_time"
+              >
+                <tooltip
+                  :content="detailData.receive_time"
+                  :length="20"
+                />
 
               </el-form-item>
             </el-col>
             <el-col :span="12">
-              <el-form-item label="智能监测终端IP："
-                            prop="field115">
-                <tooltip :content="detailData.ev_wsec_inpa_monitor_terminal_ip"
-                         :length="20" />
+              <el-form-item
+                label="智能监测终端IP："
+                prop="field115"
+              >
+                <tooltip
+                  :content="detailData.ev_wsec_inpa_monitor_terminal_ip"
+                  :length="20"
+                />
 
               </el-form-item>
             </el-col>
             <el-col :span="12">
-              <el-form-item label="区域："
-                            prop="location">
-                <tooltip :content="detailData.location"
-                         :length="20" />
+              <el-form-item
+                label="区域："
+                prop="location"
+              >
+                <tooltip
+                  :content="detailData.location"
+                  :length="20"
+                />
 
               </el-form-item>
             </el-col>
             <el-col :span="12">
-              <el-form-item label="处置状态："
-                            prop="procedure">
-                <tooltip :content="detailData.procedure"
-                         :length="20" />
+              <el-form-item
+                label="处置状态："
+                prop="procedure"
+              >
+                <tooltip
+                  :content="detailData.procedure"
+                  :length="20"
+                />
               </el-form-item>
             </el-col>
           </el-form>
         </el-row>
-        <div slot="footer"
-             class="dialog-footer">
-          <el-row type="flex"
-                  justify="center">
-            <el-button size="small"
-                       type="primary"
-                       @click="submitForm">保 存</el-button>
-            <el-button size="small"
-                       @click="cancel">取 消</el-button>
+        <div
+          slot="footer"
+          class="dialog-footer"
+        >
+          <el-row
+            type="flex"
+            justify="center"
+          >
+            <el-button
+              size="small"
+              type="primary"
+              @click="submitForm"
+            >保 存</el-button>
+            <el-button
+              size="small"
+              @click="cancel"
+            >取 消</el-button>
           </el-row>
         </div>
       </div>
@@ -407,11 +585,9 @@
 <script>
 import { getIndustrialNetworkAuditData } from '@/utils/request'
 import { industryList } from '@/api/system/list'
-import { industrialNetworkAuditDetail } from '@/api/system/detail'
-
 export default {
   name: 'Online',
-  data () {
+  data() {
     return {
       from: 1,
       activeNames: ['1'],
@@ -429,7 +605,7 @@ export default {
             must: []
           }
         },
-        sort: [{ 'occur_time': { order: 'desc' } }],
+        sort: [{ 'occur_time': { order: 'desc' }}],
         from: 0,
         size: 10
       },
@@ -513,19 +689,19 @@ export default {
     }
   },
   watch: {
-    'queryParams.date' (newVal) {
+    'queryParams.date'(newVal) {
       if (newVal == null) {
         this.queryParams.date = []
       }
     }
   },
-  created () {
+  created() {
     // this.getList()
     this.getTableList()
   },
   methods: {
     // 根据对象中的key是否值为空x向数组中添加对象
-    addQuery (query, key, value) {
+    addQuery(query, key, value) {
       if (value !== '') {
         query.query.bool.must.push({
           match: {
@@ -534,7 +710,7 @@ export default {
         })
       }
     },
-    async getTableList () {
+    async getTableList() {
       this.addQuery(this.query, 'detail_src_ip', this.queryParams.detail_src_ip)
 
       this.addQuery(this.query, 'detail_dst_ip', this.queryParams.detail_dst_ip)
@@ -568,7 +744,7 @@ export default {
       })
       this.detailData.severity = this.transTypeDic(this.detailData.severity)
     },
-    transTypeDic (val) {
+    transTypeDic(val) {
       var t = [{
         name: '1',
         content: '极低'
@@ -591,7 +767,7 @@ export default {
         }))
       return `${orgTreeData1[0].content}`
     },
-    batchOperate (command) {
+    batchOperate(command) {
       let message = ''
       switch (command) {
         case 'process':
@@ -608,7 +784,7 @@ export default {
           break
       }
     },
-    openMessageBox (message) {
+    openMessageBox(message) {
       this.$confirm(message, '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
@@ -626,7 +802,7 @@ export default {
       })
     },
     /** 查询分组列表 */
-    async getList () {
+    async getList() {
       this.loading = true
       const res = await industryList(this.queryParams)
       this.groupList = res.rows
@@ -638,11 +814,11 @@ export default {
     //   this.pageNum = 1
     //   this.getList()
     // },
-    handleQuery () {
+    handleQuery() {
       this.getTableList()
     },
     /** 重置按钮操作 */
-    resetQuery () {
+    resetQuery() {
       this.queryParams = {
         detail_src_ip: '',
         detail_dst_ip: '',
@@ -655,20 +831,20 @@ export default {
       this.getTableList()
     },
     // 取消按钮
-    cancel () {
+    cancel() {
       this.exportDialog = false
       this.detailDialog = false
     },
     /** 提交按钮 */
-    submitForm () {
+    submitForm() {
       this.exportDialog = false
       this.detailDialog = false
     },
-    handleExport () {
+    handleExport() {
       this.exportDialog = true
       this.title = '批量导入资产'
     },
-    async detail (row) {
+    async detail(row) {
       // const { data } = await industrialNetworkAuditDetail(row)
       this.detailData = row
       this.detailDialog = true
