@@ -9,7 +9,7 @@
     >
       <el-col :span="3">
         <el-form-item label-width="1px" label="">
-          <el-select v-model="formData.region" placeholder="请选择区域" clearable :style="{width: '100%'}">
+          <el-select v-model="formData.location" placeholder="请选择区域" clearable :style="{width: '100%'}">
             <el-option
               v-for="(item, index) in addressOptions"
               :key="index"
@@ -35,9 +35,9 @@
       </el-col>
       <el-col :span="3">
         <el-form-item label-width="1px" label="">
-          <el-select v-model="formData.eventLevel" placeholder="请选择等级" clearable :style="{width: '100%'}">
+          <el-select v-model="formData.severity" placeholder="请选择等级" clearable :style="{width: '100%'}">
             <el-option
-              v-for="(item, index) in eventLevelOption"
+              v-for="(item, index) in severityOption"
               :key="index"
               :label="item.label"
               :value="item.value"
@@ -62,9 +62,9 @@ export default {
   data() {
     return {
       formData: {
-        region: '',
+        location: '',
         date: '',
-        eventLevel: ''
+        severity: ''
       },
       rules: {
         address: [{
@@ -109,7 +109,7 @@ export default {
         'label': '最近30天',
         'value': 3
       }],
-      eventLevelOption: [{
+      severityOption: [{
         'label': '致命',
         'value': 5
       }, {
@@ -129,7 +129,7 @@ export default {
   },
   computed: {},
   watch: {
-    'formData.region': {
+    'formData.location': {
       deep: true,
       handler(val, oldVal) {
         if (val !== oldVal) {
@@ -142,16 +142,18 @@ export default {
     'formData.date': {
       deep: true,
       handler(val, oldVal) {
-        if (val !== oldVal) {
+        if (val !== oldVal && val) {
           this.formData.beginGenerationTime = this.getdate(val)[0]
           this.formData.endGenerationTime = this.getdate(val)[1]
           this.getdata()
         } else {
-          return
+          this.formData.beginGenerationTime = ''
+          this.formData.endGenerationTime = ''
+          this.getdata()
         }
       }
     },
-    'formData.eventLevel': {
+    'formData.severity': {
       deep: true,
       handler(val, oldVal) {
         if (val !== oldVal) {
@@ -229,10 +231,11 @@ export default {
     },
     getdata() {
       this.$emit('getquery', {
-        region: this.formData.region,
+        date: this.formData.date,
+        location: this.formData.location,
         beginGenerationTime: this.formData.beginGenerationTime,
         endGenerationTime: this.formData.endGenerationTime,
-        eventLevel: this.formData.eventLevel
+        severity: this.formData.severity
       })
     }
 
