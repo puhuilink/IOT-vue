@@ -55,7 +55,14 @@
           align="center"
           prop="_source.event_format"
           :show-overflow-tooltip="true"
-        />
+        >
+          <template #default="scope">
+            <span v-if="scope.row._source.event_format == null || scope.row._source.event_format == ''" />
+            <span v-else>{{
+              transType(scope.row._source.event_format)
+            }}</span>
+          </template>
+        </el-table-column>
         <el-table-column
           label="事件等级"
           align="center"
@@ -139,6 +146,26 @@ export default {
   mounted() {
   },
   methods: {
+      transType(val) {
+      var t = [{
+        'label': '规则告警事件',
+        'value': 'ksec_syslog_rule_eve'
+      }, {
+        'label': '威胁情报事件',
+        'value': 'ksec_syslog_ioc_eve'
+      }, {
+        'label': '模型告警事件',
+        'value': 'ksec_syslog_model_eve'
+      }, {
+        'label': '入侵诱捕事件',
+        'value': 'msec_syslog_event'
+      }]
+      const orgTreeData = t.filter((e) => e.value === val)
+        .map(({ label }) => ({
+          label
+        }))
+      return `${orgTreeData[0].label}`
+    },
     translevelDic(val) {
       var t = [{
         'label': '僵尸网络',

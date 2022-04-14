@@ -500,6 +500,26 @@ export default {
     this.getTableList()
   },
   methods: {
+     transType(val) {
+      var t = [{
+        'label': '规则告警事件',
+        'value': 'ksec_syslog_rule_eve'
+      }, {
+        'label': '威胁情报事件',
+        'value': 'ksec_syslog_ioc_eve'
+      }, {
+        'label': '模型告警事件',
+        'value': 'ksec_syslog_model_eve'
+      }, {
+        'label': '入侵诱捕事件',
+        'value': 'msec_syslog_event'
+      }]
+      const orgTreeData = t.filter((e) => e.value === val)
+        .map(({ label }) => ({
+          label
+        }))
+      return `${orgTreeData[0].label}`
+    },
     // 根据对象中的key是否值为空x向数组中添加对象
     addQuery (query, key, value) {
       if (value !== '') {
@@ -641,6 +661,7 @@ export default {
       this.open = true
       this.title = '事件详情'
       this.detailData.severity = this.transTypeDic(this.detailData.severity)
+      this.detailData.event_format = this.transType(this.detailData.event_format)
     },
     // 取消按钮
     cancel () {

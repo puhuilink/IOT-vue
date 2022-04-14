@@ -133,9 +133,9 @@
                          align="center"
                          prop="severity"
                          :show-overflow-tooltip="true">
-          <template #default="scope">
+          <template >
             <span>{{
-              transTypeDic(scope.row._source.severity)
+             '中危'
             }}</span>
           </template>
         </el-table-column>

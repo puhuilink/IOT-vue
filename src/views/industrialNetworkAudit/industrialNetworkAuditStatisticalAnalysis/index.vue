@@ -71,7 +71,13 @@
           align="center"
           prop="_source.event_format"
           :show-overflow-tooltip="true"
-        />
+        >
+           <template #default="scope">
+            <span>{{
+              transType(scope.row._source.event_format)
+            }}</span>
+          </template>
+        </el-table-column>
         <el-table-column
           label="处置状态"
           align="center"
@@ -125,6 +131,30 @@ export default {
     this.getList()
   },
   methods: {
+     transType(val) {
+      var t = [{
+        name: 'wsec_syslog_inpa_ev_17',
+        content: '审计协议白名单'
+      }, {
+        name: 'wsec_syslog_inpa_ev_20',
+        content: '审计关键事件'
+      }, {
+        name: 'wsec_syslog_inpa_ev_21',
+        content: '审计自定义事件'
+      }, {
+        name: 'wsec_syslog_inpa_ev_23',
+        content: '审计协议规约'
+      }, {
+        name: '5',
+        content: '致命'
+      }]
+      const orgTreeData1 = t.filter((e) => e.name === val)
+        .map(({ content }) => ({
+          content
+        }))
+        console.log(orgTreeData1[0].content);
+      return `${orgTreeData1[0].content}`
+    },
     transTypeDic(val) {
       var t = [{
         name: '1',

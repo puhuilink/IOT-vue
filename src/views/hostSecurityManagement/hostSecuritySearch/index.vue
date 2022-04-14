@@ -179,7 +179,7 @@
         <el-table-column
           label="事件名称"
           align="center"
-          prop="_source.event_name"
+          prop="_source.ev_wsec_hsme_format_label"
           :show-overflow-tooltip="true"
         />
         <el-table-column
