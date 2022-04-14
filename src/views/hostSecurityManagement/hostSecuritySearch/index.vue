@@ -121,19 +121,6 @@
             </el-col>
             <el-col :span="6">
               <el-form-item
-                label="操作系统:"
-                prop="ev_wsec_hsme_system_osname"
-              >
-                <el-input
-                  v-model="queryParams.ev_wsec_hsme_system_osname"
-                  placeholder="请输入操作系统"
-                  clearable
-                  :style="{ width: '100%' }"
-                />
-              </el-form-item>
-            </el-col>
-            <el-col :span="6">
-              <el-form-item
                 label="时间:"
                 prop="date"
               >
@@ -151,14 +138,14 @@
             </el-col>
             <el-col :span="6">
               <el-form-item
-                size="mini"
-                label-width="10px"
+                label-width="100px"
               >
                 <el-button
+                 size="mini"
                   type="primary"
                   @click="btnQuery"
                 >搜索</el-button>
-                <el-button @click="resetForm">重置</el-button>
+                <el-button  size="mini" @click="resetForm">重置</el-button>
               </el-form-item>
             </el-col>
           </el-form>
@@ -212,12 +199,6 @@
           label="事件类型"
           align="center"
           prop="_source.ev_wsec_hsme_format_label"
-          :show-overflow-tooltip="true"
-        />
-        <el-table-column
-          label="操作系统"
-          align="center"
-          prop="_source.ev_wsec_hsme_system_osname"
           :show-overflow-tooltip="true"
         />
         <el-table-column

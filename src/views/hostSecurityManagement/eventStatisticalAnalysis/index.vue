@@ -64,12 +64,6 @@
           :show-overflow-tooltip="true"
         />
         <el-table-column
-          label="操作系统"
-          align="center"
-          prop="_source.ev_wsec_hsme_system_osname"
-          :show-overflow-tooltip="true"
-        />
-        <el-table-column
           label="客户端名称"
           align="center"
           prop="_source.ev_wsec_hsme_system_osuser"
