@@ -1,24 +1,9 @@
 <template>
   <div class="app-container">
-    <echarts
-      :event-type="2"
-      @getquery="uploadData"
-    />
-    <eventTrend
-      :query="query"
-      :event-type="2"
-      :name="'Jiangwoodcreep'"
-    />
-    <eventType
-      :query="query"
-      :type="'severity'"
-      :name="'Jiangwoodcreep'"
-    />
-    <wordcloud
-      :query="query"
-      :type="2"
-      :name="'Jiangwoodcreep'"
-    />
+    <echarts :event-type="2" @getquery="uploadData" />
+    <eventTrend :query="query" :event-type="2" :name="'Jiangwoodcreep'" />
+    <eventType :query="query" :type="'severity'" :name="'Jiangwoodcreep'" />
+    <wordcloud :query="query" :type="2" :name="'Jiangwoodcreep'" />
     <eventType
       :query="query"
       :tipname="'事件状态处置图'"
@@ -27,11 +12,7 @@
     />
     <el-col :span="24">
       <tip> 最新僵木蠕事件 </tip>
-      <el-table
-        :data="List"
-        tooltip-effect="light"
-        height="320"
-      >
+      <el-table :data="List" tooltip-effect="light" height="320">
         <el-table-column
           label="源IP"
           align="center"
@@ -57,22 +38,24 @@
           :show-overflow-tooltip="true"
         >
           <template #default="scope">
-            <span v-if="scope.row._source.event_format == null || scope.row._source.event_format == ''" />
-            <span v-else>{{
-              transType(scope.row._source.event_format)
-            }}</span>
+            <span
+              v-if="
+                scope.row._source.event_format == null ||
+                scope.row._source.event_format == ''
+              "
+            />
+            <span v-else>{{ transType(scope.row._source.event_format) }}</span>
           </template>
         </el-table-column>
-        <el-table-column
-          label="事件等级"
-          align="center"
-          prop="severity"
-        >
+        <el-table-column label="事件等级" align="center" prop="severity">
           <template #default="scope">
-            <span v-if="scope.row._source.severity == null || scope.row._source.severity == ''" />
-            <span v-else>{{
-              transTypeDic(scope.row._source.severity)
-            }}</span>
+            <span
+              v-if="
+                scope.row._source.severity == null ||
+                scope.row._source.severity == ''
+              "
+            />
+            <span v-else>{{ transTypeDic(scope.row._source.severity) }}</span>
           </template>
         </el-table-column>
         <el-table-column
@@ -110,118 +93,134 @@
   </div>
 </template>
 <script>
-import { getbaseJiangTableData } from '@/utils/request'
-import echarts from '@/components/Echarts/searchBar'
-import eventTrend from '@/components/Echarts/eventTrend'
-import eventType from '@/components/Echarts/eventType'
-import wordcloud from '@/components/Echarts/wordcloud'
-import tip from '@/components/EchartsTip'
+import { getbaseJiangTableData } from "@/utils/request";
+import echarts from "@/components/Echarts/searchBar";
+import eventTrend from "@/components/Echarts/eventTrend";
+import eventType from "@/components/Echarts/eventType";
+import wordcloud from "@/components/Echarts/wordcloud";
+import tip from "@/components/EchartsTip";
 export default {
   components: { echarts, eventTrend, eventType, wordcloud, tip },
   props: [],
   data() {
-    return { // 查询参数
+    return {
+      // 查询参数
       List: [],
-      policitalStatus: ['1'],
-      query: {
-      },
+      policitalStatus: ["1"],
+      query: {},
       queryParams: {
         query: {
           bool: {
-            must: []
-          }
+            must: [],
+          },
         },
-        sort: [{ 'occur_time': { order: 'desc' }}],
+        sort: [{ occur_time: { order: "desc" } }],
         from: 0,
-        size: 6
+        size: 6,
       },
-      groupList: []
-    }
+    };
   },
   computed: {},
   watch: {},
   created() {
-    this.getList()
+    this.getList();
   },
-  mounted() {
-  },
+  mounted() {},
   methods: {
-      transType(val) {
-      var t = [{
-        'label': '规则告警事件',
-        'value': 'ksec_syslog_rule_eve'
-      }, {
-        'label': '威胁情报事件',
-        'value': 'ksec_syslog_ioc_eve'
-      }, {
-        'label': '模型告警事件',
-        'value': 'ksec_syslog_model_eve'
-      }, {
-        'label': '入侵诱捕事件',
-        'value': 'msec_syslog_event'
-      }]
-      const orgTreeData = t.filter((e) => e.value === val)
+    transType(val) {
+      var t = [
+        {
+          label: "规则告警事件",
+          value: "ksec_syslog_rule_eve",
+        },
+        {
+          label: "威胁情报事件",
+          value: "ksec_syslog_ioc_eve",
+        },
+        {
+          label: "模型告警事件",
+          value: "ksec_syslog_model_eve",
+        },
+        {
+          label: "入侵诱捕事件",
+          value: "msec_syslog_event",
+        },
+      ];
+      const orgTreeData = t
+        .filter((e) => e.value === val)
         .map(({ label }) => ({
-          label
-        }))
-      return `${orgTreeData[0].label}`
+          label,
+        }));
+      return `${orgTreeData[0].label}`;
     },
     translevelDic(val) {
-      var t = [{
-        'label': '僵尸网络',
-        'value': 'Botnet'
-      }, {
-        'label': '网络木马',
-        'value': 'Trojan'
-      }, {
-        'label': '恶意软件',
-        'value': 'Malware'
-      }, {
-        'label': '恶意链接',
-        'value': 'URL_malware'
-      }]
-      const orgTreeData = t.filter((e) => e.value === val)
+      var t = [
+        {
+          label: "僵尸网络",
+          value: "Botnet",
+        },
+        {
+          label: "网络木马",
+          value: "Trojan",
+        },
+        {
+          label: "恶意软件",
+          value: "Malware",
+        },
+        {
+          label: "恶意链接",
+          value: "URL_malware",
+        },
+      ];
+      const orgTreeData = t
+        .filter((e) => e.value === val)
         .map(({ label }) => ({
-          label
-        }))
-      return `${orgTreeData[0].label}`
+          label,
+        }));
+      return `${orgTreeData[0].label}`;
     },
     transTypeDic(val) {
-      var t = [{
-        name: '1',
-        content: '极低'
-      }, {
-        name: '2',
-        content: '低危'
-      }, {
-        name: '3',
-        content: '中危'
-      }, {
-        name: '4',
-        content: '高危'
-      }, {
-        name: '5',
-        content: '致命'
-      }]
-      const orgTreeData1 = t.filter((e) => e.name === val)
+      var t = [
+        {
+          name: "1",
+          content: "极低",
+        },
+        {
+          name: "2",
+          content: "低危",
+        },
+        {
+          name: "3",
+          content: "中危",
+        },
+        {
+          name: "4",
+          content: "高危",
+        },
+        {
+          name: "5",
+          content: "致命",
+        },
+      ];
+      const orgTreeData1 = t
+        .filter((e) => e.name === val)
         .map(({ content }) => ({
-          content
-        }))
-      return `${orgTreeData1[0].content}`
+          content,
+        }));
+      return `${orgTreeData1[0].content}`;
     },
     async getList() {
-      getbaseJiangTableData(this.queryParams).then(res => {
-        this.queryParams.query.bool.must = []
-        this.total = res.data.hits.total
-        this.List = res.data.hits.hits
-      })
+      getbaseJiangTableData(this.queryParams).then((res) => {
+        this.queryParams.query.bool.must = [];
+        this.total = res.data.hits.total;
+        this.List = res.data.hits.hits;
+      });
     },
     uploadData(data) {
-      this.query = data
-    }
-  }
-}
-
+      console.log("4-15-data", data);
+      this.query = data;
+    },
+  },
+};
 </script>
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>
