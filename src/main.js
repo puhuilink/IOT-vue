@@ -10,6 +10,7 @@ import '@/assets/styles/ruoyi.scss' // ruoyi css
 import App from './App'
 import store from './store'
 import router from './router'
+import moment from 'moment/moment'
 import './directive'
 import './components/global_components'
 
@@ -49,6 +50,7 @@ Vue.prototype.msgInfo = function(msg) {
 }
 
 // 全局组件挂载
+Vue.filter('moment', function (value, formatString) { formatString = formatString || 'YYYY-MM-DD HH:mm:ss'; return moment(value).format(formatString);});
 Vue.component('Pagination', Pagination)
 Vue.component('RightToolbar', RightToolbar)
 

@@ -304,7 +304,7 @@
             </el-col>
             <el-col :span="12">
               <el-form-item label="事件名称 :">
-                {{ detailData.event_name }}
+                {{ detailData.format_label }}
               </el-form-item>
             </el-col>
             <el-col :span="12">
@@ -333,11 +333,6 @@
                   :content="detailData.ev_wsec_hsme_process_location"
                   :length="40"
                 />
-              </el-form-item>
-            </el-col>
-            <el-col :span="12">
-              <el-form-item label="操作系统 :">
-                {{ detailData.ev_wsec_hsme_system_osname }}
               </el-form-item>
             </el-col>
             <el-col :span="12">

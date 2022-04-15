@@ -257,9 +257,17 @@
       <el-table-column
         label="发生时间"
         align="center"
-        prop="_source.occur_time"
+        prop="_source.ev_com_event_occur_time"
         :show-overflow-tooltip="true"
-      />
+      >
+        <template #default="scope">
+          <span>
+            {{
+              scope.row._source.ev_com_event_occur_time | moment
+            }}
+          </span>
+        </template>
+      </el-table-column>
       <el-table-column
         label="发现时间"
         align="center"
