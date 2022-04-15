@@ -199,7 +199,7 @@
         min-width="10%"
       />
       <el-table-column
-        label="发布时间"
+        label="发生时间"
         align="center"
         prop="_source.occur_time"
         :show-overflow-tooltip="true"
@@ -293,7 +293,7 @@
             </el-form-item>
           </el-col>
           <el-col :span="12">
-            <el-form-item label="发布时间 :">
+            <el-form-item label="发生时间 :">
               {{ detailData.occur_time }}
             </el-form-item>
           </el-col>

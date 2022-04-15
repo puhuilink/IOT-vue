@@ -1,79 +1,105 @@
 <template>
   <div class="app-container">
-    <echarts :event-type="1"
-             @getquery="uploadData" />
-    <eventTrend :query="query"
-                :name="'host'" />
-    <eventType :query="query"
-               :tipname="'事件类型分布'"
-               :type="'ev_wsec_hsme_format_label'"
-               :name="'host'" />
-    <wordcloud :query="query"
-               :address="address"
-               :host="1" />
-    <eventType :query="query"
-               :tipname="'事件状态处置图'"
-               :type="'procedure'"
-               :name="'host'" />
+    <echarts
+      :event-type="1"
+      @getquery="uploadData"
+    />
+    <eventTrend
+      :query="query"
+      :name="'host'"
+    />
+    <eventType
+      :query="query"
+      :tipname="'事件类型分布'"
+      :type="'ev_wsec_hsme_format_label'"
+      :name="'host'"
+    />
+    <wordcloud
+      :query="query"
+      :address="address"
+      :host="1"
+    />
+    <eventType
+      :query="query"
+      :tipname="'事件状态处置图'"
+      :type="'procedure'"
+      :name="'host'"
+    />
     <el-col :span="24">
       <tip> 最新主机安全事件 </tip>
-      <el-table :data="groupList"
-                height="300"
-                tooltip-effect="light">
-        <el-table-column label="接收时间"
-                         align="center"
-                         prop="receivingTime"
-                         :show-overflow-tooltip="true" />
-        <el-table-column label="事件名称"
-                         align="center"
-                         prop="eventName"
-                         :show-overflow-tooltip="true" />
-        <el-table-column label="事件等级"
-                         align="center"
-                         prop="eventLevel"
-                         :show-overflow-tooltip="true">
+      <el-table
+        :data="List"
+        tooltip-effect="light"
+        height="320"
+      >
+        <el-table-column
+          label="接收时间"
+          align="center"
+          prop="_source.receive_time"
+          :show-overflow-tooltip="true"
+        />
+        <el-table-column
+          label="事件名称"
+          align="center"
+          prop="_source.event_name"
+          :show-overflow-tooltip="true"
+        />
+        <el-table-column
+          label="事件等级"
+          align="center"
+          prop="_source.severity"
+          :show-overflow-tooltip="true"
+        >
           <template #default="scope">
-            <span>{{
-              transTypeDic(scope.row.eventLevel)
+            <span v-if="scope.row._source.severity == '' || scope.row._source.severity == null" />
+            <span v-else>{{
+              transTypeDic(scope.row._source.severity)
             }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="事件类型"
-                         align="center"
-                         prop="eventType"
-                         :show-overflow-tooltip="true" />
-        <el-table-column label="操作系统"
-                         align="center"
-                         prop="operatingSystem"
-                         :show-overflow-tooltip="true" />
-        <el-table-column label="客户端名称"
-                         align="center"
-                         prop="clientName"
-                         :show-overflow-tooltip="true" />
-        <el-table-column label="客户端IP"
-                         align="center"
-                         prop="clientIp"
-                         :show-overflow-tooltip="true" />
-        <el-table-column label="产生时间"
-                         align="center"
-                         prop="generationTime"
-                         :show-overflow-tooltip="true" />
-        <el-table-column label="日志描述"
-                         align="center"
-                         prop="logDescription"
-                         :show-overflow-tooltip="true" />
-        <el-table-column label="区域"
-                         align="center"
-                         prop="region"
-                         :show-overflow-tooltip="true" />
+        <el-table-column
+          label="事件类型"
+          align="center"
+          prop="_source.ev_wsec_hsme_format_label"
+          :show-overflow-tooltip="true"
+        />
+        <el-table-column
+          label="客户端名称"
+          align="center"
+          prop="_source.ev_wsec_hsme_system_osuser"
+          :show-overflow-tooltip="true"
+        />
+        <el-table-column
+          label="客户端IP"
+          align="center"
+          prop="_source.ev_wsec_hsme_system_ip"
+          :show-overflow-tooltip="true"
+        />
+        <el-table-column
+          label="发生时间"
+          align="center"
+          prop="_source.occur_time"
+          :show-overflow-tooltip="true"
+        />
+        <el-table-column
+          label="日志描述"
+          align="center"
+          prop="_source.description"
+          :show-overflow-tooltip="true"
+        />
+        <el-table-column
+          label="处置状态"
+          align="center"
+          prop="_source.procedure"
+          :show-overflow-tooltip="true"
+        />
+        <el-table-column
+          label="区域"
+          align="center"
+          prop="_source.location"
+          :show-overflow-tooltip="true"
+        />
       </el-table>
-      <!-- <pagination
-        v-show="total > 0"
-        :total="total"
-        :page.sync="queryParams.pageNum"
-        :limit.sync="queryParams.pageSize"
-        @pagination="getList"
-      /> -->
     </el-col>
 
   </div>
@@ -81,25 +107,22 @@
 <script>
 import echarts from '@/components/Echarts/searchBar'
 import eventTrend from '@/components/Echarts/eventTrend'
-import pieChartNesting from '@/components/Echarts/pieChartNesting'
 import wordcloud from '@/components/Echarts/wordcloud'
-import pieChartDisposal from '@/components/Echarts/pieChartDisposal'
 import eventType from '@/components/Echarts/eventType'
 import tip from '@/components/EchartsTip'
-import { hostList } from '@/api/system/list'
+import { getHostSecurityData } from '@/utils/request'
 export default {
   components: {
     echarts,
     eventTrend,
-    pieChartNesting,
     wordcloud,
-    pieChartDisposal,
     eventType,
     tip
   },
   props: [],
-  data () {
+  data() {
     return {
+      List: [],
       policitalStatus: ['1'],
       address: 1,
       query: {},
@@ -107,19 +130,25 @@ export default {
       groupList: [],
       // 查询参数
       queryParams: {
-        pageNum: 1,
-        pageSize: 10
+        query: {
+          bool: {
+            must: []
+          }
+        },
+        sort: [{ 'occur_time': { order: 'desc' }}],
+        from: 0,
+        size: 6
       }
     }
   },
   computed: {},
   watch: {},
-  created () {
+  created() {
     this.getList()
   },
-  mounted () { },
+  mounted() { },
   methods: {
-    transTypeDic (val) {
+    transTypeDic(val) {
       var t = [{
         name: '1',
         content: '极低'
@@ -142,15 +171,15 @@ export default {
         }))
       return `${orgTreeData1[0].content}`
     },
-    uploadData (data) {
+    uploadData(data) {
       this.query = data
     },
-    async getList () {
-      this.loading = true
-      const res = await hostList(this.queryParams)
-      this.groupList = res.rows
-      this.total = res.total
-      this.loading = false
+    async getList() {
+      getHostSecurityData(this.queryParams).then(res => {
+        this.queryParams.query.bool.must = []
+        this.total = res.data.hits.total
+        this.List = res.data.hits.hits
+      })
     }
   }
 }

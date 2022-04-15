@@ -158,7 +158,7 @@
             </el-col>
             <el-col :span="9">
               <el-form-item
-                label="发布时间："
+                label="发生时间："
                 prop="date"
               >
                 <el-time-picker

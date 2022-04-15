@@ -1,19 +1,20 @@
 <template>
   <el-col :span="12">
     <tip>{{ tipname }}</tip>
-    <div ref="canvas1"
-         style="height: 400px" />
+    <div
+      ref="canvas1"
+      style="height: 400px"
+    />
   </el-col>
 </template>
 <script>
 import { getbaseJiangTableData, getHostSecurityData } from '@/utils/request'
 import tip from '@/components/EchartsTip'
 import { setNotopt } from '@/utils/emptyEcharts.js'
-import { eventNameEcharts, CreepthreatEcharts } from '@/api/system/echarts'
+import { eventNameEcharts } from '@/api/system/echarts'
 import '@/components/Echarts/echarts-wordcloud.min.js'
-import { EventNameWordCloudMap } from '@/api/system/echarts'
 export default {
-  name: 'wordcloud',
+  name: 'Wordcloud',
   components: { tip },
   props: {
     tipname: { // tip内容
@@ -33,7 +34,7 @@ export default {
       type: Number
     }
   },
-  data () {
+  data() {
     return {
       hasData: [],
       datacopy: [
@@ -48,20 +49,43 @@ export default {
         aggs: {
           field: {
             terms: {
-              field: "event_name",
+              field: 'event_name',
               size: 10
             }
           }
         }
-      },
+      }
     }
   },
   computed: {},
   watch: {
     query: {
-      handler (val, oldVal) {
-        this.queryParms = this.query
+      handler(val, oldVal) {
         if (val !== oldVal) {
+          if (val.severity) {
+            this.queryParms.query.bool.must.push({
+              match: {
+                severity: val.severity
+              }
+            })
+          }
+          if (val.location) {
+            this.queryParms.query.bool.must.push({
+              match: {
+                location: val.location
+              }
+            })
+          }
+          if (val.beginGenerationTime) {
+            this.queryParms.query.bool.must.push({
+              range: {
+                generationTime: {
+                  gte: val.beginGenerationTime,
+                  lte: val.endGenerationTime
+                }
+              }
+            })
+          }
           this.getData()
           this.drawPolicitalStatus()
         }
@@ -69,14 +93,14 @@ export default {
       deep: true
     }
   },
-  created () {
+  created() {
     this.getData()
   },
-  mounted () {
+  mounted() {
     this.drawPolicitalStatus()
   },
   methods: {
-    transDic (data) {
+    transDic(data) {
       var arr = data
       var arrNew = []
       var area = []
@@ -91,22 +115,20 @@ export default {
       })
       return arrNew
     },
-    async getData () {
+    async getData() {
       if (this.host) {
         await getHostSecurityData(this.queryParms).then(({ data }) => {
-          console.log('4-13-词云图数据', data)
           this.hasData = data.aggregations.field.buckets
           this.datacopy = this.transDic(data.aggregations.field.buckets)
-          console.log('4-13-this.datacopy', this.datacopy)
+          this.queryParms.query.bool.must = []
         })
       } else {
         switch (this.name) {
           case 'Jiangwoodcreep':
             await getbaseJiangTableData(this.queryParms).then(({ data }) => {
-              // console.log('4-13-词云图数据', data)
               this.hasData = data.aggregations.field.buckets
               this.datacopy = this.transDic(data.aggregations.field.buckets)
-              // console.log('4-13-this.datacopy', this.datacopy)
+              this.queryParms.query.bool.must = []
             })
             break
           case 'event':
@@ -122,7 +144,7 @@ export default {
       }
       this.drawPolicitalStatus()
     },
-    drawPolicitalStatus () {
+    drawPolicitalStatus() {
       if (this.hasData.length) {
         // 基于准备好的dom，初始化echarts实例
         const myChart = this.$echarts.init(this.$refs.canvas1)
@@ -130,7 +152,7 @@ export default {
         myChart.setOption({
           tooltip: {
             show: true,
-            formatter: function (params) {
+            formatter: function(params) {
               return params.name + ' : ' + params.value
             }
           },
@@ -151,7 +173,7 @@ export default {
               drawOutOfBound: true,
               textStyle: {
                 normal: {
-                  color: function () {
+                  color: function() {
                     return 'rgb(' + [
                       Math.round(Math.random() * 160),
                       Math.round(Math.random() * 160),
@@ -168,7 +190,7 @@ export default {
             }
           ]
         })
-        window.addEventListener('resize', function () {
+        window.addEventListener('resize', function() {
           myChart.resize()
         })
       } else {
