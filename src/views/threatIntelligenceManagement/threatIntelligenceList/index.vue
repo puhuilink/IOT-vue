@@ -270,7 +270,7 @@
             </el-col>
             <el-col :span="12">
               <el-form-item label="情报类型 :">
-                {{ detailData.event_format }}
+                {{ detailData.ev_ksec_ioc_type }}
               </el-form-item>
             </el-col>
             <el-col :span="12">
@@ -731,9 +731,9 @@ export default {
       this.open = true;
       this.title = "事件详情";
       this.detailData.severity = this.transTypeDic(this.detailData.severity);
-      this.detailData.event_format = this.transType(
-        this.detailData.event_format
-      );
+      // this.detailData.event_format = this.transType(
+      //   this.detailData.event_format
+      // );
     },
     // 取消按钮
     cancel() {
