@@ -120,7 +120,7 @@
                   start-placeholder="开始时间"
                   end-placeholder="结束时间"
                   range-separator="至"
-                   :style="{ width: '100%' }"
+                  :style="{ width: '100%' }"
                   clearable
                 />
               </el-form-item>
@@ -191,7 +191,6 @@
                 scope.row._source.event_format == null
               "
             />
-            <!-- <span v-else>{{ scope.row._source.event_format }}</span> -->
             <span v-else>{{ transType(scope.row._source.event_format) }}</span>
           </template>
         </el-table-column>
@@ -639,7 +638,7 @@ export default {
     },
     transTypeDic(val) {
       var t = [
-       {
+        {
           name: 1,
           content: "极低",
         },
