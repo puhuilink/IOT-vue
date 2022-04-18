@@ -161,13 +161,7 @@
         min-width="8%"
       >
         <template #default="scope">
-          <span
-            v-if="
-              scope.row._source.severity == null ||
-              scope.row._source.severity == ''
-            "
-          />
-          <span v-else>{{ scope.row._source.severity }}</span>
+          <span >{{transTypeDic(scope.row._source.severity)  }}</span>
         </template>
       </el-table-column>
 
@@ -234,6 +228,11 @@
           <el-col :span="8">
             <el-form-item label="资产类型 :">
               {{ detailData.event_format }}
+            </el-form-item>
+          </el-col>
+             <el-col :span="8">
+            <el-form-item label="事件等级 :">
+              {{ detailData.severity }}
             </el-form-item>
           </el-col>
           <el-col :span="8">
@@ -548,21 +547,15 @@ export default {
         {
           name: "5",
           content: "致命",
-        },
+        }
       ];
       const orgTreeData1 = t
         .filter((e) => e.name === val)
         .map(({ content }) => ({
           content,
         }));
+        console.log(orgTreeData1);
       return `${orgTreeData1[0].content}`;
-    },
-    async getList() {
-      this.loading = true;
-      const res = await weakList(this.queryParams);
-      this.groupList = res.rows;
-      this.total = res.total;
-      this.loading = false;
     },
     batchOperate(command) {
       let message = "";
@@ -599,19 +592,6 @@ export default {
             message: "已取消修改！",
           });
         });
-    },
-    // 前端自己分页
-    getResultsData: function () {
-      // this指向改一下
-      var that = this;
-      var list = that.groupList; // 后端回来表格的数据
-      // 渲染的数据newArry赋值
-      this.newArry = list.filter(
-        (item, index) =>
-          index < that.currentPage * that.pagesize &&
-          index >= that.pagesize * (that.currentPage - 1)
-      ); // 根据页数显示相应的内容
-      this.total = list.length;
     },
     submitdata() {
       this.$refs["elForm"].validate((valid) => {
