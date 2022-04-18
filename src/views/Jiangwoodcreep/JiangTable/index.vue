@@ -194,7 +194,11 @@
         align="center"
         prop="_source.ev_ksec_threatFlag"
         :show-overflow-tooltip="true"
-      />
+      >
+         <template #default="scope">
+          <span>{{ translevelDic(scope.row._source.ev_ksec_threatFlag) }}</span>
+        </template>
+      </el-table-column>
       <el-table-column label="事件等级" align="center" prop="severity">
         <template #default="scope">
           <span
@@ -762,9 +766,9 @@ export default {
       if (this.detailData.severity) {
         this.detailData.severity = this.transTypeDic(this.detailData.severity);
       }
-      // this.detailData.event_format = this.transType(
-      //   this.detailData.event_format
-      // );
+     if(this.detailData.ev_ksec_threatFlag){
+      this.detailData.ev_ksec_threatFlag = this.translevelDic(this.detailData.ev_ksec_threatFlag);
+     }
     },
     // 取消按钮
     cancel() {
