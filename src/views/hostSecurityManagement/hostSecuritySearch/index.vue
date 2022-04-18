@@ -13,9 +13,9 @@
             label-position="right"
           >
             <el-col :span="6">
-              <el-form-item label="事件名称:" prop="event_name">
+              <el-form-item label="事件名称:" prop="event_format">
                 <el-input
-                  v-model="queryParams.event_name"
+                  v-model="queryParams.event_format"
                   placeholder="请输入事件名称"
                   clearable
                   :style="{ width: '100%' }"
@@ -61,9 +61,9 @@
               </el-form-item>
             </el-col>
             <el-col :span="6">
-              <el-form-item label="事件类型:" prop="ev_wsec_hsme_format_label">
+              <el-form-item label="事件类型:" prop="event_format">
                 <el-input
-                  v-model="queryParams.ev_wsec_hsme_format_label"
+                  v-model="queryParams.event_format"
                   placeholder="请输入事件类型"
                   clearable
                   :style="{ width: '100%' }"
@@ -135,12 +135,28 @@
       </el-row>
       <el-table :data="List" tooltip-effect="light">
         <el-table-column type="selection" width="55" align="center" />
-        <el-table-column
+        <!-- <el-table-column
           label="事件名称"
           align="center"
-          prop="_source.ev_wsec_hsme_format_label"
+          prop="_source.event_format"
           :show-overflow-tooltip="true"
-        />
+        /> -->
+        <el-table-column
+          label="事件类型"
+          align="center"
+          prop="event_format"
+          :show-overflow-tooltip="true"
+        >
+          <template #default="scope">
+            <span
+              v-if="
+                scope.row._source.event_format == '' ||
+                scope.row._source.event_format == null
+              "
+            />
+            <span v-else>{{ transType(scope.row._source.event_format) }}</span>
+          </template>
+        </el-table-column>
         <el-table-column
           label="事件等级"
           align="center"
@@ -157,12 +173,28 @@
             <span v-else>{{ transTypeDic(scope.row._source.severity) }}</span>
           </template>
         </el-table-column>
+        <!-- <el-table-column
+          label="事件类型"
+          align="center"
+          prop="_source.event_format"
+          :show-overflow-tooltip="true"
+        /> -->
         <el-table-column
           label="事件类型"
           align="center"
-          prop="_source.ev_wsec_hsme_format_label"
+          prop="event_format"
           :show-overflow-tooltip="true"
-        />
+        >
+          <template #default="scope">
+            <span
+              v-if="
+                scope.row._source.event_format == '' ||
+                scope.row._source.event_format == null
+              "
+            />
+            <span v-else>{{ transType(scope.row._source.event_format) }}</span>
+          </template>
+        </el-table-column>
         <el-table-column
           label="客户端名称"
           align="center"
@@ -257,7 +289,7 @@
             </el-col>
             <el-col :span="12">
               <el-form-item label="事件名称 :">
-                {{ detailData.format_label }}
+                {{ detailData.event_format }}
               </el-form-item>
             </el-col>
             <el-col :span="12">
@@ -277,7 +309,7 @@
             </el-col>
             <el-col :span="12">
               <el-form-item label="事件类型 :">
-                {{ detailData.ev_wsec_hsme_format_label }}
+                {{ detailData.event_format }}
               </el-form-item>
             </el-col>
             <el-col :span="12">
@@ -397,10 +429,9 @@ export default {
       },
       // 查询参数
       queryParams: {
-        event_name: "",
         location: "",
         severity: "",
-        ev_wsec_hsme_format_label: "",
+        event_format: "",
         procedure: "",
         ev_wsec_hsme_system_ip: "",
         ev_wsec_hsme_system_osname: "",
@@ -409,7 +440,7 @@ export default {
       rules: {
         name: [],
         severity: [],
-        ev_wsec_hsme_format_label: [],
+        event_format: [],
         location: [],
         procedure: [],
         ip: [],
@@ -529,17 +560,11 @@ export default {
       }
     },
     async getTableList() {
-      this.addQuery(this.query, "event_name", this.queryParams.event_name);
-
       this.addQuery(this.query, "location", this.queryParams.location);
 
       this.addQuery(this.query, "severity", this.queryParams.severity);
 
-      this.addQuery(
-        this.query,
-        "ev_wsec_hsme_format_label",
-        this.queryParams.ev_wsec_hsme_format_label
-      );
+      this.addQuery(this.query, "event_format", this.queryParams.event_format);
 
       this.addQuery(this.query, "procedure", this.queryParams.procedure);
 
@@ -573,10 +598,43 @@ export default {
         this.List = res.data.hits.hits;
       });
     },
-
+    transType(val) {
+      var t = [
+        {
+          label: "程序告警事件",
+          value: "wsec_syslog_hsme_ev_07",
+        },
+        {
+          label: "外设告警事件",
+          value: "wsec_syslog_hsme_ev_08",
+        },
+        {
+          label: "主机防火墙事件",
+          value: "wsec_syslog_hsme_ev_09",
+        },
+        {
+          label: "访问控制事件",
+          value: "wsec_syslog_hsme_ev_10",
+        },
+        {
+          label: "主机非法外联",
+          value: "wsec_syslog_hsme_ev_22",
+        },
+        {
+          label: "恶意文件事件",
+          value: "wsec_syslog_hsme_ev_30",
+        },
+      ];
+      const orgTreeData = t
+        .filter((e) => e.value === val)
+        .map(({ label }) => ({
+          label,
+        }));
+      return `${orgTreeData[0].label}`;
+    },
     transTypeDic(val) {
       var t = [
-       {
+        {
           name: 1,
           content: "极低",
         },
@@ -658,10 +716,9 @@ export default {
     },
     resetForm() {
       this.queryParams = {
-        event_name: "",
         location: "",
         severity: "",
-        ev_wsec_hsme_format_label: "",
+        event_format: "",
         procedure: "",
         ev_wsec_hsme_system_ip: "",
         ev_wsec_hsme_system_osname: "",
@@ -682,6 +739,9 @@ export default {
       this.title = "事件详情";
       this.detailData = row;
       this.detailData.severity = this.transTypeDic(this.detailData.severity);
+      this.detailData.event_format = this.transType(
+        this.detailData.event_format
+      );
     },
     // 取消按钮
     cancel() {
