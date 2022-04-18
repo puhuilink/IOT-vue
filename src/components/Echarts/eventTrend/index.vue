@@ -7,7 +7,7 @@
 </template>
 <script>
 import { setNotopt } from '@/utils/emptyEcharts.js'
-import { eventEcharts, CreepeventLevelEcharts, EventTrendAnalysis, abnormalAnalysis, selectEventLevelGradeEcharts, industrialNetworkAuditEcharts, scanningeventLevelEcharts } from '@/api/system/echarts'
+import { eventEsData,eventEcharts, CreepeventLevelEcharts, EventTrendAnalysis, abnormalAnalysis, selectEventLevelGradeEcharts, industrialNetworkAuditEcharts, scanningeventLevelEcharts } from '@/api/system/echarts'
 import tip from '@/components/EchartsTip'
 export default {
   name: 'AAA',
@@ -15,6 +15,10 @@ export default {
   props: {
     tipname: { // tip内容
       default: '事件趋势分析',
+      type: String
+    },
+    search:{   //es索引
+     default: '',
       type: String
     },
     name: {
@@ -33,6 +37,11 @@ export default {
   data () {
     return {
       queryParms: {
+        indexes: this.search,
+        beginTime:'',
+        endTime:'',
+        severity: '',
+        location: ''
       },
       policitalStatus: ['1'],
       hasData: [],
@@ -46,10 +55,27 @@ export default {
   },
   computed: {},
   watch: {
-    query: {
-      handler (val, oldVal) {
-        this.queryParms = this.query
+   query: {
+      handler(val, oldVal) {
         if (val !== oldVal) {
+          if(val.severity){
+            this.queryParms.severity = val.severity
+          }else{
+            this.queryParms.severity = ''
+          }
+          if(val.location){
+            this.queryParms.location = val.location
+          }else{
+            this.queryParms.location = ''
+          }
+
+          if (val.beginGenerationTime&&val.endGenerationTime) {
+            this.queryParms.beginTime = val.beginGenerationTime
+            this.queryParms.endTime = val.endGenerationTime
+          } else {
+            this.queryParms.beginTime = ''
+            this.queryParms.endTime = ''
+          }
           this.getData()
           this.drawPolicitalStatus()
         }
@@ -157,7 +183,7 @@ export default {
     async getData () {
       switch (this.name) {
         case 'Jiangwoodcreep':
-          await CreepeventLevelEcharts(this.queryParms).then(({ data }) => {
+          await eventEsData(this.queryParms).then(({ data }) => {
             this.hasData = data
             this.data1 = this.transDicData(data)[0]
             this.data2 = this.transDicData(data)[1]
@@ -167,7 +193,7 @@ export default {
           })
           break
         case 'weakPassword':
-          await selectEventLevelGradeEcharts(this.queryParms).then(({ data }) => {
+          await eventEsData(this.queryParms).then(({ data }) => {
             this.hasData = data
             this.data1 = this.transDicData(data)[0]
             this.data2 = this.transDicData(data)[1]
@@ -177,7 +203,7 @@ export default {
           })
           break
         case 'design':
-          await industrialNetworkAuditEcharts(this.queryParms).then(({ data }) => {
+          await eventEsData(this.queryParms).then(({ data }) => {
             this.hasData = data
             this.data1 = this.transDicData(data)[0]
             this.data2 = this.transDicData(data)[1]
@@ -187,8 +213,8 @@ export default {
           })
           break
         case 'host':
-          await EventTrendAnalysis(this.queryParms).then(({ data }) => {
-            console.log('data-3-31', data)
+          await eventEsData(this.queryParms).then(({ data }) => {
+            console.log(data);
             this.hasData = data
             this.data1 = this.transDicData(data)[0]
             this.data2 = this.transDicData(data)[1]
@@ -198,7 +224,7 @@ export default {
           })
           break
         case 'abnormal':
-          await abnormalAnalysis(this.queryParms).then(({ data }) => {
+          await eventEsData(this.queryParms).then(({ data }) => {
             this.hasData = data
             this.data1 = this.transDicData(data)[0]
             this.data2 = this.transDicData(data)[1]
@@ -208,7 +234,7 @@ export default {
           })
           break
         case 'vulnerablity':
-          await scanningeventLevelEcharts(this.queryParms).then(({ data }) => {
+          await eventEsData(this.queryParms).then(({ data }) => {
             this.hasData = data
             this.data1 = this.transDicData(data)[0]
             this.data2 = this.transDicData(data)[1]

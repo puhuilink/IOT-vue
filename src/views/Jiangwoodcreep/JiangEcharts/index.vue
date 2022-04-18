@@ -1,7 +1,7 @@
 <template>
   <div class="app-container">
     <echarts :event-type="2" @getquery="uploadData" />
-    <eventTrend :query="query" :event-type="2" :name="'Jiangwoodcreep'" />
+    <eventTrend :query="query" :event-type="2" :name="'Jiangwoodcreep'" :search="'event_ztwe'" />
     <eventType :query="query" :type="'severity'" :name="'Jiangwoodcreep'" />
     <wordcloud :query="query" :type="2" :name="'Jiangwoodcreep'" />
     <eventType

@@ -1,4 +1,12 @@
 import request from '@/utils/request'
+//es趋势分析接口
+export function eventEsData(query) {
+  return request({
+    url: '/event/eventMapping/getEventIds',
+    method: 'post',
+    params: query
+  })
+}
 /** ****************************************************************************
  * 事件管理
  ******************************************************************************/

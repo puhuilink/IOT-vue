@@ -1,7 +1,7 @@
 <template>
   <div class="app-container">
     <echarts :event-type="1" @getquery="uploadData" />
-    <eventTrend :query="query" :name="'design'" />
+    <eventTrend :query="query" :name="'design'" :search="'event_inpa'" />
     <eventType :type="'event_format'" :name="'design'" :query="query" />
     <categoryWithOtherStyle :type="1" :name="'design'" :tipname="'源IP统计TOP 5'" :query="query" />
     <eventType :type="'severity'" :tipname="'事件等级分布'" :name="'design'" :query="query" />

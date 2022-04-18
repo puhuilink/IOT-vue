@@ -1,7 +1,7 @@
 <template>
   <div class="app-container">
     <echarts :event-type="2" @getquery="uploadData" />
-    <eventTrend :query="query" :name="'abnormal'" />
+    <eventTrend :query="query" :name="'abnormal'" :search="'event_abbm'" />
     <killChainPhaseStatistics :query="query" :address="address" />
     <eventType
       :tipname="'事件等级分布'"

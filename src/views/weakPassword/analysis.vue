@@ -5,6 +5,7 @@
       :query="query"
       :event-type="1"
       :name="'weakPassword'"
+      :search="'event_wkpw'"
     />
     <eventType
       :tipname="'事件等级分布'"
