@@ -1,16 +1,15 @@
-
 <template>
   <el-col :span="12">
     <tip>{{ tipname }}</tip>
-    <div ref="canvas1"
-         style="height: 400px" />
+    <div ref="canvas1" style="height: 400px" />
   </el-col>
 </template>
 <script>
 import { setNotopt } from "@/utils/emptyEcharts.js";
+import { eventEsData } from "@/api/system/echarts";
 import tip from "@/components/EchartsTip";
 import echarts from "echarts";
-import { UnderAttack } from '@/api/system/echarts'
+import { UnderAttack } from "@/api/system/echarts";
 export default {
   components: { tip },
   props: {
@@ -26,14 +25,19 @@ export default {
     },
     query: {
       default: null,
-      type: Object
+      type: Object,
     },
     eventType: {
       default: null,
-      type: Number
-    }
+      type: Number,
+    },
+    search: {
+      //es索引
+      default: "",
+      type: String,
+    },
   },
-  data () {
+  data() {
     return {
       policitalStatus: ["1"],
       barData: [],
@@ -41,68 +45,84 @@ export default {
       hasData: [],
       date: [],
       title: "",
+      queryParms: {
+        indexes: this.search,
+        beginTime: "",
+        endTime: "",
+        severity: "",
+        location: "",
+      },
     };
   },
   computed: {},
   watch: {
-    address: {
-      handler (val, oldVal) {
+    query: {
+      handler(val, oldVal) {
         if (val !== oldVal) {
+          if (val.severity) {
+            this.queryParms.severity = val.severity;
+          } else {
+            this.queryParms.severity = "";
+          }
+          if (val.location) {
+            this.queryParms.location = val.location;
+          } else {
+            this.queryParms.location = "";
+          }
+
+          if (val.beginGenerationTime && val.endGenerationTime) {
+            this.queryParms.beginTime = val.beginGenerationTime;
+            this.queryParms.endTime = val.endGenerationTime;
+          } else {
+            this.queryParms.beginTime = "";
+            this.queryParms.endTime = "";
+          }
+          this.getData();
           this.drawPolicitalStatus();
         }
       },
       deep: true,
     },
-    query: {
-      handler (val, oldVal) {
-        this.queryParms = this.query
-        if (val !== oldVal) {
-          this.getData()
-          this.drawPolicitalStatus()
-        }
-      },
-      deep: true
-    }
   },
-  created () {
-    this.getData()
+  created() {
+    this.getData();
   },
-  mounted () {
+  mounted() {
     this.drawPolicitalStatus();
   },
   methods: {
-    async getData () {
-      await UnderAttack(this.queryParms).then(({ data }) => {
-        this.hasData = data
-        console.log('data', data)
+    async getData() {
+      await eventEsData(this.queryParms).then(({ data }) => {
+        this.hasData = data;
+        console.log("data", data);
         if (data.length) {
-          const aaa = data.filter((e) => e.type === 'INVADE')
+          const aaa = data.filter((e) => e.type === "INVADE");
           if (aaa.length) {
-            aaa.map(d => {
-              this.category = d.data
-              console.log('this.category', this.category)
-              this.date = d.date
-            })
+            aaa.map((d) => {
+              this.category = d.data;
+              console.log("this.category", this.category);
+              this.date = d.date;
+            });
           } else {
-            this.category = []
+            this.category = [];
           }
-          const bbb = data.filter((e) => e.type === 'PROBE')
+          const bbb = data.filter((e) => e.type === "PROBE");
           if (bbb.length) {
-            bbb.map(d => {
-              this.barData = d.data
-              this.date = d.date
-            })
+            bbb.map((d) => {
+              this.barData = d.data;
+              this.date = d.date;
+            });
           } else {
-            this.barData = []
+            this.barData = [];
           }
         } else {
-          this.category = []
-          this.barData = []
+          this.category = [];
+          this.barData = [];
         }
-      })
+      });
       this.drawPolicitalStatus();
     },
-    async drawPolicitalStatus () {
+    async drawPolicitalStatus() {
       if (this.hasData.length) {
         // switch (this.eventType) {
         //   case 1:
@@ -254,5 +274,4 @@ export default {
   },
 };
 </script>
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>

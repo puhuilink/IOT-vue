@@ -2,7 +2,11 @@
   <div class="app-container">
     <echarts :event-type="2" @getquery="uploadData" />
     <eventTrend :query="query" :name="'abnormal'" :search="'event_abbm'" />
-    <killChainPhaseStatistics :query="query" :address="address" />
+    <killChainPhaseStatistics
+      :query="query"
+      :address="address"
+      :search="'event_abbm'"
+    />
     <eventType
       :tipname="'事件等级分布'"
       :query="query"
@@ -14,7 +18,11 @@
                       :query="query"
                       :name="'abnormal'"
                       :type="1" /> -->
-    <killChainPhaseTrafficStatistics :query="query" :address="address" />
+    <killChainPhaseTrafficStatistics
+      :query="query"
+      :address="address"
+      :search="'event_abbm'"
+    />
     <el-col :span="24">
       <tip> 最新威胁事件 </tip>
       <el-table :data="List" tooltip-effect="light" height="320">
@@ -174,7 +182,7 @@ export default {
     },
     transTypeDic(val) {
       var t = [
-       {
+        {
           name: 1,
           content: "极低",
         },
