@@ -60,6 +60,16 @@
                 </el-select>
               </el-form-item>
             </el-col>
+            <el-col :span="6">
+              <el-form-item label="事件类型:" prop="event_format">
+                <el-input
+                  v-model="queryParams.event_format"
+                  placeholder="请输入事件类型"
+                  clearable
+                  :style="{ width: '100%' }"
+                />
+              </el-form-item>
+            </el-col>
 
             <el-col :span="6">
               <el-form-item label="处置状态:" prop="procedure">
@@ -167,6 +177,23 @@
           prop="_source.event_name"
           :show-overflow-tooltip="true"
         />
+        <el-table-column
+          label="事件类型"
+          align="center"
+          prop="event_format"
+          :show-overflow-tooltip="true"
+        >
+          <template #default="scope">
+            <span
+              v-if="
+                scope.row._source.event_format == '' ||
+                scope.row._source.event_format == null
+              "
+            />
+            <!-- <span v-else>{{ scope.row._source.event_format }}</span> -->
+            <span v-else>{{ transType(scope.row._source.event_format) }}</span>
+          </template>
+        </el-table-column>
         <el-table-column label="事件等级" align="center" prop="severity">
           <template #default="scope">
             <span
@@ -201,7 +228,13 @@
           align="center"
           prop="_source.ev_com_event_observe_time"
           :show-overflow-tooltip="true"
-        />
+        >
+          <template #default="scope">
+            <span>
+              {{ scope.row._source.ev_com_event_observe_time | moment }}
+            </span>
+          </template>
+        </el-table-column>
         <el-table-column
           label="区域"
           align="center"
@@ -320,7 +353,7 @@
             </el-col>
             <el-col :span="12">
               <el-form-item label="发现时间 :">
-                {{ detailData.ev_com_event_observe_time }}
+                {{ detailData.ev_com_event_observe_time | moment }}
               </el-form-item>
             </el-col>
             <el-col :span="12">
@@ -514,20 +547,6 @@ export default {
     this.getTableList();
   },
   methods: {
-    transType(val) {
-      var t = [
-        {
-          label: "模型告警事件",
-          value: "ksec_syslog_model_eve",
-        },
-      ];
-      const orgTreeData = t
-        .filter((e) => e.value === val)
-        .map(({ label }) => ({
-          label,
-        }));
-      return `${orgTreeData[0].label}`;
-    },
     // 根据对象中的key是否值为空x向数组中添加对象
     addQuery(query, key, value) {
       if (value !== "") {
@@ -587,6 +606,35 @@ export default {
       });
 
       this.detailData.severity = this.transTypeDic(this.detailData.severity);
+      this.detailData.event_format = this.transType(
+        this.detailData.event_format
+      );
+    },
+    transType(val) {
+      var t = [
+        {
+          label: "特征匹配",
+          value: "ksec_syslog_model_eve",
+        },
+        {
+          label: "威胁情报",
+          value: "ksec_syslog_ioc_eve",
+        },
+        {
+          label: "规则匹配",
+          value: "ksec_syslog_rule_eve",
+        },
+        {
+          label: "入侵诱捕",
+          value: "msec_syslog_event",
+        },
+      ];
+      const orgTreeData = t
+        .filter((e) => e.value === val)
+        .map(({ label }) => ({
+          label,
+        }));
+      return `${orgTreeData[0].label}`;
     },
     transTypeDic(val) {
       var t = [

@@ -253,7 +253,7 @@
           </el-col>
           <el-col :span="8">
             <el-form-item label="发现时间 :">
-              {{ detailData.occur_time }}
+              {{ detailData.ev_com_event_observe_time | moment }}
             </el-form-item>
           </el-col>
           <el-col :span="8">
