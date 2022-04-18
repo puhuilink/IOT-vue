@@ -1,376 +1,381 @@
 <template>
   <el-col :span="12">
     <tip>{{ tipname }}</tip>
-    <div ref="canvas1"
-         style="height: 400px" />
+    <div ref="canvas1" style="height: 400px" />
   </el-col>
 </template>
 <script>
-import { setNotopt } from '@/utils/emptyEcharts.js'
-import { eventEsData,eventEcharts, CreepeventLevelEcharts, EventTrendAnalysis, abnormalAnalysis, selectEventLevelGradeEcharts, industrialNetworkAuditEcharts, scanningeventLevelEcharts } from '@/api/system/echarts'
-import tip from '@/components/EchartsTip'
+import { setNotopt } from "@/utils/emptyEcharts.js";
+import { eventEsData, eventEcharts } from "@/api/system/echarts";
+import tip from "@/components/EchartsTip";
 export default {
-  name: 'AAA',
+  name: "AAA",
   components: { tip },
   props: {
-    tipname: { // tip内容
-      default: '事件趋势分析',
-      type: String
+    tipname: {
+      // tip内容
+      default: "事件趋势分析",
+      type: String,
     },
-    search:{   //es索引
-     default: '',
-      type: String
+    search: {
+      //es索引
+      default: "",
+      type: String,
     },
     name: {
-      default: '',
-      type: String
+      default: "",
+      type: String,
     },
     query: {
       default: null,
-      type: Object
+      type: Object,
     },
     eventType: {
       default: null,
-      type: Number
-    }
+      type: Number,
+    },
   },
-  data () {
+  data() {
     return {
       queryParms: {
         indexes: this.search,
-        beginTime:'',
-        endTime:'',
-        severity: '',
-        location: ''
+        beginTime: "",
+        endTime: "",
+        severity: "",
+        location: "",
       },
-      policitalStatus: ['1'],
+      policitalStatus: ["1"],
       hasData: [],
       data1: [],
       data2: [],
       data3: [],
       data4: [],
-      data5: []
-
-    }
+      data5: [],
+    };
   },
   computed: {},
   watch: {
-   query: {
+    query: {
       handler(val, oldVal) {
         if (val !== oldVal) {
-          if(val.severity){
-            this.queryParms.severity = val.severity
-          }else{
-            this.queryParms.severity = ''
+          if (val.severity) {
+            this.queryParms.severity = val.severity;
+          } else {
+            this.queryParms.severity = "";
           }
-          if(val.location){
-            this.queryParms.location = val.location
-          }else{
-            this.queryParms.location = ''
+          if (val.location) {
+            this.queryParms.location = val.location;
+          } else {
+            this.queryParms.location = "";
           }
 
-          if (val.beginGenerationTime&&val.endGenerationTime) {
-            this.queryParms.beginTime = val.beginGenerationTime
-            this.queryParms.endTime = val.endGenerationTime
+          if (val.beginGenerationTime && val.endGenerationTime) {
+            this.queryParms.beginTime = val.beginGenerationTime;
+            this.queryParms.endTime = val.endGenerationTime;
           } else {
-            this.queryParms.beginTime = ''
-            this.queryParms.endTime = ''
+            this.queryParms.beginTime = "";
+            this.queryParms.endTime = "";
           }
-          this.getData()
-          this.drawPolicitalStatus()
+          this.getData();
+          this.drawPolicitalStatus();
         }
       },
-      deep: true
-    }
+      deep: true,
+    },
   },
-  created () {
-    this.getData()
+  created() {
+    this.getData();
   },
-  mounted () {
-    this.drawPolicitalStatus()
+  mounted() {
+    this.drawPolicitalStatus();
   },
   methods: {
-    transTypeDic (data) {
-      var t = [{
-        name: '1',
-        content: '极低'
-      }, {
-        name: '2',
-        content: '低危'
-      }, {
-        name: '3',
-        content: '中危'
-      }, {
-        name: '4',
-        content: '高危'
-      }, {
-        name: '5',
-        content: '致命'
-      }]
-      var arr = data
-      var arrNew = []
-      var area = []
+    transTypeDic(data) {
+      var t = [
+        {
+          name: "1",
+          content: "极低",
+        },
+        {
+          name: "2",
+          content: "低危",
+        },
+        {
+          name: "3",
+          content: "中危",
+        },
+        {
+          name: "4",
+          content: "高危",
+        },
+        {
+          name: "5",
+          content: "致命",
+        },
+      ];
+      var arr = data;
+      var arrNew = [];
+      var area = [];
       data.forEach((item) => {
-        area.push(item.name)
-      })
-      arr.map(r => {
-        t.map(d => {
+        area.push(item.name);
+      });
+      arr.map((r) => {
+        t.map((d) => {
           if (r.name === d.name) {
-            console.log(r, d)
+            console.log(r, d);
             arrNew.push({
               value: r.count,
-              name: d.content
-            })
+              name: d.content,
+            });
           }
-        })
-      })
-      return arrNew
+        });
+      });
+      return arrNew;
     },
-    transDicCount (data) {
-      var area = []
+    transDicCount(data) {
+      var area = [];
       data.forEach((item) => {
-        area.push(item.count)
-      })
-      return area
+        area.push(item.count);
+      });
+      return area;
     },
-    transDicData (data) {
+    transDicData(data) {
       if (data.length) {
-        const aaa = data.filter((e) => e.eventLevel === '1')
+        const aaa = data.filter((e) => e.eventLevel === "1");
         if (aaa.length) {
-          aaa.map(d => {
-            this.data1 = d.data
-            this.date = d.date
-          })
+          aaa.map((d) => {
+            this.data1 = d.data;
+            this.date = d.date;
+          });
         } else {
-          this.data1 = []
+          this.data1 = [];
         }
-        const bbb = data.filter((e) => e.eventLevel === '2')
+        const bbb = data.filter((e) => e.eventLevel === "2");
         if (bbb.length) {
-          bbb.map(d => {
-            this.data2 = d.data
-            this.date = d.date
-          })
+          bbb.map((d) => {
+            this.data2 = d.data;
+            this.date = d.date;
+          });
         } else {
-          this.data2 = []
+          this.data2 = [];
         }
-        const ccc = data.filter((e) => e.eventLevel === '3')
+        const ccc = data.filter((e) => e.eventLevel === "3");
         if (ccc.length) {
-          ccc.map(d => {
-            this.data3 = d.data
-            this.date = d.date
-          })
+          ccc.map((d) => {
+            this.data3 = d.data;
+            this.date = d.date;
+          });
         } else {
-          this.data3 = []
+          this.data3 = [];
         }
-        const ddd = data.filter((e) => e.eventLevel === '4')
+        const ddd = data.filter((e) => e.eventLevel === "4");
         if (ddd.length) {
-          ddd.map(d => {
-            this.data4 = d.data
-            this.date = d.date
-          })
+          ddd.map((d) => {
+            this.data4 = d.data;
+            this.date = d.date;
+          });
         } else {
-          this.data4 = []
+          this.data4 = [];
         }
       } else {
-        this.data1 = []
-        this.data2 = []
-        this.data3 = []
-        this.data4 = []
-        this.data5 = []
+        this.data1 = [];
+        this.data2 = [];
+        this.data3 = [];
+        this.data4 = [];
+        this.data5 = [];
       }
-      return [this.data1, this.data2, this.data3, this.data4, this.data5]
+      return [this.data1, this.data2, this.data3, this.data4, this.data5];
     },
-    async getData () {
+    async getData() {
       switch (this.name) {
-        case 'Jiangwoodcreep':
+        case "Jiangwoodcreep":
           await eventEsData(this.queryParms).then(({ data }) => {
-            this.hasData = data
-            this.data1 = this.transDicData(data)[0]
-            this.data2 = this.transDicData(data)[1]
-            this.data3 = this.transDicData(data)[2]
-            this.data4 = this.transDicData(data)[3]
-            this.data5 = this.transDicData(data)[4]
-          })
-          break
-        case 'weakPassword':
+            this.hasData = data;
+            this.data1 = this.transDicData(data)[0];
+            this.data2 = this.transDicData(data)[1];
+            this.data3 = this.transDicData(data)[2];
+            this.data4 = this.transDicData(data)[3];
+            this.data5 = this.transDicData(data)[4];
+          });
+          break;
+        case "weakPassword":
           await eventEsData(this.queryParms).then(({ data }) => {
-            this.hasData = data
-            this.data1 = this.transDicData(data)[0]
-            this.data2 = this.transDicData(data)[1]
-            this.data3 = this.transDicData(data)[2]
-            this.data4 = this.transDicData(data)[3]
-            this.data5 = this.transDicData(data)[4]
-          })
-          break
-        case 'design':
+            this.hasData = data;
+            this.data1 = this.transDicData(data)[0];
+            this.data2 = this.transDicData(data)[1];
+            this.data3 = this.transDicData(data)[2];
+            this.data4 = this.transDicData(data)[3];
+            this.data5 = this.transDicData(data)[4];
+          });
+          break;
+        case "design":
           await eventEsData(this.queryParms).then(({ data }) => {
-            this.hasData = data
-            this.data1 = this.transDicData(data)[0]
-            this.data2 = this.transDicData(data)[1]
-            this.data3 = this.transDicData(data)[2]
-            this.data4 = this.transDicData(data)[3]
-            this.data5 = this.transDicData(data)[4]
-          })
-          break
-        case 'host':
+            this.hasData = data;
+            this.data1 = this.transDicData(data)[0];
+            this.data2 = this.transDicData(data)[1];
+            this.data3 = this.transDicData(data)[2];
+            this.data4 = this.transDicData(data)[3];
+            this.data5 = this.transDicData(data)[4];
+          });
+          break;
+        case "host":
           await eventEsData(this.queryParms).then(({ data }) => {
             console.log(data);
-            this.hasData = data
-            this.data1 = this.transDicData(data)[0]
-            this.data2 = this.transDicData(data)[1]
-            this.data3 = this.transDicData(data)[2]
-            this.data4 = this.transDicData(data)[3]
-            this.data5 = this.transDicData(data)[4]
-          })
-          break
-        case 'abnormal':
+            this.hasData = data;
+            this.data1 = this.transDicData(data)[0];
+            this.data2 = this.transDicData(data)[1];
+            this.data3 = this.transDicData(data)[2];
+            this.data4 = this.transDicData(data)[3];
+            this.data5 = this.transDicData(data)[4];
+          });
+          break;
+        case "abnormal":
           await eventEsData(this.queryParms).then(({ data }) => {
-            this.hasData = data
-            this.data1 = this.transDicData(data)[0]
-            this.data2 = this.transDicData(data)[1]
-            this.data3 = this.transDicData(data)[2]
-            this.data4 = this.transDicData(data)[3]
-            this.data5 = this.transDicData(data)[4]
-          })
-          break
-        case 'vulnerablity':
+            this.hasData = data;
+            this.data1 = this.transDicData(data)[0];
+            this.data2 = this.transDicData(data)[1];
+            this.data3 = this.transDicData(data)[2];
+            this.data4 = this.transDicData(data)[3];
+            this.data5 = this.transDicData(data)[4];
+          });
+          break;
+        case "vulnerablity":
           await eventEsData(this.queryParms).then(({ data }) => {
-            this.hasData = data
-            this.data1 = this.transDicData(data)[0]
-            this.data2 = this.transDicData(data)[1]
-            this.data3 = this.transDicData(data)[2]
-            this.data4 = this.transDicData(data)[3]
-            this.data5 = this.transDicData(data)[4]
-          })
-          break
-        case 'event':
+            this.hasData = data;
+            this.data1 = this.transDicData(data)[0];
+            this.data2 = this.transDicData(data)[1];
+            this.data3 = this.transDicData(data)[2];
+            this.data4 = this.transDicData(data)[3];
+            this.data5 = this.transDicData(data)[4];
+          });
+          break;
+        case "event":
           await eventEcharts(this.queryParms).then(({ data }) => {
-            this.hasData = data
-            this.data1 = this.transDicData(data)[0]
-            this.data2 = this.transDicData(data)[1]
-            this.data3 = this.transDicData(data)[2]
-            this.data4 = this.transDicData(data)[3]
-            this.data5 = this.transDicData(data)[4]
-          })
-          break
+            this.hasData = data;
+            this.data1 = this.transDicData(data)[0];
+            this.data2 = this.transDicData(data)[1];
+            this.data3 = this.transDicData(data)[2];
+            this.data4 = this.transDicData(data)[3];
+            this.data5 = this.transDicData(data)[4];
+          });
+          break;
         default:
-          console.log('无数据', this.type)
-          break
+          console.log("无数据", this.type);
+          break;
       }
-      this.drawPolicitalStatus()
+      this.drawPolicitalStatus();
     },
-    drawPolicitalStatus () {
+    drawPolicitalStatus() {
       if (this.hasData.length) {
         // 基于准备好的dom，初始化echarts实例
-        const myChart = this.$echarts.init(this.$refs.canvas1)
+        const myChart = this.$echarts.init(this.$refs.canvas1);
         // 绘制图表
         myChart.setOption({
           animationDuration: 5000,
           tooltip: {
-            trigger: 'axis'
+            trigger: "axis",
           },
           legend: {
-            data: ['极低', '低危', '中危', '高危', '致命']
+            data: ["极低", "低危", "中危", "高危", "致命"],
           },
           grid: {
-            left: '3%',
-            right: '4%',
-            bottom: '3%',
-            containLabel: true
+            left: "3%",
+            right: "4%",
+            bottom: "3%",
+            containLabel: true,
           },
           xAxis: {
-            type: 'category',
+            type: "category",
             boundaryGap: false,
             minInterval: 1,
-            axisTick: { // x轴刻度线
-              show: false
+            axisTick: {
+              // x轴刻度线
+              show: false,
             },
-            data: this.date
+            data: this.date,
           },
           yAxis: {
             minInterval: 1,
-            axisTick: { // x轴刻度线
-              show: false
+            axisTick: {
+              // x轴刻度线
+              show: false,
             },
-            type: 'value',
-            axisLine: { show: false }
-
+            type: "value",
+            axisLine: { show: false },
           },
           series: [
             {
-              name: '极低',
-              stack: 'Total',
+              name: "极低",
+              stack: "Total",
               areaStyle: {},
               emphasis: {
-                focus: 'series'
+                focus: "series",
               },
-              color: ['#1890FF'],
-              type: 'line',
+              color: ["#1890FF"],
+              type: "line",
               smooth: true,
-              data: this.data1
+              data: this.data1,
             },
             {
-              name: '低危',
-              stack: 'Total',
+              name: "低危",
+              stack: "Total",
               areaStyle: {},
               emphasis: {
-                focus: 'series'
+                focus: "series",
               },
-              color: ['#B592E4'],
-              type: 'line',
+              color: ["#B592E4"],
+              type: "line",
               smooth: true,
-              data: this.data2
+              data: this.data2,
             },
             {
-              name: '中危',
-              stack: 'Total',
+              name: "中危",
+              stack: "Total",
               areaStyle: {},
               emphasis: {
-                focus: 'series'
+                focus: "series",
               },
-              color: ['#F0B144'],
-              type: 'line',
+              color: ["#F0B144"],
+              type: "line",
               smooth: true,
-              data: this.data3
+              data: this.data3,
             },
             {
-              name: '高危',
-              stack: 'Total',
+              name: "高危",
+              stack: "Total",
               areaStyle: {},
               emphasis: {
-                focus: 'series'
+                focus: "series",
               },
-              color: ['#FF8745'],
-              type: 'line',
+              color: ["#FF8745"],
+              type: "line",
               smooth: true,
-              data: this.data4
+              data: this.data4,
             },
             {
-              name: '致命',
-              stack: 'Total',
+              name: "致命",
+              stack: "Total",
               areaStyle: {},
               emphasis: {
-                focus: 'series'
+                focus: "series",
               },
-              color: ['#F73030'],
-              type: 'line',
+              color: ["#F73030"],
+              type: "line",
               smooth: true,
-              data: this.data5
-            }
-          ]
-        })
-        window.addEventListener('resize', function () {
-          myChart.resize()
-        })
+              data: this.data5,
+            },
+          ],
+        });
+        window.addEventListener("resize", function () {
+          myChart.resize();
+        });
       } else {
-        const myChart = this.$echarts.init(this.$refs.canvas1)
-        this.$refs.canvas1.removeAttribute('_echarts_instance_')
-        return setNotopt(myChart, '暂无数据')
+        const myChart = this.$echarts.init(this.$refs.canvas1);
+        this.$refs.canvas1.removeAttribute("_echarts_instance_");
+        return setNotopt(myChart, "暂无数据");
       }
-    }
-  }
-}
-
+    },
+  },
+};
 </script>
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>
