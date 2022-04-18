@@ -33,7 +33,7 @@ module.exports = {
     open: true,
     proxy: {
       '/api': {
-        target: 'http://192.168.2.61:9200', // 地址1   //表示/eventlog替换成该地址
+        target: 'http://192.168.2.59:9200', // 地址1   //表示/eventlog替换成该地址
         changeOrigin: true,
         pathRewrite: {
           '^/api': '' // 重写api为空
