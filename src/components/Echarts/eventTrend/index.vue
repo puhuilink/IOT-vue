@@ -248,16 +248,16 @@ export default {
             this.data5 = this.transDicData(data)[4];
           });
           break;
-        case "vulnerablity":
-          await eventEsData(this.queryParms).then(({ data }) => {
-            this.hasData = data;
-            this.data1 = this.transDicData(data)[0];
-            this.data2 = this.transDicData(data)[1];
-            this.data3 = this.transDicData(data)[2];
-            this.data4 = this.transDicData(data)[3];
-            this.data5 = this.transDicData(data)[4];
-          });
-          break;
+        // case "vulnerablity":
+        //   await scanningeventLevelEcharts(this.queryParms).then(({ data }) => {
+        //     this.hasData = data;
+        //     this.data1 = this.transDicData(data)[0];
+        //     this.data2 = this.transDicData(data)[1];
+        //     this.data3 = this.transDicData(data)[2];
+        //     this.data4 = this.transDicData(data)[3];
+        //     this.data5 = this.transDicData(data)[4];
+        //   });
+        //   break;
         case "event":
           await eventEcharts(this.queryParms).then(({ data }) => {
             this.hasData = data;

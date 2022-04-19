@@ -54,11 +54,34 @@ export default {
     }
   },
   computed: {},
-  watch: {
+ watch: {
     query: {
-      handler (val, oldVal) {
-        this.queryParms = this.query
+      handler(val, oldVal) {
         if (val !== oldVal) {
+          if (val.severity) {
+            this.queryParms.query.bool.must.push({
+              match: {
+                severity: val.severity
+              }
+            })
+          }
+          if (val.location) {
+            this.queryParms.query.bool.must.push({
+              match: {
+                location: val.location
+              }
+            })
+          }
+          if (val.beginGenerationTime) {
+            this.queryParms.query.bool.must.push({
+              range: {
+                generationTime: {
+                  gte: val.beginGenerationTime,
+                  lte: val.endGenerationTime
+                }
+              }
+            })
+          }
           this.getData()
           this.drawPolicitalStatus()
         }
