@@ -576,7 +576,7 @@ export default {
       },
       levelOptions: [
         {
-          label: '正常',
+          label: '极低',
           value: 1
         },
         {

@@ -224,7 +224,8 @@
             </el-col>
             <el-col :span="8">
               <el-form-item label="事件等级 :">
-                {{ detailData.severity }}
+                <!-- {{ detailData.severity }} -->
+                {{'中危'}}
               </el-form-item>
             </el-col>
             <el-col :span="8">
@@ -316,16 +317,12 @@ export default {
     return {
       from: 1,
       loading: false,
-      name: "测试",
-      aaa: {},
       detailData: {},
       // 分组表格数据
       List: [],
       ListDetails: [],
       groupList: [],
       groupListDeatils: [],
-      // 创建时间时间范围
-      daterangeCreateTime: [],
       // 弹出层标题
       title: "",
       // 是否显示弹出层
@@ -363,7 +360,7 @@ export default {
       },
       levelOptions: [
         {
-          label: "正常",
+          label: "极低",
           value: 1,
         },
         {
@@ -506,23 +503,23 @@ export default {
     transTypeDic(val) {
       var t = [
         {
-          name: "1",
+          name: 1,
           content: "极低",
         },
         {
-          name: "2",
+          name: 2,
           content: "低危",
         },
         {
-          name: "3",
+          name: 3,
           content: "中危",
         },
         {
-          name: "4",
+          name: 4,
           content: "高危",
         },
         {
-          name: "5",
+          name: 5,
           content: "致命",
         },
       ];
@@ -596,7 +593,7 @@ export default {
       this.open = true;
       this.title = "事件详情";
       this.groupListDeatils = [];
-      this.detailData.severity = this.transTypeDic(this.detailData.severity);
+      // this.detailData.severity = this.transTypeDic(this.detailData.severity);
       getElasticDate({
         query: {
           match: {
