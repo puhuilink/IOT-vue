@@ -142,7 +142,7 @@
           :show-overflow-tooltip="true"
         /> -->
         <el-table-column
-          label="事件类型"
+          label="事件名称"
           align="center"
           prop="event_format"
           :show-overflow-tooltip="true"
