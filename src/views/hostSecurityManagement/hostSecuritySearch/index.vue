@@ -15,7 +15,7 @@
             <el-col :span="6">
               <el-form-item label="事件名称:" prop="event_format">
                 <el-input
-                  v-model="queryParams.event_format"
+                  v-model="queryParams.event_name"
                   placeholder="请输入事件名称"
                   clearable
                   :style="{ width: '100%' }"
