@@ -141,7 +141,7 @@ export default {
     },
     transDicData(data) {
       if (data.length) {
-        const aaa = data.filter((e) => e.eventLevel === "1");
+        const aaa = data.filter((e) => e.eventSeverity === "1");
         if (aaa.length) {
           aaa.map((d) => {
             this.data1 = d.data;
@@ -150,7 +150,7 @@ export default {
         } else {
           this.data1 = [];
         }
-        const bbb = data.filter((e) => e.eventLevel === "2");
+        const bbb = data.filter((e) => e.eventSeverity === "2");
         if (bbb.length) {
           bbb.map((d) => {
             this.data2 = d.data;
@@ -159,7 +159,7 @@ export default {
         } else {
           this.data2 = [];
         }
-        const ccc = data.filter((e) => e.eventLevel === "3");
+        const ccc = data.filter((e) => e.eventSeverity === "3");
         if (ccc.length) {
           ccc.map((d) => {
             this.data3 = d.data;
@@ -168,7 +168,7 @@ export default {
         } else {
           this.data3 = [];
         }
-        const ddd = data.filter((e) => e.eventLevel === "4");
+        const ddd = data.filter((e) => e.eventSeverity === "4");
         if (ddd.length) {
           ddd.map((d) => {
             this.data4 = d.data;
