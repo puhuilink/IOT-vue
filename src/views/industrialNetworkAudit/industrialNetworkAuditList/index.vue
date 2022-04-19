@@ -679,17 +679,13 @@ export default {
           name: "wsec_syslog_inpa_ev_23",
           content: "审计协议规约",
         },
-        {
-          name: "5",
-          content: "致命",
-        },
       ];
       const orgTreeData1 = t
         .filter((e) => e.name === val)
         .map(({ content }) => ({
           content,
         }));
-      console.log(orgTreeData1[0].content);
+      // console.log(orgTreeData1[0].content);
       return `${orgTreeData1[0].content}`;
     },
     batchOperate(command) {
