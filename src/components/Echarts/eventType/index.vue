@@ -209,14 +209,14 @@ export default {
         var arr = data
       var arrNew = []
       if(type !== 1){
-  arrNew = arr.map((item) => {
+     arrNew = arr.map((item) => {
         return {
           value: item.doc_count,
           name: item.key
         }
       })
       }else{
- arr.map(r => {
+     arr.map(r => {
         t.map(d => {
           if (r.key === d.value) {
             arrNew.push({
