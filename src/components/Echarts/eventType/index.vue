@@ -139,7 +139,7 @@ export default {
       })
       return arrNew
     },
-    transDic(data) {
+    transDic(data,type) {
        var t = [
         {
           label: "程序告警事件",
@@ -191,25 +191,32 @@ export default {
         },
         {
           label: "审计协议白名单",
-          value: "wsec_syslog_ivtp_ev_17",
+          value: "wsec_syslog_inpa_ev_17",
         },
         {
           label: "审计关键事件",
-          value: "wsec_syslog_ivtp_ev_20",
+          value: "wsec_syslog_inpa_ev_20",
         },
          {
           label: "审计自定义事件",
-          value: "wsec_syslog_ivtp_ev_21",
+          value: "wsec_syslog_inpa_ev_21",
         },
          {
           label: "审计协议规约",
-          value: "wsec_syslog_ivtp_ev_23",
+          value: "wsec_syslog_inpa_ev_23",
         },
       ];
         var arr = data
       var arrNew = []
-      console.log(arr);
-      arr.map(r => {
+      if(type !== 1){
+  arrNew = arr.map((item) => {
+        return {
+          value: item.doc_count,
+          name: item.key
+        }
+      })
+      }else{
+ arr.map(r => {
         t.map(d => {
           if (r.key === d.value) {
             arrNew.push({
@@ -219,6 +226,7 @@ export default {
           }
         })
       })
+      }
       return arrNew
     },
     getType() {
@@ -326,15 +334,7 @@ export default {
             case 'design':
               await getIndustrialNetworkAuditData(this.queryParms).then(({ data }) => {
                 this.hasData = data.aggregations.field.buckets
-                this.datacopy = this.transDic(data.aggregations.field.buckets)
-                this.queryParms.query.bool.must = []
-              })
-              break
-            case 'weakPassword':
-              // 弱口令
-              await getWeakPasswordData(this.queryParms).then(({ data }) => {
-                this.hasData = data.aggregations.field.buckets
-                this.datacopy = this.transTypeDic(data.aggregations.field.buckets)
+                this.datacopy = this.transDic(data.aggregations.field.buckets,1)
                 this.queryParms.query.bool.must = []
               })
               break
