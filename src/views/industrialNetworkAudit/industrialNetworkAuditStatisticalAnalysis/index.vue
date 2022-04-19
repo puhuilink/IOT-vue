@@ -140,14 +140,6 @@ export default {
     this.getList();
   },
   methods: {
-    /** 查询分组列表 */
-    async getList() {
-      getIndustrialNetworkAuditData(this.queryParams).then((res) => {
-        this.queryParams.query.bool.must = [];
-        this.total = res.data.hits.total;
-        this.List = res.data.hits.hits;
-      });
-    },
     transType(val) {
       var t = [
         {
@@ -165,10 +157,6 @@ export default {
         {
           name: "wsec_syslog_inpa_ev_23",
           content: "审计协议规约",
-        },
-        {
-          name: "5",
-          content: "致命",
         },
       ];
       const orgTreeData1 = t
@@ -209,7 +197,14 @@ export default {
         }));
       return `${orgTreeData1[0].content}`;
     },
-
+    /** 查询分组列表 */
+    async getList() {
+      getIndustrialNetworkAuditData(this.queryParams).then((res) => {
+        this.queryParams.query.bool.must = [];
+        this.total = res.data.hits.total;
+        this.List = res.data.hits.hits;
+      });
+    },
     uploadData(data) {
       this.query = data;
     },
