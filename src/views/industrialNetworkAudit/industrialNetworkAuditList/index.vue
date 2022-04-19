@@ -48,7 +48,7 @@
                       v-for="(item, index) in areaOptions"
                       :key="index"
                       :label="item.label"
-                      :value="item.value"
+                      :value="item.label"
                       :disabled="item.disabled"
                     />
                   </el-select>
