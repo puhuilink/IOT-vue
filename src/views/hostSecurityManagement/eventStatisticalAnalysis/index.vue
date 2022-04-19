@@ -1,7 +1,7 @@
 <template>
   <div class="app-container">
     <echarts :event-type="1" @getquery="uploadData" />
-    <eventTrend :query="query" :name="'host'"  :search="'event_hsme'" />
+    <eventTrend :query="query" :name="'host'" :search="'event_hsme'" />
     <eventType
       :query="query"
       :tipname="'事件类型分布'"
@@ -24,12 +24,28 @@
           prop="_source.receive_time"
           :show-overflow-tooltip="true"
         />
+        <!-- <el-table-column
+          label="事件名称"
+          align="center"
+          prop="_source.event_format"
+          :show-overflow-tooltip="true"
+        /> -->
         <el-table-column
           label="事件名称"
           align="center"
-          prop="_source.ev_wsec_hsme_format_label"
+          prop="event_format"
           :show-overflow-tooltip="true"
-        />
+        >
+          <template #default="scope">
+            <span
+              v-if="
+                scope.row._source.event_format == '' ||
+                scope.row._source.event_format == null
+              "
+            />
+            <span v-else>{{ transType(scope.row._source.event_format) }}</span>
+          </template>
+        </el-table-column>
         <el-table-column
           label="事件等级"
           align="center"
@@ -49,9 +65,19 @@
         <el-table-column
           label="事件类型"
           align="center"
-          prop="_source.ev_wsec_hsme_format_label"
+          prop="event_format"
           :show-overflow-tooltip="true"
-        />
+        >
+          <template #default="scope">
+            <span
+              v-if="
+                scope.row._source.event_format == '' ||
+                scope.row._source.event_format == null
+              "
+            />
+            <span v-else>{{ transType(scope.row._source.event_format) }}</span>
+          </template>
+        </el-table-column>
         <el-table-column
           label="客户端名称"
           align="center"
@@ -138,7 +164,7 @@ export default {
   methods: {
     transTypeDic(val) {
       var t = [
-       {
+        {
           name: 1,
           content: "极低",
         },
@@ -175,6 +201,40 @@ export default {
         this.total = res.data.hits.total;
         this.List = res.data.hits.hits;
       });
+    },
+    transType(val) {
+      var t = [
+        {
+          label: "程序告警事件",
+          value: "wsec_syslog_hsme_ev_07",
+        },
+        {
+          label: "外设告警事件",
+          value: "wsec_syslog_hsme_ev_08",
+        },
+        {
+          label: "主机防火墙事件",
+          value: "wsec_syslog_hsme_ev_09",
+        },
+        {
+          label: "访问控制事件",
+          value: "wsec_syslog_hsme_ev_10",
+        },
+        {
+          label: "主机非法外联",
+          value: "wsec_syslog_hsme_ev_22",
+        },
+        {
+          label: "恶意文件事件",
+          value: "wsec_syslog_hsme_ev_30",
+        },
+      ];
+      const orgTreeData = t
+        .filter((e) => e.value === val)
+        .map(({ label }) => ({
+          label,
+        }));
+      return `${orgTreeData[0].label}`;
     },
   },
 };

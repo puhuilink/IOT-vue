@@ -3,15 +3,21 @@
     <echarts :event-type="1" @getquery="uploadData" />
     <eventTrend :query="query" :name="'design'" :search="'event_inpa'" />
     <eventType :type="'event_format'" :name="'design'" :query="query" />
-    <categoryWithOtherStyle :type="1" :name="'design'" :tipname="'源IP统计TOP 5'" :query="query" />
-    <eventType :type="'severity'" :tipname="'事件等级分布'" :name="'design'" :query="query" />
+    <categoryWithOtherStyle
+      :type="1"
+      :name="'design'"
+      :tipname="'源IP统计TOP 5'"
+      :query="query"
+    />
+    <eventType
+      :type="'severity'"
+      :tipname="'事件等级分布'"
+      :name="'design'"
+      :query="query"
+    />
     <el-col :span="24">
       <tip> 最新工业网络审计事件 </tip>
-      <el-table
-        :data="List"
-        tooltip-effect="light"
-        height="320"
-      >
+      <el-table :data="List" tooltip-effect="light" height="320">
         <el-table-column
           label="产生时间"
           align="center"
@@ -57,13 +63,18 @@
         <el-table-column
           label="事件等级"
           align="center"
-          prop="_source.severity"
+          prop="severity"
           :show-overflow-tooltip="true"
         >
           <template #default="scope">
-            <span>{{
-              transTypeDic(scope.row._source.severity)
-            }}</span>
+            <span
+              v-if="
+                scope.row._source.severity == '' ||
+                scope.row._source.severity == null
+              "
+            />
+            <span v-else>{{ transTypeDic(scope.row._source.severity) }}</span>
+            <!-- <span>{{ scope.row._source.severity }}</span> -->
           </template>
         </el-table-column>
         <el-table-column
@@ -72,10 +83,8 @@
           prop="_source.event_format"
           :show-overflow-tooltip="true"
         >
-           <template #default="scope">
-            <span>{{
-              transType(scope.row._source.event_format)
-            }}</span>
+          <template #default="scope">
+            <span>{{ transType(scope.row._source.event_format) }}</span>
           </template>
         </el-table-column>
         <el-table-column
@@ -95,20 +104,20 @@
   </div>
 </template>
 <script>
-import { getIndustrialNetworkAuditData } from '@/utils/request'
-import echarts from '@/components/Echarts/searchBar'
-import eventTrend from '@/components/Echarts/eventTrend'
-import eventType from '@/components/Echarts/eventType'
-import categoryWithOtherStyle from '@/components/Echarts/categoryWithFlippedXYAxis'
+import { getIndustrialNetworkAuditData } from "@/utils/request";
+import echarts from "@/components/Echarts/searchBar";
+import eventTrend from "@/components/Echarts/eventTrend";
+import eventType from "@/components/Echarts/eventType";
+import categoryWithOtherStyle from "@/components/Echarts/categoryWithFlippedXYAxis";
 
-import tip from '@/components/EchartsTip'
+import tip from "@/components/EchartsTip";
 export default {
   components: {
     echarts,
     eventTrend,
     eventType,
     tip,
-    categoryWithOtherStyle
+    categoryWithOtherStyle,
   },
   props: [],
   data() {
@@ -117,80 +126,89 @@ export default {
       queryParams: {
         query: {
           bool: {
-            must: []
-          }
+            must: [],
+          },
         },
-        sort: [{ 'occur_time': { order: 'desc' }}],
+        sort: [{ occur_time: { order: "desc" } }],
         from: 0,
-        size: 6
+        size: 6,
       },
-      List: []
-    }
+      List: [],
+    };
   },
   created() {
-    this.getList()
+    this.getList();
   },
   methods: {
-     transType(val) {
-      var t = [{
-        name: 'wsec_syslog_inpa_ev_17',
-        content: '审计协议白名单'
-      }, {
-        name: 'wsec_syslog_inpa_ev_20',
-        content: '审计关键事件'
-      }, {
-        name: 'wsec_syslog_inpa_ev_21',
-        content: '审计自定义事件'
-      }, {
-        name: 'wsec_syslog_inpa_ev_23',
-        content: '审计协议规约'
-      }, {
-        name: '5',
-        content: '致命'
-      }]
-      const orgTreeData1 = t.filter((e) => e.name === val)
+    transType(val) {
+      var t = [
+        {
+          name: "wsec_syslog_inpa_ev_17",
+          content: "审计协议白名单",
+        },
+        {
+          name: "wsec_syslog_inpa_ev_20",
+          content: "审计关键事件",
+        },
+        {
+          name: "wsec_syslog_inpa_ev_21",
+          content: "审计自定义事件",
+        },
+        {
+          name: "wsec_syslog_inpa_ev_23",
+          content: "审计协议规约",
+        },
+      ];
+      const orgTreeData1 = t
+        .filter((e) => e.name === val)
         .map(({ content }) => ({
-          content
-        }))
-        console.log(orgTreeData1[0].content);
-      return `${orgTreeData1[0].content}`
+          content,
+        }));
+      console.log(orgTreeData1[0].content);
+      return `${orgTreeData1[0].content}`;
     },
     transTypeDic(val) {
-      var t = [{
-        name: 1,
-        content: '极低'
-      }, {
-        name: 2,
-        content: '低危'
-      }, {
-        name: 3,
-        content: '中危'
-      }, {
-        name: 4,
-        content: '高危'
-      }, {
-        name: 5,
-        content: '致命'
-      }]
-      const orgTreeData1 = t.filter((e) => e.name === val)
+      var t = [
+        {
+          name: 1,
+          content: "极低",
+        },
+        {
+          name: 2,
+          content: "低危",
+        },
+        {
+          name: 3,
+          content: "中危",
+        },
+        {
+          name: 4,
+          content: "高危",
+        },
+        {
+          name: 5,
+          content: "致命",
+        },
+      ];
+      const orgTreeData1 = t
+        .filter((e) => e.name === val)
         .map(({ content }) => ({
-          content
-        }))
-      return `${orgTreeData1[0].content}`
+          content,
+        }));
+      return `${orgTreeData1[0].content}`;
     },
     /** 查询分组列表 */
     async getList() {
       getIndustrialNetworkAuditData(this.queryParams).then((res) => {
-        this.queryParams.query.bool.must = []
-        this.total = res.data.hits.total
-        this.List = res.data.hits.hits
-      })
+        this.queryParams.query.bool.must = [];
+        this.total = res.data.hits.total;
+        this.List = res.data.hits.hits;
+      });
     },
     uploadData(data) {
-      this.query = data
-    }
-  }
-}
+      this.query = data;
+    },
+  },
+};
 </script>
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>
