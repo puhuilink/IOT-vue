@@ -140,17 +140,6 @@
       </div>
     </el-card>
     <el-card style="margin-top: 10px">
-      <el-row :gutter="10" class="mb8">
-        <el-col :span="1.5">
-          <el-button
-            v-hasPermi="['system:user:export']"
-            type="primary"
-            size="mini"
-            @click="handleExport"
-            >导出</el-button
-          >
-        </el-col>
-      </el-row>
       <el-table :data="List" tooltip-effect="light">
         <el-table-column type="selection" width="55" align="center" />
 
@@ -267,38 +256,6 @@
         @pagination="getTableList"
       />
     </el-card>
-    <!-- 批量导出对话框 -->
-    <el-dialog
-      :title="title"
-      :visible.sync="exportDialog"
-      width="900px"
-      append-to-body
-    >
-      <el-form
-        ref="queryForm"
-        :model="queryParams"
-        :inline="true"
-        label-width="300px"
-      >
-        <el-form-item label="请选择文件 :" prop="userName">
-          <el-input
-            v-model="queryParams.userName"
-            placeholder="请输入资产编号"
-            clearable
-            size="small"
-            @keyup.enter.native="handleQuery"
-          />
-        </el-form-item>
-      </el-form>
-      <div slot="footer" class="dialog-footer">
-        <el-row type="flex" justify="center">
-          <el-button size="small" type="primary" @click="submitForm"
-            >导 入</el-button
-          >
-          <el-button size="small" @click="cancel">取 消</el-button>
-        </el-row>
-      </div>
-    </el-dialog>
     <!--   详情分组对话框 -->
     <el-dialog
       :title="title"
@@ -452,7 +409,6 @@ export default {
       activeNames: ["1"],
       title: "",
       detailData: {},
-      exportDialog: false,
       detailDialog: false,
       // 遮罩层
       loading: false,
@@ -763,17 +719,11 @@ export default {
     },
     // 取消按钮
     cancel() {
-      this.exportDialog = false;
       this.detailDialog = false;
     },
     /** 提交按钮 */
     submitForm() {
-      this.exportDialog = false;
       this.detailDialog = false;
-    },
-    handleExport() {
-      this.exportDialog = true;
-      this.title = "批量导入资产";
     },
     async detail(row) {
       // const { data } = await industrialNetworkAuditDetail(row)

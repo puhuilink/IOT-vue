@@ -128,19 +128,7 @@
       </div>
     </el-card>
     <el-card>
-      <el-row>
-        <el-button type="primary" class="export" size="mini" @click="submitdata"
-          >导出</el-button
-        >
-      </el-row>
       <el-table :data="List" tooltip-effect="light">
-        <el-table-column type="selection" width="55" align="center" />
-        <!-- <el-table-column
-          label="事件名称"
-          align="center"
-          prop="_source.event_format"
-          :show-overflow-tooltip="true"
-        /> -->
         <el-table-column
           label="事件名称"
           align="center"
@@ -715,12 +703,6 @@ export default {
     },
     btnQuery() {
       this.getTableList();
-    },
-    submitdata() {
-      this.$refs["elForm"].validate((valid) => {
-        if (!valid) return;
-        // TODO 提交表单
-      });
     },
     resetForm() {
       this.queryParams = {

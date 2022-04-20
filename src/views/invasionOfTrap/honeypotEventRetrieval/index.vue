@@ -113,11 +113,7 @@
       </div>
     </el-card>
     <el-card>
-      <el-button type="primary" class="export" @click="submitdata"
-        >导出</el-button
-      >
       <el-table :data="List" tooltip-effect="light">
-        <el-table-column type="selection" width="55" align="center" />
         <el-table-column
           label="攻击者"
           align="center"
@@ -573,12 +569,6 @@ export default {
 
     btnQuery() {
       this.searchClick();
-    },
-    submitdata() {
-      this.$refs["elForm"].validate((valid) => {
-        if (!valid) return;
-        // TODO 提交表单
-      });
     },
     resetForm() {
       this.queryParams = {

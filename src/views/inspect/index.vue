@@ -132,7 +132,6 @@
       </div>
     </el-card>
     <el-table :data="List" tooltip-effect="light">
-      <el-table-column type="selection" width="55" align="center" />
       <el-table-column
         label="检查项"
         align="center"
@@ -558,12 +557,6 @@ export default {
             message: "已取消修改！",
           });
         });
-    },
-    submitdata() {
-      this.$refs["elForm"].validate((valid) => {
-        if (!valid) return;
-        // TODO 提交表单
-      });
     },
     resetForm() {
       this.queryParams = {

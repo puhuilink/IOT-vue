@@ -125,7 +125,6 @@
       </div>
     </el-card>
     <el-table :data="List" tooltip-effect="light">
-      <el-table-column type="selection" width="55" align="center" />
       <el-table-column
         label="资产名称"
         align="center"
