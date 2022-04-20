@@ -161,7 +161,7 @@
         min-width="8%"
       >
         <template #default="scope">
-          <span >{{transTypeDic(scope.row._source.severity)  }}</span>
+          <span>{{ transTypeDic(scope.row._source.severity) }}</span>
         </template>
       </el-table-column>
 
@@ -230,7 +230,7 @@
               {{ detailData.event_format }}
             </el-form-item>
           </el-col>
-             <el-col :span="8">
+          <el-col :span="8">
             <el-form-item label="事件等级 :">
               {{ detailData.severity }}
             </el-form-item>
@@ -473,23 +473,31 @@ export default {
       }
     },
     async getTableList() {
-      this.addQuery(this.query, "event_name", this.queryParams.event_name);
+      this.addQuery(
+        this.query,
+        "event_name.keyword",
+        this.queryParams.event_name
+      );
 
-      this.addQuery(this.query, "location", this.queryParams.location);
+      this.addQuery(this.query, "location.keyword", this.queryParams.location);
 
-      this.addQuery(this.query, "severity", this.queryParams.severity);
-
-      this.addQuery(this.query, "procedure", this.queryParams.procedure);
+      this.addQuery(this.query, "severity.keyword", this.queryParams.severity);
 
       this.addQuery(
         this.query,
-        "detail_src_ip",
+        "procedure.keyword",
+        this.queryParams.procedure
+      );
+
+      this.addQuery(
+        this.query,
+        "detail_src_ip.keyword",
         this.queryParams.detail_src_ip
       );
 
       this.addQuery(
         this.query,
-        "ev_com_socket_protocol",
+        "ev_com_socket_protocol.keyword",
         this.queryParams.ev_com_socket_protocol
       );
 
@@ -527,7 +535,7 @@ export default {
     },
     transTypeDic(val) {
       var t = [
-       {
+        {
           name: 1,
           content: "极低",
         },
@@ -546,14 +554,14 @@ export default {
         {
           name: 5,
           content: "致命",
-        }
+        },
       ];
       const orgTreeData1 = t
         .filter((e) => e.name === val)
         .map(({ content }) => ({
           content,
         }));
-        console.log(orgTreeData1);
+      console.log(orgTreeData1);
       return `${orgTreeData1[0].content}`;
     },
     batchOperate(command) {

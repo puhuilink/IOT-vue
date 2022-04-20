@@ -578,33 +578,37 @@ export default {
     async getTableList() {
       // this.addQuery(this.query, 'location', this.queryParams.location)
 
-      this.addQuery(this.query, "severity", this.queryParams.severity);
+      this.addQuery(this.query, "severity.keyword", this.queryParams.severity);
 
       this.addQuery(
         this.query,
-        "ev_com_socket_protocol",
+        "ev_com_socket_protocol.keyword",
         this.queryParams.ev_com_socket_protocol
       );
 
-      this.addQuery(this.query, "location", this.queryParams.location);
-
-      this.addQuery(this.query, "procedure", this.queryParams.procedure);
+      this.addQuery(this.query, "location.keyword", this.queryParams.location);
 
       this.addQuery(
         this.query,
-        "ev_com_socket_dst_ip",
+        "procedure.keyword",
+        this.queryParams.procedure
+      );
+
+      this.addQuery(
+        this.query,
+        "ev_com_socket_dst_ip.keyword",
         this.queryParams.ev_com_socket_dst_ip
       );
 
       this.addQuery(
         this.query,
-        "ev_com_socket_src_ip",
+        "ev_com_socket_src_ip.keyword",
         this.queryParams.ev_com_socket_src_ip
       );
 
       this.addQuery(
         this.query,
-        "ev_ksec_killchain",
+        "ev_ksec_killchain.keyword",
         this.queryParams.ev_ksec_killchain
       );
 

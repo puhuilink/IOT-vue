@@ -225,7 +225,7 @@
             <el-col :span="8">
               <el-form-item label="事件等级 :">
                 <!-- {{ detailData.severity }} -->
-                {{'中危'}}
+                {{ "中危" }}
               </el-form-item>
             </el-col>
             <el-col :span="8">
@@ -466,21 +466,25 @@ export default {
     async searchClick() {
       this.addQuery(
         this.query,
-        "detail_src_ip",
+        "detail_src_ip.keyword",
         this.queryParams.detail_src_ip
       );
 
-      this.addQuery(this.query, "severity", this.queryParams.severity);
+      this.addQuery(this.query, "severity.keyword", this.queryParams.severity);
 
       this.addQuery(
         this.query,
-        "ev_msec_asset_name",
+        "ev_msec_asset_name.keyword",
         this.queryParams.exkpi_msec_asset_name
       );
 
-      this.addQuery(this.query, "location", this.queryParams.location);
+      this.addQuery(this.query, "location.keyword", this.queryParams.location);
 
-      this.addQuery(this.query, "procedure", this.queryParams.procedure);
+      this.addQuery(
+        this.query,
+        "procedure.keyword",
+        this.queryParams.procedure
+      );
 
       this.query.from = this.from - 1;
       if (this.queryParams.date.length > 0) {

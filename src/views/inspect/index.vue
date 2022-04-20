@@ -441,27 +441,39 @@ export default {
     async getTableList() {
       this.addQuery(
         this.querys.query,
-        "event_name",
+        "event_name.keyword",
         this.queryParams.event_name
       );
-      this.addQuery(this.querys.query, "severity", this.queryParams.severity);
       this.addQuery(
         this.querys.query,
-        "detail_src_ip",
+        "severity.keyword",
+        this.queryParams.severity
+      );
+      this.addQuery(
+        this.querys.query,
+        "detail_src_ip.keyword",
         this.queryParams.detail_src_ip
       );
       this.addQuery(
         this.querys.query,
-        "ev_wsec_scce_scc_result",
+        "ev_wsec_scce_scc_result.keyword",
         this.queryParams.ev_wsec_scce_scc_result
       );
       this.addQuery(
         this.querys.query,
-        "occur_time",
+        "occur_time.keyword",
         this.queryParams.occur_time
       );
-      this.addQuery(this.querys.query, "location", this.queryParams.location);
-      this.addQuery(this.querys.query, "procedure", this.queryParams.procedure);
+      this.addQuery(
+        this.querys.query,
+        "location.keyword",
+        this.queryParams.location
+      );
+      this.addQuery(
+        this.querys.query,
+        "procedure.keyword",
+        this.queryParams.procedure
+      );
       this.querys.from = this.from - 1;
       if (this.queryParams.date.length > 0) {
         this.querys.query.bool.must.push({
@@ -482,23 +494,30 @@ export default {
       this.detailData.severity = this.transTypeDic(this.detailData.severity);
     },
     transTypeDic(val) {
-      var t = [{
-        name: 1,
-        content: '极低'
-      }, {
-        name: 2,
-        content: '低危'
-      }, {
-        name: 3,
-        content: '中危'
-      }, {
-        name: 4,
-        content: '高危'
-      }, {
-        name: 5,
-        content: '致命'
-      }]
-      const orgTreeData1 = t.filter((e) => e.name === val)
+      var t = [
+        {
+          name: 1,
+          content: "极低",
+        },
+        {
+          name: 2,
+          content: "低危",
+        },
+        {
+          name: 3,
+          content: "中危",
+        },
+        {
+          name: 4,
+          content: "高危",
+        },
+        {
+          name: 5,
+          content: "致命",
+        },
+      ];
+      const orgTreeData1 = t
+        .filter((e) => e.name === val)
         .map(({ content }) => ({
           content,
         }));

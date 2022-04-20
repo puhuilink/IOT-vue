@@ -592,23 +592,31 @@ export default {
     async getTableList() {
       this.addQuery(
         this.query,
-        "detail_src_ip",
+        "detail_src_ip.keyword",
         this.queryParams.detail_src_ip
       );
 
       this.addQuery(
         this.query,
-        "detail_dst_ip",
+        "detail_dst_ip.keyword",
         this.queryParams.detail_dst_ip
       );
 
-      this.addQuery(this.query, "location", this.queryParams.location);
+      this.addQuery(this.query, "location.keyword", this.queryParams.location);
 
-      this.addQuery(this.query, "procedure", this.queryParams.procedure);
+      this.addQuery(
+        this.query,
+        "procedure.keyword",
+        this.queryParams.procedure
+      );
 
-      this.addQuery(this.query, "severity", this.queryParams.severity);
+      this.addQuery(this.query, "severity.keyword", this.queryParams.severity);
 
-      this.addQuery(this.query, "event_format", this.queryParams.event_format);
+      this.addQuery(
+        this.query,
+        "event_format.keyword",
+        this.queryParams.event_format
+      );
 
       this.query.from = this.from - 1;
 
