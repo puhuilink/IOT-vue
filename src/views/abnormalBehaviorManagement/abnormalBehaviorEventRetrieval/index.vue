@@ -111,19 +111,19 @@
               </el-form-item>
             </el-col>
             <el-col :span="6">
-               <el-form-item label="日期区间 :" prop="date">
-                  <el-date-picker
-                   v-model="queryParams.date"
-                    size="small"
-                    type="daterange"
-                    value-format="yyyy-MM-dd"
-                    range-separator="-"
-                    start-placeholder="开始日期"
-                    end-placeholder="结束日期"
-                    clearable
-                      :style="{ width: '100%' }"
-                  />
-                </el-form-item>
+              <el-form-item label="日期区间 :" prop="date">
+                <el-date-picker
+                  v-model="queryParams.date"
+                  size="small"
+                  type="daterange"
+                  value-format="yyyy-MM-dd"
+                  range-separator="-"
+                  start-placeholder="开始日期"
+                  end-placeholder="结束日期"
+                  clearable
+                  :style="{ width: '100%' }"
+                />
+              </el-form-item>
             </el-col>
             <el-col :span="6">
               <el-form-item label="杀伤链阶段:" prop="ev_ksec_killchain">
@@ -558,31 +558,43 @@ export default {
       }
     },
     async getTableList() {
-      this.addQuery(this.query, "event_name", this.queryParams.event_name);
+      this.addQuery(
+        this.query,
+        "event_name.keyword",
+        this.queryParams.event_name
+      );
 
-      this.addQuery(this.query, "location", this.queryParams.location);
+      this.addQuery(this.query, "location.keyword", this.queryParams.location);
 
-      this.addQuery(this.query, "severity", this.queryParams.severity);
-
-      this.addQuery(this.query, "event_format", this.queryParams.event_format);
-
-      this.addQuery(this.query, "procedure", this.queryParams.procedure);
+      this.addQuery(this.query, "severity.keyword", this.queryParams.severity);
 
       this.addQuery(
         this.query,
-        "ev_com_socket_dst_ip",
+        "event_format.keyword",
+        this.queryParams.event_format
+      );
+
+      this.addQuery(
+        this.query,
+        "procedure.keyword",
+        this.queryParams.procedure
+      );
+
+      this.addQuery(
+        this.query,
+        "ev_com_socket_dst_ip.keyword",
         this.queryParams.ev_com_socket_dst_ip
       );
 
       this.addQuery(
         this.query,
-        "ev_com_socket_src_ip",
+        "ev_com_socket_src_ip.keyword",
         this.queryParams.ev_com_socket_src_ip
       );
 
       this.addQuery(
         this.query,
-        "ev_ksec_killchain",
+        "ev_ksec_killchain.keyword",
         this.queryParams.ev_ksec_killchain
       );
 
