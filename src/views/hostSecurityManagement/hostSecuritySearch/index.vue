@@ -560,23 +560,31 @@ export default {
       }
     },
     async getTableList() {
-      this.addQuery(this.query, "location", this.queryParams.location);
+      this.addQuery(this.query, "location.keyword", this.queryParams.location);
 
-      this.addQuery(this.query, "severity", this.queryParams.severity);
-
-      this.addQuery(this.query, "event_format", this.queryParams.event_format);
-
-      this.addQuery(this.query, "procedure", this.queryParams.procedure);
+      this.addQuery(this.query, "severity.keyword", this.queryParams.severity);
 
       this.addQuery(
         this.query,
-        "ev_wsec_hsme_system_ip",
+        "event_format.keyword",
+        this.queryParams.event_format
+      );
+
+      this.addQuery(
+        this.query,
+        "procedure.keyword",
+        this.queryParams.procedure
+      );
+
+      this.addQuery(
+        this.query,
+        "ev_wsec_hsme_system_ip.keyword",
         this.queryParams.ev_wsec_hsme_system_ip
       );
 
       this.addQuery(
         this.query,
-        "ev_wsec_hsme_system_osname",
+        "ev_wsec_hsme_system_osname.keyword",
         this.queryParams.ev_wsec_hsme_system_osname
       );
 

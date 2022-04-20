@@ -195,7 +195,7 @@
         prop="_source.ev_ksec_threatFlag"
         :show-overflow-tooltip="true"
       >
-         <template #default="scope">
+        <template #default="scope">
           <span>{{ translevelDic(scope.row._source.ev_ksec_threatFlag) }}</span>
         </template>
       </el-table-column>
@@ -573,34 +573,42 @@ export default {
       }
     },
     async getTableList() {
-      this.addQuery(this.query, "event_name", this.queryParams.event_name);
+      this.addQuery(
+        this.query,
+        "event_name.keyword",
+        this.queryParams.event_name
+      );
 
-      this.addQuery(this.query, "location", this.queryParams.location);
+      this.addQuery(this.query, "location.keyword", this.queryParams.location);
 
-      this.addQuery(this.query, "severity", this.queryParams.severity);
-
-      this.addQuery(this.query, "procedure", this.queryParams.procedure);
+      this.addQuery(this.query, "severity.keyword", this.queryParams.severity);
 
       this.addQuery(
         this.query,
-        "ev_com_socket_dst_ip   ",
+        "procedure.keyword",
+        this.queryParams.procedure
+      );
+
+      this.addQuery(
+        this.query,
+        "ev_com_socket_dst_ip.keyword",
         this.queryParams.ev_com_socket_dst_ip
       );
 
       this.addQuery(
         this.query,
-        "ev_com_socket_src_ip",
+        "ev_com_socket_src_ip.keyword",
         this.queryParams.ev_com_socket_src_ip
       );
 
       this.addQuery(
         this.query,
-        "ev_ksec_killchainCN ",
+        "ev_ksec_killchainCN.keyword",
         this.queryParams.ev_ksec_killchainCN
       );
       this.addQuery(
         this.query,
-        "ev_ksec_threatFlag ",
+        "ev_ksec_threatFlag.keyword",
         this.queryParams.ev_ksec_threatFlag
       );
       this.query.from = this.from - 1;
@@ -665,7 +673,7 @@ export default {
     },
     transTypeDic(val) {
       var t = [
-       {
+        {
           name: 1,
           content: "极低",
         },
@@ -766,9 +774,11 @@ export default {
       if (this.detailData.severity) {
         this.detailData.severity = this.transTypeDic(this.detailData.severity);
       }
-     if(this.detailData.ev_ksec_threatFlag){
-      this.detailData.ev_ksec_threatFlag = this.translevelDic(this.detailData.ev_ksec_threatFlag);
-     }
+      if (this.detailData.ev_ksec_threatFlag) {
+        this.detailData.ev_ksec_threatFlag = this.translevelDic(
+          this.detailData.ev_ksec_threatFlag
+        );
+      }
     },
     // 取消按钮
     cancel() {
