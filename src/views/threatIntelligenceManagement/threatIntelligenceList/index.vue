@@ -391,6 +391,7 @@ export default {
       },
       // 查询参数
       queryParams: {
+        ev_ksec_aptOrganization: "",
         location: "",
         severity: "",
         ev_com_socket_protocol: "",
@@ -573,7 +574,11 @@ export default {
       }
     },
     async getTableList() {
-      // this.addQuery(this.query, 'location', this.queryParams.location)
+      this.addQuery(
+        this.query,
+        "ev_ksec_aptOrganization.keyword",
+        this.queryParams.ev_ksec_aptOrganization
+      );
 
       this.addQuery(this.query, "severity.keyword", this.queryParams.severity);
 
@@ -709,6 +714,7 @@ export default {
     },
     resetForm() {
       this.queryParams = {
+        ev_ksec_aptOrganization: "",
         location: "",
         severity: "",
         ev_com_socket_protocol: "",
