@@ -111,13 +111,14 @@
               <el-form-item label="时间：" prop="date">
                 <el-date-picker
                   v-model="queryParams.date"
+                  size="small"
                   type="daterange"
-                  format="yyyy 年 MM 月 dd 日"
                   value-format="yyyy-MM-dd"
                   start-placeholder="开始时间"
                   end-placeholder="结束时间"
                   range-separator="至"
                   clearable
+                  :style="{ width: '100%' }"
                 />
               </el-form-item>
             </el-col>

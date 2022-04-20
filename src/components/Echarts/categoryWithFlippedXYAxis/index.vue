@@ -1,197 +1,208 @@
 <template>
   <el-col :span="12">
     <tip>{{ tipname }}</tip>
-    <div ref="canvas1"
-         style="height: 400px;" />
+    <div ref="canvas1" style="height: 400px" />
   </el-col>
 </template>
 <script>
-import { getIndustrialNetworkAuditData } from '@/utils/request'
-import { setNotopt } from '@/utils/emptyEcharts.js'
-import { quickSort } from '@/utils/hexColorValueOrdering.js'
-import { industrialNetworkAuditsourceIpEcharts, industrialNetworkAudittargetIpEcharts } from '@/api/system/echarts'
-import tip from '@/components/EchartsTip'
+import { getIndustrialNetworkAuditData } from "@/utils/request";
+import { setNotopt } from "@/utils/emptyEcharts.js";
+import { quickSort } from "@/utils/hexColorValueOrdering.js";
+import {
+  industrialNetworkAuditsourceIpEcharts,
+  industrialNetworkAudittargetIpEcharts,
+} from "@/api/system/echarts";
+import tip from "@/components/EchartsTip";
 export default {
-  name: 'AAA',
+  name: "AAA",
   components: { tip },
   props: {
-    tipname: { // tip内容
-      default: '事件类型分布',
-      type: String
+    tipname: {
+      // tip内容
+      default: "事件类型分布",
+      type: String,
     },
-    type: { // tip内容
+    type: {
+      // tip内容
       default: null,
-      type: Number
+      type: Number,
     },
     query: {
       default: null,
-      type: Object
-    }
+      type: Object,
+    },
   },
-  data () {
+  data() {
     return {
-      policitalStatus: ['1'],
+      policitalStatus: ["1"],
       barData: [],
       hasData: [],
       queryParms: {
         query: {
           bool: {
-            must: [
-            ]
-          }
+            must: [],
+          },
         },
         aggs: {
           field: {
             terms: {
               field: "detail_src_ip",
-              size: 5
-            }
-          }
-        }
+              size: 5,
+            },
+          },
+        },
       },
       category: [],
-      title: ''
-    }
+      title: "",
+    };
   },
   computed: {},
- watch: {
+  watch: {
     query: {
       handler(val, oldVal) {
         if (val !== oldVal) {
           if (val.severity) {
             this.queryParms.query.bool.must.push({
               match: {
-                severity: val.severity
-              }
-            })
+                "severity.keyword": val.severity,
+              },
+            });
           }
           if (val.location) {
             this.queryParms.query.bool.must.push({
               match: {
-                location: val.location
-              }
-            })
+                "location.keyword": val.location,
+              },
+            });
           }
           if (val.beginGenerationTime) {
             this.queryParms.query.bool.must.push({
               range: {
                 generationTime: {
                   gte: val.beginGenerationTime,
-                  lte: val.endGenerationTime
-                }
-              }
-            })
+                  lte: val.endGenerationTime,
+                },
+              },
+            });
           }
-          this.getData()
-          this.drawPolicitalStatus()
+          this.getData();
+          this.drawPolicitalStatus();
         }
       },
-      deep: true
-    }
+      deep: true,
+    },
   },
-  created () {
-    this.getData()
+  created() {
+    this.getData();
   },
-  mounted () {
-    this.drawPolicitalStatus()
+  mounted() {
+    this.drawPolicitalStatus();
   },
   methods: {
-    transDic (data) {
-      var arr = data
-      var arrNew = []
+    transDic(data) {
+      var arr = data;
+      var arrNew = [];
       arrNew = arr.map((item) => {
         return {
           value: item.doc_count,
-          name: item.key
-        }
-      })
-      return arrNew
+          name: item.key,
+        };
+      });
+      return arrNew;
     },
-    transDicName (data) {
-      var area = []
+    transDicName(data) {
+      var area = [];
       data.forEach((item) => {
-        area.push(item.key)
-      })
-      return area
+        area.push(item.key);
+      });
+      return area;
     },
-    transDicCount (data) {
-      var area = []
+    transDicCount(data) {
+      var area = [];
       data.forEach((item) => {
-        area.push(item.doc_count)
-      })
-      return area
+        area.push(item.doc_count);
+      });
+      return area;
     },
-    async getData () {
+    async getData() {
       switch (this.type) {
         case 1:
-          await getIndustrialNetworkAuditData(this.queryParms).then(({ data }) => {
-            console.log('4-13-getWeakPasswordData', data)
-            this.hasData = data.aggregations.field.buckets
-            // this.data1 = this.transDic(data.aggregations.field.buckets)
-            this.category = this.transDicName(data.aggregations.field.buckets)
-            this.barData = this.transDicCount(data.aggregations.field.buckets)
-          })
-          break
+          await getIndustrialNetworkAuditData(this.queryParms).then(
+            ({ data }) => {
+              console.log("4-13-getWeakPasswordData", data);
+              this.hasData = data.aggregations.field.buckets;
+              // this.data1 = this.transDic(data.aggregations.field.buckets)
+              this.category = this.transDicName(
+                data.aggregations.field.buckets
+              );
+              this.barData = this.transDicCount(
+                data.aggregations.field.buckets
+              );
+            }
+          );
+          break;
         case 2:
-          await industrialNetworkAudittargetIpEcharts(this.queryParms).then(({ data }) => {
-            this.hasData = data
-            this.category = this.transDicName(data)
-            this.barData = this.transDicCount(data)
-          })
-          break
+          await industrialNetworkAudittargetIpEcharts(this.queryParms).then(
+            ({ data }) => {
+              this.hasData = data;
+              this.category = this.transDicName(data);
+              this.barData = this.transDicCount(data);
+            }
+          );
+          break;
         default:
-          console.log('无数据', this.type)
-          break
+          console.log("无数据", this.type);
+          break;
       }
-      this.drawPolicitalStatus()
+      this.drawPolicitalStatus();
     },
-    drawPolicitalStatus () {
+    drawPolicitalStatus() {
       if (this.hasData.length) {
         // 基于准备好的dom，初始化echarts实例
-        const myChart = this.$echarts.init(this.$refs.canvas1)
+        const myChart = this.$echarts.init(this.$refs.canvas1);
         // 绘制图表
         myChart.setOption({
           tooltip: {
-            trigger: 'axis',
+            trigger: "axis",
             axisPointer: {
-              type: 'shadow'
-            }
+              type: "shadow",
+            },
           },
           grid: {
-            left: '3%',
-            right: '4%',
-            bottom: '3%',
-            containLabel: true
+            left: "3%",
+            right: "4%",
+            bottom: "3%",
+            containLabel: true,
           },
           xAxis: {
-            type: 'value',
+            type: "value",
             minInterval: 1,
-            position: 'bottom',
+            position: "bottom",
             axisTick: {
-              show: false
-            }
+              show: false,
+            },
           },
           yAxis: {
-            type: 'category',
+            type: "category",
             inverse: true,
             minInterval: 1,
             data: this.category,
             splitLine: { show: false },
             axisLine: {
-              show: false
+              show: false,
             },
             axisTick: {
-              show: false
+              show: false,
             },
             offset: 10,
             nameTextStyle: {
-              fontSize: 15
-            }
+              fontSize: 15,
+            },
           },
           series: [
             {
-              name: '数量',
-              type: 'bar',
+              name: "数量",
+              type: "bar",
               data: this.barData,
               realtimeSort: true,
               barWidth: 14,
@@ -200,42 +211,48 @@ export default {
               label: {
                 normal: {
                   show: true,
-                  position: 'right',
+                  position: "right",
                   offset: [5, -2],
                   textStyle: {
-                    color: '#F68300',
-                    fontSize: 13
-                  }
-                }
+                    color: "#F68300",
+                    fontSize: 13,
+                  },
+                },
               },
               itemStyle: {
                 emphasis: {
-                  barBorderRadius: 0
+                  barBorderRadius: 0,
                 },
                 normal: {
                   barBorderRadius: 0,
                   color: function (params) {
-                    var colorList = ['#1890FF', '#B592E4', '#F0B144', '#FF8745', '#F73030', '#43A682', '#ca8622']
-                    var newcolorList = quickSort(colorList)
-                    return newcolorList[params.dataIndex]
-                  }
-                }
-              }
-            }
-          ]
-        })
-        window.addEventListener('resize', function () {
-          myChart.resize()
-        })
+                    var colorList = [
+                      "#1890FF",
+                      "#B592E4",
+                      "#F0B144",
+                      "#FF8745",
+                      "#F73030",
+                      "#43A682",
+                      "#ca8622",
+                    ];
+                    var newcolorList = quickSort(colorList);
+                    return newcolorList[params.dataIndex];
+                  },
+                },
+              },
+            },
+          ],
+        });
+        window.addEventListener("resize", function () {
+          myChart.resize();
+        });
       } else {
-        const myChart = this.$echarts.init(this.$refs.canvas1)
-        this.$refs.canvas1.removeAttribute('_echarts_instance_')
-        return setNotopt(myChart, '暂无数据')
+        const myChart = this.$echarts.init(this.$refs.canvas1);
+        this.$refs.canvas1.removeAttribute("_echarts_instance_");
+        return setNotopt(myChart, "暂无数据");
       }
-    }
-  }
-}
-
+    },
+  },
+};
 </script>
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>

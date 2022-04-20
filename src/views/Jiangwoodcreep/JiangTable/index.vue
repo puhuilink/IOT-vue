@@ -8,7 +8,7 @@
             :model="queryParams"
             :rules="rules"
             size="mini"
-            label-width="80px"
+            label-width="90px"
             class="label-type"
             label-position="right"
           >
@@ -68,20 +68,6 @@
                   clearable
                   :style="{ width: '100%' }"
                 />
-                <!-- <el-select
-                  v-model="queryParams.ev_ksec_threatFlag"
-                  placeholder="请选择威胁分类"
-                  clearable
-                  :style="{ width: '100%' }"
-                >
-                  <el-option
-                    v-for="(item, index) in threat"
-                    :key="index"
-                    :label="item.label"
-                    :value="item.value"
-                    :disabled="item.disabled"
-                  />
-                </el-select> -->
               </el-form-item>
             </el-col>
             <el-col :span="6">
@@ -124,11 +110,7 @@
               </el-form-item>
             </el-col>
             <el-col :span="6">
-              <el-form-item
-                label="杀伤链阶段:"
-                prop="ev_ksec_killchainCN"
-                label-width="90px"
-              >
+              <el-form-item label="杀伤链阶段:" prop="ev_ksec_killchainCN">
                 <el-select
                   v-model="queryParams.ev_ksec_killchainCN"
                   placeholder="请选择杀伤链阶段"
@@ -149,13 +131,14 @@
               <el-form-item label="时间:" prop="date">
                 <el-date-picker
                   v-model="queryParams.date"
+                  size="small"
                   type="daterange"
-                  format="yyyy 年 MM 月 dd 日"
                   value-format="yyyy-MM-dd"
                   start-placeholder="开始时间"
                   end-placeholder="结束时间"
                   range-separator="至"
                   clearable
+                  :style="{ width: '100%' }"
                 />
               </el-form-item>
             </el-col>
@@ -605,11 +588,13 @@ export default {
         "ev_ksec_killchainCN.keyword",
         this.queryParams.ev_ksec_killchainCN
       );
+
       this.addQuery(
         this.query,
         "ev_ksec_threatFlag.keyword",
         this.queryParams.ev_ksec_threatFlag
       );
+
       this.query.from = this.from - 1;
       if (this.queryParams.date.length > 0) {
         this.query.query.bool.must.push({
@@ -761,6 +746,7 @@ export default {
         ev_com_socket_dst_ip: "",
         ev_com_socket_src_ip: "",
         ev_ksec_killchainCN: "",
+        ev_ksec_threatFlag: "",
         date: [],
       };
       this.getTableList();

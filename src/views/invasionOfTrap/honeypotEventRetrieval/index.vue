@@ -2,7 +2,7 @@
   <div class="app-container">
     <el-card class="box-card">
       <div>
-        <el-row :gutter="20">
+        <el-row>
           <el-form
             ref="elForm"
             :model="queryParams"
@@ -93,17 +93,19 @@
               <el-form-item label="时间：" prop="date">
                 <el-date-picker
                   v-model="queryParams.date"
+                  size="small"
                   type="daterange"
                   format="yyyy 年 MM 月 dd 日"
                   value-format="yyyy-MM-dd"
                   range-separator="至"
                   start-placeholder="开始日期"
                   end-placeholder="结束日期"
+                  :style="{ width: '100%' }"
                 />
               </el-form-item>
             </el-col>
             <el-col :span="6">
-              <el-form-item size="mini" label-width="50px">
+              <el-form-item size="mini">
                 <el-button type="primary" @click="btnQuery">搜索</el-button>
                 <el-button @click="resetForm">重置</el-button>
               </el-form-item>

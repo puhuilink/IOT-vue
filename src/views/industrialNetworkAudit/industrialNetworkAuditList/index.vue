@@ -2,141 +2,140 @@
   <div class="app-container">
     <el-card class="box-card">
       <div>
-        <el-collapse v-model="activeNames">
-          <el-collapse-item name="1">
-            <span slot="title" class="collapse-title">搜索条件</span>
-            <el-form
-              ref="queryForm"
-              :model="queryParams"
-              size="mini"
-              :inline="true"
-              label-width="95px"
-              class="label-type"
-            >
-              <el-col :span="6">
-                <el-form-item label="源IP地址：" prop="ipaddr">
-                  <el-input
-                    v-model="queryParams.detail_src_ip"
-                    placeholder="请输入源IP地址"
-                    clearable
-                    :style="{ width: '100%' }"
-                    @keyup.enter.native="handleQuery"
+        <el-row :gutter="20">
+          <el-form
+            ref="queryForm"
+            :model="queryParams"
+            :rules="rules"
+            size="mini"
+            label-width="95px"
+            class="label-type"
+            label-position="right"
+          >
+            <el-col :span="6">
+              <el-form-item label="源IP地址：" prop="ipaddr">
+                <el-input
+                  v-model="queryParams.detail_src_ip"
+                  placeholder="请输入源IP地址"
+                  clearable
+                  :style="{ width: '100%' }"
+                  @keyup.enter.native="handleQuery"
+                />
+              </el-form-item>
+            </el-col>
+            <el-col :span="6">
+              <el-form-item label="目的IP地址：" prop="userName">
+                <el-input
+                  v-model="queryParams.detail_dst_ip"
+                  placeholder="请输入目的IP地址"
+                  clearable
+                  :style="{ width: '100%' }"
+                  @keyup.enter.native="handleQuery"
+                />
+              </el-form-item>
+            </el-col>
+            <el-col :span="6">
+              <el-form-item label="区域：" prop="userName">
+                <el-select
+                  v-model="queryParams.location"
+                  placeholder="请选择区域"
+                  filterable
+                  clearable
+                  :style="{ width: '100%' }"
+                >
+                  <el-option
+                    v-for="(item, index) in areaOptions"
+                    :key="index"
+                    :label="item.label"
+                    :value="item.label"
+                    :disabled="item.disabled"
                   />
-                </el-form-item>
-              </el-col>
-              <el-col :span="6">
-                <el-form-item label="目的IP地址：" prop="userName">
-                  <el-input
-                    v-model="queryParams.detail_dst_ip"
-                    placeholder="请输入目的IP地址"
-                    clearable
-                    :style="{ width: '100%' }"
-                    @keyup.enter.native="handleQuery"
+                </el-select>
+              </el-form-item>
+            </el-col>
+            <el-col :span="6">
+              <el-form-item label="处置状态：" prop="ipaddr">
+                <el-select
+                  v-model="queryParams.procedure"
+                  placeholder="请选择处置状态"
+                  clearable
+                  :style="{ width: '100%' }"
+                >
+                  <el-option
+                    v-for="(item, index) in disposalStatusOptions"
+                    :key="index"
+                    :label="item.label"
+                    :value="item.label"
+                    :disabled="item.disabled"
                   />
-                </el-form-item>
-              </el-col>
-              <el-col :span="6">
-                <el-form-item label="区域：" prop="userName">
-                  <el-select
-                    v-model="queryParams.location"
-                    placeholder="请选择区域"
-                    filterable
-                    clearable
-                    :style="{ width: '100%' }"
-                  >
-                    <el-option
-                      v-for="(item, index) in areaOptions"
-                      :key="index"
-                      :label="item.label"
-                      :value="item.label"
-                      :disabled="item.disabled"
-                    />
-                  </el-select>
-                </el-form-item>
-              </el-col>
-              <el-col :span="6">
-                <el-form-item label="处置状态：" prop="ipaddr">
-                  <el-select
-                    v-model="queryParams.procedure"
-                    placeholder="请选择处置状态"
-                    clearable
-                    :style="{ width: '100%' }"
-                  >
-                    <el-option
-                      v-for="(item, index) in disposalStatusOptions"
-                      :key="index"
-                      :label="item.label"
-                      :value="item.label"
-                      :disabled="item.disabled"
-                    />
-                  </el-select>
-                </el-form-item>
-              </el-col>
-              <el-col :span="6">
-                <el-form-item label="事件等级：" prop="userName">
-                  <el-select
-                    v-model="queryParams.severity"
-                    placeholder="请选择事件等级"
-                    filterable
-                    clearable
-                    :style="{ width: '100%' }"
-                  >
-                    <el-option
-                      v-for="(item, index) in levelOptions"
-                      :key="index"
-                      :label="item.label"
-                      :value="item.value"
-                      :disabled="item.disabled"
-                    />
-                  </el-select>
-                </el-form-item>
-              </el-col>
-              <el-col :span="6">
-                <el-form-item label="事件类型：" prop="userName">
-                  <el-input
-                    v-model="queryParams.event_format"
-                    placeholder="请输入事件类型"
-                    clearable
-                    :style="{ width: '100%' }"
-                    @keyup.enter.native="handleQuery"
+                </el-select>
+              </el-form-item>
+            </el-col>
+            <el-col :span="6">
+              <el-form-item label="事件等级：" prop="userName">
+                <el-select
+                  v-model="queryParams.severity"
+                  placeholder="请选择事件等级"
+                  filterable
+                  clearable
+                  :style="{ width: '100%' }"
+                >
+                  <el-option
+                    v-for="(item, index) in levelOptions"
+                    :key="index"
+                    :label="item.label"
+                    :value="item.value"
+                    :disabled="item.disabled"
                   />
-                </el-form-item>
-              </el-col>
-              <el-col :span="7">
-                <el-form-item label="时间：" prop="date">
-                  <el-date-picker
-                    v-model="queryParams.date"
-                    type="daterange"
-                    format="yyyy 年 MM 月 dd 日"
-                    value-format="yyyy-MM-dd"
-                    start-placeholder="开始时间"
-                    end-placeholder="结束时间"
-                    range-separator="至"
-                    clearable
-                  />
-                </el-form-item>
-              </el-col>
+                </el-select>
+              </el-form-item>
+            </el-col>
+            <el-col :span="6">
+              <el-form-item label="事件类型：" prop="userName">
+                <el-input
+                  v-model="queryParams.event_format"
+                  placeholder="请输入事件类型"
+                  clearable
+                  :style="{ width: '100%' }"
+                  @keyup.enter.native="handleQuery"
+                />
+              </el-form-item>
+            </el-col>
+            <el-col :span="6">
+              <el-form-item label="时间：" prop="date">
+                <el-date-picker
+                  v-model="queryParams.date"
+                  size="small"
+                  type="daterange"
+                  value-format="yyyy-MM-dd"
+                  start-placeholder="开始时间"
+                  end-placeholder="结束时间"
+                  range-separator="至"
+                  clearable
+                  :style="{ width: '100%' }"
+                />
+              </el-form-item>
+            </el-col>
 
-              <el-col :span="3">
-                <el-form-item>
-                  <el-button
-                    type="primary"
-                    icon="el-icon-search"
-                    size="mini"
-                    @click="handleQuery"
-                    >搜索</el-button
-                  >
-                  <el-button
-                    icon="el-icon-refresh"
-                    size="mini"
-                    @click="resetQuery"
-                    >重置</el-button
-                  >
-                </el-form-item>
-              </el-col>
-            </el-form>
-          </el-collapse-item>
-        </el-collapse>
+            <el-col :span="6">
+              <el-form-item>
+                <el-button
+                  type="primary"
+                  icon="el-icon-search"
+                  size="mini"
+                  @click="handleQuery"
+                  >搜索</el-button
+                >
+                <el-button
+                  icon="el-icon-refresh"
+                  size="mini"
+                  @click="resetQuery"
+                  >重置</el-button
+                >
+              </el-form-item>
+            </el-col>
+          </el-form>
+        </el-row>
       </div>
     </el-card>
     <el-card style="margin-top: 10px">
