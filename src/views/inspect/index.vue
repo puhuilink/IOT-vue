@@ -111,13 +111,14 @@
               <el-form-item label="时间：" prop="date">
                 <el-date-picker
                   v-model="queryParams.date"
+                  size="small"
                   type="daterange"
-                  format="yyyy 年 MM 月 dd 日"
                   value-format="yyyy-MM-dd"
                   start-placeholder="开始时间"
                   end-placeholder="结束时间"
                   range-separator="至"
                   clearable
+                  :style="{ width: '100%' }"
                 />
               </el-form-item>
             </el-col>
@@ -132,7 +133,6 @@
       </div>
     </el-card>
     <el-table :data="List" tooltip-effect="light">
-      <el-table-column type="selection" width="55" align="center" />
       <el-table-column
         label="检查项"
         align="center"
@@ -558,12 +558,6 @@ export default {
             message: "已取消修改！",
           });
         });
-    },
-    submitdata() {
-      this.$refs["elForm"].validate((valid) => {
-        if (!valid) return;
-        // TODO 提交表单
-      });
     },
     resetForm() {
       this.queryParams = {

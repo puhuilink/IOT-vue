@@ -99,12 +99,12 @@
                 />
               </el-form-item>
             </el-col>
-            <el-col :span="7">
+            <el-col :span="6">
               <el-form-item label="时间:" prop="date">
                 <el-date-picker
                   v-model.trim="queryParams.date"
+                  size="small"
                   type="daterange"
-                  format="yyyy 年 MM 月 dd 日"
                   value-format="yyyy-MM-dd"
                   :style="{ width: '100%' }"
                   start-placeholder="开始时间"
@@ -125,7 +125,6 @@
       </div>
     </el-card>
     <el-table :data="List" tooltip-effect="light">
-      <el-table-column type="selection" width="55" align="center" />
       <el-table-column
         label="资产名称"
         align="center"
