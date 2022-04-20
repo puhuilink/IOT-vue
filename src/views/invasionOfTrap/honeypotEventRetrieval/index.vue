@@ -42,9 +42,9 @@
               </el-form-item>
             </el-col>
             <el-col :span="6">
-              <el-form-item label="隔离沙箱：" prop="type">
+              <el-form-item label="隔离沙箱：" prop="ev_msec_asset_name">
                 <el-input
-                  v-model="queryParams.exkpi_msec_asset_name"
+                  v-model="queryParams.ev_msec_asset_name"
                   placeholder="请输入隔离沙箱"
                   clearable
                   :style="{ width: '100%' }"
@@ -340,7 +340,7 @@ export default {
       queryParams: {
         detail_src_ip: "",
         severity: "",
-        exkpi_msec_asset_name: "",
+        ev_msec_asset_name: "",
         location: "",
         procedure: "",
         date: [],
@@ -473,7 +473,7 @@ export default {
       this.addQuery(
         this.query,
         "ev_msec_asset_name.keyword",
-        this.queryParams.exkpi_msec_asset_name
+        this.queryParams.ev_msec_asset_name
       );
 
       this.addQuery(this.query, "location.keyword", this.queryParams.location);
@@ -576,7 +576,7 @@ export default {
       this.queryParams = {
         detail_src_ip: "",
         severity: "",
-        exkpi_msec_asset_name: "",
+        ev_msec_asset_name: "",
         location: "",
         procedure: "",
         date: [],
