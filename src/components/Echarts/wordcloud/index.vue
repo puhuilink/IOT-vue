@@ -65,14 +65,14 @@ export default {
           if (val.severity) {
             this.queryParms.query.bool.must.push({
               match: {
-                severity: val.severity
+                'severity.keyword': val.severity
               }
             })
           }
           if (val.location) {
             this.queryParms.query.bool.must.push({
               match: {
-                location: val.location
+                'location.keyword': val.location
               }
             })
           }

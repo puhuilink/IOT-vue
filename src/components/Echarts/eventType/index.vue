@@ -61,19 +61,20 @@ export default {
   computed: {},
   watch: {
     query: {
+
       handler(val, oldVal) {
         if (val !== oldVal) {
           if (val.severity) {
             this.queryParms.query.bool.must.push({
               match: {
-                severity: val.severity
+                'severity.keyword': val.severity
               }
             })
           }
           if (val.location) {
             this.queryParms.query.bool.must.push({
               match: {
-                location: val.location
+                'location.keyword': val.location
               }
             })
           }
@@ -139,93 +140,93 @@ export default {
       })
       return arrNew
     },
-    transDic(data,type) {
-       var t = [
+    transDic(data, type) {
+      var t = [
         {
-          label: "程序告警事件",
-          value: "wsec_syslog_hsme_ev_07",
-        },
-        {
-          label: "外设告警事件",
-          value: "wsec_syslog_hsme_ev_08",
+          label: '程序告警事件',
+          value: 'wsec_syslog_hsme_ev_07'
         },
         {
-          label: "主机防火墙事件",
-          value: "wsec_syslog_hsme_ev_09",
+          label: '外设告警事件',
+          value: 'wsec_syslog_hsme_ev_08'
         },
         {
-          label: "访问控制事件",
-          value: "wsec_syslog_hsme_ev_10",
+          label: '主机防火墙事件',
+          value: 'wsec_syslog_hsme_ev_09'
         },
         {
-          label: "主机非法外联",
-          value: "wsec_syslog_hsme_ev_22",
+          label: '访问控制事件',
+          value: 'wsec_syslog_hsme_ev_10'
         },
         {
-          label: "恶意文件事件",
-          value: "wsec_syslog_hsme_ev_30",
-        },
-         {
-          label: "配置核查事件",
-          value: "wsec_syslog_scce_ev",
-        },
-         {
-          label: "数据安全事件",
-          value: "wdsf_syslog_dsme_ev",
+          label: '主机非法外联',
+          value: 'wsec_syslog_hsme_ev_22'
         },
         {
-          label: "规则告警事件",
-          value: "ksec_syslog_rule_eve",
+          label: '恶意文件事件',
+          value: 'wsec_syslog_hsme_ev_30'
         },
         {
-          label: "威胁情报事件",
-          value: "ksec_syslog_ioc_eve",
+          label: '配置核查事件',
+          value: 'wsec_syslog_scce_ev'
         },
         {
-          label: "模型告警事件",
-          value: "ksec_syslog_model_eve",
+          label: '数据安全事件',
+          value: 'wdsf_syslog_dsme_ev'
         },
         {
-          label: "入侵诱捕事件",
-          value: "msec_syslog_event",
+          label: '规则告警事件',
+          value: 'ksec_syslog_rule_eve'
         },
         {
-          label: "审计协议白名单",
-          value: "wsec_syslog_inpa_ev_17",
+          label: '威胁情报事件',
+          value: 'ksec_syslog_ioc_eve'
         },
         {
-          label: "审计关键事件",
-          value: "wsec_syslog_inpa_ev_20",
+          label: '模型告警事件',
+          value: 'ksec_syslog_model_eve'
         },
-         {
-          label: "审计自定义事件",
-          value: "wsec_syslog_inpa_ev_21",
+        {
+          label: '入侵诱捕事件',
+          value: 'msec_syslog_event'
         },
-         {
-          label: "审计协议规约",
-          value: "wsec_syslog_inpa_ev_23",
+        {
+          label: '审计协议白名单',
+          value: 'wsec_syslog_inpa_ev_17'
         },
-      ];
-        var arr = data
-      var arrNew = []
-      if(type !== 1){
-     arrNew = arr.map((item) => {
-        return {
-          value: item.doc_count,
-          name: item.key
+        {
+          label: '审计关键事件',
+          value: 'wsec_syslog_inpa_ev_20'
+        },
+        {
+          label: '审计自定义事件',
+          value: 'wsec_syslog_inpa_ev_21'
+        },
+        {
+          label: '审计协议规约',
+          value: 'wsec_syslog_inpa_ev_23'
         }
-      })
-      }else{
-     arr.map(r => {
-        t.map(d => {
-          if (r.key === d.value) {
-            arrNew.push({
-              value: r.doc_count,
-              name: d.label
-            })
+      ]
+      var arr = data
+      var arrNew = []
+      if (type !== 1) {
+        arrNew = arr.map((item) => {
+          return {
+            value: item.doc_count,
+            name: item.key
           }
         })
-      })
+      } else {
+        arr.map(r => {
+          t.map(d => {
+            if (r.key === d.value) {
+              arrNew.push({
+                value: r.doc_count,
+                name: d.label
+              })
+            }
+          })
+        })
       }
       return arrNew
     },
@@ -334,7 +335,7 @@ export default {
             case 'design':
               await getIndustrialNetworkAuditData(this.queryParms).then(({ data }) => {
                 this.hasData = data.aggregations.field.buckets
-                this.datacopy = this.transDic(data.aggregations.field.buckets,1)
+                this.datacopy = this.transDic(data.aggregations.field.buckets, 1)
                 this.queryParms.query.bool.must = []
               })
               break
