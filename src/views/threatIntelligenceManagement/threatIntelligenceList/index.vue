@@ -114,17 +114,18 @@
               <el-form-item label="时间:" prop="date">
                 <el-date-picker
                   v-model.trim="queryParams.date"
+                  size="small"
                   type="daterange"
-                  format="yyyy 年 MM 月 dd 日"
                   value-format="yyyy-MM-dd"
                   start-placeholder="开始时间"
                   end-placeholder="结束时间"
                   range-separator="至"
                   clearable
+                  :style="{ width: '100%' }"
                 />
               </el-form-item>
             </el-col>
-            <el-col :span="7">
+            <el-col :span="6">
               <el-form-item label="杀伤链阶段:" prop="ev_ksec_killchain">
                 <el-select
                   v-model.trim="queryParams.ev_ksec_killchain"
@@ -154,11 +155,7 @@
       </div>
     </el-card>
     <el-card>
-      <el-button type="primary" size="mini" class="export" @click="submitdata"
-        >导出</el-button
-      >
       <el-table :data="List" tooltip-effect="light">
-        <el-table-column type="selection" width="55" align="center" />
         <el-table-column
           label="攻击者IP"
           align="center"
@@ -394,6 +391,7 @@ export default {
       },
       // 查询参数
       queryParams: {
+        ev_ksec_aptOrganization: "",
         location: "",
         severity: "",
         ev_com_socket_protocol: "",
@@ -576,7 +574,11 @@ export default {
       }
     },
     async getTableList() {
-      // this.addQuery(this.query, 'location', this.queryParams.location)
+      this.addQuery(
+        this.query,
+        "ev_ksec_aptOrganization.keyword",
+        this.queryParams.ev_ksec_aptOrganization
+      );
 
       this.addQuery(this.query, "severity.keyword", this.queryParams.severity);
 
@@ -710,14 +712,9 @@ export default {
       // this.getCategoryList()
       this.getTableList();
     },
-    submitdata() {
-      this.$refs["elForm"].validate((valid) => {
-        if (!valid) return;
-        // TODO 提交表单
-      });
-    },
     resetForm() {
       this.queryParams = {
+        ev_ksec_aptOrganization: "",
         location: "",
         severity: "",
         ev_com_socket_protocol: "",

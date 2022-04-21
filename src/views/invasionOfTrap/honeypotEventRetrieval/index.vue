@@ -2,7 +2,7 @@
   <div class="app-container">
     <el-card class="box-card">
       <div>
-        <el-row :gutter="20">
+        <el-row>
           <el-form
             ref="elForm"
             :model="queryParams"
@@ -42,9 +42,9 @@
               </el-form-item>
             </el-col>
             <el-col :span="6">
-              <el-form-item label="隔离沙箱：" prop="type">
+              <el-form-item label="隔离沙箱：" prop="ev_msec_asset_name">
                 <el-input
-                  v-model="queryParams.exkpi_msec_asset_name"
+                  v-model="queryParams.ev_msec_asset_name"
                   placeholder="请输入隔离沙箱"
                   clearable
                   :style="{ width: '100%' }"
@@ -93,17 +93,19 @@
               <el-form-item label="时间：" prop="date">
                 <el-date-picker
                   v-model="queryParams.date"
+                  size="small"
                   type="daterange"
                   format="yyyy 年 MM 月 dd 日"
                   value-format="yyyy-MM-dd"
                   range-separator="至"
                   start-placeholder="开始日期"
                   end-placeholder="结束日期"
+                  :style="{ width: '100%' }"
                 />
               </el-form-item>
             </el-col>
             <el-col :span="6">
-              <el-form-item size="mini" label-width="50px">
+              <el-form-item size="mini">
                 <el-button type="primary" @click="btnQuery">搜索</el-button>
                 <el-button @click="resetForm">重置</el-button>
               </el-form-item>
@@ -113,11 +115,7 @@
       </div>
     </el-card>
     <el-card>
-      <el-button type="primary" class="export" @click="submitdata"
-        >导出</el-button
-      >
       <el-table :data="List" tooltip-effect="light">
-        <el-table-column type="selection" width="55" align="center" />
         <el-table-column
           label="攻击者"
           align="center"
@@ -342,7 +340,7 @@ export default {
       queryParams: {
         detail_src_ip: "",
         severity: "",
-        exkpi_msec_asset_name: "",
+        ev_msec_asset_name: "",
         location: "",
         procedure: "",
         date: [],
@@ -475,7 +473,7 @@ export default {
       this.addQuery(
         this.query,
         "ev_msec_asset_name.keyword",
-        this.queryParams.exkpi_msec_asset_name
+        this.queryParams.ev_msec_asset_name
       );
 
       this.addQuery(this.query, "location.keyword", this.queryParams.location);
@@ -574,17 +572,11 @@ export default {
     btnQuery() {
       this.searchClick();
     },
-    submitdata() {
-      this.$refs["elForm"].validate((valid) => {
-        if (!valid) return;
-        // TODO 提交表单
-      });
-    },
     resetForm() {
       this.queryParams = {
         detail_src_ip: "",
         severity: "",
-        exkpi_msec_asset_name: "",
+        ev_msec_asset_name: "",
         location: "",
         procedure: "",
         date: [],

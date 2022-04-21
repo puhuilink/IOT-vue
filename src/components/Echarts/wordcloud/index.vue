@@ -1,61 +1,59 @@
 <template>
   <el-col :span="12">
     <tip>{{ tipname }}</tip>
-    <div
-      ref="canvas1"
-      style="height: 400px"
-    />
+    <div ref="canvas1" style="height: 400px" />
   </el-col>
 </template>
 <script>
-import { getbaseJiangTableData, getHostSecurityData } from '@/utils/request'
-import tip from '@/components/EchartsTip'
-import { setNotopt } from '@/utils/emptyEcharts.js'
-import { eventNameEcharts } from '@/api/system/echarts'
-import '@/components/Echarts/echarts-wordcloud.min.js'
+import { getbaseJiangTableData, getHostSecurityData } from "@/utils/request";
+import tip from "@/components/EchartsTip";
+import { setNotopt } from "@/utils/emptyEcharts.js";
+import { eventNameEcharts } from "@/api/system/echarts";
+import "@/components/Echarts/echarts-wordcloud.min.js";
 export default {
-  name: 'Wordcloud',
+  name: "Wordcloud",
   components: { tip },
   props: {
-    tipname: { // tip内容
-      default: '事件名称词云图',
-      type: String
+    tipname: {
+      // tip内容
+      default: "事件名称词云图",
+      type: String,
     },
-    name: { // 组件名称
-      default: '',
-      type: String
+    name: {
+      // 组件名称
+      default: "",
+      type: String,
     },
     query: {
       default: null,
-      type: Object
+      type: Object,
     },
-    host: { //  主机安全管理-事件统计分析
+    host: {
+      //  主机安全管理-事件统计分析
       default: null,
-      type: Number
-    }
+      type: Number,
+    },
   },
   data() {
     return {
       hasData: [],
-      datacopy: [
-      ],
+      datacopy: [],
       queryParms: {
         query: {
           bool: {
-            must: [
-            ]
-          }
+            must: [],
+          },
         },
         aggs: {
           field: {
             terms: {
-              field: 'event_name',
-              size: 10
-            }
-          }
-        }
-      }
-    }
+              field: "event_name",
+              size: 10,
+            },
+          },
+        },
+      },
+    };
   },
   computed: {},
   watch: {
@@ -81,89 +79,89 @@ export default {
               range: {
                 generationTime: {
                   gte: val.beginGenerationTime,
-                  lte: val.endGenerationTime
-                }
-              }
-            })
+                  lte: val.endGenerationTime,
+                },
+              },
+            });
           }
-          this.getData()
-          this.drawPolicitalStatus()
+          this.getData();
+          this.drawPolicitalStatus();
         }
       },
-      deep: true
-    }
+      deep: true,
+    },
   },
   created() {
-    this.getData()
+    this.getData();
   },
   mounted() {
-    this.drawPolicitalStatus()
+    this.drawPolicitalStatus();
   },
   methods: {
     transDic(data) {
-      var arr = data
-      var arrNew = []
-      var area = []
+      var arr = data;
+      var arrNew = [];
+      var area = [];
       data.forEach((item) => {
-        area.push(item.key)
-      })
+        area.push(item.key);
+      });
       arrNew = arr.map((item) => {
         return {
           value: item.doc_count,
-          name: item.key
-        }
-      })
-      return arrNew
+          name: item.key,
+        };
+      });
+      return arrNew;
     },
     async getData() {
       if (this.host) {
         await getHostSecurityData(this.queryParms).then(({ data }) => {
-          this.hasData = data.aggregations.field.buckets
-          this.datacopy = this.transDic(data.aggregations.field.buckets)
-          this.queryParms.query.bool.must = []
-        })
+          this.hasData = data.aggregations.field.buckets;
+          this.datacopy = this.transDic(data.aggregations.field.buckets);
+          this.queryParms.query.bool.must = [];
+        });
       } else {
         switch (this.name) {
-          case 'Jiangwoodcreep':
+          case "Jiangwoodcreep":
             await getbaseJiangTableData(this.queryParms).then(({ data }) => {
-              this.hasData = data.aggregations.field.buckets
-              this.datacopy = this.transDic(data.aggregations.field.buckets)
-              this.queryParms.query.bool.must = []
-            })
-            break
-          case 'event':
+              this.hasData = data.aggregations.field.buckets;
+              this.datacopy = this.transDic(data.aggregations.field.buckets);
+              this.queryParms.query.bool.must = [];
+            });
+            break;
+          case "event":
             await eventNameEcharts(this.queryParms).then(({ data }) => {
-              this.hasData = data
-              this.datacopy = this.transDic(data)
-            })
-            break
+              this.hasData = data;
+              this.datacopy = this.transDic(data);
+            });
+            break;
           default:
-            console.log('这里是项目类型', this.address)
-            break
+            console.log("这里是项目类型", this.address);
+            break;
         }
       }
-      this.drawPolicitalStatus()
+      this.drawPolicitalStatus();
     },
     drawPolicitalStatus() {
       if (this.hasData.length) {
         // 基于准备好的dom，初始化echarts实例
-        const myChart = this.$echarts.init(this.$refs.canvas1)
+        const myChart = this.$echarts.init(this.$refs.canvas1);
         // 绘制图表
         myChart.setOption({
           tooltip: {
             show: true,
-            formatter: function(params) {
-              return params.name + ' : ' + params.value
-            }
+            formatter: function (params) {
+              return params.name + " : " + params.value;
+            },
           },
           series: [
             {
-              type: 'wordCloud',
-              shape: 'circle',
-              left: 'center',
-              top: 'center',
-              width: '100%',
-              height: '100%',
+              type: "wordCloud",
+              shape: "circle",
+              left: "center",
+              top: "center",
+              width: "100%",
+              height: "100%",
               right: null,
               bottom: null,
               sizeRange: [12, 30],
@@ -173,35 +171,38 @@ export default {
               drawOutOfBound: true,
               textStyle: {
                 normal: {
-                  color: function() {
-                    return 'rgb(' + [
-                      Math.round(Math.random() * 160),
-                      Math.round(Math.random() * 160),
-                      Math.round(Math.random() * 160)
-                    ].join(',') + ')'
-                  }
+                  color: function () {
+                    return (
+                      "rgb(" +
+                      [
+                        Math.round(Math.random() * 160),
+                        Math.round(Math.random() * 160),
+                        Math.round(Math.random() * 160),
+                      ].join(",") +
+                      ")"
+                    );
+                  },
                 },
                 emphasis: {
                   shadowBlur: 10,
-                  shadowColor: '#333'
-                }
+                  shadowColor: "#333",
+                },
               },
-              data: this.datacopy
-            }
-          ]
-        })
-        window.addEventListener('resize', function() {
-          myChart.resize()
-        })
+              data: this.datacopy,
+            },
+          ],
+        });
+        window.addEventListener("resize", function () {
+          myChart.resize();
+        });
       } else {
-        const myChart = this.$echarts.init(this.$refs.canvas1)
-        this.$refs.canvas1.removeAttribute('_echarts_instance_')
-        return setNotopt(myChart, '暂无数据')
+        const myChart = this.$echarts.init(this.$refs.canvas1);
+        this.$refs.canvas1.removeAttribute("_echarts_instance_");
+        return setNotopt(myChart, "暂无数据");
       }
-    }
-  }
-}
-
+    },
+  },
+};
 </script>
 <style lang="scss" scoped>
 .tip {
