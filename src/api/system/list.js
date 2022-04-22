@@ -78,6 +78,14 @@ export function leakList(query) {
     params: query
   })
 }
+// 漏洞列表 zip导入功能
+export function uploadZip(url, query) {
+  return request({
+    url: url,
+    method: 'post',
+    data: query
+  })
+}
 // 通报管理
 export function notificationList(query) {
   return request({
