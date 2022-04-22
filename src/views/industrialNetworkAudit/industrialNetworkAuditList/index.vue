@@ -405,7 +405,6 @@ export default {
   data() {
     return {
       from: 1,
-      activeNames: ["1"],
       title: "",
       detailData: {},
       detailDialog: false,
