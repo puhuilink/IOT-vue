@@ -75,15 +75,16 @@ export function leakList(query) {
   return request({
     url: '/dm/scanning/list',
     method: 'get',
-    params: query
+     params: query
   })
 }
 // 漏洞列表 zip导入功能
-export function uploadZip(url, query) {
+export function uploadZip(url, query,params) {
   return request({
     url: url,
     method: 'post',
-    data: query
+    data: query,
+    params:params
   })
 }
 // 通报管理

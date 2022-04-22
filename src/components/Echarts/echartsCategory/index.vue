@@ -32,7 +32,6 @@ export default {
   },
   data () {
     return {
-      policitalStatus: ['1'],
       queryParms: {
       },
       hasData: [],
