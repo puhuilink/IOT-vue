@@ -63,16 +63,16 @@ export default {
           if (val.severity) {
             this.queryParms.query.bool.must.push({
               match: {
-                "severity.keyword": val.severity,
-              },
-            });
+                'severity.keyword': val.severity
+              }
+            })
           }
           if (val.location) {
             this.queryParms.query.bool.must.push({
               match: {
-                "location.keyword": val.location,
-              },
-            });
+                'location.keyword': val.location
+              }
+            })
           }
           if (val.beginGenerationTime) {
             this.queryParms.query.bool.must.push({

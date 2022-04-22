@@ -7,7 +7,7 @@ import errorCode from '@/utils/errorCode'
 axios.defaults.headers.post['Content-Type'] = 'application/json'
 
 // 入侵诱捕
-const base = '/api/event_ivtp/_search'
+const base = '/esApi/event_ivtp/_search'
 
 export const getElasticDate = params => {
   return axios.post(`${base}`, params)
@@ -15,35 +15,35 @@ export const getElasticDate = params => {
 
 
 // 主机安全
-const baseHostSecurity = '/api/event_hsme/_search'
+const baseHostSecurity = '/esApi/event_hsme/_search'
 
 export const getHostSecurityData = params => {
   return axios.post(`${baseHostSecurity}`, params)
 }
 
 // 配置核查
-const baseConfiguration = '/api/event_scce/_search'
+const baseConfiguration = '/esApi/event_scce/_search'
 
 export const getConfigurationData = params => {
   return axios.post(`${baseConfiguration}`, params)
 }
 
 // 工业网络审计
-const baseIndustrialNetworkAudit = '/api/event_inpa/_search'
+const baseIndustrialNetworkAudit = '/esApi/event_inpa/_search'
 
 export const getIndustrialNetworkAuditData = params => {
   return axios.post(`${baseIndustrialNetworkAudit}`, params)
 }
 
 // 僵木蠕
-const baseJiangTable = '/api/event_ztwe/_search'
+const baseJiangTable = '/esApi/event_ztwe/_search'
 
 export const getbaseJiangTableData = params => {
   return axios.post(`${baseJiangTable}`, params)
 }
 
 // 弱口令
-const baseWeakPassword = '/api/event_wkpw/_search'
+const baseWeakPassword = '/esApi/event_wkpw/_search'
 
 export const getWeakPasswordData = params => {
   return axios.post(`${baseWeakPassword}`, params)
@@ -51,23 +51,17 @@ export const getWeakPasswordData = params => {
 
 
 // 异常行为管理
-const baseAbnormalBehaviorEventRetrieval = '/api/event_abbm/_search'
+const baseAbnormalBehaviorEventRetrieval = '/esApi/event_abbm/_search'
 
 export const getAbnormalBehaviorEventRetrievalData = params => {
   return axios.post(`${baseAbnormalBehaviorEventRetrieval}`, params)
 }
 
 // 威胁情报列表
-const baseThreatIntelligenceList = '/api/event_iocm/_search'
+const baseThreatIntelligenceList = '/esApi/event_iocm/_search'
 
 export const getThreatIntelligenceListData = params => {
   return axios.post(`${baseThreatIntelligenceList}`, params)
-}
-
-const base1 = '/api/eventkpi/_search'
-
-export const getkpi = params => {
-  return axios.post(`${base1}`, params)
 }
 axios.defaults.headers['Content-Type'] = 'application/json;charset=utf-8'
 // 创建axios实例
