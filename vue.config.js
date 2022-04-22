@@ -36,7 +36,7 @@ module.exports = {
         target: 'http://192.168.2.59:9200', // 地址1   //表示/eventlog替换成该地址
         changeOrigin: true,
         pathRewrite: {
-          '^/esApi': '' // 重写esdata为空
+          '^/esApi': '' // 重写esApi为空
         }
       },
       // detail: https://cli.vuejs.org/config/#devserver-proxy
