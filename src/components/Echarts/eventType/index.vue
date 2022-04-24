@@ -6,9 +6,7 @@
 </template>
 <script>
 import { setNotopt } from "@/utils/emptyEcharts.js";
-import {
-  TYPE_ARR
-} from '@/config/consistent/syslogType'
+import { TYPE_ARR } from "@/config/consistent/syslogType";
 import {
   getWeakPasswordData,
   getbaseJiangTableData,
@@ -16,6 +14,7 @@ import {
   getHostSecurityData,
   getAbnormalBehaviorEventRetrievalData,
   getElasticDate,
+  getManagementThreatEventsData,
 } from "@/utils/request";
 import {
   eventStatusEcharts,
@@ -65,7 +64,7 @@ export default {
         aggs: {
           field: {
             terms: {
-              field: "",
+              field: this.type,
               size: 10,
             },
           },
@@ -77,22 +76,21 @@ export default {
   computed: {},
   watch: {
     query: {
-
       handler(val, oldVal) {
         if (val !== oldVal) {
           if (val.severity) {
             this.queryParms.query.bool.must.push({
               match: {
-                'severity': val.severity
-              }
-            })
+                severity: val.severity,
+              },
+            });
           }
           if (val.location) {
             this.queryParms.query.bool.must.push({
               match: {
-                'location': val.location
-              }
-            })
+                location: val.location,
+              },
+            });
           }
           if (val.beginGenerationTime) {
             this.queryParms.query.bool.must.push({
@@ -162,8 +160,40 @@ export default {
       });
       return arrNew;
     },
+    transType(data) {
+      var t = [
+        {
+          key: "wsec_syslog_infe_ev_01",
+          content: "工业防火墙白名单",
+        },
+        {
+          key: "wsec_syslog_infe_ev_02",
+          content: "ACL告警事件",
+        },
+        {
+          key: "wsec_syslog_infe_ev_05",
+          content: "地址欺诈事件",
+        },
+      ];
+      var arr = data;
+      var arrNew = [];
+      var area = [];
+      data.forEach((item) => {
+        area.push(item.key);
+      });
+      arr.map((r) => {
+        t.map((d) => {
+          if (r.key === d.key) {
+            arrNew.push({
+              value: r.doc_count,
+              name: d.content,
+            });
+          }
+        });
+      });
+      return arrNew;
+    },
     transDic(data, type) {
-   
       var arr = data;
       var arrNew = [];
       if (type !== 1) {
@@ -291,10 +321,15 @@ export default {
               });
               break;
             case "event":
-              await eventStatusEcharts(this.queryParms).then(({ data }) => {
-                this.hasData = data;
-                this.datacopy = this.transDic(data);
-              });
+              await getManagementThreatEventsData(this.queryParms).then(
+                ({ data }) => {
+                  this.hasData = data.aggregations.field.buckets;
+                  this.datacopy = this.transDic(
+                    data.aggregations.field.buckets
+                  );
+                  this.queryParms.query.bool.must = [];
+                }
+              );
               break;
 
             default:
@@ -304,27 +339,6 @@ export default {
           break;
         // 事件类型
         case "event_format":
-          switch (this.name) {
-            case 'design':
-              await getIndustrialNetworkAuditData(this.queryParms).then(({ data }) => {
-                this.hasData = data.aggregations.field.buckets
-                this.datacopy = this.transDic(data.aggregations.field.buckets, 1)
-                this.queryParms.query.bool.must = []
-              })
-              break
-            case 'vulnerablity':
-              await scanningEcharts(this.queryParms).then(({ data }) => {
-                this.hasData = data;
-                this.datacopy = this.transTypeDic(data);
-              });
-              break;
-            default:
-              console.log("这里是项目类型", this.name);
-              break;
-          }
-          break;
-        // 事件类型--主机安全页面的， 其他页面的类型不一定是这个字段
-        case "ev_wsec_hsme_format_label":
           switch (this.name) {
             case "host":
               await getHostSecurityData(this.queryParms).then(({ data }) => {
@@ -344,6 +358,35 @@ export default {
                 this.hasData = data;
                 this.datacopy = this.transDic(data);
               });
+              break;
+            case "design":
+              await getIndustrialNetworkAuditData(this.queryParms).then(
+                ({ data }) => {
+                  this.hasData = data.aggregations.field.buckets;
+                  this.datacopy = this.transDic(
+                    data.aggregations.field.buckets,
+                    1
+                  );
+                  this.queryParms.query.bool.must = [];
+                }
+              );
+              break;
+            case "vulnerablity":
+              await scanningEcharts(this.queryParms).then(({ data }) => {
+                this.hasData = data;
+                this.datacopy = this.transTypeDic(data);
+              });
+              break;
+            case "event":
+              await getManagementThreatEventsData(this.queryParms).then(
+                ({ data }) => {
+                  this.hasData = data.aggregations.field.buckets;
+                  this.datacopy = this.transType(
+                    data.aggregations.field.buckets
+                  );
+                  this.queryParms.query.bool.must = [];
+                }
+              );
               break;
             default:
               console.log("这里是项目类型", this.name);

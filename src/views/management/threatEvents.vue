@@ -13,12 +13,9 @@
             label-position="right"
           >
             <el-col :span="6">
-              <el-form-item
-                label="事件名称："
-                prop="name"
-              >
+              <el-form-item label="事件名称：" prop="name">
                 <el-input
-                  v-model.trim="queryParams.eventName"
+                  v-model.trim="queryParams.event_name"
                   placeholder="请输入事件名称"
                   clearable
                   :style="{ width: '100%' }"
@@ -26,16 +23,13 @@
               </el-form-item>
             </el-col>
             <el-col :span="6">
-              <el-form-item
-                label="事件等级："
-                prop="eventLevel"
-              >
+              <el-form-item label="事件等级：" prop="severity">
                 <el-select
-                  v-model.trim="queryParams.level"
+                  v-model.trim="queryParams.severity"
                   placeholder="请选择事件等级"
                   filterable
                   clearable
-                  :style="{width: '100%'}"
+                  :style="{ width: '100%' }"
                 >
                   <el-option
                     v-for="(item, index) in levelOptions"
@@ -48,12 +42,9 @@
               </el-form-item>
             </el-col>
             <el-col :span="6">
-              <el-form-item
-                label="事件类型："
-                prop="type"
-              >
+              <el-form-item label="事件类型：" prop="event_format">
                 <el-input
-                  v-model.trim="queryParams.type"
+                  v-model.trim="queryParams.event_format"
                   placeholder="请输入事件类型"
                   clearable
                   :style="{ width: '100%' }"
@@ -61,12 +52,9 @@
               </el-form-item>
             </el-col>
             <el-col :span="6">
-              <el-form-item
-                label="区域："
-                prop="area"
-              >
+              <el-form-item label="区域：" prop="area">
                 <el-select
-                  v-model.trim="queryParams.address"
+                  v-model.trim="queryParams.location"
                   placeholder="请选择区域"
                   filterable
                   clearable
@@ -83,12 +71,9 @@
               </el-form-item>
             </el-col>
             <el-col :span="6">
-              <el-form-item
-                label="协议："
-                prop="agreement"
-              >
+              <el-form-item label="协议：" prop="detail_protocol">
                 <el-input
-                  v-model.trim="queryParams.agreement"
+                  v-model.trim="queryParams.detail_protocol"
                   placeholder="请输入协议"
                   clearable
                   :style="{ width: '100%' }"
@@ -96,12 +81,9 @@
               </el-form-item>
             </el-col>
             <el-col :span="6">
-              <el-form-item
-                label="源IP："
-                prop="ip"
-              >
+              <el-form-item label="源IP：" prop="ip">
                 <el-input
-                  v-model.trim="queryParams.sourceIp"
+                  v-model.trim="queryParams.detail_src_ip"
                   placeholder="请输入源IP"
                   clearable
                   :style="{ width: '100%' }"
@@ -109,12 +91,9 @@
               </el-form-item>
             </el-col>
             <el-col :span="6">
-              <el-form-item
-                label="目标IP："
-                prop="newip"
-              >
+              <el-form-item label="目标IP：" prop="newip">
                 <el-input
-                  v-model.trim="queryParams.destinationIp"
+                  v-model.trim="queryParams.detail_dst_ip"
                   placeholder="请输入目标IP"
                   clearable
                   :style="{ width: '100%' }"
@@ -122,49 +101,40 @@
               </el-form-item>
             </el-col>
             <el-col :span="6">
-              <el-form-item
-                label="上报设备："
-                prop="equipment"
-              >
+              <el-form-item label="上报设备：" prop="agent">
                 <el-input
-                  v-model.trim="queryParams.equipment"
+                  v-model.trim="queryParams.agent"
                   placeholder="请输入上报设备"
                   clearable
                   :style="{ width: '100%' }"
                 />
               </el-form-item>
             </el-col>
-            <el-col :span="9">
-              <el-form-item
-                label="时间："
-                prop="date"
-              >
-                <el-time-picker
+            <el-col :span="6">
+              <el-form-item label="时间：" prop="date">
+                <el-date-picker
                   v-model.trim="queryParams.date"
-                  is-range
-                  format="HH:mm:ss"
-                  value-format="HH:mm:ss"
-                  :style="{ width: '100%' }"
-                  start-placeholder="事件开始时间"
-                  end-placeholder="事件结束时间"
+                  size="small"
+                  type="daterange"
+                  value-format="yyyy-MM-dd"
+                  start-placeholder="开始时间"
+                  end-placeholder="结束时间"
                   range-separator="至"
                   clearable
+                  :style="{ width: '100%' }"
                 />
               </el-form-item>
             </el-col>
-            <el-col :span="9">
-              <el-form-item
-                label="处置状态："
-                prop="field114"
-              >
+            <el-col :span="6">
+              <el-form-item label="处置状态：" prop="procedure">
                 <el-select
-                  v-model.trim="queryParams.status"
+                  v-model.trim="queryParams.procedure"
                   placeholder="请选择处置状态"
                   clearable
                   :style="{ width: '100%' }"
                 >
                   <el-option
-                    v-for="(item, index) in field114Options"
+                    v-for="(item, index) in statusOptions"
                     :key="index"
                     :label="item.label"
                     :value="item.value"
@@ -175,10 +145,7 @@
             </el-col>
             <el-col :span="6">
               <el-form-item size="mini">
-                <el-button
-                  type="primary"
-                  @click="getCategoryList"
-                >搜索</el-button>
+                <el-button type="primary" @click="btnQuery">搜索</el-button>
                 <el-button @click="resetForm">重置</el-button>
               </el-form-item>
             </el-col>
@@ -186,85 +153,87 @@
         </el-row>
       </div>
     </el-card>
-    <el-table
-      v-loading="loading"
-      :data="groupList"
-      tooltip-effect="light"
-    >
-      <el-table-column
+    <el-table v-loading="loading" :data="List" tooltip-effect="light">
+      <!-- <el-table-column
         type="selection"
         width="55"
         align="center"
-      />
+      /> -->
       <el-table-column
         label="事件名称"
         align="center"
-        prop="eventName"
+        prop="_source.event_name"
         :show-overflow-tooltip="true"
       />
       <el-table-column
         label="源IP"
         align="center"
-        prop="sourceIp"
+        prop="_source.detail_src_ip"
         :show-overflow-tooltip="true"
       />
       <el-table-column
         label="目的IP"
         align="center"
-        prop="destinationIp"
+        prop="_source.detail_dst_ip"
         :show-overflow-tooltip="true"
       />
       <el-table-column
         label="协议"
         align="center"
-        prop="agreement"
+        prop="_source.detail_protocol"
         :show-overflow-tooltip="true"
       />
-      <el-table-column
+      <!-- <el-table-column
         label="事件等级"
         align="center"
-        prop="eventLevel"
+        prop="_source.severity"
       >
         <template #default="scope">
-          <span>{{
-            transTypeDic(scope.row.level)
+           <span
+              v-if="
+                scope.row._source.severity == '' ||
+                scope.row._source.severity == null
+              "
+            />
+          <span v-else>{{
+            transTypeDic(scope.row._source.severity)
           }}</span>
         </template>
-      </el-table-column>
+      </el-table-column> -->
       <el-table-column
         label="事件类型"
         align="center"
-        prop="type"
+        prop="_source.event_format"
         :show-overflow-tooltip="true"
       />
       <el-table-column
         label="处置状态"
         align="center"
-        prop="status"
+        prop="_source.procedure"
         :show-overflow-tooltip="true"
       />
       <el-table-column
         label="事件开始时间"
         align="center"
-        prop="startTime"
+        prop="_source.occur_time"
         :show-overflow-tooltip="true"
       />
       <el-table-column
         label="事件结束时间"
         align="center"
-        prop="endTime"
+        prop="_source.close_time"
         :show-overflow-tooltip="true"
       />
       <el-table-column
         label="区域"
         align="center"
-        prop="address"
+        prop="_source.location"
         :show-overflow-tooltip="true"
       />
       <el-table-column
         label="上报设备"
         align="center"
-        prop="equipment"
+        prop="_source.agent"
         :show-overflow-tooltip="true"
       />
       <el-table-column
@@ -273,17 +242,12 @@
         class-name="small-padding fixed-width"
       >
         <template slot-scope="scope">
-          <el-button
-            size="mini"
-            type="text"
-            @click="detail(scope.row)"
-          >详情</el-button>
+          <el-button size="mini" type="text" @click="detail(scope.row._source)"
+            >详情</el-button
+          >
           &nbsp; &nbsp; &nbsp; &nbsp;
           <el-dropdown @command="batchOperate">
-            <el-button
-              size="mini"
-              type="text"
-            >
+            <el-button size="mini" type="text">
               状态变更<i class="el-icon-arrow-down el-icon--right" />
             </el-button>
             <el-dropdown-menu slot="dropdown">
@@ -299,39 +263,27 @@
     <pagination
       v-show="total > 0"
       :total="total"
-      :page.sync="queryParams.pageNum"
-      :limit.sync="queryParams.pageSize"
-      @pagination="getCategoryList"
+      :page.sync="from"
+      :limit.sync="query.size"
+      @pagination="getTableList"
     />
     <!-- 添加或修改分组对话框 -->
-    <el-dialog
-      :title="title"
-      :visible.sync="open"
-      width="900px"
-      append-to-body
-    >
-      <el-form
-        ref="form"
-        label-width="90px"
-        label-position="left"
-      >
+    <el-dialog :title="title" :visible.sync="open" width="900px" append-to-body>
+      <el-form ref="form" label-width="90px" label-position="left">
         <el-row>
           <el-col :span="8">
             <el-form-item label="事件名称 :">
-              <tooltip
-                :content=" dataDetail.eventName"
-                :length="20"
-              />
+              <tooltip :content="dataDetail.event_name" :length="20" />
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="事件类型 :">
-              {{ dataDetail.type }}
+              {{ dataDetail.event_format }}
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="事件等级 :">
-              {{ dataDetail.level }}
+              {{ dataDetail.severity }}
             </el-form-item>
           </el-col>
           <el-col :span="8">
@@ -341,22 +293,22 @@
           </el-col>
           <el-col :span="8">
             <el-form-item label="源IP :">
-              {{ dataDetail.sourceIp }}
+              {{ dataDetail.detail_src_ip }}
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="目的IP :">
-              {{ dataDetail.destinationIp }}
+              {{ dataDetail.detail_dst_ip }}
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="协议 :">
-              {{ dataDetail.agreement }}
+              {{ dataDetail.detail_protocol }}
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="上报设备 :">
-              {{ dataDetail.equipment }}
+              {{ dataDetail.agent }}
             </el-form-item>
           </el-col>
           <el-col :span="8">
@@ -371,240 +323,345 @@
           </el-col>
           <el-col :span="8">
             <el-form-item label="区域 :">
-              {{ dataDetail.address }}
+              {{ dataDetail.location }}
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="处置状态 :">
-              {{ dataDetail.status }}
+              {{ dataDetail.procedure }}
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="开始时间 :">
-              {{ dataDetail.startTime }}
+              {{ dataDetail.occur_time }}
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="结束时间 :">
-              {{ dataDetail.endTime }}
+              {{ dataDetail.close_time }}
             </el-form-item>
           </el-col>
         </el-row>
       </el-form>
-      <div
-        slot="footer"
-        class="dialog-footer"
-      >
-        <el-row
-          type="flex"
-          justify="center"
-        >
-          <el-button
-            size="small"
-            type="primary"
-            @click="submitForm"
-          >确 认</el-button>
-          <el-button
-            size="small"
-            @click="cancel"
-          >取 消</el-button>
+      <div slot="footer" class="dialog-footer">
+        <el-row type="flex" justify="center">
+          <el-button size="small" type="primary" @click="submitForm"
+            >确 认</el-button
+          >
+          <el-button size="small" @click="cancel">取 消</el-button>
         </el-row>
       </div>
     </el-dialog>
   </div>
 </template>
 <script>
-import { eventList } from '@/api/system/list'
+import { eventList } from "@/api/system/list";
+import { getManagementThreatEventsData } from "@/utils/request";
 export default {
   components: {},
   props: [],
   data() {
     return {
+      from: 1,
       loading: false,
-      name: '测试',
-      dataDetail: {
-      },
+      name: "测试",
+      dataDetail: {},
       // 分组表格数据
       groupList: [],
+      List: [],
       // 创建时间时间范围
       daterangeCreateTime: [],
       // 弹出层标题
-      title: '',
+      title: "",
       // 是否显示弹出层
       open: false,
       // 总条数
       total: 6,
       // 查询参数
+      query: {
+        query: {
+          bool: {
+            must: [],
+          },
+        },
+        // sort: [{ occur_time: { order: "desc" } }],
+        from: 0,
+        size: 10,
+      },
       queryParams: {
-        pageNum: 1,
-        pageSize: 10
+        location: "",
+        severity: "",
+        event_format: "",
+        procedure: "",
+        detail_src_ip: "",
+        event_name: "",
+
+        detail_protocol: "",
+        detail_dst_ip: "",
+        agent: "",
+        date: [],
       },
       rules: {
         name: [],
-        level: [],
+        severity: [],
         type: [],
         area: [],
-        agreement: [],
+        detail_protocol: [],
         ip: [],
         newip: [],
-        equipment: [],
+        agent: [],
         date: [],
-        field114: []
+        procedure: [],
       },
       levelOptions: [
         {
-          label: '正常',
-          value: 1
+          label: "正常",
+          value: 1,
         },
         {
-          label: '低危',
-          value: 2
+          label: "低危",
+          value: 2,
         },
         {
-          label: '中危',
-          value: 3
+          label: "中危",
+          value: 3,
         },
         {
-          label: '高危',
-          value: 4
+          label: "高危",
+          value: 4,
         },
         {
-          label: '致命',
-          value: 5
-        }
+          label: "致命",
+          value: 5,
+        },
       ],
-      areaOptions: [{
-        'label': '三亚海投轨交',
-        'value': 1
-      }, {
-        'label': '珠海深中通道',
-        'value': 2
-      }, {
-        'label': '山西三通燃气厂',
-        'value': 3
-      }, {
-        'label': '北京城乡水厂',
-        'value': 4
-      }, {
-        'label': '天津管片厂',
-        'value': 5
-      }],
-      field114Options: [{
-        'label': '待处置',
-        'value': 1
-      }, {
-        'label': '处置中',
-        'value': 2
-      }, {
-        'label': '已处置',
-        'value': 3
-      }, {
-        'label': '误报',
-        'value': 4
-      }, {
-        'label': '不处置',
-        'value': 5
-      }]
-    }
+      areaOptions: [
+        {
+          label: "三亚海投轨交",
+          value: 1,
+        },
+        {
+          label: "珠海深中通道",
+          value: 2,
+        },
+        {
+          label: "山西三通燃气厂",
+          value: 3,
+        },
+        {
+          label: "北京城乡水厂",
+          value: 4,
+        },
+        {
+          label: "天津管片厂",
+          value: 5,
+        },
+      ],
+      statusOptions: [
+        {
+          label: "待处置",
+          value: "待处置",
+        },
+        {
+          label: "处置中",
+          value: "处置中",
+        },
+        {
+          label: "已处置",
+          value: "已处置",
+        },
+        {
+          label: "误报",
+          value: "误报",
+        },
+        {
+          label: "不处置",
+          value: "不处置",
+        },
+      ],
+    };
   },
   created() {
-    this.getCategoryList()
+    // this.getCategoryList()
+    this.getTableList();
   },
   methods: {
+    // 根据对象中的key是否值为空x向数组中添加对象
+    addQuery(query, key, value) {
+      if (value !== "") {
+        query.query.bool.must.push({
+          match: {
+            [key]: value,
+          },
+        });
+      }
+    },
+    async getTableList() {
+      this.addQuery(this.query, "location", this.queryParams.location);
+
+      this.addQuery(this.query, "severity", this.queryParams.severity);
+
+      this.addQuery(this.query, "event_format", this.queryParams.event_format);
+
+      this.addQuery(this.query, "procedure", this.queryParams.procedure);
+
+      this.addQuery(
+        this.query,
+        "detail_src_ip",
+        this.queryParams.detail_src_ip
+      );
+
+      this.addQuery(this.query, "event_name", this.queryParams.event_name);
+
+      this.addQuery(
+        this.query,
+        "detail_protocol",
+        this.queryParams.detail_protocol
+      );
+
+      this.addQuery(
+        this.query,
+        "detail_dst_ip",
+        this.queryParams.detail_dst_ip
+      );
+
+      this.addQuery(this.query, "agent", this.queryParams.agent);
+
+      this.query.from = this.from - 1;
+      if (this.queryParams.date.length > 0) {
+        this.query.query.bool.must.push({
+          range: {
+            occur_time: {
+              gte: this.queryParams.date[0],
+              lte: this.queryParams.date[1],
+            },
+          },
+        });
+      }
+      getManagementThreatEventsData(this.query).then((res) => {
+        console.log("res-4-24", res);
+        this.query.query.bool.must = [];
+        this.groupList = [];
+        this.total = res.data.hits.total;
+        this.List = res.data.hits.hits;
+      });
+    },
     transTypeDic(val) {
-      var t = [{
-        name: '1',
-        content: '极低'
-      }, {
-        name: '2',
-        content: '低危'
-      }, {
-        name: '3',
-        content: '中危'
-      }, {
-        name: '4',
-        content: '高危'
-      }, {
-        name: '5',
-        content: '致命'
-      }]
-      const orgTreeData1 = t.filter((e) => e.name === val)
+      var t = [
+        {
+          name: "1",
+          content: "极低",
+        },
+        {
+          name: "2",
+          content: "低危",
+        },
+        {
+          name: "3",
+          content: "中危",
+        },
+        {
+          name: "4",
+          content: "高危",
+        },
+        {
+          name: "5",
+          content: "致命",
+        },
+      ];
+      const orgTreeData1 = t
+        .filter((e) => e.name === val)
         .map(({ content }) => ({
-          content
-        }))
-      return `${orgTreeData1[0].content}`
+          content,
+        }));
+      return `${orgTreeData1[0].content}`;
     },
-    async getCategoryList() {
-      this.loading = true
-      const res = await eventList(this.queryParams)
-      this.groupList = res.rows
-      this.total = res.total
-      this.loading = false
-    },
+    // async getCategoryList() {
+    //   this.loading = true
+    //   const res = await eventList(this.queryParams)
+    //   this.groupList = res.rows
+    //   this.total = res.total
+    //   this.loading = false
+    // },
+
     batchOperate(command) {
-      let message = ''
+      let message = "";
       switch (command) {
-        case 'process':
-          message = '是否确认变更处置状态？'
-          this.openMessageBox(message)
-          break
-        case 'un_process':
-          message = '是否确认将此事件处置状态修改为不处置？'
-          this.openMessageBox(message)
-          break
-        case 'false_report':
-          message = '是否确认将此事件处置状态修改为误报？'
-          this.openMessageBox(message)
-          break
+        case "process":
+          message = "是否确认变更处置状态？";
+          this.openMessageBox(message);
+          break;
+        case "un_process":
+          message = "是否确认将此事件处置状态修改为不处置？";
+          this.openMessageBox(message);
+          break;
+        case "false_report":
+          message = "是否确认将此事件处置状态修改为误报？";
+          this.openMessageBox(message);
+          break;
       }
     },
     openMessageBox(message) {
-      this.$confirm(message, '提示', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning'
-      }).then(() => {
-        this.$message({
-          type: 'success',
-          message: '修改成功!'
-        })
-      }).catch(() => {
-        this.$message({
-          type: 'info',
-          message: '已取消修改！'
-        })
+      this.$confirm(message, "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning",
       })
+        .then(() => {
+          this.$message({
+            type: "success",
+            message: "修改成功!",
+          });
+        })
+        .catch(() => {
+          this.$message({
+            type: "info",
+            message: "已取消修改！",
+          });
+        });
     },
     /** 查询分组列表 */
     submitdata() {
-      this.$refs['elForm'].validate((valid) => {
-        if (!valid) return
+      this.$refs["elForm"].validate((valid) => {
+        if (!valid) return;
         // TODO 提交表单
-      })
+      });
+    },
+    btnQuery() {
+      this.getTableList();
     },
     resetForm() {
-      this.queryParams = {
-        pageNum: 1,
-        pageSize: 10
-      }
-      this.getCategoryList()
+      (this.queryParams = {
+        event_name: "",
+        severity: "",
+        event_format: "",
+        location: "",
+        detail_protocol: "",
+        detail_src_ip: "",
+        detail_dst_ip: "",
+        agent: "",
+        procedure: "",
+        date: [],
+      }),
+        // this.getCategoryList()
+        this.getTableList();
     },
     detail(row) {
-      this.dataDetail = row
-      this.dataDetail.level = this.transTypeDic(this.dataDetail.level)
-      this.open = true
-      this.title = '事件详情'
+      this.dataDetail = row;
+      // this.dataDetail.severity = this.transTypeDic(this.dataDetail.severity)
+      this.open = true;
+      this.title = "事件详情";
     },
     // 取消按钮
     cancel() {
-      this.open = false
+      this.open = false;
     },
     /** 提交按钮 */
     submitForm() {
-      this.open = false
-    }
-  }
-}
+      this.open = false;
+    },
+  },
+};
 </script>
 <style lang="scss" scoped>
 ::v-deep .label-type {
