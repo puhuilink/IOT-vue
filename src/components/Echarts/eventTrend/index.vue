@@ -177,7 +177,7 @@ export default {
         } else {
           this.data4 = [];
         }
-         const eee = data.filter((e) => e.eventSeverity === "5");
+        const eee = data.filter((e) => e.eventSeverity === "5");
         if (eee.length) {
           eee.map((d) => {
             this.data5 = d.data;
@@ -259,7 +259,7 @@ export default {
         //   });
         //   break;
         case "event":
-          await eventEcharts(this.queryParms).then(({ data }) => {
+          await eventEsData(this.queryParms).then(({ data }) => {
             this.hasData = data;
             this.data1 = this.transDicData(data)[0];
             this.data2 = this.transDicData(data)[1];

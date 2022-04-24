@@ -63,6 +63,14 @@ const baseThreatIntelligenceList = '/esApi/event_iocm/_search'
 export const getThreatIntelligenceListData = params => {
   return axios.post(`${baseThreatIntelligenceList}`, params)
 }
+
+// 事件管理---威胁事件检索
+const baseManagementThreatEvents = '/esApi/eventlog/_search'
+
+export const getManagementThreatEventsData = params => {
+  return axios.post(`${baseManagementThreatEvents}`, params)
+}
+
 axios.defaults.headers['Content-Type'] = 'application/json;charset=utf-8'
 // 创建axios实例
 const service = axios.create({

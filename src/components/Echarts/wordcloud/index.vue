@@ -5,7 +5,11 @@
   </el-col>
 </template>
 <script>
-import { getbaseJiangTableData, getHostSecurityData } from "@/utils/request";
+import {
+  getbaseJiangTableData,
+  getHostSecurityData,
+  getManagementThreatEventsData,
+} from "@/utils/request";
 import tip from "@/components/EchartsTip";
 import { setNotopt } from "@/utils/emptyEcharts.js";
 import { eventNameEcharts } from "@/api/system/echarts";
@@ -63,16 +67,16 @@ export default {
           if (val.severity) {
             this.queryParms.query.bool.must.push({
               match: {
-                'severity.keyword': val.severity
-              }
-            })
+                "severity.keyword": val.severity,
+              },
+            });
           }
           if (val.location) {
             this.queryParms.query.bool.must.push({
               match: {
-                'location.keyword': val.location
-              }
-            })
+                "location.keyword": val.location,
+              },
+            });
           }
           if (val.beginGenerationTime) {
             this.queryParms.query.bool.must.push({
@@ -130,10 +134,13 @@ export default {
             });
             break;
           case "event":
-            await eventNameEcharts(this.queryParms).then(({ data }) => {
-              this.hasData = data;
-              this.datacopy = this.transDic(data);
-            });
+            await getManagementThreatEventsData(this.queryParms).then(
+              ({ data }) => {
+                this.hasData = data.aggregations.field.buckets;
+                this.datacopy = this.transDic(data.aggregations.field.buckets);
+                this.queryParms.query.bool.must = [];
+              }
+            );
             break;
           default:
             console.log("这里是项目类型", this.address);
