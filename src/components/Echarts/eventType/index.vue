@@ -196,6 +196,71 @@ export default {
       });
       return arrNew;
     },
+    transType(data) {
+      var t = [
+        {
+          key: "class_ivtp",
+          content: "入侵诱捕事件",
+        },
+        {
+          key: "class_abbm",
+          content: "异常行为管理",
+        },
+        {
+          key: "class_ztwe",
+          content: "僵木蠕事件",
+        },
+        {
+          key: "class_iocm",
+          content: "威胁情报管理",
+        },
+        {
+          key: "class_wkpw",
+          content: "弱口令事件",
+        },
+        {
+          key: "class_inpa",
+          content: "工业网络审计",
+        },
+        {
+          key: "class_hsme",
+          content: "主机安全管理",
+        },
+        {
+          key: "class_scce",
+          content: "配置核查管理",
+        },
+        {
+          key: "class_dsme",
+          content: "数据安全管理",
+        },
+        {
+          key: "class_infe",
+          content: "工业防火墙事件",
+        },
+        {
+          key: "class_wppe",
+          content: "网页防篡改事件",
+        },
+      ];
+      var arr = data;
+      var arrNew = [];
+      var area = [];
+      data.forEach((item) => {
+        area.push(item.key);
+      });
+      arr.map((r) => {
+        t.map((d) => {
+          if (r.key === d.key) {
+            arrNew.push({
+              value: r.doc_count,
+              name: d.content,
+            });
+          }
+        });
+      });
+      return arrNew;
+    },
     transDic(data, type) {
       var arr = data;
       var arrNew = [];

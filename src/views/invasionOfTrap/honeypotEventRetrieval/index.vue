@@ -359,23 +359,23 @@ export default {
       levelOptions: [
         {
           label: "极低",
-          value: '1',
+          value: "1",
         },
         {
           label: "低危",
-          value: '2',
+          value: "2",
         },
         {
           label: "中危",
-          value: '3',
+          value: "3",
         },
         {
           label: "高危",
-          value: '4',
+          value: "4",
         },
         {
           label: "致命",
-          value: '5',
+          value: "5",
         },
       ],
       attackOptions: [
@@ -464,25 +464,21 @@ export default {
     async searchClick() {
       this.addQuery(
         this.query,
-        "detail_src_ip.keyword",
+        "detail_src_ip",
         this.queryParams.detail_src_ip
       );
 
-      this.addQuery(this.query, "severity.keyword", this.queryParams.severity);
+      this.addQuery(this.query, "severity", this.queryParams.severity);
 
       this.addQuery(
         this.query,
-        "ev_msec_asset_name.keyword",
+        "ev_msec_asset_name",
         this.queryParams.ev_msec_asset_name
       );
 
       this.addQuery(this.query, "location.keyword", this.queryParams.location);
 
-      this.addQuery(
-        this.query,
-        "procedure.keyword",
-        this.queryParams.procedure
-      );
+      this.addQuery(this.query, "procedure", this.queryParams.procedure);
 
       this.query.from = this.from - 1;
       if (this.queryParams.date.length > 0) {
@@ -504,24 +500,24 @@ export default {
     },
     transTypeDic(val) {
       var t = [
-         {
-          name: '1',
+        {
+          name: "1",
           content: "极低",
         },
         {
-          name: '2',
+          name: "2",
           content: "低危",
         },
         {
-          name: '3',
+          name: "3",
           content: "中危",
         },
         {
-          name: '4',
+          name: "4",
           content: "高危",
         },
         {
-          name: '5',
+          name: "5",
           content: "致命",
         },
       ];

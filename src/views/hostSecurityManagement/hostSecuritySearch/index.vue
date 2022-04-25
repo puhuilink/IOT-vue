@@ -12,7 +12,7 @@
             class="label-type"
             label-position="right"
           >
-            <el-col :span="6">
+            <!-- <el-col :span="6">
               <el-form-item label="事件名称:" prop="event_format">
                 <el-input
                   v-model="queryParams.event_format"
@@ -21,7 +21,7 @@
                   :style="{ width: '100%' }"
                 />
               </el-form-item>
-            </el-col>
+            </el-col> -->
             <el-col :span="6">
               <el-form-item label="区域:" prop="location">
                 <el-select
@@ -187,7 +187,7 @@
         <el-table-column
           label="客户端名称"
           align="center"
-          prop="_source.ev_wsec_hsme_system_osuser"
+          prop="_source.ev_wsec_hsme_system_hostname"
           :show-overflow-tooltip="true"
         />
         <el-table-column
@@ -293,7 +293,7 @@
             </el-col>
             <el-col :span="12">
               <el-form-item label="用户名称 :">
-                {{ detailData.ev_wsec_hsme_system_osuser }}
+                {{ detailData.ev_wsec_hsme_system_hostname }}
               </el-form-item>
             </el-col>
             <el-col :span="12">
@@ -308,7 +308,7 @@
             </el-col>
             <el-col :span="12">
               <el-form-item label="客户端名称 :">
-                {{ detailData.ev_wsec_hsme_system_osuser }}
+                {{ detailData.ev_wsec_hsme_system_hostname }}
               </el-form-item>
             </el-col>
             <el-col :span="12">
@@ -505,20 +505,6 @@ export default {
           value: "不处置",
         },
       ],
-      statusOptions: [
-        {
-          label: "未处置",
-          value: 1,
-        },
-        {
-          label: "处置中",
-          value: 2,
-        },
-        {
-          label: "已处置",
-          value: 3,
-        },
-      ],
     };
   },
   watch: {
@@ -566,7 +552,7 @@ export default {
 
       this.addQuery(
         this.query,
-        "ev_wsec_hsme_system_osname.keyword",
+        "ev_wsec_hsme_system_osname",
         this.queryParams.ev_wsec_hsme_system_osname
       );
 
