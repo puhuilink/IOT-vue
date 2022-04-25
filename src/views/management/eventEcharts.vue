@@ -6,7 +6,7 @@
       :query="query"
       :name="'event'"
       :tipname="'事件类型分布'"
-      :type="'event_format'"
+      :type="'event_class'"
     />
     <wordcloud :query="query" :name="'event'" />
     <eventType

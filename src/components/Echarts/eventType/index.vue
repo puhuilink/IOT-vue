@@ -163,16 +163,48 @@ export default {
     transType(data) {
       var t = [
         {
-          key: "wsec_syslog_infe_ev_01",
-          content: "工业防火墙白名单",
+          key: "class_ivtp",
+          content: "入侵诱捕事件",
         },
         {
-          key: "wsec_syslog_infe_ev_02",
-          content: "ACL告警事件",
+          key: "class_abbm",
+          content: "异常行为管理",
         },
         {
-          key: "wsec_syslog_infe_ev_05",
-          content: "地址欺诈事件",
+          key: "class_ztwe",
+          content: "僵木蠕事件",
+        },
+        {
+          key: "class_iocm",
+          content: "威胁情报管理",
+        },
+        {
+          key: "class_wkpw",
+          content: "弱口令事件",
+        },
+        {
+          key: "class_inpa",
+          content: "工业网络审计",
+        },
+        {
+          key: "class_hsme",
+          content: "主机安全管理",
+        },
+        {
+          key: "class_scce",
+          content: "配置核查管理",
+        },
+        {
+          key: "class_dsme",
+          content: "数据安全管理",
+        },
+        {
+          key: "class_infe",
+          content: "工业防火墙事件",
+        },
+        {
+          key: "class_wppe",
+          content: "网页防篡改事件",
         },
       ];
       var arr = data;
@@ -377,6 +409,14 @@ export default {
                 this.datacopy = this.transTypeDic(data);
               });
               break;
+            default:
+              console.log("这里是项目类型", this.name);
+              break;
+          }
+          break;
+        // 威胁分类
+        case "event_class":
+          switch (this.name) {
             case "event":
               await getManagementThreatEventsData(this.queryParms).then(
                 ({ data }) => {
@@ -392,8 +432,6 @@ export default {
               console.log("这里是项目类型", this.name);
               break;
           }
-          break;
-        // 威胁分类
         case 5:
           switch (this.name) {
             case "dataSafe":

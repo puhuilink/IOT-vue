@@ -42,17 +42,26 @@
               </el-form-item>
             </el-col>
             <el-col :span="6">
-              <el-form-item label="事件类型：" prop="event_format">
-                <el-input
-                  v-model.trim="queryParams.event_format"
-                  placeholder="请输入事件类型"
+              <el-form-item label="事件类型：" prop="event_class">
+                <el-select
+                  v-model.trim="queryParams.event_class"
+                  placeholder="请选择事件类型"
+                  filterable
                   clearable
                   :style="{ width: '100%' }"
-                />
+                >
+                  <el-option
+                    v-for="(item, index) in eventOptions"
+                    :key="index"
+                    :label="item.label"
+                    :value="item.value"
+                    :disabled="item.disabled"
+                  />
+                </el-select>
               </el-form-item>
             </el-col>
             <el-col :span="6">
-              <el-form-item label="区域：" prop="area">
+              <el-form-item label="区域：" prop="location">
                 <el-select
                   v-model.trim="queryParams.location"
                   placeholder="请选择区域"
@@ -203,9 +212,18 @@
       <el-table-column
         label="事件类型"
         align="center"
-        prop="_source.event_format"
-        :show-overflow-tooltip="true"
-      />
+        prop="_source.event_class"
+      >
+        <template #default="scope">
+          <span
+            v-if="
+              scope.row._source.event_class == '' ||
+              scope.row._source.event_class == null
+            "
+          />
+          <span v-else>{{ transClassDic(scope.row._source.event_class) }}</span>
+        </template>
+      </el-table-column>
       <el-table-column
         label="处置状态"
         align="center"
@@ -278,7 +296,7 @@
           </el-col>
           <el-col :span="8">
             <el-form-item label="事件类型 :">
-              {{ dataDetail.event_format }}
+              {{ dataDetail.event_class }}
             </el-form-item>
           </el-col>
           <el-col :span="8">
@@ -391,7 +409,7 @@ export default {
       queryParams: {
         location: "",
         severity: "",
-        event_format: "",
+        event_class: "",
         procedure: "",
         detail_src_ip: "",
         event_name: "",
@@ -433,6 +451,52 @@ export default {
         {
           label: "致命",
           value: 5,
+        },
+      ],
+      eventOptions: [
+        {
+          value: "class_ivtp",
+          label: "入侵诱捕事件",
+        },
+        {
+          value: "class_abbm",
+          label: "异常行为管理",
+        },
+        {
+          value: "class_ztwe",
+          label: "僵木蠕事件",
+        },
+        {
+          value: "class_iocm",
+          label: "威胁情报管理",
+        },
+        {
+          value: "class_wkpw",
+          label: "弱口令事件",
+        },
+        {
+          value: "class_inpa",
+          label: "工业网络审计",
+        },
+        {
+          value: "class_hsme",
+          label: "主机安全管理",
+        },
+        {
+          value: "class_scce",
+          label: "配置核查管理",
+        },
+        {
+          value: "class_dsme",
+          label: "数据安全管理",
+        },
+        {
+          value: "class_infe",
+          label: "工业防火墙事件",
+        },
+        {
+          value: "class_wppe",
+          label: "网页防篡改事件",
         },
       ],
       areaOptions: [
@@ -497,11 +561,11 @@ export default {
       }
     },
     async getTableList() {
-      this.addQuery(this.query, "location", this.queryParams.location);
+      this.addQuery(this.query, "location.keyword", this.queryParams.location);
 
       this.addQuery(this.query, "severity", this.queryParams.severity);
 
-      this.addQuery(this.query, "event_format", this.queryParams.event_format);
+      this.addQuery(this.query, "event_class", this.queryParams.event_class);
 
       this.addQuery(this.query, "procedure", this.queryParams.procedure);
 
@@ -576,6 +640,60 @@ export default {
         }));
       return `${orgTreeData1[0].content}`;
     },
+    transClassDic(val) {
+      var t = [
+        {
+          name: "class_ivtp",
+          content: "入侵诱捕事件",
+        },
+        {
+          name: "class_abbm",
+          content: "异常行为管理",
+        },
+        {
+          name: "class_ztwe",
+          content: "僵木蠕事件",
+        },
+        {
+          name: "class_iocm",
+          content: "威胁情报管理",
+        },
+        {
+          name: "class_wkpw",
+          content: "弱口令事件",
+        },
+        {
+          name: "class_inpa",
+          content: "工业网络审计",
+        },
+        {
+          name: "class_hsme",
+          content: "主机安全管理",
+        },
+        {
+          name: "class_scce",
+          content: "配置核查管理",
+        },
+        {
+          name: "class_dsme",
+          content: "数据安全管理",
+        },
+        {
+          name: "class_infe",
+          content: "工业防火墙事件",
+        },
+        {
+          name: "class_wppe",
+          content: "网页防篡改事件",
+        },
+      ];
+      const orgTreeData1 = t
+        .filter((e) => e.name === val)
+        .map(({ content }) => ({
+          content,
+        }));
+      return `${orgTreeData1[0].content}`;
+    },
     // async getCategoryList() {
     //   this.loading = true
     //   const res = await eventList(this.queryParams)
@@ -634,7 +752,7 @@ export default {
       (this.queryParams = {
         event_name: "",
         severity: "",
-        event_format: "",
+        event_class: "",
         location: "",
         detail_protocol: "",
         detail_src_ip: "",
