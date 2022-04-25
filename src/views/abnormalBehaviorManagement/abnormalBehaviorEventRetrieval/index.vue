@@ -554,43 +554,31 @@ export default {
       }
     },
     async getTableList() {
-      this.addQuery(
-        this.query,
-        "event_name.keyword",
-        this.queryParams.event_name
-      );
+      this.addQuery(this.query, "event_name", this.queryParams.event_name);
 
       this.addQuery(this.query, "location.keyword", this.queryParams.location);
 
-      this.addQuery(this.query, "severity.keyword", this.queryParams.severity);
+      this.addQuery(this.query, "severity", this.queryParams.severity);
+
+      this.addQuery(this.query, "event_format", this.queryParams.event_format);
+
+      this.addQuery(this.query, "procedure", this.queryParams.procedure);
 
       this.addQuery(
         this.query,
-        "event_format.keyword",
-        this.queryParams.event_format
-      );
-
-      this.addQuery(
-        this.query,
-        "procedure.keyword",
-        this.queryParams.procedure
-      );
-
-      this.addQuery(
-        this.query,
-        "ev_com_socket_dst_ip.keyword",
+        "ev_com_socket_dst_ip",
         this.queryParams.ev_com_socket_dst_ip
       );
 
       this.addQuery(
         this.query,
-        "ev_com_socket_src_ip.keyword",
+        "ev_com_socket_src_ip",
         this.queryParams.ev_com_socket_src_ip
       );
 
       this.addQuery(
         this.query,
-        "ev_ksec_killchain.keyword",
+        "ev_ksec_killchain",
         this.queryParams.ev_ksec_killchain
       );
 
@@ -646,24 +634,24 @@ export default {
     },
     transTypeDic(val) {
       var t = [
-         {
-          name: '1',
+        {
+          name: "1",
           content: "极低",
         },
         {
-          name: '2',
+          name: "2",
           content: "低危",
         },
         {
-          name: '3',
+          name: "3",
           content: "中危",
         },
         {
-          name: '4',
+          name: "4",
           content: "高危",
         },
         {
-          name: '5',
+          name: "5",
           content: "致命",
         },
       ];
