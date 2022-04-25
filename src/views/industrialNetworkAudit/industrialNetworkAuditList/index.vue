@@ -687,18 +687,6 @@ export default {
         });
     },
     /** 查询分组列表 */
-    async getList() {
-      this.loading = true;
-      const res = await industryList(this.queryParams);
-      this.groupList = res.rows;
-      this.total = res.total;
-      this.loading = false;
-    },
-    /** 搜索按钮操作 */
-    // handleQuery () {
-    //   this.pageNum = 1
-    //   this.getList()
-    // },
     handleQuery() {
       this.getTableList();
     },
