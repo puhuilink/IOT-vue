@@ -17,7 +17,7 @@ import {
   getManagementThreatEventsData,
 } from "@/utils/request";
 import {
-  eventStatusEcharts,
+ scanningeventStatusEcharts,
   scanninghostEcharts,
   industrialNetworkAuditeventLevelEcharts,
   policyNameEcharts,
@@ -119,6 +119,42 @@ export default {
   },
 
   methods: {
+      transTypeDicTwo(data) {
+      var t = [{
+        name: '1',
+        content: '极低'
+      }, {
+        name: '2',
+        content: '低危'
+      }, {
+        name: '3',
+        content: '中危'
+      }, {
+        name: '4',
+        content: '高危'
+      }, {
+        name: '5',
+        content: '致命'
+      }]
+      var arr = data
+      var arrNew = []
+      var area = []
+      data.forEach((item) => {
+        area.push(item.name)
+      })
+      arr.map(r => {
+        t.map(d => {
+          if (r.name === d.name) {
+            console.log(r, d)
+            arrNew.push({
+              value: r.count,
+              name: d.content
+            })
+          }
+        })
+      })
+      return arrNew
+    },
     transTypeDic(data) {
       var t = [
         {
@@ -140,39 +176,6 @@ export default {
         {
           key: "5",
           content: "致命",
-        },
-      ];
-      var arr = data;
-      var arrNew = [];
-      var area = [];
-      data.forEach((item) => {
-        area.push(item.key);
-      });
-      arr.map((r) => {
-        t.map((d) => {
-          if (r.key === d.key) {
-            arrNew.push({
-              value: r.doc_count,
-              name: d.content,
-            });
-          }
-        });
-      });
-      return arrNew;
-    },
-    transType(data) {
-      var t = [
-        {
-          key: "wsec_syslog_infe_ev_01",
-          content: "工业防火墙白名单",
-        },
-        {
-          key: "wsec_syslog_infe_ev_02",
-          content: "ACL告警事件",
-        },
-        {
-          key: "wsec_syslog_infe_ev_05",
-          content: "地址欺诈事件",
         },
       ];
       var arr = data;
@@ -217,6 +220,17 @@ export default {
       }
       return arrNew;
     },
+      transDicTwo(data) {
+      var arr = data
+      var arrNew = []
+      arrNew = arr.map((item) => {
+        return {
+          value: item.count,
+          name: item.name
+        }
+      })
+      return arrNew
+    },
     getType() {
       this.queryParms.aggs.field.terms.field = this.type;
     },
@@ -244,6 +258,13 @@ export default {
                   data.aggregations.field.buckets
                 );
                 this.queryParms.query.bool.must = [];
+              });
+              break;
+                //漏洞
+              case "vulnerablity":
+              await scanningEcharts(this.queryParms).then(({ data }) => {
+                this.hasData = data;
+                this.datacopy = this.transTypeDicTwo(data);
               });
               break;
             case "abnormal":
@@ -304,6 +325,13 @@ export default {
                 this.queryParms.query.bool.must = [];
               });
               break;
+                case 'vulnerablity':
+                  //漏洞
+              await scanningeventStatusEcharts(this.queryParms).then(({ data }) => {
+                this.hasData = data
+                this.datacopy = this.transDicTwo(data)
+              })
+              break
             case "host":
               await getHostSecurityData(this.queryParms).then(({ data }) => {
                 this.hasData = data.aggregations.field.buckets;
@@ -353,12 +381,6 @@ export default {
                 this.datacopy = this.transDic(data);
               });
               break;
-            case "vulnerablity":
-              await scanninghostEcharts(this.queryParms).then(({ data }) => {
-                this.hasData = data;
-                this.datacopy = this.transDic(data);
-              });
-              break;
             case "design":
               await getIndustrialNetworkAuditData(this.queryParms).then(
                 ({ data }) => {
@@ -371,12 +393,7 @@ export default {
                 }
               );
               break;
-            case "vulnerablity":
-              await scanningEcharts(this.queryParms).then(({ data }) => {
-                this.hasData = data;
-                this.datacopy = this.transTypeDic(data);
-              });
-              break;
+           
             case "event":
               await getManagementThreatEventsData(this.queryParms).then(
                 ({ data }) => {
@@ -394,12 +411,12 @@ export default {
           }
           break;
         // 威胁分类
-        case 5:
+        case 'top':
           switch (this.name) {
-            case "dataSafe":
-              await recipientEcharts(this.queryParms).then(({ data }) => {
+             case "vulnerablity":
+              await scanninghostEcharts(this.queryParms).then(({ data }) => {
                 this.hasData = data;
-                this.datacopy = this.transDic(data);
+                this.datacopy = this.transDicTwo(data);
               });
               break;
             case 2:
@@ -413,7 +430,8 @@ export default {
               break;
           }
           break;
-        default:
+      
+      default:
           console.log("这里是项目类型", this.type);
           break;
       }
