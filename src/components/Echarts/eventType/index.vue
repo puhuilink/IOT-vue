@@ -340,6 +340,12 @@ export default {
               await scanningEcharts(this.querys).then(({ data }) => {
                 this.hasData = data;
                 this.datacopy = this.transTypeDicTwo(data);
+                  this.querys = {
+   beginTime: "",
+        endTime: "",
+        severity: "",
+        location: "",
+      }
               });
               break;
             case "abnormal":
@@ -405,6 +411,12 @@ export default {
               await scanningeventStatusEcharts(this.querys).then(({ data }) => {
                 this.hasData = data
                 this.datacopy = this.transDicTwo(data)
+                     this.querys = {
+   beginTime: "",
+        endTime: "",
+        severity: "",
+        location: "",
+      }
               })
               break
             case "host":
@@ -492,6 +504,12 @@ export default {
               await scanninghostEcharts(this.querys).then(({ data }) => {
                 this.hasData = data;
                 this.datacopy = this.transDicTwo(data);
+                     this.querys = {
+   beginTime: "",
+        endTime: "",
+        severity: "",
+        location: "",
+      }
               });
               break;
             case 2:
