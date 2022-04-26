@@ -55,6 +55,12 @@ export default {
       TYPE_ARR,
       datacopy: [],
       assetsData: [],
+      querys:{
+   beginTime: "",
+        endTime: "",
+        severity: "",
+        location: "",
+      },
       queryParms: {
         query: {
           bool: {
@@ -79,6 +85,7 @@ export default {
       handler(val, oldVal) {
         if (val !== oldVal) {
           if (val.severity) {
+             this.querys.severity = val.severity;
             this.queryParms.query.bool.must.push({
               match: {
                 severity: val.severity,
@@ -86,6 +93,7 @@ export default {
             });
           }
           if (val.location) {
+              this.querys.location = val.location;
             this.queryParms.query.bool.must.push({
               match: {
                 location: val.location,
@@ -93,6 +101,8 @@ export default {
             });
           }
           if (val.beginGenerationTime) {
+            this.querys.beginGenerationTime = val.beginGenerationTime;
+            this.querys.endGenerationTime = val.endGenerationTime;
             this.queryParms.query.bool.must.push({
               range: {
                 generationTime: {
@@ -327,7 +337,7 @@ export default {
               break;
                 //漏洞
               case "vulnerablity":
-              await scanningEcharts(this.queryParms).then(({ data }) => {
+              await scanningEcharts(this.querys).then(({ data }) => {
                 this.hasData = data;
                 this.datacopy = this.transTypeDicTwo(data);
               });
@@ -392,7 +402,7 @@ export default {
               break;
                 case 'vulnerablity':
                   //漏洞
-              await scanningeventStatusEcharts(this.queryParms).then(({ data }) => {
+              await scanningeventStatusEcharts(this.querys).then(({ data }) => {
                 this.hasData = data
                 this.datacopy = this.transDicTwo(data)
               })
@@ -479,7 +489,7 @@ export default {
         case 'top':
           switch (this.name) {
              case "vulnerablity":
-              await scanninghostEcharts(this.queryParms).then(({ data }) => {
+              await scanninghostEcharts(this.querys).then(({ data }) => {
                 this.hasData = data;
                 this.datacopy = this.transDicTwo(data);
               });
