@@ -61,13 +61,22 @@
               </el-form-item>
             </el-col>
             <el-col :span="6">
-              <el-form-item label="事件类型:" prop="event_format">
-                <el-input
-                  v-model="queryParams.event_format"
-                  placeholder="请输入事件类型"
+              <el-form-item label="事件类型：" prop="event_format">
+                <el-select
+                  v-model.trim="queryParams.event_format"
+                  placeholder="请选择事件类型"
+                  filterable
                   clearable
                   :style="{ width: '100%' }"
-                />
+                >
+                  <el-option
+                    v-for="(item, index) in eventOptions"
+                    :key="index"
+                    :label="item.label"
+                    :value="item.value"
+                    :disabled="item.disabled"
+                  />
+                </el-select>
               </el-form-item>
             </el-col>
 
@@ -527,6 +536,20 @@ export default {
         {
           label: "目标达成",
           value: "目标达成",
+        },
+      ],
+      eventOptions: [
+        {
+          value: "ksec_syslog_rule_eve",
+          label: "规则告警事件",
+        },
+        {
+          value: "ksec_syslog_ioc_eve",
+          label: "威胁情报事件",
+        },
+        {
+          value: "ksec_syslog_model_eve",
+          label: "模型告警事件",
         },
       ],
     };

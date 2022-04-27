@@ -1,12 +1,21 @@
 <template>
-  <el-col :span="12">
-    <tip>{{ tipname }}</tip>
-    <div ref="canvas1" style="height: 400px" />
-  </el-col>
+  <div>
+    <div v-if="name == 'report'">
+      <el-col :span="24">
+        <div ref="canvas1" style="height: 400px" />
+      </el-col>
+    </div>
+    <div v-else>
+      <el-col :span="12">
+        <tip>{{ tipname }}</tip>
+        <div ref="canvas1" style="height: 400px" />
+      </el-col>
+    </div>
+  </div>
 </template>
 <script>
 import { setNotopt } from "@/utils/emptyEcharts.js";
-import { eventEsData,scanningeventLevelEcharts } from "@/api/system/echarts";
+import { eventEsData, scanningeventLevelEcharts } from "@/api/system/echarts";
 import tip from "@/components/EchartsTip";
 export default {
   name: "AAA",
@@ -251,49 +260,49 @@ export default {
         case "vulnerablity":
           await scanningeventLevelEcharts(this.queryParms).then(({ data }) => {
             this.hasData = data;
-           if (data.length) {
-              const aaa = data.filter((e) => e.eventLevel === '1')
+            if (data.length) {
+              const aaa = data.filter((e) => e.eventLevel === "1");
               if (aaa.length) {
-                aaa.map(d => {
-                  this.data1 = d.data
-                  this.date = d.date
-                })
+                aaa.map((d) => {
+                  this.data1 = d.data;
+                  this.date = d.date;
+                });
               } else {
-                this.data1 = []
+                this.data1 = [];
               }
-              const bbb = data.filter((e) => e.eventLevel === '2')
+              const bbb = data.filter((e) => e.eventLevel === "2");
               if (bbb.length) {
-                bbb.map(d => {
-                  this.data2 = d.data
-                  this.date = d.date
-                })
+                bbb.map((d) => {
+                  this.data2 = d.data;
+                  this.date = d.date;
+                });
               } else {
-                this.data2 = []
+                this.data2 = [];
               }
-              const ccc = data.filter((e) => e.eventLevel === '3')
+              const ccc = data.filter((e) => e.eventLevel === "3");
               if (ccc.length) {
-                ccc.map(d => {
-                  this.data3 = d.data
-                  this.date = d.date
-                })
+                ccc.map((d) => {
+                  this.data3 = d.data;
+                  this.date = d.date;
+                });
               } else {
-                this.data3 = []
+                this.data3 = [];
               }
-              const ddd = data.filter((e) => e.eventLevel === '4')
+              const ddd = data.filter((e) => e.eventLevel === "4");
               if (ddd.length) {
-                ddd.map(d => {
-                  this.data4 = d.data
-                  this.date = d.date
-                })
+                ddd.map((d) => {
+                  this.data4 = d.data;
+                  this.date = d.date;
+                });
               } else {
-                this.data4 = []
+                this.data4 = [];
               }
             } else {
-              this.data1 = []
-              this.data2 = []
-              this.data3 = []
-              this.data4 = []
-              this.data5 = []
+              this.data1 = [];
+              this.data2 = [];
+              this.data3 = [];
+              this.data4 = [];
+              this.data5 = [];
             }
           });
           break;
@@ -307,6 +316,14 @@ export default {
             this.data5 = this.transDicData(data)[4];
           });
           break;
+        case "report":
+          this.hasData = [120, 132, 101, 134, 90, 230, 210];
+          this.data1 = [120, 132, 101, 134, 90, 230, 210];
+          this.data2 = [20, 32, 201, 334, 190, 230, 210];
+          this.data3 = [120, 132, 101, 134, 90, 230, 110];
+          this.data4 = [520, 132, 101, 134, 90, 230, 10];
+          this.data5 = [120, 132, 201, 134, 190, 230, 310];
+          this.date = [1, 2, 3, 4, 5, 6, 7];
         default:
           console.log("无数据", this.type);
           break;

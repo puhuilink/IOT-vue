@@ -6,9 +6,8 @@
           <el-form
             ref="queryForm"
             :model="queryParams"
-            :rules="rules"
             size="mini"
-            label-width="95px"
+            label-width="100px"
             class="label-type"
             label-position="right"
           >
@@ -51,6 +50,20 @@
                     :disabled="item.disabled"
                   />
                 </el-select>
+              </el-form-item>
+            </el-col>
+            <el-col :span="6">
+              <el-form-item
+                label="应用层协议："
+                prop="ev_wsec_infe_application_layer_protocol"
+              >
+                <el-input
+                  v-model="queryParams.ev_wsec_infe_application_layer_protocol"
+                  placeholder="请选择应用层协议"
+                  clearable
+                  :style="{ width: '100%' }"
+                  @keyup.enter.native="handleQuery"
+                />
               </el-form-item>
             </el-col>
             <el-col :span="6">
@@ -140,10 +153,10 @@
     </el-card>
     <el-card style="margin-top: 10px">
       <el-table :data="List" tooltip-effect="light">
-        <el-table-column type="selection" width="55" align="center" />
+        <!-- <el-table-column type="selection" width="55" align="center" /> -->
 
         <el-table-column
-          label="产生时间"
+          label="发生时间"
           align="center"
           prop="_source.occur_time"
           :show-overflow-tooltip="true"
@@ -155,33 +168,35 @@
           :show-overflow-tooltip="true"
         />
         <el-table-column
-          label="源端口"
+          label="目的IP"
           align="center"
           prop="_source.ev_com_socket_src_port"
           :show-overflow-tooltip="true"
         />
         <el-table-column
-          label="目的IP"
+          label="安全设备IP"
           align="center"
-          prop="_source.detail_dst_ip"
-          :show-overflow-tooltip="true"
-        />
-        <el-table-column
-          label="目的端口"
-          align="center"
-          prop="_source.ev_com_socket_dst_port"
+          prop="_source.ev_wsec_infe_security_dev_ip"
           :show-overflow-tooltip="true"
         />
         <el-table-column
           label="传输层协议"
           align="center"
-          prop="_source.ev_wsec_inpa_transport_layer_protocol"
+          prop="_source.ev_wsec_infe_transport_layer_protocol"
           :show-overflow-tooltip="true"
-        />
+        >
+          <template #default="scope">
+            <span>{{
+              transTransportProtocol(
+                scope.row._source.ev_wsec_infe_transport_layer_protocol
+              )
+            }}</span>
+          </template>
+        </el-table-column>
         <el-table-column
           label="应用层协议"
           align="center"
-          prop="_source.ev_wsec_inpa_application_layer_protocol"
+          prop="_source.ev_wsec_infe_application_layer_protocol"
           :show-overflow-tooltip="true"
         />
         <el-table-column
@@ -331,7 +346,7 @@
             <el-col :span="12">
               <el-form-item label="传输层协议：" prop="transportProtocol">
                 <tooltip
-                  :content="detailData.ev_wsec_inpa_transport_layer_protocol"
+                  :content="detailData.ev_wsec_infe_transport_layer_protocol"
                   :length="20"
                 />
               </el-form-item>
@@ -339,7 +354,7 @@
             <el-col :span="12">
               <el-form-item label="应用层协议：" prop="applyProtocol">
                 <tooltip
-                  :content="detailData.ev_wsec_inpa_application_layer_protocol"
+                  :content="detailData.ev_wsec_infe_application_layer_protocol"
                   :length="20"
                 />
               </el-form-item>
@@ -355,7 +370,7 @@
               </el-form-item>
             </el-col>
             <el-col :span="12">
-              <el-form-item label="产生时间：" prop="happen">
+              <el-form-item label="发生时间：" prop="happen">
                 <tooltip :content="detailData.occur_time" :length="20" />
               </el-form-item>
             </el-col>
@@ -365,13 +380,30 @@
               </el-form-item>
             </el-col>
             <el-col :span="12">
-              <el-form-item label="智能监测终端IP：" prop="field115">
+              <el-form-item label="防火墙名称：" prop="happen">
                 <tooltip
-                  :content="detailData.ev_wsec_inpa_monitor_terminal_ip"
+                  :content="detailData.ev_wsec_infe_security_dev_name"
                   :length="20"
                 />
               </el-form-item>
             </el-col>
+            <el-col :span="12">
+              <el-form-item label="防火墙IP：" prop="field115">
+                <tooltip
+                  :content="detailData.ev_wsec_infe_security_dev_ip"
+                  :length="20"
+                />
+              </el-form-item>
+            </el-col>
+            <el-col :span="12">
+              <el-form-item label="日志描述：" prop="receive_time">
+                <tooltip
+                  :content="detailData.ev_wsec_event_comment"
+                  :length="20"
+                />
+              </el-form-item>
+            </el-col>
+
             <el-col :span="12">
               <el-form-item label="区域：" prop="location">
                 <tooltip :content="detailData.location" :length="20" />
@@ -398,7 +430,7 @@
 </template>
 
 <script>
-import { getIndustrialNetworkAuditData } from "@/utils/request";
+import { getFirewallAccessControlEventData } from "@/utils/request";
 import { industryList } from "@/api/system/list";
 export default {
   name: "Online",
@@ -418,7 +450,7 @@ export default {
             must: [],
           },
         },
-        sort: [{ occur_time: { order: "desc" } }],
+        // sort: [{ occur_time: { order: "desc" } }],
         from: 0,
         size: 10,
       },
@@ -434,6 +466,7 @@ export default {
         location: "",
         procedure: "",
         severity: "",
+        ev_wsec_infe_application_layer_protocol: "",
         event_format: "",
         date: [],
       },
@@ -558,6 +591,12 @@ export default {
 
       this.addQuery(this.query, "location.keyword", this.queryParams.location);
 
+      this.addQuery(
+        this.query,
+        "ev_wsec_infe_application_layer_protocol",
+        this.queryParams.ev_wsec_infe_application_layer_protocol
+      );
+
       this.addQuery(this.query, "procedure", this.queryParams.procedure);
 
       this.addQuery(this.query, "severity", this.queryParams.severity);
@@ -577,7 +616,7 @@ export default {
         });
       }
 
-      getIndustrialNetworkAuditData(this.query).then((res) => {
+      getFirewallAccessControlEventData(this.query).then((res) => {
         this.query.query.bool.must = [];
         this.groupList = [];
         this.total = res.data.hits.total;
@@ -618,20 +657,35 @@ export default {
     transType(val) {
       var t = [
         {
-          name: "wsec_syslog_inpa_ev_17",
-          content: "审计协议白名单",
+          name: "wsec_syslog_infe_ev_02",
+          content: "ACL告警事件",
         },
         {
-          name: "wsec_syslog_inpa_ev_20",
-          content: "审计关键事件",
+          name: "wsec_syslog_infe_ev_01",
+          content: "工业防火墙白名单",
         },
         {
-          name: "wsec_syslog_inpa_ev_21",
-          content: "审计自定义事件",
+          name: "wsec_syslog_infe_ev_05",
+          content: "地址欺诈事件",
+        },
+      ];
+      const orgTreeData1 = t
+        .filter((e) => e.name === val)
+        .map(({ content }) => ({
+          content,
+        }));
+      // console.log(orgTreeData1[0].content);
+      return `${orgTreeData1[0].content}`;
+    },
+    transTransportProtocol(val) {
+      var t = [
+        {
+          name: "6",
+          content: "TCP",
         },
         {
-          name: "wsec_syslog_inpa_ev_23",
-          content: "审计协议规约",
+          name: "17",
+          content: "UDP",
         },
       ];
       const orgTreeData1 = t
@@ -688,6 +742,7 @@ export default {
         detail_src_ip: "",
         detail_dst_ip: "",
         location: "",
+        ev_wsec_infe_application_layer_protocol: "",
         procedure: "",
         severity: "",
         event_format: "",

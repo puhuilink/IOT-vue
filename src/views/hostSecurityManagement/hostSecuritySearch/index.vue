@@ -61,13 +61,22 @@
               </el-form-item>
             </el-col>
             <el-col :span="6">
-              <el-form-item label="事件类型:" prop="event_format">
-                <el-input
-                  v-model="queryParams.event_format"
-                  placeholder="请输入事件类型"
+              <el-form-item label="事件类型：" prop="event_format">
+                <el-select
+                  v-model.trim="queryParams.event_format"
+                  placeholder="请选择事件类型"
+                  filterable
                   clearable
                   :style="{ width: '100%' }"
-                />
+                >
+                  <el-option
+                    v-for="(item, index) in eventOptions"
+                    :key="index"
+                    :label="item.label"
+                    :value="item.value"
+                    :disabled="item.disabled"
+                  />
+                </el-select>
               </el-form-item>
             </el-col>
 
@@ -503,6 +512,32 @@ export default {
         {
           label: "不处置",
           value: "不处置",
+        },
+      ],
+      eventOptions: [
+        {
+          value: "wsec_syslog_hsme_ev_07",
+          label: "程序告警事件",
+        },
+        {
+          value: "wsec_syslog_hsme_ev_08",
+          label: "外设告警事件",
+        },
+        {
+          value: "wsec_syslog_hsme_ev_09",
+          label: "主机防火墙事件",
+        },
+        {
+          value: "wsec_syslog_hsme_ev_10",
+          label: "访问控制事件",
+        },
+        {
+          value: "wsec_syslog_hsme_ev_22",
+          label: "主机非法外联",
+        },
+        {
+          value: "wsec_syslog_hsme_ev_30",
+          label: "恶意文件事件",
         },
       ],
     };
