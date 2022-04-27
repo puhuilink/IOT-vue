@@ -131,7 +131,6 @@ export default {
       arr.map((r) => {
         t.map((d) => {
           if (r.name === d.name) {
-            console.log(r, d);
             arrNew.push({
               value: r.count,
               name: d.content,
