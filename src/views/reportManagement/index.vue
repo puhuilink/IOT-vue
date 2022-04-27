@@ -589,43 +589,91 @@
       append-to-body
     >
       <div class="previewContentBox">
+        <div class="firstBox">
+          <div class="right">
+            <el-row>
+              <el-button type="primary">导出PDF</el-button>
+              <el-button type="primary">导出docx</el-button></el-row
+            >
+          </div>
+        </div>
         <div class="title">安全监测子平台</div>
-        <el-form
-          ref="form"
-          label-width="110px"
-          label-position="left"
-          class="label-type"
-        >
-          <el-row>
-            <el-col :span="12" :offset="9">
-              <el-form-item label="报表名称 ">
-                {{ detailData.reportName }}
-              </el-form-item>
+        <div class="imitate-table-border">
+          <el-row :span="10">
+            <el-col class="table-border-right" :span="4">
+              <div>报表名称</div>
+            </el-col>
+            <el-col class="table-border-left" :span="6">
+              <div>事件统计</div>
             </el-col>
           </el-row>
-          <el-row>
-            <el-col :span="12" :offset="9">
-              <el-form-item label="创建人" prop="create">
-                {{ detailData.create }}
-              </el-form-item>
+
+          <el-row :span="10">
+            <el-col class="table-border-right" :span="4">
+              <div>创建人</div>
+            </el-col>
+            <el-col class="table-border-left" :span="6">
+              <div>管理员</div>
             </el-col>
           </el-row>
-          <el-row>
-           <el-col :span="12" :offset="9">
-              <el-form-item label="生成时间" prop="create">
-                {{ detailData.createTime }}
-              </el-form-item>
+
+          <el-row :span="10">
+            <el-col class="table-border-right" :span="4">
+              <div>生成时间</div>
+            </el-col>
+            <el-col class="table-border-left" :span="6">
+              <div>20220320 18:02:35</div>
             </el-col>
           </el-row>
-          <el-row>
-           <el-col :span="12" :offset="9">
-              <el-form-item label="时间范围" prop="create">
-                {{ detailData.timeRange }}
-              </el-form-item>
+
+          <el-row :span="10">
+            <el-col class="table-border-foot-right" :span="4">
+              <div>时间范围</div>
+            </el-col>
+            <el-col class="table-border-foot-left" :span="6">
+              <div>20220314-20220320</div>
             </el-col>
           </el-row>
-        </el-form>
+        </div>
         <div class="information">事件统计</div>
+        <el-row :gutter="10">
+          <el-col :span="8" class="elcolCard">
+            <div class="AssetsBox">
+              <div class="Assets">4.2万</div>
+              <div class="AssetsNumber">事件总数</div>
+            </div>
+          </el-col>
+          <el-col :span="8" class="elcolCard">
+            <div class="AssetsBoxOnline">
+              <div class="Assets">3600</div>
+              <div class="AssetsNumber">事件数量</div>
+            </div>
+          </el-col>
+          <el-col :span="8" class="elcolCard">
+            <div class="AssetsBoxType">
+              <div class="Assets">3000</div>
+              <div class="AssetsNumber">处置数</div>
+            </div>
+          </el-col>
+        </el-row>
+        <div class="information">事件类型分布</div>
+        <div class="echartsCss">
+          <eventType
+            :query="query"
+            :tipname="'事件类型分布'"
+            :type="'report'"
+            :name="'report'"
+          />
+        </div>
+        <div class="information">事件等级分布</div>
+        <div class="echartsCss">
+          <eventTrend
+            :query="query"
+            :event-type="2"
+            :name="'report'"
+            :search="'report'"
+          />
+        </div>
         <div slot="footer" class="dialog-footer">
           <el-row type="flex" justify="center">
             <el-button size="small" type="primary" @click="submitForm"
@@ -641,9 +689,11 @@
 <script>
 import { getHostSecurityData } from "@/utils/request";
 import { hostList } from "@/api/system/list";
+import eventType from "@/components/Echarts/eventType";
+import eventTrend from "@/components/Echarts/eventTrend";
 
 export default {
-  components: {},
+  components: { eventType, eventTrend },
   props: [],
   data() {
     return {
@@ -1076,10 +1126,9 @@ export default {
       this.previewDialog = true;
       this.title = "";
       this.detailData.reportName = "事件统计";
-      this.detailData.create='管理员';
-      this.detailData.createTime='20220320 18:02:35';
-      this.detailData.timeRange='20220314-20220320'
-
+      this.detailData.create = "管理员";
+      this.detailData.createTime = "20220320 18:02:35";
+      this.detailData.timeRange = "20220314-20220320";
     },
     // 取消按钮
     cancel() {
@@ -1126,15 +1175,59 @@ export default {
   }
 }
 .previewContentBox {
+  height: 80vh;
+  overflow: auto;
+  overflow-y: scroll;
+  overflow-x: hidden;
   width: 100%;
-  height: 100%;
   // border-top: 1px solid #ccc;
   padding: 10px 20px;
-  .title{
+  .firstBox {
+    height: 80px;
+    margin-right: 20px;
+    .right {
+      float: right;
+    }
+  }
+  .title {
     font-size: 30px;
-    font-weight:bold;
+    font-weight: bold;
     text-align: center;
     padding-bottom: 30px;
+  }
+
+  .imitate-table-border {
+    margin-left: 240px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    font-size: 14px;
+    width: 100%;
+    .table-border-right {
+      border: 1px solid #ebebeb;
+      border-bottom: none;
+      padding: 6px;
+      text-align: right;
+    }
+
+    .table-border-left {
+      border: 1px solid #ebebeb;
+      border-bottom: none;
+      border-left: none;
+      padding: 6px;
+      text-align: center;
+    }
+    .table-border-foot-right {
+      border: 1px solid #ebebeb;
+      padding: 6px;
+      text-align: right;
+    }
+
+    .table-border-foot-left {
+      border: 1px solid #ebebeb;
+      border-left: none;
+      padding: 6px;
+    }
   }
   .information {
     text-align: center;
@@ -1142,7 +1235,89 @@ export default {
     font-size: 18px;
     border-bottom: 2px solid #33ccff;
     padding-top: 10px;
-    margin-bottom: 10px;
+    margin-bottom: 40px;
+    margin-top: 40px;
+  }
+  .echartsCss {
+    height: 400px;
+  }
+  .elcolCard {
+    .AssetsBox {
+      width: 180px;
+      height: 180px;
+      background: linear-gradient(180deg, #00bbeb 0%, #0085d2 100%);
+      .Assets {
+        text-align: center;
+        // padding: 10px 80px 10px 10px;
+        // border-bottom: 1px solid #fff;
+        color: #fff;
+        font-size: 38px;
+        height: 100px;
+        line-height: 150px;
+      }
+      .AssetsNumber {
+        width: 100%;
+        height: 60px;
+        // background-color: #5599ff;
+        color: #ffff77;
+        font-weight: 800;
+        font-size: 16px;
+        color: #fff;
+        text-align: center;
+        line-height: 30px;
+        // .left {
+        //   float: left;
+        // }
+        // .right {
+        //   float: right;
+        // }
+      }
+    }
+    .AssetsBoxOnline {
+      width: 180px;
+      height: 180px;
+      background: linear-gradient(180deg, #00bbeb 0%, #0085d2 100%);
+      .Assets {
+        text-align: center;
+        // padding: 10px 80px 10px 10px;
+        // border-bottom: 1px solid #fff;
+        color: #fff;
+        font-size: 38px;
+        height: 100px;
+        line-height: 150px;
+      }
+      .AssetsNumber {
+        width: 100%;
+        height: 100px;
+        // background-color: #5599ff;
+        // color: #ffff77;
+        // font-weight: 800;
+        font-size: 16px;
+        color: #fff;
+        text-align: center;
+        line-height: 30px;
+      }
+    }
+    .AssetsBoxType {
+      width: 180px;
+      height: 180px;
+      background: linear-gradient(180deg, #00bbeb 0%, #0085d2 100%);
+      .Assets {
+        text-align: center;
+        color: #fff;
+        font-size: 38px;
+        height: 100px;
+        line-height: 150px;
+      }
+      .AssetsNumber {
+        width: 100%;
+        height: 100px;
+        font-size: 16px;
+        color: #fff;
+        text-align: center;
+        line-height: 30px;
+      }
+    }
   }
   .dialog-footer {
     margin-top: 10px;

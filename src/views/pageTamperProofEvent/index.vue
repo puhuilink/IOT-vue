@@ -6,17 +6,16 @@
           <el-form
             ref="queryForm"
             :model="queryParams"
-            :rules="rules"
             size="mini"
-            label-width="95px"
+            label-width="100px"
             class="label-type"
             label-position="right"
           >
             <el-col :span="6">
-              <el-form-item label="源IP地址：" prop="detail_src_ip">
+              <el-form-item label="防护主机：" prop="ipaddr">
                 <el-input
                   v-model="queryParams.detail_src_ip"
-                  placeholder="请输入源IP地址"
+                  placeholder="请输入防护主机"
                   clearable
                   :style="{ width: '100%' }"
                   @keyup.enter.native="handleQuery"
@@ -24,14 +23,57 @@
               </el-form-item>
             </el-col>
             <el-col :span="6">
-              <el-form-item label="目的IP地址：" prop="detail_dst_ip">
+              <el-form-item label="攻击类型：" prop="userName">
                 <el-input
                   v-model="queryParams.detail_dst_ip"
-                  placeholder="请输入目的IP地址"
+                  placeholder="请输入攻击类型"
                   clearable
                   :style="{ width: '100%' }"
                   @keyup.enter.native="handleQuery"
                 />
+              </el-form-item>
+            </el-col>
+            <el-col :span="6">
+              <el-form-item label="管理中心IP：" prop="userName">
+                <el-input
+                  v-model="queryParams.detail_dst_ip"
+                  placeholder="请输入管理中心IP"
+                  clearable
+                  :style="{ width: '100%' }"
+                  @keyup.enter.native="handleQuery"
+                />
+              </el-form-item>
+            </el-col>
+            <el-col :span="6">
+              <el-form-item
+                label="命中策略："
+                prop="ev_wsec_infe_application_layer_protocol"
+              >
+                <el-input
+                  v-model="queryParams.detail_dst_ip"
+                  placeholder="请输入命中策略"
+                  clearable
+                  :style="{ width: '100%' }"
+                  @keyup.enter.native="handleQuery"
+                />
+              </el-form-item>
+            </el-col>
+            <el-col :span="6">
+              <el-form-item label="处置状态：" prop="procedure">
+                <el-select
+                  v-model="queryParams.procedure"
+                  placeholder="请选择处置状态"
+                  clearable
+                  :style="{ width: '100%' }"
+                >
+                  <el-option
+                    v-for="(item, index) in disposalStatusOptions"
+                    :key="index"
+                    :label="item.label"
+                    :value="item.label"
+                    :disabled="item.disabled"
+                  />
+                </el-select>
               </el-form-item>
             </el-col>
             <el-col :span="6">
@@ -54,25 +96,7 @@
               </el-form-item>
             </el-col>
             <el-col :span="6">
-              <el-form-item label="处置状态：" prop="procedure">
-                <el-select
-                  v-model="queryParams.procedure"
-                  placeholder="请选择处置状态"
-                  clearable
-                  :style="{ width: '100%' }"
-                >
-                  <el-option
-                    v-for="(item, index) in disposalStatusOptions"
-                    :key="index"
-                    :label="item.label"
-                    :value="item.label"
-                    :disabled="item.disabled"
-                  />
-                </el-select>
-              </el-form-item>
-            </el-col>
-            <el-col :span="6">
-              <el-form-item label="事件等级：" prop="severity">
+              <el-form-item label="事件等级：" prop="userName">
                 <el-select
                   v-model="queryParams.severity"
                   placeholder="请选择事件等级"
@@ -88,17 +112,6 @@
                     :disabled="item.disabled"
                   />
                 </el-select>
-              </el-form-item>
-            </el-col>
-            <el-col :span="6">
-              <el-form-item label="事件类型：" prop="event_format">
-                <el-input
-                  v-model="queryParams.event_format"
-                  placeholder="请输入事件类型"
-                  clearable
-                  :style="{ width: '100%' }"
-                  @keyup.enter.native="handleQuery"
-                />
               </el-form-item>
             </el-col>
             <el-col :span="6">
@@ -140,48 +153,30 @@
     </el-card>
     <el-card style="margin-top: 10px">
       <el-table :data="List" tooltip-effect="light">
-        <el-table-column type="selection" width="55" align="center" />
+        <!-- <el-table-column type="selection" width="55" align="center" /> -->
 
         <el-table-column
-          label="产生时间"
+          label="防护主机"
           align="center"
           prop="_source.occur_time"
           :show-overflow-tooltip="true"
         />
         <el-table-column
-          label="源IP"
+          label="攻击类型"
           align="center"
           prop="_source.detail_src_ip"
           :show-overflow-tooltip="true"
         />
         <el-table-column
-          label="源端口"
+          label="管理中心IP"
           align="center"
           prop="_source.ev_com_socket_src_port"
           :show-overflow-tooltip="true"
         />
         <el-table-column
-          label="目的IP"
+          label="发生时间"
           align="center"
-          prop="_source.detail_dst_ip"
-          :show-overflow-tooltip="true"
-        />
-        <el-table-column
-          label="目的端口"
-          align="center"
-          prop="_source.ev_com_socket_dst_port"
-          :show-overflow-tooltip="true"
-        />
-        <el-table-column
-          label="传输层协议"
-          align="center"
-          prop="_source.ev_wsec_inpa_transport_layer_protocol"
-          :show-overflow-tooltip="true"
-        />
-        <el-table-column
-          label="应用层协议"
-          align="center"
-          prop="_source.ev_wsec_inpa_application_layer_protocol"
+          prop="_source.ev_wsec_infe_security_dev_ip"
           :show-overflow-tooltip="true"
         />
         <el-table-column
@@ -195,15 +190,11 @@
           </template>
         </el-table-column>
         <el-table-column
-          label="事件类型"
+          label="命中策略"
           align="center"
-          prop="_source.event_format"
+          prop="_source.ev_wsec_infe_transport_layer_protocol"
           :show-overflow-tooltip="true"
-        >
-          <template #default="scope">
-            <span>{{ transType(scope.row._source.event_format) }}</span>
-          </template>
-        </el-table-column>
+        />
         <el-table-column
           label="处置状态"
           align="center"
@@ -271,12 +262,12 @@
             label-width="133px"
           >
             <el-col :span="12">
-              <el-form-item label="源IP：" prop="detail_src_ip">
+              <el-form-item label="管理中心 IP：" prop="detail_src_ip">
                 <tooltip :content="detailData.detail_src_ip" :length="20" />
               </el-form-item>
             </el-col>
             <el-col :span="12">
-              <el-form-item label="源设备：">
+              <el-form-item label="命中策略：">
                 <tooltip
                   :content="detailData.ev_com_socket_src_hostname"
                   :length="20"
@@ -284,7 +275,7 @@
               </el-form-item>
             </el-col>
             <el-col :span="12">
-              <el-form-item label="源端口：" prop="ev_com_socket_src_port">
+              <el-form-item label="防护主机：" prop="ev_com_socket_src_port">
                 <tooltip
                   :content="detailData.ev_com_socket_src_port"
                   :length="20"
@@ -292,7 +283,7 @@
               </el-form-item>
             </el-col>
             <el-col :span="12">
-              <el-form-item label="源MAC：">
+              <el-form-item label="进程名称：">
                 <tooltip
                   :content="detailData.ev_com_link_src_mac"
                   :length="20"
@@ -300,12 +291,12 @@
               </el-form-item>
             </el-col>
             <el-col :span="12">
-              <el-form-item label="目的IP：" prop="aimIp">
+              <el-form-item label="攻击类型：" prop="aimIp">
                 <tooltip :content="detailData.detail_dst_ip" :length="20" />
               </el-form-item>
             </el-col>
             <el-col :span="12">
-              <el-form-item label="目的MAC：" prop="field106">
+              <el-form-item label="目标对象：" prop="field106">
                 <tooltip
                   :content="detailData.ev_com_link_dst_mac"
                   :length="20"
@@ -313,73 +304,23 @@
               </el-form-item>
             </el-col>
             <el-col :span="12">
-              <el-form-item label="目的设备：" prop="field107">
-                <tooltip
-                  :content="detailData.ev_com_socket_dst_hostname"
-                  :length="20"
-                />
-              </el-form-item>
-            </el-col>
-            <el-col :span="12">
-              <el-form-item label="目的端口：" prop="aimPort">
-                <tooltip
-                  :content="detailData.ev_com_socket_dst_port"
-                  :length="20"
-                />
-              </el-form-item>
-            </el-col>
-            <el-col :span="12">
-              <el-form-item label="传输层协议：" prop="transportProtocol">
-                <tooltip
-                  :content="detailData.ev_wsec_inpa_transport_layer_protocol"
-                  :length="20"
-                />
-              </el-form-item>
-            </el-col>
-            <el-col :span="12">
-              <el-form-item label="应用层协议：" prop="applyProtocol">
-                <tooltip
-                  :content="detailData.ev_wsec_inpa_application_layer_protocol"
-                  :length="20"
-                />
-              </el-form-item>
-            </el-col>
-            <el-col :span="12">
-              <el-form-item label="事件级别：" prop="level">
+              <el-form-item label="事件等级：" prop="level">
                 <tooltip :content="detailData.severity" :length="20" />
               </el-form-item>
             </el-col>
             <el-col :span="12">
-              <el-form-item label=" 事件类型：" prop="type">
-                <tooltip :content="detailData.event_format" :length="20" />
-              </el-form-item>
-            </el-col>
-            <el-col :span="12">
-              <el-form-item label="产生时间：" prop="happen">
+              <el-form-item label="发生时间：" prop="happen">
                 <tooltip :content="detailData.occur_time" :length="20" />
-              </el-form-item>
-            </el-col>
-            <el-col :span="12">
-              <el-form-item label="接收时间：" prop="receive_time">
-                <tooltip :content="detailData.receive_time" :length="20" />
-              </el-form-item>
-            </el-col>
-            <el-col :span="12">
-              <el-form-item label="智能监测终端IP：" prop="field115">
-                <tooltip
-                  :content="detailData.ev_wsec_inpa_monitor_terminal_ip"
-                  :length="20"
-                />
-              </el-form-item>
-            </el-col>
-            <el-col :span="12">
-              <el-form-item label="区域：" prop="location">
-                <tooltip :content="detailData.location" :length="20" />
               </el-form-item>
             </el-col>
             <el-col :span="12">
               <el-form-item label="处置状态：" prop="procedure">
                 <tooltip :content="detailData.procedure" :length="20" />
+              </el-form-item>
+            </el-col>
+            <el-col :span="12">
+              <el-form-item label="区域：" prop="location">
+                <tooltip :content="detailData.location" :length="20" />
               </el-form-item>
             </el-col>
           </el-form>
@@ -398,7 +339,7 @@
 </template>
 
 <script>
-import { getIndustrialNetworkAuditData } from "@/utils/request";
+import { getFirewallAccessControlEventData } from "@/utils/request";
 import { industryList } from "@/api/system/list";
 export default {
   name: "Online",
@@ -418,7 +359,7 @@ export default {
             must: [],
           },
         },
-        sort: [{ occur_time: { order: "desc" } }],
+        // sort: [{ occur_time: { order: "desc" } }],
         from: 0,
         size: 10,
       },
@@ -434,6 +375,7 @@ export default {
         location: "",
         procedure: "",
         severity: "",
+        ev_wsec_infe_application_layer_protocol: "",
         event_format: "",
         date: [],
       },
@@ -577,7 +519,7 @@ export default {
         });
       }
 
-      getIndustrialNetworkAuditData(this.query).then((res) => {
+      getFirewallAccessControlEventData(this.query).then((res) => {
         this.query.query.bool.must = [];
         this.groupList = [];
         this.total = res.data.hits.total;
@@ -618,20 +560,16 @@ export default {
     transType(val) {
       var t = [
         {
-          name: "wsec_syslog_inpa_ev_17",
-          content: "审计协议白名单",
+          name: "wsec_syslog_infe_ev_02",
+          content: "ACL告警事件",
         },
         {
-          name: "wsec_syslog_inpa_ev_20",
-          content: "审计关键事件",
+          name: "wsec_syslog_infe_ev_01",
+          content: "工业防火墙白名单",
         },
         {
-          name: "wsec_syslog_inpa_ev_21",
-          content: "审计自定义事件",
-        },
-        {
-          name: "wsec_syslog_inpa_ev_23",
-          content: "审计协议规约",
+          name: "wsec_syslog_infe_ev_05",
+          content: "地址欺诈事件",
         },
       ];
       const orgTreeData1 = t
@@ -736,7 +674,7 @@ export default {
   }
 }
 .el-dialog-div {
-  height: 50vh;
+  height: 30vh;
   overflow: auto;
   overflow-x: hidden;
 }

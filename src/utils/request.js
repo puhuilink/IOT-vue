@@ -35,6 +35,13 @@ export const getIndustrialNetworkAuditData = params => {
   return axios.post(`${baseIndustrialNetworkAudit}`, params)
 }
 
+// 防火墙访问控制事件
+const baseFirewallAccessControlEvent = '/esApi/event_infe/_search'
+
+export const getFirewallAccessControlEventData = params => {
+  return axios.post(`${baseFirewallAccessControlEvent}`, params)
+}
+
 // 僵木蠕
 const baseJiangTable = '/esApi/event_ztwe/_search'
 
