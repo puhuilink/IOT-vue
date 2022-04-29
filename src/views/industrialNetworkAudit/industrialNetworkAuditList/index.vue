@@ -92,13 +92,21 @@
             </el-col>
             <el-col :span="6">
               <el-form-item label="事件类型：" prop="event_format">
-                <el-input
-                  v-model="queryParams.event_format"
-                  placeholder="请输入事件类型"
+                <el-select
+                  v-model.trim="queryParams.event_format"
+                  placeholder="请选择事件类型"
+                  filterable
                   clearable
                   :style="{ width: '100%' }"
-                  @keyup.enter.native="handleQuery"
-                />
+                >
+                  <el-option
+                    v-for="(item, index) in eventOptions"
+                    :key="index"
+                    :label="item.label"
+                    :value="item.value"
+                    :disabled="item.disabled"
+                  />
+                </el-select>
               </el-form-item>
             </el-col>
             <el-col :span="6">
@@ -515,6 +523,24 @@ export default {
         {
           label: "异常",
           value: 3,
+        },
+      ],
+      eventOptions: [
+        {
+          value: "wsec_syslog_inpa_ev_17",
+          label: "审计协议白名单",
+        },
+        {
+          value: "wsec_syslog_inpa_ev_20",
+          label: "审计关键事件",
+        },
+        {
+          value: "wsec_syslog_inpa_ev_21",
+          label: "审计自定义事件",
+        },
+        {
+          value: "wsec_syslog_inpa_ev_23",
+          label: "审计协议规约",
         },
       ],
     };

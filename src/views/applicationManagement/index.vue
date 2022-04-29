@@ -457,6 +457,7 @@
 </template>
 
 <script>
+import { getApplicationManagementData } from "@/utils/request";
 import { getFirewallAccessControlEventData } from "@/utils/request";
 import { industryList } from "@/api/system/list";
 export default {
@@ -497,15 +498,13 @@ export default {
       pageNum: 1,
       pageSize: 10,
       // 查询参数
+      headers: {
+        authoratun: 'Basic base64encode("admin111"+":"+"123456")',
+      },
+      queryAuthorization: "",
       queryParams: {
-        detail_src_ip: "",
-        detail_dst_ip: "",
-        location: "",
-        procedure: "",
-        severity: "",
-        ev_wsec_infe_application_layer_protocol: "",
-        event_format: "",
-        date: [],
+        pageIndex: 1,
+        pageSize: 10,
       },
       levelOptions: [
         {
@@ -601,65 +600,18 @@ export default {
     this.getTableList();
   },
   methods: {
-    //映射事件类型字段
-
-    // 根据对象中的key是否值为空x向数组中添加对象
-    addQuery(query, key, value) {
-      if (value !== "") {
-        query.query.bool.must.push({
-          match: {
-            [key]: value,
-          },
-        });
-      }
-    },
     async getTableList() {
-      this.addQuery(
-        this.query,
-        "detail_src_ip",
-        this.queryParams.detail_src_ip
-      );
-
-      this.addQuery(
-        this.query,
-        "detail_dst_ip",
-        this.queryParams.detail_dst_ip
-      );
-
-      this.addQuery(this.query, "location.keyword", this.queryParams.location);
-
-      this.addQuery(
-        this.query,
-        "ev_wsec_infe_application_layer_protocol",
-        this.queryParams.ev_wsec_infe_application_layer_protocol
-      );
-
-      this.addQuery(this.query, "procedure", this.queryParams.procedure);
-
-      this.addQuery(this.query, "severity", this.queryParams.severity);
-
-      this.addQuery(this.query, "event_format", this.queryParams.event_format);
-
-      this.query.from = this.from - 1;
-
-      if (this.queryParams.date.length > 0) {
-        this.query.query.bool.must.push({
-          range: {
-            occur_time: {
-              gte: this.queryParams.date[0],
-              lte: this.queryParams.date[1],
-            },
-          },
-        });
-      }
-
-      getFirewallAccessControlEventData(this.query).then((res) => {
-        this.query.query.bool.must = [];
-        this.groupList = [];
-        this.total = res.data.hits.total;
-        this.List = res.data.hits.hits;
+      // var queryAuthorization = base64encode("admin111" + ":" + "123456");
+      // this.loading = true;
+      // const res = await applicationManagementList(this.queryParams);
+      // const res = await ("/codesafeapi/quickcheck", this, queryParams);
+      getApplicationManagementData(this.queryParams).then((res) => {
+        console.log("res-4-28", res);
       });
-      this.detailData.severity = this.transTypeDic(this.detailData.severity);
+
+      // this.groupList = res.rows;
+      // this.total = res.total;
+      // this.loading = false;
     },
     transTypeDic(val) {
       var t = [

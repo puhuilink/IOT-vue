@@ -363,11 +363,11 @@ export default {
           value: 2,
         },
         {
-          label: "手动",
+          label: "人工判断",
           value: 3,
         },
         {
-          label: "失败",
+          label: "检查失败",
           value: 4,
         },
       ],
@@ -395,24 +395,24 @@ export default {
       ],
       field114Options: [
         {
-          label: "未处置",
+          label: "待处置",
           value: 1,
-        },
-        {
-          label: "处置中",
-          value: 2,
         },
         {
           label: "已处置",
           value: 2,
         },
         {
-          label: "已完成",
-          value: 2,
+          label: "处置中",
+          value: 3,
         },
         {
-          label: "待处置",
-          value: 2,
+          label: "误报",
+          value: 4,
+        },
+        {
+          label: "不处置",
+          value: 5,
         },
       ],
     };

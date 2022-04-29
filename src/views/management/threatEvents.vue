@@ -192,23 +192,17 @@
         prop="_source.detail_protocol"
         :show-overflow-tooltip="true"
       />
-      <!-- <el-table-column
-        label="事件等级"
-        align="center"
-        prop="_source.severity"
-      >
+      <el-table-column label="事件等级" align="center" prop="_source.severity">
         <template #default="scope">
-           <span
-              v-if="
-                scope.row._source.severity == '' ||
-                scope.row._source.severity == null
-              "
-            />
-          <span v-else>{{
-            transTypeDic(scope.row._source.severity)
-          }}</span>
+          <span
+            v-if="
+              scope.row._source.severity == '' ||
+              scope.row._source.severity == null
+            "
+          />
+          <span v-else>{{ transTypeDic(scope.row._source.severity) }}</span>
         </template>
-      </el-table-column> -->
+      </el-table-column>
       <el-table-column
         label="事件类型"
         align="center"

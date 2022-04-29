@@ -65,14 +65,14 @@ export default {
           if (val.severity) {
             this.queryParms.query.bool.must.push({
               match: {
-                "severity": val.severity,
+                severity: val.severity,
               },
             });
           }
           if (val.location) {
             this.queryParms.query.bool.must.push({
               match: {
-                "location": val.location,
+                location: val.location,
               },
             });
           }
@@ -156,6 +156,12 @@ export default {
         const myChart = this.$echarts.init(this.$refs.canvas1);
         // 绘制图表
         myChart.setOption({
+          tooltip: {
+            trigger: "axis",
+            axisPointer: {
+              type: "shadow",
+            },
+          },
           color: ["#FFC0CB"],
           xAxis: {
             type: "category",
