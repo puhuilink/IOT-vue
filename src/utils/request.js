@@ -78,6 +78,13 @@ export const getManagementThreatEventsData = params => {
   return axios.post(`${baseManagementThreatEvents}`, params)
 }
 
+//代码审计事件
+const baseapplicationManagement = '/codesafeapi/codesafeapi/quickcheck'
+
+export const getApplicationManagementData = params => {
+  return axios.post(`${baseapplicationManagement}`,params)
+}
+// axios.defaults.headers['Content-Type'] = 'Basic base64encode(wuzhigang +":"+Admin@12345！)'
 axios.defaults.headers['Content-Type'] = 'application/json;charset=utf-8'
 // 创建axios实例
 const service = axios.create({
@@ -90,9 +97,13 @@ const service = axios.create({
 service.interceptors.request.use(config => {
   // 是否需要设置 token
   const isToken = (config.headers || {}).isToken === false
+  // var  queryAuthorization = base64encode("admin111" + ":" + "123456");
   if (getToken() && !isToken) {
     config.headers['Authorization'] = 'Bearer ' + getToken() // 让每个请求携带自定义token 请根据实际情况自行修改
   }
+ 
+    // config.headers['Authorization'] =  'Basic base64encode("wuzhigang"+":"+"123456")' 
+  
   // get请求映射params参数
   if (config.method === 'get' && config.params) {
     let url = config.url + '?'

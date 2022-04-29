@@ -106,7 +106,7 @@ export default {
       },
       addressOptions: [
         {
-          label: "山西燃气厂",
+          label: "山西三通燃气厂",
           value: 2,
         },
         {
