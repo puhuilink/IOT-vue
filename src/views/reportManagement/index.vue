@@ -588,11 +588,11 @@
       width="900px"
       append-to-body
     >
-      <div class="previewContentBox">
+      <div class="previewContentBox" ref="pdfs">
         <div class="firstBox">
           <div class="right">
             <el-row>
-              <el-button type="primary">导出PDF</el-button>
+              <el-button @click="toPdf"  type="primary">导出PDF</el-button>
               <el-button type="primary">导出docx</el-button></el-row
             >
           </div>
@@ -1129,6 +1129,9 @@ export default {
       this.detailData.create = "管理员";
       this.detailData.createTime = "20220320 18:02:35";
       this.detailData.timeRange = "20220314-20220320";
+    },
+    toPdf() {
+      this.getPdfFromHtml(this.$refs.pdfs, "测试")
     },
     // 取消按钮
     cancel() {
