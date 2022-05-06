@@ -65,8 +65,6 @@ export default {
       datacopy: [],
       assetsData: [],
       querys: {
-        beginTime: "",
-        endTime: "",
         severity: "",
         location: "",
       },
@@ -110,8 +108,6 @@ export default {
             });
           }
           if (val.beginGenerationTime) {
-            this.querys.beginGenerationTime = val.beginGenerationTime;
-            this.querys.endGenerationTime = val.endGenerationTime;
             this.queryParms.query.bool.must.push({
               range: {
                 generationTime: {
@@ -356,8 +352,6 @@ export default {
                 this.hasData = data;
                 this.datacopy = this.transTypeDicTwo(data);
                 this.querys = {
-                  beginTime: "",
-                  endTime: "",
                   severity: "",
                   location: "",
                 };
@@ -427,8 +421,6 @@ export default {
                 this.hasData = data;
                 this.datacopy = this.transDicTwo(data);
                 this.querys = {
-                  beginTime: "",
-                  endTime: "",
                   severity: "",
                   location: "",
                 };
@@ -520,8 +512,6 @@ export default {
                 this.hasData = data;
                 this.datacopy = this.transDicTwo(data);
                 this.querys = {
-                  beginTime: "",
-                  endTime: "",
                   severity: "",
                   location: "",
                 };
