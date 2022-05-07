@@ -40,7 +40,7 @@ module.exports = {
         }
       },
       '/codesafeapi': {
-        target: 'http://10.201.72.99:443',  //  奇安信
+        target: 'https://10.201.72.99:443',  //  奇安信
         changeOrigin: true,
         pathRewrite: {
           '^/codesafeapi': '' // 重写codesafeapi为空

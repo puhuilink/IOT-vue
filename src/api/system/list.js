@@ -28,6 +28,15 @@ export function assetList(query) {
     params: query
   })
 }
+// APP检测
+export function appTesting(query) {
+  return request({
+    // url: '/m/asset/list',
+    url: '/bangBangFile/queryBangBangFileList',
+    method: 'get',
+    params: query
+  })
+}
 
 // 资产列表 excel导入功能
 export function uploadExcel(url, query) {
@@ -87,6 +96,79 @@ export function uploadZip(url, query,params) {
     params:params
   })
 }
+// APP检测 pdf导入功能
+export function uploadPdf(url, query,params) {
+  return request({
+    url: url,
+    method: 'post',
+    data: query,
+    params:params
+  })
+}
+// APP检测 pdf预览功能
+export function downloadAction(id) {
+  return request({
+    url:'/bangBangFile/download',
+    method: 'get',
+    params:{
+      path:id
+    }
+  })
+}
+// export function downloadAction(url, method, parameter, filename, type) {
+//   return request({
+//     url: url,
+//     method: method,
+//     params: parameter,
+//     responseType: 'blob'
+//   }).then(response => {
+//     if (type) {
+//       response = response.slice(0, response.size, type)
+//     }
+//     if ((response.type || '').includes('application/json')) {
+//       const reader = new FileReader()
+//       reader.onload = e => {
+//         if (e.target.readyState === 2) {
+//           let res = {}
+//           res = JSON.parse(e.target.result)
+//           const message = res.msg
+//           if (status !== 200 || (res && res.code && res.code !== 200)) {
+//             if (status === 500 || (res && res.code && res.code === 500)) {
+//               Message.error(message)
+//               return Promise.reject(message)
+//             } else {
+//               Message.warning(message)
+//               return Promise.reject(message)
+//             }
+//           }
+//           Message.error(res.msg)
+//         }
+//       }
+//       reader.readAsText(response)
+//     } else {
+//       filename = decodeURI(filename)
+//       if (typeof window.navigator.msSaveBlob !== 'undefined') {
+//         window.navigator.msSaveBlob(response, filename)
+//       } else {
+//         var blobURL = window.URL.createObjectURL(response)// 将blob对象转为一个URL
+//         var tempLink = document.createElement('a')// 创建一个a标签
+//         tempLink.style.display = 'none'
+//         tempLink.href = blobURL
+//         tempLink.setAttribute('download', filename)// 给a标签添加下载属性
+//         if (typeof tempLink.download === 'undefined') {
+//           tempLink.setAttribute('target', '_blank')
+//         }
+//         document.body.appendChild(tempLink)// 将a标签添加到body当中
+//         tempLink.click()// 启动下载
+//         document.body.removeChild(tempLink)// 下载完毕删除a标签
+//         window.URL.revokeObjectURL(blobURL)
+//       }
+//     }
+//   }).catch((error) => {
+//     console.log(error)
+//   })
+// }
+
 // 通报管理
 export function notificationList(query) {
   return request({
