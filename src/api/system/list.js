@@ -112,7 +112,9 @@ export function downloadAction(id) {
     method: 'get',
     params:{
       path:id
-    }
+    },
+    responseType: "blob", //这行必写
+    headers: { "Content-Type": "multipart/form-data" } //这行必写
   })
 }
 // export function downloadAction(url, method, parameter, filename, type) {
