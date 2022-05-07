@@ -12,9 +12,9 @@
             label-position="right"
           >
             <el-col :span="6">
-              <el-form-item label="任务名称：" prop="detail_src_ip">
+              <el-form-item label="任务名称：" prop="taskName">
                 <el-input
-                  v-model="queryParams.detail_src_ip"
+                  v-model="queryParams.conditions.taskName"
                   placeholder="请输入任务名称"
                   clearable
                   :style="{ width: '100%' }"
@@ -23,9 +23,9 @@
               </el-form-item>
             </el-col>
             <el-col :span="6">
-              <el-form-item label="任务类型：" prop="detail_dst_ip">
+              <el-form-item label="任务类型：" prop="taskType">
                 <el-input
-                  v-model="queryParams.detail_dst_ip"
+                  v-model="queryParams.conditions.taskType"
                   placeholder="请输入任务类型"
                   clearable
                   :style="{ width: '100%' }"
@@ -34,9 +34,9 @@
               </el-form-item>
             </el-col>
             <el-col :span="6">
-              <el-form-item label="检测语言：" prop="event_format">
+              <el-form-item label="检测语言：" prop="language">
                 <el-input
-                  v-model="queryParams.event_format"
+                  v-model="queryParams.conditions.language"
                   placeholder="请输入检测语言"
                   clearable
                   :style="{ width: '100%' }"
@@ -47,7 +47,7 @@
             <el-col :span="6">
               <el-form-item label="时间：" prop="date">
                 <el-date-picker
-                  v-model="queryParams.date"
+                  v-model="rangeTime"
                   size="small"
                   type="daterange"
                   value-format="yyyy-MM-dd"
@@ -56,6 +56,7 @@
                   range-separator="至"
                   clearable
                   :style="{ width: '100%' }"
+                  @change="setTimeList"
                 />
               </el-form-item>
             </el-col>
@@ -64,13 +65,11 @@
               <el-form-item>
                 <el-button
                   type="primary"
-                  icon="el-icon-search"
                   size="mini"
                   @click="handleQuery"
                   >搜索</el-button
                 >
                 <el-button
-                  icon="el-icon-refresh"
                   size="mini"
                   @click="resetQuery"
                   >重置</el-button
@@ -88,67 +87,51 @@
         <el-table-column
           label="任务名称"
           align="center"
-          prop="_source.occur_time"
+          prop="taskName"
           :show-overflow-tooltip="true"
         />
         <el-table-column
           label="任务类型"
           align="center"
-          prop="_source.detail_src_ip"
+          prop="taskType"
           :show-overflow-tooltip="true"
         />
         <el-table-column
           label="检测语言"
           align="center"
-          prop="_source.ev_com_socket_src_port"
+          prop="language"
           :show-overflow-tooltip="true"
         />
         <el-table-column
           label="源码名称"
           align="center"
-          prop="_source.ev_wsec_infe_security_dev_ip"
+          prop="codeName"
           :show-overflow-tooltip="true"
         />
         <el-table-column
           label="检测开始时间"
           align="center"
-          prop="_source.ev_wsec_infe_transport_layer_protocol"
-          :show-overflow-tooltip="true"
-        >
-          <template #default="scope">
-            <span>{{
-              transTransportProtocol(
-                scope.row._source.ev_wsec_infe_transport_layer_protocol
-              )
-            }}</span>
-          </template>
-        </el-table-column>
-        <el-table-column
-          label="检测结束时间"
-          align="center"
-          prop="_source.ev_wsec_infe_application_layer_protocol"
+          prop="invokeEngineTime"
           :show-overflow-tooltip="true"
         />
         <el-table-column
-          label="缺陷总数"
+          label="检测结束时间"
           align="center"
-          prop="_source.severity"
+          prop="taskEndTime "
           :show-overflow-tooltip="true"
-        >
-          <template #default="scope">
-            <span>{{ transTypeDic(scope.row._source.severity) }}</span>
-          </template>
-        </el-table-column>
+        />
         <el-table-column
-          label="审计后缺陷总数"
+          label="任务状态"
           align="center"
-          prop="_source.event_format"
+          prop="taskStatus"
           :show-overflow-tooltip="true"
-        >
-          <template #default="scope">
-            <span>{{ transType(scope.row._source.event_format) }}</span>
-          </template>
-        </el-table-column>
+        />
+        <el-table-column
+          label="检测人"
+          align="center"
+          prop="userName"
+          :show-overflow-tooltip="true"
+        />
         <el-table-column
           label="操作"
           align="center"
@@ -156,7 +139,7 @@
           width="180"
         >
           <template #default="{ row }">
-            <el-button size="mini" type="text" @click="detail(row._source)"
+            <el-button size="mini" type="text" @click="detail(row.taskId)"
               >详情</el-button
             >
           </template>
@@ -189,62 +172,62 @@
           <el-row>
             <el-col :span="8">
               <el-form-item label="任务名称 :">
-                {{ detailData.name }}
+                <!-- {{ detailData.taskVO.taskname }} -->
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item label="任务类型 :">
-                {{ detailData.ipAddress }}
+                <!-- {{ detailData.taskVO.taskType }} -->
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item label="检测语言 :">
-                {{ detailData.assetModel }}
+                {{ detailData.language }}
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item label="检测开始时间 :">
-                {{ detailData.assetName }}
+                {{ detailData.invokeEngineTime }}
               </el-form-item>
             </el-col>
             <el-col :span="8">
-              <el-form-item label="检测完成时间 :">
-                {{ detailData.assetType }}
+              <el-form-item label="检测结束时间 :">
+                {{ detailData.taskEndTime  }}
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item label="检测出缺陷总数 :">
-                {{ detailData.manufacturer }}
+                {{ detailData.problemNum }}
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item label="高危缺陷总数 :">
-                {{ detailData.assetValue }}
+                {{ detailData.problemNum5 }}
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item label="中危缺陷总数 :">
-                {{ detailData.assetTag }}
+                {{ detailData.problemNum3 }}
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item label="低危缺陷总数 :">
-                {{ detailData.Asset_description }}
+                {{ detailData.problemNum1 }}
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item label="审计后的高危缺陷总数 :">
-                {{ detailData.assetDescription }}
+                {{ detailData.auditProblemNum5 }}
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item label="审计后的中危缺陷总数 :">
-                {{ detailData.runSoftware }}
+                {{ detailData.auditProblemNum3 }}
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item label="审计后的低危缺陷总数 :">
-                {{ detailData.db }}
+                {{ detailData.auditProblemNum1 }}
               </el-form-item>
             </el-col>
             <el-col :span="8">
@@ -263,46 +246,47 @@
         >
           <el-row>
             <el-col :span="8">
+              <el-form-item label="源码名称 :">{{detailData.codeName}} </el-form-item>
+            </el-col>
+            <el-col :span="8">
               <el-form-item label="检测对象大小 :">
-                {{ detailData.assetGroup }}
+                {{ detailData.zipSize }}
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item label="检测对象文件数量 :">
-                {{ detailData.assetGroup }}</el-form-item
+                {{ detailData.fileNum }}</el-form-item
               >
             </el-col>
             <el-col :span="8">
-              <el-form-item label="总行数 :">
-                {{ detailData.assetGroup }}
-              </el-form-item>
-            </el-col>
-            <el-col :span="8">
               <el-form-item label="代码行数 :">
-                {{ detailData.assetGroup }}
+                {{ detailData.codeRownum }}
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item label="空行数 :">
-                {{ detailData.assetGroup }}
+                {{ detailData.blankRownum }}
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item label="混合行 :">
-                {{ detailData.assetGroup }}
+                {{ detailData.codeAndCommentRow }}
+              </el-form-item>
+            </el-col>
+            <el-col :span="8">
+              <el-form-item label="总行数 :">
+                {{ detailData.rowNum }}
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item label="方法数量 :">
-                {{ detailData.assetGroup }}
+                {{ detailData.funcNum }}
               </el-form-item>
             </el-col>
             <el-col :span="8">
-              <el-form-item label="类数量 :"> </el-form-item>
+              <el-form-item label="类数量 :"> {{ detailData.classNum }} </el-form-item>
             </el-col>
-            <el-col :span="8">
-              <el-form-item label="源码名称 :"> </el-form-item>
-            </el-col>
+           
           </el-row>
         </el-form>
         <div class="information">代码类型数量</div>
@@ -313,11 +297,11 @@
           class="label-type"
         >
           <el-row>
-            <el-col :span="8">
-              <el-form-item label="js :">
-                {{ detailData.assetGroup }}
+            <!-- <el-col :span="8">
+              <el-form-item label="data.fileTypeAndNum.key :">
+                {{data.fileTypeAndNum.value}}
               </el-form-item>
-            </el-col>
+            </el-col> -->
             <el-col :span="8">
               <el-form-item label="html :">
                 {{ detailData.assetGroup }}</el-form-item
@@ -333,38 +317,38 @@
         <div class="information">缺陷详情</div>
         <el-table :data="groupDefectList" style="width: 100%">
           <el-table-column
-            label="缺陷类型"
+            label="文件类型"
             align="center"
-            prop="assetName"
+            prop="fileType"
             :show-overflow-tooltip="true"
           />
           <el-table-column
             label="文件名称"
             align="center"
-            prop="ip"
+            prop="fileName"
             :show-overflow-tooltip="true"
           />
           <el-table-column
-            label="文件类型"
+            label="规则类型"
             align="center"
-            prop="ipType"
+            prop="ruleType"
             :show-overflow-tooltip="true"
           />
           <el-table-column
             label="规则名称"
             align="center"
-            prop="applicationProtocol"
+            prop="ruleName"
             :show-overflow-tooltip="true"
           />
-          <el-table-column label="缺陷等级" align="center" prop="eventLevel" />
+          <el-table-column label="缺陷等级" align="center" prop="bugLevel" />
           <el-table-column
             label="操作"
             align="center"
             class-name="small-padding fixed-width"
             width="180"
           >
-            <template>
-              <el-button size="mini" type="text" @click="defectDetail()"
+            <template #default="{ row }">
+              <el-button size="mini" type="text" @click="defectDetail(row.taskId,row.bugId)"
                 >详情</el-button
               >
             </template>
@@ -398,47 +382,47 @@
           <el-row>
             <el-col :span="12">
               <el-form-item label="缺陷类型 :">
-                {{ detailData.name }}
+                {{ defectDetail.domainType }}
               </el-form-item>
             </el-col>
             <el-col :span="12">
               <el-form-item label="缺陷等级 :">
-                {{ detailData.ipAddress }}
+                {{ defectDetail.bugLevel }}
               </el-form-item>
             </el-col>
             <el-col :span="12">
               <el-form-item label="规则名称 :">
-                {{ detailData.assetModel }}
+                {{ defectDetail.ruleName }}
               </el-form-item>
             </el-col>
             <el-col :span="12">
               <el-form-item label="缺陷起始行 :">
-                {{ detailData.assetName }}
+                {{ defectDetail.bugBeginline }}
               </el-form-item>
             </el-col>
             <el-col :span="12">
               <el-form-item label="缺陷结束行 :">
-                {{ detailData.assetType }}
+                {{ defectDetail.bugEndline }}
               </el-form-item>
             </el-col>
             <el-col :span="12">
               <el-form-item label="缺陷起始列 :">
-                {{ detailData.manufacturer }}
+                {{ defectDetail.bugBegincol }}
               </el-form-item>
             </el-col>
             <el-col :span="12">
               <el-form-item label="缺陷结束列 :">
-                {{ detailData.assetValue }}
+                {{ defectDetail.bugEndcol }}
               </el-form-item>
             </el-col>
             <el-col :span="12">
               <el-form-item label="缺陷描述 :">
-                {{ detailData.manufacturer }}
+                {{ defectDetail.dsp }}
               </el-form-item>
             </el-col>
             <el-col :span="24">
               <el-form-item label="修复建议 :">
-                {{ detailData.assetValue }}
+                {{ defectDetail.adv }}
               </el-form-item>
             </el-col>
           </el-row>
@@ -457,16 +441,18 @@
 </template>
 
 <script>
-import { getApplicationManagementData } from "@/utils/request";
+import { getApplicationManagementData, getApplicationManagementDetailData, getApplicationManagementDetailTable,getApplicationManagementDefectDetail } from "@/utils/request";
 import { getFirewallAccessControlEventData } from "@/utils/request";
 import { industryList } from "@/api/system/list";
 export default {
   name: "Online",
   data() {
     return {
+      rangeTime: undefined,
       from: 1,
       title: "",
       detailData: {},
+      defectDetail:{},
       detailDialog: false,
       defectDetailDialog: false,
       // 遮罩层
@@ -486,13 +472,13 @@ export default {
       // 分组表格数据
       groupList: [],
       groupDefectList: [
-        {
-          assetName: "未使用变量",
-          ip: "eval.js",
-          ipType: "javascript",
-          applicationProtocol: "JavaScript劫持",
-          eventLevel: "高危",
-        },
+        // {
+        //   assetName: "未使用变量",
+        //   ip: "eval.js",
+        //   ipType: "javascript",
+        //   applicationProtocol: "JavaScript劫持",
+        //   eventLevel: "高危",
+        // },
       ],
       List: [],
       pageNum: 1,
@@ -502,9 +488,23 @@ export default {
         authoratun: 'Basic base64encode("admin111"+":"+"123456")',
       },
       queryAuthorization: "",
-      queryParams: {
-        pageIndex: 1,
-        pageSize: 10,
+      queryParams: { 
+       conditions: {
+        "taskName": "",
+        "taskType":"",
+        "language":"",
+        "addStart": "",
+        "addEnd": "",
+       },
+       page: {
+        "pageIndex": 0,
+        "pageSize": 10,
+        // "checkType": 0
+       }
+      },
+      queryQueryParams:{
+        pageIndex:0,
+        pageSize:10
       },
       levelOptions: [
         {
@@ -605,9 +605,15 @@ export default {
       // this.loading = true;
       // const res = await applicationManagementList(this.queryParams);
       // const res = await ("/codesafeapi/quickcheck", this, queryParams);
-      getApplicationManagementData(this.queryParams).then((res) => {
-        console.log("res-4-28", res);
-      });
+
+      let Base64 = require("js-base64").Base64;
+      var authorizationValue =
+        "Basic " + Base64.encode("wuzhigang" + ":" + "Admin@12345!");
+      await getApplicationManagementData(this.queryParams, authorizationValue).then(
+        (res) => {
+          console.log("res-4-28", res);
+        }
+      );
 
       // this.groupList = res.rows;
       // this.total = res.total;
@@ -728,15 +734,20 @@ export default {
     /** 重置按钮操作 */
     resetQuery() {
       this.queryParams = {
-        detail_src_ip: "",
-        detail_dst_ip: "",
-        location: "",
-        ev_wsec_infe_application_layer_protocol: "",
-        procedure: "",
-        severity: "",
-        event_format: "",
-        date: [],
-      };
+       conditions: {
+        "taskName": "",
+        "taskType":"",
+        "language":"",
+        "addStart": "",
+        "addEnd": "",
+       },
+       page: {
+        "pageIndex": 0,
+        "pageSize": 10,
+        // "checkType": 0
+       }
+    },
+      this.rangeTime = []
       this.getTableList();
     },
     // 取消按钮
@@ -749,21 +760,34 @@ export default {
       this.detailDialog = false;
       this.defectDetailDialog = false;
     },
-    async detail(row) {
-      // const { data } = await industrialNetworkAuditDetail(row)
-      this.detailData = row;
+    async detail(id) {
+      const { data } = await getApplicationManagementDetailData(id)
+      console.log('data',data)
+      this.detailData = data;
       this.detailDialog = true;
       this.title = "事件详情";
-      this.detailData.severity = this.transTypeDic(this.detailData.severity);
-      this.detailData.event_format = this.transType(
-        this.detailData.event_format
+      // const { dataTalbe } = await getApplicationManagementDetailTable(id)
+       await getApplicationManagementDetailTable(id,this.queryQueryParams).then(
+        (res) => {
+          console.log("res-5-7", res);
+         this.groupDefectList = res.data
+        }
       );
+      console.log('dataTalbe',dataTalbe)
     },
-    async defectDetail(row) {
+    async defectDetail(taskId,bugId) {
+      const { data } = await getApplicationManagementDefectDetail(taskId,bugId)
+      console.log('data',data)
+      this.defectDetail = data
       this.defectDetailData = row;
       this.defectDetailDialog = true;
       this.title = "缺陷详情";
     },
+    setTimeList(values) {
+      const [projectDevelopDate, projectEndDate] = [...values]
+      this.queryParams.conditions.addStart = projectDevelopDate
+      this.queryParams.conditions.addEnd = projectEndDate
+    }
   },
 };
 </script>

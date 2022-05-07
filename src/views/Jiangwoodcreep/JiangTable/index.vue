@@ -190,6 +190,12 @@
         prop="_source.event_name"
         :show-overflow-tooltip="true"
       />
+       <!-- <el-table-column
+        label="威胁分类"
+        align="center"
+        prop="_source.ev_ksec_threatFlag"
+        :show-overflow-tooltip="true"
+      /> -->
       <el-table-column
         label="威胁分类"
         align="center"
@@ -647,7 +653,7 @@ export default {
           value: "Botnet",
         },
         {
-          label: "网络木马",
+          label: "远控木马",
           value: "Trojan",
         },
         {
@@ -657,6 +663,22 @@ export default {
         {
           label: "恶意链接",
           value: "URL_malware",
+        },
+         {
+          label: "挖矿木马",
+          value: "Mining",
+        },
+        {
+          label: "勒索软件",
+          value: "Ransomware",
+        },
+        {
+          label: "间谍软件",
+          value: "Spyware",
+        },
+        {
+          label: "WEBSHELL",
+          value: "Webshell",
         },
       ];
       const orgTreeData = t

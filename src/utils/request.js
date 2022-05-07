@@ -78,14 +78,41 @@ export const getManagementThreatEventsData = params => {
   return axios.post(`${baseManagementThreatEvents}`, params)
 }
 
-//代码审计事件
-const baseapplicationManagement = '/codesafeapi/codesafeapi/quickcheck'
+//代码审计事件---列表
+const baseapplicationManagement = 'https://10.201.72.99/codesafeapi/quickcheck'
 
-export const getApplicationManagementData = params => {
-  return axios.post(`${baseapplicationManagement}`,params)
+export const getApplicationManagementData = (params,authorizationValue) => {
+  return axios.post(`${baseapplicationManagement}`, params,
+  {headers:
+    {
+      Authorization: authorizationValue
+    }
+  })
 }
+//代码审计事件---详情
+const baseapplicationManagementDetail = 'https://10.201.72.99/codesafeapi/result'
+
+export const getApplicationManagementDetailData = (taskId) => {
+  return axios.get(`${baseapplicationManagementDetail/taskId}`)
+}
+
+//代码审计事件---详情---列表
+const baseapplicationManagementDetailTable = 'https://10.201.72.99/codesafeapi/result'
+
+export const getApplicationManagementDetailTable = (taskId,params) => {
+  return axios.get(`${baseapplicationManagementDetailTable/taskId/bug}`,params)
+}
+//代码审计事件---缺陷详情
+const baseapplicationManagementDefectDetail = 'https://10.201.72.99/codesafeapi/result'
+
+export const getApplicationManagementDefectDetail = (taskId,bugId) => {
+  return axios.get(`${baseapplicationManagementDefectDetail/taskId/bug/bugId}`)
+}
+
+
 // axios.defaults.headers['Content-Type'] = 'Basic base64encode(wuzhigang +":"+Admin@12345！)'
 axios.defaults.headers['Content-Type'] = 'application/json;charset=utf-8'
+// axios.defaults.headers['Authorization'] = 'authorizationValue'
 // 创建axios实例
 const service = axios.create({
   // axios中请求配置有baseURL选项，表示请求URL公共部分
