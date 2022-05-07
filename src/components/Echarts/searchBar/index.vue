@@ -28,24 +28,6 @@
       <el-col :span="3">
         <el-form-item label-width="1px" label="">
           <el-select
-            v-model="formData.date"
-            placeholder="请选择时间"
-            clearable
-            :style="{ width: '100%' }"
-          >
-            <el-option
-              v-for="(item, index) in dateOptions"
-              :key="index"
-              :label="item.label"
-              :value="item.value"
-              :disabled="item.disabled"
-            />
-          </el-select>
-        </el-form-item>
-      </el-col>
-      <el-col :span="3">
-        <el-form-item label-width="1px" label="">
-          <el-select
             v-model="formData.severity"
             placeholder="请选择等级"
             clearable
@@ -78,18 +60,12 @@ export default {
     return {
       formData: {
         location: "",
-        date: "",
+         beginGenerationTime:this.getdate(2)[0],
+          endGenerationTime:this.getdate(2)[1],
         severity: "",
       },
       rules: {
         address: [
-          {
-            required: true,
-            message: "",
-            trigger: "change",
-          },
-        ],
-        date: [
           {
             required: true,
             message: "",
@@ -126,20 +102,6 @@ export default {
           value: 6,
         },
       ],
-      dateOptions: [
-        {
-          label: "最近一天",
-          value: 1,
-        },
-        {
-          label: "最近7天",
-          value: 2,
-        },
-        {
-          label: "最近30天",
-          value: 3,
-        },
-      ],
       severityOption: [
         {
           label: "致命",
@@ -173,21 +135,6 @@ export default {
           this.getdata();
         } else {
           return;
-        }
-      },
-    },
-    "formData.date": {
-      deep: true,
-      handler(val, oldVal) {
-        console.log("val", val);
-        if (val !== oldVal && val) {
-          this.formData.beginGenerationTime = this.getdate(val)[0];
-          this.formData.endGenerationTime = this.getdate(val)[1];
-          this.getdata();
-        } else {
-          this.formData.beginGenerationTime = "";
-          this.formData.endGenerationTime = "";
-          this.getdata();
         }
       },
     },
@@ -262,7 +209,6 @@ export default {
     },
     getdata() {
       this.$emit("getquery", {
-        date: this.formData.date,
         location: this.formData.location,
         beginGenerationTime: this.formData.beginGenerationTime,
         endGenerationTime: this.formData.endGenerationTime,
