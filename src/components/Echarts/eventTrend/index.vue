@@ -77,14 +77,6 @@ export default {
           } else {
             this.queryParms.location = "";
           }
-
-          if (val.beginGenerationTime && val.endGenerationTime) {
-            this.queryParms.beginTime = val.beginGenerationTime;
-            this.queryParms.endTime = val.endGenerationTime;
-          } else {
-            this.queryParms.beginTime = "";
-            this.queryParms.endTime = "";
-          }
           this.getData();
           this.drawPolicitalStatus();
         }
