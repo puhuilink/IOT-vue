@@ -45,14 +45,16 @@ export default {
       queryParms: {
         query: {
           bool: {
-            must: [{
+            must: [
+              {
               range: {
                 generationTime: {
                  gte: this.getdate(2)[0],
                   lte: this.getdate(2)[1],
                 },
               },
-            }],
+            }
+            ],
           },
         },
         aggs: {
@@ -170,35 +172,55 @@ export default {
       return arrNew;
     },
     async getData() {
-      if (this.host) {
-        await getHostSecurityData(this.queryParms).then(({ data }) => {
-          this.hasData = data.aggregations.field.buckets;
-          this.datacopy = this.transDic(data.aggregations.field.buckets);
-          this.queryParms.query.bool.must = [];
-        });
-      } else {
-        switch (this.name) {
-          case "Jiangwoodcreep":
-            await getbaseJiangTableData(this.queryParms).then(({ data }) => {
+    switch (this.name){
+      case "Jiangwoodcreep":
+         await getbaseJiangTableData(this.queryParms).then(({ data }) => {
               this.hasData = data.aggregations.field.buckets;
               this.datacopy = this.transDic(data.aggregations.field.buckets);
-              this.queryParms.query.bool.must = [];
+              this.queryParms.query.bool.must =  [{
+                  range: {
+                    generationTime: {
+                      gte: this.getdate(2)[0],
+                      lte: this.getdate(2)[1],
+                    },
+                  },
+                }];
             });
             break;
-          case "event":
+       case "host":
+         await getHostSecurityData(this.queryParms).then(({ data }) => {
+          this.hasData = data.aggregations.field.buckets;
+          this.datacopy = this.transDic(data.aggregations.field.buckets);
+          this.queryParms.query.bool.must =  [{
+                  range: {
+                    generationTime: {
+                      gte: this.getdate(2)[0],
+                      lte: this.getdate(2)[1],
+                    },
+                  },
+                }];
+        });
+        break;
+       case "event":
             await getManagementThreatEventsData(this.queryParms).then(
               ({ data }) => {
                 this.hasData = data.aggregations.field.buckets;
                 this.datacopy = this.transDic(data.aggregations.field.buckets);
-                this.queryParms.query.bool.must = [];
+                this.queryParms.query.bool.must =  [{
+                  range: {
+                    generationTime: {
+                      gte: this.getdate(2)[0],
+                      lte: this.getdate(2)[1],
+                    },
+                  },
+                }];
               }
             );
             break;
-          default:
-            console.log("这里是项目类型", this.address);
-            break;
-        }
-      }
+       default:
+          console.log("这里是项目类型", this.name);
+          break;
+    }
       this.drawPolicitalStatus();
     },
     drawPolicitalStatus() {
