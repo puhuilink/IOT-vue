@@ -387,7 +387,14 @@ export default {
                 this.datacopy = this.transTypeDic(
                   data.aggregations.field.buckets
                 );
-                this.queryParms.query.bool.must = [];
+                this.queryParms.query.bool.must =  [{
+                  range: {
+                    generationTime: {
+                      gte: this.getdate(2)[0],
+                      lte: this.getdate(2)[1],
+                    },
+                  },
+                }];
               });
               break;
             case "Jiangwoodcreep":
@@ -397,7 +404,14 @@ export default {
                 this.datacopy = this.transTypeDic(
                   data.aggregations.field.buckets
                 );
-                this.queryParms.query.bool.must = [];
+                this.queryParms.query.bool.must =  [{
+                  range: {
+                    generationTime: {
+                      gte: this.getdate(2)[0],
+                      lte: this.getdate(2)[1],
+                    },
+                  },
+                }];
               });
               break;
             //漏洞
@@ -419,7 +433,14 @@ export default {
                   this.datacopy = this.transTypeDic(
                     data.aggregations.field.buckets
                   );
-                  this.queryParms.query.bool.must = [];
+                   this.queryParms.query.bool.must =  [{
+                     range: {
+                       generationTime: {
+                         gte: this.getdate(2)[0],
+                         lte: this.getdate(2)[1],
+                      },
+                   },
+                }];
                 }
               );
               break;
@@ -430,7 +451,14 @@ export default {
                 this.datacopy = this.transTypeDic(
                   data.aggregations.field.buckets
                 );
-                this.queryParms.query.bool.must = [];
+                 this.queryParms.query.bool.must =  [{
+                  range: {
+                    generationTime: {
+                      gte: this.getdate(2)[0],
+                      lte: this.getdate(2)[1],
+                    },
+                  },
+                }];
               });
               break;
             case "design":
@@ -441,7 +469,14 @@ export default {
                   this.datacopy = this.transTypeDic(
                     data.aggregations.field.buckets
                   );
-                  this.queryParms.query.bool.must = [];
+                  this.queryParms.query.bool.must =  [{
+                  range: {
+                    generationTime: {
+                      gte: this.getdate(2)[0],
+                      lte: this.getdate(2)[1],
+                    },
+                  },
+                }];
                 }
               );
               break;
@@ -458,7 +493,14 @@ export default {
               await getbaseJiangTableData(this.queryParms).then(({ data }) => {
                 this.hasData = data.aggregations.field.buckets;
                 this.datacopy = this.transDic(data.aggregations.field.buckets);
-                this.queryParms.query.bool.must = [];
+                 this.queryParms.query.bool.must =  [{
+                  range: {
+                    generationTime: {
+                      gte: this.getdate(2)[0],
+                      lte: this.getdate(2)[1],
+                    },
+                  },
+                }];
               });
               break;
             case "weakPassword":
@@ -466,7 +508,14 @@ export default {
               await getWeakPasswordData(this.queryParms).then(({ data }) => {
                 this.hasData = data.aggregations.field.buckets;
                 this.datacopy = this.transDic(data.aggregations.field.buckets);
-                this.queryParms.query.bool.must = [];
+                 this.queryParms.query.bool.must =  [{
+                  range: {
+                    generationTime: {
+                      gte: this.getdate(2)[0],
+                      lte: this.getdate(2)[1],
+                    },
+                  },
+                }];
               });
               break;
             case "vulnerablity":
@@ -484,7 +533,14 @@ export default {
               await getHostSecurityData(this.queryParms).then(({ data }) => {
                 this.hasData = data.aggregations.field.buckets;
                 this.datacopy = this.transDic(data.aggregations.field.buckets);
-                this.queryParms.query.bool.must = [];
+                 this.queryParms.query.bool.must =  [{
+                  range: {
+                    generationTime: {
+                      gte: this.getdate(2)[0],
+                      lte: this.getdate(2)[1],
+                    },
+                  },
+                }];
               });
               break;
 
@@ -503,7 +559,14 @@ export default {
                   this.datacopy = this.transDic(
                     data.aggregations.field.buckets
                   );
-                  this.queryParms.query.bool.must = [];
+                this.queryParms.query.bool.must =  [{
+                  range: {
+                    generationTime: {
+                      gte: this.getdate(2)[0],
+                      lte: this.getdate(2)[1],
+                    },
+                  },
+                }];
                 }
               );
               break;
@@ -520,7 +583,14 @@ export default {
               await getHostSecurityData(this.queryParms).then(({ data }) => {
                 this.hasData = data.aggregations.field.buckets;
                 this.datacopy = this.transDic(data.aggregations.field.buckets);
-                this.queryParms.query.bool.must = [];
+                this.queryParms.query.bool.must =  [{
+                  range: {
+                    generationTime: {
+                      gte: this.getdate(2)[0],
+                      lte: this.getdate(2)[1],
+                    },
+                  },
+                }];
               });
               break;
             case "dataSafe":
@@ -537,7 +607,14 @@ export default {
                     data.aggregations.field.buckets,
                     1
                   );
-                  this.queryParms.query.bool.must = [];
+                this.queryParms.query.bool.must =  [{
+                  range: {
+                    generationTime: {
+                      gte: this.getdate(2)[0],
+                      lte: this.getdate(2)[1],
+                    },
+                  },
+                }];
                 }
               );
               break;
@@ -549,7 +626,14 @@ export default {
                   this.datacopy = this.transType(
                     data.aggregations.field.buckets
                   );
-                  this.queryParms.query.bool.must = [];
+                this.queryParms.query.bool.must =  [{
+                  range: {
+                    generationTime: {
+                      gte: this.getdate(2)[0],
+                      lte: this.getdate(2)[1],
+                    },
+                  },
+                }];
                 }
               );
               break;
@@ -568,7 +652,14 @@ export default {
                   this.datacopy = this.transType(
                     data.aggregations.field.buckets
                   );
-                  this.queryParms.query.bool.must = [];
+                this.queryParms.query.bool.must =  [{
+                  range: {
+                    generationTime: {
+                      gte: this.getdate(2)[0],
+                      lte: this.getdate(2)[1],
+                    },
+                  },
+                }];
                 }
               );
               break;

@@ -113,64 +113,10 @@ export function downloadAction(id) {
     params:{
       path:id
     },
-    responseType: "blob", //这行必写
+    responseType: "arraybuffer", //这行必写
     headers: { "Content-Type": "multipart/form-data" } //这行必写
   })
 }
-// export function downloadAction(url, method, parameter, filename, type) {
-//   return request({
-//     url: url,
-//     method: method,
-//     params: parameter,
-//     responseType: 'blob'
-//   }).then(response => {
-//     if (type) {
-//       response = response.slice(0, response.size, type)
-//     }
-//     if ((response.type || '').includes('application/json')) {
-//       const reader = new FileReader()
-//       reader.onload = e => {
-//         if (e.target.readyState === 2) {
-//           let res = {}
-//           res = JSON.parse(e.target.result)
-//           const message = res.msg
-//           if (status !== 200 || (res && res.code && res.code !== 200)) {
-//             if (status === 500 || (res && res.code && res.code === 500)) {
-//               Message.error(message)
-//               return Promise.reject(message)
-//             } else {
-//               Message.warning(message)
-//               return Promise.reject(message)
-//             }
-//           }
-//           Message.error(res.msg)
-//         }
-//       }
-//       reader.readAsText(response)
-//     } else {
-//       filename = decodeURI(filename)
-//       if (typeof window.navigator.msSaveBlob !== 'undefined') {
-//         window.navigator.msSaveBlob(response, filename)
-//       } else {
-//         var blobURL = window.URL.createObjectURL(response)// 将blob对象转为一个URL
-//         var tempLink = document.createElement('a')// 创建一个a标签
-//         tempLink.style.display = 'none'
-//         tempLink.href = blobURL
-//         tempLink.setAttribute('download', filename)// 给a标签添加下载属性
-//         if (typeof tempLink.download === 'undefined') {
-//           tempLink.setAttribute('target', '_blank')
-//         }
-//         document.body.appendChild(tempLink)// 将a标签添加到body当中
-//         tempLink.click()// 启动下载
-//         document.body.removeChild(tempLink)// 下载完毕删除a标签
-//         window.URL.revokeObjectURL(blobURL)
-//       }
-//     }
-//   }).catch((error) => {
-//     console.log(error)
-//   })
-// }
-
 // 通报管理
 export function notificationList(query) {
   return request({

@@ -606,40 +606,12 @@ export default {
     },
     async preview(id) {
       await downloadAction(id) .then((res) => {
-          const blob = new Blob([res], {
-            type: "application/pdf;chartset=UTF-8",
-          });
-          const a = document.createElement("a");
-          const URL = window.URL || window.webkitURL;
-          const herf = URL.createObjectURL(blob);
-          a.href = herf;
-          a.download = this.fileName;
-          document.body.appendChild(a);
-          a.click();
-          document.body.removeChild(a);
-          window.URL.revokeObjectURL(herf);
+           const binaryData = [];
+         binaryData.push(res);
+        //获取blob链接
+        this.pdfUrl = window.URL.createObjectURL(new Blob(binaryData, { type: 'application/pdf' }));
+        window.open(this.pdfUrl);
         })
-        .catch((err) => {
-          // 创建blob对象，解析流数据
-          const blob = new Blob([err], {
-            // 如何后端没返回下载文件类型，则需要手动设置：type: 'application/pdf;chartset=UTF-8' 表示下载文档为pdf，如果是word则设置为msword，excel为excel
-            type: "application/pdf;chartset=UTF-8",
-          });
-          const a = document.createElement("a");
-          // 兼容webkix浏览器，处理webkit浏览器中href自动添加blob前缀，默认在浏览器打开而不是下载
-          const URL = window.URL || window.webkitURL;
-          // 根据解析后的blob对象创建URL 对象
-          const herf = URL.createObjectURL(blob);
-          // 下载链接
-          a.href = herf;
-          // 下载文件名,如果后端没有返回，可以自己写a.download = '文件.pdf'
-          a.download = this.fileName;
-          document.body.appendChild(a);
-          a.click();
-          document.body.removeChild(a);
-          // 在内存中移除URL 对象
-          window.URL.revokeObjectURL(herf);
-    })
     },
     toPdf() {
       this.getPdfFromHtml(this.$refs.pdfs, "测试")

@@ -154,7 +154,14 @@ export default {
           await getWeakPasswordData(this.queryParms).then(({ data }) => {
             this.hasData = data.aggregations.field.buckets;
             this.data1 = this.transDic(data.aggregations.field.buckets);
-            this.queryParms.query.bool.must = [];
+            this.queryParms.query.bool.must =  [{
+                  range: {
+                    generationTime: {
+                      gte: this.getdate(2)[0],
+                      lte: this.getdate(2)[1],
+                    },
+                  },
+                }];
           });
           break;
         default:

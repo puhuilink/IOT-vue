@@ -170,7 +170,7 @@
         <el-table-column
           label="目的IP"
           align="center"
-          prop="_source.ev_com_socket_src_port"
+          prop="_source.ev_com_socket_dst_ip"
           :show-overflow-tooltip="true"
         />
         <el-table-column
