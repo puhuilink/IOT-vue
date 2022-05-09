@@ -66,6 +66,8 @@ export default {
       assetsData: [],
       querys: {
         severity: "",
+        beginGenerationTime:this.getdate(2)[0],
+        endGenerationTime:this.getdate(2)[1],
         location: "",
       },
       queryParms: {
