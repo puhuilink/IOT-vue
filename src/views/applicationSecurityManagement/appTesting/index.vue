@@ -121,8 +121,11 @@
           将文件拖到此处，或
           <em>点击上传</em>
         </div>
-        <div slot="tip" class="el-upload__tip" style="color:red">提示：仅允许导入“pdf”格式文件！且必须选择所属区域</div>
+        <!-- <div slot="tip" class="el-upload__tip" style="color:#ffaf37">提示：仅允许导入“pdf”格式文件！且必须选择所属区域</div> -->
+       
       </el-upload> 
+       <div  class="fileFormat"><filetip :content="'提示：仅允许导入“pdf”格式文件！且必须选择所属区域'" />
+      </div>
       <el-select
           v-model.trim="form.location"
           placeholder="请选择区域"
@@ -150,10 +153,16 @@ import { getHostSecurityData } from "@/utils/request";
 import { appTesting,uploadPdf,downloadAction } from "@/api/system/list";
 import eventType from "@/components/Echarts/eventType";
 import eventTrend from "@/components/Echarts/eventTrend";
+import Filetip from '@/components/FileTip/index.vue'
 
 export default {
-  components: { eventType, eventTrend },
-  props: [],
+  components: { eventType, eventTrend , Filetip },
+  props: [{
+     tipdesc: {// tip内容
+      default: '提示：仅允许导入“pdf”格式文件！且必须选择所属区域',
+      type: String
+    },
+  }],
   data() {
     return {
       // // 是否显示弹出层（用户导入）
@@ -631,175 +640,8 @@ export default {
 .export {
   margin-bottom: 10px;
 }
-// ::v-deep .el-dialog__body {
-//   padding: 0 !important;
-// }
-.contentBox {
-  width: 100%;
-  height: 100%;
-  border-top: 1px solid #ccc;
-  padding: 10px 20px;
-  .information {
-    text-align: center;
-    font-weight: bold;
-    font-size: 18px;
-    border-bottom: 2px solid #33ccff;
-    padding-top: 10px;
-    margin-bottom: 10px;
-  }
-  .dialog-footer {
-    margin-top: 10px;
-  }
-}
-.previewContentBox {
-  height: 80vh;
-  overflow: auto;
-  overflow-y: scroll;
-  overflow-x: hidden;
-  width: 100%;
-  // border-top: 1px solid #ccc;
-  padding: 10px 20px;
-  .firstBox {
-    height: 80px;
-    margin-right: 20px;
-    .right {
-      float: right;
-    }
-  }
-  .title {
-    font-size: 30px;
-    font-weight: bold;
-    text-align: center;
-    padding-bottom: 30px;
-  }
 
-  .imitate-table-border {
-    margin-left: 240px;
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    font-size: 14px;
-    width: 100%;
-    .table-border-right {
-      border: 1px solid #ebebeb;
-      border-bottom: none;
-      padding: 6px;
-      text-align: right;
-    }
 
-    .table-border-left {
-      border: 1px solid #ebebeb;
-      border-bottom: none;
-      border-left: none;
-      padding: 6px;
-      text-align: center;
-    }
-    .table-border-foot-right {
-      border: 1px solid #ebebeb;
-      padding: 6px;
-      text-align: right;
-    }
-
-    .table-border-foot-left {
-      border: 1px solid #ebebeb;
-      border-left: none;
-      padding: 6px;
-    }
-  }
-  .information {
-    text-align: center;
-    font-weight: bold;
-    font-size: 18px;
-    border-bottom: 2px solid #33ccff;
-    padding-top: 10px;
-    margin-bottom: 40px;
-    margin-top: 40px;
-  }
-  .echartsCss {
-    height: 400px;
-  }
-  .elcolCard {
-    .AssetsBox {
-      width: 180px;
-      height: 180px;
-      background: linear-gradient(180deg, #00bbeb 0%, #0085d2 100%);
-      .Assets {
-        text-align: center;
-        // padding: 10px 80px 10px 10px;
-        // border-bottom: 1px solid #fff;
-        color: #fff;
-        font-size: 38px;
-        height: 100px;
-        line-height: 150px;
-      }
-      .AssetsNumber {
-        width: 100%;
-        height: 60px;
-        // background-color: #5599ff;
-        color: #ffff77;
-        font-weight: 800;
-        font-size: 16px;
-        color: #fff;
-        text-align: center;
-        line-height: 30px;
-        // .left {
-        //   float: left;
-        // }
-        // .right {
-        //   float: right;
-        // }
-      }
-    }
-    .AssetsBoxOnline {
-      width: 180px;
-      height: 180px;
-      background: linear-gradient(180deg, #00bbeb 0%, #0085d2 100%);
-      .Assets {
-        text-align: center;
-        // padding: 10px 80px 10px 10px;
-        // border-bottom: 1px solid #fff;
-        color: #fff;
-        font-size: 38px;
-        height: 100px;
-        line-height: 150px;
-      }
-      .AssetsNumber {
-        width: 100%;
-        height: 100px;
-        // background-color: #5599ff;
-        // color: #ffff77;
-        // font-weight: 800;
-        font-size: 16px;
-        color: #fff;
-        text-align: center;
-        line-height: 30px;
-      }
-    }
-    .AssetsBoxType {
-      width: 180px;
-      height: 180px;
-      background: linear-gradient(180deg, #00bbeb 0%, #0085d2 100%);
-      .Assets {
-        text-align: center;
-        color: #fff;
-        font-size: 38px;
-        height: 100px;
-        line-height: 150px;
-      }
-      .AssetsNumber {
-        width: 100%;
-        height: 100px;
-        font-size: 16px;
-        color: #fff;
-        text-align: center;
-        line-height: 30px;
-      }
-    }
-  }
-  .dialog-footer {
-    margin-top: 10px;
-  }
-}
 ::v-deep .label-type {
   .el-form-item__label {
     color: #333;
