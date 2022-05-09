@@ -504,6 +504,25 @@ export default {
               break;
           }
           break;
+        // 事件管理---事件类型分布
+        case "event_class":
+          switch (this.name) {
+           case "event":
+              await getManagementThreatEventsData(this.queryParms).then(
+                ({ data }) => {
+                  this.hasData = data.aggregations.field.buckets;
+                  this.datacopy = this.transType(
+                    data.aggregations.field.buckets
+                  );
+                  this.queryParms.query.bool.must = [];
+                }
+              );
+              break;
+            default:
+              console.log("这里是项目类型", this.name);
+              break;
+          }
+          break;
         // 威胁分类
         case "top":
           switch (this.name) {
