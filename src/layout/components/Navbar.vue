@@ -1,7 +1,8 @@
 <template>
   <div class="navbar">
-    <hamburger id="hamburger-container" :is-active="sidebar.opened" class="hamburger-container" @toggleClick="toggleSideBar" />
-
+    <div class="hamburger-container">
+      <img src="@/assets/logo/logo_two.png" alt="" class="mylogo">
+    </div>
     <breadcrumb id="breadcrumb-container" class="breadcrumb-container" />
 
     <div class="right-menu">
@@ -40,14 +41,12 @@
 <script>
 import { mapGetters } from 'vuex'
 import Breadcrumb from '@/components/Breadcrumb'
-import Hamburger from '@/components/Hamburger'
 import Screenfull from '@/components/Screenfull'
 import SizeSelect from '@/components/SizeSelect'
 import Search from '@/components/HeaderSearch'
 export default {
   components: {
     Breadcrumb,
-    Hamburger,
     Screenfull,
     SizeSelect,
     Search
@@ -90,7 +89,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+ .mylogo {
+    height: 40px;
+    padding-left: 10px;
+    width:45px;
+  }
 .navbar {
+background: linear-gradient(90deg, #0056CB 0%, #B9D6FF 100%);
   height: 50px;
   overflow: hidden;
   position: relative;

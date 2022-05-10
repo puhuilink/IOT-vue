@@ -1,7 +1,7 @@
 <template>
-  <div class="app-container home">
+  <div class="home-container home">
 
-    <iframe id="mobsf" src="http://10.1.13.118:8003/#/previewScreen?id=2GZ4KU458_20220412075741" scrolling="no" frameborder="0" />
+    <iframe id="mobsf" src="/static/index.html" scrolling="no" frameborder="0" onload="adjustIframe()" />
 
   </div>
 </template>
@@ -20,11 +20,11 @@ export default {
    * iframe-宽高自适应显示
    */
     function changeMobsfIframe() {
-      const mobsf = document.getElementById('mobsf')
-      const deviceWidth = document.body.clientWidth
-      const deviceHeight = document.body.clientHeight
-      mobsf.style.width = (Number(deviceWidth) - 240) + 'px' // 数字是页面布局宽度差值
-      mobsf.style.height = (Number(deviceHeight) - 30) + 'px' // 数字是页面布局高度差
+      var ifm = document.getElementById('mobsf')
+
+      ifm.height = 1600 + 'px'
+
+      ifm.width = 1920 + 'px'
     }
 
     changeMobsfIframe()
@@ -34,6 +34,7 @@ export default {
     }
   },
   methods: {
+
     goTarget(href) {
       window.open(href, '_blank')
     }
@@ -42,5 +43,10 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.home-container {
+  margin-top: 20px;
+  margin-right: 20px;
+  margin-left: -10px;
+}
 </style>
 

@@ -1,8 +1,8 @@
 <template>
   <div :class="classObj" class="app-wrapper" :style="{'--current-color': theme}">
     <div v-if="device==='mobile'&&sidebar.opened" class="drawer-bg" @click="handleClickOutside" />
-    <sidebar class="sidebar-container" :style="{ backgroundColor: sideTheme === 'theme-dark' ? variables.menuBg : variables.menuLightBg }" />
-    <div :class="{hasTagsView:needTagsView}" class="main-container">
+    <sidebar v-if="!sidebar.hide" class="sidebar-container" />
+    <div :class="{hasTagsView:needTagsView,sidebarHide:sidebar.hide}" class="main-container">
       <div :class="{'fixed-header':fixedHeader}">
         <navbar />
         <tags-view v-if="needTagsView" />
@@ -55,7 +55,13 @@ export default {
       return variables
     }
   },
+  created() {
+    this.hideSidebar()
+  },
   methods: {
+    hideSidebar() {
+      this.$store.dispatch('app/toggleSideBarHide', true)
+    },
     handleClickOutside() {
       this.$store.dispatch('app/closeSideBar', { withoutAnimation: false })
     }
@@ -97,7 +103,9 @@ export default {
     width: calc(100% - #{$sideBarWidth});
     transition: width 0.28s;
   }
-
+.sidebarHide .fixed-header {
+    width: 100%;
+  }
   .hideSidebar .fixed-header {
     width: calc(100% - 54px)
   }

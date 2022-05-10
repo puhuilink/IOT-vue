@@ -35,7 +35,7 @@ export default {
       const first = matched[0]
 
       if (!this.isDashboard(first)) {
-        matched = [{ path: '/index', meta: { title: '我的工作台' }}].concat(matched)
+        matched = [{ path: '/index', meta: { title: '工业企业网络安全综合防护平台' }}].concat(matched)
       }
 
       this.levelList = matched.filter(item => item.meta && item.meta.title && item.meta.breadcrumb !== false)
@@ -45,7 +45,7 @@ export default {
       if (!name) {
         return false
       }
-      return name.trim() === '我的工作台'
+      return name.trim() === '工业企业网络安全综合防护平台'
     },
     handleLink(item) {
       const { redirect, path } = item
@@ -61,8 +61,14 @@ export default {
 
 <style lang="scss" scoped>
 .app-breadcrumb.el-breadcrumb {
+  width: 362px;
+height: 24px;
+font-size: 24px;
+font-family: MicrosoftYaHei;
+color: #FFFFFF;
+letter-spacing: 1px;
   display: inline-block;
-  font-size: 14px;
+  font-size: 24px;
   line-height: 50px;
   margin-left: 8px;
 

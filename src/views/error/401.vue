@@ -13,7 +13,7 @@
         <ul class="list-unstyled">
           <li class="link-type">
             <router-link to="/">
-              回我的工作台
+              回工业企业网络安全综合防护平台
             </router-link>
           </li>
         </ul>

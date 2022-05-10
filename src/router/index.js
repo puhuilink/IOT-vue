@@ -61,8 +61,8 @@ export const constantRoutes = [
       {
         path: 'index',
         component: (resolve) => require(['@/views/index'], resolve),
-        name: '我的工作台',
-        meta: { title: '我的工作台', icon: 'dashboard', noCache: true, affix: true }
+        name: '工业企业网络安全综合防护平台',
+        meta: { title: '工业企业网络安全综合防护平台', icon: 'dashboard', noCache: true, affix: true }
       }
     ]
   },
