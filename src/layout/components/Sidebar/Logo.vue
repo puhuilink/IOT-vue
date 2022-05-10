@@ -27,7 +27,7 @@ export default {
   },
   data() {
     return {
-      title: '安全监测子平台',
+      title: '工业企业网络综合防护平台',
       logo: logoImg
     }
   },
