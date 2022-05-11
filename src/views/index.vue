@@ -1,7 +1,7 @@
 <template>
   <div class="home-container home">
 
-    <iframe id="mobsf" src="/static/index.html" scrolling="no" frameborder="0" onload="adjustIframe()" />
+    <iframe ref="vueIframe" id="mobsf" src="/static/index.html" @load="loaded" scrolling="no" frameborder="0"  />
 
   </div>
 </template>
@@ -12,6 +12,7 @@ export default {
   data() {
     return {
       // 版本号
+      resultData:'www',
       version: '3.4.0'
     }
   },
@@ -19,6 +20,8 @@ export default {
     /**
    * iframe-宽高自适应显示
    */
+  this.iframeWin = this.$refs.vueIframe.contentWindow;
+
     function changeMobsfIframe() {
       var ifm = document.getElementById('mobsf')
 
@@ -34,7 +37,9 @@ export default {
     }
   },
   methods: {
-
+    loaded(){
+				this.iframeWin.postMessage(this.resultData,'*');
+			},
     goTarget(href) {
       window.open(href, '_blank')
     }
