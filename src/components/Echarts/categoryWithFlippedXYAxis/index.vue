@@ -47,7 +47,7 @@ export default {
             must: [
               {
               range: {
-                generationTime: {
+                "occur_time": {
                   gte: this.getdate(2)[0],
                   lte: this.getdate(2)[1],
                 },
@@ -200,7 +200,7 @@ export default {
               );
               this.queryParms.query.bool.must =  [{
                   range: {
-                    generationTime: {
+                    "occur_time": {
                       gte: this.getdate(2)[0],
                       lte: this.getdate(2)[1],
                     },

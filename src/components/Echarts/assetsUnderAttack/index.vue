@@ -49,7 +49,7 @@ export default {
             must: [
               {
               range: {
-                generationTime: {
+                "ev_msec_detail_start_time": {
                   gte: this.getdate(2)[0],
                   lte: this.getdate(2)[1],
                 },
@@ -194,7 +194,7 @@ export default {
         }
          this.queryParms.query.bool.must =  [{
               range: {
-                generationTime: {
+                "ev_msec_detail_start_time": {
                   gte: this.getdate(2)[0],
                   lte: this.getdate(2)[1],
                 },

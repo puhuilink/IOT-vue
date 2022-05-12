@@ -203,13 +203,13 @@ export default {
             this.date = d.date;
           });
         } else {
-          this.data1 = [];
+          this.data1 = [0,0,0,0,0,0,0];
         }
         const bbb = data.filter((e) => e.eventSeverity === "2");
         if (bbb.length) {
           bbb.map((d) => {
             this.data2 = d.data;
-            this.date = d.date;
+           this.data1 = [0,0,0,0,0,0,0];
           });
         } else {
           this.data2 = [];
@@ -218,7 +218,7 @@ export default {
         if (ccc.length) {
           ccc.map((d) => {
             this.data3 = d.data;
-            this.date = d.date;
+            this.data1 = [0,0,0,0,0,0,0];
           });
         } else {
           this.data3 = [];
@@ -227,7 +227,7 @@ export default {
         if (ddd.length) {
           ddd.map((d) => {
             this.data4 = d.data;
-            this.date = d.date;
+            this.data1 = [0,0,0,0,0,0,0];
           });
         } else {
           this.data4 = [];
@@ -236,7 +236,7 @@ export default {
         if (eee.length) {
           eee.map((d) => {
             this.data5 = d.data;
-            this.date = d.date;
+            this.data1 = [0,0,0,0,0,0,0];
           });
         } else {
           this.data5 = [];
