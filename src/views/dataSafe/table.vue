@@ -147,7 +147,7 @@
                   :style="{width: '100%'}"
                 >
                   <el-option
-                    v-for="(item, index) in disposalStatusOptions"
+                    v-for="(item, index) in statusOptions"
                     :key="index"
                     :label="item.label"
                     :value="item.label"
@@ -663,22 +663,27 @@ export default {
         'label': '天津管片厂',
         'value': 1
       }],
-      field114Options: [{
-        'label': '未处置',
-        'value': 1
-      }, {
-        'label': '处置中',
-        'value': 2
-      }, {
-        'label': '已处置',
-        'value': 2
-      }, {
-        'label': '已完成',
-        'value': 2
-      }, {
-        'label': '待处置',
-        'value': 6
-      }]
+      statusOptions: [ 
+        {
+          label: "待处置",
+          value: "待处置",
+        },
+        {
+          label: "处置中",
+          value: "处置中",
+        },
+        {
+          label: "已处置",
+          value: "已处置",
+        },
+        {
+          label: "误报",
+          value: "误报",
+        },
+        {
+          label: "不处置",
+          value: "不处置",
+        }]
     }
   },
   created() {
