@@ -7,12 +7,13 @@
 </template>
 
 <script>
+import { getToken } from '@/api/system/echarts'
 export default {
   name: 'Index',
   data() {
     return {
       // 版本号
-      resultData:'www',
+      resultData:'',
       version: '3.4.0'
     }
   },
@@ -36,7 +37,14 @@ export default {
       changeMobsfIframe()
     }
   },
+  created(){
+   this.getToken()
+  },
   methods: {
+   async getToken(){
+    const res = await getToken()
+   this.resultData = res
+    },
     loaded(){
 				this.iframeWin.postMessage(this.resultData,'*');
 			},
