@@ -94,6 +94,30 @@ export default {
           },
         },
       },
+      queryTimeParms: {
+        query: {
+          bool: {
+            must: [
+              {
+              range: {
+                "ev_msec_detail_start_time": {
+                  gte: this.getdate(2)[0],
+                  lte: this.getdate(2)[1],
+                },
+              },
+            }
+            ],
+          },
+        },
+        aggs: {
+          field: {
+            terms: {
+              field: this.type,
+              size: 10,
+            },
+          },
+        },
+      },
       hasData: [],
     };
   },
@@ -448,12 +472,13 @@ export default {
               break;
             case "statisticalSnalysis":
               // 入侵诱捕--事件等级分布
-              await getElasticDate(this.queryParms).then(({ data }) => {
+              await getElasticDate(this.queryTimeParms).then(({ data }) => {
+                // console.log
                 this.hasData = data.aggregations.field.buckets;
                 this.datacopy = this.transTypeDic(
                   data.aggregations.field.buckets
                 );
-                 this.queryParms.query.bool.must =  [{
+                 this.queryTimeParms.query.bool.must =  [{
                   range: {
                     "ev_msec_detail_start_time": {
                       gte: this.getdate(2)[0],
@@ -717,9 +742,80 @@ export default {
               break;
           }
           break;
-
-        default:
-          console.log("这里是项目类型", this.type);
+        // 资产管理---资产安全统计分析，目前都是假数据
+        case "assetType":
+          switch (this.name){
+           case "assetsOne":
+              this.hasData = [
+                { value: 3948, name: "主机" },
+                { value: 2514, name: "服务器" },
+                { value: 1699, name: "防火墙" },
+                { value: 1023, name: "网闸" },
+                { value: 362, name: "网关" },
+              ];
+              this.datacopy = [
+                { value: 3948, name: "主机" },
+                { value: 2514, name: "服务器" },
+                { value: 1699, name: "防火墙" },
+                { value: 1023, name: "网闸" },
+                { value: 362, name: "网关" },
+              ];
+              break;
+           case "assetsTwo":
+              this.hasData = [
+                { value: 3948, name: "Linux" },
+                { value: 2514, name: "Window 7" },
+                { value: 1699, name: "Window XP" },
+                { value: 1023, name: "Unix" },
+                { value: 362, name: "MAC OS" },
+              ];
+              this.datacopy = [
+                { value: 3948, name: "Linux" },
+                { value: 2514, name: "Window 7" },
+                { value: 1699, name: "Window XP" },
+                { value: 1023, name: "Unix" },
+                { value: 362, name: "MAC OS" },
+              ];
+              break;
+           case "assetsThree":
+              this.hasData = [
+                { value: 3948, name: "主机" },
+                { value: 2514, name: "服务器" },
+                { value: 1699, name: "防火墙" },
+                { value: 1023, name: "网闸" },
+                { value: 362, name: "网关" },
+              ];
+              this.datacopy = [
+                { value: 3948, name: "主机" },
+                { value: 2514, name: "服务器" },
+                { value: 1699, name: "防火墙" },
+                { value: 1023, name: "网闸" },
+                { value: 362, name: "网关" },
+              ];
+              break;
+           case "assetsFour":
+              this.hasData = [
+                { value: 3948, name: "S7" },
+                { value: 2514, name: "MODBUS" },
+                { value: 1699, name: "DNP3" },
+                { value: 1023, name: "IEC104" },
+                { value: 362, name: "MMS" },
+              ];
+              this.datacopy = [
+               { value: 3948, name: "S7" },
+                { value: 2514, name: "MODBUS" },
+                { value: 1699, name: "DNP3" },
+                { value: 1023, name: "IEC104" },
+                { value: 362, name: "MMS" },
+              ];
+              break;
+           default:
+              console.log("这里是项目类型", this.name);
+              break;
+           }
+          break;
+         default:
+           console.log("这里是项目类型", this.type);
           break;
       }
       this.drawPolicitalStatus();

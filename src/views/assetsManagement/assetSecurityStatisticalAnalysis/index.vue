@@ -51,27 +51,6 @@
           <div class="AssetsBoxType">
             <div class="Assets">资产类型</div>
             <div class="AssetsNumber">{{ this.AssetsType }}</div>
-            <!-- <div class="ITNumberBox">
-            <span class="IT">IT:</span>
-            <span class="ITNumber">{{ this.ITNumber }}</span>
-            <span class="IT">OT:</span>
-            <span class="ITNumber">{{ this.OTNumber }}</span>
-          </div> -->
-            <!-- <div class="OTNumber">
-            <span class="IT">0T:</span>
-            <span class="ITNumber">{{ this.AssetsType }}</span>
-          </div> -->
-            <!-- <div class="ITNumberBox">
-            <div class="left">
-              <span class="IT">IT:</span>
-              <span class="ITNumber">{{ this.ITNumber }}</span>
-
-            </div>
-            <div class="right">
-              <span class="OT">OT:</span>
-              <span class="OTNumber">{{ this.OTNumber }}</span>
-            </div>
-          </div> -->
           </div>
         </el-col>
         <el-col :span="4"
@@ -94,23 +73,23 @@
     <!-- <div style="height:300px;width:50%"> -->
     <eventType :query="query"
                :tipname="'IT资产类型分布'"
-               :type="1"
+               :type="'assetType'"
                :name="'assetsOne'" />
     <!-- </div> -->
     <!-- <div style="height:300px;width:50%"> -->
     <eventType :query="query"
                :tipname="'操作系统类型分布'"
-               :type="1"
+               :type="'assetType'"
                :name="'assetsTwo'" />
     <!-- </div> -->
 
     <eventType :query="query"
                :tipname="'OT资产类型分布'"
-               :type="1"
+               :type="'assetType'"
                :name="'assetsThree'" />
     <eventType :query="query"
                :tipname="'工业协议分布'"
-               :type="1"
+               :type="'assetType'"
                :name="'assetsFour'" />
 
     <!-- <div id="test1">

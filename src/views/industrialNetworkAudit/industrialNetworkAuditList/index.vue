@@ -151,7 +151,7 @@
         <el-table-column type="selection" width="55" align="center" />
 
         <el-table-column
-          label="产生时间"
+          label="发生时间"
           align="center"
           prop="_source.occur_time"
           :show-overflow-tooltip="true"
@@ -363,7 +363,7 @@
               </el-form-item>
             </el-col>
             <el-col :span="12">
-              <el-form-item label="产生时间：" prop="happen">
+              <el-form-item label="发生时间：" prop="happen">
                 <tooltip :content="detailData.occur_time" :length="20" />
               </el-form-item>
             </el-col>

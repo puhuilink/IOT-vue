@@ -505,24 +505,24 @@ export default {
       ],
       field114Options: [
         {
-          label: "未处置",
-          value: 1,
+          label: "待处置",
+          value: "待处置",
         },
         {
           label: "处置中",
-          value: 2,
+          value: "处置中",
         },
         {
           label: "已处置",
-          value: 2,
+          value: "已处置",
         },
         {
-          label: "已完成",
-          value: 2,
+          label: "误报",
+          value: "误报",
         },
         {
-          label: "待处置",
-          value: 6,
+          label: "不处置",
+          value: "不处置",
         },
       ],
       killle: [

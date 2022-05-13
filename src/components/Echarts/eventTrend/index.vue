@@ -209,37 +209,37 @@ export default {
         if (bbb.length) {
           bbb.map((d) => {
             this.data2 = d.data;
-           this.data1 = [0,0,0,0,0,0,0];
+            this.date = d.date;
           });
         } else {
-          this.data2 = [];
+          this.data2 = [0,0,0,0,0,0,0];
         }
         const ccc = data.filter((e) => e.eventSeverity === "3");
         if (ccc.length) {
           ccc.map((d) => {
             this.data3 = d.data;
-            this.data1 = [0,0,0,0,0,0,0];
+            this.date = d.date;
           });
         } else {
-          this.data3 = [];
+          this.data3 = [0,0,0,0,0,0,0];
         }
         const ddd = data.filter((e) => e.eventSeverity === "4");
         if (ddd.length) {
           ddd.map((d) => {
             this.data4 = d.data;
-            this.data1 = [0,0,0,0,0,0,0];
+            this.date = d.date;
           });
         } else {
-          this.data4 = [];
+          this.data4 = [0,0,0,0,0,0,0];
         }
         const eee = data.filter((e) => e.eventSeverity === "5");
         if (eee.length) {
           eee.map((d) => {
             this.data5 = d.data;
-            this.data1 = [0,0,0,0,0,0,0];
+            this.date = d.date;
           });
         } else {
-          this.data5 = [];
+          this.data5 = [0,0,0,0,0,0,0];
         }
       } else {
         this.data1 = [];
