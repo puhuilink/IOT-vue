@@ -73,7 +73,7 @@ letter-spacing: 1px;
   margin-left: 8px;
 
   .no-redirect {
-    color: #97a8be;
+    color: #FFFFFF;
     cursor: text;
   }
 }

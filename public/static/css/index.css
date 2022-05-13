@@ -1633,6 +1633,7 @@ position: absolute;
 .txt8 {
   width: 126px;
   height: 16px;
+  margin-left: -5px;
   overflow-wrap: break-word;
   color: rgba(255, 255, 255, 1);
   font-size: 14px;
