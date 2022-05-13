@@ -10,6 +10,7 @@
     <script type="text/javascript">
       window.addEventListener('message',function (msgEvent) {
         let token = msgEvent.data;
+        console.log(token);
         $('#name').attr('href','http://10.201.30.60:80/intelligence/login-with-params?username=jiance&token='+token+'&redirect=production-strategy');
         $('#name1').attr('href','http://10.201.30.60:80/intelligence/login-with-params?username=jiance&token='+token+'&redirect=manage-source');
         $('#name2').attr('href','http://10.201.30.60:80/intelligence/login-with-params?username=jiance&token='+token+'&redirect=production-strategy');
