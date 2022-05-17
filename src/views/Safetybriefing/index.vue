@@ -98,7 +98,7 @@
 
             <el-col :span="6">
               <el-form-item
-                label="时间："
+                label="上报时间："
                 prop="date"
               >
                 <el-time-picker

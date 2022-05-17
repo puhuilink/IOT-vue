@@ -16,7 +16,7 @@
               <el-form-item label="报告名称:" prop="fileName">
                 <el-input
                   v-model="queryParams.fileName"
-                  placeholder="请输入源IP地址"
+                  placeholder="请输入报告名称"
                   clearable
                   :style="{ width: '100%' }"
                   @keyup.enter.native="handleQuery"
@@ -24,7 +24,7 @@
               </el-form-item>
             </el-col>
            <el-col :span="6">
-              <el-form-item label="时间：" prop="date">
+              <el-form-item label="上传时间：" prop="date">
                 <el-date-picker
                   v-model="rangeTime"
                   size="small"
@@ -92,6 +92,9 @@
           <template #default="scope">
             <el-button size="mini" type="text" @click="preview(scope.row.pdfPath)"
               >预览
+            </el-button>
+            <el-button size="mini" type="text" 
+              >删除
             </el-button>
           </template>
         </el-table-column>

@@ -126,7 +126,7 @@ export default {
       var beforeseven = new Date();
       var thirty = new Date();
       myDate.setDate(myDate.getDate());
-      beforeseven.setDate(beforeseven.getDate() - 1 - 6);
+      beforeseven.setDate(beforeseven.getDate() - 6);
       thirty.setDate(thirty.getDate() - 1 - 29);
       if (type === 2) {
         return [

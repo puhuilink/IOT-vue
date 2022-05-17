@@ -8,7 +8,7 @@
       :search="'event_abbm'"
     />
     <eventType
-      :tipname="'事件等级分布'"
+      :tipname="'威胁分类分布'"
       :query="query"
       :name="'abnormal'"
       :type="'severity'"

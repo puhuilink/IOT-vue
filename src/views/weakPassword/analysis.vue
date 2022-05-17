@@ -66,10 +66,7 @@
           prop="severity"
         >
           <template #default="scope">
-            <span v-if="scope.row._source.severity == null || scope.row._source.severity == ''" />
-            <span v-else>{{
-              scope.row._source.severity
-            }}</span>
+           <span>{{ transTypeDic(scope.row._source.severity) }}</span>
           </template>
         </el-table-column>
 

@@ -120,7 +120,7 @@
               </el-form-item>
             </el-col>
             <el-col :span="6">
-              <el-form-item label="时间：" prop="date">
+              <el-form-item label="开始时间：" prop="date">
                 <el-date-picker
                   v-model.trim="queryParams.date"
                   size="small"
@@ -290,12 +290,14 @@
           </el-col>
           <el-col :span="8">
             <el-form-item label="事件类型 :">
-              {{ dataDetail.event_class }}
+              <tooltip :content="dataDetail.event_class" :length="20" />
+              <!-- {{ dataDetail.event_class }} -->
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="事件等级 :">
-              {{ dataDetail.severity }}
+              <tooltip :content="dataDetail.severity" :length="20" />
+              <!-- {{ dataDetail.severity }} -->
             </el-form-item>
           </el-col>
           <el-col :span="8">
@@ -305,22 +307,26 @@
           </el-col>
           <el-col :span="8">
             <el-form-item label="源IP :">
-              {{ dataDetail.detail_src_ip }}
+              <tooltip :content="dataDetail.detail_src_ip" :length="20" />
+              <!-- {{ dataDetail.detail_src_ip }} -->
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="目的IP :">
-              {{ dataDetail.detail_dst_ip }}
+              <tooltip :content="dataDetail.detail_dst_ip" :length="20" />
+              <!-- {{ dataDetail.detail_dst_ip }} -->
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="协议 :">
-              {{ dataDetail.detail_protocol }}
+              <tooltip :content="dataDetail.detail_protocol" :length="20" />
+              <!-- {{ dataDetail.detail_protocol }} -->
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="上报设备 :">
-              {{ dataDetail.agent }}
+              <tooltip :content="dataDetail.agent" :length="20" />
+              <!-- {{ dataDetail.agent }} -->
             </el-form-item>
           </el-col>
           <el-col :span="8">
@@ -335,22 +341,26 @@
           </el-col>
           <el-col :span="8">
             <el-form-item label="区域 :">
-              {{ dataDetail.location }}
+              <tooltip :content="dataDetail.location" :length="20" />
+              <!-- {{ dataDetail.location }} -->
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="处置状态 :">
-              {{ dataDetail.procedure }}
+              <tooltip :content="dataDetail.procedure" :length="20" />
+              <!-- {{ dataDetail.procedure }} -->
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="开始时间 :">
-              {{ dataDetail.occur_time }}
+              <tooltip :content="dataDetail.occur_time" :length="20" />
+              <!-- {{ dataDetail.occur_time }} -->
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="结束时间 :">
-              {{ dataDetail.close_time }}
+              <tooltip :content="dataDetail.close_time" :length="20" />
+              <!-- {{ dataDetail.close_time }} -->
             </el-form-item>
           </el-col>
         </el-row>
@@ -555,7 +565,7 @@ export default {
       }
     },
     async getTableList() {
-      this.addQuery(this.query, "location.keyword", this.queryParams.location);
+      this.addQuery(this.query, "location", this.queryParams.location);
 
       this.addQuery(this.query, "severity", this.queryParams.severity);
 
@@ -760,9 +770,10 @@ export default {
     },
     detail(row) {
       this.dataDetail = row;
-      // this.dataDetail.severity = this.transTypeDic(this.dataDetail.severity)
       this.open = true;
       this.title = "事件详情";
+      this.dataDetail.severity = this.transTypeDic(this.dataDetail.severity)
+      this.dataDetail.event_class = this.transClassDic(this.dataDetail.event_class)
     },
     // 取消按钮
     cancel() {

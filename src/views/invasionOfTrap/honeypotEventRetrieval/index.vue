@@ -8,7 +8,7 @@
             :model="queryParams"
             :rules="rules"
             size="mini"
-            label-width="90px"
+            label-width="120px"
             class="label-type"
             label-position="right"
           >
@@ -90,7 +90,7 @@
               </el-form-item>
             </el-col>
             <el-col :span="6">
-              <el-form-item label="时间：" prop="date">
+              <el-form-item label="开始攻击时间：" prop="date">
                 <el-date-picker
                   v-model="queryParams.date"
                   size="small"
@@ -104,8 +104,8 @@
                 />
               </el-form-item>
             </el-col>
-            <el-col :span="6">
-              <el-form-item size="mini">
+            <el-col :span="12">
+              <el-form-item size="mini" label-width="680px">
                 <el-button type="primary" @click="btnQuery">搜索</el-button>
                 <el-button @click="resetForm">重置</el-button>
               </el-form-item>
@@ -153,7 +153,7 @@
           :show-overflow-tooltip="true"
         >
           <template>
-            <span>{{ "中危" }}</span>
+            <!-- <span>{{ "中危" }}</span> -->
           </template>
         </el-table-column>
         <el-table-column
@@ -293,7 +293,7 @@
         <div slot="footer" class="dialog-footer">
           <el-row type="flex" justify="center">
             <el-button size="small" type="primary" @click="submitForm"
-              >确 定</el-button
+              >确 认</el-button
             >
             <el-button size="small" @click="cancel">取 消</el-button>
           </el-row>
