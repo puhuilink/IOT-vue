@@ -41,8 +41,8 @@ module.exports = {
       },
       // detail: https://cli.vuejs.org/config/#devserver-proxy
       [process.env.VUE_APP_BASE_API]: {
-        target: `http://192.168.2.103:8088`,
-        // target: `http://116.63.139.209:8088`,
+        // target: `http://192.168.2.103:8088`,
+        target: `http://116.63.139.209:10003/dev`,
         changeOrigin: true,
         pathRewrite: {
           ['^' + process.env.VUE_APP_BASE_API]: ''
