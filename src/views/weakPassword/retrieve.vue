@@ -100,7 +100,7 @@
               </el-form-item>
             </el-col>
             <el-col :span="6">
-              <el-form-item label="时间:" prop="date">
+              <el-form-item label="发生时间:" prop="date">
                 <el-date-picker
                   v-model.trim="queryParams.date"
                   size="small"
@@ -375,24 +375,28 @@ export default {
       ],
       areaOptions: [
         {
+          label: "天津管片厂",
+          value: "天津管片厂",
+        },
+        {
           label: "三亚海投轨交",
-          value: 1,
-        },
-        {
-          label: "珠海深中通道",
-          value: 2,
-        },
-        {
-          label: "山西三通燃气厂",
-          value: 1,
+          value: "三亚海投轨交",
         },
         {
           label: "北京城乡水厂",
-          value: 1,
+          value: "北京城乡水厂",
         },
         {
-          label: "天津管片厂",
-          value: 1,
+          label: "山西三通燃气厂",
+          value: "山西三通燃气厂",
+        },
+        {
+          label: "珠海深中通道",
+          value: "珠海深中通道",
+        },
+        {
+          label: "中国交建北京数据中心",
+          value: "中国交建北京数据中心",
         },
       ],
       disposalStatusOptions: [

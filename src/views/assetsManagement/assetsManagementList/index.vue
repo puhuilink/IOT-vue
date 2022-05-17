@@ -124,16 +124,15 @@
                 </el-select>
               </el-form-item>
             </el-col>
-            <el-col :span="6">
-              <el-form-item>
+            <el-col :span="12">
+              <el-form-item label-width="650px">
                 <el-button
                   type="primary"
-                  icon="el-icon-search"
                   size="mini"
                   @click="btnQuery"
                   >搜索</el-button
                 >
-                <el-button icon="el-icon-refresh" size="mini" @click="resetForm"
+                <el-button size="mini" @click="resetForm"
                   >重置</el-button
                 >
               </el-form-item>
@@ -174,7 +173,7 @@
     <el-card>
       <div style="height: 40px">
         <el-row type="flex" justify="left">
-          <el-button type="primary" class="export" size="mini">新增</el-button>
+          <el-button type="primary" class="export" size="mini" @click="handleAdd">新增</el-button>
           <el-upload
             :http-request="importExcel"
             accept=".xls, .xlsx, .doc, .docx, .pdf"
@@ -543,7 +542,7 @@
           :model="queryParams"
           :inline="true"
           class="label-type"
-          label-width="280px"
+          label-width="350px"
         >
           <el-form-item label="资产型号 :" prop="Asset_model">
             <el-input
@@ -936,7 +935,7 @@
   </div>
 </template>
 
-<script>
+<script>open
 // import { listEvent } from '@/api/system/category'
 import { assetList, uploadExcel } from "@/api/system/list";
 import chainStatistics from "@/components/Echarts/chainStatistics";
@@ -1259,6 +1258,9 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+.box-card{
+  margin-bottom: 20px;
+}
 .export {
   margin-bottom: 10px;
   margin-left: 10px;

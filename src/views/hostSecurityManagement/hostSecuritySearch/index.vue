@@ -111,7 +111,7 @@
               </el-form-item>
             </el-col>
             <el-col :span="6">
-              <el-form-item label="时间:" prop="date">
+              <el-form-item label="发生时间:" prop="date">
                 <el-date-picker
                   v-model="queryParams.date"
                   size="small"
@@ -381,7 +381,7 @@
         <div slot="footer" class="dialog-footer">
           <el-row type="flex" justify="center">
             <el-button size="small" type="primary" @click="submitForm"
-              >确 定</el-button
+              >确 认</el-button
             >
             <el-button size="small" @click="cancel">取 消</el-button>
           </el-row>
@@ -760,6 +760,9 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+.box-card{
+  margin-bottom: 20px;
+}
 .export {
   margin-bottom: 10px;
 }

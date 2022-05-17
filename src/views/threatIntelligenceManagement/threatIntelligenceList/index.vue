@@ -111,7 +111,7 @@
               </el-form-item>
             </el-col>
             <el-col :span="6">
-              <el-form-item label="时间:" prop="date">
+              <el-form-item label="发生时间:" prop="date">
                 <el-date-picker
                   v-model.trim="queryParams.date"
                   size="small"
@@ -144,8 +144,8 @@
                 </el-select>
               </el-form-item>
             </el-col>
-            <el-col :span="6">
-              <el-form-item size="mini">
+            <el-col :span="18"  >
+              <el-form-item size="mini"  label-width="1060px">
                 <el-button type="primary" @click="btnQuery">搜索</el-button>
                 <el-button @click="resetForm">重置</el-button>
               </el-form-item>
@@ -262,82 +262,146 @@
           <el-row>
             <el-col :span="12">
               <el-form-item label="APT组织 :">
-                {{ detailData.ev_ksec_aptOrganization }}
+                 <tooltip
+                  :content="detailData.ev_ksec_aptOrganization"
+                  :length="40"
+                />
+                <!-- {{ detailData.ev_ksec_aptOrganization }} -->
               </el-form-item>
             </el-col>
             <el-col :span="12">
               <el-form-item label="情报类型 :">
-                {{ detailData.ev_ksec_ioc_type }}
+                 <tooltip
+                  :content="detailData.ev_ksec_ioc_type"
+                  :length="40"
+                />
+                <!-- {{ detailData.ev_ksec_ioc_type }} -->
               </el-form-item>
             </el-col>
             <el-col :span="12">
               <el-form-item label="情报IOC :">
-                {{ detailData.ev_ksec_ioc }}
+                <tooltip
+                  :content="detailData.ev_ksec_ioc"
+                  :length="40"
+                />
+                <!-- {{ detailData.ev_ksec_ioc }} -->
               </el-form-item>
             </el-col>
             <el-col :span="12">
               <el-form-item label="事件等级 :">
-                {{ detailData.severity }}
+                 <tooltip
+                  :content="detailData.severity"
+                  :length="40"
+                />
+                <!-- {{ detailData.severity }} -->
               </el-form-item>
             </el-col>
             <el-col :span="12">
               <el-form-item label="攻击者IP :">
-                {{ detailData.ev_com_socket_src_ip }}
+                 <tooltip
+                  :content="detailData.ev_com_socket_src_ip"
+                  :length="40"
+                />
+                <!-- {{ detailData.ev_com_socket_src_ip }} -->
               </el-form-item>
             </el-col>
             <el-col :span="12">
               <el-form-item label="攻击者国家 :">
-                {{ detailData.ev_com_socket_src_ip_country }}
+                 <tooltip
+                  :content="detailData.ev_com_socket_src_ip_country"
+                  :length="40"
+                />
+                <!-- {{ detailData.ev_com_socket_src_ip_country }} -->
               </el-form-item>
             </el-col>
             <el-col :span="12">
               <el-form-item label="受害者IP :">
-                {{ detailData.ev_com_socket_dst_ip }}
+                 <tooltip
+                  :content="detailData.ev_com_socket_dst_ip"
+                  :length="40"
+                />
+                <!-- {{ detailData.ev_com_socket_dst_ip }} -->
               </el-form-item>
             </el-col>
             <el-col :span="12">
               <el-form-item label="受害者国家 :">
-                {{ detailData.ev_com_socket_dst_ip_country }}
+                 <tooltip
+                  :content="detailData.ev_com_socket_dst_ip_country"
+                  :length="40"
+                />
+                <!-- {{ detailData.ev_com_socket_dst_ip_country }} -->
               </el-form-item>
             </el-col>
             <el-col :span="12">
               <el-form-item label="源端口 :">
-                {{ detailData.ev_com_socket_src_port }}
+                 <tooltip
+                  :content="detailData.ev_com_socket_src_port"
+                  :length="40"
+                />
+                <!-- {{ detailData.ev_com_socket_src_port }} -->
               </el-form-item>
             </el-col>
             <el-col :span="12">
               <el-form-item label="目标端口 :">
-                {{ detailData.ev_com_socket_dst_port }}
+                 <tooltip
+                  :content="detailData.ev_com_socket_dst_port"
+                  :length="40"
+                />
+                <!-- {{ detailData.ev_com_socket_dst_port }} -->
               </el-form-item>
             </el-col>
             <el-col :span="12">
               <el-form-item label="协议 :">
-                {{ detailData.ev_com_socket_protocol }}
+                 <tooltip
+                  :content="detailData.ev_com_socket_protocol"
+                  :length="40"
+                />
+                <!-- {{ detailData.ev_com_socket_protocol }} -->
               </el-form-item>
             </el-col>
             <el-col :span="12">
               <el-form-item label="杀伤链阶段 :">
-                {{ detailData.ev_ksec_killchain }}
+                 <tooltip
+                  :content="detailData.ev_ksec_killchain"
+                  :length="40"
+                />
+                <!-- {{ detailData.ev_ksec_killchain }} -->
               </el-form-item>
             </el-col>
             <el-col :span="12">
               <el-form-item label="发生时间 :">
-                {{ detailData.occur_time }}
+                 <tooltip
+                  :content="detailData.occur_time"
+                  :length="40"
+                />
+                <!-- {{ detailData.occur_time }} -->
               </el-form-item>
             </el-col>
             <el-col :span="12">
               <el-form-item label="发现时间 :">
-                {{ detailData.receive_time }}
+                 <tooltip
+                  :content="detailData.receive_time"
+                  :length="40"
+                />
+                <!-- {{ detailData.receive_time }} -->
               </el-form-item>
             </el-col>
             <el-col :span="12">
               <el-form-item label="处置状态 :">
-                {{ detailData.procedure }}
+                 <tooltip
+                  :content="detailData.procedure"
+                  :length="40"
+                />
+                <!-- {{ detailData.procedure }} -->
               </el-form-item>
             </el-col>
             <el-col :span="12">
               <el-form-item label="区域 :">
-                {{ detailData.location }}
+                 <tooltip
+                  :content="detailData.location"
+                  :length="40"
+                />
+                <!-- {{ detailData.location }} -->
               </el-form-item>
             </el-col>
           </el-row>
@@ -345,7 +409,7 @@
         <div slot="footer" class="dialog-footer">
           <el-row type="flex" justify="center">
             <el-button size="small" type="primary" @click="submitForm"
-              >确 定</el-button
+              >确 认</el-button
             >
             <el-button size="small" @click="cancel">取 消</el-button>
           </el-row>
@@ -436,25 +500,29 @@ export default {
         },
       ],
       areaOptions: [
-        {
-          label: "三亚海投轨交",
-          value: 1,
+       {
+          label: "天津管片厂",
+          value: "天津管片厂",
         },
         {
-          label: "珠海深中通道",
-          value: 2,
+          label: "三亚海投轨交",
+          value: "三亚海投轨交",
+        },
+        {
+          label: "北京城乡水厂",
+          value: "北京城乡水厂",
         },
         {
           label: "山西三通燃气厂",
-          value: 1,
+          value: "山西三通燃气厂",
         },
         {
-          label: "北京水厂",
-          value: 1,
+          label: "珠海深中通道",
+          value: "珠海深中通道",
         },
         {
-          label: "天津管片厂",
-          value: 1,
+          label: "中国交建北京数据中心",
+          value: "中国交建北京数据中心",
         },
       ],
       agreementOptions: [
@@ -588,7 +656,7 @@ export default {
         this.queryParams.ev_com_socket_protocol
       );
 
-      this.addQuery(this.query, "location.keyword", this.queryParams.location);
+      this.addQuery(this.query, "location", this.queryParams.location);
 
       this.addQuery(this.query, "procedure", this.queryParams.procedure);
 
@@ -744,6 +812,9 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+.box-card{
+  margin-bottom: 20px;
+}
 .export {
   margin-bottom: 10px;
 }

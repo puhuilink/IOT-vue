@@ -156,7 +156,7 @@
                 </el-select>
               </el-form-item>
             </el-col>
-            <el-col :span="9">
+            <el-col :span="6">
               <el-form-item
                 label="发生时间："
                 prop="date"
@@ -185,7 +185,7 @@
             </el-col>
           </el-form>
         </el-row>
-        <el-row
+        <!-- <el-row
           :gutter="10"
           class="mb8"
         >
@@ -196,15 +196,15 @@
               size="mini"
             >导出</el-button>
           </el-col>
-        </el-row>
+        </el-row> -->
       </div>
     </el-card>
     <el-table :data="groupList">
-      <el-table-column
+      <!-- <el-table-column
         type="selection"
         width="55"
         align="center"
-      />
+      /> -->
       <el-table-column
         label="检测服务器类型"
         align="center"
@@ -750,9 +750,11 @@ export default {
         pageNum: 1,
         pageSize: 10,
         userId: null,
+        orderByColumn: 'happen_time',
+        isAsc: 'desc',
         groupName: null,
         createTime: null
-      }
+      },
       this.getList()
     },
     async detail(id) {

@@ -179,7 +179,7 @@ export default {
       var beforeseven = new Date();
       var thirty = new Date();
       myDate.setDate(myDate.getDate());
-      beforeseven.setDate(beforeseven.getDate() - 1 - 6);
+      beforeseven.setDate(beforeseven.getDate()  - 6);
       thirty.setDate(thirty.getDate() - 1 - 29);
       if (type === 2) {
         return [
@@ -342,6 +342,51 @@ export default {
         {
           key: "class_wppe",
           content: "网页防篡改事件",
+        },
+      ];
+      var arr = data;
+      var arrNew = [];
+      var area = [];
+      data.forEach((item) => {
+        area.push(item.key);
+      });
+      arr.map((r) => {
+        t.map((d) => {
+          if (r.key === d.key) {
+            arrNew.push({
+              value: r.doc_count,
+              name: d.content,
+            });
+          }
+        });
+      });
+      return arrNew;
+    },
+    transTypeHost(data) {
+      var t = [
+        {
+          key: "wsec_syslog_hsme_ev_07",
+          content: "程序告警事件",
+        },
+        {
+          key: "wsec_syslog_hsme_ev_08",
+          content: "外设告警事件",
+        },
+        {
+          key: "wsec_syslog_hsme_ev_09",
+          content: "主机防火墙事件",
+        },
+        {
+          key: "wsec_syslog_hsme_ev_10",
+          content: "访问控制事件",
+        },
+        {
+          key: "wsec_syslog_hsme_ev_22",
+          content: "主机非法外联",
+        },
+        {
+          key: "wsec_syslog_hsme_ev_30",
+          content: "恶意文件事件",
         },
       ];
       var arr = data;
@@ -609,7 +654,7 @@ export default {
             case "host":
               await getHostSecurityData(this.queryParms).then(({ data }) => {
                 this.hasData = data.aggregations.field.buckets;
-                this.datacopy = this.transDic(data.aggregations.field.buckets);
+                this.datacopy = this.transTypeHost(data.aggregations.field.buckets);
                 this.queryParms.query.bool.must =  [{
                   range: {
                     "occur_time": {

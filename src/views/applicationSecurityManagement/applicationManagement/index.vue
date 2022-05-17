@@ -7,7 +7,7 @@
             ref="queryForm"
             :model="queryParams"
             size="mini"
-            label-width="100px"
+            label-width="120px"
             class="label-type"
             label-position="right"
           >
@@ -45,7 +45,7 @@
               </el-form-item>
             </el-col>
             <el-col :span="6">
-              <el-form-item label="时间：" prop="date">
+              <el-form-item label="检测开始时间：" prop="date">
                 <el-date-picker
                   v-model="rangeTime"
                   size="small"

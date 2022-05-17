@@ -110,7 +110,7 @@
               </el-form-item>
             </el-col>
             <el-col :span="6">
-              <el-form-item label="时间：" prop="date">
+              <el-form-item label="发生时间：" prop="date">
                 <el-date-picker
                   v-model="queryParams.date"
                   size="small"
@@ -148,7 +148,7 @@
     </el-card>
     <el-card style="margin-top: 10px">
       <el-table :data="List" tooltip-effect="light">
-        <el-table-column type="selection" width="55" align="center" />
+        <!-- <el-table-column type="selection" width="55" align="center" /> -->
 
         <el-table-column
           label="发生时间"
