@@ -147,7 +147,7 @@
                   :style="{width: '100%'}"
                 >
                   <el-option
-                    v-for="(item, index) in disposalStatusOptions"
+                    v-for="(item, index) in statusOptions"
                     :key="index"
                     :label="item.label"
                     :value="item.label"
@@ -156,7 +156,7 @@
                 </el-select>
               </el-form-item>
             </el-col>
-            <el-col :span="9">
+            <el-col :span="6">
               <el-form-item
                 label="发生时间："
                 prop="date"
@@ -185,7 +185,7 @@
             </el-col>
           </el-form>
         </el-row>
-        <el-row
+        <!-- <el-row
           :gutter="10"
           class="mb8"
         >
@@ -196,15 +196,15 @@
               size="mini"
             >导出</el-button>
           </el-col>
-        </el-row>
+        </el-row> -->
       </div>
     </el-card>
     <el-table :data="groupList">
-      <el-table-column
+      <!-- <el-table-column
         type="selection"
         width="55"
         align="center"
-      />
+      /> -->
       <el-table-column
         label="检测服务器类型"
         align="center"
@@ -663,22 +663,27 @@ export default {
         'label': '天津管片厂',
         'value': 1
       }],
-      field114Options: [{
-        'label': '未处置',
-        'value': 1
-      }, {
-        'label': '处置中',
-        'value': 2
-      }, {
-        'label': '已处置',
-        'value': 2
-      }, {
-        'label': '已完成',
-        'value': 2
-      }, {
-        'label': '待处置',
-        'value': 6
-      }]
+      statusOptions: [ 
+        {
+          label: "待处置",
+          value: "待处置",
+        },
+        {
+          label: "处置中",
+          value: "处置中",
+        },
+        {
+          label: "已处置",
+          value: "已处置",
+        },
+        {
+          label: "误报",
+          value: "误报",
+        },
+        {
+          label: "不处置",
+          value: "不处置",
+        }]
     }
   },
   created() {
@@ -687,19 +692,19 @@ export default {
   methods: {
     transTypeDic(val) {
       var t = [{
-        name: 1,
+        name: '1',
         content: '极低'
       }, {
-        name: 2,
+        name: '2',
         content: '低危'
       }, {
-        name: 3,
+        name: '3',
         content: '中危'
       }, {
-        name: 4,
+        name: '4',
         content: '高危'
       }, {
-        name: 5,
+        name: '5',
         content: '致命'
       }]
       const orgTreeData1 = t.filter((e) => e.name === val)
@@ -745,9 +750,11 @@ export default {
         pageNum: 1,
         pageSize: 10,
         userId: null,
+        orderByColumn: 'happen_time',
+        isAsc: 'desc',
         groupName: null,
         createTime: null
-      }
+      },
       this.getList()
     },
     async detail(id) {

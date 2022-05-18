@@ -7,7 +7,7 @@ import errorCode from '@/utils/errorCode'
 axios.defaults.headers.post['Content-Type'] = 'application/json'
 
 // 入侵诱捕
-const base = '/api/event_ivtp/_search'
+const base = '/esApi/event_ivtp/_search'
 
 export const getElasticDate = params => {
   return axios.post(`${base}`, params)
@@ -15,35 +15,42 @@ export const getElasticDate = params => {
 
 
 // 主机安全
-const baseHostSecurity = '/api/event_hsme/_search'
+const baseHostSecurity = '/esApi/event_hsme/_search'
 
 export const getHostSecurityData = params => {
   return axios.post(`${baseHostSecurity}`, params)
 }
 
 // 配置核查
-const baseConfiguration = '/api/event_scce/_search'
+const baseConfiguration = '/esApi/event_scce/_search'
 
 export const getConfigurationData = params => {
   return axios.post(`${baseConfiguration}`, params)
 }
 
 // 工业网络审计
-const baseIndustrialNetworkAudit = '/api/event_inpa/_search'
+const baseIndustrialNetworkAudit = '/esApi/event_inpa/_search'
 
 export const getIndustrialNetworkAuditData = params => {
   return axios.post(`${baseIndustrialNetworkAudit}`, params)
 }
 
+// 防火墙访问控制事件
+const baseFirewallAccessControlEvent = '/esApi/event_infe/_search'
+
+export const getFirewallAccessControlEventData = params => {
+  return axios.post(`${baseFirewallAccessControlEvent}`, params)
+}
+
 // 僵木蠕
-const baseJiangTable = '/api/event_ztwe/_search'
+const baseJiangTable = '/esApi/event_ztwe/_search'
 
 export const getbaseJiangTableData = params => {
   return axios.post(`${baseJiangTable}`, params)
 }
 
 // 弱口令
-const baseWeakPassword = '/api/event_wkpw/_search'
+const baseWeakPassword = '/esApi/event_wkpw/_search'
 
 export const getWeakPasswordData = params => {
   return axios.post(`${baseWeakPassword}`, params)
@@ -51,25 +58,61 @@ export const getWeakPasswordData = params => {
 
 
 // 异常行为管理
-const baseAbnormalBehaviorEventRetrieval = '/api/event_abbm/_search'
+const baseAbnormalBehaviorEventRetrieval = '/esApi/event_abbm/_search'
 
 export const getAbnormalBehaviorEventRetrievalData = params => {
   return axios.post(`${baseAbnormalBehaviorEventRetrieval}`, params)
 }
 
 // 威胁情报列表
-const baseThreatIntelligenceList = '/api/event_iocm/_search'
+const baseThreatIntelligenceList = '/esApi/event_iocm/_search'
 
 export const getThreatIntelligenceListData = params => {
   return axios.post(`${baseThreatIntelligenceList}`, params)
 }
 
-const base1 = '/api/eventkpi/_search'
+// 事件管理---威胁事件检索
+const baseManagementThreatEvents = '/esApi/eventlog/_search'
 
-export const getkpi = params => {
-  return axios.post(`${base1}`, params)
+export const getManagementThreatEventsData = params => {
+  return axios.post(`${baseManagementThreatEvents}`, params)
 }
+
+//代码审计事件---列表
+const baseapplicationManagement = 'https://10.201.72.99/codesafeapi/quickcheck'
+
+export const getApplicationManagementData = (params,authorizationValue) => {
+  return axios.post(`${baseapplicationManagement}`, params,
+  {headers:
+    {
+      Authorization: authorizationValue
+    }
+  })
+}
+//代码审计事件---详情
+const baseapplicationManagementDetail = 'https://10.201.72.99/codesafeapi/result'
+
+export const getApplicationManagementDetailData = (taskId) => {
+  return axios.get(`${baseapplicationManagementDetail/taskId}`)
+}
+
+//代码审计事件---详情---列表
+const baseapplicationManagementDetailTable = 'https://10.201.72.99/codesafeapi/result'
+
+export const getApplicationManagementDetailTable = (taskId,params) => {
+  return axios.get(`${baseapplicationManagementDetailTable/taskId/bug}`,params)
+}
+//代码审计事件---缺陷详情
+const baseapplicationManagementDefectDetail = 'https://10.201.72.99/codesafeapi/result'
+
+export const getApplicationManagementDefectDetail = (taskId,bugId) => {
+  return axios.get(`${baseapplicationManagementDefectDetail/taskId/bug/bugId}`)
+}
+
+
+// axios.defaults.headers['Content-Type'] = 'Basic base64encode(wuzhigang +":"+Admin@12345！)'
 axios.defaults.headers['Content-Type'] = 'application/json;charset=utf-8'
+// axios.defaults.headers['Authorization'] = 'authorizationValue'
 // 创建axios实例
 const service = axios.create({
   // axios中请求配置有baseURL选项，表示请求URL公共部分
@@ -81,9 +124,13 @@ const service = axios.create({
 service.interceptors.request.use(config => {
   // 是否需要设置 token
   const isToken = (config.headers || {}).isToken === false
+  // var  queryAuthorization = base64encode("admin111" + ":" + "123456");
   if (getToken() && !isToken) {
     config.headers['Authorization'] = 'Bearer ' + getToken() // 让每个请求携带自定义token 请根据实际情况自行修改
   }
+ 
+    // config.headers['Authorization'] =  'Basic base64encode("wuzhigang"+":"+"123456")' 
+  
   // get请求映射params参数
   if (config.method === 'get' && config.params) {
     let url = config.url + '?'

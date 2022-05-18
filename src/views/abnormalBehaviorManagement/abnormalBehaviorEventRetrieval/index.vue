@@ -61,13 +61,22 @@
               </el-form-item>
             </el-col>
             <el-col :span="6">
-              <el-form-item label="事件类型:" prop="event_format">
-                <el-input
-                  v-model="queryParams.event_format"
-                  placeholder="请输入事件类型"
+              <el-form-item label="事件类型：" prop="event_format">
+                <el-select
+                  v-model.trim="queryParams.event_format"
+                  placeholder="请选择事件类型"
+                  filterable
                   clearable
                   :style="{ width: '100%' }"
-                />
+                >
+                  <el-option
+                    v-for="(item, index) in eventOptions"
+                    :key="index"
+                    :label="item.label"
+                    :value="item.value"
+                    :disabled="item.disabled"
+                  />
+                </el-select>
               </el-form-item>
             </el-col>
 
@@ -111,7 +120,7 @@
               </el-form-item>
             </el-col>
             <el-col :span="6">
-              <el-form-item label="时间 :" prop="date">
+              <el-form-item label="发生时间 :" prop="date">
                 <el-date-picker
                   v-model="queryParams.date"
                   size="small"
@@ -368,7 +377,7 @@
       <div slot="footer" class="dialog-footer">
         <el-row type="flex" justify="center">
           <el-button size="small" type="primary" @click="submitForm"
-            >确 定</el-button
+            >确 认</el-button
           >
           <el-button size="small" @click="cancel">取 消</el-button>
         </el-row>
@@ -476,6 +485,10 @@ export default {
           label: "珠海深中通道",
           value: "珠海深中通道",
         },
+        {
+          label: "中国交建北京数据中心",
+          value: "中国交建北京数据中心",
+        },
       ],
       statusOptions: [
         {
@@ -529,6 +542,20 @@ export default {
           value: "目标达成",
         },
       ],
+      eventOptions: [
+        {
+          value: "ksec_syslog_rule_eve",
+          label: "规则告警事件",
+        },
+        {
+          value: "ksec_syslog_ioc_eve",
+          label: "威胁情报事件",
+        },
+        {
+          value: "ksec_syslog_model_eve",
+          label: "模型告警事件",
+        },
+      ],
     };
   },
   watch: {
@@ -554,43 +581,31 @@ export default {
       }
     },
     async getTableList() {
-      this.addQuery(
-        this.query,
-        "event_name.keyword",
-        this.queryParams.event_name
-      );
+      this.addQuery(this.query, "event_name", this.queryParams.event_name);
 
       this.addQuery(this.query, "location.keyword", this.queryParams.location);
 
-      this.addQuery(this.query, "severity.keyword", this.queryParams.severity);
+      this.addQuery(this.query, "severity", this.queryParams.severity);
+
+      this.addQuery(this.query, "event_format", this.queryParams.event_format);
+
+      this.addQuery(this.query, "procedure", this.queryParams.procedure);
 
       this.addQuery(
         this.query,
-        "event_format.keyword",
-        this.queryParams.event_format
-      );
-
-      this.addQuery(
-        this.query,
-        "procedure.keyword",
-        this.queryParams.procedure
-      );
-
-      this.addQuery(
-        this.query,
-        "ev_com_socket_dst_ip.keyword",
+        "ev_com_socket_dst_ip",
         this.queryParams.ev_com_socket_dst_ip
       );
 
       this.addQuery(
         this.query,
-        "ev_com_socket_src_ip.keyword",
+        "ev_com_socket_src_ip",
         this.queryParams.ev_com_socket_src_ip
       );
 
       this.addQuery(
         this.query,
-        "ev_ksec_killchain.keyword",
+        "ev_ksec_killchain",
         this.queryParams.ev_ksec_killchain
       );
 
@@ -647,23 +662,23 @@ export default {
     transTypeDic(val) {
       var t = [
         {
-          name: 1,
+          name: "1",
           content: "极低",
         },
         {
-          name: 2,
+          name: "2",
           content: "低危",
         },
         {
-          name: 3,
+          name: "3",
           content: "中危",
         },
         {
-          name: 4,
+          name: "4",
           content: "高危",
         },
         {
-          name: 5,
+          name: "5",
           content: "致命",
         },
       ];
@@ -758,6 +773,9 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+.box-card{
+  margin-bottom: 20px;
+}
 .export {
   margin-bottom: 10px;
 }

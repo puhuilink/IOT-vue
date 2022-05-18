@@ -8,7 +8,7 @@
             :model="queryParams"
             :rules="rules"
             size="mini"
-            label-width="90px"
+            label-width="120px"
             class="label-type"
             label-position="right"
           >
@@ -90,7 +90,7 @@
               </el-form-item>
             </el-col>
             <el-col :span="6">
-              <el-form-item label="时间：" prop="date">
+              <el-form-item label="开始攻击时间：" prop="date">
                 <el-date-picker
                   v-model="queryParams.date"
                   size="small"
@@ -104,8 +104,8 @@
                 />
               </el-form-item>
             </el-col>
-            <el-col :span="6">
-              <el-form-item size="mini">
+            <el-col :span="12">
+              <el-form-item size="mini" label-width="680px">
                 <el-button type="primary" @click="btnQuery">搜索</el-button>
                 <el-button @click="resetForm">重置</el-button>
               </el-form-item>
@@ -153,7 +153,7 @@
           :show-overflow-tooltip="true"
         >
           <template>
-            <span>{{ "中危" }}</span>
+            <!-- <span>{{ "中危" }}</span> -->
           </template>
         </el-table-column>
         <el-table-column
@@ -293,7 +293,7 @@
         <div slot="footer" class="dialog-footer">
           <el-row type="flex" justify="center">
             <el-button size="small" type="primary" @click="submitForm"
-              >确 定</el-button
+              >确 认</el-button
             >
             <el-button size="small" @click="cancel">取 消</el-button>
           </el-row>
@@ -359,23 +359,23 @@ export default {
       levelOptions: [
         {
           label: "极低",
-          value: 1,
+          value: "1",
         },
         {
           label: "低危",
-          value: 2,
+          value: "2",
         },
         {
           label: "中危",
-          value: 3,
+          value: "3",
         },
         {
           label: "高危",
-          value: 4,
+          value: "4",
         },
         {
           label: "致命",
-          value: 5,
+          value: "5",
         },
       ],
       attackOptions: [
@@ -464,25 +464,21 @@ export default {
     async searchClick() {
       this.addQuery(
         this.query,
-        "detail_src_ip.keyword",
+        "detail_src_ip",
         this.queryParams.detail_src_ip
       );
 
-      this.addQuery(this.query, "severity.keyword", this.queryParams.severity);
+      this.addQuery(this.query, "severity", this.queryParams.severity);
 
       this.addQuery(
         this.query,
-        "ev_msec_asset_name.keyword",
+        "ev_msec_asset_name",
         this.queryParams.ev_msec_asset_name
       );
 
       this.addQuery(this.query, "location.keyword", this.queryParams.location);
 
-      this.addQuery(
-        this.query,
-        "procedure.keyword",
-        this.queryParams.procedure
-      );
+      this.addQuery(this.query, "procedure", this.queryParams.procedure);
 
       this.query.from = this.from - 1;
       if (this.queryParams.date.length > 0) {
@@ -505,23 +501,23 @@ export default {
     transTypeDic(val) {
       var t = [
         {
-          name: 1,
+          name: "1",
           content: "极低",
         },
         {
-          name: 2,
+          name: "2",
           content: "低危",
         },
         {
-          name: 3,
+          name: "3",
           content: "中危",
         },
         {
-          name: 4,
+          name: "4",
           content: "高危",
         },
         {
-          name: 5,
+          name: "5",
           content: "致命",
         },
       ];

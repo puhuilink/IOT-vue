@@ -28,6 +28,15 @@ export function assetList(query) {
     params: query
   })
 }
+// APP检测
+export function appTesting(query) {
+  return request({
+    // url: '/m/asset/list',
+    url: '/bangBangFile/queryBangBangFileList',
+    method: 'get',
+    params: query
+  })
+}
 
 // 资产列表 excel导入功能
 export function uploadExcel(url, query) {
@@ -75,7 +84,37 @@ export function leakList(query) {
   return request({
     url: '/dm/scanning/list',
     method: 'get',
-    params: query
+     params: query
+  })
+}
+// 漏洞列表 zip导入功能
+export function uploadZip(url, query,params) {
+  return request({
+    url: url,
+    method: 'post',
+    data: query,
+    params:params
+  })
+}
+// APP检测 pdf导入功能
+export function uploadPdf(url, query,params) {
+  return request({
+    url: url,
+    method: 'post',
+    data: query,
+    params:params
+  })
+}
+// APP检测 pdf预览功能
+export function downloadAction(id) {
+  return request({
+    url:'/bangBangFile/download',
+    method: 'get',
+    params:{
+      path:id
+    },
+    responseType: "arraybuffer", //这行必写
+    headers: { "Content-Type": "multipart/form-data" } //这行必写
   })
 }
 // 通报管理

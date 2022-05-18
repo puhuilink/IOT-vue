@@ -19,12 +19,16 @@ import './permission' // permission control
 import { getDicts } from '@/api/system/dict/data'
 import { getConfigKey } from '@/api/system/config'
 import { parseTime, resetForm, addDateRange, selectDictLabel, selectDictLabels, download, handleTree } from '@/utils/ruoyi'
+import htmlToPdf from "@/utils/htmlToPdf.js"
+
+
 import Pagination from '@/components/Pagination'
 // 自定义表格工具扩展
 import RightToolbar from '@/components/RightToolbar'
 // 引入echarts
 import * as echarts from 'echarts'
 
+Vue.use(htmlToPdf)
 Vue.prototype.$echarts = echarts
 // 全局方法挂载
 Vue.prototype.getDicts = getDicts

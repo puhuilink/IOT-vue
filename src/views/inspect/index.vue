@@ -108,7 +108,7 @@
               </el-form-item>
             </el-col>
             <el-col :span="6">
-              <el-form-item label="时间：" prop="date">
+              <el-form-item label="发生时间：" prop="date">
                 <el-date-picker
                   v-model="queryParams.date"
                   size="small"
@@ -334,23 +334,23 @@ export default {
       levelOptions: [
         {
           label: "极低",
-          value: 1,
+          value: "1",
         },
         {
           label: "低危",
-          value: 2,
+          value: "2",
         },
         {
           label: "中危",
-          value: 3,
+          value: "3",
         },
         {
           label: "高危",
-          value: 4,
+          value: "4",
         },
         {
           label: "致命",
-          value: 5,
+          value: "5",
         },
       ],
       statusptions: [
@@ -363,11 +363,11 @@ export default {
           value: 2,
         },
         {
-          label: "手动",
+          label: "人工判断",
           value: 3,
         },
         {
-          label: "失败",
+          label: "检查失败",
           value: 4,
         },
       ],
@@ -395,24 +395,24 @@ export default {
       ],
       field114Options: [
         {
-          label: "未处置",
+          label: "待处置",
           value: 1,
-        },
-        {
-          label: "处置中",
-          value: 2,
         },
         {
           label: "已处置",
           value: 2,
         },
         {
-          label: "已完成",
-          value: 2,
+          label: "处置中",
+          value: 3,
         },
         {
-          label: "待处置",
-          value: 2,
+          label: "误报",
+          value: 4,
+        },
+        {
+          label: "不处置",
+          value: 5,
         },
       ],
     };
@@ -441,27 +441,23 @@ export default {
     async getTableList() {
       this.addQuery(
         this.querys.query,
-        "event_name.keyword",
+        "event_name",
         this.queryParams.event_name
       );
+      this.addQuery(this.querys.query, "severity", this.queryParams.severity);
       this.addQuery(
         this.querys.query,
-        "severity.keyword",
-        this.queryParams.severity
-      );
-      this.addQuery(
-        this.querys.query,
-        "detail_src_ip.keyword",
+        "detail_src_ip",
         this.queryParams.detail_src_ip
       );
       this.addQuery(
         this.querys.query,
-        "ev_wsec_scce_scc_result.keyword",
+        "ev_wsec_scce_scc_result",
         this.queryParams.ev_wsec_scce_scc_result
       );
       this.addQuery(
         this.querys.query,
-        "occur_time.keyword",
+        "occur_time",
         this.queryParams.occur_time
       );
       this.addQuery(
@@ -469,11 +465,7 @@ export default {
         "location.keyword",
         this.queryParams.location
       );
-      this.addQuery(
-        this.querys.query,
-        "procedure.keyword",
-        this.queryParams.procedure
-      );
+      this.addQuery(this.querys.query, "procedure", this.queryParams.procedure);
       this.querys.from = this.from - 1;
       if (this.queryParams.date.length > 0) {
         this.querys.query.bool.must.push({
@@ -496,23 +488,23 @@ export default {
     transTypeDic(val) {
       var t = [
         {
-          name: 1,
+          name: "1",
           content: "极低",
         },
         {
-          name: 2,
+          name: "2",
           content: "低危",
         },
         {
-          name: 3,
+          name: "3",
           content: "中危",
         },
         {
-          name: 4,
+          name: "4",
           content: "高危",
         },
         {
-          name: 5,
+          name: "5",
           content: "致命",
         },
       ];

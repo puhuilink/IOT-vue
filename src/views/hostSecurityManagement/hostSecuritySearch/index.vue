@@ -12,16 +12,16 @@
             class="label-type"
             label-position="right"
           >
-            <el-col :span="6">
+            <!-- <el-col :span="6">
               <el-form-item label="事件名称:" prop="event_format">
                 <el-input
-                  v-model="queryParams.event_name"
+                  v-model="queryParams.event_format"
                   placeholder="请输入事件名称"
                   clearable
                   :style="{ width: '100%' }"
                 />
               </el-form-item>
-            </el-col>
+            </el-col> -->
             <el-col :span="6">
               <el-form-item label="区域:" prop="location">
                 <el-select
@@ -61,13 +61,22 @@
               </el-form-item>
             </el-col>
             <el-col :span="6">
-              <el-form-item label="事件类型:" prop="event_format">
-                <el-input
-                  v-model="queryParams.event_format"
-                  placeholder="请输入事件类型"
+              <el-form-item label="事件类型：" prop="event_format">
+                <el-select
+                  v-model.trim="queryParams.event_format"
+                  placeholder="请选择事件类型"
+                  filterable
                   clearable
                   :style="{ width: '100%' }"
-                />
+                >
+                  <el-option
+                    v-for="(item, index) in eventOptions"
+                    :key="index"
+                    :label="item.label"
+                    :value="item.value"
+                    :disabled="item.disabled"
+                  />
+                </el-select>
               </el-form-item>
             </el-col>
 
@@ -102,7 +111,7 @@
               </el-form-item>
             </el-col>
             <el-col :span="6">
-              <el-form-item label="时间:" prop="date">
+              <el-form-item label="发生时间:" prop="date">
                 <el-date-picker
                   v-model="queryParams.date"
                   size="small"
@@ -187,7 +196,7 @@
         <el-table-column
           label="客户端名称"
           align="center"
-          prop="_source.ev_wsec_hsme_system_osuser"
+          prop="_source.ev_wsec_hsme_system_hostname"
           :show-overflow-tooltip="true"
         />
         <el-table-column
@@ -293,7 +302,7 @@
             </el-col>
             <el-col :span="12">
               <el-form-item label="用户名称 :">
-                {{ detailData.ev_wsec_hsme_system_osuser }}
+                {{ detailData.ev_wsec_hsme_system_hostname }}
               </el-form-item>
             </el-col>
             <el-col :span="12">
@@ -308,7 +317,7 @@
             </el-col>
             <el-col :span="12">
               <el-form-item label="客户端名称 :">
-                {{ detailData.ev_wsec_hsme_system_osuser }}
+                {{ detailData.ev_wsec_hsme_system_hostname }}
               </el-form-item>
             </el-col>
             <el-col :span="12">
@@ -372,7 +381,7 @@
         <div slot="footer" class="dialog-footer">
           <el-row type="flex" justify="center">
             <el-button size="small" type="primary" @click="submitForm"
-              >确 定</el-button
+              >确 认</el-button
             >
             <el-button size="small" @click="cancel">取 消</el-button>
           </el-row>
@@ -430,6 +439,7 @@ export default {
         name: [],
         severity: [],
         event_format: [],
+
         location: [],
         procedure: [],
         ip: [],
@@ -441,23 +451,23 @@ export default {
       levelOptions: [
         {
           label: "极低",
-          value: 1,
+          value: "1",
         },
         {
           label: "低危",
-          value: 2,
+          value: "2",
         },
         {
           label: "中危",
-          value: 3,
+          value: "3",
         },
         {
           label: "高危",
-          value: 4,
+          value: "4",
         },
         {
           label: "致命",
-          value: 5,
+          value: "5",
         },
       ],
       areaOptions: [
@@ -504,18 +514,30 @@ export default {
           value: "不处置",
         },
       ],
-      field114Options: [
+      eventOptions: [
         {
-          label: "未处置",
-          value: 1,
+          value: "wsec_syslog_hsme_ev_07",
+          label: "程序告警事件",
         },
         {
-          label: "处置中",
-          value: 2,
+          value: "wsec_syslog_hsme_ev_08",
+          label: "外设告警事件",
         },
         {
-          label: "已处置",
-          value: 3,
+          value: "wsec_syslog_hsme_ev_09",
+          label: "主机防火墙事件",
+        },
+        {
+          value: "wsec_syslog_hsme_ev_10",
+          label: "访问控制事件",
+        },
+        {
+          value: "wsec_syslog_hsme_ev_22",
+          label: "主机非法外联",
+        },
+        {
+          value: "wsec_syslog_hsme_ev_30",
+          label: "恶意文件事件",
         },
       ],
     };
@@ -551,29 +573,21 @@ export default {
     async getTableList() {
       this.addQuery(this.query, "location.keyword", this.queryParams.location);
 
-      this.addQuery(this.query, "severity.keyword", this.queryParams.severity);
+      this.addQuery(this.query, "severity", this.queryParams.severity);
+
+      this.addQuery(this.query, "event_format", this.queryParams.event_format);
+
+      this.addQuery(this.query, "procedure", this.queryParams.procedure);
 
       this.addQuery(
         this.query,
-        "event_format.keyword",
-        this.queryParams.event_format
-      );
-
-      this.addQuery(
-        this.query,
-        "procedure.keyword",
-        this.queryParams.procedure
-      );
-
-      this.addQuery(
-        this.query,
-        "ev_wsec_hsme_system_ip.keyword",
+        "ev_wsec_hsme_system_ip",
         this.queryParams.ev_wsec_hsme_system_ip
       );
 
       this.addQuery(
         this.query,
-        "ev_wsec_hsme_system_osname.keyword",
+        "ev_wsec_hsme_system_osname",
         this.queryParams.ev_wsec_hsme_system_osname
       );
 
@@ -632,23 +646,23 @@ export default {
     transTypeDic(val) {
       var t = [
         {
-          name: 1,
+          name: "1",
           content: "极低",
         },
         {
-          name: 2,
+          name: "2",
           content: "低危",
         },
         {
-          name: 3,
+          name: "3",
           content: "中危",
         },
         {
-          name: 4,
+          name: "4",
           content: "高危",
         },
         {
-          name: 5,
+          name: "5",
           content: "致命",
         },
       ];
@@ -746,6 +760,9 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+.box-card{
+  margin-bottom: 20px;
+}
 .export {
   margin-bottom: 10px;
 }

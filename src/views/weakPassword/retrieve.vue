@@ -100,7 +100,7 @@
               </el-form-item>
             </el-col>
             <el-col :span="6">
-              <el-form-item label="时间:" prop="date">
+              <el-form-item label="发生时间:" prop="date">
                 <el-date-picker
                   v-model.trim="queryParams.date"
                   size="small"
@@ -354,67 +354,71 @@ export default {
       levelOptions: [
         {
           label: "极低",
-          value: 1,
+          value: "1",
         },
         {
           label: "低危",
-          value: 2,
+          value: "2",
         },
         {
           label: "中危",
-          value: 3,
+          value: "3",
         },
         {
           label: "高危",
-          value: 4,
+          value: "4",
         },
         {
           label: "致命",
-          value: 5,
+          value: "5",
         },
       ],
       areaOptions: [
         {
+          label: "天津管片厂",
+          value: "天津管片厂",
+        },
+        {
           label: "三亚海投轨交",
-          value: 1,
-        },
-        {
-          label: "珠海深中通道",
-          value: 2,
-        },
-        {
-          label: "山西三通燃气厂",
-          value: 1,
+          value: "三亚海投轨交",
         },
         {
           label: "北京城乡水厂",
-          value: 1,
+          value: "北京城乡水厂",
         },
         {
-          label: "天津管片厂",
-          value: 1,
+          label: "山西三通燃气厂",
+          value: "山西三通燃气厂",
+        },
+        {
+          label: "珠海深中通道",
+          value: "珠海深中通道",
+        },
+        {
+          label: "中国交建北京数据中心",
+          value: "中国交建北京数据中心",
         },
       ],
       disposalStatusOptions: [
         {
-          label: "未处置",
-          value: 1,
+          label: "待处置",
+          value: "待处置",
         },
         {
           label: "处置中",
-          value: 2,
+          value: "处置中",
         },
         {
           label: "已处置",
-          value: 2,
+          value: "已处置",
         },
         {
-          label: "已完成",
-          value: 2,
+          label: "误报",
+          value: "误报",
         },
         {
-          label: "待处置",
-          value: 2,
+          label: "不处置",
+          value: "不处置",
         },
       ],
       killle: [
@@ -472,31 +476,23 @@ export default {
       }
     },
     async getTableList() {
-      this.addQuery(
-        this.query,
-        "event_name.keyword",
-        this.queryParams.event_name
-      );
+      this.addQuery(this.query, "event_name", this.queryParams.event_name);
 
       this.addQuery(this.query, "location.keyword", this.queryParams.location);
 
-      this.addQuery(this.query, "severity.keyword", this.queryParams.severity);
+      this.addQuery(this.query, "severity", this.queryParams.severity);
+
+      this.addQuery(this.query, "procedure", this.queryParams.procedure);
 
       this.addQuery(
         this.query,
-        "procedure.keyword",
-        this.queryParams.procedure
-      );
-
-      this.addQuery(
-        this.query,
-        "detail_src_ip.keyword",
+        "detail_src_ip",
         this.queryParams.detail_src_ip
       );
 
       this.addQuery(
         this.query,
-        "ev_com_socket_protocol.keyword",
+        "ev_com_socket_protocol",
         this.queryParams.ev_com_socket_protocol
       );
 
@@ -535,23 +531,23 @@ export default {
     transTypeDic(val) {
       var t = [
         {
-          name: 1,
+          name: "1",
           content: "极低",
         },
         {
-          name: 2,
+          name: "2",
           content: "低危",
         },
         {
-          name: 3,
+          name: "3",
           content: "中危",
         },
         {
-          name: 4,
+          name: "4",
           content: "高危",
         },
         {
-          name: 5,
+          name: "5",
           content: "致命",
         },
       ];

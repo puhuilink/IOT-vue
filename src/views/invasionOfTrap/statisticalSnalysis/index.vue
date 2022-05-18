@@ -163,6 +163,7 @@ export default {
       padding: 10px 80px 10px 10px;
       border-bottom: 1px solid #fff;
       color: #fff;
+      font-weight: bold;
     }
     .AssetsNumber {
       width: 100%;

@@ -1,12 +1,21 @@
 <template>
-  <el-col :span="12">
-    <tip>{{ tipname }}</tip>
-    <div ref="canvas1" style="height: 400px" />
-  </el-col>
+  <div>
+    <div v-if="name == 'report'">
+      <el-col :span="24">
+        <div ref="canvas1" style="height: 400px" />
+      </el-col>
+    </div>
+    <div v-else>
+      <el-col :span="12">
+        <tip>{{ tipname }}</tip>
+        <div ref="canvas1" style="height: 400px" />
+      </el-col>
+    </div>
+  </div>
 </template>
 <script>
 import { setNotopt } from "@/utils/emptyEcharts.js";
-import { eventEsData, eventEcharts } from "@/api/system/echarts";
+import { eventEsData, scanningeventLevelEcharts } from "@/api/system/echarts";
 import tip from "@/components/EchartsTip";
 export default {
   name: "AAA",
@@ -39,8 +48,8 @@ export default {
     return {
       queryParms: {
         indexes: this.search,
-        beginTime: "",
-        endTime: "",
+        beginGenerationTime:this.getdate(2)[0],
+        endGenerationTime:this.getdate(2)[1],
         severity: "",
         location: "",
       },
@@ -68,14 +77,6 @@ export default {
           } else {
             this.queryParms.location = "";
           }
-
-          if (val.beginGenerationTime && val.endGenerationTime) {
-            this.queryParms.beginTime = val.beginGenerationTime;
-            this.queryParms.endTime = val.endGenerationTime;
-          } else {
-            this.queryParms.beginTime = "";
-            this.queryParms.endTime = "";
-          }
           this.getData();
           this.drawPolicitalStatus();
         }
@@ -90,6 +91,61 @@ export default {
     this.drawPolicitalStatus();
   },
   methods: {
+       Twodigits(num) {
+      return num < 10 ? "0" + num : num;
+    },
+    getDay(num, str) {
+      var today = new Date();
+      var nowTime = today.getTime();
+      var ms = 24 * 3600 * 1000 * num;
+      today.setTime(parseInt(nowTime + ms));
+      var oYear = today.getFullYear();
+      var oMoth = (today.getMonth() + 1).toString();
+      if (oMoth.length <= 1) oMoth = "0" + oMoth;
+      var oDay = today.getDate().toString();
+      if (oDay.length <= 1) oDay = "0" + oDay;
+      return oYear + str + oMoth + str + oDay;
+    },
+    getdate(type) {
+      var myDate = new Date();
+      var beforeseven = new Date();
+      var thirty = new Date();
+      myDate.setDate(myDate.getDate());
+      beforeseven.setDate(beforeseven.getDate() - 1 - 6);
+      thirty.setDate(thirty.getDate() - 1 - 29);
+      if (type === 2) {
+        return [
+          beforeseven.getFullYear() +
+            "-" +
+            this.Twodigits(beforeseven.getMonth() + 1) +
+            "-" +
+            this.Twodigits(beforeseven.getDate()),
+          myDate.getFullYear() +
+            "-" +
+            this.Twodigits(myDate.getMonth() + 1) +
+            "-" +
+            this.Twodigits(myDate.getDate()),
+        ];
+      } else if (type === 3) {
+        // 最近30天
+        return [
+          thirty.getFullYear() +
+            "-" +
+            this.Twodigits(thirty.getMonth() + 1) +
+            "-" +
+            this.Twodigits(thirty.getDate()),
+          myDate.getFullYear() +
+            "-" +
+            this.Twodigits(myDate.getMonth() + 1) +
+            "-" +
+            this.Twodigits(myDate.getDate()),
+        ];
+      } else if (type === 1) {
+        // 昨天
+        var yesterday = this.getDay(-1, "-");
+        return [yesterday, yesterday];
+      }
+    },
     transTypeDic(data) {
       var t = [
         {
@@ -122,7 +178,6 @@ export default {
       arr.map((r) => {
         t.map((d) => {
           if (r.name === d.name) {
-            console.log(r, d);
             arrNew.push({
               value: r.count,
               name: d.content,
@@ -148,7 +203,7 @@ export default {
             this.date = d.date;
           });
         } else {
-          this.data1 = [];
+          this.data1 = [0,0,0,0,0,0,0];
         }
         const bbb = data.filter((e) => e.eventSeverity === "2");
         if (bbb.length) {
@@ -157,7 +212,7 @@ export default {
             this.date = d.date;
           });
         } else {
-          this.data2 = [];
+          this.data2 = [0,0,0,0,0,0,0];
         }
         const ccc = data.filter((e) => e.eventSeverity === "3");
         if (ccc.length) {
@@ -166,7 +221,7 @@ export default {
             this.date = d.date;
           });
         } else {
-          this.data3 = [];
+          this.data3 = [0,0,0,0,0,0,0];
         }
         const ddd = data.filter((e) => e.eventSeverity === "4");
         if (ddd.length) {
@@ -175,16 +230,16 @@ export default {
             this.date = d.date;
           });
         } else {
-          this.data4 = [];
+          this.data4 = [0,0,0,0,0,0,0];
         }
-         const eee = data.filter((e) => e.eventSeverity === "5");
+        const eee = data.filter((e) => e.eventSeverity === "5");
         if (eee.length) {
           eee.map((d) => {
             this.data5 = d.data;
             this.date = d.date;
           });
         } else {
-          this.data5 = [];
+          this.data5 = [0,0,0,0,0,0,0];
         }
       } else {
         this.data1 = [];
@@ -248,18 +303,57 @@ export default {
             this.data5 = this.transDicData(data)[4];
           });
           break;
-        // case "vulnerablity":
-        //   await scanningeventLevelEcharts(this.queryParms).then(({ data }) => {
-        //     this.hasData = data;
-        //     this.data1 = this.transDicData(data)[0];
-        //     this.data2 = this.transDicData(data)[1];
-        //     this.data3 = this.transDicData(data)[2];
-        //     this.data4 = this.transDicData(data)[3];
-        //     this.data5 = this.transDicData(data)[4];
-        //   });
-        //   break;
+        case "vulnerablity":
+          await scanningeventLevelEcharts(this.queryParms).then(({ data }) => {
+            this.hasData = data;
+            if (data.length) {
+              const aaa = data.filter((e) => e.eventLevel === "1");
+              if (aaa.length) {
+                aaa.map((d) => {
+                  this.data1 = d.data;
+                  this.date = d.date;
+                });
+              } else {
+                this.data1 = [];
+              }
+              const bbb = data.filter((e) => e.eventLevel === "2");
+              if (bbb.length) {
+                bbb.map((d) => {
+                  this.data2 = d.data;
+                  this.date = d.date;
+                });
+              } else {
+                this.data2 = [];
+              }
+              const ccc = data.filter((e) => e.eventLevel === "3");
+              if (ccc.length) {
+                ccc.map((d) => {
+                  this.data3 = d.data;
+                  this.date = d.date;
+                });
+              } else {
+                this.data3 = [];
+              }
+              const ddd = data.filter((e) => e.eventLevel === "4");
+              if (ddd.length) {
+                ddd.map((d) => {
+                  this.data4 = d.data;
+                  this.date = d.date;
+                });
+              } else {
+                this.data4 = [];
+              }
+            } else {
+              this.data1 = [];
+              this.data2 = [];
+              this.data3 = [];
+              this.data4 = [];
+              this.data5 = [];
+            }
+          });
+          break;
         case "event":
-          await eventEcharts(this.queryParms).then(({ data }) => {
+          await eventEsData(this.queryParms).then(({ data }) => {
             this.hasData = data;
             this.data1 = this.transDicData(data)[0];
             this.data2 = this.transDicData(data)[1];
@@ -268,6 +362,14 @@ export default {
             this.data5 = this.transDicData(data)[4];
           });
           break;
+        case "report":
+          this.hasData = [120, 132, 101, 134, 90, 230, 210];
+          this.data1 = [120, 132, 101, 134, 90, 230, 210];
+          this.data2 = [20, 32, 201, 334, 190, 230, 210];
+          this.data3 = [120, 132, 101, 134, 90, 230, 110];
+          this.data4 = [520, 132, 101, 134, 90, 230, 10];
+          this.data5 = [120, 132, 201, 134, 190, 230, 310];
+          this.date = [1, 2, 3, 4, 5, 6, 7];
         default:
           console.log("无数据", this.type);
           break;
