@@ -406,7 +406,7 @@ export default {
             must: [],
           },
         },
-        // sort: [{ occur_time: { order: "desc" } }],
+        sort: [{ occur_time: { order: "desc" } }],
         from: 0,
         size: 10,
       },
@@ -437,7 +437,7 @@ export default {
       },
       levelOptions: [
         {
-          label: "正常",
+          label: "极低",
           value: 1,
         },
         {

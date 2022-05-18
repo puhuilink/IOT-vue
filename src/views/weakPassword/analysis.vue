@@ -2,6 +2,7 @@
   <div class="app-container">
     <echarts @getquery="uploadData" />
     <eventTrend
+      :tipname="'弱口令趋势分析'"
       :query="query"
       :event-type="1"
       :name="'weakPassword'"

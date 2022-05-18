@@ -210,12 +210,17 @@
             <span v-else>{{ transTypeDic(scope.row._source.severity) }}</span>
           </template>
         </el-table-column>
-        <el-table-column
-          label="杀伤链阶段"
-          align="center"
-          prop="_source.ev_ksec_killchain"
-          :show-overflow-tooltip="true"
-        />
+         <el-table-column label="杀伤链阶段" align="center" prop="ev_ksec_killchain">
+          <template #default="scope">
+            <span
+              v-if="
+                scope.row._source.ev_ksec_killchain == '' ||
+                scope.row._source.ev_ksec_killchain == null
+              "
+            />
+            <span v-else>{{ transKillchainDic(scope.row._source.ev_ksec_killchain) }}</span>
+          </template>
+        </el-table-column>
         <el-table-column
           label="处置状态"
           align="center"
@@ -515,31 +520,31 @@ export default {
       killingChainStageOptions: [
         {
           label: "载荷投递",
-          value: "载荷投递",
+          value: "Delivery",
         },
         {
           label: "侦查跟踪",
-          value: "侦查跟踪",
+          value: "Recon",
         },
         {
           label: "漏洞利用",
-          value: "漏洞利用",
+          value: "Exploitation",
         },
         {
           label: "安装植入",
-          value: "安装植入",
+          value: "Beacon",
         },
         {
           label: "武器构建",
-          value: "武器构建",
+          value: "Weaponization",
         },
         {
           label: "命令控制",
-          value: "命令控制",
+          value: "CnC",
         },
         {
           label: "目标达成",
-          value: "目标达成",
+          value: "Actions on Objective",
         },
       ],
       eventOptions: [
@@ -636,21 +641,17 @@ export default {
     transType(val) {
       var t = [
         {
-          label: "特征匹配",
+          label: "模型告警事件",
           value: "ksec_syslog_model_eve",
         },
         {
-          label: "威胁情报",
+          label: "威胁情报事件",
           value: "ksec_syslog_ioc_eve",
         },
         {
-          label: "规则匹配",
+          label: "规则告警事件",
           value: "ksec_syslog_rule_eve",
-        },
-        {
-          label: "入侵诱捕",
-          value: "msec_syslog_event",
-        },
+        }
       ];
       const orgTreeData = t
         .filter((e) => e.value === val)
@@ -658,6 +659,44 @@ export default {
           label,
         }));
       return `${orgTreeData[0].label}`;
+    },
+    transKillchainDic(val) {
+      var t = [
+        {
+          content: "载荷投递",
+          name: "Delivery",
+        },
+        {
+          content: "侦查跟踪",
+          name: "Recon",
+        },
+        {
+          content: "漏洞利用",
+          name: "Exploitation",
+        },
+        {
+          content: "安装植入",
+          name: "Beacon",
+        },
+        {
+          content: "武器构建",
+          name: "Weaponization",
+        },
+        {
+          content: "命令控制",
+          name: "CnC",
+        },
+        {
+          content: "目标达成",
+          name: "Actions on Objective",
+        },
+      ];
+      const orgTreeData1 = t
+        .filter((e) => e.name === val)
+        .map(({ content }) => ({
+          content,
+        }));
+      return `${orgTreeData1[0].content}`;
     },
     transTypeDic(val) {
       var t = [

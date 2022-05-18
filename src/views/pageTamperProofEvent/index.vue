@@ -328,7 +328,7 @@
         <div slot="footer" class="dialog-footer">
           <el-row type="flex" justify="center">
             <el-button size="small" type="primary" @click="submitForm"
-              >保 存</el-button
+              >确 认</el-button
             >
             <el-button size="small" @click="cancel">取 消</el-button>
           </el-row>
@@ -655,6 +655,9 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+::v-deep .el-dialog__body {
+  padding: 0 !important;
+}
 ::v-deep .el-collapse-item__header {
   font-size: 21px;
   border-bottom: 0px solid rgba(0, 0, 0, 0);
@@ -674,9 +677,11 @@ export default {
   }
 }
 .el-dialog-div {
-  height: 30vh;
+  height: 40vh;
   overflow: auto;
   overflow-x: hidden;
+  border-top: 1px solid #ccc;
+  padding: 10px 20px;
 }
 .collapse-title {
   flex: 1 0 90%;

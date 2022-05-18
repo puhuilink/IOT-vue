@@ -8,7 +8,7 @@
       :type="'event_format'"
       :name="'host'"
     />
-    <wordcloud :query="query" :address="address" :host="1" :name="'host'" />
+    <!-- <wordcloud :query="query" :address="address" :host="1" :name="'host'" /> -->
     <eventType
       :query="query"
       :tipname="'事件状态处置图'"
