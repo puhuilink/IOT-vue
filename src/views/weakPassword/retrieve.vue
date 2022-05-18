@@ -217,7 +217,8 @@
     />
     <!-- 添加或修改分组对话框 -->
     <el-dialog :title="title" :visible.sync="open" width="900px" append-to-body>
-      <el-form ref="form" label-width="100px" label-position="left">
+      <div class="contentBox">
+          <el-form ref="form" label-width="100px" label-position="left">
         <el-row>
           <el-col :span="8">
             <el-form-item label="IP地址 :">
@@ -281,10 +282,12 @@
           </el-col>
         </el-row>
       </el-form>
+      </div>
+     
       <div slot="footer" class="dialog-footer">
         <el-row type="flex" justify="center">
           <el-button size="small" type="primary" @click="submitForm"
-            >确 定</el-button
+            >确 认</el-button
           >
           <el-button size="small" @click="cancel">取 消</el-button>
         </el-row>
@@ -638,6 +641,15 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+::v-deep .el-dialog__body {
+  padding: 0 !important;
+}
+.contentBox {
+  width: 100%;
+  height: 100%;
+  border-top: 1px solid #ccc;
+  padding: 10px 20px;
+}
 ::v-deep .label-type {
   .el-form-item__label {
     color: #333;

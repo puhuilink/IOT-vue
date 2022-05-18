@@ -152,9 +152,15 @@
           prop="severity"
           :show-overflow-tooltip="true"
         >
-          <template>
-            <!-- <span>{{ "中危" }}</span> -->
-          </template>
+          <template #default="scope">
+          <span
+            v-if="
+              scope.row._source.severity == null ||
+              scope.row._source.severity == ''
+            "
+          />
+          <span v-else>{{ transTypeDic(scope.row._source.severity) }}</span>
+        </template>
         </el-table-column>
         <el-table-column
           label="处置状态"

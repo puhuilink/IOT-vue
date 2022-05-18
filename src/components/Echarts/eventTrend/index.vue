@@ -5,6 +5,11 @@
         <div ref="canvas1" style="height: 400px" />
       </el-col>
     </div>
+    <div v-else-if="name == 'host'">
+      <el-col :span="24">
+        <div ref="canvas1" style="height: 400px" />
+      </el-col>
+    </div>
     <div v-else>
       <el-col :span="12">
         <tip>{{ tipname }}</tip>
