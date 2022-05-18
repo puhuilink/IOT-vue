@@ -1,8 +1,6 @@
 <template>
-  <div class="home-container home">
-
+  <div >
     <iframe ref="vueIframe" id="mobsf" src="/static/index.html" @load="loaded" scrolling="no" frameborder="0"  />
-
   </div>
 </template>
 
