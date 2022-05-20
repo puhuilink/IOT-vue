@@ -5,6 +5,12 @@
         <div ref="canvas1" style="height: 400px" />
       </el-col>
     </div>
+     <div v-if="name == 'equipment'">
+      <el-col :span="22">
+          <tip>{{ tipname }}</tip>
+        <div ref="canvas1" style="height: 400px" />
+      </el-col>
+    </div>
     <div v-else>
       <el-col :span="12">
         <tip>{{ tipname }}</tip>
@@ -780,6 +786,22 @@ export default {
                 { value: 569, name: "配置核查" },
                 { value: 102, name: "工业网络" },
                 { value: 62, name: "诱捕防护" },
+              ];
+              break;
+             case "equipment":
+              this.hasData = [
+                { value: 3948, name: "CPU使用率过高" },
+                { value: 2514, name: "磁盘使用率过高" },
+                { value: 1699, name: "内存使用率过高" },
+                { value: 1023, name: "异常操作" },
+                { value: 362, name: "震动幅度过高" },
+              ];
+              this.datacopy = [
+                { value: 3948, name: "CPU使用率过高" },
+                { value: 2514, name: "磁盘使用率过高" },
+                { value: 1699, name: "内存使用率过高" },
+                { value: 1023, name: "异常操作" },
+                { value: 362, name: "震动幅度过高" },
               ];
               break;
             default:

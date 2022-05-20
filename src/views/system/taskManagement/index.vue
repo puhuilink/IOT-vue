@@ -1,14 +1,14 @@
 <template>
   <div class="app-container">
-    <el-form
-      v-show="showSearch"
+    <el-card class="box-card">
+        <el-form
       ref="queryForm"
       :model="queryParams"
-      :inline="true"
       class="label-type"
       label-width="108px"
     >
-      <el-form-item label="设备名称：" prop="deviceNum">
+     <el-col :span="6">
+      <el-form-item label="任务类型：" prop="deviceNum">
         <el-input
           v-model="queryParams.deviceNum"
           placeholder="请输入设备名称"
@@ -17,7 +17,9 @@
           @keyup.enter.native="handleQuery"
         />
       </el-form-item>
-      <el-form-item label="设备类型：" prop="categoryId">
+     </el-col>
+     <el-col :span="6">
+      <el-form-item label="任务状态：" prop="categoryId">
         <el-select
           v-model="queryParams.categoryId"
           placeholder="请选择设备类型"
@@ -32,80 +34,23 @@
           />
         </el-select>
       </el-form-item>
-      <el-form-item label="设备状态：" prop="deviceName">
-       <el-select
-          v-model="queryParams.categoryId"
-          placeholder="请选择设备状态"
-          clearable
-          size="small"
-        >
-          <el-option
-            v-for="(item, index) in categoryDeviceStatus"
-            :key="index"
-            :label="item.label"
-            :value="item.label"
-          />
-        </el-select>
-      </el-form-item>
-      <el-form-item label="授权状态：" prop="firmwareVersion">
-         <el-select
-          v-model="queryParams.categoryId"
-          placeholder="请选择授权状态"
-          clearable
-          size="small"
-        >
-          <el-option
-            v-for="(item, index) in categoryDeviceAuthorizationState"
-            :key="index"
-            :label="item.label"
-            :value="item.label"
-          />
-        </el-select>
-      </el-form-item>
-      <el-form-item label="硬件版本号：" prop="ownerId">
-        <el-input
-          v-model="queryParams.ownerId"
-          placeholder="请输入硬件版本号"
-          clearable
-          size="small"
-          @keyup.enter.native="handleQuery"
-        />
-      </el-form-item>
-      <el-form-item label="ROM版本号：">
-        <el-input
-          v-model="queryParams.ownerId"
-          placeholder="请输入ROM版本号"
-          clearable
-          size="small"
-          @keyup.enter.native="handleQuery"
-        />
-      </el-form-item>
-      <el-form-item label="区域：" prop="deviceName">
-        <el-select
-                  v-model.trim="queryParams.location"
-                  placeholder="请选择区域"
-                  filterable
+     </el-col>
+      <el-col :span="6">
+              <el-form-item label="开始时间:" prop="date">
+                <el-date-picker
+                  v-model="queryParams.date"
+                  size="small"
+                  type="daterange"
+                  value-format="yyyy-MM-dd"
+                  start-placeholder="开始时间"
+                  end-placeholder="结束时间"
+                  range-separator="至"
                   clearable
                   :style="{ width: '100%' }"
-                >
-                  <el-option
-                    v-for="(item, index) in areaOptions"
-                    :key="index"
-                    :label="item.label"
-                    :value="item.label"
-                    :disabled="item.disabled"
-                  />
-                </el-select>
-      </el-form-item>
-      <el-form-item label="负责人：" prop="deviceName">
-         <el-input
-          v-model="queryParams.ownerId"
-          placeholder="请输入负责人"
-          clearable
-          size="small"
-          @keyup.enter.native="handleQuery"
-        />
-      </el-form-item>
+                />
+              </el-form-item>
+            </el-col>
+      <el-col :span="6">
       <el-form-item>
         <el-button
           type="primary"
@@ -117,9 +62,11 @@
           @click="resetQuery"
         >重置</el-button>
       </el-form-item>
+     </el-col>
     </el-form>
-
-    <el-row :gutter="10" class="mb8">
+    </el-card>
+    <el-card class="box-card">
+      <el-row :gutter="10" class="mb8">
       <el-col :span="1.5">
         <el-button
           v-hasPermi="['system:device:add']"
@@ -127,7 +74,7 @@
           plain
           size="mini"
           @click="handleAdd"
-        >授权</el-button>
+        >新增</el-button>
       </el-col>
       <el-col :span="1.5">
         <el-button
@@ -135,8 +82,8 @@
           type="success"
           plain
           size="mini"
-          @click="handleUpdate"
-        >升级</el-button>
+          @click="handleUpdate()"
+        >编辑</el-button>
       </el-col>
       <el-col :span="1.5">
         <el-button
@@ -147,65 +94,34 @@
           @click="handleExport"
         >导出</el-button>
       </el-col>
+       <el-col :span="1.5">
+        <el-button
+          v-hasPermi="['system:device:export']"
+          type="warning"
+          plain
+          size="mini"
+          @click="handleExport"
+        >删除</el-button>
+      </el-col>
       <right-toolbar :show-search.sync="showSearch" @queryTable="getList" />
-    </el-row>
-
-    <el-table
+      </el-row>
+      <el-table
       v-loading="loading"
       :data="deviceList"
       @selection-change="handleSelectionChange"
     >
       <el-table-column type="selection" width="45" align="center" />
-      <el-table-column label="设备名称" align="center" prop="deviceNum" />
-      <el-table-column label="设备类型" align="center" prop="deviceName" />
+      <el-table-column label="任务名称" align="center" prop="deviceNum" />
+      <el-table-column label="任务类型" align="center" prop="deviceName" />
       <el-table-column
-        label="设备状态"
+        label="设备名称"
         align="center"
         prop="categoryId"
         :formatter="categoryFormat"
       />
-      <el-table-column label="授权状态" align="center" prop="nickName" />
-      <el-table-column label="设备IP" align="center" prop="firmwareVersion" />
-      <!-- <el-table-column label="设备SN号" align="center" prop="isOnline">
-        <template slot-scope="scope">
-          <el-switch v-model="scope.row.isOnline" :active-value="1" :inactive-value="0" active-color="#13ce66" disabled />
-        </template>
-      </el-table-column> -->
-      <el-table-column label="设备SN号" align="center" prop="nickName" />
-      <el-table-column label="硬件版本号" align="center" prop="rssi">
-        <template slot-scope="scope" style="font-size: 40px">
-          <div style="font-size: 30px">
-            <svg-icon v-if="scope.row.rssi >= '-55'" icon-class="wifi_4" />
-            <svg-icon
-              v-else-if="scope.row.rssi >= '-70' && scope.row.rssi < '-55'"
-              icon-class="wifi_3"
-            />
-            <svg-icon
-              v-else-if="scope.row.rssi >= '-85' && scope.row.rssi < '-70'"
-              icon-class="wifi_2"
-            />
-            <svg-icon
-              v-else-if="scope.row.rssi >= '-100' && scope.row.rssi < '-85'"
-              icon-class="wifi_1"
-            />
-            <svg-icon v-else icon-class="wifi_0" />
-          </div>
-        </template>
-      </el-table-column>
-      <el-table-column label="ROM版本号" align="center" prop="nickName" />
-      <el-table-column label="区域" align="center" prop="nickName" />
-      <el-table-column label="负责人" align="center" prop="nickName" />
-      <el-table-column
-        label="最后活跃时间"
-        align="center"
-        prop="createTime"
-        width="100"
-      >
-        <template slot-scope="scope">
-          <span>{{ parseTime(scope.row.createTime, "{y}-{m}-{d}") }}</span>
-        </template>
-      </el-table-column>
-
+      <el-table-column label="任务进度" align="center" prop="nickName" />
+      <el-table-column label="任务状态" align="center" prop="firmwareVersion" />
+      <el-table-column label="任务开始时间" align="center" prop="nickName" />
       <el-table-column
         label="操作"
         align="center"
@@ -217,30 +133,12 @@
             v-hasPermi="['system:device:edit']"
             size="mini"
             type="text"
-            @click="detail()"
-          >详情</el-button>
-          <el-button
-            v-hasPermi="['system:device:edit']"
-            size="mini"
-            type="text"
-            @click="handleSet(scope.row)"
-          >配置</el-button>
-          <el-button
-            v-hasPermi="['system:device:edit']"
-            size="mini"
-            type="text"
-            @click="upgrade()"
-          >升级</el-button>
-          <el-button
-            v-hasPermi="['system:device:edit']"
-            size="mini"
-            type="text"
-            @click="handleUpdate(scope.row)"
-          >修改</el-button> 
+            @click="detail(scope.row)"
+          >预览报告</el-button>
         </template>
       </el-table-column>
-    </el-table>
-
+      </el-table>
+    </el-card>
     <pagination
       v-show="total > 0"
       :total="total"
@@ -252,52 +150,52 @@
     <!-- 添加或修改设备对话框 -->
     <el-dialog :title="title" :visible.sync="open" width="700px" append-to-body>
       <div class="contentBoxEdit">
-           <el-form ref="form" :model="form" :rules="rules" label-width="220px">
+           <el-form ref="form" :model="form" :rules="rules" label-width="120px">
          <el-col :span="15" :offset="3" >
-           <el-form-item label="设备名称：" prop="deviceNum">
+           <el-form-item label="任务名称：" prop="deviceNum">
              <el-input
                 v-model="form.deviceNum"
-                placeholder="请输入设备名称"
+                placeholder="请输入任务名称"
              />
             </el-form-item>
          </el-col>
          <el-col :span="15" :offset="3" >
-           <el-form-item label="别名：" prop="deviceNum">
+           <el-form-item label="任务类型：" prop="deviceNum">
              <el-input
                 v-model="form.deviceNum"
-                placeholder="请输入别名"
+                placeholder="请输入任务类型"
              />
             </el-form-item>
          </el-col>
          <el-col :span="15" :offset="3" >
-           <el-form-item label="是否修改与其相连的设备别名：" prop="deviceNum">
+           <el-form-item label="配置模板：" prop="deviceNum">
              <el-input
                 v-model="form.deviceNum"
-                placeholder="请输入别名"
+                placeholder="请输入配置模板"
              />
             </el-form-item>
          </el-col>
         <el-col :span="15" :offset="3" >
-           <el-form-item label="是否继承上级设备别名：" prop="deviceNum">
+           <el-form-item label="选择设备：" prop="deviceNum">
              <el-input
                 v-model="form.deviceNum"
-                placeholder="请输入别名"
+                placeholder="请输入选择设备"
              />
             </el-form-item>
          </el-col>
         <el-col :span="15" :offset="3" >
-           <el-form-item label="负责人：" prop="deviceNum">
+           <el-form-item label="立即执行：" prop="deviceNum">
              <el-input
                 v-model="form.deviceNum"
-                placeholder="请输入负责人"
+                placeholder="请输入负立即执行"
              />
             </el-form-item>
          </el-col>
           <el-col :span="15" :offset="3" >
-           <el-form-item label="负责人部门：" prop="deviceNum">
+           <el-form-item label="选择执行时间：" prop="deviceNum">
              <el-input
                 v-model="form.deviceNum"
-                placeholder="请输入负责人"
+                placeholder="请选择执行时间"
              />
             </el-form-item>
          </el-col>
@@ -311,7 +209,7 @@
         </el-row>
       </div>
     </el-dialog>
-    <!-- 对话框 -->
+    <!-- 添加或修改设备状态对话框 -->
     <el-dialog
       :title="statusTitle"
       :visible.sync="statusOpen"
@@ -618,7 +516,7 @@
       <!-- 查看设备详情 -->
     <el-dialog :title="title" :visible.sync="detailOpenDialog" width="900px" append-to-body>
       <div class="contentBox">
-        <div class="information">设备属性</div>
+        <div class="information">任务详情</div>
         <el-form
           ref="form"
           label-width="125px"
@@ -627,208 +525,69 @@
         >
           <el-row>
             <el-col :span="8">
+              <el-form-item label="任务名称 :">
+                {{ detailData.reportName }}
+              </el-form-item>
+            </el-col>
+            <el-col :span="8">
+              <el-form-item label="任务类型 :">
+                <tooltip :content="detailData.reportType" :length="40" />
+              </el-form-item>
+            </el-col>
+            <el-col :span="8">
+              <el-form-item label="配置模板 :">
+                {{ detailData.reportCycle }}
+              </el-form-item>
+            </el-col>
+            <el-col :span="8">
               <el-form-item label="设备名称 :">
-                {{ detailData.reportName }}
-              </el-form-item>
-            </el-col>
-            <el-col :span="8">
-              <el-form-item label="设备类型 :">
-                <tooltip :content="detailData.reportType" :length="40" />
-              </el-form-item>
-            </el-col>
-            <el-col :span="8">
-              <el-form-item label="运行状态 :">
-                {{ detailData.reportCycle }}
-              </el-form-item>
-            </el-col>
-            <el-col :span="8">
-              <el-form-item label="授权状态 :">
                 {{ detailData.status }}
               </el-form-item>
             </el-col>
             <el-col :span="8">
-              <el-form-item label="设备SN号 :">
+              <el-form-item label="任务开始时间 :">
                 {{ detailData.lastExecutionTime }}
               </el-form-item>
             </el-col>
             <el-col :span="8">
-              <el-form-item label="设备硬件版本号 :">
+              <el-form-item label="任务结束时间 :">
                 {{ detailData.nextExecutionTime }}
               </el-form-item>
             </el-col>
             <el-col :span="8">
-              <el-form-item label="设备ROM版本号 :">
+              <el-form-item label="任务状态 :">
                 {{ detailData.InformTheWay }}
               </el-form-item>
             </el-col>
             <el-col :span="8">
-              <el-form-item label="设备IP :">
+              <el-form-item label="创建人 :">
                 {{ detailData.Notify }}
-              </el-form-item>
-            </el-col>
-            <el-col :span="8">
-              <el-form-item label="负责人 :">
-                {{ detailData.create }}
-              </el-form-item>
-            </el-col>
-            <el-col :span="8">
-              <el-form-item label="负责人部门 :">
-                {{ detailData.createTime }}
-              </el-form-item>
-            </el-col>
-            <el-col :span="8">
-              <el-form-item label="区域 :">
-                {{ detailData.create }}
-              </el-form-item>
-            </el-col>
-            <el-col :span="8">
-              <el-form-item label="发现时间 :">
-                {{ detailData.createTime }}
-              </el-form-item>
-            </el-col>
-            <el-col :span="8">
-              <el-form-item label="授权时间 :">
-                {{ detailData.createTime }}
-              </el-form-item>
-            </el-col>
-            <el-col :span="8">
-              <el-form-item label="最后活跃时间 :">
-                {{ detailData.createTime }}
               </el-form-item>
             </el-col>
           </el-row>
         </el-form>
-        <div class="information">性能属性</div>
-         <el-form
-          ref="form"
-          label-width="90px"
-          label-position="left"
-          class="label-type"
-        >
-          <el-row>
-            <el-col :span="8">
-              <el-form-item label="温度 :">
-                {{ detailData.reportName }}
-              </el-form-item>
-            </el-col>
-            <el-col :span="8">
-              <el-form-item label="电压 :">
-                <tooltip :content="detailData.reportType" :length="40" />
-              </el-form-item>
-            </el-col>
-            <el-col :span="8">
-              <el-form-item label="湿度 :">
-                {{ detailData.reportCycle }}
-              </el-form-item>
-            </el-col>
-            <el-col :span="8">
-              <el-form-item label="方向角 :">
-                {{ detailData.status }}
-              </el-form-item>
-            </el-col>
-            <el-col :span="8">
-              <el-form-item label="横滚角 :">
-                {{ detailData.lastExecutionTime }}
-              </el-form-item>
-            </el-col>
-            <el-col :span="8">
-              <el-form-item label="震动幅度 :">
-                {{ detailData.nextExecutionTime }}
-              </el-form-item>
-            </el-col>
-            <el-col :span="8">
-              <el-form-item label="CPU使用率 :">
-                {{ detailData.InformTheWay }}
-              </el-form-item>
-            </el-col>
-            <el-col :span="8">
-              <el-form-item label="内存使用率 :">
-                {{ detailData.Notify }}
-              </el-form-item>
-            </el-col>
-            <el-col :span="8">
-              <el-form-item label="磁盘使用率 :">
-                {{ detailData.create }}
-              </el-form-item>
-            </el-col>
-            <el-col :span="8">
-              <el-form-item label="状态 :">
-                {{ detailData.createTime }}
-              </el-form-item>
-            </el-col>
-          </el-row>
-        </el-form>
-        <div class="echartsCss">
-            <eventTrend :query="query" :event-type="2" :name="'device'" :search="'event_ztwe'" :tipname="'网卡1流量统计'" />
-            <eventTrend :query="query" :event-type="2" :name="'device'" :search="'event_ztwe'" :tipname="'网卡2流量统计'"/>
-        </div>
-         <div class="information">接口属性</div>
-          <el-table :data="ListInterfaceProperties" tooltip-effect="light">
-          <el-table-column
-            label="接口名称"
-            align="center"
-            prop="reportTimeRange"
-            :show-overflow-tooltip="true"
-          />
-          <el-table-column
-            label="接口号"
-            align="center"
-            prop="executionTime"
-            :show-overflow-tooltip="true"
-          />
-          <el-table-column
-            label="接口类型"
-            align="center"
-            prop="executionStatus"
-            :show-overflow-tooltip="true"
-          />
-         <el-table-column
-            label="接口速率"
-            align="center"
-            prop="executionTime"
-            :show-overflow-tooltip="true"
-          />
-          <el-table-column
-            label="接口地址"
-            align="center"
-            prop="executionStatus"
-            :show-overflow-tooltip="true"
-          />
-           <el-table-column
-            label="接口状态"
-            align="center"
-            prop="executionStatus"
-            :show-overflow-tooltip="true"
-          />
-           <el-table-column
-            label="过滤器"
-            align="center"
-            prop="executionStatus"
-            :show-overflow-tooltip="true"
-          />
-        </el-table>
-         <div class="information">任务列表</div>
+        <div class="information">执行结果</div>
           <el-table :data="TaskList" tooltip-effect="light">
           <el-table-column
-            label="任务名称"
+            label="设备名称"
             align="center"
             prop="reportTimeRange"
             :show-overflow-tooltip="true"
           />
           <el-table-column
-            label="任务类型"
+            label="设备IP"
             align="center"
             prop="executionTime"
             :show-overflow-tooltip="true"
           />
           <el-table-column
-            label="任务状态"
+            label="设备类型"
             align="center"
             prop="executionStatus"
             :show-overflow-tooltip="true"
           />
           <el-table-column
-            label="最近执行时间"
+            label="执行结果"
             align="center"
             prop="executionTime"
             :show-overflow-tooltip="true"
@@ -837,7 +596,7 @@
         <div slot="footer" class="dialog-footer">
           <el-row type="flex" justify="center">
             <el-button size="small" type="primary" @click="confirm"
-              >确 认</el-button
+              >保 存</el-button
             >
             <el-button size="small" @click="cancel">取 消</el-button>
           </el-row>
@@ -1160,7 +919,7 @@ export default {
     },
      detail() {
       this.detailOpenDialog = true;
-      this.title = "设备详情";
+      this.title = "任务报告";
       this.detailData = this.detailDataApi;
     },
     //  升级保存
@@ -1302,19 +1061,14 @@ export default {
     },
     /** 新增按钮操作 */
     handleAdd() {
-      this.reset()
+      // this.reset()
       this.open = true
       this.title = '添加设备'
     },
     /** 修改按钮操作 */
     handleUpdate(row) {
-      this.reset()
-      const deviceId = row.deviceId || this.ids
-      getDevice(deviceId).then(response => {
-        this.form = response.data
         this.open = true
-        this.title = '修改设备'
-      })
+        this.title = '编辑任务'
     },
     /** 状态按钮操作 */
     handleStatus(row) {
@@ -1440,10 +1194,7 @@ export default {
   padding: 0 !important;
 }
 .contentBox {
-  height: 80vh;
-  overflow: auto;
-  overflow-y: scroll;
-  overflow-x: hidden;
+  height: 50vh;
   width: 100%;
   border-top: 1px solid #ccc;
   padding: 10px 20px;
