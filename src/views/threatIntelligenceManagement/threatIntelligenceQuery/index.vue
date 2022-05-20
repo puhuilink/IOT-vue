@@ -2,23 +2,26 @@
   <div class="app-container home">
 
     <iframe id="mobsf"
-            src="http://10.201.30.60:8080/intelligence/login-with-params?username=jiance&token=dd3fc4f8b58f39e176bc76f9d46b70b72d1d1d2a&redirect=manage-intel"
+          :src="url"
             scrolling="no"
             frameborder="0" />
   </div>
 </template>
 
 <script>
+import { getToken } from '@/api/system/echarts'
 export default {
   name: 'Index',
   inject: ['closeCurrentTab'],
   data () {
     return {
       // 版本号
-      version: '3.4.0'
+      version: '3.4.0',
+      url:''
     }
   },
   created () {
+      this.getToken()
     this.log()
   },
   mounted () {
@@ -40,8 +43,12 @@ export default {
     }
   },
   methods: {
+      async getToken(){
+    const res = await getToken()
+   this.url =  'http://10.201.30.60:80/intelligence/login-with-params?username=jiance&token='+res+'&redirect=manage-intel'
+    },
     log () {
-      window.open('http://10.201.30.60:8080/intelligence/login-with-params?username=jiance&token=dd3fc4f8b58f39e176bc76f9d46b70b72d1d1d2a&redirect=manage-intel', '_blank')
+      window.open(this.url, '_blank')
       this.closeCurrentTab()
     }
   }
