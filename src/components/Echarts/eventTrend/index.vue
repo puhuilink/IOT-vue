@@ -10,6 +10,19 @@
         <div ref="canvas1" style="height: 400px" />
       </el-col>
     </div>
+     <div v-else-if="name == 'device'">
+      <el-col :span="12">
+        <div ref="canvas1" style="height: 400px" />
+        <div style="text-align:center">{{tipname}}</div>
+      </el-col>
+    </div>
+     <div v-else-if="name == 'equipment'">
+      <el-col :span="24">
+        <tip>{{ tipname }}</tip>
+        <div ref="canvas1" style="height: 400px" />
+        <!-- <div style="text-align:center">{{tipname}}</div> -->
+      </el-col>
+    </div>
     <div v-else>
       <el-col :span="12">
         <tip>{{ tipname }}</tip>
@@ -298,6 +311,21 @@ export default {
             this.data5 = this.transDicData(data)[4];
           });
           break;
+        case "device":
+          this.hasData = [ 332, 601, 834, 590, 930, 1010];
+          this.data1 = [ 632, 701, 1134, 890, 430, 210];
+          this.data5 = [ 332, 601, 834, 590, 930, 1010];
+          this.date = ['2022/5/13','2022/5/14','2022/5/15','2022/5/16','2022/5/17'];
+          break;
+         case "equipment":
+          this.hasData = [ 332, 601, 834, 590, 930, 1010, 666];
+          this.data1 = [ 632, 701, 1134, 890, 430, 210, 777];
+          this.data2 = [ 332, 511, 134, 690, 830, 910, 888];
+          this.data3 = [ 132, 201, 704, 590, 930, 310, 999];
+          this.data4 = [ 32, 101, 94, 590, 930, 10, 555];
+          this.data5 = [ 332, 601, 834, 590, 930, 610, 333];
+          this.date = ['2022/5/13','2022/5/14','2022/5/15','2022/5/16','2022/5/17','2022/5/18','2022/5/19'];
+          break;
         case "abnormal":
           await eventEsData(this.queryParms).then(({ data }) => {
             this.hasData = data;
@@ -375,6 +403,7 @@ export default {
           this.data4 = [520, 132, 101, 134, 90, 230, 10];
           this.data5 = [120, 132, 201, 134, 190, 230, 310];
           this.date = [1, 2, 3, 4, 5, 6, 7];
+           break;
         default:
           console.log("无数据", this.type);
           break;

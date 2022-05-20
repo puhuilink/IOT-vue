@@ -1032,8 +1032,8 @@ export default {
           value: "高危",
         },
         {
-          label: "致命",
-          value: "致命",
+          label: "失陷",
+          value: "失陷",
         },
       ],
       statusOptions: [
@@ -1053,19 +1053,23 @@ export default {
       levelOptions: [
         {
           label: "极低",
-          value: "极低",
+          value: "1",
         },
         {
-          label: "低",
-          value: "低",
+          label: "低危",
+          value: "2",
         },
         {
-          label: "中",
-          value: "中",
+          label: "中危",
+          value: "3",
         },
         {
-          label: "高",
-          value: "高",
+          label: "高危",
+          value: "4",
+        },
+        {
+          label: "致命",
+          value: "5",
         },
       ],
       assetTypeOptions: [

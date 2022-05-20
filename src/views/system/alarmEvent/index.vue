@@ -13,7 +13,7 @@
             label-position="right"
           >
             <el-col :span="6">
-              <el-form-item label="事件名称:" prop="event_name">
+              <el-form-item label="告警名称：" prop="event_name">
                 <el-input
                   v-model="queryParams.event_name"
                   placeholder="请输入事件名称"
@@ -23,29 +23,30 @@
               </el-form-item>
             </el-col>
             <el-col :span="6">
-              <el-form-item label="区域:" prop="location">
-                <el-select
-                  v-model="queryParams.location"
-                  placeholder="请选择区域"
-                  filterable
+              <el-form-item label="终端IP：" prop="event_name">
+                <el-input
+                  v-model="queryParams.event_name"
+                  placeholder="请输入终端IP"
                   clearable
                   :style="{ width: '100%' }"
-                >
-                  <el-option
-                    v-for="(item, index) in areaOptions"
-                    :key="index"
-                    :label="item.label"
-                    :value="item.label"
-                    :disabled="item.disabled"
-                  />
-                </el-select>
+                />
               </el-form-item>
             </el-col>
             <el-col :span="6">
-              <el-form-item label="事件等级:" prop="severity">
+              <el-form-item label="目的IP：" prop="event_name">
+                <el-input
+                  v-model="queryParams.event_name"
+                  placeholder="请输入目的IP"
+                  clearable
+                  :style="{ width: '100%' }"
+                />
+              </el-form-item>
+            </el-col>
+            <el-col :span="6">
+              <el-form-item label="告警等级:" prop="severity">
                 <el-select
                   v-model="queryParams.severity"
-                  placeholder="请选择事件等级"
+                  placeholder="请选择告警等级"
                   filterable
                   clearable
                   :style="{ width: '100%' }"
@@ -60,21 +61,11 @@
                 </el-select>
               </el-form-item>
             </el-col>
-            <!-- <el-col :span="6">
-              <el-form-item label="威胁分类:" prop="ev_ksec_threatFlag">
-                <el-input
-                  v-model="queryParams.ev_ksec_threatFlag"
-                  placeholder="请输入威胁分类"
-                  clearable
-                  :style="{ width: '100%' }"
-                />
-              </el-form-item>
-            </el-col> -->
             <el-col :span="6">
-              <el-form-item label="威胁分类:" prop="ev_ksec_threatFlag">
+              <el-form-item label="告警类型::" prop="ev_ksec_threatFlag">
                 <el-select
                   v-model.trim="queryParams.ev_ksec_threatFlag"
-                  placeholder="请选择威胁分类"
+                  placeholder="请选择告警类型:"
                   filterable
                   clearable
                   :style="{ width: '100%' }"
@@ -108,46 +99,7 @@
               </el-form-item>
             </el-col>
             <el-col :span="6">
-              <el-form-item label="目的IP:" prop="ev_com_socket_dst_ip">
-                <el-input
-                  v-model="queryParams.ev_com_socket_dst_ip"
-                  placeholder="请输入目的IP"
-                  clearable
-                  :style="{ width: '100%' }"
-                />
-              </el-form-item>
-            </el-col>
-
-            <el-col :span="6">
-              <el-form-item label="源IP:" prop="ev_com_socket_src_ip">
-                <el-input
-                  v-model="queryParams.ev_com_socket_src_ip"
-                  placeholder="请输入源IP"
-                  clearable
-                  :style="{ width: '100%' }"
-                />
-              </el-form-item>
-            </el-col>
-            <el-col :span="6">
-              <el-form-item label="杀伤链阶段:" prop="ev_ksec_killchainCN">
-                <el-select
-                  v-model="queryParams.ev_ksec_killchainCN"
-                  placeholder="请选择杀伤链阶段"
-                  clearable
-                  :style="{ width: '100%' }"
-                >
-                  <el-option
-                    v-for="(item, index) in killle"
-                    :key="index"
-                    :label="item.label"
-                    :value="item.label"
-                    :disabled="item.disabled"
-                  />
-                </el-select>
-              </el-form-item>
-            </el-col>
-            <el-col :span="6">
-              <el-form-item label="发生时间:" prop="date">
+              <el-form-item label="开始时间:" prop="date">
                 <el-date-picker
                   v-model="queryParams.date"
                   size="small"
@@ -159,6 +111,25 @@
                   clearable
                   :style="{ width: '100%' }"
                 />
+              </el-form-item>
+            </el-col>
+             <el-col :span="6">
+              <el-form-item label="区域：" prop="location">
+                <el-select
+                  v-model="queryParams.location"
+                  placeholder="请选择区域"
+                  filterable
+                  clearable
+                  :style="{ width: '100%' }"
+                >
+                  <el-option
+                    v-for="(item, index) in areaOptions"
+                    :key="index"
+                    :label="item.label"
+                    :value="item.label"
+                    :disabled="item.disabled"
+                  />
+                </el-select>
               </el-form-item>
             </el-col>
             <el-col :span="6">
@@ -173,19 +144,19 @@
     </el-card>
     <el-table :data="List" tooltip-effect="light">
       <el-table-column
-        label="源IP"
+        label="告警名称"
         align="center"
         prop="_source.ev_com_socket_src_ip"
         :show-overflow-tooltip="true"
       />
       <el-table-column
-        label="目的IP"
+        label="告警等级"
         align="center"
         prop="_source.ev_com_socket_dst_ip"
         :show-overflow-tooltip="true"
       />
       <el-table-column
-        label="事件名称"
+        label="设备名称"
         align="center"
         prop="_source.event_name"
         :show-overflow-tooltip="true"
@@ -197,7 +168,7 @@
         :show-overflow-tooltip="true"
       /> -->
       <el-table-column
-        label="威胁分类"
+        label="设备IP"
         align="center"
         prop="_source.ev_ksec_threatFlag"
         :show-overflow-tooltip="true"
@@ -206,7 +177,7 @@
           <span>{{ translevelDic(scope.row._source.ev_ksec_threatFlag) }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="事件等级" align="center" prop="severity">
+      <el-table-column label="设备类型" align="center" prop="severity">
         <template #default="scope">
           <span
             v-if="
@@ -218,19 +189,13 @@
         </template>
       </el-table-column>
       <el-table-column
-        label="杀伤链阶段"
+        label="处置状态"
         align="center"
         prop="_source.ev_ksec_killchainCN"
         :show-overflow-tooltip="true"
       />
       <el-table-column
-        label="处置状态"
-        align="center"
-        prop="_source.procedure"
-        :show-overflow-tooltip="true"
-      />
-      <el-table-column
-        label="发生时间"
+        label="告警开始时间"
         align="center"
         prop="_source.occur_time"
         :show-overflow-tooltip="true"
@@ -242,7 +207,7 @@
         </template>
       </el-table-column>
       <el-table-column
-        label="发现时间"
+        label="告警结束时间"
         align="center"
         prop="_source.ev_com_event_observe_time"
         :show-overflow-tooltip="true"
@@ -268,17 +233,6 @@
           <el-button size="mini" type="text" @click="detail(scope.row._source)"
             >详情</el-button
           >
-          &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
-          <el-dropdown @command="batchOperate">
-            <el-button size="mini" type="text">
-              状态变更<i class="el-icon-arrow-down el-icon--right" />
-            </el-button>
-            <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item command="process">处置</el-dropdown-item>
-              <el-dropdown-item command="un_process">不处置</el-dropdown-item>
-              <el-dropdown-item command="false_report">误报</el-dropdown-item>
-            </el-dropdown-menu>
-          </el-dropdown>
         </template>
       </el-table-column>
     </el-table>
@@ -293,82 +247,57 @@
     <!-- 添加或修改分组对话框 -->
     <el-dialog :title="title" :visible.sync="open" width="900px" append-to-body>
       <div class="contentBox">
-        <el-form ref="form" label-width="100px" label-position="left" class="label-type">
+        <el-form ref="form" label-width="110px" label-position="left" class="label-type">
         <el-row>
           <el-col :span="12">
-            <el-form-item label="事件名称 :">
+            <el-form-item label="告警名称 :">
               <tooltip :content="detailData.event_name" :length="20" />
             </el-form-item>
           </el-col>
           <el-col :span="12">
-            <el-form-item label="威胁分类 :">
+            <el-form-item label="告警等级 :">
               {{ detailData.ev_ksec_threatFlag }}
             </el-form-item>
           </el-col>
           <el-col :span="12">
-            <el-form-item label="杀伤链阶段 :">
+            <el-form-item label="设备名称 :">
               {{ detailData.ev_ksec_killchainCN }}
             </el-form-item>
           </el-col>
           <el-col :span="12">
-            <el-form-item label="事件等级 :">
+            <el-form-item label="设备类型 :">
               {{ detailData.severity }}
             </el-form-item>
           </el-col>
           <el-col :span="12">
-            <el-form-item label="源IP :">
+            <el-form-item label="设备IP :">
               {{ detailData.ev_com_socket_src_ip }}
             </el-form-item>
           </el-col>
           <el-col :span="12">
-            <el-form-item label="攻击者国家 :">
+            <el-form-item label="区域 :">
               {{ detailData.ev_com_socket_src_ip_country }}
             </el-form-item>
           </el-col>
           <el-col :span="12">
-            <el-form-item label="目的IP :">
-              {{ detailData.ev_com_socket_dst_ip }}
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
-            <el-form-item label="受害者国家 :">
-              {{ detailData.ev_com_socket_dst_ip_country }}
-            </el-form-item>
-          </el-col>
-
-          <el-col :span="12">
-            <el-form-item label="源端口 :">
-              {{ detailData.ev_com_socket_src_port }}
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
-            <el-form-item label="目标端口 :">
-              {{ detailData.ev_com_socket_dst_port }}
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
-            <el-form-item label="协议 :">
-              {{ detailData.ev_com_socket_protocol }}
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
-            <el-form-item label="发生时间 :">
+            <el-form-item label="告警开始时间 :">
               {{ detailData.occur_time }}
             </el-form-item>
           </el-col>
           <el-col :span="12">
-            <el-form-item label="发现时间:">
-              {{ detailData.ev_com_event_observe_time | moment }}
+            <el-form-item label="告警结束时间 :">
+              {{ detailData.ev_com_event_observe_time  | moment}}
             </el-form-item>
           </el-col>
-          <el-col :span="12">
-            <el-form-item label="区域 :">
-              {{ detailData.location }}
-            </el-form-item>
-          </el-col>
+
           <el-col :span="12">
             <el-form-item label="处置状态 :">
-              {{ detailData.procedure }}
+              {{ detailData.ev_com_socket_src_port }}
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="告警描述 :">
+              {{ detailData.ev_com_socket_dst_port }}
             </el-form-item>
           </el-col>
         </el-row>
@@ -589,7 +518,7 @@ export default {
     async getTableList() {
       this.addQuery(this.query, "event_name", this.queryParams.event_name);
 
-      this.addQuery(this.query, "location", this.queryParams.location);
+      this.addQuery(this.query, "location.keyword", this.queryParams.location);
 
       this.addQuery(this.query, "severity", this.queryParams.severity);
 
