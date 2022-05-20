@@ -8,17 +8,8 @@ a{
   color: #000;    /* 去除默认的颜色和点击后变化的颜色 */
 }
 #inner{
-  /*元素个数*290(div宽度)  动态算 1120px[4个元素] 1440px[5个元素]  1680px[6个元素]  2240px[8个元素]
-  用JS动态设置改值
-  */
-  width:3550px;
+  width:1820px;
   position:absolute;
-}
-
-.layer2 {
-  width: 1884px;
-  height: 40px;
-  margin: 16px 0 0 15px;
 }
 
 .bd2:hover{
@@ -522,6 +513,8 @@ a{
 }
 
 .ImageText1 {
+  margin-top: -10px;
+  margin-left: -5px;
   height: 38px;
   width: 108px;
 }
@@ -572,6 +565,8 @@ a{
 }
 
 .ImageText2 {
+  margin-top: -10px;
+  margin-left: -5px;
   height: 38px;
   width: 108px;
 }
@@ -622,6 +617,8 @@ a{
 }
 
 .ImageText3 {
+  margin-top: -10px;
+  margin-left: -5px;
   height: 38px;
   width: 136px;
 }
@@ -672,6 +669,8 @@ a{
 }
 
 .ImageText4 {
+  margin-top: -10px;
+  margin-left: -5px;
   height: 38px;
   width: 136px;
 }
@@ -722,6 +721,8 @@ a{
 }
 
 .ImageText5 {
+  margin-top: -10px;
+  margin-left: -5px;
   height: 38px;
   width: 94px;
 }
@@ -772,6 +773,8 @@ a{
 }
 
 .ImageText6 {
+  margin-top: -10px;
+  margin-left: -5px;
   height: 38px;
   width: 94px;
 }
@@ -822,6 +825,8 @@ a{
 }
 
 .ImageText7 {
+  margin-top: -10px;
+  margin-left: -5px;
   height: 38px;
   width: 122px;
 }
@@ -877,6 +882,8 @@ a{
 }
 
 .ImageText8 {
+  margin-top: -10px;
+  margin-left: -5px;
   height: 38px;
   width: 122px;
 }
@@ -927,6 +934,8 @@ a{
 }
 
 .ImageText9 {
+  margin-top: -10px;
+  margin-left: -5px;
   height: 38px;
   width: 122px;
 }
@@ -977,6 +986,8 @@ a{
 }
 
 .ImageText10 {
+  margin-top: -10px;
+  margin-left: -5px;
   height: 38px;
   width: 108px;
 }
@@ -1027,6 +1038,8 @@ a{
 }
 
 .ImageText11 {
+  margin-top: -10px;
+  margin-left: -5px;
   height: 38px;
   width: 136px;
 }
@@ -1129,6 +1142,8 @@ a{
 }
 
 .ImageText12 {
+  margin-top: -10px;
+  margin-left: -5px;
   height: 38px;
   width: 93px;
 }
@@ -1179,6 +1194,8 @@ a{
 }
 
 .ImageText13 {
+  margin-top: -10px;
+  margin-left: -5px;
   height: 38px;
   width: 93px;
 }
@@ -1229,6 +1246,8 @@ a{
 }
 
 .ImageText14 {
+  margin-top: -10px;
+  margin-left: -5px;
   height: 38px;
   width: 108px;
 }
@@ -1279,6 +1298,8 @@ a{
 }
 
 .ImageText15 {
+  margin-top: -10px;
+  margin-left: -5px;
   height: 38px;
   width: 122px;
 }
@@ -1329,6 +1350,8 @@ a{
 }
 
 .ImageText16 {
+  margin-top: -10px;
+  margin-left: -5px;
   height: 38px;
   width: 80px;
 }
@@ -1379,6 +1402,8 @@ a{
 }
 
 .ImageText17 {
+  margin-top: -10px;
+  margin-left: -5px;
   height: 38px;
   width: 80px;
 }
@@ -1429,6 +1454,8 @@ a{
 }
 
 .ImageText18 {
+  margin-top: -10px;
+  margin-left: -5px;
   height: 38px;
   width: 80px;
 }
@@ -1479,6 +1506,8 @@ a{
 }
 
 .ImageText19 {
+  margin-top: -10px;
+  margin-left: -5px;
   height: 38px;
   width: 80px;
 }
@@ -1540,6 +1569,8 @@ a{
 }
 
 .ImageText20 {
+  margin-top: -10px;
+  margin-left: -5px;
   height: 38px;
   width: 94px;
 }
@@ -1614,6 +1645,8 @@ a{
 }
 
 .ImageText21 {
+  margin-top: -10px;
+  margin-left: -5px;
   height: 38px;
   width: 122px;
 }
@@ -1663,6 +1696,8 @@ a{
 }
 
 .ImageText22 {
+  margin-top: -10px;
+  margin-left: -5px;
   height: 38px;
   width: 164px;
 }
@@ -1746,6 +1781,8 @@ a{
 }
 
 .ImageText23 {
+  margin-top: -10px;
+  margin-left: -5px;
   height: 38px;
   width: 94px;
 }
@@ -1796,6 +1833,8 @@ a{
 }
 
 .ImageText24 {
+  margin-top: -10px;
+  margin-left: -5px;
   height: 38px;
   width: 94px;
 }
@@ -1846,6 +1885,8 @@ a{
 }
 
 .ImageText25 {
+  margin-top: -10px;
+  margin-left: -5px;
   height: 38px;
   width: 94px;
 }
@@ -1933,6 +1974,8 @@ a{
 }
 
 .ImageText26 {
+  margin-top: -10px;
+  margin-left: -5px;
   height: 38px;
   width: 94px;
 }
@@ -1983,6 +2026,8 @@ a{
 }
 
 .ImageText27 {
+  margin-top: -10px;
+  margin-left: -5px;
   height: 38px;
   width: 94px;
 }
@@ -2033,6 +2078,8 @@ a{
 }
 
 .ImageText28 {
+  margin-top: -10px;
+  margin-left: -5px;
   height: 38px;
   width: 94px;
 }
@@ -2083,6 +2130,8 @@ a{
 }
 
 .ImageText29 {
+  margin-top: -10px;
+  margin-left: -5px;
   height: 38px;
   width: 94px;
 }
@@ -2133,6 +2182,8 @@ a{
 }
 
 .ImageText30 {
+  margin-top: -10px;
+  margin-left: -5px;
   height: 38px;
   width: 94px;
 }
@@ -2188,6 +2239,8 @@ a{
 }
 
 .ImageText31 {
+  margin-top: -10px;
+  margin-left: -5px;
   height: 38px;
   width: 94px;
 }
@@ -2238,6 +2291,8 @@ a{
 }
 
 .ImageText32 {
+  margin-top: -10px;
+  margin-left: -5px;
   height: 38px;
   width: 122px;
 }
@@ -2288,6 +2343,8 @@ a{
 }
 
 .ImageText33 {
+  margin-top: -10px;
+  margin-left: -5px;
   height: 38px;
   width: 150px;
 }
@@ -2375,6 +2432,8 @@ a{
 }
 
 .ImageText34 {
+  margin-top: -10px;
+  margin-left: -5px;
   height: 38px;
   width: 94px;
 }
@@ -2425,6 +2484,8 @@ a{
 }
 
 .ImageText35 {
+  margin-top: -10px;
+  margin-left: -5px;
   height: 38px;
   width: 108px;
 }
@@ -2475,6 +2536,8 @@ a{
 }
 
 .ImageText36 {
+  margin-top: -10px;
+  margin-left: -5px;
   height: 38px;
   width: 94px;
 }
@@ -2525,6 +2588,8 @@ a{
 }
 
 .ImageText37 {
+  margin-top: -10px;
+  margin-left: -5px;
   height: 38px;
   width: 94px;
 }
@@ -2575,6 +2640,8 @@ a{
 }
 
 .ImageText38 {
+  margin-top: -10px;
+  margin-left: -5px;
   height: 38px;
   width: 94px;
 }
@@ -2630,6 +2697,8 @@ a{
 }
 
 .ImageText39 {
+  margin-top: -10px;
+  margin-left: -5px;
   height: 38px;
   width: 94px;
 }
@@ -2680,6 +2749,8 @@ a{
 }
 
 .ImageText40 {
+  margin-top: -10px;
+  margin-left: -5px;
   height: 38px;
   width: 108px;
 }
@@ -2730,6 +2801,8 @@ a{
 }
 
 .ImageText41 {
+  margin-top: -10px;
+  margin-left: -5px;
   height: 38px;
   width: 108px;
 }
@@ -2780,6 +2853,8 @@ a{
 }
 
 .ImageText42 {
+  margin-top: -10px;
+  margin-left: -5px;
   height: 38px;
   width: 108px;
 }
@@ -2867,6 +2942,8 @@ a{
 }
 
 .ImageText43 {
+  margin-top: -10px;
+  margin-left: -5px;
   height: 38px;
   width: 122px;
 }
@@ -2917,6 +2994,8 @@ a{
 }
 
 .ImageText44 {
+  margin-top: -10px;
+  margin-left: -5px;
   height: 38px;
   width: 122px;
 }
@@ -2967,6 +3046,8 @@ a{
 }
 
 .ImageText45 {
+  margin-top: -10px;
+  margin-left: -5px;
   height: 38px;
   width: 122px;
 }
@@ -3017,6 +3098,8 @@ a{
 }
 
 .ImageText46 {
+  margin-top: -10px;
+  margin-left: -5px;
   height: 38px;
   width: 122px;
 }
@@ -3067,6 +3150,8 @@ a{
 }
 
 .ImageText47 {
+  margin-top: -10px;
+  margin-left: -5px;
   height: 38px;
   width: 94px;
 }
@@ -3117,6 +3202,8 @@ a{
 }
 
 .ImageText48 {
+  margin-top: -10px;
+  margin-left: -5px;
   height: 38px;
   width: 94px;
 }
@@ -3167,6 +3254,8 @@ a{
 }
 
 .ImageText49 {
+  margin-top: -10px;
+  margin-left: -5px;
   height: 38px;
   width: 94px;
 }
@@ -3217,6 +3306,8 @@ a{
 }
 
 .ImageText50 {
+  margin-top: -10px;
+  margin-left: -5px;
   height: 38px;
   width: 94px;
 }
@@ -3304,6 +3395,8 @@ a{
 }
 
 .ImageText51 {
+  margin-top: -10px;
+  margin-left: -5px;
   height: 38px;
   width: 108px;
 }
@@ -3354,6 +3447,8 @@ a{
 }
 
 .ImageText52 {
+  margin-top: -10px;
+  margin-left: -5px;
   height: 38px;
   width: 122px;
 }
@@ -3404,6 +3499,8 @@ a{
 }
 
 .ImageText53 {
+  margin-top: -10px;
+  margin-left: -5px;
   height: 38px;
   width: 94px;
 }
@@ -3454,6 +3551,8 @@ a{
 }
 
 .ImageText54 {
+  margin-top: -10px;
+  margin-left: -5px;
   height: 38px;
   width: 122px;
 }
@@ -3504,6 +3603,8 @@ a{
 }
 
 .ImageText55 {
+  margin-top: -10px;
+  margin-left: -5px;
   height: 38px;
   width: 122px;
 }
