@@ -22,7 +22,6 @@ export default {
   },
   created () {
       this.getToken()
-    this.log()
   },
   mounted () {
     /**
@@ -46,11 +45,9 @@ export default {
       async getToken(){
     const res = await getToken()
    this.url =  'http://10.201.30.60:80/intelligence/login-with-params?username=jiance&token='+res+'&redirect=manage-intel'
-    },
-    log () {
-      window.open(this.url, '_blank')
+    window.open(this.url, '_blank')
       this.closeCurrentTab()
-    }
+    },
   }
 }
 </script>
