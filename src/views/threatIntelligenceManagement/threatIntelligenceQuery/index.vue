@@ -2,7 +2,7 @@
   <div class="app-container home">
 
     <iframe id="mobsf"
-            src="http://10.201.30.60:8080/intelligence/login-with-params?username=jiance&token=dd3fc4f8b58f39e176bc76f9d46b70b72d1d1d2a&redirect=manage-intel"
+            src="http://10.201.30.60:80/intelligence/login-with-params?username=jiance&token=dd3fc4f8b58f39e176bc76f9d46b70b72d1d1d2a&redirect=manage-intel"
             scrolling="no"
             frameborder="0" />
   </div>
@@ -41,7 +41,7 @@ export default {
   },
   methods: {
     log () {
-      window.open('http://10.201.30.60:8080/intelligence/login-with-params?username=jiance&token=dd3fc4f8b58f39e176bc76f9d46b70b72d1d1d2a&redirect=manage-intel', '_blank')
+      window.open('http://10.201.30.60:80/intelligence/login-with-params?username=jiance&token=dd3fc4f8b58f39e176bc76f9d46b70b72d1d1d2a&redirect=manage-intel', '_blank')
       this.closeCurrentTab()
     }
   }
