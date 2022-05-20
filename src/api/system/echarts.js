@@ -1,4 +1,12 @@
 import request from '@/utils/request'
+//获取微步token
+export function getToken(query) {
+  return request({
+    url: '/iotGetToken/getToken',
+    method: 'get',
+    params: query
+  })
+}
 //es趋势分析接口
 export function eventEsData(query) {
   return request({
