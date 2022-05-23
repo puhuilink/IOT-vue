@@ -15,7 +15,7 @@
             <el-col :span="6">
               <el-form-item
                 label="通报编号："
-                prop="id"
+                prop="notificationManagementId"
               >
                 <el-input
                   v-model.trim="queryParams.notificationManagementId"
@@ -50,10 +50,10 @@
             <el-col :span="6">
               <el-form-item
                 label="通报名称："
-                prop="name"
+                prop="notificationName"
               >
                 <el-input
-                  v-model.trim="queryParams.eventName"
+                  v-model.trim="queryParams.notificationName"
                   placeholder="请输入通报名称"
                   clearable
                   :style="{width: '100%'}"
@@ -101,16 +101,17 @@
                 label="上报时间："
                 prop="date"
               >
-                <el-time-picker
-                  v-model.trim="queryParams.date"
-                  is-range
-                  format="HH:mm:ss"
-                  value-format="HH:mm:ss"
+                <el-date-picker
+                  v-model.trim="rangeTime"
+                   type="daterange"
+                  format="yyyy-MM-dd"
+                  value-format="yyyy-MM-dd"
                   :style="{width: '100%'}"
                   start-placeholder="开始时间"
                   end-placeholder="结束时间"
                   range-separator="至"
                   clearable
+                  @change="setTimeList"
                 />
               </el-form-item>
             </el-col>
@@ -118,7 +119,7 @@
               <el-form-item size="mini">
                 <el-button
                   type="primary"
-                  @click="submitdata"
+                  @click="getCategoryList"
                 >搜索</el-button>
                 <el-button @click="resetForm">重置</el-button>
               </el-form-item>
@@ -129,35 +130,36 @@
           :gutter="10"
           class="mb8"
         >
-          <el-col :span="1.5">
+          <!-- <el-col :span="1.5">
             <el-button
               type="primary"
               size="mini"
             >导出</el-button>
-          </el-col>
-          <el-col :span="1.5">
+          </el-col> -->
+          <!-- <el-col :span="1.5">
             <el-button
               type="primary"
               size="mini"
               @click="handleAdd"
             >新增</el-button>
-          </el-col>
+          </el-col> -->
           <el-col :span="1.5">
             <el-button
               type="primary"
               size="mini"
             >删除</el-button>
           </el-col>
-          <el-col :span="1.5">
+          <!-- <el-col :span="1.5">
             <el-button
               type="primary"
               size="mini"
             >上报</el-button>
-          </el-col>
+          </el-col> -->
         </el-row>
       </div>
     </el-card>
-    <el-table
+    <el-card class="box-card">
+      <el-table
       :data="groupList"
       tooltip-effect="light"
     >
@@ -236,13 +238,13 @@
         label="备注"
         align="center"
         prop="remark"
-        min-width="10%"
+        min-width="5%"
       />
       <el-table-column
         label="操作"
         align="center"
         class-name="small-padding fixed-width"
-        min-width="22%"
+        min-width="18%"
       >
         <template #default="scope">
           <el-button
@@ -258,15 +260,18 @@
           <el-button
             size="mini"
             type="text"
+            @click="report(scope.row)"
           >上报</el-button>
-          <el-button
+          <!-- <el-button
             size="mini"
             type="text"
             @click="end(scope.row)"
-          >完成</el-button>
+          >完成</el-button> -->
         </template>
       </el-table-column>
     </el-table>
+    </el-card>
+    
 
     <pagination
       v-show="total>0"
@@ -504,12 +509,13 @@
   </div>
 </template>
 <script>
-import { notificationList } from '@/api/system/list'
+import { notificationList,notificationExport} from '@/api/system/list'
 export default {
   components: {},
   props: [],
   data() {
     return {
+      rangeTime: undefined,
       loading: true,
       name: '测试',
       detailData: {
@@ -533,7 +539,14 @@ export default {
         pageNum: 1,
         pageSize: 10,
         orderByColumn: 'creation_time ',
-        isAsc: 'desc'
+        isAsc: 'desc',
+        notificationManagementId: '',
+        eventType: '',
+        notificationName: '',
+        notificationStatus: '',
+        leader: '',
+        beginCreationTime: '',
+        endCreationTime: ''
       },
       // 表单参数
       form: {},
@@ -581,34 +594,34 @@ export default {
       }],
       eventTypeOptions: [{
         'label': '僵木蠕事件',
-        'value': 1
+        'value': '僵木蠕事件'
       }, {
         'label': '弱口令事件',
-        'value': 2
+        'value': '弱口令事件'
       }, {
         'label': '漏洞事件',
-        'value': 3
+        'value': '漏洞事件'
       }, {
         'label': '主机安全事件',
-        'value': 4
+        'value': '主机安全事件'
       }, {
         'label': '配置核查事件',
-        'value': 5
+        'value': '配置核查事件'
       }, {
         'label': '异常行为事件',
-        'value': 6
+        'value': '异常行为事件'
       }, {
         'label': '威胁情报事件',
-        'value': 7
+        'value': '威胁情报事件'
       }, {
         'label': '入侵诱捕事件',
-        'value': 8
+        'value': '入侵诱捕事件'
       }, {
         'label': '数据安全事件',
-        'value': 9
+        'value': '数据安全事件'
       }, {
         'label': '工业网络审计事件',
-        'value': 10
+        'value': '工业网络审计事件'
       }]
     }
   },
@@ -632,7 +645,19 @@ export default {
       })
     },
     resetForm() {
-      this.$refs['elForm'].resetFields()
+      this.queryParams = {
+        pageNum: 1,
+        pageSize: 10,
+        orderByColumn: 'creation_time ',
+        isAsc: 'desc',
+        notificationManagementId:'',
+        eventType:'',
+        notificationName:'',
+        notificationStatus:'',
+        leader:'',
+      },
+      this.rangeTime = []
+      this.getCategoryList()
     },
     /** 新增按钮操作 */
     handleAdd() {
@@ -676,12 +701,32 @@ export default {
     submitForm() {
       this.open = false
       this.openlook = false
+    },
+    setTimeList(values) {
+      const [projectDevelopDate, projectEndDate] = [...values]
+      this.queryParams.beginCreationTime = projectDevelopDate
+      this.queryParams.endCreationTime = projectEndDate
+    },
+    // 上报
+    async report(row){
+      console.log('row',row.eventId)
+       const params = {
+         id:row.eventId,
+         index:row.eventIndex
+       }
+      const { msg }= await notificationExport('/dm/notificationManagement/reportJson',params).then((response) => {
+        console.log('response',response)
+         this.$message.success(msg)
+      })
     }
   }
 }
 
 </script>
 <style lang="scss" scoped>
+.box-card{
+  margin-bottom: 20px;
+}
 ::v-deep .el-dialog__body {
   padding: 0 !important;
 }

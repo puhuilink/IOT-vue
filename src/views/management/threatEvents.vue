@@ -162,7 +162,8 @@
         </el-row>
       </div>
     </el-card>
-    <el-table v-loading="loading" :data="List" tooltip-effect="light">
+    <el-card class="box-card">
+       <el-table v-loading="loading" :data="List" tooltip-effect="light">
       <!-- <el-table-column
         type="selection"
         width="55"
@@ -271,6 +272,8 @@
         </template>
       </el-table-column>
     </el-table>
+    </el-card>
+   
 
     <pagination
       v-show="total > 0"
@@ -281,7 +284,7 @@
     />
     <!-- 添加或修改分组对话框 -->
     <el-dialog :title="title" :visible.sync="open" width="900px" append-to-body>
-      <el-form ref="form" label-width="90px" label-position="left">
+      <el-form ref="form" label-width="90px" label-position="left" class="label-type">
         <el-row>
           <el-col :span="8">
             <el-form-item label="事件名称 :">
@@ -787,6 +790,9 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+.box-card{
+  margin-bottom: 20px;
+}
 ::v-deep .label-type {
   .el-form-item__label {
     color: #333;

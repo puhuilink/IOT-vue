@@ -124,7 +124,8 @@
         </el-row>
       </div>
     </el-card>
-    <el-table :data="List" tooltip-effect="light">
+    <el-card class="box-card">
+       <el-table :data="List" tooltip-effect="light">
       <el-table-column
         label="资产名称"
         align="center"
@@ -208,6 +209,8 @@
         </template>
       </el-table-column>
     </el-table>
+    </el-card>
+   
     <pagination
       v-show="total > 0"
       :page.sync="from"
@@ -218,7 +221,7 @@
     <!-- 添加或修改分组对话框 -->
     <el-dialog :title="title" :visible.sync="open" width="900px" append-to-body>
       <div class="contentBox">
-          <el-form ref="form" label-width="100px" label-position="left">
+          <el-form ref="form" label-width="100px" label-position="left" class="label-type">
         <el-row>
           <el-col :span="8">
             <el-form-item label="IP地址 :">
@@ -637,6 +640,9 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+.box-card{
+  margin-bottom: 20px;
+}
 ::v-deep .el-dialog__body {
   padding: 0 !important;
 }

@@ -214,7 +214,7 @@
     <el-dialog :title="title" :visible.sync="open" width="900px" append-to-body>
       <div class="contentBox">
         <div class="information">基础信息</div>
-        <el-form ref="form" label-width="105px" label-position="left">
+        <el-form ref="form" label-width="105px" label-position="left" class="label-type">
           <el-row>
             <el-col :span="8">
               <el-form-item label="攻击者 :">
@@ -620,6 +620,9 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+.box-card{
+  margin-bottom: 20px;
+}
 .export {
   margin-bottom: 10px;
 }
