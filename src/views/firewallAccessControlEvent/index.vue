@@ -151,7 +151,7 @@
         </el-row>
       </div>
     </el-card>
-    <el-card style="margin-top: 10px">
+    <el-card style="margin-top: 20px">
       <el-table :data="List" tooltip-effect="light">
         <!-- <el-table-column type="selection" width="55" align="center" /> -->
 
@@ -284,6 +284,7 @@
             :model="detailData"
             size="mini"
             label-width="133px"
+            class="label-type"
           >
             <el-col :span="12">
               <el-form-item label="源IP：" prop="detail_src_ip">

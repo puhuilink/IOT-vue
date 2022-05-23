@@ -64,12 +64,21 @@
           }}</span>
         </template>
       </el-table-column> -->
-        <el-table-column
-          label="事件类型"
-          align="center"
-          prop="_source.event_format"
-          :show-overflow-tooltip="true"
-        />
+         <el-table-column
+        label="事件类型"
+        align="center"
+        prop="_source.event_class"
+      >
+        <template #default="scope">
+          <span
+            v-if="
+              scope.row._source.event_class == '' ||
+              scope.row._source.event_class == null
+            "
+          />
+          <span v-else>{{ transClassDic(scope.row._source.event_class) }}</span>
+        </template>
+      </el-table-column>
         <el-table-column
           label="处置状态"
           align="center"
@@ -167,6 +176,60 @@ export default {
         {
           name: "5",
           content: "致命",
+        },
+      ];
+      const orgTreeData1 = t
+        .filter((e) => e.name === val)
+        .map(({ content }) => ({
+          content,
+        }));
+      return `${orgTreeData1[0].content}`;
+    },
+     transClassDic(val) {
+      var t = [
+        {
+          name: "class_ivtp",
+          content: "入侵诱捕事件",
+        },
+        {
+          name: "class_abbm",
+          content: "异常行为管理",
+        },
+        {
+          name: "class_ztwe",
+          content: "僵木蠕事件",
+        },
+        {
+          name: "class_iocm",
+          content: "威胁情报管理",
+        },
+        {
+          name: "class_wkpw",
+          content: "弱口令事件",
+        },
+        {
+          name: "class_inpa",
+          content: "工业网络审计",
+        },
+        {
+          name: "class_hsme",
+          content: "主机安全管理",
+        },
+        {
+          name: "class_scce",
+          content: "配置核查管理",
+        },
+        {
+          name: "class_dsme",
+          content: "数据安全管理",
+        },
+        {
+          name: "class_infe",
+          content: "工业防火墙事件",
+        },
+        {
+          name: "class_wppe",
+          content: "网页防篡改事件",
         },
       ];
       const orgTreeData1 = t

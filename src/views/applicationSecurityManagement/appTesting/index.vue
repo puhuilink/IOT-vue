@@ -637,6 +637,9 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+.box-card{
+  margin-bottom: 20px;
+}
 .btnClass {
   margin-bottom: 10px;
 }

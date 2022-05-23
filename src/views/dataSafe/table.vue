@@ -161,16 +161,17 @@
                 label="发生时间："
                 prop="date"
               >
-                <el-time-picker
-                  v-model.trim="queryParams.date"
-                  is-range
-                  format="HH:mm:ss"
-                  value-format="HH:mm:ss"
+                <el-date-picker
+                  v-model.trim="rangeTime"
+                  type="daterange"
+                  format="yyyy-MM-dd"
+                  value-format="yyyy-MM-dd"
                   :style="{width: '100%'}"
                   start-placeholder="开始时间"
                   end-placeholder="结束时间"
                   range-separator="至"
                   clearable
+                  @change="setTimeList"
                 />
               </el-form-item>
             </el-col>
@@ -199,7 +200,8 @@
         </el-row> -->
       </div>
     </el-card>
-    <el-table :data="groupList">
+    <el-card class="box-card">
+       <el-table :data="groupList">
       <!-- <el-table-column
         type="selection"
         width="55"
@@ -316,6 +318,8 @@
         </template>
       </el-table-column>
     </el-table>
+    </el-card>
+   
 
     <pagination
       v-show="total>0"
@@ -335,6 +339,7 @@
         ref="form"
         label-width="105px"
         label-position="left"
+        class="label-type"
       >
         <el-row
           type="flex"
@@ -755,6 +760,7 @@ export default {
         groupName: null,
         createTime: null
       },
+      this.rangeTime = []
       this.getList()
     },
     async detail(id) {
@@ -771,12 +777,20 @@ export default {
     /** 提交按钮 */
     submitForm() {
       this.open = false
+    },
+    setTimeList(values) {
+      const [projectDevelopDate, projectEndDate] = [...values]
+      this.queryParams.beginCreationTime = projectDevelopDate
+      this.queryParams.endCreationTime = projectEndDate
     }
   }
 }
 
 </script>
 <style lang="scss" scoped>
+.box-card{
+  margin-bottom: 20px;
+}
 .textarea {
   font-weight: bold;
 }

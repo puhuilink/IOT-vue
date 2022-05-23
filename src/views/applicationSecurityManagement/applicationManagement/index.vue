@@ -80,7 +80,7 @@
         </el-row>
       </div>
     </el-card>
-    <el-card style="margin-top: 10px">
+    <el-card style="margin-top: 20px">
       <el-table :data="List" tooltip-effect="light">
         <!-- <el-table-column type="selection" width="55" align="center" /> -->
 

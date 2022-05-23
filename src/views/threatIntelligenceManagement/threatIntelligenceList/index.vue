@@ -258,7 +258,7 @@
     <!-- 添加或修改分组对话框 -->
     <el-dialog :title="title" :visible.sync="open" width="900px" append-to-body>
       <div class="contentBox">
-        <el-form ref="form" label-width="95px" label-position="left">
+        <el-form ref="form" label-width="95px" label-position="left"  class="label-type">
           <el-row>
             <el-col :span="12">
               <el-form-item label="APT组织 :">

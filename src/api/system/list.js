@@ -117,12 +117,21 @@ export function downloadAction(id) {
     headers: { "Content-Type": "multipart/form-data" } //这行必写
   })
 }
-// 通报管理
+// 通报管理---列表
 export function notificationList(query) {
   return request({
     url: '/dm/notificationManagement/list',
     method: 'get',
     params: query
+  })
+}
+// 通报管理---上报
+export function notificationExport(url,params) {
+  return request({
+    // url: '/dm/notificationManagement/reportJson',
+    url:url,
+    method: 'get',
+    params: params
   })
 }
 

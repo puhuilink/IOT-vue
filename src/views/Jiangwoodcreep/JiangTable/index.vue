@@ -171,7 +171,8 @@
         </el-row>
       </div>
     </el-card>
-    <el-table :data="List" tooltip-effect="light">
+     <el-card class="box-card">
+        <el-table :data="List" tooltip-effect="light">
       <el-table-column
         label="源IP"
         align="center"
@@ -282,6 +283,8 @@
         </template>
       </el-table-column>
     </el-table>
+      </el-card>  
+   
 
     <pagination
       v-show="total > 0"
@@ -817,6 +820,9 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+.box-card{
+  margin-bottom: 20px;
+}
 ::v-deep .el-dialog__body {
   padding: 0 !important;
 }
