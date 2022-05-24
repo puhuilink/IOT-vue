@@ -126,14 +126,56 @@ export function notificationList(query) {
   })
 }
 // 通报管理---上报
-export function notificationExport(url,params) {
+export function notificationExport(params) {
   return request({
-    // url: '/dm/notificationManagement/reportJson',
-    url:url,
+    url: '/dm/notificationManagement/reportJson',
+    // url:url,
     method: 'get',
     params: params
   })
 }
+// 通报管理--- 详情
+export function notificationDetail(params) {
+  return request({
+    url: '/dm/notificationManagement/' + params,
+    method: 'get',
+  })
+}
+
+// 通报管理---编辑
+export function notificationEdit(url,params) {
+  return request({
+    // url: '/dm/notificationManagement/edit',
+    url: url,
+    method: 'put',
+    data:params,
+    // params: params
+  })
+}
+// 通报管理--- 删除
+export function notificationDelete(params) {
+  return request({
+    url: '/dm/notificationManagement/' + params,
+    method: 'delete',
+  })
+}
+// 修改ES信息状态
+export function stateChanges(params) {
+  return request({
+    url: '/dm/notificationManagement/updateState',
+    method: 'get',
+    params: params
+  })
+}
+//入库
+export function putInStorage(params) {
+  return request({
+    url: '/dm/notificationManagement/reportingManagement',
+    method: 'get',
+    params: params
+  })
+}
+
 
 // 弱口令事件检索
 export function weakList(query) {
