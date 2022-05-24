@@ -147,6 +147,7 @@
             <el-button
               type="primary"
               size="mini"
+              @click="deleteDetail()"
             >删除</el-button>
           </el-col>
           <!-- <el-col :span="1.5">
@@ -162,6 +163,7 @@
       <el-table
       :data="groupList"
       tooltip-effect="light"
+      @selection-change="handleSelectionChange"
     >
       <el-table-column
         type="selection"
@@ -250,17 +252,17 @@
           <el-button
             size="mini"
             type="text"
-            @click="lookdetail(scope.row)"
+            @click="lookdetail(scope.row.notificationManagementId)"
           >查看</el-button>
           <el-button
             size="mini"
             type="text"
-            @click="edit(scope.row)"
+            @click="edit(scope.row.notificationManagementId)"
           >编辑</el-button>
           <el-button
             size="mini"
             type="text"
-            @click="report(scope.row)"
+            @click="report(scope.row.eventId , scope.row.eventIndex)"
           >上报</el-button>
           <!-- <el-button
             size="mini"
@@ -358,7 +360,7 @@
             prop="groupOrder"
           >
             <el-input
-              v-model.trim="form.message"
+              v-model.trim="form.remark"
               placeholder=""
               type="textarea"
             />
@@ -419,8 +421,16 @@
         >
           <el-row>
             <el-col :span="12">
-              <el-form-item label="通报名称 :">
+              <el-form-item label="通报名称 :" v-if ="!editTrue">
                 {{ detailData.notificationName }}
+              </el-form-item>
+              <el-form-item label="通报名称 :" v-if ="editTrue">
+                <el-input
+                   v-model.trim="detailData.notificationName"
+                   
+                   clearable
+                   placeholder="请输入通报名称"
+              />
               </el-form-item>
             </el-col>
             <el-col :span="12">
@@ -434,9 +444,26 @@
               </el-form-item>
             </el-col>
             <el-col :span="12">
-              <el-form-item label="优先级 :">
+              <el-form-item label="优先级 :" v-if ="!editTrue">
                 {{ detailData.priority }}
               </el-form-item>
+              <el-form-item label="优先级 :" v-if ="editTrue">
+                 <el-select
+                   v-model.trim="detailData.priority"
+                   placeholder=""
+                   filterable
+                   clearable
+                   :style="{width: '100%'}"
+                >
+               <el-option
+                  v-for="(item, index) in reportLevelOptions"
+                  :key="index"
+                  :label="item.label"
+                  :value="item.value"
+                  :disabled="item.disabled"
+               />
+              </el-select>
+            </el-form-item>
             </el-col>
             <el-col :span="12">
               <el-form-item label="通报状态 :">
@@ -464,11 +491,13 @@
               </el-form-item>
             </el-col>
             <el-col :span="24">
-              <el-form-item label="备注 :">
+              <el-form-item label="备注 :" v-if ="!editTrue">
                 {{ detailData.remark }}
-                <!-- <el-input v-model.trim="detailData.message"
-                          placeholder=""
-                          type="textarea" /> -->
+              </el-form-item>
+               <el-form-item label="备注 :" v-if ="editTrue">
+                <el-input v-model.trim="detailData.remark"
+                          placeholder="请输入备注"
+                          type="textarea" />
               </el-form-item>
             </el-col>
             <el-col
@@ -499,7 +528,13 @@
             <el-button
               type="primary"
               @click="submitForm"
-            >完 成</el-button>
+              v-if ="!editTrue"
+            >保 存</el-button>
+             <el-button
+              type="primary"
+              @click="saveForm"
+              v-if ="editTrue"
+            >保 存</el-button>
             <el-button @click="cancel">取 消</el-button>
           </el-row>
         </div>
@@ -509,16 +544,24 @@
   </div>
 </template>
 <script>
-import { notificationList,notificationExport} from '@/api/system/list'
+import { notificationList,notificationExport,notificationDetail,notificationEdit,notificationDelete} from '@/api/system/list'
 export default {
   components: {},
   props: [],
   data() {
     return {
+      sels: [],
       rangeTime: undefined,
       loading: true,
       name: '测试',
       detailData: {
+      },
+      saveDetailData:{
+        notificationName:"",
+        priority:"",
+        remark:"",
+        updateTime:"",
+        notificationManagementId:""
       },
       fileList: [],
       // 分组表格数据
@@ -570,20 +613,17 @@ export default {
         'value': 2
       }],
       reportLevelOptions: [{
-        'label': '极低',
-        'value': 1
+        'label': '低',
+        'value': '低'
       }, {
-        'label': '中危',
-        'value': 3
+        'label': '中',
+        'value': '中'
       }, {
-        'label': '高危',
-        'value': 4
+        'label': '高',
+        'value': '高'
       }, {
-        'label': '极高危',
-        'value': 2
-      }, {
-        'label': '致命',
-        'value': 5
+        'label': '极高',
+        'value': '极高'
       }],
       reportOptions: [{
         'label': '已上报',
@@ -629,6 +669,15 @@ export default {
     this.getCategoryList()
   },
   methods: {
+    handleSelectionChange(sels) {
+     this.sels = sels;
+     console.log("选中的值",sels.map((item) => item.notificationManagementId));
+    },
+    async deleteDetail(){
+      let ids = this.sels.map((item) => item.notificationManagementId);
+         const { data } =await notificationDelete(ids)
+         this.getCategoryList()
+    },
     getCategoryList() {
       this.loading = true
       notificationList(this.queryParams).then((response) => {
@@ -665,22 +714,26 @@ export default {
       this.title = '新增通报'
     },
     /** 查看按钮操作 */
-    lookdetail(row) {
+    async lookdetail(id) {
+      const { data } = await notificationDetail(id)
+      this.detailData = data
       this.openlook = true
-      this.detailData = row
+      // this.detailData = row
       this.title = '通报详情'
       this.editTrue = false
-      this.detailData.name4 = '已通报'
-      this.detailData.message = ''
+      // this.detailData.name4 = '已通报'
+      // this.detailData.remark = ''
       this.upload = false
     },
     /** 编辑按钮操作 */
-    edit(row) {
+    async edit(id) {
+      const { data } = await notificationDetail(id)
+      this.detailData = data
       this.openlook = true
       this.title = '编辑通报'
-      this.editTrue = false
+      this.editTrue = true
       this.detailData.name4 = '未通报'
-      this.detailData.message = '这是一个备注'
+      // this.detailData.remark = '这是一个备注'
       this.upload = false
     },
     /** 完成按钮操作 */
@@ -689,7 +742,7 @@ export default {
       this.title = '完结通报'
       this.editTrue = true
       this.detailData.name4 = '已通报'
-      this.detailData.message = ''
+      this.detailData.remark = ''
       this.upload = true
     },
     // 取消按钮
@@ -702,20 +755,44 @@ export default {
       this.open = false
       this.openlook = false
     },
+    saveForm(){
+      const saveDetailData  = {
+        notificationName:this.detailData.notificationName,
+        priority:this.detailData.priority,
+        remark:this.detailData.remark,
+        // updateTime:this.detailData.updateTime,
+        notificationManagementId:this.detailData.notificationManagementId,
+
+      }
+      this.saveDetailData.notificationName = this.detailData.notificationName,
+      this.saveDetailData.priority = this.detailData.priority,
+      this.saveDetailData.remark = this.detailData.remark,
+      // this.saveDetailData.updateTime = this.detailData.updateTime,
+      this.saveDetailData.notificationManagementId = this.detailData.notificationManagementId,
+    
+      console.log('saveDetailData',saveDetailData)
+      this.open = false
+      this.openlook = false
+      notificationEdit('/dm/notificationManagement/edit',this.saveDetailData).then((response) => {
+        this.$message.success(msg)
+        
+      })
+      this.getCategoryList()
+    },
     setTimeList(values) {
       const [projectDevelopDate, projectEndDate] = [...values]
       this.queryParams.beginCreationTime = projectDevelopDate
       this.queryParams.endCreationTime = projectEndDate
     },
     // 上报
-    async report(row){
-      console.log('row',row.eventId)
+    async report(eventId,eventIndex){
+      // console.log('row',row.eventId)
        const params = {
-         id:row.eventId,
-         index:row.eventIndex
+         id:eventId,
+         index:eventIndex
        }
-      const { msg }= await notificationExport('/dm/notificationManagement/reportJson',params).then((response) => {
-        console.log('response',response)
+      const { msg }= await notificationExport(params).then((response) => {
+        // console.log('response',response)
          this.$message.success(msg)
       })
     }
