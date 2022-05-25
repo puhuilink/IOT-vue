@@ -1088,31 +1088,31 @@ export default {
            type:this.formData.type
          })
         .then((response) => {
-          this.$message({
-            type: "success",
-            message: "修改成功!",
-          });  
-         }) 
-        //入库
+           //入库
         putInStorage(this.formData)
         .then((response) => {
-          this.$message({
-            type: "success",
-            message: "入库成功!",
-          });  
-         }) 
-        // 上报 
+          // 上报 
          notificationExport({
            id:this.formData.id,
            index:this.formData.index,
          })
         .then((response) => {
+          this.getTableList();
           this.$message({
             type: "success",
             message: "上报成功!",
           });  
          }) 
-         this.getTableList();
+          this.$message({
+            type: "success",
+            message: "入库成功!",
+          });  
+         }) 
+          this.$message({
+            type: "success",
+            message: "修改成功!",
+          });  
+         })     
     }
   },
 };
