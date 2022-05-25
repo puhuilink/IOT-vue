@@ -115,8 +115,8 @@
                 />
               </el-form-item>
             </el-col>
-            <el-col :span="6">
-              <el-form-item size="mini">
+            <el-col :span="12">
+              <el-form-item size="mini" label-width="515px">
                 <el-button
                   type="primary"
                   @click="getCategoryList"
@@ -673,10 +673,28 @@ export default {
      this.sels = sels;
      console.log("选中的值",sels.map((item) => item.notificationManagementId));
     },
-    async deleteDetail(){
-      let ids = this.sels.map((item) => item.notificationManagementId);
-         const { data } =await notificationDelete(ids)
-         this.getCategoryList()
+    deleteDetail(){
+      this.$confirm('确认要删除吗？', '提示', { type: 'warning' }) .then(() => {
+        let ids = this.sels.map((item) => item.notificationManagementId);
+        notificationDelete(ids).then(res => {
+           this.$message({
+            type: "success",
+            message: "删除成功!",
+          }); 
+           this.getCategoryList()
+          //  if (res && res.data.code == "200") {
+          //     this.$notify({
+          //           title: "删除成功",
+          //            type: 'success'});
+          //     this.getCategoryList()
+          //   }else {
+          //        this.$notify({
+          //           title: res.data.msg,
+          //            type: 'error'
+          //                    });
+          //           }
+            })
+         }).catch(() => { });
     },
     getCategoryList() {
       this.loading = true
@@ -793,7 +811,12 @@ export default {
        }
       const { msg }= await notificationExport(params).then((response) => {
         // console.log('response',response)
-         this.$message.success(msg)
+        //  this.$message.success(msg)
+        this.$message({
+            type: "success",
+            message: "上报成功!",
+          });
+        this.getCategoryList()
       })
     }
   }

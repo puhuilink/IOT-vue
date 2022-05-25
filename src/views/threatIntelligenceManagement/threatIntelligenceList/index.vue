@@ -145,7 +145,7 @@
               </el-form-item>
             </el-col>
             <el-col :span="18"  >
-              <el-form-item size="mini"  label-width="1060px">
+              <el-form-item size="mini"  label-width="915px">
                 <el-button type="primary" @click="btnQuery">搜索</el-button>
                 <el-button @click="resetForm">重置</el-button>
               </el-form-item>

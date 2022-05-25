@@ -61,8 +61,8 @@
               </el-form-item>
             </el-col>
 
-            <el-col :span="6">
-              <el-form-item>
+            <el-col :span="24">
+              <el-form-item label-width="1365px">
                 <el-button
                   type="primary"
                   size="mini"
