@@ -130,17 +130,15 @@
               </el-form-item>
             </el-col>
 
-            <el-col :span="6">
-              <el-form-item>
+            <el-col :span="24">
+              <el-form-item label-width="1330px">
                 <el-button
                   type="primary"
-                  icon="el-icon-search"
                   size="mini"
                   @click="handleQuery"
                   >搜索</el-button
                 >
                 <el-button
-                  icon="el-icon-refresh"
                   size="mini"
                   @click="resetQuery"
                   >重置</el-button

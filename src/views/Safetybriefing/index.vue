@@ -115,8 +115,8 @@
                 />
               </el-form-item>
             </el-col>
-            <el-col :span="6">
-              <el-form-item size="mini">
+            <el-col :span="12">
+              <el-form-item size="mini" label-width="515px">
                 <el-button
                   type="primary"
                   @click="getCategoryList"
