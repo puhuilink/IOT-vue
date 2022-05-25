@@ -238,15 +238,9 @@
                 状态变更<i class="el-icon-arrow-down el-icon--right" />
               </el-button>
               <el-dropdown-menu slot="dropdown">
-                <el-dropdown-item icon="el-icon-check" command="process"
-                  >处置</el-dropdown-item
-                >
-                <el-dropdown-item icon="el-icon-close" command="un_process"
-                  >不处置</el-dropdown-item
-                >
-                <el-dropdown-item icon="el-icon-bell" command="false_report"
-                  >误报</el-dropdown-item
-                >
+               <el-dropdown-item :command="beforeHandleCommand(row._id, row._index,'处置')">处置</el-dropdown-item>
+               <el-dropdown-item :command="beforeHandleCommand(row._id, row._index,'不处置')">不处置</el-dropdown-item>
+               <el-dropdown-item :command="beforeHandleCommand(row._id, row._index,'误报')">误报</el-dropdown-item>
               </el-dropdown-menu>
             </el-dropdown>
           </template>
@@ -401,12 +395,134 @@
         </div>
       </div>
     </el-dialog>
+     <!-- 新增通报对话框 -->
+    <el-dialog
+      :title="title"
+      :visible.sync="addDialog"
+      width="500px"
+      append-to-body
+    >
+      <div class="contentBox">
+        <el-form
+          ref="formData"
+          :model="formData"
+          :rules="rules"
+          label-width="80px"
+          class="label-type"
+        >
+          <el-form-item
+            label="通报名称:"
+            prop="notificationName"
+          >
+            <el-input
+              v-model.trim="formData.notificationName"
+              placeholder=""
+            />
+          </el-form-item>
+          <el-form-item
+            label="事件类型:"
+            prop="eventType"
+          >
+            <el-select
+              v-model.trim="formData.eventType"
+              placeholder=""
+              filterable
+              clearable
+              :style="{width: '100%'}"
+            >
+              <el-option
+                v-for="(item, index) in eventTypeOptions"
+                :key="index"
+                :label="item.label"
+                :value="item.label"
+                :disabled="item.disabled"
+              />
+            </el-select>
+          </el-form-item>
+          <el-form-item
+            label="事件名称:"
+            prop="eventName"
+          >
+            <el-input
+              v-model.trim="formData.eventName"
+              placeholder=""
+            />
+          </el-form-item>
+          <el-form-item
+            label="优先级:"
+            prop="priority"
+          >
+            <el-select
+              v-model.trim="formData.priority"
+              placeholder=""
+              filterable
+              clearable
+              :style="{width: '100%'}"
+            >
+              <el-option
+                v-for="(item, index) in reportLevelOptions"
+                :key="index"
+                :label="item.label"
+                :value="item.value"
+                :disabled="item.disabled"
+              />
+            </el-select>
+          </el-form-item>
+          <el-form-item
+            label="备注:"
+            prop="remark"
+          >
+            <el-input
+              v-model.trim="formData.remark"
+              placeholder=""
+              type="textarea"
+            />
+          </el-form-item>
+          <el-form-item
+            label="上报:"
+            prop="report"
+          >
+            <el-select
+              v-model.trim="formData.report"
+              placeholder=""
+              filterable
+              clearable
+              :style="{width: '100%'}"
+            >
+              <el-option
+                v-for="(item, index) in reportOptions"
+                :key="index"
+                :label="item.label"
+                :value="item.value"
+                :disabled="item.disabled"
+              />
+            </el-select>
+          </el-form-item>
+        </el-form>
+        <div
+          slot="footer"
+          class="dialog-footer"
+        >
+          <el-row
+            type="flex"
+            justify="center"
+          >
+            <el-button
+              type="primary"
+              @click="saveForm"
+            >保 存</el-button>
+            <el-button @click="cancel">取 消</el-button>
+          </el-row>
+        </div>
+      </div>
+
+    </el-dialog>
   </div>
 </template>
 
 <script>
 import { getIndustrialNetworkAuditData } from "@/utils/request";
-import { industryList } from "@/api/system/list";
+import { industryList,stateChanges,notificationExport,putInStorage } from "@/api/system/list";
 export default {
   name: "Online",
   data() {
@@ -417,6 +533,7 @@ export default {
       detailDialog: false,
       // 遮罩层
       loading: false,
+      addDialog: false,
       // 总条数
       total: 0,
       query: {
@@ -443,6 +560,17 @@ export default {
         severity: "",
         event_format: "",
         date: [],
+      },
+      formData:{
+        notificationName:"",
+        eventType:"",
+        eventName:"",
+        priority:"",
+        remark:"",
+        report:"",
+        id:"",
+        index:"",
+        type:""
       },
       levelOptions: [
         {
@@ -667,36 +795,110 @@ export default {
       // console.log(orgTreeData1[0].content);
       return `${orgTreeData1[0].content}`;
     },
+  beforeHandleCommand(id, index,command){
+      // console.log(id,index,command)
+        return {
+            'id': id,
+            'index': index,
+            'command':command
+          }
+    },
     batchOperate(command) {
+      // console.log('command',command)
+      // console.log('_id',id)
+      //  console.log('_index',index)
       let message = "";
-      switch (command) {
-        case "process":
+      switch (command.command) {
+        case '处置':
           message = "是否确认变更处置状态？";
-          this.openMessageBox(message);
+          this.openMessageBox(message,command.id,command.index,command.command);
           break;
-        case "un_process":
+        case "不处置":
           message = "是否确认将此事件处置状态修改为不处置？";
-          this.openMessageBox(message);
+          this.unProcessBox(message,command.id,command.index,command.command);
           break;
-        case "false_report":
+        case "误报":
           message = "是否确认将此事件处置状态修改为误报？";
-          this.openMessageBox(message);
+          this.falseReportBox(message,command.id,command.index,command.command);
           break;
       }
     },
-    openMessageBox(message) {
+    openMessageBox(message,id,index,command) {
       this.$confirm(message, "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
         type: "warning",
       })
         .then(() => {
+          this.addDialog = true
+           this.title = '新增通报'
+           this.formData.id = id
+           this.formData.index = index
+          // this.$message({
+          //   type: "success",
+          //   message: "修改成功!",
+          // });
+        })
+        .catch(() => {
+          this.$message({
+            type: "info",
+            message: "已取消修改！",
+          });
+        });
+    },
+    unProcessBox(message,id,index,command) {
+      this.$confirm(message, "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning",
+      })
+        .then(() => {
+           stateChanges({
+           id:id,
+           index:index,
+           type:command
+         })
+        .then((response) => {
+          this.getTableList();
           this.$message({
             type: "success",
             message: "修改成功!",
           });
+         }) 
+          
         })
         .catch(() => {
+          this.$message({
+            type: "info",
+            message: "已取消修改！",
+          });
+        });
+    },
+    falseReportBox(message,id,index,command) {
+      console.log('参数：',id,index,command)
+      this.$confirm(message, "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning",
+      })
+        .then(() => {
+          console.log('接口')
+         stateChanges({
+           id:id,
+           index:index,
+           type:command
+         })
+        .then((response) => {
+         this.getTableList();  
+         this.$message({
+            type: "success",
+            message: "修改成功!",
+          }); 
+       }) 
+       
+        })
+        .catch(() => {
+           console.log('cancel')
           this.$message({
             type: "info",
             message: "已取消修改！",
@@ -738,6 +940,47 @@ export default {
         this.detailData.event_format
       );
     },
+    saveForm(){
+       this.addDialog = false;
+       if(this.formData.report == '是'){
+          this.formData.type = '已处置'
+       }else{
+         this.formData.type = '处置中'
+       }
+      console.log('this.formData',this.formData)
+      // ES状态变更
+       stateChanges({
+           id:this.formData.id,
+           index:this.formData.index,
+           type:this.formData.type
+         })
+        .then((response) => {
+          this.$message({
+            type: "success",
+            message: "修改成功!",
+          });  
+              //入库
+        putInStorage(this.formData)
+        .then((response) => {
+          this.$message({
+            type: "success",
+            message: "入库成功!",
+          });  
+             // 上报 
+         notificationExport({
+           id:this.formData.id,
+           index:this.formData.index,
+         })
+        .then((response) => {
+          this.$message({
+            type: "success",
+            message: "上报成功!",
+          });  
+            this.getTableList();
+         }) 
+         }) 
+         })     
+    }
   },
 };
 </script>
