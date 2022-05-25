@@ -962,8 +962,9 @@ export default {
             type: "success",
             message: "修改成功!",
           });
-         }) 
           this.getTableList();
+         }) 
+          
         })
         .catch(() => {
           this.$message({
@@ -991,8 +992,9 @@ export default {
             type: "success",
             message: "修改成功!",
           }); 
+          this.getTableList();  
        }) 
-       this.getTableList();  
+      
         })
         .catch(() => {
            console.log('cancel')
@@ -1043,7 +1045,7 @@ export default {
     submitForm() {
       this.open = false;
     },
-     saveForm(){
+    saveForm(){
        this.addDialog = false;
        if(this.formData.report == '是'){
           this.formData.type = '已处置'
@@ -1062,16 +1064,14 @@ export default {
             type: "success",
             message: "修改成功!",
           });  
-         }) 
-        //入库
+              //入库
         putInStorage(this.formData)
         .then((response) => {
           this.$message({
             type: "success",
             message: "入库成功!",
           });  
-         }) 
-        // 上报 
+             // 上报 
          notificationExport({
            id:this.formData.id,
            index:this.formData.index,
@@ -1081,8 +1081,10 @@ export default {
             type: "success",
             message: "上报成功!",
           });  
+            this.getTableList();
          }) 
-         this.getTableList();
+         }) 
+         })     
     }
   },
 };

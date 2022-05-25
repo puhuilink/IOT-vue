@@ -262,7 +262,7 @@
           <el-button
             size="mini"
             type="text"
-            @click="report(scope.row.eventId , scope.row.eventIndex)"
+            @click="report(scope.row.eventId,scope.row.eventIndex)"
           >上报</el-button>
           <!-- <el-button
             size="mini"
@@ -804,7 +804,7 @@ export default {
     },
     // 上报
     async report(eventId,eventIndex){
-      // console.log('row',row.eventId)
+      // console.log('参数',eventId,eventIndex)
        const params = {
          id:eventId,
          index:eventIndex

@@ -987,12 +987,13 @@ export default {
            type:command
          })
         .then((response) => {
+          this.getTableList();
           this.$message({
             type: "success",
             message: "修改成功!",
           });
          }) 
-          this.getTableList();
+          
         })
         .catch(() => {
           this.$message({
@@ -1016,12 +1017,13 @@ export default {
            type:command
          })
         .then((response) => {
+         this.getTableList();  
          this.$message({
             type: "success",
             message: "修改成功!",
           }); 
        }) 
-       this.getTableList();  
+       
         })
         .catch(() => {
            console.log('cancel')
@@ -1088,30 +1090,30 @@ export default {
            type:this.formData.type
          })
         .then((response) => {
-           //入库
+          this.$message({
+            type: "success",
+            message: "修改成功!",
+          });  
+              //入库
         putInStorage(this.formData)
         .then((response) => {
-          // 上报 
+          this.$message({
+            type: "success",
+            message: "入库成功!",
+          });  
+             // 上报 
          notificationExport({
            id:this.formData.id,
            index:this.formData.index,
          })
         .then((response) => {
-          this.getTableList();
           this.$message({
             type: "success",
             message: "上报成功!",
           });  
+            this.getTableList();
          }) 
-          this.$message({
-            type: "success",
-            message: "入库成功!",
-          });  
          }) 
-          this.$message({
-            type: "success",
-            message: "修改成功!",
-          });  
          })     
     }
   },

@@ -10,7 +10,7 @@
             label-width="75px"
             class="label-type"
           >
-            <el-col :span="6">
+            <!-- <el-col :span="6">
               <el-form-item label="资产分组:" prop="Asset_group ">
                 <el-select
                   v-model="queryParams.Asset_group"
@@ -28,15 +28,7 @@
                   />
                 </el-select>
               </el-form-item>
-              <!-- <el-form-item label="IP地址:"
-                      prop="IPaddress ">
-          <el-input v-model="queryParams.IPaddress"
-                    placeholder="请输入IP地址"
-                    clearable
-                    size="small"
-                    @keyup.enter.native="btnQuery" />
-        </el-form-item> -->
-            </el-col>
+            </el-col> -->
             <el-col :span="6">
               <el-form-item label="区域:" prop="region">
                 <el-select
@@ -124,7 +116,7 @@
                 </el-select>
               </el-form-item>
             </el-col>
-            <el-col :span="12">
+            <!-- <el-col :span="12">
               <el-form-item label-width="650px">
                 <el-button
                   type="primary"
@@ -136,7 +128,7 @@
                   >重置</el-button
                 >
               </el-form-item>
-            </el-col>
+            </el-col> -->
           </el-form>
         </el-row>
       </div>
