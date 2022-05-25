@@ -422,7 +422,8 @@
           <el-row>
             <el-col :span="12">
               <el-form-item label="通报名称 :" v-if ="!editTrue">
-                {{ detailData.notificationName }}
+                <tooltip :content="detailData.notificationName" :length="20" />
+                <!-- {{ detailData.notificationName }} -->
               </el-form-item>
               <el-form-item label="通报名称 :" v-if ="editTrue">
                 <el-input
@@ -435,12 +436,14 @@
             </el-col>
             <el-col :span="12">
               <el-form-item label="事件类型 :">
-                {{ detailData. eventType }}
+                 <tooltip :content="detailData.eventType" :length="20" />
+                <!-- {{ detailData.eventType }} -->
               </el-form-item>
             </el-col>
             <el-col :span="12">
               <el-form-item label="事件名称 :">
-                {{ detailData.eventName }}
+                <tooltip :content="detailData.eventName" :length="20" />
+                <!-- {{ detailData.eventName }} -->
               </el-form-item>
             </el-col>
             <el-col :span="12">
