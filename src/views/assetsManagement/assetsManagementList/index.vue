@@ -7,8 +7,10 @@
             ref="queryForm"
             :model="queryParams"
             :rules="rules"
-            label-width="75px"
+            size="mini"
+            label-width="100px"
             class="label-type"
+            label-position="right"
           >
             <!-- <el-col :span="6">
               <el-form-item label="资产分组:" prop="Asset_group ">
@@ -73,8 +75,6 @@
                   v-model="queryParams.leader"
                   placeholder="请输入负责人"
                   clearable
-                  size="small"
-                  @keyup.enter.native="btnQuery"
                 />
               </el-form-item>
             </el-col>
@@ -116,8 +116,8 @@
                 </el-select>
               </el-form-item>
             </el-col>
-            <!-- <el-col :span="12">
-              <el-form-item label-width="650px">
+            <el-col :span="18">
+              <el-form-item label-width="920px">
                 <el-button
                   type="primary"
                   size="mini"
@@ -128,7 +128,7 @@
                   >重置</el-button
                 >
               </el-form-item>
-            </el-col> -->
+            </el-col>
           </el-form>
         </el-row>
       </div>
