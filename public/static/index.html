@@ -4,204 +4,263 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>工业企业网络安全综合防护平台</title>
-    <link rel="stylesheet" type="text/css" href="./slick/slick.css"/>
+    <link rel="stylesheet" type="text/css" href="./slick/slick.css" />
     <link rel="stylesheet" type="text/css" href="./css/common.css" />
     <link rel="stylesheet" type="text/css" href="./css/index.css" />
     <script type="text/javascript" src="./js/jquery-3.5.1.min.js"></script>
     <script type="text/javascript" src="./slick/slick.js"></script>
     <script type="text/javascript">
-      $(function(){
-        $('#inner').slick({
+      $(function () {
+        $("#inner").slick({
           arrows: false,
           draggable: true,
-  infinite: true,
-  slidesToShow: 6,
-  respondTo:'window',
-  slidesToScroll: 1,
-  autoplay: true,
-  autoplaySpeed: 2000,
-});
-});
-      window.addEventListener('message',function (msgEvent) {
+          infinite: true,
+          slidesToShow: 6,
+          respondTo: "window",
+          slidesToScroll: 1,
+          // autoplay: true,
+          autoplaySpeed: 2000,
+        });
+      });
+      window.addEventListener("message", function (msgEvent) {
         let token = msgEvent.data;
         console.log(token);
-        $('#name').attr('href','http://10.201.30.60:80/intelligence/login-with-params?username=jiance&token='+token+'&redirect=production-strategy');
-        $('#name1').attr('href','http://10.201.30.60:80/intelligence/login-with-params?username=jiance&token='+token+'&redirect=manage-source');
-        $('#name2').attr('href','http://10.201.30.60:80/intelligence/login-with-params?username=jiance&token='+token+'&redirect=production-strategy');
-        $('#name3').attr('href','http://10.201.30.60:80/intelligence/login-with-params?username=jiance&token='+token+'&redirect=manage-source');
-        $('#name4').attr('href','http://10.201.30.60:80/intelligence/login-with-params?username=jiance&token='+token+'&redirect=manage-intel');
-        $('#name5').attr('href','http://10.201.30.60:80/intelligence/login-with-params?username=jiance&token='+token+'&redirect=ioc-detail');
-        
-    })
+        $("#name").attr(
+          "href",
+          "http://10.201.30.60:80/intelligence/login-with-params?username=jiance&token=" +
+            token +
+            "&redirect=production-strategy"
+        );
+        $("#name1").attr(
+          "href",
+          "http://10.201.30.60:80/intelligence/login-with-params?username=jiance&token=" +
+            token +
+            "&redirect=manage-source"
+        );
+        $("#name2").attr(
+          "href",
+          "http://10.201.30.60:80/intelligence/login-with-params?username=jiance&token=" +
+            token +
+            "&redirect=production-strategy"
+        );
+        $("#name3").attr(
+          "href",
+          "http://10.201.30.60:80/intelligence/login-with-params?username=jiance&token=" +
+            token +
+            "&redirect=manage-source"
+        );
+        $("#name4").attr(
+          "href",
+          "http://10.201.30.60:80/intelligence/login-with-params?username=jiance&token=" +
+            token +
+            "&redirect=manage-intel"
+        );
+        $("#name5").attr(
+          "href",
+          "http://10.201.30.60:80/intelligence/login-with-params?username=jiance&token=" +
+            token +
+            "&redirect=ioc-detail"
+        );
+      });
     </script>
   </head>
   <body>
-      <div class="page">
-        <span class="word2">安全态势感知分析</span>
-        <div class="main2 flex-row justify-between"> 
-          <div id="inner">
-            <div>
-            <div class="bd2 flex-col">
-              <a  href="http://10.1.13.118:8003/#/previewScreen?id=2GZ4KU458_20220412075741&pre=1" target=_blank>
-              <div class="box1 flex-col justify-between">
-                <img
-                  class="img1"
-                  referrerpolicy="no-referrer"
-                  src="./img/picture_01.png"
-                />
-                <span class="word5">总体安全态势</span>
-              </div>
-            </a>
-            </div>   
-          </div>   
+    <div class="page">
+      <span class="word2">安全态势感知分析</span>
+      <div class="main2 flex-row justify-between">
+        <div id="inner">
           <div>
             <div class="bd2 flex-col">
-              <a  href="http://10.1.51.199:8000/screen/asset" target=_blank>
-              <div class="box1 flex-col justify-between">
-                <img
-                  class="pic1"
-                  referrerpolicy="no-referrer"
-                  src="./img/picture_02.png"
-                />
-                <span class="word5">资产态势</span>
-              </div>
-            </a>
-            </div>
-          </div>
-          <div>
-            <div class="bd2 flex-col">
-              <a  href="http://10.1.51.199:8000/screen/alert" target=_blank>
-              <div class="box1 flex-col justify-between">
-                <img
-                  class="pic2"
-                  referrerpolicy="no-referrer"
-                  src="./img/picture_03.png"
-                />
-                <span class="word5">综合安全态势</span>
-              </div>
-            </a>
-            </div>
-          </div>
-          <div>
-            <div class="bd2 flex-col">
-              <a href="https://10.201.30.40/microapps/app-sso/index.html?token=e1a08736dede6c2f0f0ad2bfef727ce4d72b10ffd6ea32888cc0fd4e26bcaf15&redirectUrl=https://10.201.30.40/situation-awareness/integrated" target=_blank>
-              <div class="layer3 flex-col justify-between">
-                <img
-                  class="img2"
-                  referrerpolicy="no-referrer"
-                  src="./img/picture_04.png"
-                />
-                <span class="word5">管理网威胁态势</span>
-              </div>
-            </a>
-            </div>  
-          </div>
-          <div>
-            <div class="bd2 flex-col">
-              <a href="https://10.201.30.40/situation/intranet?token=1689aa214982d88109aeab2abcbdc89c16a829d94c65603c9bd96d224d034696" target="_blank">
-              <div class="wrap1 flex-col justify-between">
-                <img
-                  class="img3"
-                  referrerpolicy="no-referrer"
-                  src="./img/picture_05.png"
-                />
-                <span class="word5">内网威胁态势</span>
-              </div>
-            </a>
-            </div>
-          </div>
-          <div>
-            <div class="bd2 flex-col">
-              <a href="https://10.201.30.40/situation/external?token=1689aa214982d88109aeab2abcbdc89c16a829d94c65603c9bd96d224d034696" target="_blank">
-              <div class="group1 flex-col justify-between">
-                <img
-                  class="img4"
-                  referrerpolicy="no-referrer"
-                  src="./img/picture_06.png"
-                />
-                <span class="word5">外部威胁态势</span>
-              </div>
-            </a>
-            </div>
-          </div>
-          <div>
-            <div class="bd2 flex-col">
-              <a href="http://10.1.13.118:8003/#/previewScreen?id=2GY7MEXD3_20220321031407" target="_blank">
-              <div class="group1 flex-col justify-between">
-                <img
-                  class="img4"
-                  referrerpolicy="no-referrer"
-                  src="./img/picture_07.png"
-                />
-                <span class="word5">北京城乡水厂</span>
-              </div>
+              <a
+                href="http://10.1.13.118:8003/#/previewScreen?id=2GZ4KU458_20220412075741&pre=1"
+                target="_blank"
+              >
+                <div class="box1 flex-col justify-between">
+                  <img
+                    class="img1"
+                    referrerpolicy="no-referrer"
+                    src="./img/picture_01.png"
+                  />
+                  <span class="word5">总体安全态势</span>
+                </div>
               </a>
             </div>
           </div>
           <div>
             <div class="bd2 flex-col">
-              <a href="http://10.1.13.118:8003/#/previewScreen?id=2GZGMZ1GC_20220321031558" target="_blank">
-              <div class="group1 flex-col justify-between">
-                <img
-                  class="img4"
-                  referrerpolicy="no-referrer"
-                  src="./img/picture_08.png"
-                />
-                <span class="word5">三亚海投轨交</span>
-              </div>
+              <a href="http://10.1.51.199:8000/screen/asset" target="_blank">
+                <div class="box1 flex-col justify-between">
+                  <img
+                    class="pic1"
+                    referrerpolicy="no-referrer"
+                    src="./img/picture_02.png"
+                  />
+                  <span class="word5">资产态势</span>
+                </div>
               </a>
             </div>
           </div>
           <div>
             <div class="bd2 flex-col">
-              <a href="http://10.1.13.118:8003/#/previewScreen?id=2GYXT3Q1Q_20220321031535" target="_blank">
-              <div class="group1 flex-col justify-between">
-                <img
-                  class="img4"
-                  referrerpolicy="no-referrer"
-                  src="./img/picture_09.png"
-                />
-                <span class="word5">天津管片厂</span>
-              </div>
+              <a href="http://10.1.51.199:8000/screen/alert" target="_blank">
+                <div class="box1 flex-col justify-between">
+                  <img
+                    class="pic2"
+                    referrerpolicy="no-referrer"
+                    src="./img/picture_03.png"
+                  />
+                  <span class="word5">综合安全态势</span>
+                </div>
               </a>
             </div>
           </div>
           <div>
             <div class="bd2 flex-col">
-              <a href="http://10.1.13.118:8003/#/previewScreen?id=2GXN3VE1A_20220321104906" target="_blank">
-              <div class="group1 flex-col justify-between">
-                <img
-                  class="img4"
-                  referrerpolicy="no-referrer"
-                  src="./img/picture_10.png"
-                />
-                <span class="word5">珠海深中通道</span>
-              </div>
+              <a
+                href="https://10.201.30.40/microapps/app-sso/index.html?token=e1a08736dede6c2f0f0ad2bfef727ce4d72b10ffd6ea32888cc0fd4e26bcaf15&redirectUrl=https://10.201.30.40/situation-awareness/integrated"
+                target="_blank"
+              >
+                <div class="box1 flex-col justify-between">
+                  <img
+                    class="img2"
+                    referrerpolicy="no-referrer"
+                    src="./img/picture_04.png"
+                  />
+                  <span class="word5">管理网威胁态势</span>
+                </div>
               </a>
             </div>
           </div>
           <div>
             <div class="bd2 flex-col">
-              <a href="http://10.1.13.118:8003/#/previewScreen?id=2GW8252UC_20220310060257" target="_blank">
-              <div class="group1 flex-col justify-between">
-                <img
-                  class="img4"
-                  referrerpolicy="no-referrer"
-                  src="./img/picture_11.png"
-                />
-                <span class="word5">山西三通燃气</span>
-              </div>
+              <a
+                href="https://10.201.30.40/situation/intranet?token=1689aa214982d88109aeab2abcbdc89c16a829d94c65603c9bd96d224d034696"
+                target="_blank"
+              >
+                <div class="box1 flex-col justify-between">
+                  <img
+                    class="img3"
+                    referrerpolicy="no-referrer"
+                    src="./img/picture_05.png"
+                  />
+                  <span class="word5">内网威胁态势</span>
+                </div>
               </a>
             </div>
           </div>
+          <div>
+            <div class="bd2 flex-col">
+              <a
+                href="https://10.201.30.40/situation/external?token=1689aa214982d88109aeab2abcbdc89c16a829d94c65603c9bd96d224d034696"
+                target="_blank"
+              >
+                <div class="box1 flex-col justify-between">
+                  <img
+                    class="img4"
+                    referrerpolicy="no-referrer"
+                    src="./img/picture_06.png"
+                  />
+                  <span class="word5">外部威胁态势</span>
+                </div>
+              </a>
+            </div>
           </div>
-        </div>  
-        <div class="main4 flex-row justify-between">
-          <span class="txt2">安全监测</span>
-          <span class="info3">资产管理</span>
+          <div>
+            <div class="bd2 flex-col">
+              <a
+                href="http://10.1.13.118:8003/#/previewScreen?id=2GY7MEXD3_20220321031407"
+                target="_blank"
+              >
+                <div class="box1 flex-col justify-between">
+                  <img
+                    class="img4"
+                    referrerpolicy="no-referrer"
+                    src="./img/picture_07.png"
+                  />
+                  <span class="word5">北京城乡水厂</span>
+                </div>
+              </a>
+            </div>
+          </div>
+          <div>
+            <div class="bd2 flex-col">
+              <a
+                href="http://10.1.13.118:8003/#/previewScreen?id=2GZGMZ1GC_20220321031558"
+                target="_blank"
+              >
+                <div class="box1 flex-col justify-between">
+                  <img
+                    class="img4"
+                    referrerpolicy="no-referrer"
+                    src="./img/picture_08.png"
+                  />
+                  <span class="word5">三亚海投轨交</span>
+                </div>
+              </a>
+            </div>
+          </div>
+          <div>
+            <div class="bd2 flex-col">
+              <a
+                href="http://10.1.13.118:8003/#/previewScreen?id=2GYXT3Q1Q_20220321031535"
+                target="_blank"
+              >
+                <div class="box1 flex-col justify-between">
+                  <img
+                    class="img4"
+                    referrerpolicy="no-referrer"
+                    src="./img/picture_09.png"
+                  />
+                  <span class="word5">天津管片厂</span>
+                </div>
+              </a>
+            </div>
+          </div>
+          <div>
+            <div class="bd2 flex-col">
+              <a
+                href="http://10.1.13.118:8003/#/previewScreen?id=2GXN3VE1A_20220321104906"
+                target="_blank"
+              >
+                <div class="box1 flex-col justify-between">
+                  <img
+                    class="img4"
+                    referrerpolicy="no-referrer"
+                    src="./img/picture_10.png"
+                  />
+                  <span class="word5">珠海深中通道</span>
+                </div>
+              </a>
+            </div>
+          </div>
+          <div>
+            <div class="bd2 flex-col">
+              <a
+                href="http://10.1.13.118:8003/#/previewScreen?id=2GW8252UC_20220310060257"
+                target="_blank"
+              >
+                <div class="box1 flex-col justify-between">
+                  <img
+                    class="img4"
+                    referrerpolicy="no-referrer"
+                    src="./img/picture_11.png"
+                  />
+                  <span class="word5">山西三通燃气</span>
+                </div>
+              </a>
+            </div>
+          </div>
         </div>
-        <div class="main5 flex-row">
-          <a href="http://10.1.13.118:8001/security/hostSecurityManagement/hostSecuritySearch" target="_blank">
+      </div>
+      <div class="main4 flex-row justify-between">
+        <span class="txt2">安全监测</span>
+        <span class="info3">资产管理</span>
+      </div>
+      <div class="main5 flex-row">
+        <a
+          href="http://10.1.13.118:8001/security/hostSecurityManagement/hostSecuritySearch"
+          target="_blank"
+        >
           <div class="box2 flex-col">
             <div class="section3 flex-row">
               <div class="ImageText1 flex-col">
@@ -214,10 +273,13 @@
               </div>
             </div>
           </div>
-          </a>
-         
-          <div class="box4 flex-col">
-            <a href="http://10.1.13.118:8001/security/hostSecurityManagement/hostSecuritySearch" target="_blank">
+        </a>
+
+        <div class="box4 flex-col">
+          <a
+            href="http://10.1.13.118:8001/security/hostSecurityManagement/hostSecuritySearch"
+            target="_blank"
+          >
             <div class="main6 flex-row">
               <div class="ImageText2 flex-col">
                 <div class="main6 flex-row justify-between">
@@ -229,11 +291,13 @@
               </div>
             </div>
           </a>
-          </div>
-         
-        
-          <div class="box5 flex-col">
-            <a href="http://10.1.13.118:8001/security/dataSafe/table" target="_blank">
+        </div>
+
+        <div class="box5 flex-col">
+          <a
+            href="http://10.1.13.118:8001/security/dataSafe/table"
+            target="_blank"
+          >
             <div class="wrap2 flex-row">
               <div class="ImageText3 flex-col">
                 <div class="wrap2 flex-row justify-between">
@@ -245,11 +309,13 @@
               </div>
             </div>
           </a>
-          </div>
-         
-      
-          <div class="box6 flex-col">
-            <a href="http://10.1.13.118:8001/security/dataSafe/table" target="_blank">
+        </div>
+
+        <div class="box6 flex-col">
+          <a
+            href="http://10.1.13.118:8001/security/dataSafe/table"
+            target="_blank"
+          >
             <div class="main8 flex-row">
               <div class="ImageText4 flex-col">
                 <div class="main8 flex-row justify-between">
@@ -260,11 +326,13 @@
                 </div>
               </div>
             </div>
-            
           </a>
-          </div>  
-          <div class="box7 flex-col">
-            <a href="https://10.1.51.199/app/mica/meansManagement?token=eyJhbGciOiJIUzI1NiJ9.empq.KqV-jdB2JMcH-O2wYUIcGtGZjcu-AhG2ZxmciliUBDQ" target="_blank">
+        </div>
+        <div class="box7 flex-col">
+          <a
+            href="https://10.1.51.199/app/mica/meansManagement?token=eyJhbGciOiJIUzI1NiJ9.empq.KqV-jdB2JMcH-O2wYUIcGtGZjcu-AhG2ZxmciliUBDQ"
+            target="_blank"
+          >
             <div class="box8 flex-row">
               <div class="ImageText5 flex-col">
                 <div class="box8 flex-row justify-between">
@@ -276,8 +344,11 @@
               </div>
             </div>
           </a>
-          </div>     
-          <a href="https://10.1.51.199/app/mica/meansDetail?token=eyJhbGciOiJIUzI1NiJ9.empq.KqV-jdB2JMcH-O2wYUIcGtGZjcu-AhG2ZxmciliUBDQ" target="_blank">
+        </div>
+        <a
+          href="https://10.1.51.199/app/mica/meansDetail?token=eyJhbGciOiJIUzI1NiJ9.empq.KqV-jdB2JMcH-O2wYUIcGtGZjcu-AhG2ZxmciliUBDQ"
+          target="_blank"
+        >
           <div class="box9 flex-col">
             <div class="mod1 flex-row">
               <div class="ImageText6 flex-col">
@@ -290,8 +361,11 @@
               </div>
             </div>
           </div>
-          </a>
-          <a href="https://10.1.51.199/app/mica/meansTypes?token=eyJhbGciOiJIUzI1NiJ9.empq.KqV-jdB2JMcH-O2wYUIcGtGZjcu-AhG2ZxmciliUBDQ" target="_blank">
+        </a>
+        <a
+          href="https://10.1.51.199/app/mica/meansTypes?token=eyJhbGciOiJIUzI1NiJ9.empq.KqV-jdB2JMcH-O2wYUIcGtGZjcu-AhG2ZxmciliUBDQ"
+          target="_blank"
+        >
           <div class="box10 flex-col">
             <div class="group6 flex-row">
               <div class="ImageText7 flex-col">
@@ -304,10 +378,13 @@
               </div>
             </div>
           </div>
-          </a>
-        </div>
-        <div class="main9 flex-row">
-          <a href="http://10.1.13.118:8001/security/hostSecurityManagement/hostSecuritySearch" target="_blank">
+        </a>
+      </div>
+      <div class="main9 flex-row">
+        <a
+          href="http://10.1.13.118:8001/security/hostSecurityManagement/hostSecuritySearch"
+          target="_blank"
+        >
           <div class="mod2 flex-col">
             <div class="section4 flex-row">
               <div class="ImageText8 flex-col">
@@ -320,10 +397,13 @@
               </div>
             </div>
           </div>
-          </a>
-       
-          <div class="mod3 flex-col">
-            <a href="http://10.1.13.118:8001/security/hostSecurityManagement/hostSecuritySearch" target="_blank">
+        </a>
+
+        <div class="mod3 flex-col">
+          <a
+            href="http://10.1.13.118:8001/security/hostSecurityManagement/hostSecuritySearch"
+            target="_blank"
+          >
             <div class="group7 flex-row">
               <div class="ImageText9 flex-col">
                 <div class="group7 flex-row justify-between">
@@ -335,11 +415,13 @@
               </div>
             </div>
           </a>
-          </div>
-         
-         
-          <div class="mod5 flex-col">
-            <a href="http://10.1.13.118:8001/security/pageTamperProofEvent/pageTamperProofEvent" target="_blank">
+        </div>
+
+        <div class="mod5 flex-col">
+          <a
+            href="http://10.1.13.118:8001/security/pageTamperProofEvent/pageTamperProofEvent"
+            target="_blank"
+          >
             <div class="main10 flex-row">
               <div class="ImageText10 flex-col">
                 <div class="main10 flex-row justify-between">
@@ -351,8 +433,11 @@
               </div>
             </div>
           </a>
-          </div>      
-          <a href="http://10.1.13.118:8001/security/dataSafe/table" target="_blank">
+        </div>
+        <a
+          href="http://10.1.13.118:8001/security/dataSafe/table"
+          target="_blank"
+        >
           <div class="mod6 flex-col">
             <div class="mod7 flex-row">
               <div class="ImageText11 flex-col">
@@ -365,17 +450,19 @@
               </div>
             </div>
           </div>
-          </a>
-          <span class="word11">平台知识库</span>
-        </div>
-        <div class="main11 flex-row justify-between">
-          <span class="word12">工业主机安全</span>
-          <span class="word13">数据安全</span>
-        </div>
-        <div class="main12 flex-row">
-        
-          <div class="main13 flex-col">
-            <a href="http://10.1.13.118:8001/security/applicationSecurityManagement/appTesting" target="_blank">
+        </a>
+        <span class="word11">平台知识库</span>
+      </div>
+      <div class="main11 flex-row justify-between">
+        <span class="word12">工业主机安全</span>
+        <span class="word13">数据安全</span>
+      </div>
+      <div class="main12 flex-row">
+        <div class="main13 flex-col">
+          <a
+            href="http://10.1.13.118:8001/security/applicationSecurityManagement/appTesting"
+            target="_blank"
+          >
             <div class="mod8 flex-row">
               <div class="ImageText12 flex-col">
                 <div class="mod8 flex-row justify-between">
@@ -387,11 +474,13 @@
               </div>
             </div>
           </a>
-          </div>
-         
-        
-          <div class="main14 flex-col">
-            <a href="http://10.1.13.118:8001/security/hostSecurityManagement/hostSecuritySearch" target="_blank">
+        </div>
+
+        <div class="main14 flex-col">
+          <a
+            href="http://10.1.13.118:8001/security/hostSecurityManagement/hostSecuritySearch"
+            target="_blank"
+          >
             <div class="layer4 flex-row">
               <div class="ImageText13 flex-col">
                 <div class="layer4 flex-row justify-between">
@@ -403,11 +492,13 @@
               </div>
             </div>
           </a>
-          </div>
-        
-       
-          <div class="main15 flex-col">
-            <a href="http://10.1.13.118:8001/security/Jiangwoodcreep/search" target="_blank">
+        </div>
+
+        <div class="main15 flex-col">
+          <a
+            href="http://10.1.13.118:8001/security/Jiangwoodcreep/search"
+            target="_blank"
+          >
             <div class="layer5 flex-row">
               <div class="ImageText14 flex-col">
                 <div class="layer5 flex-row justify-between">
@@ -419,11 +510,13 @@
               </div>
             </div>
           </a>
-          </div>
-        
-         
-          <div class="main16 flex-col">
-            <a href="http://10.1.13.118:8001/security/abnormalBehaviorManagement/abnormalBehaviorEventRetrieval" target="_blank">
+        </div>
+
+        <div class="main16 flex-col">
+          <a
+            href="http://10.1.13.118:8001/security/abnormalBehaviorManagement/abnormalBehaviorEventRetrieval"
+            target="_blank"
+          >
             <div class="bd10 flex-row">
               <div class="ImageText15 flex-col">
                 <div class="bd10 flex-row justify-between">
@@ -435,10 +528,13 @@
               </div>
             </div>
           </a>
-          </div>
-         
-          <div class="main17 flex-col">
-            <a href="https://10.201.30.40/knowledgebase/knowledge_base" target="_blank">
+        </div>
+
+        <div class="main17 flex-col">
+          <a
+            href="https://10.201.30.40/knowledgebase/knowledge_base"
+            target="_blank"
+          >
             <div class="layer6 flex-row">
               <div class="ImageText16 flex-col">
                 <div class="layer6 flex-row justify-between">
@@ -450,10 +546,13 @@
               </div>
             </div>
           </a>
-          </div>   
-         
-          <div class="main18 flex-col">
-            <a href="https://10.1.51.199/app/mica/featureManagement?token=eyJhbGciOiJIUzI1NiJ9.empq.KqV-jdB2JMcH-O2wYUIcGtGZjcu-AhG2ZxmciliUBDQ" target="_blank">
+        </div>
+
+        <div class="main18 flex-col">
+          <a
+            href="https://10.1.51.199/app/mica/featureManagement?token=eyJhbGciOiJIUzI1NiJ9.empq.KqV-jdB2JMcH-O2wYUIcGtGZjcu-AhG2ZxmciliUBDQ"
+            target="_blank"
+          >
             <div class="section7 flex-row">
               <div class="ImageText17 flex-col">
                 <div class="section7 flex-row justify-between">
@@ -465,11 +564,13 @@
               </div>
             </div>
           </a>
-          </div>
-         
-         
-          <div class="main19 flex-col">
-            <a href="https://10.1.51.199/app/mica/meansManagement?token=eyJhbGciOiJIUzI1NiJ9.empq.KqV-jdB2JMcH-O2wYUIcGtGZjcu-AhG2ZxmciliUBDQ" target="_blank">
+        </div>
+
+        <div class="main19 flex-col">
+          <a
+            href="https://10.1.51.199/app/mica/meansManagement?token=eyJhbGciOiJIUzI1NiJ9.empq.KqV-jdB2JMcH-O2wYUIcGtGZjcu-AhG2ZxmciliUBDQ"
+            target="_blank"
+          >
             <div class="outer4 flex-row">
               <div class="ImageText18 flex-col">
                 <div class="outer4 flex-row justify-between">
@@ -481,11 +582,13 @@
               </div>
             </div>
           </a>
-          </div>
-         
-          <div class="main20 flex-col">
-            
-          <a href="https://10.1.51.199/app/mica/modelManagement?token=eyJhbGciOiJIUzI1NiJ9.empq.KqV-jdB2JMcH-O2wYUIcGtGZjcu-AhG2ZxmciliUBDQ" target="_blank">
+        </div>
+
+        <div class="main20 flex-col">
+          <a
+            href="https://10.1.51.199/app/mica/modelManagement?token=eyJhbGciOiJIUzI1NiJ9.empq.KqV-jdB2JMcH-O2wYUIcGtGZjcu-AhG2ZxmciliUBDQ"
+            target="_blank"
+          >
             <div class="bd11 flex-row">
               <div class="ImageText19 flex-col">
                 <div class="bd11 flex-row justify-between">
@@ -497,12 +600,14 @@
               </div>
             </div>
           </a>
-          </div>
-         
         </div>
-        <div class="main21 flex-row">
-          <div class="section8 flex-col justify-between">
-            <a href="http://10.1.13.118:8001/security/applicationSecurityManagement/applicationManagement" target="_blank">
+      </div>
+      <div class="main21 flex-row">
+        <div class="section8 flex-col justify-between">
+          <a
+            href="http://10.1.13.118:8001/security/applicationSecurityManagement/applicationManagement"
+            target="_blank"
+          >
             <div class="mod10 flex-col">
               <div class="box15 flex-row">
                 <div class="ImageText20 flex-col">
@@ -515,12 +620,15 @@
                 </div>
               </div>
             </div>
-            </a>
-            <span class="info9">应用安全</span>
-          </div>
-          <div class="section9 flex-col justify-between">
-            <div class="wrap4 flex-row justify-between">
-              <a href="http://10.1.13.118:8001/industrialNetworkAudit/industrialNetworkAuditList" target="_blank">
+          </a>
+          <span class="info9">应用安全</span>
+        </div>
+        <div class="section9 flex-col justify-between">
+          <div class="wrap4 flex-row justify-between">
+            <a
+              href="http://10.1.13.118:8001/industrialNetworkAudit/industrialNetworkAuditList"
+              target="_blank"
+            >
               <div class="section10 flex-col">
                 <div class="mod12 flex-row">
                   <div class="ImageText21 flex-col">
@@ -533,8 +641,11 @@
                   </div>
                 </div>
               </div>
-              </a>
-              <a href="http://10.1.13.118:8001/security/firewallAccessControlEvent/firewallAccessControlEvent" target="_blank">
+            </a>
+            <a
+              href="http://10.1.13.118:8001/security/firewallAccessControlEvent/firewallAccessControlEvent"
+              target="_blank"
+            >
               <div class="section11 flex-col">
                 <div class="group8 flex-row">
                   <div class="ImageText22 flex-col">
@@ -547,13 +658,16 @@
                   </div>
                 </div>
               </div>
-              </a>
-            </div>
-            <span class="word20">工业网络安全</span>
+            </a>
           </div>
-          <div class="section12 flex-col justify-between">
-            <span class="txt9">溯源取证</span>
-            <a href="https://10.1.51.199/app/mica/collect/logCollect?token=eyJhbGciOiJIUzI1NiJ9.empq.KqV-jdB2JMcH-O2wYUIcGtGZjcu-AhG2ZxmciliUBDQ" target="_blank">
+          <span class="word20">工业网络安全</span>
+        </div>
+        <div class="section12 flex-col justify-between">
+          <span class="txt9">溯源取证</span>
+          <a
+            href="https://10.1.51.199/app/mica/collect/logCollect?token=eyJhbGciOiJIUzI1NiJ9.empq.KqV-jdB2JMcH-O2wYUIcGtGZjcu-AhG2ZxmciliUBDQ"
+            target="_blank"
+          >
             <div class="outer5 flex-col">
               <div class="bd12 flex-row">
                 <div class="ImageText23 flex-col">
@@ -566,11 +680,14 @@
                 </div>
               </div>
             </div>
-            </a>
-          </div>
-         
-          <div class="section14 flex-col">
-            <a href="https://10.1.51.199/app/mica/collect/download?token=eyJhbGciOiJIUzI1NiJ9.empq.KqV-jdB2JMcH-O2wYUIcGtGZjcu-AhG2ZxmciliUBDQ" target="_blank">
+          </a>
+        </div>
+
+        <div class="section14 flex-col">
+          <a
+            href="https://10.1.51.199/app/mica/collect/download?token=eyJhbGciOiJIUzI1NiJ9.empq.KqV-jdB2JMcH-O2wYUIcGtGZjcu-AhG2ZxmciliUBDQ"
+            target="_blank"
+          >
             <div class="bd13 flex-row">
               <div class="ImageText24 flex-col">
                 <div class="bd13 flex-row justify-between">
@@ -582,11 +699,13 @@
               </div>
             </div>
           </a>
-          </div>
-         
-        
-          <div class="section15 flex-col">
-            <a href="https://10.1.51.199:443/app/mica/dataSource?token=eyJhbGciOiJIUzI1NiJ9.empq.KqV-jdB2JMcH-O2wYUIcGtGZjcu-AhG2ZxmciliUBDQ" target="_blank">
+        </div>
+
+        <div class="section15 flex-col">
+          <a
+            href="https://10.1.51.199:443/app/mica/dataSource?token=eyJhbGciOiJIUzI1NiJ9.empq.KqV-jdB2JMcH-O2wYUIcGtGZjcu-AhG2ZxmciliUBDQ"
+            target="_blank"
+          >
             <div class="outer6 flex-row">
               <div class="ImageText25 flex-col">
                 <div class="outer6 flex-row justify-between">
@@ -598,15 +717,17 @@
               </div>
             </div>
           </a>
-          </div>
-        
         </div>
-        <div class="main23 flex-row justify-between">
-          <span class="word22">入侵诱捕</span>
-          <span class="word23">网络流量安全分析</span>
-        </div>
-        <div class="main24 flex-row">
-          <a href="http://10.1.13.118:8001/security/invasionOfTrap/honeypotEventRetrieval" target="_blank">
+      </div>
+      <div class="main23 flex-row justify-between">
+        <span class="word22">入侵诱捕</span>
+        <span class="word23">网络流量安全分析</span>
+      </div>
+      <div class="main24 flex-row">
+        <a
+          href="http://10.1.13.118:8001/security/invasionOfTrap/honeypotEventRetrieval"
+          target="_blank"
+        >
           <div class="outer7 flex-col">
             <div class="block3 flex-row">
               <div class="ImageText26 flex-col">
@@ -619,8 +740,11 @@
               </div>
             </div>
           </div>
-          </a>
-          <a href="http://10.1.13.118:8001/security/invasionOfTrap/statisticalSnalysis" target="_blank">
+        </a>
+        <a
+          href="http://10.1.13.118:8001/security/invasionOfTrap/statisticalSnalysis"
+          target="_blank"
+        >
           <div class="outer9 flex-col">
             <div class="main25 flex-row">
               <div class="ImageText27 flex-col">
@@ -633,10 +757,13 @@
               </div>
             </div>
           </div>
-          </a>
-         
-          <div class="outer10 flex-col">
-            <a href="https://10.1.51.199/app/mica/alarm/loopHole?token=eyJhbGciOiJIUzI1NiJ9.empq.KqV-jdB2JMcH-O2wYUIcGtGZjcu-AhG2ZxmciliUBDQ" target="_blank">
+        </a>
+
+        <div class="outer10 flex-col">
+          <a
+            href="https://10.1.51.199/app/mica/alarm/loopHole?token=eyJhbGciOiJIUzI1NiJ9.empq.KqV-jdB2JMcH-O2wYUIcGtGZjcu-AhG2ZxmciliUBDQ"
+            target="_blank"
+          >
             <div class="block4 flex-row">
               <div class="ImageText28 flex-col">
                 <div class="block4 flex-row justify-between">
@@ -648,11 +775,13 @@
               </div>
             </div>
           </a>
-          </div>
-         
-          
-          <div class="outer11 flex-col">
-            <a href="https://10.1.51.199/app/mica/alarm/Intelligence?token=eyJhbGciOiJIUzI1NiJ9.empq.KqV-jdB2JMcH-O2wYUIcGtGZjcu-AhG2ZxmciliUBDQ" target="_blank">
+        </div>
+
+        <div class="outer11 flex-col">
+          <a
+            href="https://10.1.51.199/app/mica/alarm/Intelligence?token=eyJhbGciOiJIUzI1NiJ9.empq.KqV-jdB2JMcH-O2wYUIcGtGZjcu-AhG2ZxmciliUBDQ"
+            target="_blank"
+          >
             <div class="section17 flex-row">
               <div class="ImageText29 flex-col">
                 <div class="section17 flex-row justify-between">
@@ -664,9 +793,12 @@
               </div>
             </div>
           </a>
-          </div>
-         
-          <a href="https://10.1.51.199/app/mica/alarm/Modal?token=eyJhbGciOiJIUzI1NiJ9.empq.KqV-jdB2JMcH-O2wYUIcGtGZjcu-AhG2ZxmciliUBDQ" target="_blank">
+        </div>
+
+        <a
+          href="https://10.1.51.199/app/mica/alarm/Modal?token=eyJhbGciOiJIUzI1NiJ9.empq.KqV-jdB2JMcH-O2wYUIcGtGZjcu-AhG2ZxmciliUBDQ"
+          target="_blank"
+        >
           <div class="outer12 flex-col">
             <div class="main26 flex-row">
               <div class="ImageText30 flex-col">
@@ -679,10 +811,13 @@
               </div>
             </div>
           </div>
-          </a>
-        </div>
-        <div class="main27 flex-row">
-          <a href="http://10.1.13.118:8001/security/invasionOfTrap/honeypotEventRetrieval" target="_blank">
+        </a>
+      </div>
+      <div class="main27 flex-row">
+        <a
+          href="http://10.1.13.118:8001/security/invasionOfTrap/honeypotEventRetrieval"
+          target="_blank"
+        >
           <div class="wrap5 flex-col">
             <div class="group9 flex-row">
               <div class="ImageText31 flex-col">
@@ -695,10 +830,13 @@
               </div>
             </div>
           </div>
-          </a>
-        
-          <div class="wrap6 flex-col">
-            <a href="https://10.1.51.199/app/mica/collect/logCollect?token=eyJhbGciOiJIUzI1NiJ9.empq.KqV-jdB2JMcH-O2wYUIcGtGZjcu-AhG2ZxmciliUBDQ" target="_blank">
+        </a>
+
+        <div class="wrap6 flex-col">
+          <a
+            href="https://10.1.51.199/app/mica/collect/logCollect?token=eyJhbGciOiJIUzI1NiJ9.empq.KqV-jdB2JMcH-O2wYUIcGtGZjcu-AhG2ZxmciliUBDQ"
+            target="_blank"
+          >
             <div class="section18 flex-row">
               <div class="ImageText32 flex-col">
                 <div class="section18 flex-row justify-between">
@@ -709,10 +847,13 @@
                 </div>
               </div>
             </div>
-            </a>
-          </div>
-         
-          <a href="https://10.1.51.199:443/app/mica/report?token=eyJhbGciOiJIUzI1NiJ9.empq.KqV-jdB2JMcH-O2wYUIcGtGZjcu-AhG2ZxmciliUBDQ" target="_blank">
+          </a>
+        </div>
+
+        <a
+          href="https://10.1.51.199:443/app/mica/report?token=eyJhbGciOiJIUzI1NiJ9.empq.KqV-jdB2JMcH-O2wYUIcGtGZjcu-AhG2ZxmciliUBDQ"
+          target="_blank"
+        >
           <div class="wrap7 flex-col">
             <div class="box16 flex-row">
               <div class="ImageText33 flex-col">
@@ -725,14 +866,17 @@
               </div>
             </div>
           </div>
-          </a>
-        </div>
-        <div class="main29 flex-row justify-between">
-          <span class="word28">脆弱性管理</span>
-          <span class="txt14">威胁情报</span>
-        </div>
-        <div class="main30 flex-row">
-          <a href="http://10.1.13.118:8001/security/vulnerability/vulnerability/tables" target="_blank">
+        </a>
+      </div>
+      <div class="main29 flex-row justify-between">
+        <span class="word28">脆弱性管理</span>
+        <span class="txt14">威胁情报</span>
+      </div>
+      <div class="main30 flex-row">
+        <a
+          href="http://10.1.13.118:8001/security/vulnerability/vulnerability/tables"
+          target="_blank"
+        >
           <div class="layer11 flex-col">
             <div class="wrap8 flex-row">
               <div class="ImageText34 flex-col">
@@ -745,8 +889,11 @@
               </div>
             </div>
           </div>
-          </a>
-          <a href="http://10.1.13.118:8001/security/weakpassword/retrieve" target="_blank">
+        </a>
+        <a
+          href="http://10.1.13.118:8001/security/weakpassword/retrieve"
+          target="_blank"
+        >
           <div class="layer12 flex-col">
             <div class="layer13 flex-row">
               <div class="ImageText35 flex-col">
@@ -759,10 +906,10 @@
               </div>
             </div>
           </div>
-          </a>
-        
-          <div class="layer14 flex-col">
-            <a id="name"  target="_blank">
+        </a>
+
+        <div class="layer14 flex-col">
+          <a id="name" target="_blank">
             <div class="box17 flex-row">
               <div class="ImageText36 flex-col">
                 <div class="box17 flex-row justify-between">
@@ -774,9 +921,9 @@
               </div>
             </div>
           </a>
-          </div>
-        
-          <a id="name2"  target="_blank">
+        </div>
+
+        <a id="name2" target="_blank">
           <div class="layer15 flex-col">
             <div class="section19 flex-row">
               <div class="ImageText37 flex-col">
@@ -789,8 +936,8 @@
               </div>
             </div>
           </div>
-          </a>
-          <a id="name4"  target="_blank">
+        </a>
+        <a id="name4" target="_blank">
           <div class="layer16 flex-col">
             <div class="wrap9 flex-row">
               <div class="ImageText38 flex-col">
@@ -803,10 +950,10 @@
               </div>
             </div>
           </div>
-          </a>
-        </div>
-        <div class="main31 flex-row">
-          <a href="http://10.1.13.118:8001/security/inspect" target="_blank">
+        </a>
+      </div>
+      <div class="main31 flex-row">
+        <a href="http://10.1.13.118:8001/security/inspect" target="_blank">
           <div class="section20 flex-col">
             <div class="group12 flex-row">
               <div class="ImageText39 flex-col">
@@ -819,10 +966,10 @@
               </div>
             </div>
           </div>
-          </a>
-         
-          <div class="section21 flex-col">
-            <a id="name1"   target="_blank">
+        </a>
+
+        <div class="section21 flex-col">
+          <a id="name1" target="_blank">
             <div class="mod14 flex-row">
               <div class="ImageText40 flex-col">
                 <div class="mod14 flex-row justify-between">
@@ -834,9 +981,9 @@
               </div>
             </div>
           </a>
-          </div>
-          
-          <a id="name3"  target="_blank">
+        </div>
+
+        <a id="name3" target="_blank">
           <div class="section22 flex-col">
             <div class="main32 flex-row">
               <div class="ImageText41 flex-col">
@@ -849,8 +996,8 @@
               </div>
             </div>
           </div>
-          </a>
-          <a id="name5"  target="_blank">
+        </a>
+        <a id="name5" target="_blank">
           <div class="section23 flex-col">
             <div class="layer17 flex-row">
               <div class="ImageText42 flex-col">
@@ -863,14 +1010,17 @@
               </div>
             </div>
           </div>
-          </a>
-        </div>
-        <div class="main33 flex-row justify-between">
-          <span class="word36">安全通报预警</span>
-          <span class="word37">数据挖掘</span>
-        </div>
-        <div class="main34 flex-row">
-          <a href="http://10.1.13.118:8001/safety/InformManagement" target="_blank">
+        </a>
+      </div>
+      <div class="main33 flex-row justify-between">
+        <span class="word36">安全通报预警</span>
+        <span class="word37">数据挖掘</span>
+      </div>
+      <div class="main34 flex-row">
+        <a
+          href="http://10.1.13.118:8001/safety/InformManagement"
+          target="_blank"
+        >
           <div class="main35 flex-col">
             <div class="outer17 flex-row">
               <div class="ImageText43 flex-col">
@@ -883,8 +1033,8 @@
               </div>
             </div>
           </div>
-          </a>
-          <a href="http://10.1.13.30/" target="_blank">
+        </a>
+        <a href="http://10.1.13.30/" target="_blank">
           <div class="main36 flex-col">
             <div class="box19 flex-row">
               <div class="ImageText44 flex-col">
@@ -897,8 +1047,8 @@
               </div>
             </div>
           </div>
-          </a>
-          <a href="http://10.1.13.30/" target="_blank">
+        </a>
+        <a href="http://10.1.13.30/" target="_blank">
           <div class="main37 flex-col">
             <div class="section24 flex-row">
               <div class="ImageText45 flex-col">
@@ -911,8 +1061,8 @@
               </div>
             </div>
           </div>
-          </a>
-          <a href="http://10.1.13.30/" target="_blank">
+        </a>
+        <a href="http://10.1.13.30/" target="_blank">
           <div class="main38 flex-col">
             <div class="bd20 flex-row">
               <div class="ImageText46 flex-col">
@@ -925,9 +1075,12 @@
               </div>
             </div>
           </div>
-          </a>       
-          <div class="main40 flex-col">
-            <a href="https://10.201.30.43:8988/noah/access/collector-manager" target="_blank">
+        </a>
+        <div class="main40 flex-col">
+          <a
+            href="https://10.201.30.43:8988/noah/access/collector-manager"
+            target="_blank"
+          >
             <div class="section25 flex-row">
               <div class="ImageText47 flex-col">
                 <div class="section25 flex-row justify-between">
@@ -939,9 +1092,12 @@
               </div>
             </div>
           </a>
-          </div>
-         
-          <a href="https://10.201.30.43:8988/noah/process/flows/flows-list" target="_blank">
+        </div>
+
+        <a
+          href="https://10.201.30.43:8988/noah/process/flows/flows-list"
+          target="_blank"
+        >
           <div class="main41 flex-col">
             <div class="mod17 flex-row">
               <div class="ImageText48 flex-col">
@@ -954,8 +1110,11 @@
               </div>
             </div>
           </div>
-          </a>
-          <a href="https://10.201.30.43:8988/noah/process/rule-manage" target="_blank">
+        </a>
+        <a
+          href="https://10.201.30.43:8988/noah/process/rule-manage"
+          target="_blank"
+        >
           <div class="main42 flex-col">
             <div class="block6 flex-row">
               <div class="ImageText49 flex-col">
@@ -968,8 +1127,11 @@
               </div>
             </div>
           </div>
-          </a>
-          <a href="https://10.201.30.43:8988/noah/configs/server-configs" target="_blank">
+        </a>
+        <a
+          href="https://10.201.30.43:8988/noah/configs/server-configs"
+          target="_blank"
+        >
           <div class="main43 flex-col">
             <div class="outer20 flex-row">
               <div class="ImageText50 flex-col">
@@ -982,14 +1144,14 @@
               </div>
             </div>
           </div>
-          </a>
-        </div>
-        <div class="main44 flex-row justify-between">
-          <span class="word42">安全联动处置</span>
-          <span class="word43">日志异常分析</span>
-        </div>
-        <div class="main45 flex-row">
-          <a href="https://10.201.30.40/devlink" target="_blank">
+        </a>
+      </div>
+      <div class="main44 flex-row justify-between">
+        <span class="word42">安全联动处置</span>
+        <span class="word43">日志异常分析</span>
+      </div>
+      <div class="main45 flex-row">
+        <a href="https://10.201.30.40/devlink" target="_blank">
           <div class="group14 flex-col">
             <div class="block7 flex-row">
               <div class="ImageText51 flex-col">
@@ -1002,8 +1164,8 @@
               </div>
             </div>
           </div>
-          </a>
-          <a href="https://10.201.30.40/ti" target="_blank">
+        </a>
+        <a href="https://10.201.30.40/ti" target="_blank">
           <div class="group15 flex-col">
             <div class="layer18 flex-row">
               <div class="ImageText52 flex-col">
@@ -1016,9 +1178,9 @@
               </div>
             </div>
           </div>
-          </a> 
-          <div class="group16 flex-col">
-            <a href="https://10.201.30.40/search" target="_blank">
+        </a>
+        <div class="group16 flex-col">
+          <a href="https://10.201.30.40/search" target="_blank">
             <div class="group17 flex-row">
               <div class="ImageText53 flex-col">
                 <div class="group17 flex-row justify-between">
@@ -1030,8 +1192,11 @@
               </div>
             </div>
           </a>
-          </div>     
-          <a href="http://10.1.13.118:8001/management/eventEcharts" target="_blank">
+        </div>
+        <a
+          href="http://10.1.13.118:8001/management/eventEcharts"
+          target="_blank"
+        >
           <div class="group18 flex-col">
             <div class="wrap11 flex-row">
               <div class="ImageText54 flex-col">
@@ -1044,8 +1209,8 @@
               </div>
             </div>
           </div>
-          </a>
-          <a href="http://10.1.13.118:8001/management/events" target="_blank">
+        </a>
+        <a href="http://10.1.13.118:8001/management/events" target="_blank">
           <div class="group19 flex-col">
             <div class="section27 flex-row">
               <div class="ImageText55 flex-col">
@@ -1058,8 +1223,8 @@
               </div>
             </div>
           </div>
-          </a>
-        </div>  
+        </a>
+      </div>
     </div>
   </body>
 </html>
