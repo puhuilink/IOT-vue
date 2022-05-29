@@ -551,25 +551,33 @@ export default {
         },
       ],
       areaOptions: [
+         {
+          label: "天津管片厂",
+          value: "天津管片厂",
+        },
         {
           label: "三亚海投轨交",
-          value: 1,
-        },
-        {
-          label: "珠海深中通道",
-          value: 2,
-        },
-        {
-          label: "山西三通燃气厂",
-          value: 3,
+          value: "三亚海投轨交",
         },
         {
           label: "北京城乡水厂",
-          value: 4,
+          value: "北京城乡水厂",
         },
         {
-          label: "天津管片厂",
-          value: 5,
+          label: "山西三通燃气厂",
+          value: "山西三通燃气厂",
+        },
+        {
+          label: "珠海深中通道",
+          value: "珠海深中通道",
+        },
+        {
+          label: "中国交建北京数据中心",
+          value: "中国交建北京数据中心",
+        },
+        {
+          label: "中国交建厦门数据中心",
+          value: "中国交建厦门数据中心",
         },
       ],
       statusOptions: [

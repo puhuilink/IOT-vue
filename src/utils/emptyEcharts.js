@@ -1,5 +1,5 @@
 import dummyStatus_url from '@/icons/echarts/dummyStatus.png'
-export const setNotopt = (demo, subtext = '暂无数据') => {
+export const setNotopt = (demo, subtext = '最近七天无数据') => {
   var option = {
     title: {
       text: ' {a|}',

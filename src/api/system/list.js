@@ -134,6 +134,17 @@ export function notificationExport(params) {
     params: params
   })
 }
+
+// 漏洞管理---上报
+export function vulnerabilityExport(params) {
+  return request({
+    url: '/dm/scanning/reportJson',
+    // url:url,
+    method: 'get',
+    params: params
+  })
+}
+
 // 通报管理--- 详情
 export function notificationDetail(params) {
   return request({
@@ -167,6 +178,16 @@ export function stateChanges(params) {
     params: params
   })
 }
+//漏洞管理状态变更
+export function vulnerabilityStateChanges(params) {
+  return request({
+    url: '/dm/scanning/updateState',
+    method: 'get',
+    params: params
+  })
+}
+
+
 //入库
 export function putInStorage(params) {
   return request({

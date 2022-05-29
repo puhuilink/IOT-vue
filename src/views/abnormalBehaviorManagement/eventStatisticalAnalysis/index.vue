@@ -71,12 +71,23 @@
             <span v-else>{{ transTypeDic(scope.row._source.severity) }}</span>
           </template>
         </el-table-column>
-        <el-table-column
+        <!-- <el-table-column
           label="杀伤链阶段"
           align="center"
           prop="_source.ev_ksec_killchain"
           :show-overflow-tooltip="true"
-        />
+        /> -->
+        <el-table-column label="杀伤链阶段" align="center" prop="ev_ksec_killchain">
+          <template #default="scope">
+            <span
+              v-if="
+                scope.row._source.ev_ksec_killchain == '' ||
+                scope.row._source.ev_ksec_killchain == null
+              "
+            />
+            <span v-else>{{ transKillchainDic(scope.row._source.ev_ksec_killchain) }}</span>
+          </template>
+        </el-table-column>
         <el-table-column
           label="处置状态"
           align="center"
@@ -145,6 +156,44 @@ export default {
         from: 0,
         size: 6,
       },
+     transKillchainDic(val) {
+      var t = [
+        {
+          content: "载荷投递",
+          name: "Delivery",
+        },
+        {
+          content: "侦查跟踪",
+          name: "Recon",
+        },
+        {
+          content: "漏洞利用",
+          name: "Exploitation",
+        },
+        {
+          content: "安装植入",
+          name: "Beacon",
+        },
+        {
+          content: "武器构建",
+          name: "Weaponization",
+        },
+        {
+          content: "命令控制",
+          name: "CnC",
+        },
+        {
+          content: "目标达成",
+          name: "Actions on Objective",
+        },
+      ];
+      const orgTreeData1 = t
+        .filter((e) => e.name === val)
+        .map(({ content }) => ({
+          content,
+        }));
+      return `${orgTreeData1[0].content}`;
+    },
     };
   },
   computed: {},

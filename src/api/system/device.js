@@ -19,6 +19,15 @@ export function listDevice(query) {
   })
 }
 
+// //设备管理列表接口--分页查询
+// export function listDevice(query) {
+//   return request({
+//     url: '/iot/device/list',
+//     method: 'get',
+//     params: query
+//   })
+// }
+
 // 查询设备详细
 export function getDevice(deviceId) {
   return request({

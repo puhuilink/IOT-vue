@@ -532,8 +532,8 @@ export default {
           value: "H-007",
         },
       ],
-      areaOptions: [
-        {
+       areaOptions: [
+         {
           label: "天津管片厂",
           value: "天津管片厂",
         },
@@ -552,6 +552,14 @@ export default {
         {
           label: "珠海深中通道",
           value: "珠海深中通道",
+        },
+        {
+          label: "中国交建北京数据中心",
+          value: "中国交建北京数据中心",
+        },
+        {
+          label: "中国交建厦门数据中心",
+          value: "中国交建厦门数据中心",
         },
       ],
       statusOptions: [

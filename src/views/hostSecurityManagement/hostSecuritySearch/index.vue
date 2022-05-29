@@ -273,8 +273,8 @@
         >
           <el-row>
             <el-col :span="12">
-              <el-form-item label="发现时间 :">
-                {{ detailData.ev_com_event_observe_time | moment }}
+              <el-form-item label="接收时间 :">
+                {{ detailData.receive_time }}
               </el-form-item>
             </el-col>
             <el-col :span="12">
@@ -605,7 +605,7 @@ export default {
         },
       ],
       areaOptions: [
-        {
+         {
           label: "天津管片厂",
           value: "天津管片厂",
         },
@@ -624,6 +624,14 @@ export default {
         {
           label: "珠海深中通道",
           value: "珠海深中通道",
+        },
+        {
+          label: "中国交建北京数据中心",
+          value: "中国交建北京数据中心",
+        },
+        {
+          label: "中国交建厦门数据中心",
+          value: "中国交建厦门数据中心",
         },
       ],
       statusOptions: [

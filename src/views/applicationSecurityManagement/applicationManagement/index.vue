@@ -490,6 +490,19 @@ export default {
       queryAuthorization: "",
       queryParams: { 
        conditions: {
+        "name": "",
+        "checkEngine": 0,
+        "checkLanguage": 0,
+        "taskStatus": 0, 
+        "pkOrgs": [0], 
+        "source": 0,
+        "addStart": "2021-10-28 11:23:09",
+        "addEnd": "2021-10-28 11:23:09",
+        "isSpecial": 0,
+        "problemNumLB": 0, 
+        "problemNumRB": 0,
+        "componentNumLB": 0,
+        "componentNumRB": 0,
         "taskName": "",
         "taskType":"",
         "language":"",
@@ -499,7 +512,7 @@ export default {
        page: {
         "pageIndex": 0,
         "pageSize": 10,
-        // "checkType": 0
+        "checkType": 0
        }
       },
       queryQueryParams:{

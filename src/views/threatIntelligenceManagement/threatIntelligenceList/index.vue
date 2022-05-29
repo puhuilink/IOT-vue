@@ -191,12 +191,23 @@
             <span v-else>{{ transTypeDic(scope.row._source.severity) }}</span>
           </template>
         </el-table-column>
-        <el-table-column
+        <!-- <el-table-column
           label="杀伤链阶段"
           align="center"
           prop="_source.ev_ksec_killchain"
           :show-overflow-tooltip="true"
-        />
+        /> -->
+        <el-table-column label="杀伤链阶段" align="center" prop="ev_ksec_killchain" :show-overflow-tooltip="true">
+          <template #default="scope">
+            <span
+              v-if="
+                scope.row._source.ev_ksec_killchain == '' ||
+                scope.row._source.ev_ksec_killchain == null
+              "
+            />
+            <span v-else>{{ transKillchainDic(scope.row._source.ev_ksec_killchain) }}</span>
+          </template>
+        </el-table-column>
         <el-table-column
           label="发生时间"
           align="center"
@@ -633,8 +644,46 @@ export default {
           value: "5",
         },
       ],
+      transKillchainDic(val) {
+      var t = [
+        {
+          content: "载荷投递",
+          name: "Delivery",
+        },
+        {
+          content: "侦查跟踪",
+          name: "Recon",
+        },
+        {
+          content: "漏洞利用",
+          name: "Exploitation",
+        },
+        {
+          content: "安装植入",
+          name: "Beacon",
+        },
+        {
+          content: "武器构建",
+          name: "Weaponization",
+        },
+        {
+          content: "命令控制",
+          name: "CnC",
+        },
+        {
+          content: "目标达成",
+          name: "Actions on Objective",
+        },
+      ];
+      const orgTreeData1 = t
+        .filter((e) => e.name === val)
+        .map(({ content }) => ({
+          content,
+        }));
+      return `${orgTreeData1[0].content}`;
+    },
       areaOptions: [
-       {
+         {
           label: "天津管片厂",
           value: "天津管片厂",
         },
@@ -657,6 +706,10 @@ export default {
         {
           label: "中国交建北京数据中心",
           value: "中国交建北京数据中心",
+        },
+        {
+          label: "中国交建厦门数据中心",
+          value: "中国交建厦门数据中心",
         },
       ],
       agreementOptions: [
@@ -1004,6 +1057,7 @@ export default {
       this.open = true;
       this.title = "事件详情";
       this.detailData.severity = this.transTypeDic(this.detailData.severity);
+      this.detailData.ev_ksec_killchain = this.transKillchainDic(this.detailData.ev_ksec_killchain);
       // this.detailData.event_format = this.transType(
       //   this.detailData.event_format
       // );
