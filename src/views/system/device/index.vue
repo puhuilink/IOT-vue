@@ -8,18 +8,18 @@
       class="label-type"
       label-width="108px"
     >
-      <el-form-item label="设备名称：" prop="deviceNum">
+      <el-form-item label="设备名称：" prop="deviceName">
         <el-input
-          v-model="queryParams.deviceNum"
+          v-model="queryParams.deviceName"
           placeholder="请输入设备名称"
           clearable
           size="small"
           @keyup.enter.native="handleQuery"
         />
       </el-form-item>
-      <el-form-item label="设备类型：" prop="categoryId">
+      <el-form-item label="设备类型：" prop="deviceType">
         <el-select
-          v-model="queryParams.categoryId"
+          v-model="queryParams.deviceType"
           placeholder="请选择设备类型"
           clearable
           size="small"
@@ -156,8 +156,8 @@
       @selection-change="handleSelectionChange"
     >
       <el-table-column type="selection" width="45" align="center" />
-      <el-table-column label="设备名称" align="center" prop="deviceNum" />
-      <el-table-column label="设备类型" align="center" prop="deviceName" />
+      <el-table-column label="设备名称" align="center" prop="deviceName" />
+      <el-table-column label="设备类型" align="center" prop="deviceType" />
       <el-table-column
         label="设备状态"
         align="center"
@@ -628,12 +628,12 @@
           <el-row>
             <el-col :span="8">
               <el-form-item label="设备名称 :">
-                {{ detailData.reportName }}
+                {{ detailData.deviceName }}
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item label="设备类型 :">
-                <tooltip :content="detailData.reportType" :length="40" />
+                <tooltip :content="detailData.deviceType" :length="40" />
               </el-form-item>
             </el-col>
             <el-col :span="8">
@@ -1021,6 +1021,10 @@ export default {
           label: "中国交建北京数据中心",
           value: "中国交建北京数据中心",
         },
+        {
+          label: "中国交建厦门数据中心",
+          value: "中国交建厦门数据中心",
+        },
       ],
       categoryDeviceStatus:[
         {
@@ -1088,14 +1092,28 @@ export default {
       queryParams: {
         pageNum: 1,
         pageSize: 10,
-        groupId: 0,
-        deviceNum: null,
-        categoryId: null,
-        deviceName: null,
-        firmwareVersion: null,
-        ownerId: null,
-        createTime: null
+        // groupId: 0,
+        // deviceNum: null,
+        // categoryId: null,
+        // deviceName: null,
+        // firmwareVersion: null,
+        // ownerId: null,
+        // createTime: null
       },
+      // 查询参数
+      // queryParams: {
+      //   pageNum: 1,
+      //   pageSize: 10,
+      //   orderByColumn: 'creation_time ',
+      //   isAsc: 'desc',
+      //   notificationManagementId: '',
+      //   eventType: '',
+      //   notificationName: '',
+      //   notificationStatus: '',
+      //   leader: '',
+      //   beginCreationTime: '',
+      //   endCreationTime: ''
+      // },
       // 表单参数
       form: {
         HardwareVersion:'V1.6'
@@ -1145,13 +1163,13 @@ export default {
     /** 查询设备列表 */
     getList() {
       this.loading = true
-      this.queryParams.params = {}
-      if (this.daterangeCreateTime != null && this.daterangeCreateTime != '') {
-        this.queryParams.params[
-          'beginCreateTime'
-        ] = this.daterangeCreateTime[0]
-        this.queryParams.params['endCreateTime'] = this.daterangeCreateTime[1]
-      }
+      // this.queryParams.params = {}
+      // if (this.daterangeCreateTime != null && this.daterangeCreateTime != '') {
+      //   this.queryParams.params[
+      //     'beginCreateTime'
+      //   ] = this.daterangeCreateTime[0]
+      //   this.queryParams.params['endCreateTime'] = this.daterangeCreateTime[1]
+      // }
       listDevice(this.queryParams).then(response => {
         this.deviceList = response.rows
         this.total = response.total
@@ -1169,7 +1187,7 @@ export default {
     },
     // 查询设备分类
     getCategoryList() {
-      listCategory(this.queryCategoryParams).then(response => {
+      listCategory(this.queryParams).then(response => {
         this.categoryList = response.rows
       })
     },

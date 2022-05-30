@@ -102,24 +102,24 @@ export default {
       ],
       severityOption: [
         {
-          label: "致命",
-          value: 5,
-        },
-        {
-          label: "高危",
-          value: 4,
-        },
-        {
-          label: "中危",
-          value: 3,
+          label: "极低",
+          value: 1,
         },
         {
           label: "低危",
           value: 2,
         },
         {
-          label: "极低",
-          value: 1,
+          label: "中危",
+          value: 3,
+        },
+        {
+          label: "高危",
+          value: 4,
+        },
+        {
+          label: "致命",
+          value: 5,
         },
       ],
     };

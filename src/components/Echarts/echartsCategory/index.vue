@@ -243,7 +243,7 @@ export default {
       } else {
         const myChart = this.$echarts.init(this.$refs.canvas1)
         this.$refs.canvas1.removeAttribute('_echarts_instance_')
-        return setNotopt(myChart, '暂无数据')
+        return setNotopt(myChart, '最近七天无数据')
       }
     }
   }

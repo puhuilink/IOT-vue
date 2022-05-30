@@ -116,7 +116,7 @@ export default {
         if (data.length) {
           this.AssetsNumber = data[0].count;
         } else {
-          console.log("暂无数据");
+          console.log("最近七天无数据");
         }
       });
       await attackNumber(this.queryParms).then(({ data }) => {
@@ -125,7 +125,7 @@ export default {
         if (data.length) {
           this.attackNumber = data[0].count;
         } else {
-          console.log("暂无数据");
+          console.log("最近七天无数据");
         }
       });
       await InvandProbe(this.queryParms).then(({ data }) => {
@@ -148,7 +148,7 @@ export default {
             this.Probe = "";
           }
         } else {
-          console.log("暂无数据");
+          console.log("最近七天无数据");
         }
       });
     },

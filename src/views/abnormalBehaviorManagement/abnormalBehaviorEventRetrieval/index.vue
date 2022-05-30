@@ -604,7 +604,7 @@ export default {
         },
       ],
       areaOptions: [
-        {
+         {
           label: "天津管片厂",
           value: "天津管片厂",
         },
@@ -627,6 +627,10 @@ export default {
         {
           label: "中国交建北京数据中心",
           value: "中国交建北京数据中心",
+        },
+        {
+          label: "中国交建厦门数据中心",
+          value: "中国交建厦门数据中心",
         },
       ],
       statusOptions: [
@@ -722,7 +726,7 @@ export default {
     async getTableList() {
       this.addQuery(this.query, "event_name", this.queryParams.event_name);
 
-      this.addQuery(this.query, "location.keyword", this.queryParams.location);
+      this.addQuery(this.query, "location", this.queryParams.location);
 
       this.addQuery(this.query, "severity", this.queryParams.severity);
 
@@ -1007,6 +1011,7 @@ export default {
       this.detailData.event_format = this.transType(
         this.detailData.event_format
       );
+      this.detailData.ev_ksec_killchain = this.transKillchainDic(this.detailData.ev_ksec_killchain);
     },
     // 取消按钮
     cancel() {

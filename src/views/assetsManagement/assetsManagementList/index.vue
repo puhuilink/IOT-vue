@@ -51,9 +51,9 @@
               </el-form-item>
             </el-col>
             <el-col :span="6">
-              <el-form-item label="风险等级:" prop="assetType">
+              <el-form-item label="风险等级:" prop="riskLevel">
                 <el-select
-                  v-model="queryParams.assetType"
+                  v-model="queryParams.riskLevel"
                   placeholder="请选择风险等级"
                   filterable
                   clearable
@@ -183,7 +183,7 @@
               导入</el-button
             >
           </el-upload>
-          <el-button type="primary" class="export" size="mini">导出</el-button>
+          <!-- <el-button type="primary" class="export" size="mini">导出</el-button> -->
           <el-button type="primary" class="export" size="mini">删除</el-button>
         </el-row>
       </div>
@@ -963,29 +963,33 @@ export default {
       },
       rules: {},
       areaOptions: [
-        {
+         {
           label: "天津管片厂",
           value: "天津管片厂",
         },
         {
-          label: "三亚轨交",
-          value: "三亚轨交",
+          label: "三亚海投轨交",
+          value: "三亚海投轨交",
         },
         {
-          label: "北京水厂",
-          value: "北京水厂",
+          label: "北京城乡水厂",
+          value: "北京城乡水厂",
         },
         {
-          label: "山西燃气",
-          value: "山西燃气",
+          label: "山西三通燃气厂",
+          value: "山西三通燃气厂",
         },
         {
           label: "珠海深中通道",
           value: "珠海深中通道",
         },
         {
-          label: "北京水厂",
-          value: "北京水厂",
+          label: "中国交建北京数据中心",
+          value: "中国交建北京数据中心",
+        },
+        {
+          label: "中国交建厦门数据中心",
+          value: "中国交建厦门数据中心",
         },
       ],
       field114Options: [

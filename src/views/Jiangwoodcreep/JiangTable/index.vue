@@ -679,6 +679,10 @@ export default {
           label: "中国交建北京数据中心",
           value: "中国交建北京数据中心",
         },
+        {
+          label: "中国交建厦门数据中心",
+          value: "中国交建厦门数据中心",
+        },
       ],
       threatFlagOptions: [
         {
@@ -987,11 +991,11 @@ export default {
            type:command
          })
         .then((response) => {
-          this.getTableList();
           this.$message({
             type: "success",
             message: "修改成功!",
           });
+          this.getTableList();
          }) 
           
         })
@@ -1017,11 +1021,11 @@ export default {
            type:command
          })
         .then((response) => {
-         this.getTableList();  
          this.$message({
             type: "success",
             message: "修改成功!",
           }); 
+          this.getTableList();  
        }) 
        
         })
@@ -1075,7 +1079,7 @@ export default {
     submitForm() {
       this.open = false;
     },
-    saveForm(){
+   async saveForm(){
        this.addDialog = false;
        if(this.formData.report == '是'){
           this.formData.type = '已处置'
@@ -1084,7 +1088,7 @@ export default {
        }
       console.log('this.formData',this.formData)
       // ES状态变更
-       stateChanges({
+       await stateChanges({
            id:this.formData.id,
            index:this.formData.index,
            type:this.formData.type
@@ -1111,7 +1115,7 @@ export default {
             type: "success",
             message: "上报成功!",
           });  
-            this.getTableList();
+          this.getTableList();
          }) 
          }) 
          })     
