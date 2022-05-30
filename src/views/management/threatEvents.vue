@@ -1079,19 +1079,23 @@ export default {
           this.$message({
             type: "success",
             message: "入库成功!",
-          });  
-             // 上报 
-         notificationExport({
-           id:this.formData.id,
-           index:this.formData.index,
-         })
-        .then((response) => {
-          this.$message({
-            type: "success",
-            message: "上报成功!",
-          });  
-            this.getTableList();
-         }) 
+          }); 
+           if(this.formData.report == '是'){
+               // 上报 
+            notificationExport({
+              id:this.formData.id,
+              index:this.formData.index,
+            })
+          .then((response) => {
+            this.$message({
+              type: "success",
+              message: "上报成功!",
+           });  
+           this.getTableList();
+           }) 
+          }else{
+             this.getTableList();
+          } 
          }) 
          })     
     }

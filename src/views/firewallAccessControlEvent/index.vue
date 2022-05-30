@@ -640,6 +640,37 @@ export default {
           value: "5",
         },
       ],
+      eventTypeOptions: [{
+        'label': '僵木蠕事件',
+        'value': '僵木蠕事件'
+      }, {
+        'label': '弱口令事件',
+        'value': '弱口令事件'
+      }, {
+        'label': '漏洞事件',
+        'value': '漏洞事件'
+      }, {
+        'label': '主机安全事件',
+        'value': '主机安全事件'
+      }, {
+        'label': '配置核查事件',
+        'value': '配置核查事件'
+      }, {
+        'label': '异常行为事件',
+        'value': '异常行为事件'
+      }, {
+        'label': '威胁情报事件',
+        'value': '威胁情报事件'
+      }, {
+        'label': '入侵诱捕事件',
+        'value': '入侵诱捕事件'
+      }, {
+        'label': '数据安全事件',
+        'value': '数据安全事件'
+      }, {
+        'label': '工业网络审计事件',
+        'value': '工业网络审计事件'
+      }],
       disposalStatusOptions: [
         {
           label: "待处置",
@@ -893,7 +924,7 @@ export default {
           break;
       }
     },
-    openMessageBox(message,id,index,command) {
+    async openMessageBox(message,id,index,command) {
       this.$confirm(message, "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
@@ -916,7 +947,7 @@ export default {
           });
         });
     },
-    unProcessBox(message,id,index,command) {
+    async unProcessBox(message,id,index,command) {
       this.$confirm(message, "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
@@ -944,7 +975,7 @@ export default {
           });
         });
     },
-    falseReportBox(message,id,index,command) {
+    async falseReportBox(message,id,index,command) {
       console.log('参数：',id,index,command)
       this.$confirm(message, "提示", {
         confirmButtonText: "确定",
@@ -996,6 +1027,7 @@ export default {
     // 取消按钮
     cancel() {
       this.detailDialog = false;
+      this.addDialog = false;
     },
     /** 提交按钮 */
     submitForm() {
@@ -1012,7 +1044,7 @@ export default {
       );
       this.detailData.ev_wsec_infe_transport_layer_protocol = this.transTransportProtocol(this.detailData.ev_wsec_infe_transport_layer_protocol);
     },
-    saveForm(){
+    async saveForm(){
        this.addDialog = false;
        if(this.formData.report == '是'){
           this.formData.type = '已处置'
@@ -1021,7 +1053,7 @@ export default {
        }
       console.log('this.formData',this.formData)
       // ES状态变更
-       stateChanges({
+      await stateChanges({
            id:this.formData.id,
            index:this.formData.index,
            type:this.formData.type
@@ -1038,18 +1070,22 @@ export default {
             type: "success",
             message: "入库成功!",
           });  
-             // 上报 
-         notificationExport({
-           id:this.formData.id,
-           index:this.formData.index,
-         })
-        .then((response) => {
-          this.$message({
-            type: "success",
-            message: "上报成功!",
-          });  
-            this.getTableList();
-         }) 
+         if(this.formData.report == '是'){
+               // 上报 
+            notificationExport({
+              id:this.formData.id,
+              index:this.formData.index,
+            })
+          .then((response) => {
+            this.$message({
+              type: "success",
+              message: "上报成功!",
+           });  
+           this.getTableList();
+           }) 
+          }else{
+             this.getTableList();
+          } 
          }) 
          })     
     }
@@ -1059,6 +1095,12 @@ export default {
 <style lang="scss" scoped>
 ::v-deep .el-dialog__body {
   padding: 0 !important;
+}
+.contentBox {
+  width: 100%;
+  height: 100%;
+  border-top: 1px solid #ccc;
+  padding: 10px 20px;
 }
 ::v-deep .el-collapse-item__header {
   font-size: 21px;
