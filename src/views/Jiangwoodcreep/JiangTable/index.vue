@@ -955,7 +955,7 @@ export default {
           break;
       }
     },
-    openMessageBox(message,id,index,command) {
+    async openMessageBox(message,id,index,command) {
       this.$confirm(message, "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
@@ -978,7 +978,7 @@ export default {
           });
         });
     },
-    unProcessBox(message,id,index,command) {
+    async unProcessBox(message,id,index,command) {
       this.$confirm(message, "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
@@ -1006,7 +1006,7 @@ export default {
           });
         });
     },
-    falseReportBox(message,id,index,command) {
+    async falseReportBox(message,id,index,command) {
       console.log('参数：',id,index,command)
       this.$confirm(message, "提示", {
         confirmButtonText: "确定",
@@ -1074,6 +1074,7 @@ export default {
     // 取消按钮
     cancel() {
       this.open = false;
+      this.addDialog = false
     },
     /** 提交按钮 */
     submitForm() {

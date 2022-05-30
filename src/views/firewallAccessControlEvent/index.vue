@@ -59,7 +59,7 @@
               >
                 <el-input
                   v-model="queryParams.ev_wsec_infe_application_layer_protocol"
-                  placeholder="请选择应用层协议"
+                  placeholder="请输入应用层协议"
                   clearable
                   :style="{ width: '100%' }"
                   @keyup.enter.native="handleQuery"
@@ -105,13 +105,28 @@
             </el-col>
             <el-col :span="6">
               <el-form-item label="事件类型：" prop="event_format">
-                <el-input
+                <!-- <el-input
                   v-model="queryParams.event_format"
                   placeholder="请输入事件类型"
                   clearable
                   :style="{ width: '100%' }"
                   @keyup.enter.native="handleQuery"
-                />
+                /> -->
+                <el-select
+                  v-model.trim="queryParams.event_format"
+                  placeholder="请选择事件类型"
+                  filterable
+                  clearable
+                 :style="{width: '100%'}"
+            >
+              <el-option
+                v-for="(item, index) in eventFormatOptions"
+                :key="index"
+                :label="item.label"
+                :value="item.value"
+                :disabled="item.disabled"
+              />
+            </el-select>
               </el-form-item>
             </el-col>
             <el-col :span="6">
@@ -407,6 +422,12 @@
                 <tooltip :content="detailData.procedure" :length="20" />
               </el-form-item>
             </el-col>
+             <el-col :span="12">
+              <el-form-item label="处置意见：" >
+               <span>---</span>
+                <!-- <tooltip :content="detailData.procedure" :length="20" /> -->
+              </el-form-item>
+            </el-col>
           </el-form>
         </el-row>
         <div slot="footer" class="dialog-footer">
@@ -566,7 +587,7 @@ export default {
             must: [],
           },
         },
-        // sort: [{ occur_time: { order: "desc" } }],
+        sort: [{ occur_time: { order: "desc" } }],
         from: 0,
         size: 10,
       },
@@ -685,6 +706,19 @@ export default {
           value: 3,
         },
       ],
+      eventFormatOptions:[ 
+        {
+          'value': "wsec_syslog_infe_ev_02",
+          'label': "ACL告警事件",
+        },
+        {
+          'value': "wsec_syslog_infe_ev_01",
+          'label': "工业防火墙白名单",
+        },
+        {
+          'value': "wsec_syslog_infe_ev_05",
+          'label': "地址欺诈事件",
+        },]
     };
   },
   watch: {
@@ -724,7 +758,7 @@ export default {
         this.queryParams.detail_dst_ip
       );
 
-      this.addQuery(this.query, "location.keyword", this.queryParams.location);
+      this.addQuery(this.query, "location", this.queryParams.location);
 
       this.addQuery(
         this.query,
@@ -976,6 +1010,7 @@ export default {
       this.detailData.event_format = this.transType(
         this.detailData.event_format
       );
+      this.detailData.ev_wsec_infe_transport_layer_protocol = this.transTransportProtocol(this.detailData.ev_wsec_infe_transport_layer_protocol);
     },
     saveForm(){
        this.addDialog = false;

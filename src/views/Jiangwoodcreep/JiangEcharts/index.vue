@@ -77,11 +77,17 @@
           :show-overflow-tooltip="true"
         />
         <el-table-column
-          label="发现时间"
-          align="center"
-          prop="_source.ev_com_event_observe_time"
-          :show-overflow-tooltip="true"
-        />
+         label="发现时间"
+         align="center"
+         prop="_source.ev_com_event_observe_time"
+         :show-overflow-tooltip="true"
+       >
+        <template #default="scope">
+          <span>
+            {{ scope.row._source.ev_com_event_observe_time | moment }}
+          </span>
+        </template>
+      </el-table-column>
         <el-table-column
           label="区域"
           align="center"
