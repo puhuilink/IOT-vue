@@ -23,6 +23,25 @@
                 />
               </el-form-item>
             </el-col>
+             <el-col :span="6">
+              <el-form-item label="区域:" prop="location">
+                <el-select
+                  v-model="queryParams.location"
+                  placeholder="请选择区域"
+                  filterable
+                  clearable
+                  :style="{ width: '100%' }"
+                >
+                  <el-option
+                    v-for="(item, index) in areaOptions"
+                    :key="index"
+                    :label="item.label"
+                    :value="item.label"
+                    :disabled="item.disabled"
+                  />
+                </el-select>
+              </el-form-item>
+            </el-col>
            <el-col :span="6">
               <el-form-item label="上传时间：" prop="date">
                 <el-date-picker
@@ -40,8 +59,8 @@
               </el-form-item>
             </el-col>
 
-            <el-col :span="12">
-              <el-form-item label-width="525px">
+            <el-col :span="6">
+              <el-form-item>
                 <el-button size="mini" type="primary"  @click="getList"
                   >搜索</el-button
                 >
@@ -207,6 +226,36 @@ export default {
         },
       ],
       groupListDeatils: [],
+      areaOptions: [
+         {
+          label: "天津管片厂",
+          value: "天津管片厂",
+        },
+        {
+          label: "三亚海投轨交",
+          value: "三亚海投轨交",
+        },
+        {
+          label: "北京城乡水厂",
+          value: "北京城乡水厂",
+        },
+        {
+          label: "山西三通燃气厂",
+          value: "山西三通燃气厂",
+        },
+        {
+          label: "珠海深中通道",
+          value: "珠海深中通道",
+        },
+        {
+          label: "中国交建北京数据中心",
+          value: "中国交建北京数据中心",
+        },
+        {
+          label: "中国交建厦门数据中心",
+          value: "中国交建厦门数据中心",
+        },
+      ],
       // 创建时间时间范围
       daterangeCreateTime: [],
       upload:{
@@ -324,22 +373,6 @@ export default {
           value: "资产统计",
         },
       ],
-      areaOptions: [{
-        'label': '三亚海投轨交',
-        'value': 1
-      }, {
-        'label': '珠海深中通道',
-        'value': 2
-      }, {
-        'label': '山西三通燃气厂',
-        'value': 1
-      }, {
-        'label': '北京城乡水厂',
-        'value': 1
-      }, {
-        'label': '天津管片厂',
-        'value': 1
-      }],
       statusOptions: [
         {
           label: "待处置",
@@ -611,6 +644,8 @@ export default {
         fileName:'',
         beginHappenTime: '',
         endHappenTime: '',
+        orderByColumn: 'happenTime',
+        isAsc: 'desc',
       };
       // this.getTableList();
       this.rangeTime = []
