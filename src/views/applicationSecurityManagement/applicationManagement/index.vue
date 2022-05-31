@@ -87,43 +87,43 @@
         <el-table-column
           label="任务名称"
           align="center"
-          prop="taskName"
+          prop="taskVO.taskName"
           :show-overflow-tooltip="true"
         />
         <el-table-column
           label="任务类型"
           align="center"
-          prop="taskType"
+          prop="taskVO.taskType"
           :show-overflow-tooltip="true"
         />
         <el-table-column
           label="检测语言"
           align="center"
-          prop="language"
+          prop="taskVO.language"
           :show-overflow-tooltip="true"
         />
         <el-table-column
           label="源码名称"
           align="center"
-          prop="codeName"
+          prop="taskVO.codeName"
           :show-overflow-tooltip="true"
         />
         <el-table-column
           label="检测开始时间"
           align="center"
-          prop="invokeEngineTime"
+          prop="taskVO.taskBeginTime"
           :show-overflow-tooltip="true"
         />
         <el-table-column
           label="检测结束时间"
           align="center"
-          prop="taskEndTime "
+          prop="taskVO.taskEndTime"
           :show-overflow-tooltip="true"
         />
         <el-table-column
           label="任务状态"
           align="center"
-          prop="taskStatus"
+          prop="taskVO.taskStatus"
           :show-overflow-tooltip="true"
         />
         <el-table-column
@@ -138,8 +138,8 @@
           class-name="small-padding fixed-width"
           width="180"
         >
-          <template #default="{ row }">
-            <el-button size="mini" type="text" @click="detail(row.taskId)"
+          <template slot-scope="scope">
+            <el-button size="mini" type="text" @click="detail(scope.row.taskVO)"
               >详情</el-button
             >
           </template>
@@ -149,8 +149,8 @@
       <pagination
         v-show="total > 0"
         :total="total"
-        :page.sync="from"
-        :limit.sync="query.size"
+        :page.sync="queryParams.page.pageIndex"
+        :limit.sync="queryParams.page.pageSize"
         @pagination="getTableList"
       />
     </el-card>
@@ -187,7 +187,7 @@
             </el-col>
             <el-col :span="8">
               <el-form-item label="检测开始时间 :">
-                {{ detailData.invokeEngineTime }}
+                {{ detailData.taskBeginTime }}
               </el-form-item>
             </el-col>
             <el-col :span="8">
@@ -615,7 +615,7 @@ export default {
   methods: {
     async getTableList() {
       // var queryAuthorization = base64encode("admin111" + ":" + "123456");
-      // this.loading = true;
+      this.loading = true;
       // const res = await applicationManagementList(this.queryParams);
       // const res = await ("/codesafeapi/quickcheck", this, queryParams);
 
@@ -625,12 +625,11 @@ export default {
       await getApplicationManagementData(this.queryParams, authorizationValue).then(
         (res) => {
           console.log("res-4-28", res);
+           this.List = res.data.data.quickVOS;
+           this.total = res.data.data.totalCount;
+           this.loading = false;
         }
       );
-
-      // this.groupList = res.rows;
-      // this.total = res.total;
-      // this.loading = false;
     },
     transTypeDic(val) {
       var t = [
@@ -774,6 +773,7 @@ export default {
       this.defectDetailDialog = false;
     },
     async detail(id) {
+      console.log('id',this.id)
       const { data } = await getApplicationManagementDetailData(id)
       console.log('data',data)
       this.detailData = data;
