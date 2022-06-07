@@ -85,28 +85,47 @@ export const getApplicationManagementData = (params,authorizationValue) => {
   return axios.post(`${baseapplicationManagement}`, params,
   {headers:
     {
+      // 'Content-Type': 'application/x-www-form-urlencoded',
       Authorization: authorizationValue
     }
-  })
+  }
+  )
 }
-//代码审计事件---详情
-const baseapplicationManagementDetail = 'https://10.201.72.99/codesafeapi/result'
+//代码审计---任务统计信息及详情
+const codeAuditDetailData = 'https://10.201.72.99/codesafeapi/result/'
 
-export const getApplicationManagementDetailData = (taskId) => {
-  return axios.get(`${baseapplicationManagementDetail/taskId}`)
+export const codeAuditDetail = (params,authorizationValue) => {
+  return axios.get(`${codeAuditDetailData+params}`, {
+  headers:
+    {
+      Authorization: authorizationValue
+    }
+  }
+  )
 }
 
-//代码审计事件---详情---列表
-const baseapplicationManagementDetailTable = 'https://10.201.72.99/codesafeapi/result'
+// //代码审计事件---详情---列表---查询一个任务的全部缺陷（分页）
+const baseapplicationManagementDetailTable = 'https://10.201.72.99/codesafeapi/result/'
 
-export const getApplicationManagementDetailTable = (taskId,params) => {
-  return axios.get(`${baseapplicationManagementDetailTable/taskId/bug}`,params)
+export const getApplicationManagementDetailTable = (params,query,authorizationValue) => {
+  return axios.get(`${baseapplicationManagementDetailTable+params+'/bug'}`,{
+    params:query,
+    headers:
+      {
+        Authorization: authorizationValue
+      }
+    })
 }
-//代码审计事件---缺陷详情
-const baseapplicationManagementDefectDetail = 'https://10.201.72.99/codesafeapi/result'
+// //代码审计事件---缺陷详情
+const baseapplicationManagementDefectDetail = 'https://10.201.72.99/codesafeapi/result/'
 
-export const getApplicationManagementDefectDetail = (taskId,bugId) => {
-  return axios.get(`${baseapplicationManagementDefectDetail/taskId/bug/bugId}`)
+export const getApplicationManagementDefectDetail = (taskId,bugId,authorizationValue) => {
+  return axios.get(`${baseapplicationManagementDefectDetail+taskId+'/bug/'+bugId}`,{
+    headers:
+      {
+        Authorization: authorizationValue
+      }
+    })
 }
 
 

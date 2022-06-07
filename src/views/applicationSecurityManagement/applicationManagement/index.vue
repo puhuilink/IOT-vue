@@ -12,9 +12,9 @@
             label-position="right"
           >
             <el-col :span="6">
-              <el-form-item label="任务名称：" prop="taskName">
+              <el-form-item label="任务名称：" prop="name">
                 <el-input
-                  v-model="queryParams.conditions.taskName"
+                  v-model="queryParams.conditions.name"
                   placeholder="请输入任务名称"
                   clearable
                   :style="{ width: '100%' }"
@@ -63,17 +63,10 @@
 
             <el-col :span="24">
               <el-form-item label-width="1365px">
-                <el-button
-                  type="primary"
-                  size="mini"
-                  @click="handleQuery"
+                <el-button type="primary" size="mini" @click="handleQuery"
                   >搜索</el-button
                 >
-                <el-button
-                  size="mini"
-                  @click="resetQuery"
-                  >重置</el-button
-                >
+                <el-button size="mini" @click="resetQuery">重置</el-button>
               </el-form-item>
             </el-col>
           </el-form>
@@ -111,7 +104,9 @@
         <el-table-column
           label="检测开始时间"
           align="center"
-          prop="taskVO.taskBeginTime"
+
+          prop="taskVO.invokeEngineTime"
+
           :show-overflow-tooltip="true"
         />
         <el-table-column
@@ -139,7 +134,9 @@
           width="180"
         >
           <template slot-scope="scope">
-            <el-button size="mini" type="text" @click="detail(scope.row.taskVO)"
+
+            <el-button size="mini" type="text" @click="detail(scope.row.id)"
+
               >详情</el-button
             >
           </template>
@@ -172,27 +169,28 @@
           <el-row>
             <el-col :span="8">
               <el-form-item label="任务名称 :">
-                <!-- {{ detailData.taskVO.taskname }} -->
+                <!-- {{ detailData.taskVO.taskName }} -->
+                <tooltip :content="detailData.taskVO.taskName" :length="8" />
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item label="任务类型 :">
-                <!-- {{ detailData.taskVO.taskType }} -->
+                {{ detailData.taskVO.taskType }}
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item label="检测语言 :">
-                {{ detailData.language }}
+                {{ detailData.taskVO.language }}
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item label="检测开始时间 :">
-                {{ detailData.taskBeginTime }}
+                {{ detailData.taskVO.invokeEngineTime }}
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item label="检测结束时间 :">
-                {{ detailData.taskEndTime  }}
+                {{ detailData.taskVO.taskEndTime }}
               </el-form-item>
             </el-col>
             <el-col :span="8">
@@ -232,7 +230,7 @@
             </el-col>
             <el-col :span="8">
               <el-form-item label="审计后的缺陷总数 :">
-                {{ detailData.riskState }}
+                {{ detailData.auditProblemNum }}
               </el-form-item>
             </el-col>
           </el-row>
@@ -246,7 +244,9 @@
         >
           <el-row>
             <el-col :span="8">
-              <el-form-item label="源码名称 :">{{detailData.codeName}} </el-form-item>
+              <el-form-item label="源码名称 :">
+                {{ detailData.taskVO.codeName }}
+              </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item label="检测对象大小 :">
@@ -255,8 +255,8 @@
             </el-col>
             <el-col :span="8">
               <el-form-item label="检测对象文件数量 :">
-                {{ detailData.fileNum }}</el-form-item
-              >
+                {{ detailData.fileNum }}
+              </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item label="代码行数 :">
@@ -284,12 +284,15 @@
               </el-form-item>
             </el-col>
             <el-col :span="8">
-              <el-form-item label="类数量 :"> {{ detailData.classNum }} </el-form-item>
+              <el-form-item label="类数量 :">
+                {{ detailData.classNum }}
+              </el-form-item>
             </el-col>
-           
           </el-row>
         </el-form>
-        <div class="information">代码类型数量</div>
+        <div class="information" v-if="detailData.fileTypeAndNum[0]">
+          代码类型数量
+        </div>
         <el-form
           ref=""
           label-width="100px"
@@ -297,19 +300,14 @@
           class="label-type"
         >
           <el-row>
-            <!-- <el-col :span="8">
-              <el-form-item label="data.fileTypeAndNum.key :">
-                {{data.fileTypeAndNum.value}}
-              </el-form-item>
-            </el-col> -->
-            <el-col :span="8">
-              <el-form-item label="html :">
-                {{ detailData.assetGroup }}</el-form-item
+            <el-col :span="8" v-if="detailData.fileTypeAndNum[0]">
+              <el-form-item :label="detailData.fileTypeAndNum[0].key + ':'">
+                {{ detailData.fileTypeAndNum[0].value }}</el-form-item
               >
             </el-col>
-            <el-col :span="8">
-              <el-form-item label="properties :">
-                {{ detailData.assetGroup }}
+            <el-col :span="8" v-if="detailData.fileTypeAndNum[1]">
+              <el-form-item :label="detailData.fileTypeAndNum[1].key + ':'">
+                {{ detailData.fileTypeAndNum[1].value }}
               </el-form-item>
             </el-col>
           </el-row>
@@ -348,7 +346,10 @@
             width="180"
           >
             <template #default="{ row }">
-              <el-button size="mini" type="text" @click="defectDetail(row.taskId,row.bugId)"
+              <el-button
+                size="mini"
+                type="text"
+                @click="getDefectDetail(row.pkTask, row.bugId)"
                 >详情</el-button
               >
             </template>
@@ -441,7 +442,12 @@
 </template>
 
 <script>
-import { getApplicationManagementData, getApplicationManagementDetailData, getApplicationManagementDetailTable,getApplicationManagementDefectDetail } from "@/utils/request";
+import {
+  getApplicationManagementData,
+  codeAuditDetail,
+  getApplicationManagementDetailTable,
+  getApplicationManagementDefectDetail,
+} from "@/utils/request";
 import { getFirewallAccessControlEventData } from "@/utils/request";
 import { industryList } from "@/api/system/list";
 export default {
@@ -451,8 +457,13 @@ export default {
       rangeTime: undefined,
       from: 1,
       title: "",
-      detailData: {},
-      defectDetail:{},
+      detailData: {
+        taskVO: {
+          taskName: "",
+        },
+        fileTypeAndNum: {},
+      },
+      defectDetail: {},
       detailDialog: false,
       defectDetailDialog: false,
       // 遮罩层
@@ -488,37 +499,46 @@ export default {
         authoratun: 'Basic base64encode("admin111"+":"+"123456")',
       },
       queryAuthorization: "",
-      queryParams: { 
-       conditions: {
-        "name": "",
-        "checkEngine": 0,
-        "checkLanguage": 0,
-        "taskStatus": 0, 
-        "pkOrgs": [0], 
-        "source": 0,
-        "addStart": "2021-10-28 11:23:09",
-        "addEnd": "2021-10-28 11:23:09",
-        "isSpecial": 0,
-        "problemNumLB": 0, 
-        "problemNumRB": 0,
-        "componentNumLB": 0,
-        "componentNumRB": 0,
-        "taskName": "",
-        "taskType":"",
-        "language":"",
-        "addStart": "",
-        "addEnd": "",
-       },
-       page: {
-        "pageIndex": 0,
-        "pageSize": 10,
-        "checkType": 0
-       }
+      queryParams: {
+        // data: {
+          conditions: {
+            name: "",
+            checkEngine: 0,
+            checkLanguage: 0,
+            taskStatus: 0,
+            pkOrgs: [0],
+            source: 0,
+            addStart: "2021-10-28 11:23:09",
+            addEnd: "2021-10-28 11:23:09",
+            isSpecial: 0,
+            problemNumLB: 0,
+            problemNumRB: 0,
+            componentNumLB: 0,
+            componentNumRB: 0,
+            // "taskName": "",
+            taskType: "",
+            language: "",
+            addStart: "",
+            addEnd: "",
+          },
+          page: {
+            pageIndex: 0,
+            pageSize: 10,
+            checkType: 0,
+          },
+        // },
       },
-      queryQueryParams:{
-        pageIndex:0,
-        pageSize:10
+      query: {
+        pageIndex: 0,
+        pageSize: 10,
       },
+      queryQueryParams: {
+        pageIndex: 0,
+        pageSize: 10,
+      },
+      // dataTable:{
+
+      // },
       levelOptions: [
         {
           label: "极低",
@@ -622,14 +642,18 @@ export default {
       let Base64 = require("js-base64").Base64;
       var authorizationValue =
         "Basic " + Base64.encode("wuzhigang" + ":" + "Admin@12345!");
-      await getApplicationManagementData(this.queryParams, authorizationValue).then(
-        (res) => {
-          console.log("res-4-28", res);
-           this.List = res.data.data.quickVOS;
-           this.total = res.data.data.totalCount;
-           this.loading = false;
-        }
-      );
+        // var formData = new FormData();
+        // formData.append('data',this.queryParams)
+      await getApplicationManagementData(
+        this.queryParams,
+        authorizationValue
+      ).then((res) => {
+        console.log("res-4-28", res);
+        this.List = res.data.data.quickVOS;
+        this.total = res.data.data.totalCount;
+        this.loading = false;
+      });
+
     },
     transTypeDic(val) {
       var t = [
@@ -745,21 +769,21 @@ export default {
     },
     /** 重置按钮操作 */
     resetQuery() {
-      this.queryParams = {
-       conditions: {
-        "taskName": "",
-        "taskType":"",
-        "language":"",
-        "addStart": "",
-        "addEnd": "",
-       },
-       page: {
-        "pageIndex": 0,
-        "pageSize": 10,
-        // "checkType": 0
-       }
-    },
-      this.rangeTime = []
+      (this.queryParams = {
+        conditions: {
+          taskName: "",
+          taskType: "",
+          language: "",
+          addStart: "",
+          addEnd: "",
+        },
+        page: {
+          pageIndex: 0,
+          pageSize: 10,
+          // "checkType": 0
+        },
+      }),
+        (this.rangeTime = []);
       this.getTableList();
     },
     // 取消按钮
@@ -773,34 +797,50 @@ export default {
       this.defectDetailDialog = false;
     },
     async detail(id) {
-      console.log('id',this.id)
-      const { data } = await getApplicationManagementDetailData(id)
-      console.log('data',data)
-      this.detailData = data;
-      this.detailDialog = true;
-      this.title = "事件详情";
-      // const { dataTalbe } = await getApplicationManagementDetailTable(id)
-       await getApplicationManagementDetailTable(id,this.queryQueryParams).then(
-        (res) => {
-          console.log("res-5-7", res);
-         this.groupDefectList = res.data
-        }
-      );
-      console.log('dataTalbe',dataTalbe)
+      console.log("id", id);
+      let Base64 = require("js-base64").Base64;
+      var authorizationValueDeatil =
+        "Basic " + Base64.encode("wuzhigang" + ":" + "Admin@12345!");
+      await getApplicationManagementDetailTable(
+        id,
+        this.query,
+        authorizationValueDeatil
+      ).then(({ data }) => {
+        console.log("dat-6-1", data);
+        this.detailDialog = true;
+        this.title = "事件详情";
+        this.groupDefectList = data.data.bugsVOList;
+      });
+
+      await codeAuditDetail(id, authorizationValueDeatil).then(({ data }) => {
+        console.log("dat-5-31", data);
+        this.detailData = data.data;
+        this.detailDialog = true;
+        this.title = "事件详情";
+      });
+
     },
-    async defectDetail(taskId,bugId) {
-      const { data } = await getApplicationManagementDefectDetail(taskId,bugId)
-      console.log('data',data)
-      this.defectDetail = data
-      this.defectDetailData = row;
+    async getDefectDetail(taskId, bugId) {
+      console.log("taskId、bugId", taskId, bugId);
+      let Base64 = require("js-base64").Base64;
+      var authorizationValueDeatil =
+        "Basic " + Base64.encode("wuzhigang" + ":" + "Admin@12345!");
+      const { data } = await getApplicationManagementDefectDetail(
+        taskId,
+        bugId,
+        authorizationValueDeatil
+      );
+      console.log("data", data);
       this.defectDetailDialog = true;
       this.title = "缺陷详情";
+      this.defectDetail = data.data;
+      // this.defectDetailData = row;
     },
-    setTimeList(values) {
-      const [projectDevelopDate, projectEndDate] = [...values]
-      this.queryParams.conditions.addStart = projectDevelopDate
-      this.queryParams.conditions.addEnd = projectEndDate
-    }
+    // setTimeList(values) {
+    //   const [projectDevelopDate, projectEndDate] = [...values]
+    //   this.queryParams.conditions.addStart = projectDevelopDate
+    //   this.queryParams.conditions.addEnd = projectEndDate
+    // }
   },
 };
 </script>

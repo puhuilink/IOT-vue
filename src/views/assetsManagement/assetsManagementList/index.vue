@@ -824,7 +824,7 @@
             </el-col>
           </el-row>
         </el-form>
-        <div class="information">资产分组</div>
+        <!-- <div class="information">资产分组</div>
         <el-form
           ref=""
           label-width="105px"
@@ -839,16 +839,16 @@
             </el-col>
             <el-col :span="12">
               <el-form-item label="地理位置 :">
-                <!-- {{ dataDetails }} -->
+                {{ dataDetails }}
               </el-form-item>
             </el-col>
             <el-col :span="12">
               <el-form-item label="组织架构 :">
-                <!-- {{ dataDetails.origation }} -->
+                {{ dataDetails.origation }}
               </el-form-item>
             </el-col>
           </el-row>
-        </el-form>
+        </el-form> -->
         <div class="information">威胁态势</div>
         <el-table :data="groupList" style="width: 100%">
           <el-table-column
