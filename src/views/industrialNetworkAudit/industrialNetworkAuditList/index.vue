@@ -8,7 +8,7 @@
             :model="queryParams"
             :rules="rules"
             size="mini"
-            label-width="95px"
+            label-width="115px"
             class="label-type"
             label-position="right"
           >
@@ -51,6 +51,20 @@
                     :disabled="item.disabled"
                   />
                 </el-select>
+              </el-form-item>
+            </el-col>
+            <el-col :span="6">
+              <el-form-item
+                label="应用层协议："
+                prop="ev_wsec_inpa_application_layer_protocol"
+              >
+                <el-input
+                  v-model="queryParams.ev_wsec_inpa_application_layer_protocol"
+                  placeholder="请输入应用层协议"
+                  clearable
+                  :style="{ width: '100%' }"
+                  @keyup.enter.native="handleQuery"
+                />
               </el-form-item>
             </el-col>
             <el-col :span="6">
@@ -125,19 +139,12 @@
               </el-form-item>
             </el-col>
 
-            <el-col :span="6">
-              <el-form-item>
-                <el-button
-                  type="primary"
-                  size="mini"
-                  @click="handleQuery"
+            <el-col :span="24">
+              <el-form-item label-width="1330px">
+                <el-button type="primary" size="mini" @click="handleQuery"
                   >搜索</el-button
                 >
-                <el-button
-                  size="mini"
-                  @click="resetQuery"
-                  >重置</el-button
-                >
+                <el-button size="mini" @click="resetQuery">重置</el-button>
               </el-form-item>
             </el-col>
           </el-form>
@@ -238,9 +245,18 @@
                 状态变更<i class="el-icon-arrow-down el-icon--right" />
               </el-button>
               <el-dropdown-menu slot="dropdown">
-               <el-dropdown-item :command="beforeHandleCommand(row._id, row._index,'处置')">处置</el-dropdown-item>
-               <el-dropdown-item :command="beforeHandleCommand(row._id, row._index,'不处置')">不处置</el-dropdown-item>
-               <el-dropdown-item :command="beforeHandleCommand(row._id, row._index,'误报')">误报</el-dropdown-item>
+                <el-dropdown-item
+                  :command="beforeHandleCommand(row._id, row._index, '处置')"
+                  >处置</el-dropdown-item
+                >
+                <el-dropdown-item
+                  :command="beforeHandleCommand(row._id, row._index, '不处置')"
+                  >不处置</el-dropdown-item
+                >
+                <el-dropdown-item
+                  :command="beforeHandleCommand(row._id, row._index, '误报')"
+                  >误报</el-dropdown-item
+                >
               </el-dropdown-menu>
             </el-dropdown>
           </template>
@@ -395,7 +411,7 @@
         </div>
       </div>
     </el-dialog>
-     <!-- 新增通报对话框 -->
+    <!-- 新增通报对话框 -->
     <el-dialog
       :title="title"
       :visible.sync="addDialog"
@@ -410,25 +426,16 @@
           label-width="80px"
           class="label-type"
         >
-          <el-form-item
-            label="通报名称:"
-            prop="notificationName"
-          >
-            <el-input
-              v-model.trim="formData.notificationName"
-              placeholder=""
-            />
+          <el-form-item label="通报名称:" prop="notificationName">
+            <el-input v-model.trim="formData.notificationName" placeholder="" />
           </el-form-item>
-          <el-form-item
-            label="事件类型:"
-            prop="eventType"
-          >
+          <el-form-item label="事件类型:" prop="eventType">
             <el-select
               v-model.trim="formData.eventType"
               placeholder=""
               filterable
               clearable
-              :style="{width: '100%'}"
+              :style="{ width: '100%' }"
             >
               <el-option
                 v-for="(item, index) in eventTypeOptions"
@@ -439,25 +446,16 @@
               />
             </el-select>
           </el-form-item>
-          <el-form-item
-            label="事件名称:"
-            prop="eventName"
-          >
-            <el-input
-              v-model.trim="formData.eventName"
-              placeholder=""
-            />
+          <el-form-item label="事件名称:" prop="eventName">
+            <el-input v-model.trim="formData.eventName" placeholder="" />
           </el-form-item>
-          <el-form-item
-            label="优先级:"
-            prop="priority"
-          >
+          <el-form-item label="优先级:" prop="priority">
             <el-select
               v-model.trim="formData.priority"
               placeholder=""
               filterable
               clearable
-              :style="{width: '100%'}"
+              :style="{ width: '100%' }"
             >
               <el-option
                 v-for="(item, index) in reportLevelOptions"
@@ -468,26 +466,20 @@
               />
             </el-select>
           </el-form-item>
-          <el-form-item
-            label="备注:"
-            prop="remark"
-          >
+          <el-form-item label="备注:" prop="remark">
             <el-input
               v-model.trim="formData.remark"
               placeholder=""
               type="textarea"
             />
           </el-form-item>
-          <el-form-item
-            label="上报:"
-            prop="report"
-          >
+          <el-form-item label="上报:" prop="report">
             <el-select
               v-model.trim="formData.report"
               placeholder=""
               filterable
               clearable
-              :style="{width: '100%'}"
+              :style="{ width: '100%' }"
             >
               <el-option
                 v-for="(item, index) in reportOptions"
@@ -499,30 +491,25 @@
             </el-select>
           </el-form-item>
         </el-form>
-        <div
-          slot="footer"
-          class="dialog-footer"
-        >
-          <el-row
-            type="flex"
-            justify="center"
-          >
-            <el-button
-              type="primary"
-              @click="saveForm"
-            >保 存</el-button>
+        <div slot="footer" class="dialog-footer">
+          <el-row type="flex" justify="center">
+            <el-button type="primary" @click="saveForm">保 存</el-button>
             <el-button @click="cancel">取 消</el-button>
           </el-row>
         </div>
       </div>
-
     </el-dialog>
   </div>
 </template>
 
 <script>
 import { getIndustrialNetworkAuditData } from "@/utils/request";
-import { industryList,stateChanges,notificationExport,putInStorage } from "@/api/system/list";
+import {
+  industryList,
+  stateChanges,
+  notificationExport,
+  putInStorage,
+} from "@/api/system/list";
 export default {
   name: "Online",
   data() {
@@ -561,16 +548,16 @@ export default {
         event_format: "",
         date: [],
       },
-      formData:{
-        notificationName:"",
-        eventType:"",
-        eventName:"",
-        priority:"",
-        remark:"",
-        report:"",
-        id:"",
-        index:"",
-        type:""
+      formData: {
+        notificationName: "",
+        eventType: "",
+        eventName: "",
+        priority: "",
+        remark: "",
+        report: "",
+        id: "",
+        index: "",
+        type: "",
       },
       levelOptions: [
         {
@@ -637,7 +624,7 @@ export default {
           label: "安徽天恩砂石厂",
           value: "安徽天恩砂石厂",
         },
-         {
+        {
           label: "青岛比利佳混凝土厂",
           value: "青岛比利佳混凝土厂",
         },
@@ -657,7 +644,7 @@ export default {
           label: "北京城乡水厂",
           value: "北京城乡水厂",
         },
-       
+
         {
           label: "珠海深中通道",
           value: "珠海深中通道",
@@ -719,57 +706,76 @@ export default {
           label: "审计协议规约",
         },
       ],
-      reportLevelOptions: [{
-        'label': '低',
-        'value': '低'
-      }, {
-        'label': '中',
-        'value': '中'
-      }, {
-        'label': '高',
-        'value': '高'
-      }, {
-        'label': '极高',
-        'value': '极高'
-      }],
-      reportOptions: [{
-        'label': '是',
-        'value': '是'
-      }, {
-        'label': '否',
-        'value': '否'
-      }],
-      eventTypeOptions: [{
-        'label': '僵木蠕事件',
-        'value': '僵木蠕事件'
-      }, {
-        'label': '弱口令事件',
-        'value': '弱口令事件'
-      }, {
-        'label': '漏洞事件',
-        'value': '漏洞事件'
-      }, {
-        'label': '主机安全事件',
-        'value': '主机安全事件'
-      }, {
-        'label': '配置核查事件',
-        'value': '配置核查事件'
-      }, {
-        'label': '异常行为事件',
-        'value': '异常行为事件'
-      }, {
-        'label': '威胁情报事件',
-        'value': '威胁情报事件'
-      }, {
-        'label': '入侵诱捕事件',
-        'value': '入侵诱捕事件'
-      }, {
-        'label': '数据安全事件',
-        'value': '数据安全事件'
-      }, {
-        'label': '工业网络审计事件',
-        'value': '工业网络审计事件'
-      }],
+      reportLevelOptions: [
+        {
+          label: "低",
+          value: "低",
+        },
+        {
+          label: "中",
+          value: "中",
+        },
+        {
+          label: "高",
+          value: "高",
+        },
+        {
+          label: "极高",
+          value: "极高",
+        },
+      ],
+      reportOptions: [
+        {
+          label: "是",
+          value: "是",
+        },
+        {
+          label: "否",
+          value: "否",
+        },
+      ],
+      eventTypeOptions: [
+        {
+          label: "僵木蠕事件",
+          value: "僵木蠕事件",
+        },
+        {
+          label: "弱口令事件",
+          value: "弱口令事件",
+        },
+        {
+          label: "漏洞事件",
+          value: "漏洞事件",
+        },
+        {
+          label: "主机安全事件",
+          value: "主机安全事件",
+        },
+        {
+          label: "配置核查事件",
+          value: "配置核查事件",
+        },
+        {
+          label: "异常行为事件",
+          value: "异常行为事件",
+        },
+        {
+          label: "威胁情报事件",
+          value: "威胁情报事件",
+        },
+        {
+          label: "入侵诱捕事件",
+          value: "入侵诱捕事件",
+        },
+        {
+          label: "数据安全事件",
+          value: "数据安全事件",
+        },
+        {
+          label: "工业网络审计事件",
+          value: "工业网络审计事件",
+        },
+      ],
     };
   },
   watch: {
@@ -895,13 +901,13 @@ export default {
       // console.log(orgTreeData1[0].content);
       return `${orgTreeData1[0].content}`;
     },
-  beforeHandleCommand(id, index,command){
+    beforeHandleCommand(id, index, command) {
       // console.log(id,index,command)
-        return {
-            'id': id,
-            'index': index,
-            'command':command
-          }
+      return {
+        id: id,
+        index: index,
+        command: command,
+      };
     },
     batchOperate(command) {
       // console.log('command',command)
@@ -909,31 +915,46 @@ export default {
       //  console.log('_index',index)
       let message = "";
       switch (command.command) {
-        case '处置':
+        case "处置":
           message = "是否确认变更处置状态？";
-          this.openMessageBox(message,command.id,command.index,command.command);
+          this.openMessageBox(
+            message,
+            command.id,
+            command.index,
+            command.command
+          );
           break;
         case "不处置":
           message = "是否确认将此事件处置状态修改为不处置？";
-          this.unProcessBox(message,command.id,command.index,command.command);
+          this.unProcessBox(
+            message,
+            command.id,
+            command.index,
+            command.command
+          );
           break;
         case "误报":
           message = "是否确认将此事件处置状态修改为误报？";
-          this.falseReportBox(message,command.id,command.index,command.command);
+          this.falseReportBox(
+            message,
+            command.id,
+            command.index,
+            command.command
+          );
           break;
       }
     },
-    async openMessageBox(message,id,index,command) {
+    async openMessageBox(message, id, index, command) {
       this.$confirm(message, "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
         type: "warning",
       })
         .then(() => {
-          this.addDialog = true
-           this.title = '新增通报'
-           this.formData.id = id
-           this.formData.index = index
+          this.addDialog = true;
+          this.title = "新增通报";
+          this.formData.id = id;
+          this.formData.index = index;
           // this.$message({
           //   type: "success",
           //   message: "修改成功!",
@@ -946,26 +967,24 @@ export default {
           });
         });
     },
-    async unProcessBox(message,id,index,command) {
+    async unProcessBox(message, id, index, command) {
       this.$confirm(message, "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
         type: "warning",
       })
         .then(() => {
-           stateChanges({
-           id:id,
-           index:index,
-           type:command
-         })
-        .then((response) => {
-          this.getTableList();
-          this.$message({
-            type: "success",
-            message: "修改成功!",
+          stateChanges({
+            id: id,
+            index: index,
+            type: command,
+          }).then((response) => {
+            this.getTableList();
+            this.$message({
+              type: "success",
+              message: "修改成功!",
+            });
           });
-         }) 
-          
         })
         .catch(() => {
           this.$message({
@@ -974,31 +993,29 @@ export default {
           });
         });
     },
-    async falseReportBox(message,id,index,command) {
-      console.log('参数：',id,index,command)
+    async falseReportBox(message, id, index, command) {
+      console.log("参数：", id, index, command);
       this.$confirm(message, "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
         type: "warning",
       })
         .then(() => {
-          console.log('接口')
-         stateChanges({
-           id:id,
-           index:index,
-           type:command
-         })
-        .then((response) => {
-         this.getTableList();  
-         this.$message({
-            type: "success",
-            message: "修改成功!",
-          }); 
-       }) 
-       
+          console.log("接口");
+          stateChanges({
+            id: id,
+            index: index,
+            type: command,
+          }).then((response) => {
+            this.getTableList();
+            this.$message({
+              type: "success",
+              message: "修改成功!",
+            });
+          });
         })
         .catch(() => {
-           console.log('cancel')
+          console.log("cancel");
           this.$message({
             type: "info",
             message: "已取消修改！",
@@ -1041,51 +1058,48 @@ export default {
         this.detailData.event_format
       );
     },
-    async saveForm(){
-       this.addDialog = false;
-       if(this.formData.report == '是'){
-          this.formData.type = '已处置'
-       }else{
-         this.formData.type = '处置中'
-       }
-      console.log('this.formData',this.formData)
+    async saveForm() {
+      this.addDialog = false;
+      if (this.formData.report == "是") {
+        this.formData.type = "已处置";
+      } else {
+        this.formData.type = "处置中";
+      }
+      console.log("this.formData", this.formData);
       // ES状态变更
       await stateChanges({
-           id:this.formData.id,
-           index:this.formData.index,
-           type:this.formData.type
-         })
-        .then((response) => {
-          this.$message({
-            type: "success",
-            message: "修改成功!",
-          });  
-              //入库
-        putInStorage(this.formData)
-        .then((response) => {
+        id: this.formData.id,
+        index: this.formData.index,
+        type: this.formData.type,
+      }).then((response) => {
+        this.$message({
+          type: "success",
+          message: "修改成功!",
+        });
+        //入库
+        putInStorage(this.formData).then((response) => {
           this.$message({
             type: "success",
             message: "入库成功!",
-          });  
-          if(this.formData.report == '是'){
-               // 上报 
+          });
+          if (this.formData.report == "是") {
+            // 上报
             notificationExport({
-              id:this.formData.id,
-              index:this.formData.index,
-            })
-          .then((response) => {
-            this.$message({
-              type: "success",
-              message: "上报成功!",
-           });  
-           this.getTableList();
-           }) 
-          }else{
-             this.getTableList();
-          } 
-         }) 
-         })     
-    }
+              id: this.formData.id,
+              index: this.formData.index,
+            }).then((response) => {
+              this.$message({
+                type: "success",
+                message: "上报成功!",
+              });
+              this.getTableList();
+            });
+          } else {
+            this.getTableList();
+          }
+        });
+      });
+    },
   },
 };
 </script>
@@ -1121,7 +1135,7 @@ export default {
   height: 50vh;
   overflow: auto;
   overflow-x: hidden;
-   border-top: 1px solid #ccc;
+  border-top: 1px solid #ccc;
   padding: 10px 20px;
 }
 .collapse-title {

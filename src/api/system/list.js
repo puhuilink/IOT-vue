@@ -37,6 +37,13 @@ export function appTesting(query) {
     params: query
   })
 }
+// APP检测---删除
+export function appFileDelete(query) {
+  return request({
+    url: '/bangBangFile/removeBangBangFile/'+query,
+    method: 'delete',
+  })
+}
 
 // 资产列表 excel导入功能
 export function uploadExcel(url, query) {

@@ -423,7 +423,7 @@
               </el-form-item>
             </el-col>
              <el-col :span="12">
-              <el-form-item label="处置意见：" >
+              <el-form-item label="处理意见：" >
                <span>---</span>
                 <!-- <tooltip :content="detailData.procedure" :length="20" /> -->
               </el-form-item>

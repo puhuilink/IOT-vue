@@ -112,7 +112,7 @@
             <el-button size="mini" type="text" @click="preview(scope.row.pdfPath)"
               >预览
             </el-button>
-            <el-button size="mini" type="text" 
+            <el-button size="mini" type="text" @click="deleteFile(scope.row.id)"
               >删除
             </el-button>
           </template>
@@ -172,7 +172,7 @@
 </template>
 <script>
 import { getHostSecurityData } from "@/utils/request";
-import { appTesting,uploadPdf,downloadAction } from "@/api/system/list";
+import { appTesting,uploadPdf,downloadAction ,appFileDelete} from "@/api/system/list";
 import eventType from "@/components/Echarts/eventType";
 import eventTrend from "@/components/Echarts/eventTrend";
 import Filetip from '@/components/FileTip/index.vue'
@@ -483,6 +483,17 @@ export default {
         this.$message.warning('上传文件大小不能超过 10MB!')
       }
       return extension && isLt10M
+    },
+    async deleteFile(id){
+       this.$confirm('确认要删除吗？', '提示', { type: 'warning' }) .then(() => {
+        appFileDelete(id).then(res => {
+           this.$message({
+            type: "success",
+            message: "删除成功!",
+          }); 
+           this.getList()
+            })
+         }).catch(() => { });
     },
       async importExcel (fileObj) {
       const params = this.form

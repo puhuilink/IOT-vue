@@ -100,7 +100,7 @@
               </el-form-item>
             </el-col>
             <el-col :span="6">
-              <el-form-item label="目标IP：" prop="newip">
+              <el-form-item label="目的IP：" prop="newip">
                 <el-input
                   v-model.trim="queryParams.detail_dst_ip"
                   placeholder="请输入目标IP"
