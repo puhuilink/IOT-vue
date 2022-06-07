@@ -104,7 +104,9 @@
         <el-table-column
           label="检测开始时间"
           align="center"
+
           prop="taskVO.invokeEngineTime"
+
           :show-overflow-tooltip="true"
         />
         <el-table-column
@@ -132,7 +134,9 @@
           width="180"
         >
           <template slot-scope="scope">
+
             <el-button size="mini" type="text" @click="detail(scope.row.id)"
+
               >详情</el-button
             >
           </template>
@@ -649,6 +653,7 @@ export default {
         this.total = res.data.data.totalCount;
         this.loading = false;
       });
+
     },
     transTypeDic(val) {
       var t = [
@@ -813,6 +818,7 @@ export default {
         this.detailDialog = true;
         this.title = "事件详情";
       });
+
     },
     async getDefectDetail(taskId, bugId) {
       console.log("taskId、bugId", taskId, bugId);
