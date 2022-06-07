@@ -148,6 +148,7 @@
               type="primary"
               size="mini"
               @click="deleteDetail()"
+              :disabled="sels.length === 0"
             >删除</el-button>
           </el-col>
           <!-- <el-col :span="1.5">
@@ -262,6 +263,7 @@
           <el-button
             size="mini"
             type="text"
+            v-if="scope.row.notificationStatus != '已通报'"
             @click="report(scope.row.eventId,scope.row.eventIndex)"
           >上报</el-button>
           <!-- <el-button
@@ -554,6 +556,7 @@ export default {
   data() {
     return {
       sels: [],
+      // ids:[],
       rangeTime: undefined,
       loading: true,
       name: '测试',

@@ -554,7 +554,7 @@ export default {
         eventName: "",
         priority: "",
         remark: "",
-        report: "",
+        report: "是",
         id: "",
         index: "",
         type: "",
@@ -1043,6 +1043,17 @@ export default {
     cancel() {
       this.detailDialog = false;
       this.addDialog = false;
+      this.formData = {
+         notificationName: "",
+         eventType: "",
+         eventName: "",
+         priority: "",
+         remark: "",
+         report: "是",
+         id: "",
+         index: "",
+         type: "",
+      }
     },
     /** 提交按钮 */
     submitForm() {
