@@ -555,7 +555,7 @@ export default {
         eventName:"",
         priority:"",
         remark:"",
-        report:"",
+        report:"是",
         id:"",
         index:"",
         type:""
