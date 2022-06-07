@@ -6,25 +6,25 @@
         <el-col :span="6">
           <div class="AssetsBox">
             <div class="Assets">资产防护</div>
-            <div class="AssetsNumber">{{ AssetsNumber }}</div>
+            <div class="AssetsNumber">{{ AssetsNumber }}个</div>
           </div>
         </el-col>
         <el-col :span="6">
-          <div class="AssetsBox">
+          <div class="intrusionBox">
             <div class="Assets">入侵事件</div>
-            <div class="AssetsNumber">{{ Invand }}</div>
+            <div class="AssetsNumber">{{ Invand }}次</div>
           </div>
         </el-col>
         <el-col :span="6">
-          <div class="AssetsBox">
+          <div class="explore">
             <div class="Assets">探测事件</div>
-            <div class="AssetsNumber">{{ Probe }}</div>
+            <div class="AssetsNumber">{{ Probe }}次</div>
           </div>
         </el-col>
         <el-col :span="6">
-          <div class="AssetsBox">
+          <div class="threat">
             <div class="Assets">威胁人员</div>
-            <div class="AssetsNumber">{{ attackNumber }}</div>
+            <div class="AssetsNumber">{{ attackNumber }}个</div>
           </div>
         </el-col>
       </el-row>
@@ -158,22 +158,104 @@ export default {
 <style lang="scss" scoped>
 .app-container {
   .AssetsBox {
+     background: linear-gradient(180deg, #4FA8E7 0%, #3570D4 100%);
     .Assets {
-      background-color: #5599ff;
-      padding: 10px 80px 10px 10px;
-      border-bottom: 1px solid #fff;
+      // background-color: #5599ff;
+      // background: linear-gradient(180deg, #4FA8E7 0%, #3570D4 100%);
+      text-align: center;
+      padding-top: 20px;
+      font-size: 16px;
+      // padding: 10px 80px 10px 80px;
+      // border-bottom: 1px solid #fff;
       color: #fff;
       font-weight: bold;
     }
     .AssetsNumber {
       width: 100%;
-      height: 100px;
-      background-color: #5599ff;
-      color: #ffff77;
-      font-weight: 800;
+      height: 60px;
+      font-size: 28px;
+      // background-color: #5599ff;
+      //  background: linear-gradient(180deg, #4FA8E7 0%, #3570D4 100%);
+      color: #fff;
+      // font-weight: 800;
       text-align: center;
-      line-height: 100px;
+      line-height: 50px;
+    }  
+  }
+  .intrusionBox {
+     background: linear-gradient(180deg, #FFB070 0%, #FF605B 100%);
+    .Assets {
+      // background-color: #5599ff;
+      // background: linear-gradient(180deg, #4FA8E7 0%, #3570D4 100%);
+      text-align: center;
+      padding-top: 20px;
+      font-size: 16px;
+      // padding: 10px 80px 10px 80px;
+      // border-bottom: 1px solid #fff;
+      color: #fff;
+      font-weight: bold;
     }
+    .AssetsNumber {
+      width: 100%;
+      height: 60px;
+      font-size: 28px;
+      // background-color: #5599ff;
+      //  background: linear-gradient(180deg, #4FA8E7 0%, #3570D4 100%);
+      color: #fff;
+      // font-weight: 800;
+      text-align: center;
+      line-height: 50px;
+    }  
+  }
+  .explore {
+     background: linear-gradient(180deg, #3CD3AA 0%, #229B9F 100%);
+    .Assets {
+      // background-color: #5599ff;
+      // background: linear-gradient(180deg, #4FA8E7 0%, #3570D4 100%);
+      text-align: center;
+      padding-top: 20px;
+      font-size: 16px;
+      // padding: 10px 80px 10px 80px;
+      // border-bottom: 1px solid #fff;
+      color: #fff;
+      font-weight: bold;
+    }
+    .AssetsNumber {
+      width: 100%;
+      height: 60px;
+      font-size: 28px;
+      // background-color: #5599ff;
+      //  background: linear-gradient(180deg, #4FA8E7 0%, #3570D4 100%);
+      color: #fff;
+      // font-weight: 800;
+      text-align: center;
+      line-height: 50px;
+    }  
+  }
+  .threat {
+     background: linear-gradient(180deg, #B56AF9 0%, #6333B8 100%);
+    .Assets {
+      // background-color: #5599ff;
+      // background: linear-gradient(180deg, #4FA8E7 0%, #3570D4 100%);
+      text-align: center;
+      padding-top: 20px;
+      font-size: 16px;
+      // padding: 10px 80px 10px 80px;
+      // border-bottom: 1px solid #fff;
+      color: #fff;
+      font-weight: bold;
+    }
+    .AssetsNumber {
+      width: 100%;
+      height: 60px;
+      font-size: 28px;
+      // background-color: #5599ff;
+      //  background: linear-gradient(180deg, #4FA8E7 0%, #3570D4 100%);
+      color: #fff;
+      // font-weight: 800;
+      text-align: center;
+      line-height: 50px;
+    }  
   }
 }
 </style>
