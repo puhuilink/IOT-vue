@@ -974,6 +974,8 @@ export default {
            this.title = '新增通报'
            this.formData.id = id
            this.formData.index = index
+          //  this.formData.eventName = event_name
+          //  this.formData.eventType = event_class
           // this.$message({
           //   type: "success",
           //   message: "修改成功!",
