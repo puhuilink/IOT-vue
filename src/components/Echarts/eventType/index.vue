@@ -924,7 +924,7 @@ export default {
           series: [
             {
               radius: ["40%", "70%"],
-              avoidLabelOverlap: false,
+              avoidLabelOverlap: true,
               itemStyle: {
                 borderRadius: 10,
                 borderColor: "#fff",
