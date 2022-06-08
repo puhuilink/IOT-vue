@@ -269,8 +269,8 @@ export default {
         },
        
         {
-          label: "珠海深中通道",
-          value: "珠海深中通道",
+          label: "深中通道预制厂",
+          value: "深中通道预制厂",
         },
         {
           label: "广州地铁钢筋厂",
@@ -287,15 +287,7 @@ export default {
         {
           label: "天津管片厂",
           value: "天津管片厂",
-        },
-        {
-          label: "中国交建北京数据中心",
-          value: "中国交建北京数据中心",
-        },
-        {
-          label: "中国交建厦门数据中心",
-          value: "中国交建厦门数据中心",
-        },
+        }
       ],
       // 创建时间时间范围
       daterangeCreateTime: [],

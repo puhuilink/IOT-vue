@@ -413,12 +413,8 @@ export default {
           value: "山西三通燃气厂",
         },
         {
-          label: "珠海深中通道",
-          value: "珠海深中通道",
-        },
-        {
-          label: "中国交建北京数据中心",
-          value: "中国交建北京数据中心",
+          label: "深中通道预制厂",
+          value: "深中通道预制厂",
         },
       ],
       threatFlagOptions: [
