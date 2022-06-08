@@ -19,7 +19,7 @@
               v-for="(item, index) in addressOptions"
               :key="index"
               :label="item.label"
-              :value="item.label"
+              :value="item.value"
               :disabled="item.disabled"
             />
           </el-select>
@@ -80,24 +80,73 @@ export default {
       },
       addressOptions: [
         {
-          label: "山西三通燃气厂",
-          value: 2,
+          label: "新疆八一钢筋厂",
+          value: "新疆八一钢筋厂",
         },
         {
-          label: "北京城乡水厂",
-          value: 3,
+          label: "青岛石油化工厂",
+          value: "青岛石油化工厂",
         },
         {
-          label: "天津管片厂",
-          value: 4,
+          label: "浙江联顺预制厂",
+          value: "浙江联顺预制厂",
         },
         {
-          label: "珠海深中通道",
-          value: 5,
+          label: "重庆预制厂",
+          value: "重庆预制厂",
+        },
+        {
+          label: "安徽天恩砂石厂",
+          value: "安徽天恩砂石厂",
+        },
+         {
+          label: "青岛混凝土厂",
+          value: "青岛混凝土厂",
         },
         {
           label: "三亚海投轨交",
-          value: 6,
+          value: "三亚海投轨交",
+        },
+        {
+          label: "山西三通燃气厂",
+          value: "山西三通燃气厂",
+        },
+        {
+          label: "松通高速预制厂",
+          value: "松通高速预制厂",
+        },
+        {
+          label: "北京城乡水厂",
+          value: "北京城乡水厂",
+        },
+       
+        {
+          label: "珠海深中通道",
+          value: "珠海深中通道",
+        },
+        {
+          label: "广州地铁钢筋厂",
+          value: "广州地铁钢筋厂",
+        },
+        {
+          label: "乌尉高速制梁厂",
+          value: "乌尉高速制梁厂",
+        },
+        {
+          label: "玉湛高速制梁厂",
+          value: "玉湛高速制梁厂",
+        },
+        {
+          label: "天津管片厂",
+          value: "天津管片厂",
+        },
+        {
+          label: "中国交建北京数据中心",
+          value: "中国交建北京数据中心",
+        },
+        {
+          label: "中国交建厦门数据中心",
+          value: "中国交建厦门数据中心",
         },
       ],
       severityOption: [
