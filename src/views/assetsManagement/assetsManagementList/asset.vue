@@ -929,7 +929,7 @@ export default {
           fxxy: '--',
           // browser: "--",
           zcbq: '--',
-          area: '珠海深中通道',
+          area: '深中通道预制厂',
           fzr: '张三',
           zhhysj: '2022-01-29 10:10:00'
         },
@@ -1054,8 +1054,8 @@ export default {
           value: '山西燃气'
         },
         {
-          label: '珠海深中通道',
-          value: '珠海深中通道'
+          label: '深中通道预制厂',
+          value: '深中通道预制厂'
         },
         {
           label: '北京水厂',
