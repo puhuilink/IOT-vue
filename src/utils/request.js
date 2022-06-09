@@ -108,7 +108,12 @@ const baseapplicationManagementDefectDetail = 'https://10.201.72.99/codesafeapi/
 export const getApplicationManagementDefectDetail = (taskId,bugId) => {
   return axios.get(`${baseapplicationManagementDefectDetail/taskId/bug/bugId}`)
 }
+// 事件管理---APP加固
+const baseAppToken = '/app/api/login/getToken?username=zgjt'
 
+export const getAPPtoken = params => {
+  return axios.post(`${baseAppToken}`, params)
+}
 
 // axios.defaults.headers['Content-Type'] = 'Basic base64encode(wuzhigang +":"+Admin@12345！)'
 axios.defaults.headers['Content-Type'] = 'application/json;charset=utf-8'

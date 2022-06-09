@@ -6,13 +6,17 @@
 
 <script>
 import { getToken } from '@/api/system/echarts'
+import { getAPPtoken } from "@/utils/request";
 export default {
   name: 'Index',
   data() {
     return {
-      // 版本号
-      resultData:'',
-      version: '3.4.0'
+      // 版本号    
+      version: '3.4.0',
+      query:{
+       token:'', //微步token
+       appToken:'' //APP加固token
+      }
     }
   },
   mounted() {
@@ -37,14 +41,20 @@ export default {
   },
   created(){
    this.getToken()
+    this.getTokenCopy()
   },
   methods: {
    async getToken(){
     const res = await getToken()
-   this.resultData = res
+   this.query.token = res
     },
+   async getTokenCopy(){
+   const res = await getAPPtoken()
+    this.query.appToken = res.data.info.token
+    },
+      
     loaded(){
-				this.iframeWin.postMessage(this.resultData,'*');
+				this.iframeWin.postMessage(this.query,'*');
 			},
     goTarget(href) {
       window.open(href, '_blank')

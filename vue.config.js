@@ -46,6 +46,13 @@ module.exports = {
           '^/codesafeapi': '' // 重写codesafeapi为空
         }
       },
+      '/app': {
+        target: 'http://10.201.31.103:8000',  //  梆梆app加固
+        changeOrigin: true,
+        pathRewrite: {
+          '^/app': '' 
+        }
+      },
       // detail: https://cli.vuejs.org/config/#devserver-proxy
       [process.env.VUE_APP_BASE_API]: {
         // target: `http://192.168.2.103:8088`,

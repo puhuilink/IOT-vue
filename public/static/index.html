@@ -18,13 +18,19 @@
           slidesToShow: 6,
           respondTo: "window",
           slidesToScroll: 1,
-          // autoplay: true,
+          autoplay: true,
           autoplaySpeed: 2000,
         });
       });
       window.addEventListener("message", function (msgEvent) {
-        let token = msgEvent.data;
-        console.log(token);
+        let token = msgEvent.data.token;
+        let appToken = msgEvent.data.appToken
+        $("#APP").attr(
+          "href",
+          "http://10.201.31.103:8000/api/login/doLoginByToken?token=" +
+            appToken +
+            "&username=zgjt"
+        );
         $("#name").attr(
           "href",
           "http://10.201.30.60:80/intelligence/login-with-params?username=jiance&token=" +
@@ -478,8 +484,7 @@
 
         <div class="main14 flex-col">
           <a
-            href="http://10.1.13.118:8001/security/applicationSecurityManagement/appReinforcement"
-            target="_blank"
+          id="APP" target="_blank"
           >
             <div class="layer4 flex-row">
               <div class="ImageText13 flex-col">
