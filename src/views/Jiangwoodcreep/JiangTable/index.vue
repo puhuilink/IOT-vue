@@ -275,7 +275,10 @@
               >详情</el-button
             >
             &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
-            <el-dropdown @command="batchOperate" v-if="scope.row._source.procedure == '误报'">
+            <el-dropdown
+              @command="batchOperate"
+              v-if="scope.row._source.procedure == '误报'"
+            >
               <el-button size="mini" type="text">
                 状态变更<i class="el-icon-arrow-down el-icon--right" />
               </el-button>
@@ -303,7 +306,10 @@
                 >
               </el-dropdown-menu>
             </el-dropdown>
-            <el-dropdown @command="batchOperate" v-else-if="scope.row._source.procedure == '不处置'">
+            <el-dropdown
+              @command="batchOperate"
+              v-else-if="scope.row._source.procedure == '不处置'"
+            >
               <el-button size="mini" type="text">
                 状态变更<i class="el-icon-arrow-down el-icon--right" />
               </el-button>
@@ -327,7 +333,13 @@
                 >
               </el-dropdown-menu>
             </el-dropdown>
-            <el-dropdown @command="batchOperate" v-else-if="scope.row._source.procedure == '已处置' || scope.row._source.procedure == '处置中'">
+            <el-dropdown
+              @command="batchOperate"
+              v-else-if="
+                scope.row._source.procedure == '已处置' ||
+                scope.row._source.procedure == '处置中'
+              "
+            >
               <el-button size="mini" type="text">
                 状态变更<i class="el-icon-arrow-down el-icon--right" />
               </el-button>
@@ -350,13 +362,13 @@
                 >
               </el-dropdown-menu>
             </el-dropdown>
-              <el-dropdown @command="batchOperate" v-else>
+            <el-dropdown @command="batchOperate" v-else>
               <el-button size="mini" type="text">
                 状态变更<i class="el-icon-arrow-down el-icon--right" />
               </el-button>
-              
+
               <el-dropdown-menu slot="dropdown">
-                 <el-dropdown-item
+                <el-dropdown-item
                   :command="
                     beforeHandleCommand(
                       scope.row._id,
@@ -518,25 +530,37 @@
           >
             <el-input v-model.trim="formData.notificationName" placeholder="" />
           </el-form-item>
-          <el-form-item label="事件类型:" prop="eventType">
+          <!-- <el-form-item label="事件类型:" prop="eventType">
             <el-select
               v-model.trim="formData.eventType"
               placeholder=""
               filterable
               clearable
               :style="{ width: '100%' }"
+               disabled
             >
               <el-option
                 v-for="(item, index) in eventTypeOptions"
                 :key="index"
                 :label="item.label"
-                :value="item.label"
-                :disabled="item.disabled"
+                :value="item.value"
+               
               />
             </el-select>
+          </el-form-item> -->
+          <el-form-item label="事件类型:" prop="eventType">
+            <el-input
+              v-model.trim="formData.eventType"
+              placeholder=""
+              disabled
+            />
           </el-form-item>
           <el-form-item label="事件名称:" prop="eventName">
-            <el-input v-model.trim="formData.eventName" placeholder="" />
+            <el-input
+              v-model.trim="formData.eventName"
+              placeholder=""
+              disabled
+            />
           </el-form-item>
           <el-form-item
             label="优先级:"
@@ -722,7 +746,7 @@ export default {
       eventTypeOptions: [
         {
           label: "僵木蠕事件",
-          value: "僵木蠕事件",
+          value: "class_ztwe",
         },
         {
           label: "弱口令事件",
@@ -1135,6 +1159,7 @@ export default {
           this.formData.id = id;
           this.formData.index = index;
           this.formData.eventName = event_name;
+          this.formData.eventType = "僵木蠕事件";
           // this.$message({
           //   type: "success",
           //   message: "修改成功!",
@@ -1245,6 +1270,35 @@ export default {
     submitForm() {
       this.open = false;
     },
+    async putInStorageM() {
+      //入库
+      await putInStorage(this.formData).then((response) => {
+        console.log("6-8-network");
+        this.$message({
+          type: "success",
+          message: "入库成功!",
+        });
+        if (this.formData.report == "是") {
+          // 上报
+          notificationExport({
+            id: this.formData.id,
+            index: this.formData.index,
+          }).then((response) => {
+            // this.$message({
+            //   type: "success",
+            //   // message: "上报成功!",
+            // });
+            setTimeout(() => {
+              this.getTableList();
+            }, 1000);
+          });
+        } else {
+          setTimeout(() => {
+            this.getTableList();
+          }, 1000);
+        }
+      });
+    },
     async saveForm() {
       this.$refs["formData"].validate(async (valid) => {
         if (valid) {
@@ -1263,37 +1317,13 @@ export default {
             index: this.formData.index,
             type: this.formData.type,
           }).then((response) => {
-            this.$message({
-              type: "success",
-              message: "修改成功!",
-            });
-            //入库
-            putInStorage(this.formData).then((response) => {
-              console.log("6-8-network");
-              this.$message({
-                type: "success",
-                message: "入库成功!",
-              });
-              if (this.formData.report == "是") {
-                // 上报
-                notificationExport({
-                  id: this.formData.id,
-                  index: this.formData.index,
-                }).then((response) => {
-                  this.$message({
-                    type: "success",
-                    // message: "上报成功!",
-                  });
-                  setTimeout(() => {
-                    this.getTableList();
-                  }, 1000);
-                });
-              } else {
-                setTimeout(() => {
-                    this.getTableList();
-                  }, 1000);
-              }
-            });
+            // this.$message({
+            //   type: "success",
+            //   message: "修改成功!",
+            // });
+            setTimeout(() => {
+              this.putInStorageM();
+            }, 1000);
           });
         }
       });
