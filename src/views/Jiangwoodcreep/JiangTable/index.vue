@@ -1286,10 +1286,12 @@ export default {
                   });
                   setTimeout(() => {
                     this.getTableList();
-                  }, 500);
+                  }, 1000);
                 });
               } else {
-                this.getTableList();
+                setTimeout(() => {
+                    this.getTableList();
+                  }, 1000);
               }
             });
           });
