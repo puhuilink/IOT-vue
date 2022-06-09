@@ -680,6 +680,7 @@ export default {
         id: "",
         index: "",
         type: "",
+        notificationStatus: "",
       },
       rules: {
         event_name: [],
@@ -1321,9 +1322,19 @@ export default {
             //   type: "success",
             //   message: "修改成功!",
             // });
-            setTimeout(() => {
-              this.putInStorageM();
-            }, 1000);
+            if (
+              this.formData.type == "已处置" ||
+              this.formData.type == "处置中"
+            ) {
+              setTimeout(() => {
+                this.putInStorageM();
+              }, 1000);
+            } else {
+              console.log("误报或者不处置");
+              setTimeout(() => {
+                this.getTableList();
+              }, 1000);
+            }
           });
         }
       });
