@@ -41,15 +41,18 @@ export default {
   },
   created(){
    this.getToken()
+    this.getTokenCopy()
   },
   methods: {
-   async getToken(){
-      const data = await getAPPtoken()
-      const res = await getToken()
-      this.query.appToken = data.data.info.token
+   async getToken(){  
+    const res = await getToken()
       this.query.token = res
-  
-    },    
+    },   
+     getTokenCopy(){  
+      getAPPtoken().then((res) => {
+        this.query.appToken = res.data.info.token
+      }); 
+    }, 
     loaded(){
 				this.iframeWin.postMessage(this.query,'*');
 			},
