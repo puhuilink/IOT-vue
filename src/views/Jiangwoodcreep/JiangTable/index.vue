@@ -1189,7 +1189,10 @@ export default {
               type: "success",
               message: "修改成功!",
             });
-            this.getTableList();
+            // this.getTableList();
+            setTimeout(() => {
+              this.getTableList();
+            }, 1000);
           });
         })
         .catch(() => {
@@ -1217,7 +1220,9 @@ export default {
               type: "success",
               message: "修改成功!",
             });
-            this.getTableList();
+            setTimeout(() => {
+              this.getTableList();
+            }, 1000);
           });
         })
         .catch(() => {
