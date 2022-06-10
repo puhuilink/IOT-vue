@@ -5,9 +5,9 @@
         <div ref="canvas1" style="height: 400px" />
       </el-col>
     </div>
-     <div v-if="name == 'equipment'">
+    <div v-if="name == 'equipment'">
       <el-col :span="22">
-          <tip>{{ tipname }}</tip>
+        <tip>{{ tipname }}</tip>
         <div ref="canvas1" style="height: 400px" />
       </el-col>
     </div>
@@ -72,8 +72,8 @@ export default {
       assetsData: [],
       querys: {
         severity: "",
-        beginGenerationTime:this.getdate(2)[0],
-        endGenerationTime:this.getdate(2)[1],
+        beginGenerationTime: this.getdate(2)[0],
+        endGenerationTime: this.getdate(2)[1],
         location: "",
       },
       queryParms: {
@@ -81,13 +81,13 @@ export default {
           bool: {
             must: [
               {
-              range: {
-                "occur_time": {
-                  gte: this.getdate(2)[0],
-                  lte: this.getdate(2)[1],
+                range: {
+                  occur_time: {
+                    gte: this.getdate(2)[0],
+                    lte: this.getdate(2)[1],
+                  },
                 },
               },
-            }
             ],
           },
         },
@@ -105,13 +105,13 @@ export default {
           bool: {
             must: [
               {
-              range: {
-                "occur_time": {
-                  gte: this.getdate(2)[0],
-                  lte: this.getdate(2)[1],
+                range: {
+                  occur_time: {
+                    gte: this.getdate(2)[0],
+                    lte: this.getdate(2)[1],
+                  },
                 },
               },
-            }
             ],
           },
         },
@@ -165,7 +165,7 @@ export default {
   },
 
   methods: {
-     Twodigits(num) {
+    Twodigits(num) {
       return num < 10 ? "0" + num : num;
     },
     getDay(num, str) {
@@ -185,7 +185,7 @@ export default {
       var beforeseven = new Date();
       var thirty = new Date();
       myDate.setDate(myDate.getDate());
-      beforeseven.setDate(beforeseven.getDate()  - 6);
+      beforeseven.setDate(beforeseven.getDate() - 6);
       thirty.setDate(thirty.getDate() - 1 - 29);
       if (type === 2) {
         return [
@@ -464,14 +464,16 @@ export default {
                 this.datacopy = this.transTypeDic(
                   data.aggregations.field.buckets
                 );
-                this.queryParms.query.bool.must =  [{
-                  range: {
-                    "occur_time": {
-                      gte: this.getdate(2)[0],
-                      lte: this.getdate(2)[1],
+                this.queryParms.query.bool.must = [
+                  {
+                    range: {
+                      occur_time: {
+                        gte: this.getdate(2)[0],
+                        lte: this.getdate(2)[1],
+                      },
                     },
                   },
-                }];
+                ];
               });
               break;
             case "Jiangwoodcreep":
@@ -481,14 +483,16 @@ export default {
                 this.datacopy = this.transTypeDic(
                   data.aggregations.field.buckets
                 );
-                this.queryParms.query.bool.must =  [{
-                  range: {
-                    "occur_time": {
-                      gte: this.getdate(2)[0],
-                      lte: this.getdate(2)[1],
+                this.queryParms.query.bool.must = [
+                  {
+                    range: {
+                      occur_time: {
+                        gte: this.getdate(2)[0],
+                        lte: this.getdate(2)[1],
+                      },
                     },
                   },
-                }];
+                ];
               });
               break;
             //漏洞
@@ -510,14 +514,16 @@ export default {
                   this.datacopy = this.transTypeDic(
                     data.aggregations.field.buckets
                   );
-                   this.queryParms.query.bool.must =  [{
-                     range: {
-                       "occur_time": {
-                         gte: this.getdate(2)[0],
-                         lte: this.getdate(2)[1],
+                  this.queryParms.query.bool.must = [
+                    {
+                      range: {
+                        occur_time: {
+                          gte: this.getdate(2)[0],
+                          lte: this.getdate(2)[1],
+                        },
                       },
-                   },
-                }];
+                    },
+                  ];
                 }
               );
               break;
@@ -529,14 +535,16 @@ export default {
                 this.datacopy = this.transTypeDic(
                   data.aggregations.field.buckets
                 );
-                 this.queryTimeParms.query.bool.must =  [{
-                  range: {
-                    "occur_time": {
-                      gte: this.getdate(2)[0],
-                      lte: this.getdate(2)[1],
+                this.queryTimeParms.query.bool.must = [
+                  {
+                    range: {
+                      occur_time: {
+                        gte: this.getdate(2)[0],
+                        lte: this.getdate(2)[1],
+                      },
                     },
                   },
-                }];
+                ];
               });
               break;
             case "design":
@@ -547,14 +555,40 @@ export default {
                   this.datacopy = this.transTypeDic(
                     data.aggregations.field.buckets
                   );
-                  this.queryParms.query.bool.must =  [{
-                  range: {
-                    "occur_time": {
-                      gte: this.getdate(2)[0],
-                      lte: this.getdate(2)[1],
+                  this.queryParms.query.bool.must = [
+                    {
+                      range: {
+                        occur_time: {
+                          gte: this.getdate(2)[0],
+                          lte: this.getdate(2)[1],
+                        },
+                      },
                     },
-                  },
-                }];
+                  ];
+                }
+              );
+              break;
+            case "dataSafe":
+              // await policyNameEcharts(this.queryParms).then(({ data }) => {
+              //   this.hasData = data;
+              //   this.datacopy = this.transDic(data);
+              // });
+              await getAbnormalBehaviorEventRetrievalData(this.queryParms).then(
+                ({ data }) => {
+                  this.hasData = data.aggregations.field.buckets;
+                  this.datacopy = this.transTypeDic(
+                    data.aggregations.field.buckets
+                  );
+                  this.queryParms.query.bool.must = [
+                    {
+                      range: {
+                        occur_time: {
+                          gte: this.getdate(2)[0],
+                          lte: this.getdate(2)[1],
+                        },
+                      },
+                    },
+                  ];
                 }
               );
               break;
@@ -571,14 +605,16 @@ export default {
               await getbaseJiangTableData(this.queryParms).then(({ data }) => {
                 this.hasData = data.aggregations.field.buckets;
                 this.datacopy = this.transDic(data.aggregations.field.buckets);
-                 this.queryParms.query.bool.must =  [{
-                  range: {
-                    "occur_time": {
-                      gte: this.getdate(2)[0],
-                      lte: this.getdate(2)[1],
+                this.queryParms.query.bool.must = [
+                  {
+                    range: {
+                      occur_time: {
+                        gte: this.getdate(2)[0],
+                        lte: this.getdate(2)[1],
+                      },
                     },
                   },
-                }];
+                ];
               });
               break;
             case "weakPassword":
@@ -586,14 +622,16 @@ export default {
               await getWeakPasswordData(this.queryParms).then(({ data }) => {
                 this.hasData = data.aggregations.field.buckets;
                 this.datacopy = this.transDic(data.aggregations.field.buckets);
-                 this.queryParms.query.bool.must =  [{
-                  range: {
-                    "occur_time": {
-                      gte: this.getdate(2)[0],
-                      lte: this.getdate(2)[1],
+                this.queryParms.query.bool.must = [
+                  {
+                    range: {
+                      occur_time: {
+                        gte: this.getdate(2)[0],
+                        lte: this.getdate(2)[1],
+                      },
                     },
                   },
-                }];
+                ];
               });
               break;
             case "vulnerablity":
@@ -611,14 +649,16 @@ export default {
               await getHostSecurityData(this.queryParms).then(({ data }) => {
                 this.hasData = data.aggregations.field.buckets;
                 this.datacopy = this.transDic(data.aggregations.field.buckets);
-                 this.queryParms.query.bool.must =  [{
-                  range: {
-                    "occur_time": {
-                      gte: this.getdate(2)[0],
-                      lte: this.getdate(2)[1],
+                this.queryParms.query.bool.must = [
+                  {
+                    range: {
+                      occur_time: {
+                        gte: this.getdate(2)[0],
+                        lte: this.getdate(2)[1],
+                      },
                     },
                   },
-                }];
+                ];
               });
               break;
 
@@ -637,14 +677,16 @@ export default {
                   this.datacopy = this.transDic(
                     data.aggregations.field.buckets
                   );
-                this.queryParms.query.bool.must =  [{
-                  range: {
-                    "occur_time": {
-                      gte: this.getdate(2)[0],
-                      lte: this.getdate(2)[1],
+                  this.queryParms.query.bool.must = [
+                    {
+                      range: {
+                        occur_time: {
+                          gte: this.getdate(2)[0],
+                          lte: this.getdate(2)[1],
+                        },
+                      },
                     },
-                  },
-                }];
+                  ];
                 }
               );
               break;
@@ -660,15 +702,19 @@ export default {
             case "host":
               await getHostSecurityData(this.queryParms).then(({ data }) => {
                 this.hasData = data.aggregations.field.buckets;
-                this.datacopy = this.transTypeHost(data.aggregations.field.buckets);
-                this.queryParms.query.bool.must =  [{
-                  range: {
-                    "occur_time": {
-                      gte: this.getdate(2)[0],
-                      lte: this.getdate(2)[1],
+                this.datacopy = this.transTypeHost(
+                  data.aggregations.field.buckets
+                );
+                this.queryParms.query.bool.must = [
+                  {
+                    range: {
+                      occur_time: {
+                        gte: this.getdate(2)[0],
+                        lte: this.getdate(2)[1],
+                      },
                     },
                   },
-                }];
+                ];
               });
               break;
             case "dataSafe":
@@ -685,14 +731,16 @@ export default {
                     data.aggregations.field.buckets,
                     1
                   );
-                this.queryParms.query.bool.must =  [{
-                  range: {
-                    "occur_time": {
-                      gte: this.getdate(2)[0],
-                      lte: this.getdate(2)[1],
+                  this.queryParms.query.bool.must = [
+                    {
+                      range: {
+                        occur_time: {
+                          gte: this.getdate(2)[0],
+                          lte: this.getdate(2)[1],
+                        },
+                      },
                     },
-                  },
-                }];
+                  ];
                 }
               );
               break;
@@ -704,14 +752,16 @@ export default {
                   this.datacopy = this.transType(
                     data.aggregations.field.buckets
                   );
-                this.queryParms.query.bool.must =  [{
-                  range: {
-                    "occur_time": {
-                      gte: this.getdate(2)[0],
-                      lte: this.getdate(2)[1],
+                  this.queryParms.query.bool.must = [
+                    {
+                      range: {
+                        occur_time: {
+                          gte: this.getdate(2)[0],
+                          lte: this.getdate(2)[1],
+                        },
+                      },
                     },
-                  },
-                }];
+                  ];
                 }
               );
               break;
@@ -723,21 +773,23 @@ export default {
         // 事件管理---事件类型分布
         case "event_class":
           switch (this.name) {
-           case "event":
+            case "event":
               await getManagementThreatEventsData(this.queryParms).then(
                 ({ data }) => {
                   this.hasData = data.aggregations.field.buckets;
                   this.datacopy = this.transType(
                     data.aggregations.field.buckets
                   );
-                this.queryParms.query.bool.must =  [{
-                  range: {
-                    "occur_time": {
-                      gte: this.getdate(2)[0],
-                      lte: this.getdate(2)[1],
+                  this.queryParms.query.bool.must = [
+                    {
+                      range: {
+                        occur_time: {
+                          gte: this.getdate(2)[0],
+                          lte: this.getdate(2)[1],
+                        },
+                      },
                     },
-                  },
-                }];
+                  ];
                 }
               );
               break;
@@ -788,7 +840,7 @@ export default {
                 { value: 62, name: "诱捕防护" },
               ];
               break;
-             case "equipment":
+            case "equipment":
               this.hasData = [
                 { value: 3948, name: "CPU使用率过高" },
                 { value: 2514, name: "磁盘使用率过高" },
@@ -811,8 +863,8 @@ export default {
           break;
         // 资产管理---资产安全统计分析，目前都是假数据
         case "assetType":
-          switch (this.name){
-           case "assetsOne":
+          switch (this.name) {
+            case "assetsOne":
               this.hasData = [
                 { value: 3948, name: "主机" },
                 { value: 2514, name: "服务器" },
@@ -828,7 +880,7 @@ export default {
                 { value: 362, name: "网关" },
               ];
               break;
-           case "assetsTwo":
+            case "assetsTwo":
               this.hasData = [
                 { value: 3948, name: "Linux" },
                 { value: 2514, name: "Window 7" },
@@ -844,7 +896,7 @@ export default {
                 { value: 362, name: "MAC OS" },
               ];
               break;
-           case "assetsThree":
+            case "assetsThree":
               this.hasData = [
                 { value: 3948, name: "主机" },
                 { value: 2514, name: "服务器" },
@@ -860,7 +912,7 @@ export default {
                 { value: 362, name: "网关" },
               ];
               break;
-           case "assetsFour":
+            case "assetsFour":
               this.hasData = [
                 { value: 3948, name: "S7" },
                 { value: 2514, name: "MODBUS" },
@@ -869,20 +921,53 @@ export default {
                 { value: 362, name: "MMS" },
               ];
               this.datacopy = [
-               { value: 3948, name: "S7" },
+                { value: 3948, name: "S7" },
                 { value: 2514, name: "MODBUS" },
                 { value: 1699, name: "DNP3" },
                 { value: 1023, name: "IEC104" },
                 { value: 362, name: "MMS" },
               ];
               break;
-           default:
+            default:
               console.log("这里是项目类型", this.name);
               break;
-           }
+          }
           break;
-         default:
-           console.log("这里是项目类型", this.type);
+        // 策略统计事件分析
+        case "PolicyStatisticsEventAnalysis":
+          this.hasData = [
+            { value: 3948, name: "monitor_文件类型1" },
+            { value: 2514, name: "MAIL_文件规则验证" },
+            { value: 1699, name: "qwer" },
+            { value: 1023, name: "monitor_内容规则或验证1" },
+            { value: 362, name: "MAIL_地址审批响应" },
+          ];
+          this.datacopy = [
+            { value: 3948, name: "monitor_文件类型1" },
+            { value: 2514, name: "MAIL_文件规则验证" },
+            { value: 1699, name: "qwer" },
+            { value: 1023, name: "monitor_内容规则或验证1" },
+            { value: 362, name: "MAIL_地址审批响应" },
+          ];
+          break;
+        case "emailAnalysis":
+          this.hasData = [
+            { value: 3948, name: "txt" },
+            { value: 2514, name: "eml" },
+            { value: 1699, name: "docx" },
+            { value: 1023, name: "doc" },
+            { value: 362, name: "png" },
+          ];
+          this.datacopy = [
+            { value: 3948, name: "txt" },
+            { value: 2514, name: "eml" },
+            { value: 1699, name: "docx" },
+            { value: 1023, name: "doc" },
+            { value: 362, name: "png" },
+          ];
+          break;
+        default:
+          console.log("这里是项目类型", this.type);
           break;
       }
       this.drawPolicitalStatus();
