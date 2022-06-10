@@ -220,6 +220,21 @@ export default {
           //     this.barData = [];
           //   }
           // });
+          case "assetsUnderAttack":
+          await getElasticDate(this.queryParms).then(({ data }) => {
+            this.hasData = data.aggregations.field.buckets;
+            this.data1 = this.transDic(data.aggregations.field.buckets);
+            // this.queryParms.query.bool.must = [
+            //   {
+            //     range: {
+            //       ev_msec_detail_start_time: {
+            //         gte: this.getdate(2)[0],
+            //         lte: this.getdate(2)[1],
+            //       },
+            //     },
+            //   },
+            // ];
+          });
           break;
         default:
           console.log("无数据", this.type);

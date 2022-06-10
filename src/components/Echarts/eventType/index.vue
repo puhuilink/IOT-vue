@@ -106,7 +106,7 @@ export default {
             must: [
               {
               range: {
-                "ev_msec_detail_start_time": {
+                "occur_time": {
                   gte: this.getdate(2)[0],
                   lte: this.getdate(2)[1],
                 },
@@ -531,7 +531,7 @@ export default {
                 );
                  this.queryTimeParms.query.bool.must =  [{
                   range: {
-                    "ev_msec_detail_start_time": {
+                    "occur_time": {
                       gte: this.getdate(2)[0],
                       lte: this.getdate(2)[1],
                     },

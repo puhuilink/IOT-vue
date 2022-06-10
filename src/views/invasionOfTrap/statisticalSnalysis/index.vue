@@ -29,7 +29,13 @@
         </el-col>
       </el-row>
     </div>
-    <assetsUnderAttack :query="query" :address="address" />
+    <!-- <assetsUnderAttack :query="query" :address="address" /> -->
+     <echartsBar
+      :tipname="'攻击者TOP5'"
+      :type="'detail_src_ip'"
+      :query="query"
+      :name="'assetsUnderAttack'"
+    />
     <toDetectEvents
       :query="query"
       :event-type="2"
