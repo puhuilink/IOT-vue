@@ -5,7 +5,7 @@
   </el-col>
 </template>
 <script>
-import { getWeakPasswordData } from "@/utils/request";
+import { getWeakPasswordData, getElasticDate } from "@/utils/request";
 import { setNotopt } from "@/utils/emptyEcharts.js";
 import tip from "@/components/EchartsTip";
 import echarts from "echarts";
@@ -25,6 +25,11 @@ export default {
       default: null,
       type: Object,
     },
+    type: {
+      // tip内容
+      default: null,
+      type: String,
+    },
   },
   data() {
     return {
@@ -32,20 +37,23 @@ export default {
       queryParms: {
         query: {
           bool: {
-            must: [  {
-              range: {
-                "occur_time": {
-                  gte: this.getdate(2)[0],
-                  lte: this.getdate(2)[1],
+            must: [
+              {
+                range: {
+                  occur_time: {
+                    gte: this.getdate(2)[0],
+                    lte: this.getdate(2)[1],
+                  },
                 },
               },
-            }],
+            ],
           },
         },
         aggs: {
           field: {
             terms: {
-              field: "detail_protocol",
+              // field: "detail_protocol",
+              field: this.type,
               size: 5,
             },
           },
@@ -61,14 +69,14 @@ export default {
           if (val.severity) {
             this.queryParms.query.bool.must.push({
               match: {
-                "severity": val.severity,
+                severity: val.severity,
               },
             });
           }
           if (val.location) {
             this.queryParms.query.bool.must.push({
               match: {
-                "location": val.location,
+                location: val.location,
               },
             });
           }
@@ -86,7 +94,7 @@ export default {
     this.drawPolicitalStatus();
   },
   methods: {
-       Twodigits(num) {
+    Twodigits(num) {
       return num < 10 ? "0" + num : num;
     },
     getDay(num, str) {
@@ -106,7 +114,7 @@ export default {
       var beforeseven = new Date();
       var thirty = new Date();
       myDate.setDate(myDate.getDate());
-      beforeseven.setDate(beforeseven.getDate()  - 6);
+      beforeseven.setDate(beforeseven.getDate() - 6);
       thirty.setDate(thirty.getDate() - 1 - 29);
       if (type === 2) {
         return [
@@ -148,21 +156,70 @@ export default {
       });
       return area;
     },
+    transDicName(data) {
+      var area = [];
+      data.forEach((item) => {
+        area.push(item.key);
+      });
+      return area;
+    },
+    transDicCount(data) {
+      var area = [];
+      data.forEach((item) => {
+        area.push(item.doc_count);
+      });
+      return area;
+    },
     async getData() {
       switch (this.name) {
         case "weakPassword":
           await getWeakPasswordData(this.queryParms).then(({ data }) => {
             this.hasData = data.aggregations.field.buckets;
             this.data1 = this.transDic(data.aggregations.field.buckets);
-            this.queryParms.query.bool.must =  [{
-                  range: {
-                    "occur_time": {
-                      gte: this.getdate(2)[0],
-                      lte: this.getdate(2)[1],
-                    },
+            this.queryParms.query.bool.must = [
+              {
+                range: {
+                  occur_time: {
+                    gte: this.getdate(2)[0],
+                    lte: this.getdate(2)[1],
                   },
-                }];
+                },
+              },
+            ];
           });
+          break;
+        case "statisticalSnalysis":
+          await getElasticDate(this.queryParms).then(({ data }) => {
+            this.hasData = data.aggregations.field.buckets;
+            this.data1 = this.transDic(data.aggregations.field.buckets);
+            // this.queryParms.query.bool.must = [
+            //   {
+            //     range: {
+            //       ev_msec_detail_start_time: {
+            //         gte: this.getdate(2)[0],
+            //         lte: this.getdate(2)[1],
+            //       },
+            //     },
+            //   },
+            // ];
+          });
+          // await getElasticDate(this.queryParms).then((res) => {
+          //   console.log("4-13-res", res);
+          //   this.hasData = res.data.aggregations.field.buckets;
+          //   if (res.data.aggregations.field.buckets.length) {
+          //     this.category = this.transDicName(
+          //       res.data.aggregations.field.buckets
+          //     );
+          //     this.barData = this.transDicCount(
+          //       res.data.aggregations.field.buckets
+          //     );
+          //     console.log("4-13-this.category", this.category);
+          //     console.log("4-13-this.barData", this.barData);
+          //   } else {
+          //     this.category = [];
+          //     this.barData = [];
+          //   }
+          // });
           break;
         default:
           console.log("无数据", this.type);

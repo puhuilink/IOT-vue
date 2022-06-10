@@ -16,6 +16,7 @@
     />
     <echartsBar
       :tipname="'协议TOP5统计'"
+      :type="'detail_protocol'"
       :query="query"
       :name="'weakPassword'"
     />
