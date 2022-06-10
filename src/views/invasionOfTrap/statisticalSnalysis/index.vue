@@ -36,7 +36,15 @@
       :address="address"
       :search="'event_ivtp'"
     />
-    <underAttackSandbox :query="query" :address="address" />
+    <!-- <underAttackSandbox :query="query" :address="address" /> -->
+    <echartsBar
+      :tipname="'受攻击沙箱TOP5'"
+      :type="'ev_msec_asset_name'"
+      :query="query"
+      :name="'statisticalSnalysis'"
+    />
+
+
     <!-- <不删eventLevelDistribution :address="address" /> -->
     <!-- <pieChartDisposal :tipname="'事件等级分布'"
                       :address="address"
@@ -51,6 +59,7 @@
 </template>
 <script>
 import echarts from "@/components/Echarts/searchBar";
+import echartsBar from '@/components/Echarts/echartsBar'
 import assetsUnderAttack from "@/components/Echarts/assetsUnderAttack";
 import toDetectEvents from "@/components/Echarts/toDetectEvents";
 import underAttackSandbox from "@/components/Echarts/underAttackSandbox";
@@ -69,6 +78,7 @@ export default {
     underAttackSandbox,
     pieChartDisposal,
     eventType,
+    echartsBar,
     // eventLevelDistribution,
     tip,
   },

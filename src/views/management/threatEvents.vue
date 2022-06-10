@@ -231,12 +231,12 @@
         prop="_source.occur_time"
         :show-overflow-tooltip="true"
       />
-      <el-table-column
+      <!-- <el-table-column
         label="事件结束时间"
         align="center"
         prop="_source.close_time"
         :show-overflow-tooltip="true"
-      />
+      /> -->
       <el-table-column
         label="区域"
         align="center"

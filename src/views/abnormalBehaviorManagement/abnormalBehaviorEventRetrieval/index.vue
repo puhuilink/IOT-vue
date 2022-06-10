@@ -135,9 +135,9 @@
               </el-form-item>
             </el-col>
             <el-col :span="6">
-              <el-form-item label="杀伤链阶段:" prop="ev_ksec_killchain">
+              <el-form-item label="杀伤链阶段:" prop="ev_ksec_killchainCN">
                 <el-select
-                  v-model="queryParams.ev_ksec_killchain"
+                  v-model="queryParams.ev_ksec_killchainCN"
                   placeholder="请选择杀伤链阶段"
                   filterable
                   clearable
@@ -210,15 +210,15 @@
             <span v-else>{{ transTypeDic(scope.row._source.severity) }}</span>
           </template>
         </el-table-column>
-         <el-table-column label="杀伤链阶段" align="center" prop="ev_ksec_killchain">
+         <el-table-column label="杀伤链阶段" align="center" prop="ev_ksec_killchainCN">
           <template #default="scope">
             <span
               v-if="
-                scope.row._source.ev_ksec_killchain == '' ||
-                scope.row._source.ev_ksec_killchain == null
+                scope.row._source.ev_ksec_killchainCN == '' ||
+                scope.row._source.ev_ksec_killchainCN == null
               "
             />
-            <span v-else>{{ transKillchainDic(scope.row._source.ev_ksec_killchain) }}</span>
+            <span v-else>{{ transKillchainDic(scope.row._source.ev_ksec_killchainCN) }}</span>
           </template>
         </el-table-column>
         <el-table-column
@@ -307,7 +307,7 @@
             </el-col>
             <el-col :span="12">
               <el-form-item label="杀伤链阶段 :">
-                {{ detailData.ev_ksec_killchain }}
+                {{ detailData.ev_ksec_killchainCN }}
               </el-form-item>
             </el-col>
             <el-col :span="12">
@@ -556,7 +556,7 @@ export default {
         procedure: "",
         ev_com_socket_dst_ip: "",
         ev_com_socket_src_ip: "",
-        ev_ksec_killchain: "",
+        ev_ksec_killchainCN: "",
         date: [],
       },
       formData:{
@@ -812,8 +812,8 @@ export default {
 
       this.addQuery(
         this.query,
-        "ev_ksec_killchain",
-        this.queryParams.ev_ksec_killchain
+        "ev_ksec_killchainCN",
+        this.queryParams.ev_ksec_killchainCN
       );
 
       this.query.from = this.from - 1;
@@ -1061,7 +1061,7 @@ export default {
         procedure: "",
         ev_com_socket_dst_ip: "",
         ev_com_socket_src_ip: "",
-        ev_ksec_killchain: "",
+        ev_ksec_killchainCN: "",
         date: [],
       };
       this.getTableList();
@@ -1075,7 +1075,7 @@ export default {
       this.detailData.event_format = this.transType(
         this.detailData.event_format
       );
-      this.detailData.ev_ksec_killchain = this.transKillchainDic(this.detailData.ev_ksec_killchain);
+      this.detailData.ev_ksec_killchainCN = this.transKillchainDic(this.detailData.ev_ksec_killchainCN);
     },
     // 取消按钮
     cancel() {
