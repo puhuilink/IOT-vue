@@ -39,19 +39,21 @@ export default {
       changeMobsfIframe()
     }
   },
-  created(){
-   this.getToken()
-    this.getTokenCopy()
+ async created(){
+     await Promise.all([
+     this.getToken(),
+   this.getTokenCopy()
+    ]) 
   },
   methods: {
    async getToken(){  
     const res = await getToken()
       this.query.token = res
     },   
-     getTokenCopy(){  
-      getAPPtoken().then((res) => {
-        this.query.appToken = res.data.info.token
-      }); 
+   async  getTokenCopy(){  
+        const res = await getAPPtoken()
+       this.query.appToken = res.data.info.token
+
     }, 
     loaded(){
 				this.iframeWin.postMessage(this.query,'*');
