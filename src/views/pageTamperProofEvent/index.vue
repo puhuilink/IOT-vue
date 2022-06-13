@@ -504,7 +504,8 @@ export default {
         report:"是",
         id:"",
         index:"",
-        type:""
+        type:"",
+        notificationStatus:""
       },
       levelOptions: [
         {
@@ -605,10 +606,6 @@ export default {
         {
           label: "新疆八一钢筋厂",
           value: "新疆八一钢筋厂",
-        },
-        {
-          label: "青岛石油化工厂",
-          value: "青岛石油化工厂",
         },
         {
           label: "浙江联顺预制厂",
@@ -835,6 +832,18 @@ export default {
       })
         .then(() => {
           this.addDialog = true
+           this.formData = {
+            notificationName: "",
+            eventType: "",
+            eventName: "",
+            priority: "",
+            remark: "",
+            report: "是",
+            id: "",
+            index: "",
+            type: "",
+            notificationStatus:""
+          };
            this.title = '新增通报'
            this.formData.id = id
            this.formData.index = index
