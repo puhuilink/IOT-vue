@@ -968,10 +968,6 @@ export default {
           value: "新疆八一钢筋厂",
         },
         {
-          label: "青岛石油化工厂",
-          value: "青岛石油化工厂",
-        },
-        {
           label: "浙江联顺预制厂",
           value: "浙江联顺预制厂",
         },

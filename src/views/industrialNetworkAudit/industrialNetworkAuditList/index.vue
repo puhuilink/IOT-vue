@@ -235,30 +235,58 @@
           class-name="small-padding fixed-width"
           width="180"
         >
-          <template #default="{ row }">
+          <template slot-scope="scope">
             <el-button size="mini" type="text" @click="detail(row._source)"
               >详情</el-button
             >
             &nbsp;&nbsp; &nbsp;&nbsp;
-            <el-dropdown @command="batchOperate">
-              <el-button size="mini" type="text">
-                状态变更<i class="el-icon-arrow-down el-icon--right" />
-              </el-button>
-              <el-dropdown-menu slot="dropdown">
-                <el-dropdown-item
-                  :command="beforeHandleCommand(row._id, row._index, '处置')"
-                  >处置</el-dropdown-item
-                >
-                <el-dropdown-item
-                  :command="beforeHandleCommand(row._id, row._index, '不处置')"
-                  >不处置</el-dropdown-item
-                >
-                <el-dropdown-item
-                  :command="beforeHandleCommand(row._id, row._index, '误报')"
-                  >误报</el-dropdown-item
-                >
-              </el-dropdown-menu>
-            </el-dropdown>
+             <!-- 误报 -->
+          <el-dropdown @command="batchOperate" v-if="scope.row._source.procedure == '误报'">
+            <el-button size="mini" type="text">
+              状态变更<i class="el-icon-arrow-down el-icon--right" />
+            </el-button>
+            <el-dropdown-menu slot="dropdown">
+              <el-dropdown-item :command="beforeHandleCommand(scope.row._id, scope.row._index,'处置',scope.row._source.event_name,scope.row._source.event_class)">处置</el-dropdown-item>
+              <el-dropdown-item :command="beforeHandleCommand(scope.row._id, scope.row._index,'不处置')">不处置</el-dropdown-item>
+            </el-dropdown-menu>
+          </el-dropdown>
+
+         <!-- 不处置 -->
+         <el-dropdown @command="batchOperate" v-else-if="scope.row._source.procedure == '不处置'">
+            <el-button size="mini" type="text">
+              状态变更<i class="el-icon-arrow-down el-icon--right" />
+            </el-button>
+            <el-dropdown-menu slot="dropdown">
+              <el-dropdown-item :command="beforeHandleCommand(scope.row._id, scope.row._index,'处置',scope.row._source.event_name,scope.row._source.event_class)">处置</el-dropdown-item>
+              <el-dropdown-item :command="beforeHandleCommand(scope.row._id, scope.row._index,'误报')">误报</el-dropdown-item>
+            </el-dropdown-menu>
+          </el-dropdown>
+
+         <!-- 已处置、处置中 -->
+          <el-dropdown @command="batchOperate"  v-else-if="
+                scope.row._source.procedure == '已处置' ||
+                scope.row._source.procedure == '处置中'
+              ">
+            <el-button size="mini" type="text">
+              状态变更<i class="el-icon-arrow-down el-icon--right" />
+            </el-button>
+            <el-dropdown-menu slot="dropdown">
+              <el-dropdown-item :command="beforeHandleCommand(scope.row._id, scope.row._index,'不处置')">不处置</el-dropdown-item>
+              <el-dropdown-item :command="beforeHandleCommand(scope.row._id, scope.row._index,'误报')">误报</el-dropdown-item>
+            </el-dropdown-menu>
+          </el-dropdown>
+      
+          <!-- 待处置 -->
+          <el-dropdown @command="batchOperate" v-else>
+            <el-button size="mini" type="text">
+              状态变更<i class="el-icon-arrow-down el-icon--right" />
+            </el-button>
+            <el-dropdown-menu slot="dropdown">
+              <el-dropdown-item :command="beforeHandleCommand(scope.row._id, scope.row._index,'处置',scope.row._source.event_name,scope.row._source.event_class)">处置</el-dropdown-item>
+              <el-dropdown-item :command="beforeHandleCommand(scope.row._id, scope.row._index,'不处置')">不处置</el-dropdown-item>
+              <el-dropdown-item :command="beforeHandleCommand(scope.row._id, scope.row._index,'误报')">误报</el-dropdown-item>
+            </el-dropdown-menu>
+          </el-dropdown>
           </template>
         </el-table-column>
       </el-table>
@@ -423,13 +451,13 @@
           ref="formData"
           :model="formData"
           :rules="rules"
-          label-width="80px"
+          label-width="90px"
           class="label-type"
         >
-          <el-form-item label="通报名称:" prop="notificationName">
+          <el-form-item label="通报名称:" prop="notificationName" :rules="[{ required: true, message: '请输入通报名称' }]">
             <el-input v-model.trim="formData.notificationName" placeholder="" />
           </el-form-item>
-          <el-form-item label="事件类型:" prop="eventType">
+          <!-- <el-form-item label="事件类型:" prop="eventType">
             <el-select
               v-model.trim="formData.eventType"
               placeholder=""
@@ -445,11 +473,18 @@
                 :disabled="item.disabled"
               />
             </el-select>
+          </el-form-item> -->
+          <el-form-item label="事件类型:" prop="eventType">
+            <el-input
+              v-model.trim="formData.eventType"
+              placeholder=""
+              disabled
+            />
           </el-form-item>
           <el-form-item label="事件名称:" prop="eventName">
-            <el-input v-model.trim="formData.eventName" placeholder="" />
+            <el-input v-model.trim="formData.eventName" placeholder="" disabled />
           </el-form-item>
-          <el-form-item label="优先级:" prop="priority">
+          <el-form-item label="优先级:" prop="priority" :rules="[{ required: true, message: '请选择优先级' }]">
             <el-select
               v-model.trim="formData.priority"
               placeholder=""
@@ -558,6 +593,7 @@ export default {
         id: "",
         index: "",
         type: "",
+        notificationStatus:""
       },
       levelOptions: [
         {
@@ -607,10 +643,6 @@ export default {
         {
           label: "新疆八一钢筋厂",
           value: "新疆八一钢筋厂",
-        },
-        {
-          label: "青岛石油化工厂",
-          value: "青岛石油化工厂",
         },
         {
           label: "浙江联顺预制厂",
@@ -893,14 +925,69 @@ export default {
       // console.log(orgTreeData1[0].content);
       return `${orgTreeData1[0].content}`;
     },
-    beforeHandleCommand(id, index, command) {
-      // console.log(id,index,command)
-      return {
-        id: id,
-        index: index,
-        command: command,
-      };
+    transClassDic(val) {
+      var t = [
+        {
+          name: "class_ivtp",
+          content: "入侵诱捕事件",
+        },
+        {
+          name: "class_abbm",
+          content: "异常行为管理",
+        },
+        {
+          name: "class_ztwe",
+          content: "僵木蠕事件",
+        },
+        {
+          name: "class_iocm",
+          content: "威胁情报管理",
+        },
+        {
+          name: "class_wkpw",
+          content: "弱口令事件",
+        },
+        {
+          name: "class_inpa",
+          content: "工业网络审计",
+        },
+        {
+          name: "class_hsme",
+          content: "主机安全管理",
+        },
+        {
+          name: "class_scce",
+          content: "配置核查管理",
+        },
+        {
+          name: "class_dsme",
+          content: "数据安全管理",
+        },
+        {
+          name: "class_infe",
+          content: "工业防火墙事件",
+        },
+        {
+          name: "class_wppe",
+          content: "网页防篡改事件",
+        },
+      ];
+      const orgTreeData1 = t
+        .filter((e) => e.name === val)
+        .map(({ content }) => ({
+          content,
+        }));
+      return `${orgTreeData1[0].content}`;
     },
+      beforeHandleCommand(id, index,command,event_name,event_class){
+        return {
+            id: id,
+            index: index,
+            command:command,
+            event_name: event_name,
+            event_class:event_class
+          }
+      },
     batchOperate(command) {
       // console.log('command',command)
       // console.log('_id',id)
@@ -909,12 +996,7 @@ export default {
       switch (command.command) {
         case "处置":
           message = "是否确认变更处置状态？";
-          this.openMessageBox(
-            message,
-            command.id,
-            command.index,
-            command.command
-          );
+          this.openMessageBox(message,command.id,command.index,command.command, command.event_name, command.event_class);
           break;
         case "不处置":
           message = "是否确认将此事件处置状态修改为不处置？";
@@ -936,7 +1018,7 @@ export default {
           break;
       }
     },
-    async openMessageBox(message, id, index, command) {
+    async openMessageBox(message,id,index,command,event_name,event_class) {
       this.$confirm(message, "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
@@ -944,13 +1026,23 @@ export default {
       })
         .then(() => {
           this.addDialog = true;
-          this.title = "新增通报";
-          this.formData.id = id;
-          this.formData.index = index;
-          // this.$message({
-          //   type: "success",
-          //   message: "修改成功!",
-          // });
+          this.formData = {
+            notificationName: "",
+            eventType: "",
+            eventName: "",
+            priority: "",
+            remark: "",
+            report: "是",
+            id: "",
+            index: "",
+            type: "",
+            notificationStatus:""
+          };
+           this.title = '新增通报'
+           this.formData.id = id
+           this.formData.index = index
+           this.formData.eventName = event_name
+           this.formData.eventType = this.transClassDic(event_class)
         })
         .catch(() => {
           this.$message({
@@ -971,11 +1063,14 @@ export default {
             index: index,
             type: command,
           }).then((response) => {
-            this.getTableList();
+            // this.getTableList();
             this.$message({
               type: "success",
               message: "修改成功!",
             });
+             setTimeout(() => {
+              this.getTableList();
+            }, 500);
           });
         })
         .catch(() => {
@@ -999,11 +1094,14 @@ export default {
             index: index,
             type: command,
           }).then((response) => {
-            this.getTableList();
+            // this.getTableList();
             this.$message({
               type: "success",
               message: "修改成功!",
             });
+             setTimeout(() => {
+              this.getTableList();
+            }, 500);
           });
         })
         .catch(() => {
@@ -1061,48 +1159,60 @@ export default {
         this.detailData.event_format
       );
     },
-    async saveForm() {
-      this.addDialog = false;
-      if(this.formData.report == '是'){
-          this.formData.type = '已处置'
-          this.formData.notificationStatus = '已通报'
-       }else{
-         this.formData.type = '处置中'
-         this.formData.notificationStatus = '未通报'
-       }
-      console.log("this.formData", this.formData);
-      // ES状态变更
-      await stateChanges({
-        id: this.formData.id,
-        index: this.formData.index,
-        type: this.formData.type,
-      }).then((response) => {
+   async putInStorageM() {
+      //入库
+      await putInStorage(this.formData).then((response) => {
         this.$message({
           type: "success",
-          message: "修改成功!",
+          message: "入库成功!",
         });
-        //入库
-        putInStorage(this.formData).then((response) => {
-          this.$message({
-            type: "success",
-            message: "入库成功!",
-          });
-          if (this.formData.report == "是") {
-            // 上报
-            notificationExport({
-              id: this.formData.id,
-              index: this.formData.index,
-            }).then((response) => {
-              this.$message({
-                type: "success",
-                message: "上报成功!",
-              });
+        if (this.formData.report == "是") {
+          // 上报
+          notificationExport({
+            id: this.formData.id,
+            index: this.formData.index,
+          }).then((response) => {
+            // this.$message({
+            //   type: "success",
+            //   // message: "上报成功!",
+            // });
+            setTimeout(() => {
               this.getTableList();
-            });
-          } else {
+            }, 500);
+          });
+        } else {
+          setTimeout(() => {
             this.getTableList();
+          }, 500);
+        }
+      });
+    },
+    async saveForm() {
+      this.$refs["formData"].validate(async (valid) => {
+        if (valid) {
+          this.addDialog = false;
+          if (this.formData.report == "是") {
+            this.formData.type = "已处置";
+            this.formData.notificationStatus = "已通报";
+          } else {
+            this.formData.type = "处置中";
+            this.formData.notificationStatus = "未通报";
           }
-        });
+          // ES状态变更
+          await stateChanges({
+            id: this.formData.id,
+            index: this.formData.index,
+            type: this.formData.type,
+          }).then((response) => {
+            // this.$message({
+            //   type: "success",
+            //   message: "修改成功!",
+            // });
+              setTimeout(() => {
+                this.putInStorageM();
+              }, 500);
+          });
+        }
       });
     },
   },
