@@ -15,6 +15,15 @@ export function eventEsData(query) {
     params: query
   })
 }
+
+//主机安全es趋势分析接口--展示30天数据
+export function eventEsHostData(query) {
+  return request({
+    url: '/event/eventMappingTO/getTestEventIds',
+    method: 'post',
+    params: query
+  })
+}
 /** ****************************************************************************
  * 事件管理
  ******************************************************************************/
