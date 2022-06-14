@@ -239,8 +239,8 @@ export function abnormalEventLevelDistribution(query) {
 // 安全管理：异常行为管理：事件统计分析 :杀伤链阶段流量统计
 export function KillChain(query) {
   return request({
-    url: '/dm/abnormal/selectKillingChainStage/selectKillingChainStageType/a',
-    method: 'get',
+    url: '/event/trendChartKillingChain/getTestEventIds',
+    method: 'post',
     params: query
   })
 }
