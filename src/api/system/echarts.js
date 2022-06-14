@@ -10,7 +10,7 @@ export function getToken(query) {
 //es趋势分析接口
 export function eventEsData(query) {
   return request({
-    url: '/event/eventMapping/getEventIds',
+    url: '/event/eventMapping/getTestEventIds',
     method: 'post',
     params: query
   })
