@@ -10,7 +10,16 @@ export function getToken(query) {
 //es趋势分析接口
 export function eventEsData(query) {
   return request({
-    url: '/event/eventMapping/getEventIds',
+    url: '/event/eventMapping/getTestEventIds',
+    method: 'post',
+    params: query
+  })
+}
+
+//主机安全es趋势分析接口--展示30天数据
+export function eventEsHostData(query) {
+  return request({
+    url: '/event/eventMappingTO/getTestEventIds',
     method: 'post',
     params: query
   })
@@ -230,8 +239,8 @@ export function abnormalEventLevelDistribution(query) {
 // 安全管理：异常行为管理：事件统计分析 :杀伤链阶段流量统计
 export function KillChain(query) {
   return request({
-    url: '/dm/abnormal/selectKillingChainStage/selectKillingChainStageType/a',
-    method: 'get',
+    url: '/event/trendChartKillingChain/getTestEventIds',
+    method: 'post',
     params: query
   })
 }

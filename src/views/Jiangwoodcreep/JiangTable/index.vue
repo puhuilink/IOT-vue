@@ -289,7 +289,8 @@
                       scope.row._id,
                       scope.row._index,
                       '处置',
-                      scope.row._source.event_name
+                      scope.row._source.event_name,
+                      scope.row._source.event_class
                     )
                   "
                   >处置</el-dropdown-item
@@ -320,7 +321,8 @@
                       scope.row._id,
                       scope.row._index,
                       '处置',
-                      scope.row._source.event_name
+                      scope.row._source.event_name,
+                      scope.row._source.event_class
                     )
                   "
                   >处置</el-dropdown-item
@@ -374,7 +376,8 @@
                       scope.row._id,
                       scope.row._index,
                       '处置',
-                      scope.row._source.event_name
+                      scope.row._source.event_name,
+                      scope.row._source.event_class
                     )
                   "
                   >处置</el-dropdown-item
@@ -792,10 +795,6 @@ export default {
           value: "新疆八一钢筋厂",
         },
         {
-          label: "青岛石油化工厂",
-          value: "青岛石油化工厂",
-        },
-        {
           label: "浙江联顺预制厂",
           value: "浙江联顺预制厂",
         },
@@ -1092,19 +1091,70 @@ export default {
       this.total = res.total;
       this.loading = false;
     },
-    beforeHandleCommand(id, index, command, event_name) {
-      // console.log(id,index,command)
+     transClassDic(val) {
+      var t = [
+        {
+          name: "class_ivtp",
+          content: "入侵诱捕事件",
+        },
+        {
+          name: "class_abbm",
+          content: "异常行为管理",
+        },
+        {
+          name: "class_ztwe",
+          content: "僵木蠕事件",
+        },
+        {
+          name: "class_iocm",
+          content: "威胁情报管理",
+        },
+        {
+          name: "class_wkpw",
+          content: "弱口令事件",
+        },
+        {
+          name: "class_inpa",
+          content: "工业网络审计",
+        },
+        {
+          name: "class_hsme",
+          content: "主机安全管理",
+        },
+        {
+          name: "class_scce",
+          content: "配置核查管理",
+        },
+        {
+          name: "class_dsme",
+          content: "数据安全管理",
+        },
+        {
+          name: "class_infe",
+          content: "工业防火墙事件",
+        },
+        {
+          name: "class_wppe",
+          content: "网页防篡改事件",
+        },
+      ];
+      const orgTreeData1 = t
+        .filter((e) => e.name === val)
+        .map(({ content }) => ({
+          content,
+        }));
+      return `${orgTreeData1[0].content}`;
+    },
+    beforeHandleCommand(id, index, command, event_name,event_class) {
       return {
         id: id,
         index: index,
         command: command,
         event_name: event_name,
+        event_class:event_class
       };
     },
     batchOperate(command) {
-      // console.log('command',command)
-      // console.log('_id',id)
-      //  console.log('_index',index)
       let message = "";
       switch (command.command) {
         case "处置":
@@ -1114,7 +1164,8 @@ export default {
             command.id,
             command.index,
             command.command,
-            command.event_name
+            command.event_name,
+            command.event_class
           );
           break;
         case "不处置":
@@ -1137,7 +1188,7 @@ export default {
           break;
       }
     },
-    async openMessageBox(message, id, index, command, event_name) {
+    async openMessageBox(message, id, index, command, event_name,event_class) {
       this.$confirm(message, "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
@@ -1155,12 +1206,13 @@ export default {
             id: "",
             index: "",
             type: "",
+            notificationStatus:""
           };
           this.title = "新增通报";
           this.formData.id = id;
           this.formData.index = index;
           this.formData.eventName = event_name;
-          this.formData.eventType = "僵木蠕事件";
+          this.formData.eventType = this.transClassDic(event_class);
           // this.$message({
           //   type: "success",
           //   message: "修改成功!",
@@ -1192,7 +1244,7 @@ export default {
             // this.getTableList();
             setTimeout(() => {
               this.getTableList();
-            }, 1000);
+            }, 500);
           });
         })
         .catch(() => {
@@ -1203,14 +1255,12 @@ export default {
         });
     },
     async falseReportBox(message, id, index, command) {
-      console.log("参数：", id, index, command);
       this.$confirm(message, "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
         type: "warning",
       })
         .then(() => {
-          console.log("接口");
           stateChanges({
             id: id,
             index: index,
@@ -1222,11 +1272,10 @@ export default {
             });
             setTimeout(() => {
               this.getTableList();
-            }, 1000);
+            }, 500);
           });
         })
         .catch(() => {
-          console.log("cancel");
           this.$message({
             type: "info",
             message: "已取消修改！",
@@ -1279,7 +1328,6 @@ export default {
     async putInStorageM() {
       //入库
       await putInStorage(this.formData).then((response) => {
-        console.log("6-8-network");
         this.$message({
           type: "success",
           message: "入库成功!",
@@ -1296,12 +1344,12 @@ export default {
             // });
             setTimeout(() => {
               this.getTableList();
-            }, 1000);
+            }, 500);
           });
         } else {
           setTimeout(() => {
             this.getTableList();
-          }, 1000);
+          }, 500);
         }
       });
     },
@@ -1316,7 +1364,6 @@ export default {
             this.formData.type = "处置中";
             this.formData.notificationStatus = "未通报";
           }
-          console.log("this.formData", this.formData);
           // ES状态变更
           await stateChanges({
             id: this.formData.id,
@@ -1327,19 +1374,9 @@ export default {
             //   type: "success",
             //   message: "修改成功!",
             // });
-            if (
-              this.formData.type == "已处置" ||
-              this.formData.type == "处置中"
-            ) {
               setTimeout(() => {
                 this.putInStorageM();
-              }, 1000);
-            } else {
-              console.log("误报或者不处置");
-              setTimeout(() => {
-                this.getTableList();
-              }, 1000);
-            }
+              }, 500);
           });
         }
       });

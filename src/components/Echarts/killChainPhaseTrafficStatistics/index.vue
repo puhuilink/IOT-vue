@@ -6,10 +6,9 @@
 </template>
 <script>
 import { setNotopt } from "@/utils/emptyEcharts.js";
-import { eventEsData } from "@/api/system/echarts";
+import { KillChain } from "@/api/system/echarts";
 import tip from "@/components/EchartsTip";
 import echarts from "echarts";
-import { KillChain } from "@/api/system/echarts";
 export default {
   components: { tip },
   props: {
@@ -143,7 +142,7 @@ export default {
       return area;
     },
     async getData() {
-      await eventEsData(this.queryParms).then(({ data }) => {
+      await KillChain(this.queryParms).then(({ data }) => {
         this.hasData = data;
         if (data.length) {
           const aaa = data.filter((e) => e.killingChainStage === "载荷投递");

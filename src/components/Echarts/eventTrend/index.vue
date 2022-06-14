@@ -34,7 +34,7 @@
 </template>
 <script>
 import { setNotopt } from "@/utils/emptyEcharts.js";
-import { eventEsData, scanningeventLevelEcharts } from "@/api/system/echarts";
+import { eventEsData,eventEsHostData, scanningeventLevelEcharts } from "@/api/system/echarts";
 import tip from "@/components/EchartsTip";
 export default {
   name: "AAA",
@@ -312,7 +312,7 @@ export default {
           });
           break;
         case "host":
-          await eventEsData(this.queryParms).then(({ data }) => {
+          await eventEsHostData(this.queryParms).then(({ data }) => {
             console.log(data);
             this.hasData = data;
             this.data1 = this.transDicData(data)[0];
