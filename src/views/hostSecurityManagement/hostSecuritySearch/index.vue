@@ -235,7 +235,7 @@
           class-name="small-padding fixed-width"
         >
           <template slot-scope="scope">
-            <el-button size="mini" type="text" @click="detail(row._source)"
+            <el-button size="mini" type="text" @click="detail(scope.row._source)"
               >详情</el-button
             >
             &nbsp;&nbsp; &nbsp;&nbsp;
@@ -372,7 +372,7 @@
               </el-form-item>
             </el-col>
             <el-col :span="12">
-              <el-form-item label="产生时间 :">
+              <el-form-item label="发生时间 :">
                 {{ detailData.occur_time }}
               </el-form-item>
             </el-col>
@@ -1049,7 +1049,7 @@ export default {
            this.formData.id = id
            this.formData.index = index
            this.formData.eventName = this.transType(event_format)
-           this.formData.eventType = this.transType(event_format)
+           this.formData.eventType = "主机安全管理"
           // this.$message({
           //   type: "success",
           //   message: "修改成功!",

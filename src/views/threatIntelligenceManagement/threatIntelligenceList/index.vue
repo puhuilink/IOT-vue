@@ -251,7 +251,7 @@
               状态变更<i class="el-icon-arrow-down el-icon--right" />
             </el-button>
             <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item :command="beforeHandleCommand(scope.row._id, scope.row._index,'处置',scope.row._source.event_name,scope.row._source.event_class)">处置</el-dropdown-item>
+              <el-dropdown-item :command="beforeHandleCommand(scope.row._id, scope.row._index,'处置',scope.row._source.ev_ksec_aptOrganization,scope.row._source.event_class)">处置</el-dropdown-item>
               <el-dropdown-item :command="beforeHandleCommand(scope.row._id, scope.row._index,'不处置')">不处置</el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
@@ -262,7 +262,7 @@
               状态变更<i class="el-icon-arrow-down el-icon--right" />
             </el-button>
             <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item :command="beforeHandleCommand(scope.row._id, scope.row._index,'处置',scope.row._source.event_name,scope.row._source.event_class)">处置</el-dropdown-item>
+              <el-dropdown-item :command="beforeHandleCommand(scope.row._id, scope.row._index,'处置',scope.row._source.ev_ksec_aptOrganization,scope.row._source.event_class)">处置</el-dropdown-item>
               <el-dropdown-item :command="beforeHandleCommand(scope.row._id, scope.row._index,'误报')">误报</el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
@@ -287,7 +287,7 @@
               状态变更<i class="el-icon-arrow-down el-icon--right" />
             </el-button>
             <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item :command="beforeHandleCommand(scope.row._id, scope.row._index,'处置',scope.row._source.event_name,scope.row._source.event_class)">处置</el-dropdown-item>
+              <el-dropdown-item :command="beforeHandleCommand(scope.row._id, scope.row._index,'处置',scope.row._source.ev_ksec_aptOrganization,scope.row._source.event_class)">处置</el-dropdown-item>
               <el-dropdown-item :command="beforeHandleCommand(scope.row._id, scope.row._index,'不处置')">不处置</el-dropdown-item>
               <el-dropdown-item :command="beforeHandleCommand(scope.row._id, scope.row._index,'误报')">误报</el-dropdown-item>
             </el-dropdown-menu>
@@ -520,11 +520,11 @@
           <el-form-item
             label="事件名称:"
             prop="eventName"
-            disabled
           >
             <el-input
               v-model.trim="formData.eventName"
               placeholder=""
+              disabled
             />
           </el-form-item>
           <el-form-item
@@ -1105,12 +1105,12 @@ export default {
         }));
       return `${orgTreeData1[0].content}`;
     },
-      beforeHandleCommand(id, index,command,event_name,event_class){
+      beforeHandleCommand(id, index,command,ev_ksec_aptOrganization,event_class){
         return {
             id: id,
             index: index,
             command:command,
-            event_name: event_name,
+            ev_ksec_aptOrganization: ev_ksec_aptOrganization,
             event_class:event_class
           }
       },
@@ -1122,7 +1122,7 @@ export default {
       switch (command.command) {
         case '处置':
           message = "是否确认变更处置状态？";
-          this.openMessageBox(message,command.id,command.index,command.command, command.event_name, command.event_class);
+          this.openMessageBox(message,command.id,command.index,command.command, command.ev_ksec_aptOrganization, command.event_class);
           break;
         case "不处置":
           message = "是否确认将此事件处置状态修改为不处置？";
@@ -1134,7 +1134,7 @@ export default {
           break;
       }
     },
-    async openMessageBox(message,id,index,command,event_name,event_class) {
+    async openMessageBox(message,id,index,command,ev_ksec_aptOrganization,event_class) {
       this.$confirm(message, "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
@@ -1157,7 +1157,7 @@ export default {
            this.title = '新增通报'
            this.formData.id = id
            this.formData.index = index
-           this.formData.eventName = event_name
+           this.formData.eventName = ev_ksec_aptOrganization
            this.formData.eventType = this.transClassDic(event_class)
         })
         .catch(() => {
