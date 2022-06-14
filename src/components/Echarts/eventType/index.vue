@@ -73,7 +73,7 @@ export default {
       querys: {
         severity: "",
         beginGenerationTime: this.getdate(2)[0],
-        endGenerationTime: this.getdate(2)[1],
+        endGenerationTime: this.getdate(2)[1]+ ' 23-59-59',
         location: "",
       },
       queryParms: {
@@ -141,7 +141,7 @@ export default {
             });
           }
           if (val.location) {
-            this.querys.location = val.location;
+         c
             this.queryParms.query.bool.must.push({
               match: {
                 location: val.location,

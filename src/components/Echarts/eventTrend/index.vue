@@ -65,6 +65,12 @@ export default {
   },
   data() {
     return {
+         querys: {
+        severity: "",
+        beginGenerationTime: this.getdate(2)[0],
+        endGenerationTime: this.getdate(2)[1]+ ' 23-59-59',
+        location: "",
+      },
       queryParms: {
         indexes: this.search,
         beginGenerationTime:this.getdate(2)[0],
@@ -87,13 +93,17 @@ export default {
       handler(val, oldVal) {
         if (val !== oldVal) {
           if (val.severity) {
+             this.querys.severity = val.severity;
             this.queryParms.severity = val.severity;
           } else {
+             this.querys.severity ="";
             this.queryParms.severity = "";
           }
           if (val.location) {
+             this.querys.location = val.location;
             this.queryParms.location = val.location;
           } else {
+             this.querys.location = "";
             this.queryParms.location = "";
           }
           this.getData();
@@ -338,7 +348,7 @@ export default {
           });
           break;
         case "vulnerablity":
-          await scanningeventLevelEcharts(this.queryParms).then(({ data }) => {
+          await scanningeventLevelEcharts(this.querys).then(({ data }) => {
             this.hasData = data;
             if (data.length) {
               const aaa = data.filter((e) => e.eventLevel === "1");
