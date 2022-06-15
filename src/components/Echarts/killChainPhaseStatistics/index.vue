@@ -46,7 +46,7 @@ export default {
         endTime: "",
         severity: "",
         location: "",
-        evKsecKillchain:""
+        evKsecKillchain: "",
       },
     };
   },
@@ -88,30 +88,33 @@ export default {
   },
   methods: {
     async getData() {
-      const { data } = await KillChain(this.queryParms);
-      this.hasData = data;
-      this.categoryName = [];
-      if (this.hasData.length) {
-        var dataArray = data[0].data;
-        for (let j = 0; j < dataArray.length; j++) {
-          const dataArr = data[j].data;
-
-          this.categoryName.push(data[j].eventSeverity);
-          for (let i = 0; i < dataArr.length; i++) {
-            const height = dataArr[i];
-            const newArr = [j, i, height];
-            this.axisData.push(newArr);
-          }
-          this.category = this.axisData.map(function (item) {
-            return [item[1], item[0], item[2]];
-          });
-          this.date = data[0].date;
-        }
-      } else {
-        this.category = [];
-        this.date = [];
+      // const { data } = await KillChain(this.queryParms);
+      await KillChain(this.queryParms).then(({ data }) => {
+        this.hasData = data;
         this.categoryName = [];
-      }
+        if (this.hasData.length) {
+          var dataArray = data[0].data;
+          for (let j = 0; j < dataArray.length; j++) {
+            const dataArr = data[j].data;
+
+            this.categoryName.push(data[j].eventSeverity);
+            for (let i = 0; i < dataArr.length; i++) {
+              const height = dataArr[i];
+              const newArr = [j, i, height];
+              this.axisData.push(newArr);
+            }
+            this.category = this.axisData.map(function (item) {
+              return [item[1], item[0], item[2]];
+            });
+            this.date = data[0].date;
+          }
+        } else {
+          this.category = [];
+          this.date = [];
+          this.categoryName = [];
+        }
+      });
+      this.drawPolicitalStatus();
     },
     async drawPolicitalStatus() {
       if (this.hasData.length) {
