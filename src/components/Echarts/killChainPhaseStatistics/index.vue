@@ -94,7 +94,7 @@ export default {
     async getData() {
       // const { data } = await KillChain(this.queryParms);
       await KillChain(this.queryParms).then(({ data }) => {
-      //   console.log('6-15',data)
+        // console.log('6-15',data)
       //  接口数据格式：
         // var data = [
         //   {eventSeverity: "Delivery",data: [1, 2, 0, 4, 8, 0, 0],date: ["2022-06-09", "2022-06-10", "2022-06-11", "2022-06-12", "2022-06-13", "2022-06-14", "2022-06-15"]},
@@ -105,12 +105,12 @@ export default {
         //   {eventSeverity: "CnC",data: [7, 2, 8, 6, 7, 0, 0],date: ["2022-06-09", "2022-06-10", "2022-06-11", "2022-06-12", "2022-06-13", "2022-06-14", "2022-06-15"]},
         //   {}
         //   ];
-        //   console.log('data---6-15',data)
+          console.log('data---6-15--假',data)
         this.hasData = data;
         this.categoryName = [];
         if (this.hasData) {
           var dataArray = data[0].data;
-          console.log('dataArray',dataArray)
+          // console.log('dataArray',dataArray)
           for (let j = 0; j < dataArray.length; j++) {
             const dataArr = data[j].data;
 
@@ -124,6 +124,7 @@ export default {
               return [item[1], item[0], item[2]];
             });
             this.date = data[0].date;
+            console.log('this.category',this.category)
           }
         } else {
           this.category = [];
