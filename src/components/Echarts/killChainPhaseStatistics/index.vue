@@ -8,7 +8,6 @@
 import { setNotopt } from "@/utils/emptyEcharts.js";
 import { KillChain } from "@/api/system/echarts";
 import tip from "@/components/EchartsTip";
-import { KillChain } from "@/api/system/echarts";
 export default {
   name: "AAA",
   components: { tip },
