@@ -146,7 +146,8 @@ export default {
       await KillChain(this.queryParms).then(({ data }) => {
         this.hasData = data;
         if (data.length) {
-          const aaa = data.filter((e) => e.killingChainStage === "载荷投递");
+          // 载荷投递
+          const aaa = data.filter((e) => e.killingChainStage === "Delivery");
           if (aaa.length) {
             aaa.map((d) => {
               this.categoryThree = d.data;
@@ -155,7 +156,8 @@ export default {
           } else {
             this.categoryThree = [];
           }
-          const bbb = data.filter((e) => e.killingChainStage === "侦查跟踪");
+          //  侦查跟踪
+          const bbb = data.filter((e) => e.killingChainStage === "Recon");
           if (bbb.length) {
             bbb.map((d) => {
               this.category = d.data;
@@ -164,32 +166,55 @@ export default {
           } else {
             this.category = [];
           }
-          const ccc = data.filter((e) => e.killingChainStage === "漏洞利用");
-          if (bbb.length) {
-            bbb.map((d) => {
+          // 漏洞利用
+          const ccc = data.filter((e) => e.killingChainStage === "Exploitation");
+          if (ccc.length) {
+            ccc.map((d) => {
               this.categoryFour = d.data;
               this.date = d.date;
             });
           } else {
             this.categoryFour = [];
           }
-          const ddd = data.filter((e) => e.killingChainStage === "安装植入");
-          if (bbb.length) {
-            bbb.map((d) => {
+          // 安装植入
+          const ddd = data.filter((e) => e.killingChainStage === "Beacon");
+          if (ddd.length) {
+            ddd.map((d) => {
               this.categoryFive = d.data;
               this.date = d.date;
             });
           } else {
             this.categoryFive = [];
           }
-          const eee = data.filter((e) => e.killingChainStage === "命令控制");
-          if (bbb.length) {
-            bbb.map((d) => {
+          // 命令控制
+          const eee = data.filter((e) => e.killingChainStage === "CnC");
+          if (eee.length) {
+            eee.map((d) => {
               this.barData = d.data;
               this.date = d.date;
             });
           } else {
             this.barData = [];
+          }
+          // 目标达成
+          const fff = data.filter((e) => e.killingChainStage === "Actions on Objective");
+          if (fff.length) {
+            fff.map((d) => {
+              this.Actions = d.data;
+              this.date = d.date;
+            });
+          } else {
+            this.Actions = [];
+          }
+          // 武器构建
+          const ggg = data.filter((e) => e.killingChainStage === "Weaponization");
+          if (ggg.length) {
+            ggg.map((d) => {
+              this.Weaponization = d.data;
+              this.date = d.date;
+            });
+          } else {
+            this.Weaponization = [];
           }
         } else {
           this.categoryThree = [];
@@ -224,7 +249,7 @@ export default {
             trigger: "axis",
           },
           legend: {
-            data: ["侦查跟踪", "命令控制", "载荷投递", "漏洞利用", "安装植入"],
+            data: ["侦查跟踪", "命令控制", "载荷投递", "漏洞利用", "安装植入","目标达成","武器构建"],
           },
           grid: {
             left: "3%",
@@ -275,6 +300,18 @@ export default {
               type: "line",
               // stack: "Total",
               data: this.categoryFive,
+            },
+             {
+              name: "目标达成",
+              type: "line",
+              // stack: "Total",
+              data: this.Actions,
+            },
+            {
+              name: "武器构建",
+              type: "line",
+              // stack: "Total",
+              data: this.Weaponization,
             },
           ],
         });
