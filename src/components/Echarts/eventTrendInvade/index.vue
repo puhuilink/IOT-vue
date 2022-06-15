@@ -305,7 +305,7 @@ export default {
           },
           series: [
             {
-              name: "极低",
+              name: "PROBE",
               stack: "Total",
               areaStyle: {},
               emphasis: {
@@ -317,7 +317,7 @@ export default {
               data: this.data1,
             },
             {
-              name: "低危",
+              name: "INVADE",
               stack: "Total",
               areaStyle: {},
               emphasis: {
