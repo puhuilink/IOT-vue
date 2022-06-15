@@ -6,7 +6,7 @@
 </template>
 <script>
 import { setNotopt } from "@/utils/emptyEcharts.js";
-import { eventEsData } from "@/api/system/echarts";
+import { KillChain } from "@/api/system/echarts";
 import tip from "@/components/EchartsTip";
 import { KillChain } from "@/api/system/echarts";
 export default {
@@ -47,6 +47,7 @@ export default {
         endTime: "",
         severity: "",
         location: "",
+        evKsecKillchain:""
       },
     };
   },
@@ -88,7 +89,7 @@ export default {
   },
   methods: {
     async getData() {
-      const { data } = await eventEsData(this.queryParms);
+      const { data } = await KillChain(this.queryParms);
       this.hasData = data;
       this.categoryName = [];
       if (this.hasData.length) {
