@@ -39,7 +39,7 @@ export default {
       date: [],
       categoryName: [],
       axisData: [],
-      hasData: [],
+      // hasData: [],
       queryParms: {
         indexes: this.search,
         beginTime: "",
@@ -90,6 +90,7 @@ export default {
     async getData() {
       // const { data } = await KillChain(this.queryParms);
       await KillChain(this.queryParms).then(({ data }) => {
+        console.log('6-15',data)
         this.hasData = data;
         this.categoryName = [];
         if (this.hasData.length) {
