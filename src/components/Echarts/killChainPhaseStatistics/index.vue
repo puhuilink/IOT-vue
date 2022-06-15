@@ -39,7 +39,7 @@ export default {
       date: [],
       categoryName: [],
       axisData: [],
-      // hasData: [],
+      hasData: [],
       queryParms: {
         indexes: this.search,
         beginTime: "",
@@ -117,7 +117,7 @@ export default {
       });
       this.drawPolicitalStatus();
     },
-    async drawPolicitalStatus() {
+   drawPolicitalStatus() {
       if (this.hasData.length) {
         // 基于准备好的dom，初始化echarts实例
         const myChart = this.$echarts.init(this.$refs.canvas1);
