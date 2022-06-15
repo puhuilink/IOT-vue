@@ -6,7 +6,7 @@
 </template>
 <script>
 import { setNotopt } from "@/utils/emptyEcharts.js";
-import { eventEsData } from "@/api/system/echarts";
+import { eventEsDataInvasion } from "@/api/system/echarts";
 import tip from "@/components/EchartsTip";
 import echarts from "echarts";
 import { UnderAttack } from "@/api/system/echarts";
@@ -51,6 +51,7 @@ export default {
         endTime: "",
         severity: "",
         location: "",
+        evKsecKillchain:""
       },
     };
   },
@@ -92,7 +93,7 @@ export default {
   },
   methods: {
     async getData() {
-      await eventEsData(this.queryParms).then(({ data }) => {
+      await eventEsDataInvasion(this.queryParms).then(({ data }) => {
         this.hasData = data;
         console.log("data", data);
         if (data.length) {

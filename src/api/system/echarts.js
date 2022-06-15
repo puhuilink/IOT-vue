@@ -245,6 +245,14 @@ export function KillChain(query) {
   })
 }
 
+// 安全管理：入侵诱捕：探测事件/入侵事件趋势
+export function eventEsDataInvasion(query) {
+  return request({
+    url: '/event/trendChartPROBE/getTestEventIds',
+    method: 'post',
+    params: query
+  })
+}
 // 查询事件趋势分析
 export function CreepeventLevelEcharts(query) {
   return request({

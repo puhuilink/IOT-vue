@@ -52,7 +52,7 @@ export default {
         endTime: "",
         severity: "",
         location: "",
-        evKsecKillchain:'ev_ksec_killchain'
+        evKsecKillchain:""
       },
     };
   },
