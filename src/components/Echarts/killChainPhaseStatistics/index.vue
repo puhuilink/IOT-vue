@@ -33,6 +33,7 @@ export default {
   },
   data() {
     return {
+      name:"KillChainPhaseStatistics",
       policitalStatus: ["1"],
       barData: [],
       category: [],
@@ -41,6 +42,7 @@ export default {
       dataArray:[],
       axisData: [],
       hasData: [],
+      // data:[],
       dataArr:[],
       queryParms: {
         indexes: this.search,
@@ -92,11 +94,23 @@ export default {
     async getData() {
       // const { data } = await KillChain(this.queryParms);
       await KillChain(this.queryParms).then(({ data }) => {
-        console.log('6-15',data)
+      //   console.log('6-15',data)
+      //  接口数据格式：
+        // var data = [
+        //   {eventSeverity: "Delivery",data: [1, 2, 0, 4, 8, 0, 0],date: ["2022-06-09", "2022-06-10", "2022-06-11", "2022-06-12", "2022-06-13", "2022-06-14", "2022-06-15"]},
+        //   {eventSeverity: "Recon",data: [97, 2,7, 8, 0, 6, 0],date: ["2022-06-09", "2022-06-10", "2022-06-11", "2022-06-12", "2022-06-13", "2022-06-14", "2022-06-15"]},
+        //   {eventSeverity: "Exploitation",data: [0, 2, 6, 2, 42, 1, 0],date: ["2022-06-09", "2022-06-10", "2022-06-11", "2022-06-12", "2022-06-13", "2022-06-14", "2022-06-15"]},
+        //   {eventSeverity: "Beacon",data: [0, 74, 0, 0, 0, 0, 0],date: ["2022-06-09", "2022-06-10", "2022-06-11", "2022-06-12", "2022-06-13", "2022-06-14", "2022-06-15"]},
+        //   {},
+        //   {eventSeverity: "CnC",data: [7, 2, 8, 6, 7, 0, 0],date: ["2022-06-09", "2022-06-10", "2022-06-11", "2022-06-12", "2022-06-13", "2022-06-14", "2022-06-15"]},
+        //   {}
+        //   ];
+        //   console.log('data---6-15',data)
         this.hasData = data;
         this.categoryName = [];
         if (this.hasData) {
           var dataArray = data[0].data;
+          console.log('dataArray',dataArray)
           for (let j = 0; j < dataArray.length; j++) {
             const dataArr = data[j].data;
 
