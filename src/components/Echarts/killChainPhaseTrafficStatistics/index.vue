@@ -147,7 +147,7 @@ export default {
         this.hasData = data;
         if (data.length) {
           // 载荷投递
-          const aaa = data.filter((e) => e.killingChainStage === "Delivery");
+          const aaa = data.filter((e) => e.eventSeverity === "Delivery");
           if (aaa.length) {
             aaa.map((d) => {
               this.categoryThree = d.data;
@@ -157,7 +157,7 @@ export default {
             this.categoryThree = [];
           }
           //  侦查跟踪
-          const bbb = data.filter((e) => e.killingChainStage === "Recon");
+          const bbb = data.filter((e) => e.eventSeverity === "Recon");
           if (bbb.length) {
             bbb.map((d) => {
               this.category = d.data;
@@ -167,7 +167,7 @@ export default {
             this.category = [];
           }
           // 漏洞利用
-          const ccc = data.filter((e) => e.killingChainStage === "Exploitation");
+          const ccc = data.filter((e) => e.eventSeverity === "Exploitation");
           if (ccc.length) {
             ccc.map((d) => {
               this.categoryFour = d.data;
@@ -177,7 +177,7 @@ export default {
             this.categoryFour = [];
           }
           // 安装植入
-          const ddd = data.filter((e) => e.killingChainStage === "Beacon");
+          const ddd = data.filter((e) => e.eventSeverity === "Beacon");
           if (ddd.length) {
             ddd.map((d) => {
               this.categoryFive = d.data;
@@ -187,7 +187,7 @@ export default {
             this.categoryFive = [];
           }
           // 命令控制
-          const eee = data.filter((e) => e.killingChainStage === "CnC");
+          const eee = data.filter((e) => e.eventSeverity === "CnC");
           if (eee.length) {
             eee.map((d) => {
               this.barData = d.data;
@@ -197,7 +197,7 @@ export default {
             this.barData = [];
           }
           // 目标达成
-          const fff = data.filter((e) => e.killingChainStage === "Actions on Objective");
+          const fff = data.filter((e) => e.eventSeverity === "Actions on Objective");
           if (fff.length) {
             fff.map((d) => {
               this.Actions = d.data;
@@ -207,7 +207,7 @@ export default {
             this.Actions = [];
           }
           // 武器构建
-          const ggg = data.filter((e) => e.killingChainStage === "Weaponization");
+          const ggg = data.filter((e) => e.eventSeverity === "Weaponization");
           if (ggg.length) {
             ggg.map((d) => {
               this.Weaponization = d.data;
