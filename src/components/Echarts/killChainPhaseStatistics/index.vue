@@ -38,6 +38,7 @@ export default {
       category: [],
       date: [],
       categoryName: [],
+      dataArray:[],
       axisData: [],
       hasData: [],
       queryParms: {
