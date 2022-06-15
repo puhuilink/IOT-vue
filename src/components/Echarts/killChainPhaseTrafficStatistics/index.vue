@@ -46,6 +46,7 @@ export default {
       categorySix: [],
       categorySeven: [],
       title: "",
+      hasData: [],
       queryParms: {
         indexes: this.search,
         beginTime: "",
