@@ -282,7 +282,7 @@ export default {
           series: [
             {
               name: "探测趋势",
-              stack: "Total",
+              stack: "",
               areaStyle: {},
               emphasis: {
                 focus: "series",
@@ -294,7 +294,7 @@ export default {
             },
             {
               name: "入侵趋势",
-              stack: "Total",
+              stack: "",
               areaStyle: {},
               emphasis: {
                 focus: "series",
