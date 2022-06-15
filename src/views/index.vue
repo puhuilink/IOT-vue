@@ -43,11 +43,11 @@ export default {
     this.getToken()
   },
   methods: {
-  async getToken(){  
-        getToken().then((res) => {
+  getToken(){  
+      getToken().then((res) => {
        this.query.token = res
       });
-       getAPPtoken().then((res) => {
+   getAPPtoken().then((res) => {
       this.query.appToken = res.data.info.token
       });
     },   
