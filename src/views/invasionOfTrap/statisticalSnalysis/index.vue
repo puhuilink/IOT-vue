@@ -42,7 +42,7 @@
       :address="address"
       :search="'event_ivtp'"
     /> -->
-     <eventTrendInvade :query="query" :name="'invade'" :search="'event_ivtp'" :tipname="探测事件/入侵事件趋势"/>
+     <eventTrendInvade :query="query" :name="'invade'" :search="'event_ivtp'" :tipname="'探测事件/入侵事件趋势'"/>
     <!-- <underAttackSandbox :query="query" :address="address" /> -->
     <echartsBar
       :tipname="'受攻击沙箱TOP5'"
