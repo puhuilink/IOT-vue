@@ -508,8 +508,8 @@ export default {
         priority:"",
         remark:"",
         report:"是",
-        id:"",
-        index:"",
+        eventId: "",
+        eventIndex: "",
         type:"",
         notificationStatus:""
       },
@@ -895,14 +895,14 @@ export default {
             priority: "",
             remark: "",
             report: "是",
-            id: "",
-            index: "",
+            eventId: "",
+            eventIndex: "",
             type: "",
             notificationStatus:""
           };
            this.title = '新增通报'
-           this.formData.id = id
-           this.formData.index = index
+           this.formData.eventId = id
+           this.formData.eventIndex = index
            this.formData.eventName = event_name
            this.formData.eventType = this.transClassDic(event_class)
         })
@@ -1020,8 +1020,8 @@ export default {
         if (this.formData.report == "是") {
           // 上报
           notificationExport({
-            id: this.formData.id,
-            index: this.formData.index,
+            id: this.formData.eventId,
+            index: this.formData.eventIndex,
           }).then((response) => {
             // this.$message({
             //   type: "success",
@@ -1051,8 +1051,8 @@ export default {
           }
           // ES状态变更
           await stateChanges({
-            id: this.formData.id,
-            index: this.formData.index,
+            id: this.formData.eventId,
+            index: this.formData.eventIndex,
             type: this.formData.type,
           }).then((response) => {
             // this.$message({

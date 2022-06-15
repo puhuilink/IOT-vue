@@ -493,6 +493,7 @@
 import {
   notificationList,
   notificationExport,
+  vulnerabilityExport,
   notificationDetail,
   notificationEdit,
   notificationDelete,
@@ -785,19 +786,32 @@ export default {
     // 上报
     async report(eventId, eventIndex) {
       // console.log('参数',eventId,eventIndex)
-      const params = {
-        id: eventId,
-        index: eventIndex,
-      };
-      const { msg } = await notificationExport(params).then((response) => {
-        // console.log('response',response)
-        //  this.$message.success(msg)
-        this.$message({
-          type: "success",
-          message: "上报成功!",
+      if (eventIndex != "vulnerability") {
+        const params = {
+          id: eventId,
+          index: eventIndex,
+        };
+        const { msg } = await notificationExport(params).then((response) => {
+          // console.log('response',response)
+          //  this.$message.success(msg)
+          this.$message({
+            type: "success",
+            message: "上报成功!",
+          });
+          this.getCategoryList();
         });
-        this.getCategoryList();
-      });
+      } else {
+        const params = {
+          id: eventId,
+        };
+        const { msg } = await vulnerabilityExport(params).then((response) => {
+          this.$message({
+            type: "success",
+            message: "上报成功!",
+          });
+          this.getCategoryList();
+        });
+      }
     },
   },
 };
