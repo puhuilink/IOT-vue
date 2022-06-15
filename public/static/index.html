@@ -24,7 +24,7 @@
       });
       window.addEventListener("message", function (msgEvent) {
         let token = msgEvent.data.token;
-        let appToken = msgEvent.data.appToken
+        let appToken = msgEvent.data.appToken;
         $("#APP").attr(
           "href",
           "http://10.201.31.103:8000/api/login/doLoginByToken?token=" +

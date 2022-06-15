@@ -39,28 +39,23 @@ export default {
       changeMobsfIframe()
     }
   },
- async created(){
-     await Promise.all([
-     this.getToken(),
-   this.getTokenCopy()
-    ]) 
+   created(){
+    this.getToken()
   },
   methods: {
-   async getToken(){  
-    const res = await getToken()
-      this.query.token = res
+  async getToken(){  
+        getToken().then((res) => {
+       this.query.token = res
+      });
+       getAPPtoken().then((res) => {
+      this.query.appToken = res.data.info.token
+      });
     },   
-   async  getTokenCopy(){  
-        const res = await getAPPtoken()
-       this.query.appToken = res.data.info.token
 
-    }, 
-    loaded(){
-				this.iframeWin.postMessage(this.query,'*');
+  loaded(){
+			this.iframeWin.postMessage(this.query,'*');
 			},
-    goTarget(href) {
-      window.open(href, '_blank')
-    }
+
   }
 }
 </script>
