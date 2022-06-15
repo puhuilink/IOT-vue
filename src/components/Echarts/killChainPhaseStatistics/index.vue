@@ -93,7 +93,7 @@ export default {
         console.log('6-15',data)
         this.hasData = data;
         this.categoryName = [];
-        if (this.hasData.length) {
+        if (this.hasData) {
           var dataArray = data[0].data;
           for (let j = 0; j < dataArray.length; j++) {
             const dataArr = data[j].data;
@@ -118,7 +118,7 @@ export default {
       this.drawPolicitalStatus();
     },
    drawPolicitalStatus() {
-      if (this.hasData.length) {
+      if (this.hasData) {
         // 基于准备好的dom，初始化echarts实例
         const myChart = this.$echarts.init(this.$refs.canvas1);
         const hours = this.date;
