@@ -41,6 +41,7 @@ export default {
       dataArray:[],
       axisData: [],
       hasData: [],
+      dataArr:[],
       queryParms: {
         indexes: this.search,
         beginTime: "",
