@@ -36,12 +36,13 @@
       :query="query"
       :name="'assetsUnderAttack'"
     />
-    <toDetectEvents
+    <!-- <toDetectEvents
       :query="query"
       :event-type="2"
       :address="address"
       :search="'event_ivtp'"
-    />
+    /> -->
+     <eventTrendInvade :query="query" :name="'invade'" :search="'event_ivtp'" :tipname="探测事件/入侵事件趋势"/>
     <!-- <underAttackSandbox :query="query" :address="address" /> -->
     <echartsBar
       :tipname="'受攻击沙箱TOP5'"
@@ -67,7 +68,8 @@
 import echarts from "@/components/Echarts/searchBar";
 import echartsBar from '@/components/Echarts/echartsBar'
 import assetsUnderAttack from "@/components/Echarts/assetsUnderAttack";
-import toDetectEvents from "@/components/Echarts/toDetectEvents";
+// import toDetectEvents from "@/components/Echarts/toDetectEvents";
+import eventTrendInvade from "@/components/Echarts/eventTrendInvade";
 import underAttackSandbox from "@/components/Echarts/underAttackSandbox";
 // import eventLevelDistribution from "@/components/Echarts/eventLevelDistribution";
 import pieChartDisposal from "@/components/Echarts/pieChartDisposal";
@@ -80,7 +82,8 @@ export default {
   components: {
     echarts,
     assetsUnderAttack,
-    toDetectEvents,
+    // toDetectEvents,
+    eventTrendInvade,
     underAttackSandbox,
     pieChartDisposal,
     eventType,
