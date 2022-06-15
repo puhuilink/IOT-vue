@@ -96,7 +96,7 @@ export default {
         for (let j = 0; j < dataArray.length; j++) {
           const dataArr = data[j].data;
 
-          this.categoryName.push(data[j].killingChainStage);
+          this.categoryName.push(data[j].eventSeverity);
           for (let i = 0; i < dataArr.length; i++) {
             const height = dataArr[i];
             const newArr = [j, i, height];
