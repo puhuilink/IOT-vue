@@ -259,7 +259,7 @@ export default {
           },
           toolbox: {
             feature: {
-              saveAsImage: {},
+              // saveAsImage: {},
             },
           },
           xAxis: {
@@ -274,7 +274,7 @@ export default {
             {
               name: "侦查跟踪",
               type: "line",
-              stack: "Total",
+              // stack: "Total",
               data: this.category,
             },
             {
