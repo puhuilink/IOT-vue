@@ -11,6 +11,12 @@
         <div ref="canvas1" style="height: 400px" />
       </el-col>
     </div>
+    <div v-else-if="name == 'abnormal'">
+      <el-col :span="24">
+        <tip>{{ tipname }}</tip>
+        <div ref="canvas1" style="height: 400px" />
+      </el-col>
+    </div>
      <div v-else-if="name == 'device'">
       <el-col :span="12">
         <div ref="canvas1" style="height: 400px" />
@@ -337,8 +343,9 @@ export default {
           this.data5 = [ 332, 601, 834, 590, 930, 610, 333];
           this.date = ['2022/5/13','2022/5/14','2022/5/15','2022/5/16','2022/5/17','2022/5/18','2022/5/19'];
           break;
+          // 主机安全管理和异常行为管理，事件趋势分析都展示30天数据，用同一个接口
         case "abnormal":
-          await eventEsData(this.queryParms).then(({ data }) => {
+          await eventEsHostData(this.queryParms).then(({ data }) => {
             this.hasData = data;
             this.data1 = this.transDicData(data)[0];
             this.data2 = this.transDicData(data)[1];

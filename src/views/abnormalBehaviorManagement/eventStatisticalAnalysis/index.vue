@@ -2,11 +2,12 @@
   <div class="app-container">
     <echarts :event-type="2" @getquery="uploadData" />
     <eventTrend :query="query" :name="'abnormal'" :search="'event_abbm'" />
-    <killChainPhaseStatistics
+    <!-- 散点图，因需求有变，这个图先不用了，先不删这个组件，在本地用接口提供数据能展示效果，在118上调接口不展示，这个问题需要看一下原因 -->
+    <!-- <killChainPhaseStatistics
       :query="query"
       :address="address"
       :search="'event_abbm'"
-    />
+    /> -->
     <eventType
       :tipname="'威胁分类分布'"
       :query="query"

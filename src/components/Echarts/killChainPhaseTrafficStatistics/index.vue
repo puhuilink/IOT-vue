@@ -14,7 +14,7 @@ export default {
   props: {
     tipname: {
       // tip内容
-      default: "杀伤链阶段流量统计",
+      default: "杀伤链阶段统计",
       type: String,
     },
     address: {
