@@ -133,6 +133,7 @@ export default {
         }
       });
       this.drawPolicitalStatus();
+      console.log('执行')
     },
    drawPolicitalStatus() {
       if (this.hasData) {
@@ -190,7 +191,7 @@ export default {
                 // } else if (val[2] > 20 < 50) {
                 //   return val[2] * 2
                 // }
-                return val[2] * 2;
+                return val[2] * 0.02;
               },
               data: this.category,
               animationDelay: function (idx) {
