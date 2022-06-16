@@ -1126,7 +1126,7 @@ export default {
           // this.getTableList();
           this.$message({
             type: "success",
-            message: "修改成功!",
+            message: '处置状态已修改为"不处置"',
           });
            setTimeout(() => {
               this.getTableList();
@@ -1159,7 +1159,7 @@ export default {
         //  this.getTableList();  
          this.$message({
             type: "success",
-            message: "修改成功!",
+            message: '处置状态已修改为"误报"',
           }); 
            setTimeout(() => {
               this.getTableList();
@@ -1216,25 +1216,29 @@ export default {
    async putInStorageM() {
       //入库
       await putInStorage(this.formData).then((response) => {
-        this.$message({
-          type: "success",
-          message: "入库成功!",
-        });
+        // this.$message({
+        //   type: "success",
+        //   message: "入库成功!",
+        // });
         if (this.formData.report == "是") {
           // 上报
           notificationExport({
             id: this.formData.eventId,
             index: this.formData.eventIndex,
           }).then((response) => {
-            // this.$message({
-            //   type: "success",
-            //   // message: "上报成功!",
-            // });
+             this.$message({
+              type: "success",
+              message:'处置状态已修改为"已处置"' ,
+            });
             setTimeout(() => {
               this.getTableList();
             }, 500);
           });
         } else {
+           this.$message({
+              type: "success",
+              message:'处置状态已修改为"处置中"' ,
+            });
           setTimeout(() => {
             this.getTableList();
           }, 500);

@@ -73,14 +73,15 @@ export default {
     return {
          querys: {
         severity: "",
+        // 漏洞
         beginGenerationTime: this.getdate(2)[0],
         endGenerationTime: this.getdate(2)[1]+ ' 23-59-59',
         location: "",
       },
       queryParms: {
         indexes: this.search,
-        beginGenerationTime:this.getdate(2)[0],
-        endGenerationTime:this.getdate(2)[1],
+        // beginGenerationTime:this.getdate(2)[0],
+        // endGenerationTime:this.getdate(2)[1],
         severity: "",
         location: "",
       },

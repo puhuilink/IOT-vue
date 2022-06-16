@@ -1055,7 +1055,7 @@ export default {
         .then((response) => {
           this.$message({
             type: "success",
-            message:  '处置状态已修改为"不处置"',
+            message: '处置状态已修改为"不处置"',
           });
            setTimeout(() => {
               this.getTableList();

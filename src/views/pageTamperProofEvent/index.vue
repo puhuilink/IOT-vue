@@ -874,7 +874,7 @@ export default {
         .then((response) => {
           this.$message({
             type: "success",
-            message: "修改成功!",
+            message: '处置状态已修改为"不处置"',
           });
           this.getTableList();
          }) 
@@ -904,7 +904,7 @@ export default {
         .then((response) => {
          this.$message({
             type: "success",
-            message: "修改成功!",
+            message: '处置状态已修改为"误报"',
           }); 
           this.getTableList();  
        }) 
@@ -978,10 +978,10 @@ export default {
               //入库
         putInStorage(this.formData)
         .then((response) => {
-          this.$message({
-            type: "success",
-            message: "入库成功!",
-          });  
+          // this.$message({
+          //   type: "success",
+          //   message: "入库成功!",
+          // });  
           if(this.formData.report == '是'){
                // 上报 
             notificationExport({
@@ -989,13 +989,17 @@ export default {
              index: this.formData.eventIndex,
             })
           .then((response) => {
-            this.$message({
+             this.$message({
               type: "success",
-              message: "上报成功!",
-           });  
+              message:'处置状态已修改为"已处置"' ,
+            }); 
            this.getTableList();
            }) 
           }else{
+             this.$message({
+              type: "success",
+              message:'处置状态已修改为"处置中"' ,
+            });
              this.getTableList();
           } 
          }) 
