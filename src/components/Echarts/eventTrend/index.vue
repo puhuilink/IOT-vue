@@ -469,7 +469,7 @@ export default {
           series: [
             {
               name: "极低",
-              stack: "Total",
+              // stack: "Total",
               areaStyle: {},
               emphasis: {
                 focus: "series",
@@ -481,7 +481,7 @@ export default {
             },
             {
               name: "低危",
-              stack: "Total",
+              // stack: "Total",
               areaStyle: {},
               emphasis: {
                 focus: "series",
@@ -493,7 +493,7 @@ export default {
             },
             {
               name: "中危",
-              stack: "Total",
+              // stack: "Total",
               areaStyle: {},
               emphasis: {
                 focus: "series",
@@ -505,7 +505,7 @@ export default {
             },
             {
               name: "高危",
-              stack: "Total",
+              // stack: "Total",
               areaStyle: {},
               emphasis: {
                 focus: "series",
@@ -517,7 +517,7 @@ export default {
             },
             {
               name: "致命",
-              stack: "Total",
+              // stack: "Total",
               areaStyle: {},
               emphasis: {
                 focus: "series",
