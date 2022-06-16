@@ -22,7 +22,8 @@
                 />
               </el-form-item>
             </el-col>
-            <el-col :span="6">
+            <!-- 任务类型目前只有一种 -->
+            <!-- <el-col :span="6">
               <el-form-item label="任务类型：" prop="taskType">
                 <el-input
                   v-model="queryParams.conditions.taskType"
@@ -32,7 +33,7 @@
                   @keyup.enter.native="handleQuery"
                 />
               </el-form-item>
-            </el-col>
+            </el-col> -->
             <el-col :span="6">
               <el-form-item label="检测语言：" prop="language">
                 <el-input
@@ -61,8 +62,8 @@
               </el-form-item>
             </el-col>
 
-            <el-col :span="24">
-              <el-form-item label-width="1365px">
+            <el-col :span="6">
+              <el-form-item>
                 <el-button type="primary" size="mini" @click="handleQuery"
                   >搜索</el-button
                 >
@@ -83,18 +84,26 @@
           prop="taskVO.taskName"
           :show-overflow-tooltip="true"
         />
+         <!-- 接口返回 0，代表缺陷检测任务，目前只有这一种任务类型 -->
         <el-table-column
           label="任务类型"
           align="center"
           prop="taskVO.taskType"
           :show-overflow-tooltip="true"
-        />
-        <el-table-column
+        >
+          <span> 缺陷检测任务 </span>
+        </el-table-column>
+        <!-- <el-table-column
           label="检测语言"
           align="center"
           prop="taskVO.language"
           :show-overflow-tooltip="true"
-        />
+        /> -->
+        <el-table-column label="检测语言" align="center" prop="taskVO.language">
+          <template #default="scope">
+            <span >{{ transLanguageDic(scope.row.taskVO.language) }}</span>
+          </template>
+        </el-table-column>
         <el-table-column
           label="源码名称"
           align="center"
@@ -104,9 +113,7 @@
         <el-table-column
           label="检测开始时间"
           align="center"
-
           prop="taskVO.invokeEngineTime"
-
           :show-overflow-tooltip="true"
         />
         <el-table-column
@@ -115,12 +122,17 @@
           prop="taskVO.taskEndTime"
           :show-overflow-tooltip="true"
         />
-        <el-table-column
+        <!-- <el-table-column
           label="任务状态"
           align="center"
           prop="taskVO.taskStatus"
           :show-overflow-tooltip="true"
-        />
+        /> -->
+        <el-table-column label="任务状态" align="center" prop="taskVO.taskStatus">
+          <template #default="scope">
+            <span >{{ transTaskStatusDic(scope.row.taskVO.taskStatus) }}</span>
+          </template>
+        </el-table-column>
         <el-table-column
           label="检测人"
           align="center"
@@ -134,9 +146,7 @@
           width="180"
         >
           <template slot-scope="scope">
-
             <el-button size="mini" type="text" @click="detail(scope.row.id)"
-
               >详情</el-button
             >
           </template>
@@ -185,12 +195,14 @@
             </el-col>
             <el-col :span="8">
               <el-form-item label="检测开始时间 :">
-                {{ detailData.taskVO.invokeEngineTime }}
+                <!-- {{ detailData.taskVO.invokeEngineTime }} -->
+                <tooltip :content="detailData.taskVO.invokeEngineTime" :length="15" />
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item label="检测结束时间 :">
-                {{ detailData.taskVO.taskEndTime }}
+                <!-- {{ detailData.taskVO.taskEndTime }} -->
+                <tooltip :content="detailData.taskVO.taskEndTime" :length="15" />
               </el-form-item>
             </el-col>
             <el-col :span="8">
@@ -245,7 +257,8 @@
           <el-row>
             <el-col :span="8">
               <el-form-item label="源码名称 :">
-                {{ detailData.taskVO.codeName }}
+                <!-- {{ detailData.taskVO.codeName }} -->
+                 <tooltip :content="detailData.taskVO.codeName" :length="8" />
               </el-form-item>
             </el-col>
             <el-col :span="8">
@@ -338,7 +351,12 @@
             prop="ruleName"
             :show-overflow-tooltip="true"
           />
-          <el-table-column label="缺陷等级" align="center" prop="bugLevel" />
+          <!-- <el-table-column label="缺陷等级" align="center" prop="bugLevel" /> -->
+          <el-table-column label="缺陷等级" align="center" prop="bugLevel">
+          <template #default="scope">
+            <span>{{ transBugLevelDic(scope.row.bugLevel) }}</span>
+          </template>
+        </el-table-column>
           <el-table-column
             label="操作"
             align="center"
@@ -418,7 +436,8 @@
             </el-col>
             <el-col :span="12">
               <el-form-item label="缺陷描述 :">
-                {{ defectDetail.dsp }}
+                <!-- {{ defectDetail.dsp }} -->
+                 <tooltip :content="defectDetail.dsp" :length="20" />
               </el-form-item>
             </el-col>
             <el-col :span="24">
@@ -501,31 +520,31 @@ export default {
       queryAuthorization: "",
       queryParams: {
         // data: {
-          conditions: {
-            name: "",
-            checkEngine: 0,
-            checkLanguage: 0,
-            taskStatus: 0,
-            pkOrgs: [0],
-            source: 0,
-            addStart: "2021-10-28 11:23:09",
-            addEnd: "2021-10-28 11:23:09",
-            isSpecial: 0,
-            problemNumLB: 0,
-            problemNumRB: 0,
-            componentNumLB: 0,
-            componentNumRB: 0,
-            // "taskName": "",
-            taskType: "",
-            language: "",
-            addStart: "",
-            addEnd: "",
-          },
-          page: {
-            pageIndex: 0,
-            pageSize: 10,
-            checkType: 0,
-          },
+        conditions: {
+          name: "",
+          checkEngine: 0,
+          checkLanguage: 0,
+          taskStatus: 0,
+          pkOrgs: [0],
+          source: 0,
+          addStart: "2021-10-28 11:23:09",
+          addEnd: "2021-10-28 11:23:09",
+          isSpecial: 0,
+          problemNumLB: 0,
+          problemNumRB: 0,
+          componentNumLB: 0,
+          componentNumRB: 0,
+          // "taskName": "",
+          taskType: "",
+          language: "",
+          addStart: "",
+          addEnd: "",
+        },
+        page: {
+          pageIndex: 0,
+          pageSize: 10,
+          checkType: 0,
+        },
         // },
       },
       query: {
@@ -633,6 +652,94 @@ export default {
     this.getTableList();
   },
   methods: {
+     transLanguageDic(val) {
+      var t = [
+        {
+          name: 0,
+          content: "Java",
+        },
+        {
+          name: 1,
+          content: "C/C++",
+        },
+        {
+          name: 2,
+          content: "C#",
+        },
+        {
+          name: 3,
+          content: "Python",
+        },
+        {
+          name: 4,
+          content: "PHP",
+        },
+        {
+          name: 5,
+          content: "Objective-C",
+        },
+        {
+          name: 6,
+          content: "Cobol",
+        },
+        {
+          name: 9,
+          content: "NodeJS",
+        },
+        {
+          name: 12,
+          content: "Go",
+        },
+        {
+          name: 15,
+          content: "Swift",
+        },
+         {
+          name: 11,
+          content: "SQL",
+        },
+        {
+          name: 16,
+          content: "Kotlin",
+        },
+      ];
+      const orgTreeData1 = t
+        .filter((e) => e.name === val)
+        .map(({ content }) => ({
+          content,
+        }));
+      return `${orgTreeData1[0].content}`;
+    },
+    transTaskStatusDic(val) {
+      var t = [
+        {
+          name: 0,
+          content: "排队中",
+        },
+        {
+          name: 1,
+          content: "检测中",
+        },
+        {
+          name: 2,
+          content: "检测成功",
+        },
+        {
+          name: 3,
+          content: "检测失败",
+        },
+        {
+          name: 4,
+          content: "被暂停",
+        },
+      ];
+      const orgTreeData1 = t
+        .filter((e) => e.name === val)
+        .map(({ content }) => ({
+          content,
+        }));
+      return `${orgTreeData1[0].content}`;
+    },
     async getTableList() {
       // var queryAuthorization = base64encode("admin111" + ":" + "123456");
       this.loading = true;
@@ -642,8 +749,8 @@ export default {
       let Base64 = require("js-base64").Base64;
       var authorizationValue =
         "Basic " + Base64.encode("wuzhigang" + ":" + "Admin@12345!");
-        // var formData = new FormData();
-        // formData.append('data',this.queryParams)
+      // var formData = new FormData();
+      // formData.append('data',this.queryParams)
       await getApplicationManagementData(
         this.queryParams,
         authorizationValue
@@ -653,29 +760,46 @@ export default {
         this.total = res.data.data.totalCount;
         this.loading = false;
       });
-
     },
-    transTypeDic(val) {
+    transBugLevelDic(val) {
       var t = [
         {
-          name: "1",
-          content: "极低",
+          name: 1,
+          content: "低",
         },
         {
-          name: "2",
-          content: "低危",
+          name: 3,
+          content: "中",
         },
         {
-          name: "3",
-          content: "中危",
+          name: 5,
+          content: "高",
+        },
+      ];
+      const orgTreeData1 = t
+        .filter((e) => e.name === val)
+        .map(({ content }) => ({
+          content,
+        }));
+      return `${orgTreeData1[0].content}`;
+    },
+    transDomainTypeDic(val) {
+      var t = [
+        {
+          name: 0,
+          content: "未知类型",
         },
         {
-          name: "4",
-          content: "高危",
+          name: 1,
+          content: " 安全缺陷",
         },
         {
-          name: "5",
-          content: "致命",
+          name: 2,
+          content: "质量问题",
+        },
+        {
+          name: 3,
+          content: "错误编码",
         },
       ];
       const orgTreeData1 = t
@@ -817,8 +941,9 @@ export default {
         this.detailData = data.data;
         this.detailDialog = true;
         this.title = "事件详情";
+        this.detailData.taskVO.taskType  = "缺陷检测任务"
+        this.detailData.taskVO.language  = this.transLanguageDic(this.detailData.taskVO.language)
       });
-
     },
     async getDefectDetail(taskId, bugId) {
       console.log("taskId、bugId", taskId, bugId);
@@ -834,6 +959,8 @@ export default {
       this.defectDetailDialog = true;
       this.title = "缺陷详情";
       this.defectDetail = data.data;
+      this.defectDetail.bugLevel  = this.transBugLevelDic(this.defectDetail.bugLevel)
+      this.defectDetail.domainType = this.transDomainTypeDic(this.defectDetail.domainType)
       // this.defectDetailData = row;
     },
     // setTimeList(values) {
