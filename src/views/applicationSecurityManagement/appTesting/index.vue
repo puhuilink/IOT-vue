@@ -23,7 +23,7 @@
                 />
               </el-form-item>
             </el-col>
-             <el-col :span="6">
+            <el-col :span="6">
               <el-form-item label="区域:" prop="location">
                 <el-select
                   v-model="queryParams.location"
@@ -36,13 +36,13 @@
                     v-for="(item, index) in areaOptions"
                     :key="index"
                     :label="item.label"
-                    :value="item.label"
+                    :value="item.value"
                     :disabled="item.disabled"
                   />
                 </el-select>
               </el-form-item>
             </el-col>
-           <el-col :span="6">
+            <el-col :span="6">
               <el-form-item label="上传时间：" prop="date">
                 <el-date-picker
                   v-model="rangeTime"
@@ -54,14 +54,14 @@
                   range-separator="至"
                   clearable
                   :style="{ width: '100%' }"
-                   @change="setTimeList"
+                  @change="setTimeList"
                 />
               </el-form-item>
             </el-col>
 
             <el-col :span="6">
               <el-form-item>
-                <el-button size="mini" type="primary"  @click="getList"
+                <el-button size="mini" type="primary" @click="getList"
                   >搜索</el-button
                 >
                 <el-button size="mini" @click="resetForm">重置</el-button>
@@ -102,14 +102,17 @@
           prop="location"
           :show-overflow-tooltip="true"
         />
-        
+
         <el-table-column
           label="操作"
           align="center"
           class-name="small-padding fixed-width"
         >
           <template #default="scope">
-            <el-button size="mini" type="text" @click="preview(scope.row.pdfPath)"
+            <el-button
+              size="mini"
+              type="text"
+              @click="preview(scope.row.pdfPath)"
               >预览
             </el-button>
             <el-button size="mini" type="text" @click="deleteFile(scope.row.id)"
@@ -127,42 +130,57 @@
       @pagination="getList"
     />
     <!-- 导入 -->
-     <el-dialog :title="upload.title" :visible.sync="upload.open" width="400px" append-to-body>
-      <el-upload
-        ref="upload"
-        :limit="1"
-        :disabled="upload.isUploading"
-        :on-progress="handleFileUploadProgress"
-        :auto-upload="false"
-        :before-upload="beforeUpload"
-        :http-request="importExcel"
-         action
-         drag>
-        <i class="el-icon-upload" />
-        <div class="el-upload__text">
-          将文件拖到此处，或
-          <em>点击上传</em>
+    <el-dialog
+      :title="upload.title"
+      :visible.sync="upload.open"
+      width="400px"
+      append-to-body
+    >
+      <!-- <el-form :rules="rules" ref="form" :model="form"> -->
+        <el-upload
+          ref="upload"
+          :limit="1"
+          :disabled="upload.isUploading"
+          :on-progress="handleFileUploadProgress"
+          :auto-upload="false"
+          :before-upload="beforeUpload"
+          :http-request="importExcel"
+          action
+          drag
+        >
+          <i class="el-icon-upload" />
+          <div class="el-upload__text">
+            将文件拖到此处，或
+            <em>点击上传</em>
+          </div>
+          <!-- <div slot="tip" class="el-upload__tip" style="color:#ffaf37">提示：仅允许导入“pdf”格式文件！且必须选择所属区域</div> -->
+        </el-upload>
+        <div class="fileFormat">
+          <filetip
+            :content="'提示：仅允许导入“pdf”格式文件！且必须选择所属区域'"
+          />
         </div>
-        <!-- <div slot="tip" class="el-upload__tip" style="color:#ffaf37">提示：仅允许导入“pdf”格式文件！且必须选择所属区域</div> -->
-       
-      </el-upload> 
-       <div  class="fileFormat"><filetip :content="'提示：仅允许导入“pdf”格式文件！且必须选择所属区域'" />
-      </div>
-      <el-select
-          v-model.trim="form.location"
-          placeholder="请选择区域"
-          filterable
-          clearable
-          :style="{width: '100%'}"
-      >
-          <el-option
+        <el-form-item
+          label="区域:"
+          :rules="[{ required: true, message: '请选择区域' }]"
+        >
+          <el-select
+            v-model.trim="form.location"
+            placeholder="请选择区域"
+            filterable
+            clearable
+            :style="{ width: '100%' }"
+          >
+            <el-option
               v-for="(item, index) in areaOptions"
               :key="index"
               :label="item.label"
               :value="item.label"
               :disabled="item.disabled"
-          />
-      </el-select> 
+            />
+          </el-select>
+        </el-form-item>
+      <!-- </el-form> -->
       <div slot="footer" class="dialog-footer">
         <el-button type="primary" @click="submitFileForm">确 定</el-button>
         <el-button @click="upload.open = false">取 消</el-button>
@@ -172,19 +190,27 @@
 </template>
 <script>
 import { getHostSecurityData } from "@/utils/request";
-import { appTesting,uploadPdf,downloadAction ,appFileDelete} from "@/api/system/list";
+import {
+  appTesting,
+  uploadPdf,
+  downloadAction,
+  appFileDelete,
+} from "@/api/system/list";
 import eventType from "@/components/Echarts/eventType";
 import eventTrend from "@/components/Echarts/eventTrend";
-import Filetip from '@/components/FileTip/index.vue'
+import Filetip from "@/components/FileTip/index.vue";
 
 export default {
-  components: { eventType, eventTrend , Filetip },
-  props: [{
-     tipdesc: {// tip内容
-      default: '提示：仅允许导入“pdf”格式文件！且必须选择所属区域',
-      type: String
+  components: { eventType, eventTrend, Filetip },
+  props: [
+    {
+      tipdesc: {
+        // tip内容
+        default: "提示：仅允许导入“pdf”格式文件！且必须选择所属区域",
+        type: String,
+      },
     },
-  }],
+  ],
   data() {
     return {
       // // 是否显示弹出层（用户导入）
@@ -243,7 +269,7 @@ export default {
           label: "安徽天恩砂石厂",
           value: "安徽天恩砂石厂",
         },
-         {
+        {
           label: "青岛混凝土厂",
           value: "青岛混凝土厂",
         },
@@ -263,7 +289,7 @@ export default {
           label: "北京城乡水厂",
           value: "北京城乡水厂",
         },
-       
+
         {
           label: "深中通道预制厂",
           value: "深中通道预制厂",
@@ -283,19 +309,19 @@ export default {
         {
           label: "天津管片厂",
           value: "天津管片厂",
-        }
+        },
       ],
       // 创建时间时间范围
       daterangeCreateTime: [],
-      upload:{
-      // 弹出层标题
-      title: "",
-      // 是否显示弹出层
-      open: false,
+      upload: {
+        // 弹出层标题
+        title: "",
+        // 是否显示弹出层
+        open: false,
       },
       addReportDialog: false,
       editReportDialog: false,
-   
+
       // 总条数
       total: 0,
       query: {
@@ -312,11 +338,11 @@ export default {
       queryParams: {
         pageNum: 1,
         pageSize: 10,
-        fileName:'',
-        beginHappenTime: '',
-        endHappenTime: '',
-        orderByColumn: 'happenTime',
-        isAsc: 'desc',
+        fileName: "",
+        beginHappenTime: "",
+        endHappenTime: "",
+        orderByColumn: "happenTime",
+        isAsc: "desc",
       },
       queryEditParams: {
         reportName: "",
@@ -327,8 +353,8 @@ export default {
         InformTheWay: "",
         Notify: "",
       },
-      form:{
-        location:''
+      form: {
+        location: "",
       },
       rules: {
         name: [],
@@ -452,60 +478,62 @@ export default {
   // },
   created() {
     // this.getTableList();
-    this.getList()
+    this.getList();
   },
   methods: {
     handleImport() {
-      this.upload.title = '导入报告'
-      this.upload.open = true
+      this.upload.title = "导入报告";
+      this.upload.open = true;
     },
-       // 上传前格式与大小校验
-    beforeUpload (file) {
-      var testmsg = file.name.substring(file.name.lastIndexOf('.') + 1)
-      const extension = testmsg === 'pdf'
-      const isLt10M = file.size / 1024 / 1024 < 10
+    // 上传前格式与大小校验
+    beforeUpload(file) {
+      var testmsg = file.name.substring(file.name.lastIndexOf(".") + 1);
+      const extension = testmsg === "pdf";
+      const isLt10M = file.size / 1024 / 1024 < 10;
       if (!extension) {
-        this.$message.warning('上传文件只能是pdf格式')
+        this.$message.warning("上传文件只能是pdf格式");
       }
       if (!isLt10M) {
-        this.$message.warning('上传文件大小不能超过 10MB!')
+        this.$message.warning("上传文件大小不能超过 10MB!");
       }
-      return extension && isLt10M
+      return extension && isLt10M;
     },
-    async deleteFile(id){
-       this.$confirm('确认要删除吗？', '提示', { type: 'warning' }) .then(() => {
-        appFileDelete(id).then(res => {
-           this.$message({
-            type: "success",
-            message: "删除成功!",
-          }); 
-           this.getList()
-            })
-         }).catch(() => { });
+    async deleteFile(id) {
+      this.$confirm("确认要删除吗？", "提示", { type: "warning" })
+        .then(() => {
+          appFileDelete(id).then((res) => {
+            this.$message({
+              type: "success",
+              message: "删除成功!",
+            });
+            this.getList();
+          });
+        })
+        .catch(() => {});
     },
-      async importExcel (fileObj) {
-      const params = this.form
-      const formData = new FormData()
-      formData.set('pdfFile', fileObj.file)
-      const { msg } = await uploadPdf(
-        '/bangBangFile/upload',
-        formData,
-        params
-      )
-      this.upload.open = false
-      this.upload.isUploading = false
-       this.$refs.upload.clearFiles()
-      this.getList()
-      this.$message.success(msg)
+    async importExcel(fileObj) {
+      const params = this.form;
+      const formData = new FormData();
+      formData.set("pdfFile", fileObj.file);
+      const { msg } = await uploadPdf("/bangBangFile/upload", formData, params);
+      this.upload.open = false;
+      this.upload.isUploading = false;
+      this.$refs.upload.clearFiles();
+      this.getList();
+      this.$message.success(msg);
     },
-        // 文件上传中处理
+    // 文件上传中处理
     handleFileUploadProgress(event, file, fileList) {
-      this.upload.isUploading = true
+      this.upload.isUploading = true;
     },
     // 提交上传文件
     submitFileForm() {
-      console.log('this.form.location',this.form.location)
-      this.$refs.upload.submit()
+      // this.$refs["form"].validate(async (valid) => {
+      //   if (valid) {
+          console.log("this.form.location", this.form.location);
+          this.$refs.upload.submit();
+      //   }
+      // });
       // this.$refs.upload.submit()
     },
     // 根据对象中的key是否值为空x向数组中添加对象
@@ -629,42 +657,6 @@ export default {
         }));
       return `${orgTreeData1[0].content}`;
     },
-    batchOperate(command) {
-      let message = "";
-      switch (command) {
-        case "process":
-          message = "是否确认变更处置状态？";
-          this.openMessageBox(message);
-          break;
-        case "un_process":
-          message = "是否确认将此事件处置状态修改为不处置？";
-          this.openMessageBox(message);
-          break;
-        case "false_report":
-          message = "是否确认将此事件处置状态修改为误报？";
-          this.openMessageBox(message);
-          break;
-      }
-    },
-    openMessageBox(message) {
-      this.$confirm(message, "提示", {
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
-        type: "warning",
-      })
-        .then(() => {
-          this.$message({
-            type: "success",
-            message: "修改成功!",
-          });
-        })
-        .catch(() => {
-          this.$message({
-            type: "info",
-            message: "已取消修改！",
-          });
-        });
-    },
     async getList() {
       this.loading = true;
       const res = await appTesting(this.queryParams);
@@ -681,38 +673,40 @@ export default {
       this.queryParams = {
         pageNum: 1,
         pageSize: 10,
-        fileName:'',
-        beginHappenTime: '',
-        endHappenTime: '',
-        orderByColumn: 'happenTime',
-        isAsc: 'desc',
+        fileName: "",
+        beginHappenTime: "",
+        endHappenTime: "",
+        orderByColumn: "happenTime",
+        isAsc: "desc",
       };
       // this.getTableList();
-      this.rangeTime = []
+      this.rangeTime = [];
       this.getList();
     },
     async preview(id) {
-      await downloadAction(id) .then((res) => {
-           const binaryData = [];
-         binaryData.push(res);
+      await downloadAction(id).then((res) => {
+        const binaryData = [];
+        binaryData.push(res);
         //获取blob链接
-        this.pdfUrl = window.URL.createObjectURL(new Blob(binaryData, { type: 'application/pdf' }));
+        this.pdfUrl = window.URL.createObjectURL(
+          new Blob(binaryData, { type: "application/pdf" })
+        );
         window.open(this.pdfUrl);
-        })
+      });
     },
     toPdf() {
-      this.getPdfFromHtml(this.$refs.pdfs, "测试")
+      this.getPdfFromHtml(this.$refs.pdfs, "测试");
     },
     setTimeList(values) {
-      const [projectDevelopDate, projectEndDate] = [...values]
-      this.queryParams.beginHappenTime = projectDevelopDate
-      this.queryParams.endHappenTime = projectEndDate
-    }
+      const [projectDevelopDate, projectEndDate] = [...values];
+      this.queryParams.beginHappenTime = projectDevelopDate;
+      this.queryParams.endHappenTime = projectEndDate;
+    },
   },
 };
 </script>
 <style lang="scss" scoped>
-.box-card{
+.box-card {
   margin-bottom: 20px;
 }
 .btnClass {
@@ -721,7 +715,6 @@ export default {
 .export {
   margin-bottom: 10px;
 }
-
 
 ::v-deep .label-type {
   .el-form-item__label {

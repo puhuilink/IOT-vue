@@ -242,7 +242,7 @@
         :total="total"
         :page.sync="from"
         :limit.sync="query.size"
-        @pagination="searchClick"
+        @pagination="getTableList"
       />
     </el-card>
 
@@ -726,7 +726,7 @@ export default {
     },
   },
   created() {
-    this.searchClick();
+    this.getTableList();
     // this.getList()
   },
 
@@ -741,7 +741,7 @@ export default {
         });
       }
     },
-    async searchClick() {
+    async getTableList() {
       this.addQuery(
         this.query,
         "detail_src_ip",
@@ -991,7 +991,7 @@ export default {
     },
 
     btnQuery() {
-      this.searchClick();
+      this.getTableList();
     },
     resetForm() {
       this.queryParams = {
@@ -1002,7 +1002,7 @@ export default {
         procedure: "",
         date: [],
       };
-      this.searchClick();
+      this.getTableList();
     },
     detail(row) {
       this.detailData = row;

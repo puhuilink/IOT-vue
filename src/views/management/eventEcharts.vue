@@ -23,48 +23,42 @@
         width="55"
         align="center"
       /> -->
-        <el-table-column
-          label="事件名称"
-          align="center"
-          prop="_source.event_name"
-          :show-overflow-tooltip="true"
-        />
-        <el-table-column
-          label="源IP"
-          align="center"
-          prop="_source.detail_src_ip"
-          :show-overflow-tooltip="true"
-        />
-        <el-table-column
-          label="目的IP"
-          align="center"
-          prop="_source.detail_dst_ip"
-          :show-overflow-tooltip="true"
-        />
-        <el-table-column
-          label="协议"
-          align="center"
-          prop="_source.detail_protocol"
-          :show-overflow-tooltip="true"
-        />
-        <!-- <el-table-column
-        label="事件等级"
+      <el-table-column
+        label="事件名称"
         align="center"
-        prop="_source.severity"
-      >
+        prop="_source.event_name"
+        :show-overflow-tooltip="true"
+      />
+      <el-table-column
+        label="源IP"
+        align="center"
+        prop="_source.detail_src_ip"
+        :show-overflow-tooltip="true"
+      />
+      <el-table-column
+        label="目的IP"
+        align="center"
+        prop="_source.detail_dst_ip"
+        :show-overflow-tooltip="true"
+      />
+      <el-table-column
+        label="协议"
+        align="center"
+        prop="_source.detail_protocol"
+        :show-overflow-tooltip="true"
+      />
+      <el-table-column label="事件等级" align="center" prop="_source.severity">
         <template #default="scope">
-           <span
-              v-if="
-                scope.row._source.severity == '' ||
-                scope.row._source.severity == null
-              "
-            />
-          <span v-else>{{
-            transTypeDic(scope.row._source.severity)
-          }}</span>
+          <span
+            v-if="
+              scope.row._source.severity == '' ||
+              scope.row._source.severity == null
+            "
+          />
+          <span v-else>{{ transTypeDic(scope.row._source.severity) }}</span>
         </template>
-      </el-table-column> -->
-         <el-table-column
+      </el-table-column>
+      <el-table-column
         label="事件类型"
         align="center"
         prop="_source.event_class"
@@ -79,36 +73,36 @@
           <span v-else>{{ transClassDic(scope.row._source.event_class) }}</span>
         </template>
       </el-table-column>
-        <el-table-column
-          label="处置状态"
-          align="center"
-          prop="_source.procedure"
-          :show-overflow-tooltip="true"
-        />
-        <el-table-column
-          label="事件开始时间"
-          align="center"
-          prop="_source.occur_time"
-          :show-overflow-tooltip="true"
-        />
-        <el-table-column
-          label="事件结束时间"
-          align="center"
-          prop="_source.close_time"
-          :show-overflow-tooltip="true"
-        />
-        <el-table-column
-          label="区域"
-          align="center"
-          prop="_source.location"
-          :show-overflow-tooltip="true"
-        />
-        <el-table-column
-          label="上报设备"
-          align="center"
-          prop="_source.agent"
-          :show-overflow-tooltip="true"
-        />
+      <el-table-column
+        label="处置状态"
+        align="center"
+        prop="_source.procedure"
+        :show-overflow-tooltip="true"
+      />
+      <el-table-column
+        label="事件开始时间"
+        align="center"
+        prop="_source.occur_time"
+        :show-overflow-tooltip="true"
+      />
+      <!-- <el-table-column
+        label="事件结束时间"
+        align="center"
+        prop="_source.close_time"
+        :show-overflow-tooltip="true"
+      /> -->
+      <el-table-column
+        label="区域"
+        align="center"
+        prop="_source.location"
+        :show-overflow-tooltip="true"
+      />
+      <el-table-column
+        label="上报设备"
+        align="center"
+        prop="_source.agent"
+        :show-overflow-tooltip="true"
+      />
       </el-table>
     </el-col>
   </div>
@@ -128,13 +122,23 @@ export default {
     return {
       policitalStatus: ["1"],
       // 查询参数
-      query: {
+      // query: {
+      //   query: {
+      //     bool: {
+      //       must: [],
+      //     },
+      //   },
+      //   // sort: [{ occur_time: { order: "desc" } }],
+      //   from: 0,
+      //   size: 6,
+      // },
+       query: {
         query: {
           bool: {
             must: [],
           },
         },
-        // sort: [{ occur_time: { order: "desc" } }],
+        sort: [{ occur_time: { order: "desc" } }],
         from: 0,
         size: 6,
       },

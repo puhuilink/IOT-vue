@@ -217,6 +217,7 @@
           align="center"
           prop="remark"
           min-width="5%"
+           :show-overflow-tooltip="true"
         />
         <el-table-column
           label="操作"
@@ -774,9 +775,15 @@ export default {
         "/dm/notificationManagement/edit",
         this.saveDetailData
       ).then((response) => {
-        this.$message.success(msg);
+        this.$message({
+          type: "success",
+          message: "编辑成功",
+        });
+        // this.$message.success(msg);
+        setTimeout(() => {
+          this.getCategoryList();
+        }, 500);
       });
-      this.getCategoryList();
     },
     setTimeList(values) {
       const [projectDevelopDate, projectEndDate] = [...values];

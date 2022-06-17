@@ -486,7 +486,7 @@ export default {
             must: [],
           },
         },
-        sort: [{ occur_time: { order: "desc" } }],
+        sort: [{ receive_time: { order: "desc" } }],
         from: 0,
         size: 10,
       },
