@@ -46,13 +46,29 @@ module.exports = {
           '^/codesafeapi': '' // 重写codesafeapi为空
         }
       },
+      // APP加固---梆梆
+      '/app': {
+        target: 'http://10.201.31.103:8000', 
+        changeOrigin: true,
+        pathRewrite: {
+          '^/app': '' // 重写app为空
+        }
+      },
+      // '/app': {
+      //   target: 'http://10.201.31.103:8000',  //  梆梆app加固
+      //   changeOrigin: true,
+      //   pathRewrite: {
+      //     '^/app': ''
+      //   }
+      // },
+
       // detail: https://cli.vuejs.org/config/#devserver-proxy
       [process.env.VUE_APP_BASE_API]: {
         // target: `http://192.168.2.103:8088`,
         // target: `http://116.63.139.209:8088`,
-         target: `http://116.63.139.209:10003/dev`,
-          //  target: `http://10.1.13.8099`,
-          //  target: `http://116.63.139.209:8082`,
+        // target: `http://116.63.139.209:10003/dev`,
+        //  target: `http://10.1.13.8099`,
+         target: `http://116.63.139.209:8082`,
         changeOrigin: true,
         pathRewrite: {
           ['^' + process.env.VUE_APP_BASE_API]: ''
@@ -97,7 +113,7 @@ module.exports = {
             .plugin('ScriptExtHtmlWebpackPlugin')
             .after('html')
             .use('script-ext-html-webpack-plugin', [{
-            // `runtime` must same as runtimeChunk name. default is `runtime`
+              // `runtime` must same as runtimeChunk name. default is `runtime`
               inline: /runtime\..*\.js$/
             }])
             .end()

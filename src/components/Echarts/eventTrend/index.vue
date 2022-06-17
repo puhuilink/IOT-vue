@@ -310,7 +310,7 @@ export default {
           break;
         case "design":
           await eventEsData(this.queryParms).then(({ data }) => {
-            this.hasData = data;
+            this.hasData = data.data;
             this.data1 = this.transDicData(data)[0];
             this.data2 = this.transDicData(data)[1];
             this.data3 = this.transDicData(data)[2];

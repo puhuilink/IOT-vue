@@ -81,22 +81,23 @@ export const getManagementThreatEventsData = params => {
 //代码审计事件---列表
 const baseapplicationManagement = 'https://10.201.72.99/codesafeapi/quickcheck'
 
-export const getApplicationManagementData = (params,authorizationValue) => {
+export const getApplicationManagementData = (params, authorizationValue) => {
   return axios.post(`${baseapplicationManagement}`, params,
-  {headers:
     {
-      // 'Content-Type': 'application/x-www-form-urlencoded',
-      Authorization: authorizationValue
+      headers:
+      {
+        // 'Content-Type': 'application/x-www-form-urlencoded',
+        Authorization: authorizationValue
+      }
     }
-  }
   )
 }
 //代码审计---任务统计信息及详情
 const codeAuditDetailData = 'https://10.201.72.99/codesafeapi/result/'
 
-export const codeAuditDetail = (params,authorizationValue) => {
-  return axios.get(`${codeAuditDetailData+params}`, {
-  headers:
+export const codeAuditDetail = (params, authorizationValue) => {
+  return axios.get(`${codeAuditDetailData + params}`, {
+    headers:
     {
       Authorization: authorizationValue
     }
@@ -104,28 +105,45 @@ export const codeAuditDetail = (params,authorizationValue) => {
   )
 }
 
+//APP加固---获取token
+const codeGetTokenData = '/app/api/login/getToken'
+
+export const codeGetToken = () => {
+  return axios.get(`${codeGetTokenData}`, {
+    params:{ username: "zgjt" }
+
+  }
+  )
+}
+
+// const baseAppToken = '/app/api/login/getToken?username=zgjt'
+// export const getAPPtoken = params => {
+//   return axios.post(`${baseAppToken}`, params)
+// }
+
+
 // //代码审计事件---详情---列表---查询一个任务的全部缺陷（分页）
 const baseapplicationManagementDetailTable = 'https://10.201.72.99/codesafeapi/result/'
 
-export const getApplicationManagementDetailTable = (params,query,authorizationValue) => {
-  return axios.get(`${baseapplicationManagementDetailTable+params+'/bug'}`,{
-    params:query,
+export const getApplicationManagementDetailTable = (params, query, authorizationValue) => {
+  return axios.get(`${baseapplicationManagementDetailTable + params + '/bug'}`, {
+    params: query,
     headers:
-      {
-        Authorization: authorizationValue
-      }
-    })
+    {
+      Authorization: authorizationValue
+    }
+  })
 }
 // //代码审计事件---缺陷详情
 const baseapplicationManagementDefectDetail = 'https://10.201.72.99/codesafeapi/result/'
 
-export const getApplicationManagementDefectDetail = (taskId,bugId,authorizationValue) => {
-  return axios.get(`${baseapplicationManagementDefectDetail+taskId+'/bug/'+bugId}`,{
+export const getApplicationManagementDefectDetail = (taskId, bugId, authorizationValue) => {
+  return axios.get(`${baseapplicationManagementDefectDetail + taskId + '/bug/' + bugId}`, {
     headers:
-      {
-        Authorization: authorizationValue
-      }
-    })
+    {
+      Authorization: authorizationValue
+    }
+  })
 }
 
 
@@ -147,9 +165,9 @@ service.interceptors.request.use(config => {
   if (getToken() && !isToken) {
     config.headers['Authorization'] = 'Bearer ' + getToken() // 让每个请求携带自定义token 请根据实际情况自行修改
   }
- 
-    // config.headers['Authorization'] =  'Basic base64encode("wuzhigang"+":"+"123456")' 
-  
+
+  // config.headers['Authorization'] =  'Basic base64encode("wuzhigang"+":"+"123456")' 
+
   // get请求映射params参数
   if (config.method === 'get' && config.params) {
     let url = config.url + '?'
@@ -210,23 +228,23 @@ service.interceptors.response.use(res => {
     return res.data
   }
 },
-error => {
-  console.log('err' + error)
-  let { message } = error
-  if (message === 'Network Error') {
-    message = '后端接口连接异常'
-  } else if (message.includes('timeout')) {
-    message = '系统接口请求超时'
-  } else if (message.includes('Request failed with status code')) {
-    message = '系统接口' + message.substr(message.length - 3) + '异常'
+  error => {
+    console.log('err' + error)
+    let { message } = error
+    if (message === 'Network Error') {
+      message = '后端接口连接异常'
+    } else if (message.includes('timeout')) {
+      message = '系统接口请求超时'
+    } else if (message.includes('Request failed with status code')) {
+      message = '系统接口' + message.substr(message.length - 3) + '异常'
+    }
+    Message({
+      message: message,
+      type: 'error',
+      duration: 5 * 1000
+    })
+    return Promise.reject(error)
   }
-  Message({
-    message: message,
-    type: 'error',
-    duration: 5 * 1000
-  })
-  return Promise.reject(error)
-}
 )
 
 export default service
