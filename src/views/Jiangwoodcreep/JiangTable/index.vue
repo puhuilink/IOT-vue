@@ -275,6 +275,7 @@
               >详情</el-button
             >
             &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
+            <!-- 误报 -->
             <el-dropdown
               @command="batchOperate"
               v-if="scope.row._source.procedure == '误报'"
@@ -307,6 +308,7 @@
                 >
               </el-dropdown-menu>
             </el-dropdown>
+            <!-- 不处置 -->
             <el-dropdown
               @command="batchOperate"
               v-else-if="scope.row._source.procedure == '不处置'"
@@ -335,6 +337,7 @@
                 >
               </el-dropdown-menu>
             </el-dropdown>
+            <!-- 已处置、处置中 -->
             <el-dropdown
               @command="batchOperate"
               v-else-if="
@@ -364,6 +367,7 @@
                 >
               </el-dropdown-menu>
             </el-dropdown>
+            <!-- 待处置 -->
             <el-dropdown @command="batchOperate" v-else>
               <el-button size="mini" type="text">
                 状态变更<i class="el-icon-arrow-down el-icon--right" />
@@ -1239,7 +1243,7 @@ export default {
           }).then((response) => {
             this.$message({
               type: "success",
-              message: '处置状态已修改为"不处置"',
+              message: '处置状态已修改为"不处置',
             });
             // this.getTableList();
             setTimeout(() => {

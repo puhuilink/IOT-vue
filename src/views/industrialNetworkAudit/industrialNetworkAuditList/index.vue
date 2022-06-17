@@ -466,7 +466,7 @@
               </el-form-item>
             </el-col>
             <el-col :span="12">
-              <el-form-item label="应用层协议：" prop="applyProtocol">
+              <el-form-item label="应用层协议：" prop="ev_wsec_inpa_application_layer_protocol">
                 <tooltip
                   :content="detailData.ev_wsec_inpa_application_layer_protocol"
                   :length="20"
@@ -674,6 +674,7 @@ export default {
         detail_src_ip: "",
         detail_dst_ip: "",
         location: "",
+        ev_wsec_inpa_application_layer_protocol:"",
         procedure: "",
         severity: "",
         event_format: "",
@@ -935,7 +936,10 @@ export default {
         this.queryParams.detail_dst_ip
       );
 
-      this.addQuery(this.query, "location.keyword", this.queryParams.location);
+      this.addQuery(this.query, "location", this.queryParams.location);
+
+      this.addQuery(this.query, "ev_wsec_inpa_application_layer_protocol", this.queryParams.ev_wsec_inpa_application_layer_protocol);
+      
 
       this.addQuery(this.query, "procedure", this.queryParams.procedure);
 
@@ -1225,6 +1229,7 @@ export default {
         detail_src_ip: "",
         detail_dst_ip: "",
         location: "",
+        ev_wsec_inpa_application_layer_protocol:"",
         procedure: "",
         severity: "",
         event_format: "",
