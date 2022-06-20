@@ -290,7 +290,7 @@ export default {
       switch (this.name) {
         case "Jiangwoodcreep":
           await eventEsData(this.queryParms).then(({ data }) => {
-            this.hasData = data.data;
+            this.hasData = data;
             this.data1 = this.transDicData(data)[0];
             this.data2 = this.transDicData(data)[1];
             this.data3 = this.transDicData(data)[2];
@@ -300,7 +300,7 @@ export default {
           break;
         case "weakPassword":
           await eventEsData(this.queryParms).then(({ data }) => {
-            this.hasData = data.data;
+            this.hasData = data;
             this.data1 = this.transDicData(data)[0];
             this.data2 = this.transDicData(data)[1];
             this.data3 = this.transDicData(data)[2];
@@ -310,7 +310,7 @@ export default {
           break;
         case "design":
           await eventEsData(this.queryParms).then(({ data }) => {
-            this.hasData = data.data;
+            this.hasData = data;
             this.data1 = this.transDicData(data)[0];
             this.data2 = this.transDicData(data)[1];
             this.data3 = this.transDicData(data)[2];
@@ -321,7 +321,7 @@ export default {
         case "host":
           await eventEsHostData(this.queryParms).then(({ data }) => {
             console.log(data);
-            this.hasData = data.data;
+            this.hasData = data;
             this.data1 = this.transDicData(data)[0];
             this.data2 = this.transDicData(data)[1];
             this.data3 = this.transDicData(data)[2];
@@ -347,7 +347,7 @@ export default {
           // 主机安全管理和异常行为管理，事件趋势分析都展示30天数据，用同一个接口
         case "abnormal":
           await eventEsHostData(this.queryParms).then(({ data }) => {
-            this.hasData = data.data;
+            this.hasData = data;
             this.data1 = this.transDicData(data)[0];
             this.data2 = this.transDicData(data)[1];
             this.data3 = this.transDicData(data)[2];
@@ -357,7 +357,7 @@ export default {
           break;
         case "vulnerablity":
           await scanningeventLevelEcharts(this.querys).then(({ data }) => {
-            this.hasData = data.data;
+            this.hasData = data;
             if (data.length) {
               const aaa = data.filter((e) => e.eventLevel === "1");
               if (aaa.length) {
@@ -406,7 +406,7 @@ export default {
           break;
         case "event":
           await eventEsData(this.queryParms).then(({ data }) => {
-            this.hasData = data.data;
+            this.hasData = data;
             this.data1 = this.transDicData(data)[0];
             this.data2 = this.transDicData(data)[1];
             this.data3 = this.transDicData(data)[2];
