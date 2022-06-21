@@ -936,7 +936,7 @@ export default {
         this.queryParams.detail_dst_ip
       );
 
-      this.addQuery(this.query, "location", this.queryParams.location);
+      this.addQuery(this.query, "location.keyword", this.queryParams.location);
 
       this.addQuery(this.query, "ev_wsec_inpa_application_layer_protocol", this.queryParams.ev_wsec_inpa_application_layer_protocol);
       
