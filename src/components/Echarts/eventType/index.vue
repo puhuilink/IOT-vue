@@ -133,7 +133,7 @@ export default {
       handler(val, oldVal) {
         if (val !== oldVal) {
           if (val.severity) {
-            this.querys.severity = val.severity;
+            // this.querys.severity = val.severity;
             this.queryParms.query.bool.must.push({
               match: {
                 severity: val.severity,
@@ -141,7 +141,6 @@ export default {
             });
           }
           if (val.location) {
-         c
             this.queryParms.query.bool.must.push({
               match: {
                 location: val.location,
