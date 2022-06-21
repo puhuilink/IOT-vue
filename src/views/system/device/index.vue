@@ -1130,7 +1130,7 @@ export default {
     }
   },
   created() {
-    this.getCategoryList()
+    // this.getCategoryList()
     this.getList()
     this.getDicts('iot_trigger_source').then(response => {
       this.triggerSourceOptions = response.data
