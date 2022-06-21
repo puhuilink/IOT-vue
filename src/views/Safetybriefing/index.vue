@@ -812,13 +812,12 @@ export default {
     // 上报
     async report(eventId, eventIndex,notificationStatus) {
       this.formData.eventId = eventId
-      this.formData.notificationStatus = notificationStatus
+      this.formData.notificationStatus = "已通报"
       // console.log('参数',eventId,eventIndex)
       if (eventIndex != "vulnerability") {
         const params = {
           id: eventId,
           index: eventIndex,
-          notificationStatus:notificationStatus,
         };
         const { msg } = await notificationExport(params).then((response) => {
           // console.log('response',response)
@@ -840,7 +839,10 @@ export default {
             type: "success",
             message: "上报成功!",
           });
-          this.getCategoryList();
+          setTimeout(() => {
+              this.getChangeSate();
+            }, 500);
+          // this.getCategoryList();
         });
       }
     },
