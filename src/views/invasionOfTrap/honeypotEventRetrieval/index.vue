@@ -95,7 +95,6 @@
                   v-model="queryParams.date"
                   size="small"
                   type="daterange"
-                  format="yyyy 年 MM 月 dd 日"
                   value-format="yyyy-MM-dd"
                   range-separator="至"
                   start-placeholder="开始日期"
