@@ -242,7 +242,7 @@
               size="mini"
               type="text"
               v-if="scope.row.notificationStatus != '已通报'"
-              @click="report(scope.row.eventId, scope.row.eventIndex)"
+              @click="report(scope.row.eventId, scope.row.eventIndex,scope.row.notificationStatus)"
               >上报</el-button
             >
             <!-- <el-button
@@ -494,6 +494,7 @@
 import {
   notificationList,
   notificationExport,
+  putChangeSate,
   vulnerabilityExport,
   notificationDetail,
   notificationEdit,
@@ -547,6 +548,10 @@ export default {
       },
       // 表单参数
       form: {},
+      formData:{
+        eventId:"",
+        notificationStatus:""
+      },
       rules: {
         name: [],
         level: [],
@@ -790,13 +795,30 @@ export default {
       this.queryParams.beginCreationTime = projectDevelopDate;
       this.queryParams.endCreationTime = projectEndDate;
     },
+    //通报状态
+    async getChangeSate() {
+      //入库
+      await putChangeSate(this.formData).then((response) => {
+          this.$message({
+            type: "success",
+            message:'通报状态已修改为"已通报"' ,
+          });
+          setTimeout(() => {
+             this.getCategoryList();
+          }, 500);
+        
+      });
+    },
     // 上报
-    async report(eventId, eventIndex) {
+    async report(eventId, eventIndex,notificationStatus) {
+      this.formData.eventId = eventId
+      this.formData.notificationStatus = notificationStatus
       // console.log('参数',eventId,eventIndex)
       if (eventIndex != "vulnerability") {
         const params = {
           id: eventId,
           index: eventIndex,
+          notificationStatus:notificationStatus,
         };
         const { msg } = await notificationExport(params).then((response) => {
           // console.log('response',response)
@@ -805,7 +827,9 @@ export default {
             type: "success",
             message: "上报成功!",
           });
-          this.getCategoryList();
+           setTimeout(() => {
+              this.getChangeSate();
+            }, 500);
         });
       } else {
         const params = {

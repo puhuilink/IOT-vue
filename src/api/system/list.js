@@ -142,6 +142,15 @@ export function notificationExport(params) {
   })
 }
 
+// 通报管理---状态变更
+export function putChangeSate(params) {
+  return request({
+    url: '/dm/notificationManagement/edit',
+    // url:url,
+    method: 'put',
+    params: params
+  })
+}
 // 漏洞管理---上报
 export function vulnerabilityExport(params) {
   return request({
