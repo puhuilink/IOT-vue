@@ -7,6 +7,14 @@ export function getToken(query) {
     params: query
   })
 }
+//获取APP加固Token
+export function getAPPtoken(query) {
+  return request({
+    url: '/event/appZhongJiaoJianTO/getAppZhongJiaoJians',
+    method: 'get',
+    params: query
+  })
+}
 //es趋势分析接口
 export function eventEsData(query) {
   return request({

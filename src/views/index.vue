@@ -5,8 +5,7 @@
 </template>
 
 <script>
-import { getToken } from '@/api/system/echarts'
-import { getAPPtoken } from "@/utils/request";
+import { getToken, getAPPtoken } from '@/api/system/echarts'
 export default {
   name: 'Index',
   data() {
@@ -48,7 +47,7 @@ export default {
        this.query.token = res
       });
    getAPPtoken().then((res) => {
-      this.query.appToken = res.data.info.token
+      this.query.appToken = res.data.token
       });
     },   
 
