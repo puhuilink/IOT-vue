@@ -230,7 +230,7 @@ export default {
       switch (this.name) {
         case "invade":
           await eventEsDataInvasion(this.queryParms).then(({ data }) => {
-            this.hasData = data.data;
+            this.hasData = data;
             this.data1 = this.transDicData(data)[0];
             this.data2 = this.transDicData(data)[1];
           });
