@@ -48,11 +48,11 @@ export default {
   },
   methods: { 
       async getAppToken(){ 
-    const res = await getToken()
+    const res = await getAPPtoken()
     this.query.appToken = res
     },   
     async getToken(){
-    const res = await getAPPtoken()
+    const res = await getToken()
     this.query.token = res
     },
   loaded(){
