@@ -40,15 +40,16 @@ export default {
   },
    created(){
     this.getToken()
+    this.getAppToken()
   },
   methods: {
-  getToken(){  
-      getToken().then((res) => {
-       this.query.token = res
-      });
-   getAPPtoken().then((res) => {
-      this.query.appToken = res.data.token
-      });
+    async getToken(){
+    const res = await getToken()
+    this.query.token = res
+    },
+  async getAppToken(){ 
+    const res = await getAPPtoken()
+    this.query.appToken = res
     },   
 
   loaded(){
