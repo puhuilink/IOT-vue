@@ -1,6 +1,6 @@
 <template>
   <div >
-    <iframe ref="vueIframe" id="mobsf" src="/static/index.html" @load="loaded" scrolling="no" frameborder="0"  />
+    <iframe ref="vueIframe" id="mobsf" src="/static/index.html" scrolling="no" frameborder="0"  />
   </div>
 </template>
 
@@ -38,20 +38,23 @@ export default {
       changeMobsfIframe()
     }
   },
-   created(){
+  async created(){
+      await Promise.all([
+       this.getAppToken(),
     this.getToken()
-    this.getAppToken()
+    ])
+    this.loaded()
+  
   },
-  methods: {
-    async getToken(){
+  methods: { 
+      async getAppToken(){ 
     const res = await getToken()
-    this.query.token = res
-    },
-  async getAppToken(){ 
-    const res = await getAPPtoken()
     this.query.appToken = res
     },   
-
+    async getToken(){
+    const res = await getAPPtoken()
+    this.query.token = res
+    },
   loaded(){
 			this.iframeWin.postMessage(this.query,'*');
 			},
