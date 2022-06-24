@@ -19,6 +19,14 @@ export function listDevice(query) {
   })
 }
 
+// 查询告警事件列表
+export function listAlarmEvent(query) {
+  return request({
+    url: '/iot/alertLog/list',
+    method: 'get',
+    params: query
+  })
+}
 // //设备管理列表接口--分页查询
 // export function listDevice(query) {
 //   return request({

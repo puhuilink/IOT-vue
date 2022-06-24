@@ -13,9 +13,9 @@
             label-position="right"
           >
             <el-col :span="6">
-              <el-form-item label="告警名称：" prop="event_name">
+              <el-form-item label="告警名称：" prop="alertName">
                 <el-input
-                  v-model="queryParams.event_name"
+                  v-model="queryParams.alertName"
                   placeholder="请输入事件名称"
                   clearable
                   :style="{ width: '100%' }"
@@ -43,9 +43,9 @@
               </el-form-item>
             </el-col>
             <el-col :span="6">
-              <el-form-item label="告警等级:" prop="severity">
+              <el-form-item label="告警等级:" prop="alertLevel">
                 <el-select
-                  v-model="queryParams.severity"
+                  v-model="queryParams.alertLevel"
                   placeholder="请选择告警等级"
                   filterable
                   clearable
@@ -81,9 +81,9 @@
               </el-form-item>
             </el-col>
             <el-col :span="6">
-              <el-form-item label="处置状态:" prop="procedure">
+              <el-form-item label="处置状态:" prop="managementState">
                 <el-select
-                  v-model="queryParams.procedure"
+                  v-model="queryParams.managementState"
                   placeholder="请选择处置状态"
                   clearable
                   :style="{ width: '100%' }"
@@ -146,82 +146,50 @@
       <el-table-column
         label="告警名称"
         align="center"
-        prop="_source.ev_com_socket_src_ip"
+        prop="alertName"
         :show-overflow-tooltip="true"
       />
       <el-table-column
         label="告警等级"
         align="center"
-        prop="_source.ev_com_socket_dst_ip"
+        prop="alertLevel"
         :show-overflow-tooltip="true"
       />
       <el-table-column
         label="设备名称"
         align="center"
-        prop="_source.event_name"
+        prop="_source.deviceName"
         :show-overflow-tooltip="true"
       />
-       <!-- <el-table-column
-        label="威胁分类"
-        align="center"
-        prop="_source.ev_ksec_threatFlag"
-        :show-overflow-tooltip="true"
-      /> -->
-      <el-table-column
+       <el-table-column
         label="设备IP"
         align="center"
-        prop="_source.ev_ksec_threatFlag"
+        prop="networkIp"
         :show-overflow-tooltip="true"
-      >
-        <template #default="scope">
-          <span>{{ translevelDic(scope.row._source.ev_ksec_threatFlag) }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column label="设备类型" align="center" prop="severity">
-        <template #default="scope">
-          <span
-            v-if="
-              scope.row._source.severity == null ||
-              scope.row._source.severity == ''
-            "
-          />
-          <span v-else>{{ transTypeDic(scope.row._source.severity) }}</span>
-        </template>
-      </el-table-column>
+      />
+      <el-table-column label="设备类型" align="center" prop="deviceType"  :show-overflow-tooltip="true"/>
       <el-table-column
         label="处置状态"
         align="center"
-        prop="_source.ev_ksec_killchainCN"
+        prop="managementState"
         :show-overflow-tooltip="true"
       />
       <el-table-column
         label="告警开始时间"
         align="center"
-        prop="_source.occur_time"
+        prop="alertStartTime"
         :show-overflow-tooltip="true"
-      >
-        <template #default="scope">
-          <span>
-            {{ scope.row._source.occur_time | moment }}
-          </span>
-        </template>
-      </el-table-column>
+      />
       <el-table-column
         label="告警结束时间"
         align="center"
-        prop="_source.ev_com_event_observe_time"
+        prop="alertEntTime"
         :show-overflow-tooltip="true"
-      >
-        <template #default="scope">
-          <span>
-            {{ scope.row._source.ev_com_event_observe_time | moment }}
-          </span>
-        </template>
-      </el-table-column>
+      />
       <el-table-column
         label="区域"
         align="center"
-        prop="_source.location"
+        prop="region"
         :show-overflow-tooltip="true"
       />
       <el-table-column
@@ -230,7 +198,7 @@
         class-name="small-padding fixed-width"
       >
         <template slot-scope="scope">
-          <el-button size="mini" type="text" @click="detail(scope.row._source)"
+          <el-button size="mini" type="text" @click="detail(scope.row.alertLogId)"
             >详情</el-button
           >
         </template>
@@ -240,8 +208,8 @@
     <pagination
       v-show="total > 0"
       :total="total"
-      :page.sync="from"
-      :limit.sync="query.size"
+      :page.sync="queryParams.pageNum"
+      :limit.sync="queryParams.pageSize"
       @pagination="getTableList"
     />
     <!-- 添加或修改分组对话框 -->
@@ -251,53 +219,53 @@
         <el-row>
           <el-col :span="12">
             <el-form-item label="告警名称 :">
-              <tooltip :content="detailData.event_name" :length="20" />
+              <tooltip :content="detailData.alertName" :length="20" />
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="告警等级 :">
-              {{ detailData.ev_ksec_threatFlag }}
+              {{ detailData.alertLevel }}
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="设备名称 :">
-              {{ detailData.ev_ksec_killchainCN }}
+              {{ detailData.deviceName }}
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="设备类型 :">
-              {{ detailData.severity }}
+              {{ detailData.deviceType }}
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="设备IP :">
-              {{ detailData.ev_com_socket_src_ip }}
+              {{ detailData.networkIp }}
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="区域 :">
-              {{ detailData.ev_com_socket_src_ip_country }}
+              {{ detailData.region }}
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="告警开始时间 :">
-              {{ detailData.occur_time }}
+              {{ detailData.alertStartTime }}
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="告警结束时间 :">
-              {{ detailData.ev_com_event_observe_time  | moment}}
+              {{ detailData.alertEntTime  | moment}}
             </el-form-item>
           </el-col>
 
           <el-col :span="12">
             <el-form-item label="处置状态 :">
-              {{ detailData.ev_com_socket_src_port }}
+              {{ detailData.managementState }}
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="告警描述 :">
-              {{ detailData.ev_com_socket_dst_port }}
+              {{ detailData.alertDescribe }}
             </el-form-item>
           </el-col>
         </el-row>
@@ -316,7 +284,11 @@
   </div>
 </template>
 <script>
+import { alarmEventListDetail } from "@/api/system/detail";
 import { getbaseJiangTableData } from "@/utils/request";
+import {
+ listAlarmEvent
+} from '@/api/system/device'
 import { zombieList } from "@/api/system/list";
 export default {
   name: "Index",
@@ -350,16 +322,17 @@ export default {
         size: 10,
       },
       // 查询参数
-      queryParams: {
-        event_name: "",
-        location: "",
-        severity: "",
-        procedure: "",
-        ev_com_socket_dst_ip: "",
-        ev_com_socket_src_ip: "",
-        ev_ksec_killchainCN: "",
-        date: [],
-        ev_ksec_threatFlag: "",
+     queryParams: {
+        pageNum: 1,
+        pageSize: 10,
+        // deviceName:"",
+        // deviceType:"",
+        // status:"",
+        // authorizationType:"",
+        // versionNumber:"",
+        // romVersionNumber:"",
+        // networkAddress:"",
+        // username:""
       },
       rules: {
         event_name: [],
@@ -512,57 +485,12 @@ export default {
       }
     },
     async getTableList() {
-      this.addQuery(this.query, "event_name", this.queryParams.event_name);
-
-      this.addQuery(this.query, "location.keyword", this.queryParams.location);
-
-      this.addQuery(this.query, "severity", this.queryParams.severity);
-
-      this.addQuery(this.query, "procedure", this.queryParams.procedure);
-
-      this.addQuery(
-        this.query,
-        "ev_com_socket_dst_ip",
-        this.queryParams.ev_com_socket_dst_ip
-      );
-
-      this.addQuery(
-        this.query,
-        "ev_com_socket_src_ip",
-        this.queryParams.ev_com_socket_src_ip
-      );
-
-      this.addQuery(
-        this.query,
-        "ev_ksec_killchainCN",
-        this.queryParams.ev_ksec_killchainCN
-      );
-
-      this.addQuery(
-        this.query,
-        "ev_ksec_threatFlag",
-        this.queryParams.ev_ksec_threatFlag
-      );
-
-      this.query.from = this.from - 1;
-      if (this.queryParams.date.length > 0) {
-        this.query.query.bool.must.push({
-          range: {
-            occur_time: {
-              gte: this.queryParams.date[0],
-              lte: this.queryParams.date[1],
-            },
-          },
-        });
-      }
-
-      getbaseJiangTableData(this.query).then((res) => {
-        this.query.query.bool.must = [];
-        this.groupList = [];
-        this.total = res.data.hits.total;
-        this.List = res.data.hits.hits;
-      });
-      this.detailData.severity = this.transTypeDic(this.detailData.severity);
+      this.loading = true
+      listAlarmEvent(this.queryParams).then(response => {
+        this.List = response.rows
+        this.total = response.total
+        this.loading = false
+      })  
     },
     transType(val) {
       var t = [
@@ -716,19 +644,11 @@ export default {
       };
       this.getTableList();
     },
-    detail(row) {
-      this.detailData = row;
-
+    async detail(id) {
+      const { data } = await deviceListDetail(id);
       this.open = true;
       this.title = "事件详情";
-      if (this.detailData.severity) {
-        this.detailData.severity = this.transTypeDic(this.detailData.severity);
-      }
-      if (this.detailData.ev_ksec_threatFlag) {
-        this.detailData.ev_ksec_threatFlag = this.translevelDic(
-          this.detailData.ev_ksec_threatFlag
-        );
-      }
+      this.detailData = data;
     },
     // 取消按钮
     cancel() {
