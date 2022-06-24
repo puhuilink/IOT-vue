@@ -94,6 +94,15 @@ export function leakList(query) {
      params: query
   })
 }
+
+// 网页防篡改
+export function pageTamperProofEventList(query) {
+  return request({
+    url: '/dm/tamper/list',
+    method: 'get',
+     params: query
+  })
+}
 // 漏洞列表 zip导入功能
 export function uploadZip(url, query,params) {
   return request({
@@ -169,6 +178,15 @@ export function notificationDetail(params) {
   })
 }
 
+// 网页防篡改--- 详情
+export function pageTamperProofEventDeatil(params) {
+  return request({
+    url: '/dm/tamper/' + params,
+    method: 'get',
+  })
+}
+
+
 // 通报管理---编辑
 export function notificationEdit(url,params) {
   return request({
@@ -184,6 +202,14 @@ export function notificationDelete(params) {
   return request({
     url: '/dm/notificationManagement/' + params,
     method: 'delete',
+  })
+}
+
+// 设备管理--- 授权 
+export function authorizationType(params) {
+  return request({
+    url: '/iot/device/authorizationType/' + params,
+    method: 'put',
   })
 }
 // 修改ES信息状态

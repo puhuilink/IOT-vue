@@ -977,11 +977,11 @@ export default {
     transTransportProtocol(val) {
       var t = [
         {
-          name: 6,
+          name: "6",
           content: "TCP",
         },
         {
-          name: 17,
+          name: "17",
           content: "UDP",
         },
       ];

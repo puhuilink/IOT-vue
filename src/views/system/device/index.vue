@@ -122,57 +122,55 @@
     <el-row :gutter="10" class="mb8">
       <el-col :span="1.5">
         <el-button
-          v-hasPermi="['system:device:add']"
           type="primary"
           plain
           size="mini"
-          @click="handleAdd"
+          @click="authorization()"
         >授权</el-button>
       </el-col>
       <el-col :span="1.5">
         <el-button
-          v-hasPermi="['system:device:edit']"
           type="success"
           plain
           size="mini"
-          @click="handleUpdate"
+          @click="handleUpgrade"
         >升级</el-button>
       </el-col>
-      <el-col :span="1.5">
+      <!-- <el-col :span="1.5">
         <el-button
-          v-hasPermi="['system:device:export']"
           type="warning"
           plain
           size="mini"
           @click="handleExport"
         >导出</el-button>
-      </el-col>
+      </el-col> -->
       <right-toolbar :show-search.sync="showSearch" @queryTable="getList" />
     </el-row>
 
     <el-table
       v-loading="loading"
+      tooltip-effect="light"
       :data="deviceList"
-      @selection-change="handleSelectionChange"
+       @selection-change="handleSelectionChange"
     >
-      <el-table-column type="selection" width="45" align="center" />
+      <el-table-column type="selection" width="45" align="center"/>
       <el-table-column label="设备名称" align="center" prop="deviceName" />
       <el-table-column label="设备类型" align="center" prop="deviceType" />
       <el-table-column
         label="设备状态"
         align="center"
-        prop="categoryId"
-        :formatter="categoryFormat"
+        prop="status"
       />
-      <el-table-column label="授权状态" align="center" prop="nickName" />
-      <el-table-column label="设备IP" align="center" prop="firmwareVersion" />
+      <el-table-column label="授权状态" align="center" prop="authorizationType" />
+      <el-table-column label="设备IP" align="center" prop="networkIp" />
       <!-- <el-table-column label="设备SN号" align="center" prop="isOnline">
         <template slot-scope="scope">
           <el-switch v-model="scope.row.isOnline" :active-value="1" :inactive-value="0" active-color="#13ce66" disabled />
         </template>
       </el-table-column> -->
-      <el-table-column label="设备SN号" align="center" prop="nickName" />
-      <el-table-column label="硬件版本号" align="center" prop="rssi">
+      <el-table-column label="设备SN号" align="center" prop="deviceSn" />
+       <el-table-column label="硬件版本号" align="center" prop="versionNumber" />
+      <!-- <el-table-column label="硬件版本号" align="center" prop="rssi">
         <template slot-scope="scope" style="font-size: 40px">
           <div style="font-size: 30px">
             <svg-icon v-if="scope.row.rssi >= '-55'" icon-class="wifi_4" />
@@ -191,11 +189,12 @@
             <svg-icon v-else icon-class="wifi_0" />
           </div>
         </template>
-      </el-table-column>
-      <el-table-column label="ROM版本号" align="center" prop="nickName" />
-      <el-table-column label="区域" align="center" prop="nickName" />
-      <el-table-column label="负责人" align="center" prop="nickName" />
-      <el-table-column
+      </el-table-column> -->
+      <el-table-column label="ROM版本号" align="center" prop="romVersionNumbe" />
+      <el-table-column label="区域" align="center" prop="networkAddress" />
+      <el-table-column label="负责人" align="center" prop="username" />
+      <el-table-column label="最后活跃时间" align="center" prop="lastActiveTime" />
+      <!-- <el-table-column
         label="最后活跃时间"
         align="center"
         prop="createTime"
@@ -204,7 +203,7 @@
         <template slot-scope="scope">
           <span>{{ parseTime(scope.row.createTime, "{y}-{m}-{d}") }}</span>
         </template>
-      </el-table-column>
+      </el-table-column> -->
 
       <el-table-column
         label="操作"
@@ -217,7 +216,7 @@
             v-hasPermi="['system:device:edit']"
             size="mini"
             type="text"
-            @click="detail()"
+            @click="detail(scope.row.deviceId)"
           >详情</el-button>
           <el-button
             v-hasPermi="['system:device:edit']"
@@ -235,7 +234,7 @@
             v-hasPermi="['system:device:edit']"
             size="mini"
             type="text"
-            @click="handleUpdate(scope.row)"
+            @click="handleUpdate(scope.row.deviceId)"
           >修改</el-button> 
         </template>
       </el-table-column>
@@ -254,13 +253,39 @@
       <div class="contentBoxEdit">
            <el-form ref="form" :model="form" :rules="rules" label-width="220px">
          <el-col :span="15" :offset="3" >
-           <el-form-item label="设备名称：" prop="deviceNum">
+           <el-form-item label="设备名称：" prop="deviceName">
              <el-input
-                v-model="form.deviceNum"
+                v-model="form.deviceName"
                 placeholder="请输入设备名称"
              />
             </el-form-item>
          </el-col>
+          <el-col :span="15" :offset="3" >
+           <!-- <el-form-item label="是否继承上级设备别名：" prop="deviceNum">
+             <el-input
+                v-model="form.deviceNum"
+                placeholder="请选择是否继承上级设备别名"
+             />
+            </el-form-item> -->
+            <el-form-item label="是否继承上级设备别名 :"  prop="deviceNum">
+                <el-select
+                  v-model="form.deviceNum"
+                  placeholder="请选择是否继承上级设备别名"
+                  filterable
+                  clearable
+                  :style="{ width: '100%' }"
+                >
+                  <el-option
+                    v-for="(item, index) in ifInherit"
+                    :key="index"
+                    :label="item.label"
+                    :value="item.value"
+                    :disabled="item.disabled"
+                  />
+                </el-select>
+              </el-form-item>
+         </el-col>
+         
          <el-col :span="15" :offset="3" >
            <el-form-item label="别名：" prop="deviceNum">
              <el-input
@@ -269,35 +294,35 @@
              />
             </el-form-item>
          </el-col>
-         <el-col :span="15" :offset="3" >
+          <el-col :span="15" :offset="3" >
+           <el-form-item label="序号：" prop="deviceNum">
+             <el-input
+                v-model="form.deviceNum"
+                placeholder="请选择序号"
+             />
+            </el-form-item>
+         </el-col>
+         <!-- <el-col :span="15" :offset="3" >
            <el-form-item label="是否修改与其相连的设备别名：" prop="deviceNum">
              <el-input
                 v-model="form.deviceNum"
                 placeholder="请输入别名"
              />
             </el-form-item>
-         </el-col>
-        <el-col :span="15" :offset="3" >
-           <el-form-item label="是否继承上级设备别名：" prop="deviceNum">
-             <el-input
-                v-model="form.deviceNum"
-                placeholder="请输入别名"
-             />
-            </el-form-item>
-         </el-col>
+         </el-col> -->
         <el-col :span="15" :offset="3" >
            <el-form-item label="负责人：" prop="deviceNum">
              <el-input
                 v-model="form.deviceNum"
-                placeholder="请输入负责人"
+                placeholder="请选择负责人"
              />
             </el-form-item>
          </el-col>
           <el-col :span="15" :offset="3" >
-           <el-form-item label="负责人部门：" prop="deviceNum">
+           <el-form-item label="部门：" prop="deviceNum">
              <el-input
                 v-model="form.deviceNum"
-                placeholder="请输入负责人"
+                placeholder="请选择部门"
              />
             </el-form-item>
          </el-col>
@@ -638,47 +663,47 @@
             </el-col>
             <el-col :span="8">
               <el-form-item label="运行状态 :">
-                {{ detailData.reportCycle }}
-              </el-form-item>
-            </el-col>
-            <el-col :span="8">
-              <el-form-item label="授权状态 :">
                 {{ detailData.status }}
               </el-form-item>
             </el-col>
             <el-col :span="8">
+              <el-form-item label="授权状态 :">
+                {{ detailData.authorizationType }}
+              </el-form-item>
+            </el-col>
+            <el-col :span="8">
               <el-form-item label="设备SN号 :">
-                {{ detailData.lastExecutionTime }}
+                {{ detailData.deviceSn }}
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item label="设备硬件版本号 :">
-                {{ detailData.nextExecutionTime }}
+                {{ detailData.versionNumber }}
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item label="设备ROM版本号 :">
-                {{ detailData.InformTheWay }}
+                {{ detailData.romVersionNumbe }}
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item label="设备IP :">
-                {{ detailData.Notify }}
+                {{ detailData.networkIp }}
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item label="负责人 :">
-                {{ detailData.create }}
+                {{ detailData.username }}
               </el-form-item>
             </el-col>
             <el-col :span="8">
-              <el-form-item label="负责人部门 :">
-                {{ detailData.createTime }}
+              <el-form-item label="部门 :">
+                {{ detailData.department }}
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item label="区域 :">
-                {{ detailData.create }}
+                {{ detailData.networkAddress }}
               </el-form-item>
             </el-col>
             <el-col :span="8">
@@ -688,12 +713,12 @@
             </el-col>
             <el-col :span="8">
               <el-form-item label="授权时间 :">
-                {{ detailData.createTime }}
+                {{ detailData.authorizationTime }}
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item label="最后活跃时间 :">
-                {{ detailData.createTime }}
+                {{ detailData.lastActiveTime }}
               </el-form-item>
             </el-col>
           </el-row>
@@ -708,59 +733,59 @@
           <el-row>
             <el-col :span="8">
               <el-form-item label="温度 :">
-                {{ detailData.reportName }}
+                {{ detailData.temperature }}
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item label="电压 :">
-                <tooltip :content="detailData.reportType" :length="40" />
+                <tooltip :content="detailData.voltage" :length="40" />
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item label="湿度 :">
-                {{ detailData.reportCycle }}
+                {{ detailData.humidity }}
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item label="方向角 :">
-                {{ detailData.status }}
+                {{ detailData.yaw }}
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item label="横滚角 :">
-                {{ detailData.lastExecutionTime }}
+                {{ detailData.roll }}
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item label="震动幅度 :">
-                {{ detailData.nextExecutionTime }}
+                {{ detailData.acc }}
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item label="CPU使用率 :">
-                {{ detailData.InformTheWay }}
+                {{ detailData.cpu }}
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item label="内存使用率 :">
-                {{ detailData.Notify }}
+                {{ detailData.mem }}
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item label="磁盘使用率 :">
-                {{ detailData.create }}
+                {{ detailData.disk }}
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item label="状态 :">
-                {{ detailData.createTime }}
+                {{ detailData.state }}
               </el-form-item>
             </el-col>
           </el-row>
         </el-form>
         <div class="echartsCss">
-            <eventTrend :query="query" :event-type="2" :name="'device'" :search="'event_ztwe'" :tipname="'网卡1流量统计'" />
-            <eventTrend :query="query" :event-type="2" :name="'device'" :search="'event_ztwe'" :tipname="'网卡2流量统计'"/>
+            <eventTrend  :event-type="2" :name="'device'" :search="'event_ztwe'" :tipname="'网卡1流量统计'" />
+            <eventTrend  :event-type="2" :name="'device'" :search="'event_ztwe'" :tipname="'网卡2流量统计'"/>
         </div>
          <div class="information">接口属性</div>
           <el-table :data="ListInterfaceProperties" tooltip-effect="light">
@@ -879,6 +904,10 @@
 
 <script>
 import {
+  authorizationType,
+} from "@/api/system/list";
+import { deviceListDetail } from "@/api/system/detail";
+import {
   listDevice,
   getDevice,
   delDevice,
@@ -896,6 +925,7 @@ export default {
   components: {eventTrend},
   data() {
     return {
+       sels: [],
        detailData:{},
        detailDataApi: {
         reportName: "事件统计",
@@ -959,10 +989,18 @@ export default {
           executionStatus: "成功",
         },],
       detailOpenDialog:false,
+      ifInherit:[ {
+          label: "是",
+          value: "是",
+        },
+        {
+          label: "否",
+          value: "否",
+        },],
       // 遮罩层
       loading: true,
       // 选中数组
-      ids: [],
+     
       // 非单个禁用
       single: true,
       // 非多个禁用
@@ -1084,13 +1122,14 @@ export default {
       queryParams: {
         pageNum: 1,
         pageSize: 10,
-        // groupId: 0,
-        // deviceNum: null,
-        // categoryId: null,
-        // deviceName: null,
-        // firmwareVersion: null,
-        // ownerId: null,
-        // createTime: null
+        deviceName:"",
+        deviceType:"",
+        status:"",
+        authorizationType:"",
+        versionNumber:"",
+        romVersionNumber:"",
+        networkAddress:"",
+        username:""
       },
       // 查询参数
       // queryParams: {
@@ -1098,7 +1137,7 @@ export default {
       //   pageSize: 10,
       //   orderByColumn: 'creation_time ',
       //   isAsc: 'desc',
-      //   notificationManagementId: '',
+      //   deviceId: '',
       //   eventType: '',
       //   notificationName: '',
       //   notificationStatus: '',
@@ -1108,25 +1147,26 @@ export default {
       // },
       // 表单参数
       form: {
-        HardwareVersion:'V1.6'
+        // HardwareVersion:'V1.6'
+        deviceName:""
       },
       statusForm: {},
       setForm: {},
       // 表单校验
-      rules: {
-        deviceNum: [
+       rules: {
+       deviceNum: [
           { required: true, message: '编号不能为空', trigger: 'blur' }
-        ],
-        deviceName: [
+       ],
+         deviceName: [
           { required: true, message: '名称不能为空', trigger: 'blur' }
         ],
-        categoryId: [
+       categoryId: [
           { required: true, message: '设备分类不能为空', trigger: 'blur' }
-        ],
-        firmwareVersion: [
+         ],
+       firmwareVersion: [
           { required: true, message: '版本号不能为空', trigger: 'blur' }
         ]
-      }
+       }
     }
   },
   created() {
@@ -1143,35 +1183,46 @@ export default {
     })
   },
   methods: {
-    // /** 行颜色 */
-    // tableRowClassName({ row, rowIndex }) {
-    //   if (rowIndex === 1) {
-    //     return 'success-row'
-    //   } else if (rowIndex === 3) {
-    //     return 'warning-row'
-    //   }
-    //   return ''
-    // },
-    /** 查询设备列表 */
+    handleSelectionChange(sels) {
+      this.sels = sels;
+      console.log(
+        "选中的值",
+        sels.map((item) => item.deviceId)
+      );
+    },
+     authorization() {
+      // console.log('sels',this.sels)
+      this.$confirm("确认要授权吗？", "提示", { type: "warning" })
+        .then(() => {
+          let ids = this.sels.map((item) => item.deviceId);
+          console.log('ids',ids)
+          authorizationType(ids).then((res) => {
+            this.$message({
+              type: "success",
+              message: "授权成功!",
+            });
+             setTimeout(() => {
+               this.getList();
+            }, 500);
+          });
+        })
+        .catch(() => {});
+    },
     getList() {
       this.loading = true
-      // this.queryParams.params = {}
-      // if (this.daterangeCreateTime != null && this.daterangeCreateTime != '') {
-      //   this.queryParams.params[
-      //     'beginCreateTime'
-      //   ] = this.daterangeCreateTime[0]
-      //   this.queryParams.params['endCreateTime'] = this.daterangeCreateTime[1]
-      // }
       listDevice(this.queryParams).then(response => {
         this.deviceList = response.rows
         this.total = response.total
         this.loading = false
       })
     },
-     detail() {
+    async detail(id) {
+      const { data } = await deviceListDetail(id);
+      console.log('data',data)
       this.detailOpenDialog = true;
       this.title = "设备详情";
-      this.detailData = this.detailDataApi;
+      // this.detailData = this.detailDataApi;
+      this.detailData = data
     },
     //  升级保存
     submitUpgradeForm(){
@@ -1304,27 +1355,30 @@ export default {
       this.resetForm('queryForm')
       this.handleQuery()
     },
-    // 多选框选中数据
-    handleSelectionChange(selection) {
-      this.ids = selection.map(item => item.deviceId)
-      this.single = selection.length !== 1
-      this.multiple = !selection.length
-    },
     /** 新增按钮操作 */
     handleAdd() {
       this.reset()
       this.open = true
       this.title = '添加设备'
     },
+    //升级
+    handleUpgrade(){
+
+    },
     /** 修改按钮操作 */
-    handleUpdate(row) {
-      this.reset()
-      const deviceId = row.deviceId || this.ids
-      getDevice(deviceId).then(response => {
-        this.form = response.data
+    async handleUpdate(id) {
+      // const { data } = await notificationDetail(id);
+      // this.detailData = data;
+      const { data } = await deviceListDetail(id);
+      console.log('data',data)
+      this.form = data;
+      // this.reset()
+      // const deviceId = row.deviceId || this.ids
+      // getDevice(deviceId).then(response => {
+      //   this.form = response.data
         this.open = true
         this.title = '修改设备'
-      })
+      // })
     },
     /** 状态按钮操作 */
     handleStatus(row) {

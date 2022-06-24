@@ -78,3 +78,19 @@ export function assetDetail(query) {
     method: 'get'
   })
 }
+
+// 设备管理--设备列表--详情
+export function deviceListDetail(query) {
+  return request({
+    url: '/iot/device/queryGetInfo?deviceId=' + query,
+    method: 'get'
+  })
+}
+
+// 设备管理--告警事件--详情
+export function alarmEventListDetail(query) {
+  return request({
+    url: '/iot/alertLog/' + query,
+    method: 'get'
+  })
+}
