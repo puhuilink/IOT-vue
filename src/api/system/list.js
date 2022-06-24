@@ -157,7 +157,7 @@ export function putChangeSate(params) {
     url: '/dm/notificationManagement/edit',
     // url:url,
     method: 'put',
-    params: params
+    data: params
   })
 }
 // 漏洞管理---上报
