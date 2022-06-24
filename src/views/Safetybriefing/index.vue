@@ -242,7 +242,7 @@
               size="mini"
               type="text"
               v-if="scope.row.notificationStatus != '已通报'"
-              @click="report(scope.row.eventId, scope.row.eventIndex,scope.row.notificationStatus)"
+              @click="report(scope.row.eventId, scope.row.eventIndex,scope.row.notificationStatus,scope.row.notificationManagementId)"
               >上报</el-button
             >
             <!-- <el-button
@@ -549,7 +549,7 @@ export default {
       // 表单参数
       form: {},
       formData:{
-        eventId:"",
+        notificationManagementId:"",
         notificationStatus:""
       },
       rules: {
@@ -810,9 +810,9 @@ export default {
       });
     },
     // 上报
-    async report(eventId, eventIndex,notificationStatus) {
-      this.formData.eventId = eventId
+    async report(eventId, eventIndex,notificationStatus,notificationManagementId) {
       this.formData.notificationStatus = "已通报"
+      this.formData.notificationManagementId = notificationManagementId
       // console.log('参数',eventId,eventIndex)
       if (eventIndex != "vulnerability") {
         const params = {
