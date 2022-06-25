@@ -814,7 +814,7 @@ export default {
       this.formData.notificationStatus = "已通报"
       this.formData.notificationManagementId = notificationManagementId
       // console.log('参数',eventId,eventIndex)
-      if (eventIndex != "vulnerability") {
+      if (eventIndex != "vulnerability" && eventIndex != "pageTamperProofEvent") {
         const params = {
           id: eventId,
           index: eventIndex,

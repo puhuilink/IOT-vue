@@ -40,7 +40,7 @@
 </template>
 <script>
 import { setNotopt } from "@/utils/emptyEcharts.js";
-import { eventEsData,eventEsHostData, scanningeventLevelEcharts } from "@/api/system/echarts";
+import { eventEsData,eventEsHostData, scanningeventLevelEcharts} from "@/api/system/echarts";
 import tip from "@/components/EchartsTip";
 export default {
   name: "AAA",
@@ -78,6 +78,7 @@ export default {
         endGenerationTime: this.getdate(2)[1]+ ' 23-59-59',
         location: "",
       },
+      // queryEquipmentParms:{},
       queryParms: {
         indexes: this.search,
         // beginGenerationTime:this.getdate(2)[0],
@@ -336,6 +337,14 @@ export default {
           this.date = ['2022/5/13','2022/5/14','2022/5/15','2022/5/16','2022/5/17'];
           break;
          case "equipment":
+          //  await equipmentIineData(this.queryEquipmentParms).then(({ data }) => {
+          //   this.hasData = data;
+          //   this.data1 = this.transDicData(data)[0];
+          //   this.data2 = this.transDicData(data)[1];
+          //   this.data3 = this.transDicData(data)[2];
+          //   this.data4 = this.transDicData(data)[3];
+          //   this.data5 = this.transDicData(data)[4];
+          // });
           this.hasData = [ 332, 601, 834, 590, 930, 1010, 666];
           this.data1 = [ 632, 701, 1134, 890, 430, 210, 777];
           this.data2 = [ 332, 511, 134, 690, 830, 910, 888];
