@@ -169,7 +169,15 @@ export function vulnerabilityExport(params) {
     params: params
   })
 }
-
+// 网页防篡改---上报
+export function pageTamperProofEventExport(params) {
+  return request({
+    url: '/dm/tamper/reportJson',
+    // url:url,
+    method: 'get',
+    params: params
+  })
+}
 // 通报管理--- 详情
 export function notificationDetail(params) {
   return request({
@@ -208,7 +216,7 @@ export function notificationDelete(params) {
 // 设备管理--- 授权 
 export function authorizationType(params) {
   return request({
-    url: '/iot/device/authorizationType/' + params,
+    url: '/iot/device/authorizationType?deviceId=' + params,
     method: 'put',
   })
 }
@@ -224,6 +232,14 @@ export function stateChanges(params) {
 export function vulnerabilityStateChanges(params) {
   return request({
     url: '/dm/scanning/updateState',
+    method: 'get',
+    params: params
+  })
+}
+//网页防篡改状态变更
+export function pageTamperProofEventStateChanges(params) {
+  return request({
+    url: '/dm/tamper/updateState',
     method: 'get',
     params: params
   })

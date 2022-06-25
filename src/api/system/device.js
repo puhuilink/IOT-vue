@@ -18,6 +18,15 @@ export function listDevice(query) {
     params: query
   })
 }
+// 查询设备列表---用户和部门
+export function UsernameAndDepartmentOptions(query) {
+  return request({
+    url: '/iot/device/getUsernames',
+    method: 'get',
+    params: query
+  })
+}
+
 
 // 查询告警事件列表
 export function listAlarmEvent(query) {
@@ -56,7 +65,7 @@ export function addDevice(data) {
 // 修改设备
 export function updateDevice(data) {
   return request({
-    url: '/system/device',
+    url: '/iot/device/edit',
     method: 'put',
     data: data
   })
@@ -74,6 +83,39 @@ export function delDevice(deviceId) {
 export function exportDevice(query) {
   return request({
     url: '/system/device/export',
+    method: 'get',
+    params: query
+  })
+}
+
+// 设备安全统计与分析---已授权设备
+export function AssetsNumberList(query) {
+  return request({
+    url: 'iot/statisticsAndAnalysis/getauthorizationType',
+    method: 'get',
+    params: query
+  })
+}
+// 设备安全统计与分析---未授权设备
+export function InvandList(query) {
+  return request({
+    url: 'iot/statisticsAndAnalysis/getauthorizationTypeNo',
+    method: 'get',
+    params: query
+  })
+}
+// 设备安全统计与分析---在线设备
+export function ProbeList(query) {
+  return request({
+    url: 'iot/statisticsAndAnalysis/getStatus',
+    method: 'get',
+    params: query
+  })
+}
+// 设备安全统计与分析---异常设备
+export function attackNumberList(query) {
+  return request({
+    url: 'iot/statisticsAndAnalysis/getStatusNo',
     method: 'get',
     params: query
   })

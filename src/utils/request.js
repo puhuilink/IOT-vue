@@ -78,6 +78,13 @@ export const getManagementThreatEventsData = params => {
   return axios.post(`${baseManagementThreatEvents}`, params)
 }
 
+
+// 设备分析统计---告警类型分布
+const baseEquipmentData = '/dev-api/iot/statisticsAndAnalysis/getAlertName'
+
+export const equipmentData = params => {
+  return axios.get(`${baseEquipmentData}`, params)
+}
 //代码审计事件---列表
 const baseapplicationManagement = 'https://10.201.72.99/codesafeapi/quickcheck'
 

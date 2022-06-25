@@ -30,6 +30,7 @@ import {
   getAbnormalBehaviorEventRetrievalData,
   getElasticDate,
   getManagementThreatEventsData,
+  equipmentData
 } from "@/utils/request";
 import {
   scanningeventStatusEcharts,
@@ -76,6 +77,7 @@ export default {
         endGenerationTime: this.getdate(2)[1]+ ' 23-59-59',
         location: "",
       },
+      queryEquipmentParms:{},
       queryParms: {
         query: {
           bool: {
@@ -840,21 +842,29 @@ export default {
               ];
               break;
             case "equipment":
-              this.hasData = [
-                { value: 3948, name: "CPU使用率过高" },
-                { value: 2514, name: "磁盘使用率过高" },
-                { value: 1699, name: "内存使用率过高" },
-                { value: 1023, name: "异常操作" },
-                { value: 362, name: "震动幅度过高" },
-              ];
-              this.datacopy = [
-                { value: 3948, name: "CPU使用率过高" },
-                { value: 2514, name: "磁盘使用率过高" },
-                { value: 1699, name: "内存使用率过高" },
-                { value: 1023, name: "异常操作" },
-                { value: 362, name: "震动幅度过高" },
-              ];
-              break;
+               await equipmentData(this.queryEquipmentParms).then(
+                ({ data }) => {
+                  this.hasData = data
+                  this.datacopy = this.transType(
+                    data
+                  );
+                }
+              );
+              // this.hasData = [
+              //   { value: 3948, name: "CPU使用率过高" },
+              //   { value: 2514, name: "磁盘使用率过高" },
+              //   { value: 1699, name: "内存使用率过高" },
+              //   { value: 1023, name: "异常操作" },
+              //   { value: 362, name: "震动幅度过高" },
+              // ];
+              // this.datacopy = [
+              //   { value: 3948, name: "CPU使用率过高" },
+              //   { value: 2514, name: "磁盘使用率过高" },
+              //   { value: 1699, name: "内存使用率过高" },
+              //   { value: 1023, name: "异常操作" },
+              //   { value: 362, name: "震动幅度过高" },
+              // ];
+              // break;
             default:
               console.log("这里是项目类型", this.name);
               break;

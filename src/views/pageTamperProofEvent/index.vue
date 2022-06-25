@@ -7,14 +7,14 @@
             ref="queryForm"
             :model="queryParams"
             size="mini"
-            label-width="100px"
+            label-width="125px"
             class="label-type"
             label-position="right"
           >
             <el-col :span="6">
-              <el-form-item label="防护主机：" prop="ipaddr">
+              <el-form-item label="防护主机：" prop="ev_qax_wppe_devicename">
                 <el-input
-                  v-model="queryParams.detail_src_ip"
+                  v-model="queryParams.ev_qax_wppe_devicename"
                   placeholder="请输入防护主机"
                   clearable
                   :style="{ width: '100%' }"
@@ -23,21 +23,28 @@
               </el-form-item>
             </el-col>
             <el-col :span="6">
-              <el-form-item label="攻击类型：" prop="userName">
-                <el-input
-                  v-model="queryParams.detail_dst_ip"
-                  placeholder="请输入攻击类型"
+              <el-form-item label="拦截动作：" prop="ev_qax_wppe_attack">
+                <el-select
+                  v-model="queryParams.ev_qax_wppe_attack"
+                  placeholder="请选择拦截动作"
                   clearable
                   :style="{ width: '100%' }"
-                  @keyup.enter.native="handleQuery"
-                />
+                >
+                  <el-option
+                    v-for="(item, index) in interceptOptions"
+                    :key="index"
+                    :label="item.label"
+                    :value="item.label"
+                    :disabled="item.disabled"
+                  />
+                </el-select>
               </el-form-item>
             </el-col>
             <el-col :span="6">
-              <el-form-item label="管理中心IP：" prop="userName">
+              <el-form-item label="Web名称：" prop="userName">
                 <el-input
                   v-model="queryParams.detail_dst_ip"
-                  placeholder="请输入管理中心IP"
+                  placeholder="请输入Web名称"
                   clearable
                   :style="{ width: '100%' }"
                   @keyup.enter.native="handleQuery"
@@ -46,12 +53,12 @@
             </el-col>
             <el-col :span="6">
               <el-form-item
-                label="命中策略："
+                label="拦截的文件名称："
                 prop="ev_wsec_infe_application_layer_protocol"
               >
                 <el-input
-                  v-model="queryParams.detail_dst_ip"
-                  placeholder="请输入命中策略"
+                  v-model="queryParams.ev_wsec_infe_application_layer_protocol"
+                  placeholder="请输入拦截的文件名称"
                   clearable
                   :style="{ width: '100%' }"
                   @keyup.enter.native="handleQuery"
@@ -96,7 +103,7 @@
               </el-form-item>
             </el-col>
             <el-col :span="6">
-              <el-form-item label="事件等级：" prop="userName">
+              <el-form-item label="事件等级：" prop="severity">
                 <el-select
                   v-model="queryParams.severity"
                   placeholder="请选择事件等级"
@@ -131,7 +138,7 @@
             </el-col>
 
             <el-col :span="24">
-              <el-form-item label-width="1330px">
+              <el-form-item label-width="1360px">
                 <el-button type="primary" size="mini" @click="handleQuery"
                   >搜索</el-button
                 >
@@ -149,17 +156,17 @@
         <el-table-column
           label="防护主机"
           align="center"
-          prop=""
+          prop="ev_qax_wppe_devicename"
           :show-overflow-tooltip="true"
         />
         <el-table-column
-          label="攻击类型"
+          label="拦截动作"
           align="center"
-          prop="eventClass"
+          prop="ev_qax_wppe_attack"
           :show-overflow-tooltip="true"
         />
         <el-table-column
-          label="管理中心IP"
+          label="Web名称"
           align="center"
           prop=""
           :show-overflow-tooltip="true"
@@ -181,9 +188,9 @@
           </template>
         </el-table-column>
         <el-table-column
-          label="命中策略"
+          label="拦截的文件名称"
           align="center"
-          prop=""
+          prop="ev_qax_wppe_file"
           :show-overflow-tooltip="true"
         />
         <el-table-column
@@ -204,26 +211,120 @@
           class-name="small-padding fixed-width"
           width="180"
         >
-          <template #default="{ row }">
+          <template slot-scope="scope">
             <el-button size="mini" type="text" @click="detail(row.id)"
               >详情</el-button
             >
             &nbsp;&nbsp; &nbsp;&nbsp;
-            <el-dropdown @command="batchOperate">
+            <!-- 误报 -->
+            <el-dropdown
+              @command="batchOperate"
+              v-if="scope.row.disposalStatus == '误报'"
+            >
               <el-button size="mini" type="text">
                 状态变更<i class="el-icon-arrow-down el-icon--right" />
               </el-button>
               <el-dropdown-menu slot="dropdown">
                 <el-dropdown-item
-                  :command="beforeHandleCommand(row._id, row._index, '处置')"
+                  :command="
+                    beforeHandleCommand(
+                      scope.row.id,
+                      '处置',
+                      scope.row.ev_qax_wppe_devicename
+                    )
+                  "
                   >处置</el-dropdown-item
                 >
                 <el-dropdown-item
-                  :command="beforeHandleCommand(row._id, row._index, '不处置')"
+                  :command="
+                    beforeHandleCommand(scope.row.id, '不处置')
+                  "
+                  >不处置</el-dropdown-item
+                >
+              </el-dropdown-menu>
+            </el-dropdown>
+
+            <!-- 不处置 -->
+            <el-dropdown
+              @command="batchOperate"
+              v-else-if="scope.row.disposalStatus == '不处置'"
+            >
+              <el-button size="mini" type="text">
+                状态变更<i class="el-icon-arrow-down el-icon--right" />
+              </el-button>
+              <el-dropdown-menu slot="dropdown">
+                <el-dropdown-item
+                  :command="
+                    beforeHandleCommand(
+                      scope.row.id,
+                      '处置',
+                      scope.row.ev_qax_wppe_devicename
+                    )
+                  "
+                  >处置</el-dropdown-item
+                >
+                <el-dropdown-item
+                  :command="
+                    beforeHandleCommand(scope.row.id, '误报')
+                  "
+                  >误报</el-dropdown-item
+                >
+              </el-dropdown-menu>
+            </el-dropdown>
+
+            <!-- 已处置、处置中 -->
+            <el-dropdown
+              @command="batchOperate"
+              v-else-if="
+                scope.row.disposalStatus == '已处置' ||
+                scope.row.disposalStatus == '处置中'
+              "
+            >
+              <el-button size="mini" type="text">
+                状态变更<i class="el-icon-arrow-down el-icon--right" />
+              </el-button>
+              <el-dropdown-menu slot="dropdown">
+                <el-dropdown-item
+                  :command="
+                    beforeHandleCommand(scope.row.id, '不处置')
+                  "
                   >不处置</el-dropdown-item
                 >
                 <el-dropdown-item
-                  :command="beforeHandleCommand(row._id, row._index, '误报')"
+                  :command="
+                    beforeHandleCommand(scope.row.id, '误报')
+                  "
+                  >误报</el-dropdown-item
+                >
+              </el-dropdown-menu>
+            </el-dropdown>
+
+            <!-- 待处置 -->
+            <el-dropdown @command="batchOperate" v-else>
+              <el-button size="mini" type="text">
+                状态变更<i class="el-icon-arrow-down el-icon--right" />
+              </el-button>
+              <el-dropdown-menu slot="dropdown">
+                <el-dropdown-item
+                  :command="
+                    beforeHandleCommand(
+                      scope.row.id,
+                      '处置',
+                      scope.row.ev_qax_wppe_devicename
+                    )
+                  "
+                  >处置</el-dropdown-item
+                >
+                <el-dropdown-item
+                  :command="
+                    beforeHandleCommand(scope.row.id, '不处置')
+                  "
+                  >不处置</el-dropdown-item
+                >
+                <el-dropdown-item
+                  :command="
+                    beforeHandleCommand(scope.row.id, '误报')
+                  "
                   >误报</el-dropdown-item
                 >
               </el-dropdown-menu>
@@ -257,19 +358,6 @@
             class="label-type"
           >
             <el-col :span="12">
-              <el-form-item label="管理中心 IP：" prop="detail_src_ip">
-                <tooltip :content="detailData.detail_src_ip" :length="20" />
-              </el-form-item>
-            </el-col>
-            <el-col :span="12">
-              <el-form-item label="命中策略：">
-                <tooltip
-                  :content="detailData.ev_com_socket_src_hostname"
-                  :length="20"
-                />
-              </el-form-item>
-            </el-col>
-            <el-col :span="12">
               <el-form-item label="防护主机：" prop="ev_com_socket_src_port">
                 <tooltip
                   :content="detailData.ev_com_socket_src_port"
@@ -278,7 +366,7 @@
               </el-form-item>
             </el-col>
             <el-col :span="12">
-              <el-form-item label="进程名称：">
+              <el-form-item label="拦截动作：">
                 <tooltip
                   :content="detailData.ev_com_link_src_mac"
                   :length="20"
@@ -286,14 +374,14 @@
               </el-form-item>
             </el-col>
             <el-col :span="12">
-              <el-form-item label="攻击类型：" prop="aimIp">
+              <el-form-item label="Web名称：" prop="aimIp">
                 <tooltip :content="detailData.detail_dst_ip" :length="20" />
               </el-form-item>
             </el-col>
             <el-col :span="12">
-              <el-form-item label="目标对象：" prop="field106">
+              <el-form-item label="拦截的文件名称：" prop="ev_qax_wppe_file">
                 <tooltip
-                  :content="detailData.ev_com_link_dst_mac"
+                  :content="detailData.ev_qax_wppe_file"
                   :length="20"
                 />
               </el-form-item>
@@ -340,34 +428,25 @@
       <div class="contentBox">
         <el-form
           ref="formData"
+          :rules="rules"
           :model="formData"
-          label-width="80px"
+          label-width="90px"
           class="label-type"
         >
-          <el-form-item label="通报名称:" prop="notificationName">
+          <el-form-item label="通报名称:" prop="notificationName" :rules="[{ required: true, message: '请输入通报名称' }]">
             <el-input v-model.trim="formData.notificationName" placeholder="" />
           </el-form-item>
           <el-form-item label="事件类型:" prop="eventType">
-            <el-select
+            <el-input
               v-model.trim="formData.eventType"
               placeholder=""
-              filterable
-              clearable
-              :style="{ width: '100%' }"
-            >
-              <el-option
-                v-for="(item, index) in eventTypeOptions"
-                :key="index"
-                :label="item.label"
-                :value="item.label"
-                :disabled="item.disabled"
-              />
-            </el-select>
+              disabled
+            />
           </el-form-item>
           <el-form-item label="事件名称:" prop="eventName">
-            <el-input v-model.trim="formData.eventName" placeholder="" />
+            <el-input v-model.trim="formData.eventName" placeholder="" disabled />
           </el-form-item>
-          <el-form-item label="优先级:" prop="priority">
+          <el-form-item label="优先级:" prop="priority"  :rules="[{ required: true, message: '请选择优先级' }]">
             <el-select
               v-model.trim="formData.priority"
               placeholder=""
@@ -421,18 +500,21 @@
 </template>
 
 <script>
-import { pageTamperProofEventList,pageTamperProofEventDeatil } from "@/api/system/list";
+import {
+  pageTamperProofEventList,
+  pageTamperProofEventDeatil,
+} from "@/api/system/list";
 import { getFirewallAccessControlEventData } from "@/utils/request";
 import {
-  industryList,
-  stateChanges,
-  notificationExport,
+  pageTamperProofEventStateChanges,
+  pageTamperProofEventExport,
   putInStorage,
 } from "@/api/system/list";
 export default {
   name: "Online",
   data() {
     return {
+      rangeTime: undefined,
       from: 1,
       title: "",
       detailData: {},
@@ -458,6 +540,14 @@ export default {
       queryParams: {
         pageNum: 1,
         pageSize: 10,
+        ev_qax_wppe_devicename:"",
+        ev_qax_wppe_attack:"",
+        ev_wsec_infe_application_layer_protocol:"",
+        disposalStatus:"",
+        location:"",
+        severity:"",
+        beginHappenTime: "",
+        endHappenTime: "",
       },
       formData: {
         notificationName: "",
@@ -467,10 +557,25 @@ export default {
         remark: "",
         report: "是",
         eventId: "",
-        eventIndex: "",
+        eventIndex: "pageTamperProofEvent",
         type: "",
         notificationStatus: "",
       },
+      rules:{},
+      interceptOptions: [
+        {
+          label: "增加",
+          value: "增加",
+        },
+        {
+          label: "删除",
+          value: "删除",
+        },
+        {
+          label: "修改",
+          value: "修改",
+        },
+      ],
       levelOptions: [
         {
           label: "极低",
@@ -577,12 +682,12 @@ export default {
           value: "已处置",
         },
         {
-          label: "误报",
-          value: "误报",
-        },
-        {
           label: "不处置",
           value: "不处置",
+        },
+        {
+          label: "误报",
+          value: "误报",
         },
       ],
       areaOptions: [
@@ -725,18 +830,22 @@ export default {
       // console.log(orgTreeData1[0].content);
       return `${orgTreeData1[0].content}`;
     },
-    beforeHandleCommand(id, index, command) {
-      // console.log(id,index,command)
+    setTimeList(values) {
+      const [projectDevelopDate, projectEndDate] = [...values];
+      this.queryParams.beginHappenTime = projectDevelopDate;
+      this.queryParams.endHappenTime = projectEndDate;
+    },
+   beforeHandleCommand(id, command, ev_qax_wppe_devicename) {
+      // console.log('ev_qax_wppe_devicename',ev_qax_wppe_devicename)
       return {
         id: id,
-        index: index,
         command: command,
+        ev_qax_wppe_devicename: ev_qax_wppe_devicename,
       };
     },
     batchOperate(command) {
       // console.log('command',command)
       // console.log('_id',id)
-      //  console.log('_index',index)
       let message = "";
       switch (command.command) {
         case "处置":
@@ -744,31 +853,21 @@ export default {
           this.openMessageBox(
             message,
             command.id,
-            command.index,
-            command.command
+            command.command,
+            command.ev_qax_wppe_devicename
           );
           break;
         case "不处置":
           message = "是否确认将此事件处置状态修改为不处置？";
-          this.unProcessBox(
-            message,
-            command.id,
-            command.index,
-            command.command
-          );
+          this.unProcessBox(message, command.id, command.command);
           break;
         case "误报":
           message = "是否确认将此事件处置状态修改为误报？";
-          this.falseReportBox(
-            message,
-            command.id,
-            command.index,
-            command.command
-          );
+          this.falseReportBox(message, command.id, command.command);
           break;
       }
     },
-    async openMessageBox(message, id, index, command) {
+    async openMessageBox(message, id, command, ev_qax_wppe_devicename) {
       this.$confirm(message, "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
@@ -784,13 +883,14 @@ export default {
             remark: "",
             report: "是",
             eventId: "",
-            eventIndex: "",
+            eventIndex: "vulnerability",
             type: "",
             notificationStatus: "",
           };
           this.title = "新增通报";
           this.formData.eventId = id;
-          this.formData.eventIndex = index;
+          this.formData.eventName = ev_qax_wppe_devicename;
+          this.formData.eventType = "网页防篡改事件";
           // this.$message({
           //   type: "success",
           //   message: "修改成功!",
@@ -803,23 +903,24 @@ export default {
           });
         });
     },
-    async unProcessBox(message, id, index, command) {
+    async unProcessBox(message, id, command) {
       this.$confirm(message, "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
         type: "warning",
       })
         .then(() => {
-          stateChanges({
+          pageTamperProofEventStateChanges({
             id: id,
-            index: index,
             type: command,
           }).then((response) => {
             this.$message({
               type: "success",
               message: '处置状态已修改为"不处置"',
             });
-            this.getTableList();
+            setTimeout(() => {
+              this.getTableList();
+            }, 500);
           });
         })
         .catch(() => {
@@ -829,8 +930,8 @@ export default {
           });
         });
     },
-    async falseReportBox(message, id, index, command) {
-      console.log("参数：", id, index, command);
+    async falseReportBox(message, id, command) {
+      console.log("参数：", id, command);
       this.$confirm(message, "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
@@ -838,16 +939,17 @@ export default {
       })
         .then(() => {
           console.log("接口");
-          stateChanges({
+          pageTamperProofEventStateChanges({
             id: id,
-            index: index,
             type: command,
           }).then((response) => {
             this.$message({
               type: "success",
               message: '处置状态已修改为"误报"',
             });
-            this.getTableList();
+            setTimeout(() => {
+              this.getTableList();
+            }, 500);
           });
         })
         .catch(() => {
@@ -865,14 +967,18 @@ export default {
     /** 重置按钮操作 */
     resetQuery() {
       this.queryParams = {
-        detail_src_ip: "",
-        detail_dst_ip: "",
-        location: "",
-        procedure: "",
-        severity: "",
-        event_format: "",
-        date: [],
+        pageNum: 1,
+        pageSize: 10,
+        ev_qax_wppe_devicename:"",
+        ev_qax_wppe_attack:"",
+        ev_wsec_infe_application_layer_protocol:"",
+        disposalStatus:"",
+        location:"",
+        severity:"",
+        beginHappenTime: "",
+        endHappenTime: "",
       };
+      this.rangeTime = [];
       this.getTableList();
     },
     // 取消按钮
@@ -885,7 +991,7 @@ export default {
       this.detailDialog = false;
     },
     async detail(id) {
-       const { data } = await pageTamperProofEventDeatil(id)
+      const { data } = await pageTamperProofEventDeatil(id);
       this.detailData = data;
       this.detailDialog = true;
       this.title = "事件详情";
@@ -895,51 +1001,56 @@ export default {
       );
     },
     async saveForm() {
-      this.addDialog = false;
-      if (this.formData.report == "是") {
-        this.formData.type = "已处置";
-        this.formData.notificationStatus = "已通报";
-      } else {
-        this.formData.type = "处置中";
-        this.formData.notificationStatus = "未通报";
-      }
-      console.log("this.formData", this.formData);
-      // ES状态变更
-      await stateChanges({
-        id: this.formData.eventId,
-        index: this.formData.eventIndex,
-        type: this.formData.type,
-      }).then((response) => {
-        this.$message({
-          type: "success",
-          message: "修改成功!",
-        });
-        //入库
-        putInStorage(this.formData).then((response) => {
-          // this.$message({
-          //   type: "success",
-          //   message: "入库成功!",
-          // });
+      this.$refs["formData"].validate(async (valid) => {
+        if (valid) {
+          this.addDialog = false;
           if (this.formData.report == "是") {
-            // 上报
-            notificationExport({
-              id: this.formData.eventId,
-              index: this.formData.eventIndex,
-            }).then((response) => {
-              this.$message({
-                type: "success",
-                message: '处置状态已修改为"已处置"',
-              });
-              this.getTableList();
-            });
+            this.formData.type = "已处置";
+            this.formData.notificationStatus = "已通报";
           } else {
-            this.$message({
-              type: "success",
-              message: '处置状态已修改为"处置中"',
-            });
-            this.getTableList();
+            this.formData.type = "处置中";
+            this.formData.notificationStatus = "未通报";
           }
-        });
+          // ES状态变更
+          await pageTamperProofEventStateChanges({
+            id: this.formData.eventId,
+            type: this.formData.type,
+          }).then((response) => {
+            // this.$message({
+            //   type: "success",
+            //   message: "修改成功!",
+            // });
+            //入库
+            putInStorage(this.formData).then((response) => {
+              // this.$message({
+              //   type: "success",
+              //   message: "入库成功!",
+              // });
+              if (this.formData.report == "是") {
+                // 上报
+                pageTamperProofEventExport({
+                  id: this.formData.eventId,
+                }).then((response) => {
+                  this.$message({
+                    type: "success",
+                    message: '处置状态已修改为"已处置"',
+                  });
+                  setTimeout(() => {
+                    this.getTableList();
+                  }, 500);
+                });
+              } else {
+                this.$message({
+                  type: "success",
+                  message: '处置状态已修改为"处置中"',
+                });
+                setTimeout(() => {
+                  this.getTableList();
+                }, 500);
+              }
+            });
+          });
+        }
       });
     },
   },
@@ -974,7 +1085,7 @@ export default {
   }
 }
 .el-dialog-div {
-  height: 40vh;
+  height: 30vh;
   overflow: auto;
   overflow-x: hidden;
   border-top: 1px solid #ccc;

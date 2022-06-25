@@ -37,28 +37,60 @@
 
         </div>
         <div class="right">
-          <eventType :query="query"
+          <eventType 
                :tipname="'告警类型分布'"
                :type="'report'"
                :name="'equipment'" />
-          <eventTrend :query="query" :event-type="2" :name="'equipment'" :search="'event_ztwe'" :tipname="'事件趋势分析'" />
+          <eventTrend   :name="'equipment'"  :tipname="'事件趋势分析'" />
         </div>
       </div>
     </div>
 </template>
 <script>
+import {
+ AssetsNumberList,InvandList,ProbeList,attackNumberList
+} from '@/api/system/device'
 import eventType from '@/components/Echarts/eventType'
 import eventTrend from "@/components/Echarts/eventTrend";
 export default {
     components: { eventType,eventTrend },
   data(){
     return{
-       AssetsNumber: "100",
-       Invand:"5",
-       Probe:"96",
-       attackNumber:"4",
+       AssetsNumber: "",
+       Invand:"",
+       Probe:"",
+       attackNumber:"",
        deviceType:"汇聚网关"
 
+    }
+  },
+  created() {
+    // this.getCategoryList()
+    this.getAssetsNumberList()
+    this.getInvandList()
+    this.getProbeList()
+    this.getAttackNumberList()
+  },
+  methods:{
+    getAssetsNumberList(){
+       AssetsNumberList(this.queryParams).then(response => {
+       this.AssetsNumber = response.data[0].count
+      })
+    },
+    getInvandList(){
+       InvandList(this.queryParams).then(response => {
+       this.Invand = response.data[0].count
+      })
+    },
+    getProbeList(){
+       ProbeList(this.queryParams).then(response => {
+       this.Probe = response.data[0].count
+      })
+    },
+    getAttackNumberList(){
+       attackNumberList(this.queryParams).then(response => {
+       this.attackNumber = response.data[0].count
+      })
     }
   }
 }
