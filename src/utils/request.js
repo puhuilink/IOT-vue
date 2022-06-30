@@ -7,7 +7,8 @@ import errorCode from '@/utils/errorCode'
 axios.defaults.headers.post['Content-Type'] = 'application/json'
 
 // 入侵诱捕
-const base = '/esApi/event_ivtp/_search'
+// const base = '/esApi/event_ivtp/_search'
+const base = '/esApi/dm_event_ivtp/_search'
 
 export const getElasticDate = params => {
   return axios.post(`${base}`, params)
@@ -15,42 +16,48 @@ export const getElasticDate = params => {
 
 
 // 主机安全
-const baseHostSecurity = '/esApi/event_hsme/_search'
+// const baseHostSecurity = '/esApi/event_hsme/_search'
+const baseHostSecurity = '/esApi/dm_event_hsme/_search'
 
 export const getHostSecurityData = params => {
   return axios.post(`${baseHostSecurity}`, params)
 }
 
 // 配置核查
-const baseConfiguration = '/esApi/event_scce/_search'
+// const baseConfiguration = '/esApi/event_scce/_search'
+const baseConfiguration = '/esApi/dm_event_scce/_search'
 
 export const getConfigurationData = params => {
   return axios.post(`${baseConfiguration}`, params)
 }
 
 // 工业网络审计
-const baseIndustrialNetworkAudit = '/esApi/event_inpa/_search'
+// const baseIndustrialNetworkAudit = '/esApi/event_inpa/_search'
+const baseIndustrialNetworkAudit = '/esApi/dm_event_inpa/_search'
 
 export const getIndustrialNetworkAuditData = params => {
   return axios.post(`${baseIndustrialNetworkAudit}`, params)
 }
 
 // 防火墙访问控制事件
-const baseFirewallAccessControlEvent = '/esApi/event_infe/_search'
+// const baseFirewallAccessControlEvent = '/esApi/event_infe/_search'
+const baseFirewallAccessControlEvent = '/esApi/dm_event_infe/_search'
 
 export const getFirewallAccessControlEventData = params => {
   return axios.post(`${baseFirewallAccessControlEvent}`, params)
 }
 
 // 僵木蠕
-const baseJiangTable = '/esApi/event_ztwe/_search'
+// const baseJiangTable = '/esApi/event_ztwe/_search'
+const baseJiangTable = '/esApi/dm_event_ztwe/_search'
 
 export const getbaseJiangTableData = params => {
   return axios.post(`${baseJiangTable}`, params)
 }
 
 // 弱口令
-const baseWeakPassword = '/esApi/event_wkpw/_search'
+// const baseWeakPassword = '/esApi/event_wkpw/_search'
+const baseWeakPassword = '/esApi/dm_event_wkpw/_search'
 
 export const getWeakPasswordData = params => {
   return axios.post(`${baseWeakPassword}`, params)
@@ -58,21 +65,24 @@ export const getWeakPasswordData = params => {
 
 
 // 异常行为管理
-const baseAbnormalBehaviorEventRetrieval = '/esApi/event_abbm/_search'
+// const baseAbnormalBehaviorEventRetrieval = '/esApi/event_abbm/_search'
+const baseAbnormalBehaviorEventRetrieval = '/esApi/dm_event_abbm/_search'
 
 export const getAbnormalBehaviorEventRetrievalData = params => {
   return axios.post(`${baseAbnormalBehaviorEventRetrieval}`, params)
 }
 
 // 威胁情报列表
-const baseThreatIntelligenceList = '/esApi/event_iocm/_search'
+// const baseThreatIntelligenceList = '/esApi/event_iocm/_search'
+const baseThreatIntelligenceList = '/esApi/dm_event_iocm/_search'
 
 export const getThreatIntelligenceListData = params => {
   return axios.post(`${baseThreatIntelligenceList}`, params)
 }
 
 // 事件管理---威胁事件检索
-const baseManagementThreatEvents = '/esApi/eventlog/_search'
+// const baseManagementThreatEvents = '/esApi/eventlog/_search'
+const baseManagementThreatEvents = '/esApi/dm_eventlog/_search'
 
 export const getManagementThreatEventsData = params => {
   return axios.post(`${baseManagementThreatEvents}`, params)
