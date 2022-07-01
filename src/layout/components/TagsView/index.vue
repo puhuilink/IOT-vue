@@ -222,9 +222,6 @@ export default {
 
 <style lang="scss" scoped>
 .tags-view-container {
-  background: #fff;
-  height: 34px;
-  width: 100%;
 
   .tags-view-wrapper {
     .tags-view-item {
