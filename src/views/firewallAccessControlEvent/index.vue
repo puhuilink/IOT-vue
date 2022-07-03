@@ -183,7 +183,7 @@
         <el-table-column
           label="目的IP"
           align="center"
-          prop="_source.ev_com_socket_dst_ip"
+          prop="_source.detail_dst_ip"
           :show-overflow-tooltip="true"
         />
         <el-table-column
@@ -360,7 +360,7 @@
               </el-form-item>
             </el-col>
             <el-col :span="12">
-              <el-form-item label="目的IP：" prop="aimIp">
+              <el-form-item label="目的IP：" prop="detail_dst_ip">
                 <tooltip :content="detailData.detail_dst_ip" :length="20" />
               </el-form-item>
             </el-col>

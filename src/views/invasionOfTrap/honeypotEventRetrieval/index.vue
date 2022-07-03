@@ -1016,6 +1016,7 @@ export default {
             detail_src_ip: row.detail_src_ip,
           },
         },
+        sort: [{ ev_msec_detail_start_time: { order: "desc" } }],
         from: 0,
         size: 10,
       }).then((res) => {
