@@ -212,7 +212,7 @@
           width="180"
         >
           <template slot-scope="scope">
-            <el-button size="mini" type="text" @click="detail(row.id)"
+            <el-button size="mini" type="text" @click="detail(scope.row.id)"
               >详情</el-button
             >
             &nbsp;&nbsp; &nbsp;&nbsp;
