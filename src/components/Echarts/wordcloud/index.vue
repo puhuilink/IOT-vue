@@ -1,7 +1,7 @@
 <template>
   <el-col :span="12">
     <tip>{{ tipname }}</tip>
-    <div ref="canvas1" style="height: 400px;width:200px;padding-left:300px" />
+    <div ref="canvas1" style="height: 400px;width:200px;margin-left:100px;" />
   </el-col>
 </template>
 <script>
