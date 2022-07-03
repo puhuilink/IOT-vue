@@ -12,9 +12,9 @@
             label-position="right"
           >
             <el-col :span="6">
-              <el-form-item label="防护主机：" prop="ev_qax_wppe_devicename">
+              <el-form-item label="防护主机：" prop="evQaxWppeDevicename">
                 <el-input
-                  v-model="queryParams.ev_qax_wppe_devicename"
+                  v-model="queryParams.evQaxWppeDevicename"
                   placeholder="请输入防护主机"
                   clearable
                   :style="{ width: '100%' }"
@@ -23,9 +23,9 @@
               </el-form-item>
             </el-col>
             <el-col :span="6">
-              <el-form-item label="拦截动作：" prop="ev_qax_wppe_attack">
+              <el-form-item label="拦截动作：" prop="evQaxWppeAttack">
                 <el-select
-                  v-model="queryParams.ev_qax_wppe_attack"
+                  v-model="queryParams.evQaxWppeAttack"
                   placeholder="请选择拦截动作"
                   clearable
                   :style="{ width: '100%' }"
@@ -156,19 +156,19 @@
         <el-table-column
           label="防护主机"
           align="center"
-          prop="ev_qax_wppe_devicename"
+          prop="evQaxWppeDevicename"
           :show-overflow-tooltip="true"
         />
         <el-table-column
           label="拦截动作"
           align="center"
-          prop="ev_qax_wppe_attack"
+          prop="evQaxWppeAttack"
           :show-overflow-tooltip="true"
         />
         <el-table-column
           label="Web名称"
           align="center"
-          prop=""
+          prop="evQaxWppeWebname"
           :show-overflow-tooltip="true"
         />
         <el-table-column
@@ -190,7 +190,7 @@
         <el-table-column
           label="拦截的文件名称"
           align="center"
-          prop="ev_qax_wppe_file"
+          prop="evQaxWppeFile"
           :show-overflow-tooltip="true"
         />
         <el-table-column
@@ -230,7 +230,7 @@
                     beforeHandleCommand(
                       scope.row.id,
                       '处置',
-                      scope.row.ev_qax_wppe_devicename
+                      scope.row.evQaxWppeDevicename
                     )
                   "
                   >处置</el-dropdown-item
@@ -258,7 +258,7 @@
                     beforeHandleCommand(
                       scope.row.id,
                       '处置',
-                      scope.row.ev_qax_wppe_devicename
+                      scope.row.evQaxWppeDevicename
                     )
                   "
                   >处置</el-dropdown-item
@@ -310,7 +310,7 @@
                     beforeHandleCommand(
                       scope.row.id,
                       '处置',
-                      scope.row.ev_qax_wppe_devicename
+                      scope.row.evQaxWppeDevicename
                     )
                   "
                   >处置</el-dropdown-item
@@ -540,8 +540,8 @@ export default {
       queryParams: {
         pageNum: 1,
         pageSize: 10,
-        ev_qax_wppe_devicename:"",
-        ev_qax_wppe_attack:"",
+        evQaxWppeDevicename:"",
+        evQaxWppeAttack:"",
         ev_wsec_infe_application_layer_protocol:"",
         disposalStatus:"",
         location:"",
@@ -835,12 +835,12 @@ export default {
       this.queryParams.beginHappenTime = projectDevelopDate;
       this.queryParams.endHappenTime = projectEndDate;
     },
-   beforeHandleCommand(id, command, ev_qax_wppe_devicename) {
-      // console.log('ev_qax_wppe_devicename',ev_qax_wppe_devicename)
+   beforeHandleCommand(id, command, evQaxWppeDevicename) {
+      // console.log('evQaxWppeDevicename',evQaxWppeDevicename)
       return {
         id: id,
         command: command,
-        ev_qax_wppe_devicename: ev_qax_wppe_devicename,
+        evQaxWppeDevicename: evQaxWppeDevicename,
       };
     },
     batchOperate(command) {
@@ -854,7 +854,7 @@ export default {
             message,
             command.id,
             command.command,
-            command.ev_qax_wppe_devicename
+            command.evQaxWppeDevicename
           );
           break;
         case "不处置":
@@ -867,7 +867,7 @@ export default {
           break;
       }
     },
-    async openMessageBox(message, id, command, ev_qax_wppe_devicename) {
+    async openMessageBox(message, id, command, evQaxWppeDevicename) {
       this.$confirm(message, "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
@@ -889,7 +889,7 @@ export default {
           };
           this.title = "新增通报";
           this.formData.eventId = id;
-          this.formData.eventName = ev_qax_wppe_devicename;
+          this.formData.eventName = evQaxWppeDevicename;
           this.formData.eventType = "网页防篡改事件";
           // this.$message({
           //   type: "success",
@@ -969,8 +969,8 @@ export default {
       this.queryParams = {
         pageNum: 1,
         pageSize: 10,
-        ev_qax_wppe_devicename:"",
-        ev_qax_wppe_attack:"",
+        evQaxWppeDevicename:"",
+        evQaxWppeAttack:"",
         ev_wsec_infe_application_layer_protocol:"",
         disposalStatus:"",
         location:"",
