@@ -11,6 +11,12 @@
         <div ref="canvas1" style="height: 400px" />
       </el-col>
     </div>
+     <div v-else-if="name == 'weakPassword'">
+      <el-col :span="24">
+        <tip>{{ tipname }}</tip>
+        <div ref="canvas1" style="height: 400px" />
+      </el-col>
+    </div>
     <div v-else-if="name == 'abnormal'">
       <el-col :span="24">
         <tip>{{ tipname }}</tip>

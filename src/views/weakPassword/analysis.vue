@@ -6,26 +6,32 @@
       :query="query"
       :event-type="1"
       :name="'weakPassword'"
-      :search="'event_wkpw'"
+      :search="'dm_event_wkpw'"
     />
-    <eventType
+    <!-- <eventType
       :tipname="'事件等级分布'"
       :type="'severity'"
       :query="query"
       :name="'weakPassword'"
-    />
+    /> -->
     <echartsBar
       :tipname="'协议TOP5统计'"
       :type="'detail_protocol'"
       :query="query"
       :name="'weakPassword'"
     />
-    <eventType
+    <echartsBar
+      :tipname="'IP地址TOP5统计'"
+      :type="'detail_src_ip'"
+      :query="query"
+      :name="'weakPassword'"
+    />
+    <!-- <eventType
       :tipname="'事件状态处置图'"
       :query="query"
       :type="'procedure'"
       :name="'weakPassword'"
-    />
+    /> -->
     <el-col :span="24">
       <tip> 最新弱口令事件 </tip>
       <el-table

@@ -1,7 +1,7 @@
 <template>
   <div class="app-container">
     <echarts @getquery="uploadData" />
-    <eventTrend :query="query" :name="'event'" :search="'eventlog'" />
+    <eventTrend :query="query" :name="'event'" :search="'dm_eventlog'" />
     <eventType
       :query="query"
       :name="'event'"
