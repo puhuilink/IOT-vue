@@ -166,6 +166,8 @@
           </div>
 </a>
         </div></swiper-slide>
+         <div class="swiper-button-prev" slot="button-prev"></div>
+    <div class="swiper-button-next"  slot="button-next"></div>
     </swiper>
       </div>
     </div>
@@ -590,18 +592,28 @@
                 </div>
               </div>
               </a>
+                  <a
+            href="https://10.201.207.3/assetSafeStateBigScreen/page?screenId=4"
+            target="_blank"
+          >
               <div class="ImageText33 flex-col justify-between">
                 <div class="group13 flex-col"></div>
                 <div class="TextGroup23 flex-col">
                   <span class="word7">云主机安全</span>
                 </div>
               </div>
+              </a>
+                   <a
+            href="http://10.201.207.7/v3/#/app/assetcount/hardware?recordSearch=false"
+            target="_blank"
+          >        
               <div class="ImageText34 flex-col justify-between">
                 <div class="layer8 flex-col"></div>
                 <div class="TextGroup2 flex-col">
-                  <span class="word7">虚拟化安全</span>
+                  <span class="word7">虚拟机安全</span>
                 </div>
               </div>
+              </a>
             </div>
           </div>
         </div>
@@ -697,13 +709,18 @@ export default {
        appToken:'' //APP加固token
       },
       swiperOption: {
-         slidesPerView: 5,
+         slidesPerView: 6,
         loop: true,
+        spaceBetween: -30,
         autoplay: {
           delay: 3000,
           stopOnLastSlide: false,
           disableOnInteraction: false
-        }
+        },
+           navigation: {
+      nextEl: '.swiper-button-next',
+      prevEl: '.swiper-button-prev',
+    },
       }
     };
   },
@@ -733,3 +750,15 @@ export default {
 <style src="./asset/css/common.css" />
 
 <style src="./asset/css/index.css" />
+<style scoped>
+.swiper-button-prev{
+	    width: 15px;
+	    height: 30px;
+	    background: url("./asset/img/leftbutton.png") no-repeat;
+	}
+	.swiper-button-next{
+	    width: 15px;
+	    height: 30px;
+	    background: url("./asset/img/rightbutton.png") no-repeat;
+	}
+</style>

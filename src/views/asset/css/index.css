@@ -2,9 +2,7 @@
   height: 466px;
   background: url(../img/navbk.png)
     100% no-repeat;
-  background-size: 100% 100%;
-  width: 1920px;
-  
+  background-size: 100% 100%; 
 }
 .main1 .swiper-container{
   position: relative;
@@ -98,27 +96,8 @@
 }
 
 .outer3 {
-  width: 1840px;
   height: 196px;
-  margin: 20px 0 102px 40px;
-}
-
-.outer4 {
-  width: 15px;
-  height: 30px;
-  background: url(../img/SketchPngddcef019d800f5acc3d806a3fedd2f3dcec51ffcbb66744a261e40735119b7dc.png)
-    100% no-repeat;
-  background-size: 100% 100%;
-  margin-top: 78px;
-}
-
-.outer5 {
-  height: 196px;
-  background: url(../img/SketchPngd079c5ac35af62bee2fc6fcb7ed5dcfccb5d79c4de37fb776aeeaa76af51b263.png)
-    100% no-repeat;
-  background-size: 100% 100%;
-  margin-left: 20px;
-  width: 270px;
+  margin: 20px 0px 0px 0px;
 }
 
 .section1 {
@@ -149,7 +128,7 @@
   background: url(../img/SketchPngd079c5ac35af62bee2fc6fcb7ed5dcfccb5d79c4de37fb776aeeaa76af51b263.png)
     100% no-repeat;
   background-size: 100% 100%;
-  margin-left: 30px;
+  margin-left: 35px;
   width: 270px;
 }
 
@@ -267,16 +246,6 @@
   line-height: 16px;
   margin: 13px 0 0 85px;
 }
-
-.outer11 {
-  width: 15px;
-  height: 30px;
-  background: url(../img/SketchPng30c7aa4de1ef8cfaae1014993a3507063c54ad2248303df2bb038acc55334306.png)
-    100% no-repeat;
-  background-size: 100% 100%;
-  margin: 78px 0 0 20px;
-}
-
 .main3 {
   width: 1920px;
   height: 1085px;
