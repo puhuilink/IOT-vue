@@ -1,6 +1,6 @@
 <template>
   <el-col :span="12">
-    <tip>{{ tipname }}</tip>
+     <tip>{{ tipname }}</tip>
     <div ref="canvas1" style="height: 400px" />
   </el-col>
 </template>
@@ -25,8 +25,7 @@ export default {
       default: null,
       type: Object,
     },
-    type: {
-      // tip内容
+    detail: {
       default: null,
       type: String,
     },
@@ -53,7 +52,7 @@ export default {
           field: {
             terms: {
               // field: "detail_protocol",
-              field: this.type,
+              field: this.detail,
               size: 5,
             },
           },
@@ -192,48 +191,12 @@ export default {
           await getElasticDate(this.queryParms).then(({ data }) => {
             this.hasData = data.aggregations.field.buckets;
             this.data1 = this.transDic(data.aggregations.field.buckets);
-            // this.queryParms.query.bool.must = [
-            //   {
-            //     range: {
-            //       ev_msec_detail_start_time: {
-            //         gte: this.getdate(2)[0],
-            //         lte: this.getdate(2)[1],
-            //       },
-            //     },
-            //   },
-            // ];
-          });
-          // await getElasticDate(this.queryParms).then((res) => {
-          //   console.log("4-13-res", res);
-          //   this.hasData = res.data.aggregations.field.buckets;
-          //   if (res.data.aggregations.field.buckets.length) {
-          //     this.category = this.transDicName(
-          //       res.data.aggregations.field.buckets
-          //     );
-          //     this.barData = this.transDicCount(
-          //       res.data.aggregations.field.buckets
-          //     );
-          //     console.log("4-13-this.category", this.category);
-          //     console.log("4-13-this.barData", this.barData);
-          //   } else {
-          //     this.category = [];
-          //     this.barData = [];
-          //   }
-          // });
+           
+          });    
           case "assetsUnderAttack":
           await getElasticDate(this.queryParms).then(({ data }) => {
             this.hasData = data.aggregations.field.buckets;
             this.data1 = this.transDic(data.aggregations.field.buckets);
-            // this.queryParms.query.bool.must = [
-            //   {
-            //     range: {
-            //       ev_msec_detail_start_time: {
-            //         gte: this.getdate(2)[0],
-            //         lte: this.getdate(2)[1],
-            //       },
-            //     },
-            //   },
-            // ];
           });
           break;
         default:
@@ -332,4 +295,3 @@ export default {
   },
 };
 </script>
-<style lang="scss" scoped></style>

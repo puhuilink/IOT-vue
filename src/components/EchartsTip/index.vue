@@ -1,13 +1,10 @@
 <template>
   <div class="tip-container">
-    <div>
       <div class="tip flex j-s a-c">
         <slot />
         <slot name="right" />
+        <div class="right">最近7天数据</div>
       </div>
-      <div class="right">最近7天数据</div>
-      <!-- <div class="right" v-else>最近一个月数据</div> -->
-    </div>
   </div>
 </template>
 
@@ -26,15 +23,14 @@ export default {
   padding: 2px;
   padding-left: 12px;
   margin-top: 10px;
-  float: left;
 }
 
 .tip-container {
   margin: 10px 0 20px;
 }
 .right{
-  float:right;
+  float: right;
   margin-right:80px;
-  margin-top:20px;
+ font-weight: bold;
 }
 </style>

@@ -1,7 +1,7 @@
 <template>
   <el-col :span="12">
     <tip>{{ tipname }}</tip>
-    <div ref="canvas1" style="height: 400px;width:200px;margin-left:100px;" />
+    <div ref="canvas1" style="height: 400px" />
   </el-col>
 </template>
 <script>
@@ -286,12 +286,4 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-.tip {
-  border-left: 4px solid #3d6bca;
-  border-radius: 3px;
-  font-weight: bold;
-  height: 24px;
-  padding: 2px;
-  padding-left: 12px;
-}
 </style>
