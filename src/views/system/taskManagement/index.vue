@@ -757,10 +757,6 @@ export default {
       ],
       areaOptions: [
         {
-          label: "天津管片厂",
-          value: "天津管片厂",
-        },
-        {
           label: "三亚海投轨交",
           value: "三亚海投轨交",
         },

@@ -619,10 +619,6 @@ export default {
           label: "北京城乡水厂",
           value: 4,
         },
-        {
-          label: "天津管片厂",
-          value: 5,
-        },
       ],
       statusOptions: [
         {
