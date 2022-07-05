@@ -13,9 +13,9 @@
             label-position="right"
           >
             <el-col :span="6">
-              <el-form-item label="资产名称:" prop="event_name">
+              <el-form-item label="资产名称:" prop="ci_label">
                 <el-input
-                  v-model.trim="queryParams.event_name"
+                  v-model.trim="queryParams.ci_label"
                   placeholder="请输入资产名称"
                   clearable
                   :style="{ width: '100%' }"
@@ -129,7 +129,7 @@
        <el-table-column
         label="资产名称"
         align="center"
-        prop="_source.event_name"
+        prop="_source.ci_label"
         :show-overflow-tooltip="true"
         min-width="15%"
       >
@@ -311,7 +311,7 @@
           </el-col>
           <el-col :span="8">
             <el-form-item label="资产名称 :">
-              {{ detailData.event_name }}
+              {{ detailData.ci_label }}
             </el-form-item>
           </el-col>
           <el-col :span="8">
@@ -682,10 +682,6 @@ export default {
           label: "玉湛高速制梁厂",
           value: "玉湛高速制梁厂",
         },
-        {
-          label: "天津管片厂",
-          value: "天津管片厂",
-        }
       ],
       disposalStatusOptions: [
         {

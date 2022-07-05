@@ -74,14 +74,6 @@ export default {
                     { id: 13, label: '深中通道沉管智慧工厂' }
                   ]
                 },
-                {
-                  id: 9,
-                  label: '中交一航局',
-                  //   disabled: true,
-                  children: [
-                    { id: 14, label: '天津管片厂' }
-                  ]
-                }
               ]
             },
             {

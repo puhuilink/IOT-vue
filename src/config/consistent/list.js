@@ -62,10 +62,6 @@ export const AREA_OPTIONS = [
     label: "北京城乡水厂",
     value: 4,
   },
-  {
-    label: "天津管片厂",
-    value: 5,
-  },
 ]
 //僵木蠕 威胁分类
 export const THREAT_FLAG_OPTIONS = [

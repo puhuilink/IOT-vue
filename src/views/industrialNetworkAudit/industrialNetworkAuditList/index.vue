@@ -790,10 +790,6 @@ export default {
           label: "玉湛高速制梁厂",
           value: "玉湛高速制梁厂",
         },
-        {
-          label: "天津管片厂",
-          value: "天津管片厂",
-        },
       ],
       statusOptions: [
         {

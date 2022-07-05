@@ -79,7 +79,7 @@
                 </el-select>
               </el-form-item>
             </el-col>
-            <el-col :span="6">
+            <!-- <el-col :span="6">
               <el-form-item label="状态：" prop="field114">
                 <el-select
                   v-model="queryParams.ev_wsec_scce_scc_result"
@@ -96,7 +96,7 @@
                   />
                 </el-select>
               </el-form-item>
-            </el-col>
+            </el-col> -->
             <el-col :span="6">
               <el-form-item label="IP：" prop="detail_src_ip">
                 <el-input
@@ -670,10 +670,6 @@ export default {
           label: "玉湛高速制梁厂",
           value: "玉湛高速制梁厂",
         },
-        {
-          label: "天津管片厂",
-          value: "天津管片厂",
-        }
       ],
       field114Options: [
         {
