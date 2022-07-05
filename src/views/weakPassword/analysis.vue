@@ -31,7 +31,7 @@
         <el-table-column
           label="资产名称"
           align="center"
-          prop="_source.event_name"
+          prop="_source.ci_label"
           :show-overflow-tooltip="true"
           min-width="15%"
         />
