@@ -133,20 +133,7 @@
         :show-overflow-tooltip="true"
         min-width="15%"
       >
-       <template #default="scope">
-          <span v-if="scope.row._source.detail_src_ip == '10.1.253.116'">SCADA服务器</span>
-          <span v-else-if="scope.row._source.detail_src_ip == '172.16.78.12'">中心操作员工作站</span>
-          <span v-else-if="scope.row._source.detail_src_ip == '192.168.15.117'">发布工作站</span>
-          <span v-else-if="scope.row._source.detail_src_ip == '192.168.205.23'">媒体编辑工作站</span>
-          <span v-else-if="scope.row._source.detail_src_ip == '192.168.13.1'">预览工作站</span>
-          <span v-else-if="scope.row._source.detail_src_ip == '192.168.204.6'">SCADA服务器</span>
-          <span v-else-if="scope.row._source.detail_src_ip == '192.168.206.9'">接口服务器</span>
-          <span v-else-if="scope.row._source.detail_src_ip == '192.168.204.23'">接口服务器</span>
-          <span v-else-if="scope.row._source.detail_src_ip == '192.168.210.15'">网管室微机综合平台PC</span>
-          <span v-else-if="scope.row._source.detail_src_ip == '192.168.210.20'">三亚海投轨交网管室微机综合平台PC</span>
-        </template>
       </el-table-column>
-
       <el-table-column
         label="IP地址"
         align="center"

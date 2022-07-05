@@ -79,7 +79,7 @@
         <el-table-column
          label="发现时间"
          align="center"
-         prop="_source.ev_com_event_observe_time"
+         prop="_source.receive_time"
          :show-overflow-tooltip="true"
        >
         <template #default="scope">
