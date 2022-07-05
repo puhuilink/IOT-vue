@@ -1,7 +1,7 @@
 <template>
   <div class="app-container">
     <echarts :event-type="1" @getquery="uploadData" />
-    <eventTrend :query="query" :name="'host'" :search="'dm_event_hsme'" :tipname="事件趋势分析"/>
+    <eventTrend :query="query" :name="'host'" :search="'dm_event_hsme'" :date="30" :tipname="事件趋势分析"/>
     <eventType
       :query="query"
       :tipname="'事件类型分布'"

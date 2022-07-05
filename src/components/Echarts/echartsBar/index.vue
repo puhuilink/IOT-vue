@@ -1,6 +1,6 @@
 <template>
   <el-col :span="12">
-     <tip>{{ tipname }}</tip>
+     <tip >{{ tipname }}</tip>
     <div ref="canvas1" style="height: 400px" />
   </el-col>
 </template>

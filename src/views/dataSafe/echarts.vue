@@ -1,7 +1,7 @@
 <template>
   <div class="app-container">
     <echarts :event-type="1" @getquery="uploadData" />
-    <category :type="1" :tipname="'源IP统计事件TOP10'" :query="query" :name="'dataSafe'" />
+    <category :type="1" :tipname="'源IP统计事件TOP10'" :query="query"  :name="'dataSafe'" />
     <eventType :type="'severity'" :tipname="'事件等级分布'" :query="query" :name="'dataSafe'" />
     <eventType :type="'PolicyStatisticsEventAnalysis'" :tipname="'策略统计事件分析'" :query="query" :name="'dataSafe'" />
     <eventType :type="'emailAnalysis'" :tipname="'邮件统计'" :query="query" :name="'dataSafe'" />

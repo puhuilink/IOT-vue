@@ -1,6 +1,6 @@
 <template>
   <el-col :span="12">
-    <tip>{{ tipname }}</tip>
+    <tip :date="this.date">{{ tipname }}</tip>
     <div ref="canvas1"
          style="height: 400px; top:-40px" />
   </el-col>
@@ -13,6 +13,10 @@ export default {
   name: 'AAA',
   components: { tip },
   props: {
+    date:{
+      type: Number,
+      default: 7
+    },
     tipname: { // tip内容
       default: '事件类型分布',
       type: String

@@ -1,25 +1,8 @@
 <template>
   <div>
-    <div v-if="name == 'report'">
+    <div v-if="name == 'report' || name == 'host' || name == 'weakPassword' || name == 'abnormal' || name == 'equipment'">
       <el-col :span="24">
-        <div ref="canvas1" style="height: 400px" />
-      </el-col>
-    </div>
-    <div v-else-if="name == 'host'">
-      <el-col :span="24">
-        <tip>{{ tipname }}</tip>
-        <div ref="canvas1" style="height: 400px" />
-      </el-col>
-    </div>
-     <div v-else-if="name == 'weakPassword'">
-      <el-col :span="24">
-        <tip>{{ tipname }}</tip>
-        <div ref="canvas1" style="height: 400px" />
-      </el-col>
-    </div>
-    <div v-else-if="name == 'abnormal'">
-      <el-col :span="24">
-        <tip>{{ tipname }}</tip>
+        <tip :date="this.date">{{ tipname }}</tip>
         <div ref="canvas1" style="height: 400px" />
       </el-col>
     </div>
@@ -27,13 +10,6 @@
       <el-col :span="12">
         <div ref="canvas1" style="height: 400px" />
         <div style="text-align:center">{{tipname}}</div>
-      </el-col>
-    </div>
-     <div v-else-if="name == 'equipment'">
-      <el-col :span="24">
-        <tip>{{ tipname }}</tip>
-        <div ref="canvas1" style="height: 400px" />
-        <!-- <div style="text-align:center">{{tipname}}</div> -->
       </el-col>
     </div>
     <div v-else>
@@ -52,6 +28,11 @@ export default {
   name: "AAA",
   components: { tip },
   props: {
+    date:{
+       // 数据日期
+      default: 7,
+      type: Number,
+    },
     tipname: {
       // tip内容
       default: "事件趋势分析",

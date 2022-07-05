@@ -3,7 +3,8 @@
       <div class="tip flex j-s a-c">
         <slot />
         <slot name="right" />
-        <div class="right">最近7天数据</div>
+        <div v-if="date===7" class="right">最近7天数据</div>
+         <div v-else class="right">最近一个月数据</div>
       </div>
   </div>
 </template>
@@ -11,6 +12,13 @@
 <script>
 export default {
   name: "Tip",
+   props: {
+    date: {
+      // 分辨7天还是30天
+      default: 7,
+      type: Number,
+    }
+  },
 };
 </script>
 
