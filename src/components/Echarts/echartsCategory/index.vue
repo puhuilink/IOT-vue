@@ -7,7 +7,7 @@
 </template>
 <script>
 import { setNotopt } from '@/utils/emptyEcharts.js'
-import { sourceIpEcharts, targetIpEcharts } from '@/api/system/echarts'
+import { sourceIpEcharts, targetIpEcharts, assetTOP5,riskAssetTOP5, } from '@/api/system/echarts'
 import tip from '@/components/EchartsTip'
 export default {
   name: 'AAA',
@@ -89,21 +89,23 @@ export default {
                 this.barData = this.transDicCount(data)
               })
               break
+               case 'assetsOne':
+              await assetTOP5().then(({ data }) => {
+                this.hasData = data
+                this.category = this.transDicName(data)
+                this.barData = this.transDicCount(data)
+              })
+              break
+               case 'assetsThree':
+              await riskAssetTOP5().then(({ data }) => {
+                this.hasData = data
+                this.category = this.transDicName(data)
+                this.barData = this.transDicCount(data)
+              })
+              break
             case 'dataSource':
               await sourceIpEcharts(this.queryParms).then(({ data }) => {
                 this.hasData = data
-                // this.category = [
-                //   "流量采集",
-                //   "数据防泄漏",
-                //   "主机卫士",
-                //   "配置核查",
-                //   "蜜罐",
-                //   "漏洞扫描",
-                //   "工业网络审计",
-                //   "安全网关",
-                //   "日志管理平台",
-                //   "微步"
-                // ]
                 this.category = [
                   "日志管理平台",
                   "安全网关",

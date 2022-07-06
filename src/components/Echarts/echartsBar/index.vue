@@ -1,11 +1,12 @@
 <template>
   <el-col :span="12">
-     <tip >{{ tipname }}</tip>
+     <tip :date="this.date">{{ tipname }}</tip>
     <div ref="canvas1" style="height: 400px" />
   </el-col>
 </template>
 <script>
 import { getWeakPasswordData, getElasticDate } from "@/utils/request";
+import { assetTOP5,riskAssetTOP5 } from '@/api/system/echarts'
 import { setNotopt } from "@/utils/emptyEcharts.js";
 import tip from "@/components/EchartsTip";
 import echarts from "echarts";
@@ -16,6 +17,11 @@ export default {
       // tip内容
       default: "事件趋势分析",
       type: String,
+    },
+     date: {
+      // 数据日期
+      default: 7,
+      type: Number,
     },
     name: {
       default: "",
@@ -146,6 +152,19 @@ export default {
         // 昨天
         var yesterday = this.getDay(-1, "-");
         return [yesterday, yesterday];
+      }else if(type === 5){
+         return [
+        thirty.getFullYear()-1 +
+            "-" +
+            this.Twodigits(thirty.getMonth()+2) +
+            "-" +
+            this.Twodigits(thirty.getDate()),
+          myDate.getFullYear() +
+            "-" +
+            this.Twodigits(myDate.getMonth()+1) +
+            "-" +
+            this.Twodigits(myDate.getDate()),
+            ]
       }
     },
     transDic(data) {
@@ -172,6 +191,16 @@ export default {
     async getData() {
       switch (this.name) {
         case "weakPassword":
+           this.queryParms.query.bool.must = [
+              {
+                range: {
+                  occur_time: {
+                    gte: this.getdate(5)[0],
+                    lte: this.getdate(5)[1],
+                  },
+                },
+              },
+            ];
           await getWeakPasswordData(this.queryParms).then(({ data }) => {
             this.hasData = data.aggregations.field.buckets;
             this.data1 = this.transDic(data.aggregations.field.buckets);
@@ -179,8 +208,8 @@ export default {
               {
                 range: {
                   occur_time: {
-                    gte: this.getdate(2)[0],
-                    lte: this.getdate(2)[1],
+                    gte: this.getdate(5)[0],
+                    lte: this.getdate(5)[1],
                   },
                 },
               },
@@ -199,6 +228,18 @@ export default {
             this.data1 = this.transDic(data.aggregations.field.buckets);
           });
           break;
+            case 'assetsOne':
+              await assetTOP5().then(({ data }) => {
+                this.hasData = data
+               this.data1 = data
+              })
+              break
+               case 'assetsThree':
+              await riskAssetTOP5().then(({ data }) => {
+                this.hasData = data
+                this.data1 = data
+              })
+              break
         default:
           console.log("无数据", this.type);
           break;
