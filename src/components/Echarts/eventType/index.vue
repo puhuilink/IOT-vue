@@ -7,13 +7,13 @@
     </div>
     <div v-if="name == 'equipment'">
       <el-col :span="22">
-        <tip>{{ tipname }}</tip>
+        <tip :date="this.date">{{ tipname }}</tip>
         <div ref="canvas1" style="height: 400px" />
       </el-col>
     </div>
     <div v-else>
       <el-col :span="12">
-        <tip>{{ tipname }}</tip>
+        <tip :date="this.date">{{ tipname }}</tip>
         <div ref="canvas1" style="height: 400px" />
       </el-col>
     </div>
@@ -48,6 +48,11 @@ export default {
   name: "AAA",
   components: { tip },
   props: {
+     date:{
+       // 数据日期
+      default: 7,
+      type: Number,
+    },
     tipname: {
       // tip内容
       default: "事件类型分布",
