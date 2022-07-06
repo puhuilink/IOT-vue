@@ -836,7 +836,7 @@ export default {
       }
     },
     async getTableList() {
-      this.addQuery(this.query, "location.keyword", this.queryParams.location);
+      this.addQuery(this.query, "location", this.queryParams.location);
 
       this.addQuery(this.query, "severity", this.queryParams.severity);
 
