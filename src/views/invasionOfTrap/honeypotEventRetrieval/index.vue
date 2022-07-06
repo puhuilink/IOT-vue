@@ -751,7 +751,7 @@ export default {
         this.queryParams.ev_msec_asset_name
       );
 
-      this.addQuery(this.query, "location.keyword", this.queryParams.location);
+      this.addQuery(this.query, "location", this.queryParams.location);
 
       this.addQuery(this.query, "procedure", this.queryParams.procedure);
 

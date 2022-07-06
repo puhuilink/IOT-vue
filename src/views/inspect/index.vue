@@ -740,7 +740,7 @@ export default {
       );
       this.addQuery(
         this.querys.query,
-        "location.keyword",
+        "location",
         this.queryParams.location
       );
       this.addQuery(this.querys.query, "procedure", this.queryParams.procedure);
