@@ -1,14 +1,7 @@
 <template>
   <div class="app-container">
     <echarts @getquery="uploadData" />
-    <eventTrend
-      :tipname="'弱口令趋势分析'"
-      :date="12"
-      :query="query"
-      :event-type="1"
-      :name="'weakPassword'"
-      :search="'dm_event_wkpw'"
-    />
+      <echartsa :tipname="'弱口令趋势分析'" :query="query"  :date="12" ></echartsa>
     <echartsBar
       :tipname="'协议TOP5统计'"
       :date="12"
@@ -95,6 +88,7 @@
 </template>
 <script>
 import echarts from '@/components/Echarts/searchBar'
+import echartsa from '@/components/Echarts/echarts'
 import eventTrend from '@/components/Echarts/eventTrend'
 import eventType from '@/components/Echarts/eventType'
 import echartsBar from '@/components/Echarts/echartsBar'
@@ -102,7 +96,7 @@ import tip from '@/components/EchartsTip'
 import { getWeakPasswordData } from '@/utils/request'
 export default {
   name: 'Index',
-  components: { echarts, eventTrend, eventType, echartsBar, tip },
+  components: { echarts, eventTrend, eventType, echartsBar, tip,echartsa },
   props: [],
   data() {
     return {

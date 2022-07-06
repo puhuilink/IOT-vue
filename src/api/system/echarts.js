@@ -7,6 +7,13 @@ export function getToken(query) {
     params: query
   })
 }
+// 弱口令趋势分析
+export function agetTestEventIds() {
+  return request({
+    url: '/event/TrendChartPass/getTestEventIds',
+    method: 'get'
+  })
+}
 // 资产安全分析统计资产数TOP5
 export function assetTOP5() {
   return request({
