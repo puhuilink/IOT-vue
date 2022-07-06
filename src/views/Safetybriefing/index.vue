@@ -212,13 +212,13 @@
           min-width="10%"
           :show-overflow-tooltip="true"
         />
-        <el-table-column
+        <!-- <el-table-column
           label="备注"
           align="center"
           prop="remark"
           min-width="5%"
            :show-overflow-tooltip="true"
-        />
+        /> -->
         <el-table-column
           label="操作"
           align="center"
