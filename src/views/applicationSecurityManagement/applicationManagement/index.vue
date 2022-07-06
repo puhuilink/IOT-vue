@@ -104,12 +104,12 @@
             <span >{{ transLanguageDic(scope.row.taskVO.language) }}</span>
           </template>
         </el-table-column>
-        <el-table-column
+        <!-- <el-table-column
           label="源码名称"
           align="center"
           prop="taskVO.codeName"
           :show-overflow-tooltip="true"
-        />
+        /> -->
         <el-table-column
           label="检测开始时间"
           align="center"
