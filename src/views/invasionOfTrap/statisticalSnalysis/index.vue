@@ -32,7 +32,7 @@
     <!-- <assetsUnderAttack :query="query" :address="address" /> -->
      <echartsBar
       :tipname="'攻击者TOP5'"
-      :type="'detail_src_ip'"
+      :detail="'detail_src_ip'"
       :query="query"
       :name="'assetsUnderAttack'"
     />
@@ -46,7 +46,7 @@
     <!-- <underAttackSandbox :query="query" :address="address" /> -->
     <echartsBar
       :tipname="'受攻击沙箱TOP5'"
-      :type="'ev_msec_asset_name'"
+      :detail="'ev_msec_asset_name'"
       :query="query"
       :name="'statisticalSnalysis'"
     />
