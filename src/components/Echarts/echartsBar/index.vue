@@ -6,6 +6,7 @@
 </template>
 <script>
 import { getWeakPasswordData, getElasticDate } from "@/utils/request";
+import { assetTOP5,riskAssetTOP5 } from '@/api/system/echarts'
 import { setNotopt } from "@/utils/emptyEcharts.js";
 import tip from "@/components/EchartsTip";
 import echarts from "echarts";
@@ -204,6 +205,18 @@ export default {
             this.data1 = this.transDic(data.aggregations.field.buckets);
           });
           break;
+            case 'assetsOne':
+              await assetTOP5().then(({ data }) => {
+                this.hasData = data
+               this.data1 = data
+              })
+              break
+               case 'assetsThree':
+              await riskAssetTOP5().then(({ data }) => {
+                this.hasData = data
+                this.data1 = data
+              })
+              break
         default:
           console.log("无数据", this.type);
           break;

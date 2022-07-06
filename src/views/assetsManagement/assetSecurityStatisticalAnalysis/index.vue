@@ -10,18 +10,19 @@
                 :date="0"
                :type="'assetType'"
                :name="'assetsFour'" />
- <category :type="1" :tipname="'试点工业企业资产统计TOP5'"   :date="0" :name="'assetsOne'" />
-  <category :type="1" :tipname="'试点工业企业风险资产数TOP5'"   :date="0" :name="'assetsThree'" />
+               
+ <echartsBar :tipname="'试点工业企业资产统计TOP5'"   :date="0" :name="'assetsOne'" />
+  <echartsBar :tipname="'试点工业企业风险资产数TOP5'"   :date="0" :name="'assetsThree'" />
   </div>
 </template>
 
 <script>
 import Tip from '@/components/EchartsTip/index'
 import eventType from '@/components/Echarts/eventType'
-import category from '@/components/Echarts/echartsCategory'
+import echartsBar from '@/components/Echarts/echartsBar'
 export default {
   name: 'Device',
-  components: { Tip, eventType,category },
+  components: { Tip, eventType,echartsBar },
   data () {
     return {
       charts: '',
