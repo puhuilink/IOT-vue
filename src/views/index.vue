@@ -292,7 +292,7 @@
             </div>
             </a>
              <a
-            href="https://10.1.51.199/app/mica/alarm/Intelligence?token=eyJhbGciOiJIUzI1NiJ9.empq.KqV-jdB2JMcH-O2wYUIcGtGZjcu-AhG2ZxmciliUBDQ"
+            href="http://10.1.13.118:8001/security/threatIntelligenceManagement/threatIntelligenceList"
             target="_blank"
           >
             <div class="ImageText91 flex-col justify-between">
@@ -365,7 +365,7 @@
             <span class="txt12">异常分析</span>
             <div class="outer37 flex-row justify-between">
                  <a
-          href="http://10.1.13.118:8001/management/eventEcharts"
+          href="https://10.201.30.40/search"
           target="_blank"
         >
               <div class="ImageText98 flex-col justify-between">
@@ -649,7 +649,7 @@
           <div class="bd28 flex-row"><span class="info17">数据安全</span></div>
           <div class="bd29 flex-row justify-between">
               <a
-            href="http://10.1.13.118:8001/security/dataSafe/table"
+            href="https://10.201.31.101:50089/"
             target="_blank"
           >
             <div class="ImageText119 flex-col justify-between">
@@ -664,7 +664,7 @@
             </div>
           </a>
             <a
-            href="http://10.1.13.118:8001/security/dataSafe/table"
+            href="https://10.201.31.101:50089/"
             target="_blank"
           >
             <div class="ImageText120 flex-col justify-between">
@@ -688,7 +688,7 @@
             </div>
           </a>
            <a
-          href="http://10.1.13.118:8001/security/dataSafe/table"
+          href="https://10.201.31.101:50089/"
           target="_blank"
         >
             <div class="ImageText122 flex-col justify-between">
