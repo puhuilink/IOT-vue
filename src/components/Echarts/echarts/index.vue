@@ -29,6 +29,8 @@
   },
 		data() {
 			return {
+        VALUE:[],
+        DATE:[],
     queryParms: {
         severity: "4",
         location: "",
@@ -59,10 +61,11 @@
 		},
 		methods: {
      async getData(){
-         await agetTestEventIds(this.queryParms).then(({ data }) => {
-            this.VALUE = data.data;
-            this.DATE = data.date
+         await agetTestEventIds(this.queryParms).then(( res ) => {
+            this.VALUE = res.data;
+            this.DATE = res.date
           });
+          this.getMain();
       },
 			getMain() {
 				let chartDom = document.getElementById('main');
@@ -147,8 +150,9 @@
 					},
 					yAxis: {
 						type: 'value',
+            min: 0,
 						axisLine: {
-							show: true,
+							show:false,
 							lineStyle: {
 								color: '#010d3a'
 							}
@@ -236,7 +240,7 @@
 								}]
 							}
 						},
-						data: VALUE
+						data: this.VALUE
 					}, {
 						type: 'bar',
 						label: {
@@ -263,7 +267,7 @@
 						itemStyle: {
 							color: 'transparent'
 						},
-						data: VALUE
+						data: this.VALUE
 					}]
 				}
 				myChart.setOption(option);
