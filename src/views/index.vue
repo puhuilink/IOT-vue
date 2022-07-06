@@ -739,7 +739,7 @@ export default {
        appToken:'' //APP加固token
       },
       swiperOption: {
-         slidesPerView: 6,
+         slidesPerView:5,
         loop: true,
         spaceBetween: -30,
         autoplay: {
