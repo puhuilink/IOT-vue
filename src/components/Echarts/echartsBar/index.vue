@@ -152,6 +152,19 @@ export default {
         // 昨天
         var yesterday = this.getDay(-1, "-");
         return [yesterday, yesterday];
+      }else if(type === 5){
+         return [
+        thirty.getFullYear()-1 +
+            "-" +
+            this.Twodigits(thirty.getMonth()+2) +
+            "-" +
+            this.Twodigits(thirty.getDate()),
+          myDate.getFullYear() +
+            "-" +
+            this.Twodigits(myDate.getMonth()+1) +
+            "-" +
+            this.Twodigits(myDate.getDate()),
+            ]
       }
     },
     transDic(data) {
@@ -178,6 +191,16 @@ export default {
     async getData() {
       switch (this.name) {
         case "weakPassword":
+           this.queryParms.query.bool.must = [
+              {
+                range: {
+                  occur_time: {
+                    gte: this.getdate(5)[0],
+                    lte: this.getdate(5)[1],
+                  },
+                },
+              },
+            ];
           await getWeakPasswordData(this.queryParms).then(({ data }) => {
             this.hasData = data.aggregations.field.buckets;
             this.data1 = this.transDic(data.aggregations.field.buckets);
@@ -185,8 +208,8 @@ export default {
               {
                 range: {
                   occur_time: {
-                    gte: this.getdate(2)[0],
-                    lte: this.getdate(2)[1],
+                    gte: this.getdate(5)[0],
+                    lte: this.getdate(5)[1],
                   },
                 },
               },
