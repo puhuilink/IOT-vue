@@ -39,6 +39,8 @@ import {
   policyNameEcharts,
   recipientEcharts,
   scanningEcharts,
+  assetType,
+  runningState
 } from "@/api/system/echarts";
 
 import tip from "@/components/EchartsTip";
@@ -850,21 +852,6 @@ export default {
                   );
                 }
               );
-              // this.hasData = [
-              //   { value: 3948, name: "CPU使用率过高" },
-              //   { value: 2514, name: "磁盘使用率过高" },
-              //   { value: 1699, name: "内存使用率过高" },
-              //   { value: 1023, name: "异常操作" },
-              //   { value: 362, name: "震动幅度过高" },
-              // ];
-              // this.datacopy = [
-              //   { value: 3948, name: "CPU使用率过高" },
-              //   { value: 2514, name: "磁盘使用率过高" },
-              //   { value: 1699, name: "内存使用率过高" },
-              //   { value: 1023, name: "异常操作" },
-              //   { value: 362, name: "震动幅度过高" },
-              // ];
-              // break;
             default:
               console.log("这里是项目类型", this.name);
               break;
@@ -873,69 +860,17 @@ export default {
         // 资产管理---资产安全统计分析，目前都是假数据
         case "assetType":
           switch (this.name) {
-            case "assetsOne":
-              this.hasData = [
-                { value: 3948, name: "主机" },
-                { value: 2514, name: "服务器" },
-                { value: 1699, name: "防火墙" },
-                { value: 1023, name: "网闸" },
-                { value: 362, name: "网关" },
-              ];
-              this.datacopy = [
-                { value: 3948, name: "主机" },
-                { value: 2514, name: "服务器" },
-                { value: 1699, name: "防火墙" },
-                { value: 1023, name: "网闸" },
-                { value: 362, name: "网关" },
-              ];
-              break;
             case "assetsTwo":
-              this.hasData = [
-                { value: 3948, name: "Linux" },
-                { value: 2514, name: "Window 7" },
-                { value: 1699, name: "Window XP" },
-                { value: 1023, name: "Unix" },
-                { value: 362, name: "MAC OS" },
-              ];
-              this.datacopy = [
-                { value: 3948, name: "Linux" },
-                { value: 2514, name: "Window 7" },
-                { value: 1699, name: "Window XP" },
-                { value: 1023, name: "Unix" },
-                { value: 362, name: "MAC OS" },
-              ];
-              break;
-            case "assetsThree":
-              this.hasData = [
-                { value: 3948, name: "主机" },
-                { value: 2514, name: "服务器" },
-                { value: 1699, name: "防火墙" },
-                { value: 1023, name: "网闸" },
-                { value: 362, name: "网关" },
-              ];
-              this.datacopy = [
-                { value: 3948, name: "主机" },
-                { value: 2514, name: "服务器" },
-                { value: 1699, name: "防火墙" },
-                { value: 1023, name: "网闸" },
-                { value: 362, name: "网关" },
-              ];
+            await assetType().then(({ data }) => {
+                this.hasData = data;
+                this.datacopy = this.transDicTwo(data);
+              });
               break;
             case "assetsFour":
-              this.hasData = [
-                { value: 3948, name: "S7" },
-                { value: 2514, name: "MODBUS" },
-                { value: 1699, name: "DNP3" },
-                { value: 1023, name: "IEC104" },
-                { value: 362, name: "MMS" },
-              ];
-              this.datacopy = [
-                { value: 3948, name: "S7" },
-                { value: 2514, name: "MODBUS" },
-                { value: 1699, name: "DNP3" },
-                { value: 1023, name: "IEC104" },
-                { value: 362, name: "MMS" },
-              ];
+              await runningState().then(({ data }) => {
+                this.hasData = data;
+                this.datacopy = this.transDicTwo(data);
+              });
               break;
             default:
               console.log("这里是项目类型", this.name);

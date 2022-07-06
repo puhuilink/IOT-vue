@@ -7,6 +7,34 @@ export function getToken(query) {
     params: query
   })
 }
+// 资产安全分析统计资产数TOP5
+export function assetTOP5() {
+  return request({
+    url: '/dm/dmAssetSafetyAnalysis/assetTOP5',
+    method: 'get'
+  })
+}
+// 资产安全分析统计资产类型分布
+export function assetType() {
+  return request({
+    url: '/dm/dmAssetSafetyAnalysis/assetType',
+    method: 'get'
+  })
+}
+// 资产安全分析统计风险资产数TOP5
+export function riskAssetTOP5() {
+  return request({
+    url: '/dm/dmAssetSafetyAnalysis/riskAssetTOP5',
+    method: 'get'
+  })
+}
+// 资产安全分析统计运行状态分布图
+export function runningState() {
+  return request({
+    url: '/dm/dmAssetSafetyAnalysis/runningState',
+    method: 'get'
+  })
+}
 //es趋势分析接口
 export function eventEsData(query) {
   return request({

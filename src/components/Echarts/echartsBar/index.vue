@@ -1,6 +1,6 @@
 <template>
   <el-col :span="12">
-     <tip >{{ tipname }}</tip>
+     <tip :date="this.date">{{ tipname }}</tip>
     <div ref="canvas1" style="height: 400px" />
   </el-col>
 </template>
@@ -16,6 +16,11 @@ export default {
       // tip内容
       default: "事件趋势分析",
       type: String,
+    },
+     date: {
+      // 数据日期
+      default: 7,
+      type: Number,
     },
     name: {
       default: "",

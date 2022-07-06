@@ -3,7 +3,7 @@
     <echarts @getquery="uploadData" />
     <eventTrend
       :tipname="'弱口令趋势分析'"
-      :date="30"
+      :date="12"
       :query="query"
       :event-type="1"
       :name="'weakPassword'"
@@ -11,18 +11,20 @@
     />
     <echartsBar
       :tipname="'协议TOP5统计'"
+      :date="12"
       :detail="'detail_protocol'"
       :query="query"
       :name="'weakPassword'"
     />
     <echartsBar
       :tipname="'IP地址TOP5统计'"
+      :date="12"
       :detail="'detail_src_ip'"
       :query="query"
       :name="'weakPassword'"
     />
     <el-col :span="24">
-      <tip> 最新弱口令事件 </tip>
+      <tip :date="12"> 最新弱口令事件 </tip>
       <el-table
         :data="List"
         tooltip-effect="light"
