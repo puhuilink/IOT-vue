@@ -44,6 +44,7 @@ import {
 } from "@/api/system/echarts";
 
 import tip from "@/components/EchartsTip";
+import { options } from "runjs";
 export default {
   name: "AAA",
   components: { tip },
@@ -946,13 +947,17 @@ export default {
             top: 120,
             bottom: 20,
             formatter: function (value) {
-              const val =
-                value.length > 10
-                  ? value.substr(0, 6) +
-                    "..." +
-                    value.substr(value.length - 3, value.length - 1)
-                  : value;
-              return val;
+        var data = myChart.getOption().series[0].data;
+            var total = 0;
+            var tarValue;
+            for (var i = 0; i < data.length; i++) {
+              total += data[i].value;
+              if (data[i].name == value) {
+                tarValue = data[i].value;
+              }
+            }
+            var v = tarValue;
+            return `${value} (${v})`;
             },
           },
           series: [
