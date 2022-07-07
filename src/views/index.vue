@@ -22,7 +22,7 @@
         </a>
         </div></swiper-slide>
       <swiper-slide>  <div class="outer6 flex-col">
-         <a href="http://10.1.51.199:8000/screen/asset" target="_blank">
+         <a href="http://10.1.13.118:8001/assetsManagement/assetSecurityStatisticalAnalysis" target="_blank">
           <div class="group1 flex-col justify-between">
             <img
               class="img2"
@@ -472,14 +472,12 @@
           <div class="main30 flex-col justify-between">
             <span class="info13">资产管理</span>
             <div class="box24 flex-row justify-between">
-               <a href="http://10.1.13.118:8001/assetsManagement/assetSecurityStatisticalAnalysis" target="_blank">
+               <a href="http://10.1.13.118:8001/assetsManagement/assetGroup" target="_blank">
               <div class="ImageText106 flex-col justify-between">
                 <div class="block19 flex-col"></div>
                 <div class="TextGroup106 flex-col">
                   <span class="paragraph4">
-                    资产统计
-                    <br />
-                    分析
+                    资产分类
                   </span>
                 </div>
               </div>
