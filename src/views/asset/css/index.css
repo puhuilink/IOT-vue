@@ -1494,6 +1494,14 @@
   border: 4px solid rgba(244, 244, 244, 1);
   width: 220px;
 }
+.wrapCopy4 {
+  margin-left: 30px;
+  background-color: rgba(255, 255, 255, 1);
+  border-radius: 16px;
+  height: 180px;
+  border: 4px solid rgba(244, 244, 244, 1);
+  width: 220px;
+}
 
 .main30 {
   width: 180px;
@@ -1512,6 +1520,17 @@
   line-height: 20px;
   margin-left: 50px;
 }
+.infoCopy13 {
+  width: 80px;
+  height: 20px;
+  color: rgba(154, 166, 170, 1);
+  font-size: 20px;
+  font-family: MicrosoftYaHeiLight;
+  text-align: center;
+  white-space: nowrap;
+  line-height: 20px;
+  margin-left: 30px;
+}
 
 .box24 {
   width: 180px;
@@ -1528,6 +1547,14 @@
   width: 60px;
   height: 60px;
   background: url(../img/SketchPnge25828281135e4a71ab982ff8b767889fd7a327e824f08846ef06a0573caa28d.png)
+    100% no-repeat;
+  background-size: 100% 100%;
+  margin-left: 10px;
+}
+.block191 {
+  width: 60px;
+  height: 60px;
+  background: url(../img/navicon_44.png)
     100% no-repeat;
   background-size: 100% 100%;
   margin-left: 10px;
@@ -1562,7 +1589,14 @@
   background-size: 100% 100%;
   margin-left: 10px;
 }
-
+.group555 {
+  width: 60px;
+  height: 60px;
+  background: url(../img/navicon_45.png)
+    100% no-repeat;
+  background-size: 100% 100%;
+  margin-left: 10px;
+}
 .TextGroup107 {
   height: 18px;
   margin-top: 8px;
@@ -2245,6 +2279,7 @@
 }
 
 .section43 {
+  margin-left: 30px;
   background-color: rgba(255, 255, 255, 1);
   border-radius: 16px;
   height: 180px;

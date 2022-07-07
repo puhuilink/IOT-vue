@@ -601,25 +601,27 @@
           </a>
           </div>
         </div>
-        <div class="wrap11 flex-col">
-          <div class="section42 flex-col justify-between">
-            <span class="txt14">工业主机安全</span>
-              <a
-            href="http://10.1.13.118:8001/security/hostSecurityManagement/hostSecuritySearch"
-            target="_blank"
-          >  
-            
-            <div class="ImageText116 flex-col justify-between">
-              <div class="mod32 flex-col"></div>
-              <div class="TextGroup116 flex-col">
-                <span class="paragraph10">
-                  工业主机
-                  <br />
-                  安全
-                </span>
+         <div class="wrapCopy4 flex-col">
+          <div class="main30 flex-col justify-between">
+            <span class="infoCopy13">生产网络安全</span>
+            <div class="box24 flex-row justify-between">
+               <a href="http://10.1.13.118:8001/security/abnormalBehaviorManagement/firewallAccessControlEvent" target="_blank">
+              <div class="ImageText106 flex-col justify-between">
+                <div class="block191 flex-col"></div>
+                <div class="TextGroup106 flex-col">
+                  <span class="paragraph4">
+                    工业防火墙
+                  </span>
+                </div>
               </div>
+              </a>
+              <a href="http://10.1.13.118:8001/industrialNetworkAudit/industrialNetworkAuditList" target="_blank">
+              <div class="ImageText107 flex-col justify-between">
+                <div class="group555 flex-col"></div>
+                <div class="TextGroup107 flex-col"><span class="word19">工业安全  <br />审计</span></div>
+              </div>
+</a>
             </div>
-          </a>
           </div>
         </div>
         <div class="group14 flex-col">
@@ -717,6 +719,27 @@
                 </span>
               </div>
             </div>
+          </div>
+        </div>
+         <div class="wrap11 flex-col">
+          <div class="section42 flex-col justify-between">
+            <span class="txt14">工业主机安全</span>
+              <a
+            href="http://10.1.13.118:8001/security/hostSecurityManagement/hostSecuritySearch"
+            target="_blank"
+          >  
+            
+            <div class="ImageText116 flex-col justify-between">
+              <div class="mod32 flex-col"></div>
+              <div class="TextGroup116 flex-col">
+                <span class="paragraph10">
+                  工业主机
+                  <br />
+                  安全
+                </span>
+              </div>
+            </div>
+          </a>
           </div>
         </div>
       </div>
