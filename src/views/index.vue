@@ -21,8 +21,8 @@
           </div>
         </a>
         </div></swiper-slide>
-      <swiper-slide>  <div class="outer6 flex-col">
-         <a href="http://10.1.13.118:8001/assetsManagement/assetSecurityStatisticalAnalysis" target="_blank">
+      <!-- <swiper-slide>  <div class="outer6 flex-col">
+       <a href="http://10.1.51.199:8000/screen/asset" target="_blank">
           <div class="group1 flex-col justify-between">
             <img
               class="img2"
@@ -32,7 +32,7 @@
             <span class="txt2">资产态势</span>
           </div>
 </a>
-        </div></swiper-slide>
+        </div></swiper-slide> -->
       <swiper-slide> <div class="outer6 flex-col">
           <a href="http://10.1.51.199:8000/screen/alert" target="_blank">
           <div class="mod1 flex-col justify-between">
@@ -379,7 +379,7 @@
                 </div>
               </div>
               </a>
-                 <a href="http://10.1.13.118:8001/management/events" target="_blank">
+                 <a href="http://10.1.13.118:8001/management/eventEcharts" target="_blank">
               <div class="ImageText99 flex-col justify-between">
                 <div class="bd21 flex-col"></div>
                 <div class="TextGroup99 flex-col"><span class="txt13">分析及统计</span></div>
@@ -457,7 +457,7 @@
                 <div class="TextGroup104 flex-col"><span class="info12">综合态势</span></div>
               </div>
               </a>
-    <a href="http://10.1.51.199:8000/screen/asset" target="_blank">
+     <a href="http://10.1.13.118:8001/assetsManagement/assetSecurityStatisticalAnalysis" target="_blank">
               <div class="ImageText105 flex-col justify-between">
                 <div class="section40 flex-col"></div>
                 <div class="TextGroup105 flex-col"><span class="word17">资产态势</span></div>
