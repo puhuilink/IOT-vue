@@ -497,73 +497,7 @@ export default {
       // 弹出层标题
       title: "",
       // 部门树选项
-      // deptOptions: undefined,
-      deptOptions: [
-        {
-          id: 100,
-          label: "工业企业",
-          children: [
-            {
-              id: 101,
-              label: "中国交建集团",
-              children: [
-                {
-                  id: 107,
-                  label: "三亚海投轨交",
-                },
-                 {
-                  id: 108,
-                  label: "山西三通燃气厂",
-                },
-                {
-                  id: 109,
-                  label: "松通高速预制厂",
-                },
-                 {
-                  id: 110,
-                  label: "北京城乡水厂",
-                },
-                 {
-                  id: 111,
-                  label: "深中通道预制厂",
-                },
-                 {
-                  id: 112,
-                  label: "乌尉高速制梁厂",
-                },
-                 {
-                  id: 113,
-                  label: "玉湛高速制梁厂",
-                },
-              ],
-            },
-            {
-              id: 102,
-              label: "新疆八一钢筋厂",
-            },
-            {
-              id: 103,
-              label: "浙江联顺预制厂",
-            },
-             {
-              id: 104,
-              label: "重庆预制厂",
-            },
-            {
-              id: 105,
-              label: "安徽天恩砂石厂",
-            },
-             {
-              id: 105,
-              label: "青岛混凝土厂",
-            },
-            {
-              id: 106,
-              label: "广州地铁钢筋厂",
-            },
-          ],
-        },
-      ],
+      deptOptions: undefined, 
       // 是否显示弹出层
       open: false,
       // 部门名称
@@ -620,7 +554,7 @@ export default {
       // 列信息
       columns: [
         { key: 0, label: `用户编号`, visible: true },
-        { key: 1, label: `用户名称`, visible: true },
+        { key: 1, label: `系统账号`, visible: true },
         { key: 2, label: `用户姓名`, visible: true },
         { key: 3, label: `部门`, visible: true },
         { key: 4, label: `手机号码`, visible: true },
@@ -663,7 +597,7 @@ export default {
   },
   created() {
     this.getList();
-    // this.getTreeselect()
+    this.getTreeselect()
     this.getDicts("sys_normal_disable").then((response) => {
       this.statusOptions = response.data;
     });
@@ -687,11 +621,11 @@ export default {
       );
     },
     /** 查询部门下拉树结构 */
-    // getTreeselect() {
-    //   treeselect().then(response => {
-    //     this.deptOptions = response.data
-    //   })
-    // },
+    getTreeselect() {
+      treeselect().then(response => {
+        this.deptOptions = response.data
+      })
+    },
     // 筛选节点
     filterNode(value, data) {
       if (!value) return true;
@@ -767,9 +701,9 @@ export default {
     /** 新增按钮操作 */
     handleAdd() {
       this.reset();
-      // this.getTreeselect();
+      this.getTreeselect();
       getUser().then((response) => {
-        // this.postOptions = response.posts;
+        this.postOptions = response.posts;
         this.roleOptions = response.roles;
         this.open = true;
         this.title = "添加用户";
@@ -779,11 +713,11 @@ export default {
     /** 修改按钮操作 */
     handleUpdate(row) {
       this.reset();
-      // this.getTreeselect();
+      this.getTreeselect();
       const userId = row.userId || this.ids;
       getUser(userId).then((response) => {
         this.form = response.data;
-        // this.postOptions = response.posts;
+        this.postOptions = response.posts;
         this.roleOptions = response.roles;
         this.form.postIds = response.postIds;
         this.form.roleIds = response.roleIds;
