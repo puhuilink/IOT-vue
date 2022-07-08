@@ -2,7 +2,7 @@
   <div class="app-container">
     <el-card shadow="never" class="box-card">
       <div>
-        <table-list  />
+        <table-list :selectParams="this.selectParams"  />
       </div>
     </el-card>
   </div>
@@ -17,9 +17,12 @@ export default {
   components: {
   tableList
 },
-  props: {
-   
-  },
+   props: {
+  selectParams: {
+      type: Object,
+     default:{}
+    }
+   },
   data() {
     return {
       

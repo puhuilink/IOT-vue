@@ -18,6 +18,7 @@
                    show-checkbox
                    node-key="assetId" 
                    :props="defaultProps"
+                  @check="getCheckedKeys(true)"
                     :filter-node-method="filterNode"
                      :default-expanded-keys="[2]"
                     ref="tree"/>
@@ -33,6 +34,7 @@ export default {
     return {
       selectList:[],
       filterText: '',
+      checkData: [],
       defaultProps: {
         children: 'children',
         label: 'assetType'
@@ -48,6 +50,15 @@ export default {
     this.getTableList();
   },
   methods: {
+      // tree组件的点击事件
+      getCheckedKeys() {  
+      this.checkData = this.$refs.tree.getCheckedNodes(true);
+      this.orgTreeData = this.checkData.filter((e) => e.assetType)
+        .map(({ assetType }) => (
+          assetType
+        )).join(',')
+        this.$emit('checkItem', this.orgTreeData) // 这是选中的节点数组  
+      },
      filterNode(value, data) {
         if (!value) return true;
         return data.assetType.indexOf(value) !== -1;

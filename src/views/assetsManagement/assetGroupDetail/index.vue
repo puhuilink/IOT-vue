@@ -2,7 +2,7 @@
   <div>
     <div class="box-container">
       <el-row>
-        <el-col :span="6">
+        <!-- <el-col :span="6">
           <PubliceTree v-if="refreshTable"
                          ref="customTree"
                          :itemShow="itemShow"
@@ -14,26 +14,34 @@
                          @deleteItem="deleteTreeItem"
                          @editItem="editTreeItem">
             </PubliceTree>
+        </el-col> -->
+        <el-col :span="6">
+        <select-tree @checkItem="checkTreeItem" />
         </el-col>
+        
         <el-col :span="18">
-          <asset-group-query />
+          <asset-group-query :selectParams="this.checkTreeData"  />
         </el-col></el-row>
     </div>
   </div>
 </template>
 <script>
 import { selectAssetGruop} from "@/api/system/list";
-import PubliceTree from './components/tree'
+// import PubliceTree from './components/tree'
 import selectTree from './components/selectTree'
 import assetGroupQuery from './components/assetGroupQuery'
 export default {
  components: {
-    PubliceTree,
     selectTree,
     assetGroupQuery
   },
   data () {
     return {
+      checkTreeData: {
+        assetTypes:'',
+         pageNum: 1,
+        pageSize: 10,
+      },
       checked: false,
       itemShow: true,
       treeExpandAll: false,
@@ -102,6 +110,9 @@ export default {
     // ----------------增加树节点设置默认父级节点
     addTreeItem (data) {
       this.$refs.placeDialog.openDialog(false, data.assetId, data, undefined);
+    },
+    checkTreeItem (data) {  
+      this.checkTreeData.assetTypes = data;
     },
     // ----------------修改树节点
     editTreeItem (data) {
