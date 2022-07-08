@@ -3,6 +3,13 @@
  ******************************************************************************/
 import request from '@/utils/request'
 
+// 获取资产分组列表
+export function selectAssetGruop() {
+  return request({
+    url: '/dm/grouping/selectAssetGruop',
+    method: 'get'
+  })
+}
 // 事件检索
 export function eventList(query) {
   return request({
