@@ -161,34 +161,6 @@ export default {
         children: 'children',
         label: 'label'
       },
-      showSearch: true,
-      allTypeList: [
-        {
-          label: '主机',
-          value: 0
-        },
-        {
-          label: '服务器',
-          value: 1
-        },
-        {
-          label: '网闸',
-          value: 0
-        },
-        {
-          label: '网关',
-          value: 1
-        },
-        {
-          label: '防火墙',
-          value: 0
-        },
-        {
-          label: '平台系统',
-          value: 1
-        }
-      ],
-      queryParams: {}
     }
   },
   methods: {
