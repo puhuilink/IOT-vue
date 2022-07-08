@@ -39,11 +39,11 @@ module.exports = {
           '^/esApi': '' // 重写esApi为空
         }
       },
-      '/codesafeapi': {
+      '/qianxin': {
         target: 'https://10.201.72.99:443',  //  奇安信
         changeOrigin: true,
         pathRewrite: {
-          '^/codesafeapi': '' // 重写codesafeapi为空
+          '^/qianxin': '' // 重写codesafeapi为空
         }
       },
       // APP加固---梆梆
@@ -54,15 +54,6 @@ module.exports = {
           '^/app': '' // 重写app为空
         }
       },
-      // '/app': {
-      //   target: 'http://10.201.31.103:8000',  //  梆梆app加固
-      //   changeOrigin: true,
-      //   pathRewrite: {
-      //     '^/app': ''
-      //   }
-      // },
-
-      // detail: https://cli.vuejs.org/config/#devserver-proxy
       [process.env.VUE_APP_BASE_API]: {
         // target: `http://192.168.2.103:8088`,
         // target: `http://116.63.139.209:8088`,
