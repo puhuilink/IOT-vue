@@ -21,18 +21,6 @@
           </div>
         </a>
         </div></swiper-slide>
-      <!-- <swiper-slide>  <div class="outer6 flex-col">
-       <a href="http://10.1.51.199:8000/screen/asset" target="_blank">
-          <div class="group1 flex-col justify-between">
-            <img
-              class="img2"
-              referrerpolicy="no-referrer"
-               src="./asset/img/picture_02.png" 
-            />
-            <span class="txt2">资产态势</span>
-          </div>
-</a>
-        </div></swiper-slide> -->
       <swiper-slide> <div class="outer6 flex-col">
           <a href="http://10.1.51.199:8000/screen/alert" target="_blank">
           <div class="mod1 flex-col justify-between">
@@ -185,7 +173,7 @@
              <a href="http://10.1.13.118:8001/bigScreen/overallSecurityPosture" target="_blank">
             <div class="ImageText81 flex-col justify-between">
               <div class="mod27 flex-col"></div>
-              <div class="TextGroup81 flex-col"><span class="word4">总体态势</span></div>
+              <div class="TextGroup81 flex-col"><span class="word4">总体监测</span></div>
             </div>
             </a>
              <a
@@ -194,7 +182,7 @@
               >
             <div class="ImageText82 flex-col justify-between">
               <div class="group45 flex-col"></div>
-              <div class="TextGroup82 flex-col"><span class="txt4">管理网安全态势</span></div>
+              <div class="TextGroup82 flex-col"><span class="txt4">管理网安全监测</span></div>
             </div>
             </a>
              <a
@@ -203,7 +191,7 @@
               >
             <div class="ImageText83 flex-col justify-between">
               <div class="mod28 flex-col"></div>
-              <div class="TextGroup83 flex-col"><span class="txt5">试点单位安全态势</span></div>
+              <div class="TextGroup83 flex-col"><span class="txt5">试点单位安全监测</span></div>
             </div>
             </a>
             <a
