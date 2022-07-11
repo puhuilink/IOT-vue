@@ -96,7 +96,7 @@ export const equipmentData = params => {
   return axios.get(`${baseEquipmentData}`, params)
 }
 //代码审计事件---列表
-const baseapplicationManagement = 'https://10.201.72.99/codesafeapi/quickcheck'
+const baseapplicationManagement = '/qianxin/codesafeapi/quickcheck'
 
 export const getApplicationManagementData = (params, authorizationValue) => {
   return axios.post(`${baseapplicationManagement}`, params,
@@ -110,7 +110,7 @@ export const getApplicationManagementData = (params, authorizationValue) => {
   )
 }
 //代码审计---任务统计信息及详情
-const codeAuditDetailData = 'https://10.201.72.99/codesafeapi/result/'
+const codeAuditDetailData = '/qianxin/codesafeapi/result/'
 
 export const codeAuditDetail = (params, authorizationValue) => {
   return axios.get(`${codeAuditDetailData + params}`, {
@@ -140,7 +140,7 @@ export const codeGetToken = () => {
 
 
 // //代码审计事件---详情---列表---查询一个任务的全部缺陷（分页）
-const baseapplicationManagementDetailTable = 'https://10.201.72.99/codesafeapi/result/'
+const baseapplicationManagementDetailTable = '/qianxin/codesafeapi/result/'
 
 export const getApplicationManagementDetailTable = (params, query, authorizationValue) => {
   return axios.get(`${baseapplicationManagementDetailTable + params + '/bug'}`, {
@@ -152,7 +152,7 @@ export const getApplicationManagementDetailTable = (params, query, authorization
   })
 }
 // //代码审计事件---缺陷详情
-const baseapplicationManagementDefectDetail = 'https://10.201.72.99/codesafeapi/result/'
+const baseapplicationManagementDefectDetail = '/qianxin/codesafeapi/result/'
 
 export const getApplicationManagementDefectDetail = (taskId, bugId, authorizationValue) => {
   return axios.get(`${baseapplicationManagementDefectDetail + taskId + '/bug/' + bugId}`, {

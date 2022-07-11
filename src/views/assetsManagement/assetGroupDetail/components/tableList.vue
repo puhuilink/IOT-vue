@@ -82,8 +82,8 @@
     <pagination
       v-show="total > 0"
       :total="total"
-      :page.sync="queryParams.pageNum"
-      :limit.sync="queryParams.pageSize"
+      :page.sync="selectParams.pageNum"
+      :limit.sync="selectParams.pageSize"
       @pagination="getList"
     />
     <!-- 添加分组对话框 -->
@@ -633,96 +633,6 @@
             </el-col>
           </el-row>
         </el-form>
-        <!-- <div class="information">资产分组</div>
-        <el-form
-          ref=""
-          label-width="105px"
-          label-position="left"
-          class="label-type"
-        >
-          <el-row>
-            <el-col :span="12">
-              <el-form-item label="资产组 :">
-                {{ dataDetails.assetGroup }}
-              </el-form-item>
-            </el-col>
-            <el-col :span="12">
-              <el-form-item label="地理位置 :">
-                {{ dataDetails }}
-              </el-form-item>
-            </el-col>
-            <el-col :span="12">
-              <el-form-item label="组织架构 :">
-                {{ dataDetails.origation }}
-              </el-form-item>
-            </el-col>
-          </el-row>
-        </el-form> -->
-        <div class="information">威胁态势</div>
-        <el-table :data="groupList" style="width: 100%">
-          <el-table-column
-            label="事件名称"
-            align="center"
-            prop="assetName"
-            :show-overflow-tooltip="true"
-          />
-          <el-table-column
-            label="源IP"
-            align="center"
-            prop="ip"
-            :show-overflow-tooltip="true"
-          />
-          <el-table-column
-            label="目的IP"
-            align="center"
-            prop="ip"
-            :show-overflow-tooltip="true"
-          />
-          <el-table-column
-            label="协议"
-            align="center"
-            prop="applicationProtocol"
-            :show-overflow-tooltip="true"
-            width="60"
-          />
-          <el-table-column
-            label="事件等级"
-            align="center"
-            prop="eventLevel"
-            width="60"
-          />
-          <el-table-column
-            label="事件类型"
-            align="center"
-            prop="operating_system"
-            width="60"
-          />
-          <el-table-column
-            label="处置状态"
-            align="center"
-            prop="runstate"
-            width="80"
-          />
-          <el-table-column
-            label="事件开始时间"
-            align="center"
-            prop="startTime"
-            :show-overflow-tooltip="true"
-          />
-          <el-table-column
-            label="事件结束时间"
-            align="center"
-            prop="startTime"
-          />
-          <el-table-column
-            label="区域"
-            align="center"
-            prop="region"
-            :show-overflow-tooltip="true"
-          />
-          <el-table-column label="上报设备" align="center" prop="equipment" />
-        </el-table>
-
         <div slot="footer" class="dialog-footer">
           <el-row type="flex" justify="center">
             <el-button size="small" type="primary" @click="submitForm"
@@ -736,9 +646,9 @@
   </div>
 </template>
 
-<script>open
-// import { listEvent } from '@/api/system/category'
-import { assetList, uploadExcel } from "@/api/system/list";
+<script>
+
+import { assetList, uploadExcel,selectAssetGruopList } from "@/api/system/list";
 import chainStatistics from "@/components/Echarts/chainStatistics";
 import eventType from "@/components/Echarts/eventType";
 import { assetDetail } from "@/api/system/detail";
@@ -747,6 +657,12 @@ export default {
     chainStatistics,
     eventType,
   },
+   props: {
+  selectParams: {
+      type: Object,
+     default:{}
+    }
+   },
   name: "Online",
   data() {
     return {
@@ -951,54 +867,33 @@ export default {
         },
       ],
       dataDetails: {
-        // name: '1',
-        // name1: '124.165.254.98',
-        // Asset_model: '29530',
-        // name3: 'SCADA服务器',
-        // assetType: '工控设备',
-        // manufacturer: 'Dell',
-        // nameFind: '导入',
-        // assetValue: '4',
-        // name7: '等保一级',
-        // Asset_description: 'WINDOWS',
-        // runSoftware: 'Combridge',
-        // riskState: '极低',
-        // name11: 'DATAServer',
-        // name12: '正常',
-        // name13: '--',
-        // name14: '是',
-        // nameArea: '山西三通燃气厂',
-        // department: '--',
-        // eventLevel: "低",
-        // name16: '3',
-        // leader: '张燕强',
-        // time: '2022-02-03 21:00:47',
-        // location: '--',
-        // locationGeo: '吕梁市汾阳市富民南路东方国际城顶楼机房',
-        // nameAssets: '工控设备',
-        // assetLocation: '楼顶机房内',
-        // nameArgument: 'TCP/IP',
-        // origation: '中国城乡山西三通燃气厂'
       },
     };
   },
+  watch: {
+    'selectParams.assetTypes': {
+      handler(val,oldVal) {
+      if(val !== oldVal){
+        this.getList();
+      }
+      },
+      },
+      deep: true,
+    },
   created() {
     this.getList();
   },
   methods: {
-    /** 查询登录日志列表 */
-    // getCategoryList() {
-    //   listEvent(this.queryParams).then((response) => {
-    //     this.groupList = response.rows
-    //     this.total = response.total
-    //   })
-    // },
     /** 查询分组列表 */
     async getList() {
       this.loading = true;
-      const res = await assetList(this.queryParams);
-      this.groupList = res.rows;
+      selectAssetGruopList(this.selectParams).then((res) => {
+         this.groupList = res.rows;
       this.total = res.total;
+      });
+      // const res = await assetList(this.queryParams);
+      // this.groupList = res.rows;
+      // this.total = res.total;
       this.loading = false;
     },
     // 上传前格式与大小校验

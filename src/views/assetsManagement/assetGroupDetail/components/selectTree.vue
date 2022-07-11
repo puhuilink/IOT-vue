@@ -13,196 +13,137 @@
           </el-col>
         </el-row>
       <el-row>
-        <el-col :span="12">
-          <el-tree :data="data"
+        <el-col :span="18">
+          <el-tree :data="selectList"
                    show-checkbox
-                   node-key="id"
-                   :default-expanded-keys="[2, 3]"
-                   :default-checked-keys="[5]" />
+                   node-key="assetId" 
+                   :props="defaultProps"
+                  @check="getCheckedKeys(true)"
+                    :filter-node-method="filterNode"
+                     :default-expanded-keys="[2]"
+                    ref="tree">
+                  <span class="custom-tree-node show-hide" slot-scope="{ node, data }">
+                <span>{{ node.label }}</span>
+                <span style="display:none;">
+                    <i  style="color:blue" @click="() => appendNode(node, data)" class="small-operation-btn el-icon-plus" title="增加"></i><!--增加节点-->
+                    <!-- 根节点不需要删除和修改 -->
+                    <i  style="color:blue" v-if="data.id !== 1" @click="() => removeNode(node,data)" class="small-operation-btn el-icon-delete" title="删除"></i><!--删除节点-->
+                    <i  style="color:blue"  v-if="data.id !== 1" @click="() => editNode(node,data)" class="small-operation-btn el-icon-edit" title="编辑"></i><!--编辑节点-->
+                </span>
+            </span>
+          </el-tree>
         </el-col>
       </el-row>
     </el-card>
   </div>
 </template>
 <script>
+import { selectAssetGruop,getNatureTreeNode,putNatureTreeNode,delNatureTreeNode} from "@/api/system/list";
 export default {
   data () {
     return {
-      data: [
-        {
-          id: 1,
-          label: '全部',
-          children: [
-            {
-              id: 3,
-              label: '服务器',
-              children: [
-                {
-                  id: 4,
-                  label: '三级 3-1-1'
-                },
-                {
-                  id: 5,
-                  label: '三级 3-1-2'
-                  //   disabled: true,
-                }
-              ]
-            },
-            {
-              id: 2,
-              label: '终端设备',
-              //   disabled: true,
-              children: [
-                {
-                  id: 6,
-                  label: '中交海投',
-                  children: [{ id: 10, label: '三亚海投轨交' }]
-                },
-                {
-                  id: 7,
-                  label: '中国城乡',
-                  //   disabled: true,
-                  children: [
-                    { id: 11, label: '北京城乡水厂' },
-                    { id: 12, label: '山西三通燃气厂' }
-                  ]
-                },
-                {
-                  id: 8,
-                  label: '中交四航局',
-                  children: [
-                    { id: 13, label: '深中通道沉管智慧工厂' }
-                  ]
-                },
-              ]
-            },
-            {
-              id: 10,
-              label: '网络设备',
-              children: [
-                {
-                  id: 11,
-                  label: '三级 3-1-1'
-                },
-              ]
-            },
-             {
-              id: 12,
-              label: '通信设备',
-              children: [
-                {
-                  id: 13,
-                  label: '三级 3-1-1'
-                },
-              ]
-            },
-             {
-              id: 14,
-              label: '安全设备',
-              children: [
-                {
-                  id: 15,
-                  label: '安全网关'
-                },
-              ]
-            },
-             {
-              id: 16,
-              label: '数据网闸',
-              children: [
-                {
-                  id: 17,
-                  label: '安全网关'
-                },
-              ]
-            },
-             {
-              id: 18,
-              label: '工业防火墙',
-              children: [
-                 {
-                  id: 19,
-                  label: '长亭WAF'
-                },
-                {
-                  id: 20,
-                  label: '华三WAF'
-                },
-                 {
-                  id: 21,
-                  label: '山石WAF'
-                },
-              ]
-            },
-             {
-              id: 22,
-              label: '显示设备',
-              children: [
-                {
-                  id: 23,
-                  label: '安全网关'
-                },
-              ]
-            },
-             {
-              id: 24,
-              label: '风控设备',
-              children: [
-                {
-                  id: 25,
-                  label: '安全网关'
-                },
-              ]
-            },
-          ]
-        }
-      ],
+      selectList:[],
+      filterText: '',
+      checkData: [],
       defaultProps: {
         children: 'children',
-        label: 'label'
+        label: 'assetType'
       },
-      showSearch: true,
-      allTypeList: [
-        {
-          label: '主机',
-          value: 0
-        },
-        {
-          label: '服务器',
-          value: 1
-        },
-        {
-          label: '网闸',
-          value: 0
-        },
-        {
-          label: '网关',
-          value: 1
-        },
-        {
-          label: '防火墙',
-          value: 0
-        },
-        {
-          label: '平台系统',
-          value: 1
-        }
-      ],
-      queryParams: {}
     }
   },
-  methods: {
+    watch: {
+      filterText(val) {
+        this.$refs.tree.filter(val);
+      }
+    },
+  created() {
+    this.getTableList();
   },
+  methods: {
+      // tree组件的点击事件
+      getCheckedKeys() {  
+      this.checkData = this.$refs.tree.getCheckedNodes(true);
+      this.orgTreeData = this.checkData.filter((e) => e.assetType)
+        .map(({ assetType }) => (
+          assetType
+        )).join(',')
+        this.$emit('checkItem', this.orgTreeData) // 这是选中的节点数组  
+      },
+      //筛选tree
+     filterNode(value, data) {
+        if (!value) return true;
+        return data.assetType.indexOf(value) !== -1;
+      },
+      //获取tree
+    getTableList(){
+      selectAssetGruop().then(res => {
+        this.selectList= res.data;
+      })
+    },
+    	// 新增树节点
+    appendNode(node, data) {
+      this.nodeForm.parentId = data.id;
+      getNatureTreeNode().then(res =>{
+        console.log(res);
+      });
+    },
+    // 删除树节点
+    removeNode(node, data) {
+      // 判断该节点是否有子节点
+      if(node.childNodes.length != 0){
+        this.$message({
+          message: '该节点下存在子节点，不允许直接删除',
+          type: 'warning'
+        });
+        return;
+      }
+      this.$confirm("是否确认删除此节点?", "警告", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning",
+      })
+        .then(function () {
+          return delNatureTreeNode(data.id);
+        })
+        .then(res => {
+      console.log(res);
+        })
+        .catch(function () {});
+    },
+    // 编辑树节点
+    editNode(node, data) {
+      putNatureTreeNode(data.id).then(res =>{
+  console.log(res);
+      });
+    }
+
+    }
 };
 </script>
 <style lang="scss"
  scoped>
-::v-deep .label-type {
-  .el-form-item__label {
-    color: #333;
-    font-family: MicrosoftYaHei;
-    font-size: 14px;
-    font-weight: normal !important;
+ .custom-tree-node {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        font-size: 14px;
+        padding-right: 8px;
+    }
+     .small-operation-btn {
+    margin: 0px 5px;
   }
+    .el-icon-plus:hover {
+  color: #1c92e0;
 }
+.el-icon-edit:hover {
+  color: #1c92e0;
+}
+.el-icon-delete:hover {
+  color: #1c92e0;
+}
+
+  .show-hide:hover :nth-child(2) {
+      display: inline-block !important;
+    }
 </style>

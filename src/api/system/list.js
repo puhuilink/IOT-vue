@@ -2,7 +2,44 @@
  * 作者：Asuna
  ******************************************************************************/
 import request from '@/utils/request'
-
+ //新增资产分组
+ export function getNatureTreeNode(query) {
+  return request({
+    url: '/dm/grouping',
+    method: 'post',
+    params: query
+  })
+}
+ //修改资产分组
+ export function putNatureTreeNode(query) {
+  return request({
+    url: '/dm/grouping',
+    method: 'put',
+    params: query
+  })
+}
+//删除资产分组
+export function delNatureTreeNode(query) {
+  return request({
+    url: '/dm/grouping/'+query,
+    method: 'delete',
+  })
+}
+//获取资产列表
+export function selectAssetGruopList(query) {
+  return request({
+    url: '/dm/grouping/selectAssetGruopList',
+    method: 'get',
+    params: query
+  })
+}
+// 获取资产分组列表
+export function selectAssetGruop() {
+  return request({
+    url: '/dm/grouping/selectAssetGruop',
+    method: 'get'
+  })
+}
 // 事件检索
 export function eventList(query) {
   return request({
