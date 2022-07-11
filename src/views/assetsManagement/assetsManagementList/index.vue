@@ -233,12 +233,7 @@
           prop="eventLevel"
           :show-overflow-tooltip="true"
         />
-        <!-- <el-table-column
-          label="资产标签"
-          align="center"
-          prop="assetTag"
-          :show-overflow-tooltip="true"
-        /> -->
+      
         <el-table-column
           label="区域"
           align="center"
@@ -759,7 +754,7 @@
 
             <el-col :span="8">
               <el-form-item label="运行状态 :">
-                {{ dataDetails.eventLevel }}
+                {{ dataDetails.runState }}
               </el-form-item>
             </el-col>
             <el-col :span="8">
