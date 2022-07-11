@@ -160,26 +160,21 @@
             :content="'提示：仅允许导入“pdf”格式文件！且必须选择所属区域'"
           />
         </div>
-        <el-form-item
-          label="区域:"
-          :rules="[{ required: true, message: '请选择区域' }]"
-        >
-          <el-select
-            v-model.trim="form.location"
-            placeholder="请选择区域"
-            filterable
-            clearable
-            :style="{ width: '100%' }"
-          >
-            <el-option
-              v-for="(item, index) in areaOptions"
-              :key="index"
-              :label="item.label"
-              :value="item.label"
-              :disabled="item.disabled"
-            />
-          </el-select>
-        </el-form-item>
+        <el-select
+        v-model.trim="form.region"
+        placeholder="请选择区域"
+        filterable
+        clearable
+        :style="{ width: '100%' }"
+      >
+        <el-option
+          v-for="(item, index) in areaOptions"
+          :key="index"
+          :label="item.label"
+          :value="item.label"
+          :disabled="item.disabled"
+        />
+      </el-select>
       <!-- </el-form> -->
       <div slot="footer" class="dialog-footer">
         <el-button type="primary" @click="submitFileForm">确 定</el-button>

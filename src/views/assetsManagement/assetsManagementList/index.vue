@@ -221,24 +221,24 @@
           prop="runState"
           :show-overflow-tooltip="true"
         />
-        <el-table-column
+        <!-- <el-table-column
           label="风险状态"
           align="center"
           prop="riskState"
           :show-overflow-tooltip="true"
-        />
+        /> -->
         <el-table-column
           label="事件等级"
           align="center"
           prop="eventLevel"
           :show-overflow-tooltip="true"
         />
-        <el-table-column
+        <!-- <el-table-column
           label="资产标签"
           align="center"
           prop="assetTag"
           :show-overflow-tooltip="true"
-        />
+        /> -->
         <el-table-column
           label="区域"
           align="center"
