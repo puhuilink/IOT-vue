@@ -695,6 +695,10 @@
         <div class="section43 flex-col">
           <div class="layer31 flex-col justify-between">
             <span class="info19">工业设备安全</span>
+               <a
+            href=" https://123.60.135.63:8889/#/manage/v2/sso?ticket=d91c53aea100716097202d4c3a5ebd752feaf54940dd26d31de206aee261a4f2a068b7e8149f2d9f8446a26b45fe12af4ed535f64f55cc9389443a4b84d02f0f94bf2d634d078e1f73ea23fd2a4ac83878029bb561729e8c9cb5d57bf68771f2"
+            target="_blank"
+          >  
             <div class="ImageText123 flex-col justify-between">
               <div class="group58 flex-col"></div>
               <div class="TextGroup123 flex-col">
@@ -705,6 +709,7 @@
                 </span>
               </div>
             </div>
+            </a>
           </div>
         </div>
          <div class="wrap11 flex-col">
