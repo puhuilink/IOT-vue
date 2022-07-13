@@ -5,7 +5,7 @@
         <slot name="right" />
         <div v-if=" date!==0&&date===7" class="right">最近7天数据</div>
         <div v-else-if=" date!==0&&date===12" class="right">最近一年数据</div>
-         <div v-else-if=" date!==0&&date===30" class="right">最近一个月数据</div>
+         <div v-else class="right">最近一个月数据</div>
       </div>
   </div>
 </template>

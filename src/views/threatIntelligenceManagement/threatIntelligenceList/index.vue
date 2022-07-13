@@ -138,7 +138,7 @@
                     v-for="(item, index) in killingChainStageOptions"
                     :key="index"
                     :label="item.label"
-                    :value="item.label"
+                    :value="item.value"
                     :disabled="item.disabled"
                   />
                 </el-select>
@@ -876,31 +876,31 @@ export default {
       killingChainStageOptions: [
         {
           label: "载荷投递",
-          value: "载荷投递",
+          value: "Delivery",
         },
         {
           label: "侦查跟踪",
-          value: "侦查跟踪",
+          value: "Recon",
         },
         {
           label: "漏洞利用",
-          value: "漏洞利用",
+          value: "Exploitation",
         },
         {
           label: "安装植入",
-          value: "安装植入",
+          value: "Beacon",
         },
         {
           label: "武器构建",
-          value: "武器构建",
+          value: "Weaponization",
         },
         {
           label: "命令控制",
-          value: "命令控制",
+          value: "CnC",
         },
         {
           label: "目标达成",
-          value: "目标达成",
+          value: "Actions on Objective",
         },
       ],
     };
