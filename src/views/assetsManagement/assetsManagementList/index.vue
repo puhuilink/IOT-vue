@@ -235,8 +235,13 @@
           align="center"
           prop="eventLevel"
           :show-overflow-tooltip="true"
-        />
-      
+        />     
+        <!-- <el-table-column
+          label="资产标签"
+          align="center"
+          prop="assetTag"
+          :show-overflow-tooltip="true"
+        /> -->
         <el-table-column
           label="区域"
           align="center"
