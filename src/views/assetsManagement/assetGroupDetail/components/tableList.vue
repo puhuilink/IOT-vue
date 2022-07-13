@@ -2,10 +2,13 @@
   <div class="app-container">
     <el-card>
       <el-table :data="groupList" tooltip-effect="light">
-        <!-- <el-table-column label="资产编号"
-                         type="index"
-                         align="center"
-                         width="100" /> -->
+       <el-table-column
+          label="IP地址"
+          align="center"
+          prop="ipAddress"
+          width="230"
+          :show-overflow-tooltip="true"
+        />
         <el-table-column
           label="资产名称"
           align="center"
@@ -35,21 +38,9 @@
           :show-overflow-tooltip="true"
         />
         <el-table-column
-          label="风险状态"
-          align="center"
-          prop="riskState"
-          :show-overflow-tooltip="true"
-        />
-        <el-table-column
           label="事件等级"
           align="center"
           prop="eventLevel"
-          :show-overflow-tooltip="true"
-        />
-        <el-table-column
-          label="资产标签"
-          align="center"
-          prop="assetTag"
           :show-overflow-tooltip="true"
         />
         <el-table-column
@@ -568,7 +559,7 @@
 
             <el-col :span="8">
               <el-form-item label="运行状态 :">
-                {{ dataDetails.eventLevel }}
+                {{ dataDetails.runState }}
               </el-form-item>
             </el-col>
             <el-col :span="8">
