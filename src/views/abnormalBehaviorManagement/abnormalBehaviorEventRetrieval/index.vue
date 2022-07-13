@@ -236,12 +236,12 @@
         <el-table-column
           label="发现时间"
           align="center"
-          prop="_source.ev_com_event_observe_time"
+          prop="_source.receive_time"
           :show-overflow-tooltip="true"
         >
           <template #default="scope">
             <span>
-              {{ scope.row._source.ev_com_event_observe_time | moment }}
+              {{ scope.row._source.receive_time | moment }}
             </span>
           </template>
         </el-table-column>
@@ -400,7 +400,7 @@
             </el-col>
             <el-col :span="12">
               <el-form-item label="发现时间 :">
-                {{ detailData.ev_com_event_observe_time | moment }}
+                {{ detailData.receive_time | moment }}
               </el-form-item>
             </el-col>
             <el-col :span="12">

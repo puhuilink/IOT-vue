@@ -189,10 +189,13 @@
       </div>
 
       <el-table :data="groupList" tooltip-effect="light">
-        <!-- <el-table-column label="资产编号"
-                         type="index"
-                         align="center"
-                         width="100" /> -->
+        <el-table-column
+          label="IP地址"
+          align="center"
+          prop="ipAddress"
+          width="230"
+          :show-overflow-tooltip="true"
+        />
         <el-table-column
           label="资产名称"
           align="center"
