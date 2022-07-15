@@ -162,10 +162,12 @@
               </el-form-item>
             </el-col>
             <el-col :span="18">
-              <el-form-item size="mini" label-width="915px">
-                <el-button type="primary" @click="btnQuery">搜索</el-button>
-                <el-button @click="resetForm">重置</el-button>
-              </el-form-item>
+              <div class="btn">
+                <el-form-item size="mini">
+                  <el-button type="primary" @click="btnQuery">搜索</el-button>
+                  <el-button @click="resetForm">重置</el-button>
+                </el-form-item>
+              </div>
             </el-col>
           </el-form>
         </el-row>
@@ -1091,7 +1093,7 @@ export default {
       this.total = res.total;
       this.loading = false;
     },
-     transClassDic(val) {
+    transClassDic(val) {
       var t = [
         {
           name: "class_ivtp",
@@ -1145,13 +1147,13 @@ export default {
         }));
       return `${orgTreeData1[0].content}`;
     },
-    beforeHandleCommand(id, index, command, event_name,event_class) {
+    beforeHandleCommand(id, index, command, event_name, event_class) {
       return {
         id: id,
         index: index,
         command: command,
         event_name: event_name,
-        event_class:event_class
+        event_class: event_class,
       };
     },
     batchOperate(command) {
@@ -1188,7 +1190,7 @@ export default {
           break;
       }
     },
-    async openMessageBox(message, id, index, command, event_name,event_class) {
+    async openMessageBox(message, id, index, command, event_name, event_class) {
       this.$confirm(message, "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
@@ -1203,10 +1205,10 @@ export default {
             priority: "",
             remark: "",
             report: "是",
-            eventId:"",
-            eventIndex:"",
+            eventId: "",
+            eventIndex: "",
             type: "",
-            notificationStatus:""
+            notificationStatus: "",
           };
           this.title = "新增通报";
           this.formData.eventId = id;
@@ -1347,10 +1349,10 @@ export default {
             }, 500);
           });
         } else {
-           this.$message({
-              type: "success",
-              message:'处置状态已修改为"处置中"' ,
-            });
+          this.$message({
+            type: "success",
+            message: '处置状态已修改为"处置中"',
+          });
           setTimeout(() => {
             this.getTableList();
           }, 500);
@@ -1378,9 +1380,9 @@ export default {
             //   type: "success",
             //   message: "修改成功!",
             // });
-              setTimeout(() => {
-                this.putInStorageM();
-              }, 500);
+            setTimeout(() => {
+              this.putInStorageM();
+            }, 500);
           });
         }
       });
@@ -1391,6 +1393,11 @@ export default {
 <style lang="scss" scoped>
 .box-card {
   margin-bottom: 20px;
+   position: relative;
+  .btn{
+    position: absolute;
+    right:10px;
+  }
 }
 ::v-deep .el-dialog__body {
   padding: 0 !important;

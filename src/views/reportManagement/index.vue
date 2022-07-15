@@ -52,12 +52,14 @@
             </el-col>
 
             <el-col :span="12">
-              <el-form-item label-width="525px">
-                <el-button size="mini" type="primary" @click="btnQuery"
-                  >搜索</el-button
-                >
-                <el-button size="mini" @click="resetForm">重置</el-button>
-              </el-form-item>
+              <div class="btn">
+                <el-form-item>
+                  <el-button size="mini" type="primary" @click="btnQuery"
+                    >搜索</el-button
+                  >
+                  <el-button size="mini" @click="resetForm">重置</el-button>
+                </el-form-item>
+              </div>
             </el-col>
           </el-form>
         </el-row>
@@ -592,7 +594,7 @@
         <div class="firstBox">
           <div class="right">
             <el-row>
-              <el-button @click="toPdf"  type="primary">导出PDF</el-button>
+              <el-button @click="toPdf" type="primary">导出PDF</el-button>
               <el-button type="primary">导出docx</el-button></el-row
             >
           </div>
@@ -1131,7 +1133,7 @@ export default {
       this.detailData.timeRange = "20220314-20220320";
     },
     toPdf() {
-      this.getPdfFromHtml(this.$refs.pdfs, "测试")
+      this.getPdfFromHtml(this.$refs.pdfs, "测试");
     },
     // 取消按钮
     cancel() {
@@ -1151,8 +1153,13 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-.box-card{
+.box-card {
   margin-bottom: 20px;
+  position: relative;
+  .btn {
+    position: absolute;
+    right: 10px;
+  }
 }
 .btnClass {
   margin-bottom: 10px;

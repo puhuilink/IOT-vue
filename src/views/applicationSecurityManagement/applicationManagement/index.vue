@@ -63,12 +63,14 @@
             </el-col>
 
             <el-col :span="6">
-              <el-form-item>
-                <el-button type="primary" size="mini" @click="handleQuery"
-                  >搜索</el-button
-                >
-                <el-button size="mini" @click="resetQuery">重置</el-button>
-              </el-form-item>
+              <div class="btn">
+                <el-form-item>
+                  <el-button type="primary" size="mini" @click="handleQuery"
+                    >搜索</el-button
+                  >
+                  <el-button size="mini" @click="resetQuery">重置</el-button>
+                </el-form-item>
+              </div>
             </el-col>
           </el-form>
         </el-row>
@@ -84,7 +86,7 @@
           prop="taskVO.taskName"
           :show-overflow-tooltip="true"
         />
-         <!-- 接口返回 0，代表缺陷检测任务，目前只有这一种任务类型 -->
+        <!-- 接口返回 0，代表缺陷检测任务，目前只有这一种任务类型 -->
         <el-table-column
           label="任务类型"
           align="center"
@@ -101,7 +103,7 @@
         /> -->
         <el-table-column label="检测语言" align="center" prop="taskVO.language">
           <template #default="scope">
-            <span >{{ transLanguageDic(scope.row.taskVO.language) }}</span>
+            <span>{{ transLanguageDic(scope.row.taskVO.language) }}</span>
           </template>
         </el-table-column>
         <!-- <el-table-column
@@ -128,9 +130,13 @@
           prop="taskVO.taskStatus"
           :show-overflow-tooltip="true"
         /> -->
-        <el-table-column label="任务状态" align="center" prop="taskVO.taskStatus">
+        <el-table-column
+          label="任务状态"
+          align="center"
+          prop="taskVO.taskStatus"
+        >
           <template #default="scope">
-            <span >{{ transTaskStatusDic(scope.row.taskVO.taskStatus) }}</span>
+            <span>{{ transTaskStatusDic(scope.row.taskVO.taskStatus) }}</span>
           </template>
         </el-table-column>
         <el-table-column
@@ -196,13 +202,19 @@
             <el-col :span="8">
               <el-form-item label="检测开始时间 :">
                 <!-- {{ detailData.taskVO.invokeEngineTime }} -->
-                <tooltip :content="detailData.taskVO.invokeEngineTime" :length="15" />
+                <tooltip
+                  :content="detailData.taskVO.invokeEngineTime"
+                  :length="15"
+                />
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item label="检测结束时间 :">
                 <!-- {{ detailData.taskVO.taskEndTime }} -->
-                <tooltip :content="detailData.taskVO.taskEndTime" :length="15" />
+                <tooltip
+                  :content="detailData.taskVO.taskEndTime"
+                  :length="15"
+                />
               </el-form-item>
             </el-col>
             <el-col :span="8">
@@ -258,7 +270,7 @@
             <el-col :span="8">
               <el-form-item label="源码名称 :">
                 <!-- {{ detailData.taskVO.codeName }} -->
-                 <tooltip :content="detailData.taskVO.codeName" :length="8" />
+                <tooltip :content="detailData.taskVO.codeName" :length="8" />
               </el-form-item>
             </el-col>
             <el-col :span="8">
@@ -353,10 +365,10 @@
           />
           <!-- <el-table-column label="缺陷等级" align="center" prop="bugLevel" /> -->
           <el-table-column label="缺陷等级" align="center" prop="bugLevel">
-          <template #default="scope">
-            <span>{{ transBugLevelDic(scope.row.bugLevel) }}</span>
-          </template>
-        </el-table-column>
+            <template #default="scope">
+              <span>{{ transBugLevelDic(scope.row.bugLevel) }}</span>
+            </template>
+          </el-table-column>
           <el-table-column
             label="操作"
             align="center"
@@ -437,7 +449,7 @@
             <el-col :span="12">
               <el-form-item label="缺陷描述 :">
                 <!-- {{ defectDetail.dsp }} -->
-                 <tooltip :content="defectDetail.dsp" :length="20" />
+                <tooltip :content="defectDetail.dsp" :length="20" />
               </el-form-item>
             </el-col>
             <el-col :span="24">
@@ -648,7 +660,7 @@ export default {
     this.getTableList();
   },
   methods: {
-     transLanguageDic(val) {
+    transLanguageDic(val) {
       var t = [
         {
           name: 0,
@@ -690,7 +702,7 @@ export default {
           name: 15,
           content: "Swift",
         },
-         {
+        {
           name: 11,
           content: "SQL",
         },
@@ -937,8 +949,10 @@ export default {
         this.detailData = data.data;
         this.detailDialog = true;
         this.title = "事件详情";
-        this.detailData.taskVO.taskType  = "缺陷检测任务"
-        this.detailData.taskVO.language  = this.transLanguageDic(this.detailData.taskVO.language)
+        this.detailData.taskVO.taskType = "缺陷检测任务";
+        this.detailData.taskVO.language = this.transLanguageDic(
+          this.detailData.taskVO.language
+        );
       });
     },
     async getDefectDetail(taskId, bugId) {
@@ -955,8 +969,12 @@ export default {
       this.defectDetailDialog = true;
       this.title = "缺陷详情";
       this.defectDetail = data.data;
-      this.defectDetail.bugLevel  = this.transBugLevelDic(this.defectDetail.bugLevel)
-      this.defectDetail.domainType = this.transDomainTypeDic(this.defectDetail.domainType)
+      this.defectDetail.bugLevel = this.transBugLevelDic(
+        this.defectDetail.bugLevel
+      );
+      this.defectDetail.domainType = this.transDomainTypeDic(
+        this.defectDetail.domainType
+      );
       // this.defectDetailData = row;
     },
     // setTimeList(values) {
@@ -968,6 +986,14 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+.box-card {
+  margin-bottom: 20px;
+   position: relative;
+  .btn {
+    position: absolute;
+    right: 10px;
+  }
+}
 ::v-deep .el-dialog__body {
   padding: 0 !important;
 }

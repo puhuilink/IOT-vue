@@ -138,15 +138,18 @@
                 />
               </el-form-item>
             </el-col>
-
-            <el-col :span="24">
-              <el-form-item label-width="1330px">
-                <el-button type="primary" size="mini" @click="handleQuery"
-                  >搜索</el-button
-                >
-                <el-button size="mini" @click="resetQuery">重置</el-button>
-              </el-form-item>
-            </el-col>
+            <div class="setHeight">
+              <el-col :span="24">
+                <div class="btn">
+                  <el-form-item>
+                    <el-button type="primary" size="mini" @click="handleQuery"
+                      >搜索</el-button
+                    >
+                    <el-button size="mini" @click="resetQuery">重置</el-button>
+                  </el-form-item>
+                </div>
+              </el-col>
+            </div>
           </el-form>
         </el-row>
       </div>
@@ -466,7 +469,10 @@
               </el-form-item>
             </el-col>
             <el-col :span="12">
-              <el-form-item label="应用层协议：" prop="ev_wsec_inpa_application_layer_protocol">
+              <el-form-item
+                label="应用层协议："
+                prop="ev_wsec_inpa_application_layer_protocol"
+              >
                 <tooltip
                   :content="detailData.ev_wsec_inpa_application_layer_protocol"
                   :length="20"
@@ -674,7 +680,7 @@ export default {
         detail_src_ip: "",
         detail_dst_ip: "",
         location: "",
-        ev_wsec_inpa_application_layer_protocol:"",
+        ev_wsec_inpa_application_layer_protocol: "",
         procedure: "",
         severity: "",
         event_format: "",
@@ -687,8 +693,8 @@ export default {
         priority: "",
         remark: "",
         report: "是",
-        eventId:"",
-        eventIndex:"",
+        eventId: "",
+        eventIndex: "",
         type: "",
         notificationStatus: "",
       },
@@ -934,8 +940,11 @@ export default {
 
       this.addQuery(this.query, "location", this.queryParams.location);
 
-      this.addQuery(this.query, "ev_wsec_inpa_application_layer_protocol", this.queryParams.ev_wsec_inpa_application_layer_protocol);
-      
+      this.addQuery(
+        this.query,
+        "ev_wsec_inpa_application_layer_protocol",
+        this.queryParams.ev_wsec_inpa_application_layer_protocol
+      );
 
       this.addQuery(this.query, "procedure", this.queryParams.procedure);
 
@@ -1121,7 +1130,14 @@ export default {
           break;
       }
     },
-    async openMessageBox(message, id, index, command, event_format, event_class) {
+    async openMessageBox(
+      message,
+      id,
+      index,
+      command,
+      event_format,
+      event_class
+    ) {
       this.$confirm(message, "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
@@ -1136,8 +1152,8 @@ export default {
             priority: "",
             remark: "",
             report: "是",
-            eventId:"",
-            eventIndex:"",
+            eventId: "",
+            eventIndex: "",
             type: "",
             notificationStatus: "",
           };
@@ -1225,7 +1241,7 @@ export default {
         detail_src_ip: "",
         detail_dst_ip: "",
         location: "",
-        ev_wsec_inpa_application_layer_protocol:"",
+        ev_wsec_inpa_application_layer_protocol: "",
         procedure: "",
         severity: "",
         event_format: "",
@@ -1244,8 +1260,8 @@ export default {
         priority: "",
         remark: "",
         report: "是",
-        eventId:"",
-        eventIndex:"",
+        eventId: "",
+        eventIndex: "",
         type: "",
       };
     },
@@ -1278,7 +1294,7 @@ export default {
           }).then((response) => {
             this.$message({
               type: "success",
-              message:'处置状态已修改为"已处置"' ,
+              message: '处置状态已修改为"已处置"',
             });
             setTimeout(() => {
               this.getTableList();
@@ -1286,9 +1302,9 @@ export default {
           });
         } else {
           this.$message({
-              type: "success",
-              message:'处置状态已修改为"处置中"' ,
-            });
+            type: "success",
+            message: '处置状态已修改为"处置中"',
+          });
           setTimeout(() => {
             this.getTableList();
           }, 500);
@@ -1327,6 +1343,17 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+.box-card {
+  margin-bottom: 20px;
+  position: relative;
+  .setHeight {
+    height: 120px;
+    .btn {
+      position: absolute;
+      right: 10px;
+    }
+  }
+}
 ::v-deep .el-dialog__body {
   padding: 0 !important;
 }

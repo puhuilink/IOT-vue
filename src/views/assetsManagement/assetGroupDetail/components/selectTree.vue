@@ -1,5 +1,5 @@
 <template>
-  <div> 
+  <div class="tree_container"> 
     <el-card>
       <el-row>
           <el-col :span="24">
@@ -12,7 +12,7 @@
             />
           </el-col>
         </el-row>
-      <el-row>
+      <el-row class="setHeight">
         <el-col :span="18">
           <el-tree :data="selectList"
                    show-checkbox
@@ -22,14 +22,17 @@
                     :filter-node-method="filterNode"
                      :default-expanded-keys="[2]"
                     ref="tree">
-                  <span class="custom-tree-node show-hide" slot-scope="{ node, data }">
+                  <span class="custom-tree-node show-hide" slot-scope="{ node}">
                 <span>{{ node.label }}</span>
-                <span style="display:none;">
-                    <i  style="color:blue" @click="() => appendNode(node, data)" class="small-operation-btn el-icon-plus" title="增加"></i><!--增加节点-->
+                <!-- <span style="display:none;">
+                    <i  style="color:blue" @click="() => appendNode(node, data)" class="small-operation-btn el-icon-plus" title="增加"></i> -->
+                    <!--增加节点-->
                     <!-- 根节点不需要删除和修改 -->
-                    <i  style="color:blue" v-if="data.id !== 1" @click="() => removeNode(node,data)" class="small-operation-btn el-icon-delete" title="删除"></i><!--删除节点-->
-                    <i  style="color:blue"  v-if="data.id !== 1" @click="() => editNode(node,data)" class="small-operation-btn el-icon-edit" title="编辑"></i><!--编辑节点-->
-                </span>
+                    <!-- <i  style="color:blue" v-if="data.id !== 1" @click="() => removeNode(node,data)" class="small-operation-btn el-icon-delete" title="删除"></i> -->
+                    <!--删除节点-->
+                    <!-- <i  style="color:blue"  v-if="data.id !== 1" @click="() => editNode(node,data)" class="small-operation-btn el-icon-edit" title="编辑"></i> -->
+                    <!--编辑节点-->
+                <!-- </span> -->
             </span>
           </el-tree>
         </el-col>
@@ -122,6 +125,13 @@ export default {
 </script>
 <style lang="scss"
  scoped>
+ .tree_container{
+  margin-top: 20px;
+ 
+  .setHeight{
+     height:630px;
+  }
+ }
  .custom-tree-node {
         flex: 1;
         display: flex;
