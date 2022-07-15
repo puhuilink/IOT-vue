@@ -136,15 +136,18 @@
                 />
               </el-form-item>
             </el-col>
-
-            <el-col :span="24">
-              <el-form-item label-width="1360px">
-                <el-button type="primary" size="mini" @click="handleQuery"
-                  >搜索</el-button
-                >
-                <el-button size="mini" @click="resetQuery">重置</el-button>
-              </el-form-item>
-            </el-col>
+            <div class="setHeight">
+              <el-col :span="24">
+                <div class="btn">
+                  <el-form-item>
+                    <el-button type="primary" size="mini" @click="handleQuery"
+                      >搜索</el-button
+                    >
+                    <el-button size="mini" @click="resetQuery">重置</el-button>
+                  </el-form-item>
+                </div>
+              </el-col>
+            </div>
           </el-form>
         </el-row>
       </div>
@@ -236,9 +239,7 @@
                   >处置</el-dropdown-item
                 >
                 <el-dropdown-item
-                  :command="
-                    beforeHandleCommand(scope.row.id, '不处置')
-                  "
+                  :command="beforeHandleCommand(scope.row.id, '不处置')"
                   >不处置</el-dropdown-item
                 >
               </el-dropdown-menu>
@@ -264,9 +265,7 @@
                   >处置</el-dropdown-item
                 >
                 <el-dropdown-item
-                  :command="
-                    beforeHandleCommand(scope.row.id, '误报')
-                  "
+                  :command="beforeHandleCommand(scope.row.id, '误报')"
                   >误报</el-dropdown-item
                 >
               </el-dropdown-menu>
@@ -285,15 +284,11 @@
               </el-button>
               <el-dropdown-menu slot="dropdown">
                 <el-dropdown-item
-                  :command="
-                    beforeHandleCommand(scope.row.id, '不处置')
-                  "
+                  :command="beforeHandleCommand(scope.row.id, '不处置')"
                   >不处置</el-dropdown-item
                 >
                 <el-dropdown-item
-                  :command="
-                    beforeHandleCommand(scope.row.id, '误报')
-                  "
+                  :command="beforeHandleCommand(scope.row.id, '误报')"
                   >误报</el-dropdown-item
                 >
               </el-dropdown-menu>
@@ -316,15 +311,11 @@
                   >处置</el-dropdown-item
                 >
                 <el-dropdown-item
-                  :command="
-                    beforeHandleCommand(scope.row.id, '不处置')
-                  "
+                  :command="beforeHandleCommand(scope.row.id, '不处置')"
                   >不处置</el-dropdown-item
                 >
                 <el-dropdown-item
-                  :command="
-                    beforeHandleCommand(scope.row.id, '误报')
-                  "
+                  :command="beforeHandleCommand(scope.row.id, '误报')"
                   >误报</el-dropdown-item
                 >
               </el-dropdown-menu>
@@ -380,10 +371,7 @@
             </el-col>
             <el-col :span="12">
               <el-form-item label="拦截的文件名称：" prop="ev_qax_wppe_file">
-                <tooltip
-                  :content="detailData.ev_qax_wppe_file"
-                  :length="20"
-                />
+                <tooltip :content="detailData.ev_qax_wppe_file" :length="20" />
               </el-form-item>
             </el-col>
             <el-col :span="12">
@@ -433,7 +421,11 @@
           label-width="90px"
           class="label-type"
         >
-          <el-form-item label="通报名称:" prop="notificationName" :rules="[{ required: true, message: '请输入通报名称' }]">
+          <el-form-item
+            label="通报名称:"
+            prop="notificationName"
+            :rules="[{ required: true, message: '请输入通报名称' }]"
+          >
             <el-input v-model.trim="formData.notificationName" placeholder="" />
           </el-form-item>
           <el-form-item label="事件类型:" prop="eventType">
@@ -444,9 +436,17 @@
             />
           </el-form-item>
           <el-form-item label="事件名称:" prop="eventName">
-            <el-input v-model.trim="formData.eventName" placeholder="" disabled />
+            <el-input
+              v-model.trim="formData.eventName"
+              placeholder=""
+              disabled
+            />
           </el-form-item>
-          <el-form-item label="优先级:" prop="priority"  :rules="[{ required: true, message: '请选择优先级' }]">
+          <el-form-item
+            label="优先级:"
+            prop="priority"
+            :rules="[{ required: true, message: '请选择优先级' }]"
+          >
             <el-select
               v-model.trim="formData.priority"
               placeholder=""
@@ -540,12 +540,12 @@ export default {
       queryParams: {
         pageNum: 1,
         pageSize: 10,
-        evQaxWppeDevicename:"",
-        evQaxWppeAttack:"",
-        ev_wsec_infe_application_layer_protocol:"",
-        disposalStatus:"",
-        location:"",
-        severity:"",
+        evQaxWppeDevicename: "",
+        evQaxWppeAttack: "",
+        ev_wsec_infe_application_layer_protocol: "",
+        disposalStatus: "",
+        location: "",
+        severity: "",
         beginHappenTime: "",
         endHappenTime: "",
       },
@@ -561,7 +561,7 @@ export default {
         type: "",
         notificationStatus: "",
       },
-      rules:{},
+      rules: {},
       interceptOptions: [
         {
           label: "增加",
@@ -831,7 +831,7 @@ export default {
       this.queryParams.beginHappenTime = projectDevelopDate;
       this.queryParams.endHappenTime = projectEndDate;
     },
-   beforeHandleCommand(id, command, evQaxWppeDevicename) {
+    beforeHandleCommand(id, command, evQaxWppeDevicename) {
       // console.log('evQaxWppeDevicename',evQaxWppeDevicename)
       return {
         id: id,
@@ -965,12 +965,12 @@ export default {
       this.queryParams = {
         pageNum: 1,
         pageSize: 10,
-        evQaxWppeDevicename:"",
-        evQaxWppeAttack:"",
-        ev_wsec_infe_application_layer_protocol:"",
-        disposalStatus:"",
-        location:"",
-        severity:"",
+        evQaxWppeDevicename: "",
+        evQaxWppeAttack: "",
+        ev_wsec_infe_application_layer_protocol: "",
+        disposalStatus: "",
+        location: "",
+        severity: "",
         beginHappenTime: "",
         endHappenTime: "",
       };
@@ -1053,6 +1053,17 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+.box-card {
+  margin-bottom: 20px;
+  position: relative;
+  .setHeight {
+    height: 120px;
+    .btn {
+      position: absolute;
+      right: 10px;
+    }
+  }
+}
 ::v-deep .el-dialog__body {
   padding: 0 !important;
 }

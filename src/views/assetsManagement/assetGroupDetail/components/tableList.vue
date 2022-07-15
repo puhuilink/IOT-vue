@@ -978,7 +978,7 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-.box-card{
+  .box-card{
   margin-bottom: 20px;
 }
 .export {

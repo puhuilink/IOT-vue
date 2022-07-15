@@ -117,17 +117,14 @@
               </el-form-item>
             </el-col>
             <el-col :span="18">
-              <el-form-item label-width="920px">
-                <el-button
-                  type="primary"
-                  size="mini"
-                  @click="btnQuery"
-                  >搜索</el-button
-                >
-                <el-button size="mini" @click="resetForm"
-                  >重置</el-button
-                >
-              </el-form-item>
+              <div class="btn">
+                <el-form-item>
+                  <el-button type="primary" size="mini" @click="btnQuery"
+                    >搜索</el-button
+                  >
+                  <el-button size="mini" @click="resetForm">重置</el-button>
+                </el-form-item>
+              </div>
             </el-col>
           </el-form>
         </el-row>
@@ -165,7 +162,13 @@
     <el-card>
       <div style="height: 40px">
         <el-row type="flex" justify="left">
-          <el-button type="primary" class="export" size="mini" @click="handleAdd">新增</el-button>
+          <el-button
+            type="primary"
+            class="export"
+            size="mini"
+            @click="handleAdd"
+            >新增</el-button
+          >
           <el-upload
             :http-request="importExcel"
             accept=".xls, .xlsx, .doc, .docx, .pdf"
@@ -235,7 +238,7 @@
           align="center"
           prop="eventLevel"
           :show-overflow-tooltip="true"
-        />     
+        />
         <!-- <el-table-column
           label="资产标签"
           align="center"
@@ -866,7 +869,8 @@
   </div>
 </template>
 
-<script>open
+<script>
+open;
 // import { listEvent } from '@/api/system/category'
 import { assetList, uploadExcel } from "@/api/system/list";
 import chainStatistics from "@/components/Echarts/chainStatistics";
@@ -918,7 +922,7 @@ export default {
           label: "安徽天恩砂石厂",
           value: "安徽天恩砂石厂",
         },
-         {
+        {
           label: "青岛混凝土厂",
           value: "青岛混凝土厂",
         },
@@ -938,7 +942,7 @@ export default {
           label: "北京城乡水厂",
           value: "北京城乡水厂",
         },
-       
+
         {
           label: "深中通道预制厂",
           value: "深中通道预制厂",
@@ -1222,8 +1226,13 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-.box-card{
+.box-card {
   margin-bottom: 20px;
+   position: relative;
+  .btn{
+    position: absolute;
+    right:10px;
+  }
 }
 .export {
   margin-bottom: 10px;

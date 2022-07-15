@@ -60,12 +60,14 @@
             </el-col>
 
             <el-col :span="6">
-              <el-form-item>
-                <el-button size="mini" type="primary" @click="getList"
-                  >搜索</el-button
-                >
-                <el-button size="mini" @click="resetForm">重置</el-button>
-              </el-form-item>
+              <div class="btn">
+                <el-form-item>
+                  <el-button size="mini" type="primary" @click="getList"
+                    >搜索</el-button
+                  >
+                  <el-button size="mini" @click="resetForm">重置</el-button>
+                </el-form-item>
+              </div>
             </el-col>
           </el-form>
         </el-row>
@@ -137,30 +139,30 @@
       append-to-body
     >
       <!-- <el-form :rules="rules" ref="form" :model="form"> -->
-        <el-upload
-          ref="upload"
-          :limit="1"
-          :disabled="upload.isUploading"
-          :on-progress="handleFileUploadProgress"
-          :auto-upload="false"
-          :before-upload="beforeUpload"
-          :http-request="importExcel"
-          action
-          drag
-        >
-          <i class="el-icon-upload" />
-          <div class="el-upload__text">
-            将文件拖到此处，或
-            <em>点击上传</em>
-          </div>
-          <!-- <div slot="tip" class="el-upload__tip" style="color:#ffaf37">提示：仅允许导入“pdf”格式文件！且必须选择所属区域</div> -->
-        </el-upload>
-        <div class="fileFormat">
-          <filetip
-            :content="'提示：仅允许导入“pdf”格式文件！且必须选择所属区域'"
-          />
+      <el-upload
+        ref="upload"
+        :limit="1"
+        :disabled="upload.isUploading"
+        :on-progress="handleFileUploadProgress"
+        :auto-upload="false"
+        :before-upload="beforeUpload"
+        :http-request="importExcel"
+        action
+        drag
+      >
+        <i class="el-icon-upload" />
+        <div class="el-upload__text">
+          将文件拖到此处，或
+          <em>点击上传</em>
         </div>
-        <el-select
+        <!-- <div slot="tip" class="el-upload__tip" style="color:#ffaf37">提示：仅允许导入“pdf”格式文件！且必须选择所属区域</div> -->
+      </el-upload>
+      <div class="fileFormat">
+        <filetip
+          :content="'提示：仅允许导入“pdf”格式文件！且必须选择所属区域'"
+        />
+      </div>
+      <el-select
         v-model.trim="form.region"
         placeholder="请选择区域"
         filterable
@@ -521,8 +523,8 @@ export default {
     submitFileForm() {
       // this.$refs["form"].validate(async (valid) => {
       //   if (valid) {
-          console.log("this.form.location", this.form.location);
-          this.$refs.upload.submit();
+      console.log("this.form.location", this.form.location);
+      this.$refs.upload.submit();
       //   }
       // });
       // this.$refs.upload.submit()
@@ -699,6 +701,11 @@ export default {
 <style lang="scss" scoped>
 .box-card {
   margin-bottom: 20px;
+  position: relative;
+  .btn {
+    position: absolute;
+    right: 10px;
+  }
 }
 .btnClass {
   margin-bottom: 10px;

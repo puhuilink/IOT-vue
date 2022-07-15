@@ -126,12 +126,15 @@
               </el-form-item>
             </el-col>
             <el-col :span="12">
-              <el-form-item label-width="510px">
+            <div class="btn">
+              <el-form-item>
                 <el-button size="mini" type="primary" @click="btnQuery"
                   >搜索</el-button
                 >
                 <el-button size="mini" @click="resetForm">重置</el-button>
               </el-form-item>
+            </div>
+              
             </el-col>
           </el-form>
         </el-row>
@@ -1235,6 +1238,11 @@ export default {
 <style lang="scss" scoped>
 .box-card{
   margin-bottom: 20px;
+   position: relative;
+  .btn{
+    position: absolute;
+    right:10px;
+  }
 }
 .export {
   margin-bottom: 10px;

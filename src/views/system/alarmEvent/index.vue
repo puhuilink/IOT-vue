@@ -113,7 +113,7 @@
                 />
               </el-form-item>
             </el-col>
-             <el-col :span="6">
+            <el-col :span="6">
               <el-form-item label="区域：" prop="location">
                 <el-select
                   v-model="queryParams.location"
@@ -132,12 +132,16 @@
                 </el-select>
               </el-form-item>
             </el-col>
-            <el-col :span="6">
-              <el-form-item size="mini">
-                <el-button type="primary" @click="btnQuery">搜索</el-button>
-                <el-button @click="resetForm">重置</el-button>
-              </el-form-item>
-            </el-col>
+            <div class="setHeight">
+              <el-col :span="6">
+                <div class="btn">
+                  <el-form-item size="mini">
+                    <el-button type="primary" @click="btnQuery">搜索</el-button>
+                    <el-button @click="resetForm">重置</el-button>
+                  </el-form-item>
+                </div>
+              </el-col>
+            </div>
           </el-form>
         </el-row>
       </div>
@@ -161,13 +165,18 @@
         prop="_source.deviceName"
         :show-overflow-tooltip="true"
       />
-       <el-table-column
+      <el-table-column
         label="设备IP"
         align="center"
         prop="networkIp"
         :show-overflow-tooltip="true"
       />
-      <el-table-column label="设备类型" align="center" prop="deviceType"  :show-overflow-tooltip="true"/>
+      <el-table-column
+        label="设备类型"
+        align="center"
+        prop="deviceType"
+        :show-overflow-tooltip="true"
+      />
       <el-table-column
         label="处置状态"
         align="center"
@@ -198,7 +207,10 @@
         class-name="small-padding fixed-width"
       >
         <template slot-scope="scope">
-          <el-button size="mini" type="text" @click="detail(scope.row.alertLogId)"
+          <el-button
+            size="mini"
+            type="text"
+            @click="detail(scope.row.alertLogId)"
             >详情</el-button
           >
         </template>
@@ -215,63 +227,68 @@
     <!-- 添加或修改分组对话框 -->
     <el-dialog :title="title" :visible.sync="open" width="900px" append-to-body>
       <div class="contentBox">
-        <el-form ref="form" label-width="110px" label-position="left" class="label-type">
-        <el-row>
-          <el-col :span="12">
-            <el-form-item label="告警名称 :">
-              <tooltip :content="detailData.alertName" :length="20" />
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
-            <el-form-item label="告警等级 :">
-              {{ detailData.alertLevel }}
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
-            <el-form-item label="设备名称 :">
-              {{ detailData.deviceName }}
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
-            <el-form-item label="设备类型 :">
-              {{ detailData.deviceType }}
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
-            <el-form-item label="设备IP :">
-              {{ detailData.networkIp }}
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
-            <el-form-item label="区域 :">
-              {{ detailData.region }}
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
-            <el-form-item label="告警开始时间 :">
-              {{ detailData.alertStartTime }}
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
-            <el-form-item label="告警结束时间 :">
-              {{ detailData.alertEntTime  | moment}}
-            </el-form-item>
-          </el-col>
+        <el-form
+          ref="form"
+          label-width="110px"
+          label-position="left"
+          class="label-type"
+        >
+          <el-row>
+            <el-col :span="12">
+              <el-form-item label="告警名称 :">
+                <tooltip :content="detailData.alertName" :length="20" />
+              </el-form-item>
+            </el-col>
+            <el-col :span="12">
+              <el-form-item label="告警等级 :">
+                {{ detailData.alertLevel }}
+              </el-form-item>
+            </el-col>
+            <el-col :span="12">
+              <el-form-item label="设备名称 :">
+                {{ detailData.deviceName }}
+              </el-form-item>
+            </el-col>
+            <el-col :span="12">
+              <el-form-item label="设备类型 :">
+                {{ detailData.deviceType }}
+              </el-form-item>
+            </el-col>
+            <el-col :span="12">
+              <el-form-item label="设备IP :">
+                {{ detailData.networkIp }}
+              </el-form-item>
+            </el-col>
+            <el-col :span="12">
+              <el-form-item label="区域 :">
+                {{ detailData.region }}
+              </el-form-item>
+            </el-col>
+            <el-col :span="12">
+              <el-form-item label="告警开始时间 :">
+                {{ detailData.alertStartTime }}
+              </el-form-item>
+            </el-col>
+            <el-col :span="12">
+              <el-form-item label="告警结束时间 :">
+                {{ detailData.alertEntTime | moment }}
+              </el-form-item>
+            </el-col>
 
-          <el-col :span="12">
-            <el-form-item label="处置状态 :">
-              {{ detailData.managementState }}
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
-            <el-form-item label="告警描述 :">
-              {{ detailData.alertDescribe }}
-            </el-form-item>
-          </el-col>
-        </el-row>
-      </el-form>
+            <el-col :span="12">
+              <el-form-item label="处置状态 :">
+                {{ detailData.managementState }}
+              </el-form-item>
+            </el-col>
+            <el-col :span="12">
+              <el-form-item label="告警描述 :">
+                {{ detailData.alertDescribe }}
+              </el-form-item>
+            </el-col>
+          </el-row>
+        </el-form>
       </div>
-     
+
       <div slot="footer" class="dialog-footer">
         <el-row type="flex" justify="center">
           <el-button size="small" type="primary" @click="submitForm"
@@ -286,9 +303,7 @@
 <script>
 import { alarmEventListDetail } from "@/api/system/detail";
 import { getbaseJiangTableData } from "@/utils/request";
-import {
- listAlarmEvent
-} from '@/api/system/device'
+import { listAlarmEvent } from "@/api/system/device";
 import { zombieList } from "@/api/system/list";
 export default {
   name: "Index",
@@ -322,7 +337,7 @@ export default {
         size: 10,
       },
       // 查询参数
-     queryParams: {
+      queryParams: {
         pageNum: 1,
         pageSize: 10,
         // deviceName:"",
@@ -427,7 +442,7 @@ export default {
         },
       ],
       killle: [
-         {
+        {
           label: "载荷投递",
           value: "载荷投递",
         },
@@ -481,12 +496,12 @@ export default {
       }
     },
     async getTableList() {
-      this.loading = true
-      listAlarmEvent(this.queryParams).then(response => {
-        this.List = response.rows
-        this.total = response.total
-        this.loading = false
-      })  
+      this.loading = true;
+      listAlarmEvent(this.queryParams).then((response) => {
+        this.List = response.rows;
+        this.total = response.total;
+        this.loading = false;
+      });
     },
     transType(val) {
       var t = [
@@ -520,7 +535,7 @@ export default {
           label: "恶意链接",
           value: "URL_malware",
         },
-         {
+        {
           label: "挖矿木马",
           value: "Mining",
         },
@@ -658,6 +673,17 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+.box-card {
+  margin-bottom: 20px;
+  position: relative;
+  .setHeight {
+    height: 120px;
+    .btn {
+      position: absolute;
+      right: 10px;
+    }
+  }
+}
 ::v-deep .el-dialog__body {
   padding: 0 !important;
 }

@@ -124,14 +124,18 @@
                 />
               </el-form-item>
             </el-col>
-            <el-col :span="24">
-              <el-form-item label-width="1340px">
-                <el-button type="primary" size="mini" @click="handleQuery"
-                  >搜索</el-button
-                >
-                <el-button size="mini" @click="resetQuery">重置</el-button>
-              </el-form-item>
-            </el-col>
+            <div class="setHeight">
+              <el-col :span="24">
+                <div class="btn">
+                  <el-form-item>
+                    <el-button type="primary" size="mini" @click="handleQuery"
+                      >搜索</el-button
+                    >
+                    <el-button size="mini" @click="resetQuery">重置</el-button>
+                  </el-form-item>
+                </div>
+              </el-col>
+            </div>
           </el-form>
         </el-row>
       </div>
@@ -1093,7 +1097,7 @@ export default {
       detailOpenDialog: false,
       usernameOptions: [],
       departmentOptions: [],
-      serialNumberOptions:[
+      serialNumberOptions: [
         {
           label: "1,2,3...",
           value: "1",
@@ -1105,7 +1109,7 @@ export default {
         {
           label: "a,b,c...",
           value: "a",
-        }
+        },
       ],
       // 表单参数
       form: {
@@ -1563,11 +1567,11 @@ export default {
     submitForm() {
       this.$refs["form"].validate((valid) => {
         if (valid) {
-            updateDevice(this.form).then((response) => {
-              this.msgSuccess("修改成功");
-              this.open = false;
-              this.getList();
-            });
+          updateDevice(this.form).then((response) => {
+            this.msgSuccess("修改成功");
+            this.open = false;
+            this.getList();
+          });
         }
       });
     },
@@ -1646,6 +1650,17 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+.box-card {
+  margin-bottom: 20px;
+  position: relative;
+  .setHeight {
+    height: 120px;
+    .btn {
+      position: absolute;
+      right: 10px;
+    }
+  }
+}
 ::v-deep .el-dialog__body {
   padding: 0 !important;
 }

@@ -153,11 +153,19 @@
               </el-form-item>
             </el-col>
             <el-col :span="12">
-              <el-form-item size="mini" label-width="500px">
+               <div class="btn">
+                  <el-form-item size="mini">
+                    <el-button type="primary" @click="btnQuery">搜索</el-button>
+                    <el-button @click="resetForm">重置</el-button>
+                 </el-form-item>
+               </div>
+            </el-col>
+            <!-- <el-col :xs="8" :sm="6" :md="6" :lg="6" :xl="1">
+              <el-form-item size="mini">
                 <el-button type="primary" @click="btnQuery">搜索</el-button>
                 <el-button @click="resetForm">重置</el-button>
               </el-form-item>
-            </el-col>
+            </el-col> -->
           </el-form>
         </el-row>
       </div>
@@ -1204,6 +1212,11 @@ export default {
 <style lang="scss" scoped>
 .box-card{
   margin-bottom: 20px;
+  position: relative;
+  .btn{
+    position: absolute;
+    right:10px;
+  }
 }
 ::v-deep .label-type {
   .el-form-item__label {
