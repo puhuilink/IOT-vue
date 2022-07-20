@@ -210,7 +210,7 @@
           <el-button
             size="mini"
             type="text"
-            @click="detail(scope.row.alertLogId)"
+            @click="detail(scope.row.alertId)"
             >详情</el-button
           >
         </template>
@@ -656,7 +656,7 @@ export default {
       this.getTableList();
     },
     async detail(id) {
-      const { data } = await deviceListDetail(id);
+      const { data } = await alarmEventListDetail(id);
       this.open = true;
       this.title = "事件详情";
       this.detailData = data;
