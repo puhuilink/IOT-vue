@@ -87,10 +87,34 @@ export function deviceListDetail(query) {
   })
 }
 
+// 设备管理--设备列表--详情---任务列表
+export function TaskListDetail(query) {
+  return request({
+    url: '/iot/manage/selectTaskManageBydeviceId?dmDeviceId=' + query,
+    method: 'get'
+  })
+}
+// 设备管理--设备列表--详情---接口属性
+export function interfacePropertiesDetail(query) {
+  return request({
+    url: '/iot/attribute/selectInterfaceByDeviceId?dmDeviceId=' + query,
+    method: 'get'
+  })
+}
+
+
+// 设备管理--设备列表--配置详情
+export function handleSetDetail(query) {
+  return request({
+    url: '/iot/configuration/getEquipmentconfigurationId?iotDeviceId=' + query,
+    method: 'get'
+  })
+}
+
 // 设备管理--告警事件--详情
 export function alarmEventListDetail(query) {
   return request({
-    url: '/iot/alertLog/' + query,
+    url: '/iot/alert/queryGetInfo?alertId=' + query,
     method: 'get'
   })
 }

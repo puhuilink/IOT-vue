@@ -850,7 +850,7 @@ export default {
               ];
               break;
             case "equipment":
-               await equipmentData(this.queryEquipmentParms).then(
+               await equipmentData().then(
                 ({ data }) => {
                   this.hasData = data
                   this.datacopy = this.transType(

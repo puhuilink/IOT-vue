@@ -148,7 +148,7 @@
           >
         </el-col>
         <el-col :span="1.5">
-          <el-button type="success" plain size="mini" @click="handleUpgrade"
+          <el-button type="success" plain size="mini" @click="handleUpgrade()"
             >升级</el-button
           >
         </el-col>
@@ -213,7 +213,7 @@
         <el-table-column
           label="ROM版本号"
           align="center"
-          prop="romVersionNumbe"
+          prop="romVersionNumber"
         />
         <el-table-column label="区域" align="center" prop="networkAddress" />
         <el-table-column label="负责人" align="center" prop="username" />
@@ -237,36 +237,38 @@
           label="操作"
           align="center"
           class-name="small-padding fixed-width"
-          width="150"
+          width="200"
         >
           <template slot-scope="scope">
             <el-button
-              v-hasPermi="['system:device:edit']"
               size="mini"
               type="text"
               @click="detail(scope.row.deviceId)"
               >详情</el-button
             >
             <el-button
-              v-hasPermi="['system:device:edit']"
               size="mini"
               type="text"
-              @click="handleSet(scope.row)"
+              @click="handleSet(scope.row.deviceId)"
               >配置</el-button
             >
             <el-button
-              v-hasPermi="['system:device:edit']"
               size="mini"
               type="text"
-              @click="upgrade()"
+              @click="upgrade(scope.row.deviceId)"
               >升级</el-button
             >
             <el-button
-              v-hasPermi="['system:device:edit']"
               size="mini"
               type="text"
               @click="handleUpdate(scope.row.deviceId)"
               >修改</el-button
+            >
+            <el-button
+              size="mini"
+              type="text"
+              @click="report(scope.row.deviceId)"
+              >立即上报</el-button
             >
           </template>
         </el-table-column>
@@ -889,43 +891,43 @@
           <el-table-column
             label="接口名称"
             align="center"
-            prop="reportTimeRange"
+            prop="interfaceName"
             :show-overflow-tooltip="true"
           />
           <el-table-column
             label="接口号"
             align="center"
-            prop="executionTime"
+            prop="interfaceNumber"
             :show-overflow-tooltip="true"
           />
           <el-table-column
             label="接口类型"
             align="center"
-            prop="executionStatus"
+            prop="interfaceType"
             :show-overflow-tooltip="true"
           />
           <el-table-column
             label="接口速率"
             align="center"
-            prop="executionTime"
+            prop="interfaceRate"
             :show-overflow-tooltip="true"
           />
           <el-table-column
             label="接口地址"
             align="center"
-            prop="executionStatus"
+            prop="interfaceAddress"
             :show-overflow-tooltip="true"
           />
           <el-table-column
             label="接口状态"
             align="center"
-            prop="executionStatus"
+            prop="interfaceState"
             :show-overflow-tooltip="true"
           />
           <el-table-column
             label="过滤器"
             align="center"
-            prop="executionStatus"
+            prop="interfaceFilter"
             :show-overflow-tooltip="true"
           />
         </el-table>
@@ -934,19 +936,19 @@
           <el-table-column
             label="任务名称"
             align="center"
-            prop="reportTimeRange"
+            prop="taskName"
             :show-overflow-tooltip="true"
           />
           <el-table-column
             label="任务类型"
             align="center"
-            prop="executionTime"
+            prop="taskType"
             :show-overflow-tooltip="true"
           />
           <el-table-column
             label="任务状态"
             align="center"
-            prop="executionStatus"
+            prop="taskState"
             :show-overflow-tooltip="true"
           />
           <el-table-column
@@ -966,6 +968,375 @@
         </div>
       </div>
     </el-dialog>
+    <!-- 配置 -->
+    <el-dialog
+      :title="title"
+      :visible.sync="handleSetDetailDialog"
+      width="700px"
+      append-to-body
+    >
+      <div class="contentBoxSet">
+        <el-form ref="setForm" :model="setForm" :rules="rules" label-width="220px">
+          <el-col :span="15" :offset="3">
+            <el-form-item label="上报时间间隔：" prop="timeInterval">
+              <el-slider
+                v-model="setForm.timeInterval"
+                :min="1"
+                :max="60"
+                show-input
+              />
+            </el-form-item>
+          </el-col>
+          <el-col :span="15" :offset="3">
+            <el-form-item label="级联配置：" prop="cascadeConfigurationState">
+              <el-radio-group v-model="setForm.cascadeConfigurationState">
+                <el-radio-button label="开启">开启</el-radio-button>
+                <el-radio-button label="关闭">关闭</el-radio-button>
+              </el-radio-group>
+            </el-form-item>
+          </el-col>
+          <el-col :span="15" :offset="3">
+            <el-form-item label="组网模式：" prop="networkingMode">
+              <el-select
+                v-model="setForm.networkingMode"
+                placeholder="请选择组网模式"
+                clearable
+                :style="{ width: '100%' }"
+              >
+                <el-option
+                  v-for="(item, index) in retainerStatus"
+                  :key="index"
+                  :label="item.label"
+                  :value="item.label"
+                />
+              </el-select>
+            </el-form-item>
+          </el-col>
+          <el-col :span="15" :offset="3">
+            <el-form-item
+              label="自动组网监测时间："
+              prop="automaticNetworkingDetectionTime"
+            >
+              <el-slider
+                v-model="setForm.automaticNetworkingDetectionTime"
+                :min="1"
+                :max="60"
+                show-input
+              />
+            </el-form-item>
+          </el-col>
+          <el-col :span="15" :offset="3">
+            <el-form-item label="过滤配置：" prop="filterConfigurationState">
+              <el-radio-group v-model="setForm.filterConfigurationState">
+                <el-radio-button label="开启">开启</el-radio-button>
+                <el-radio-button label="关闭">关闭</el-radio-button>
+              </el-radio-group>
+            </el-form-item>
+          </el-col>
+          <div v-if="this.setForm.filterConfigurationState === '开启'">
+            <el-col :span="15" :offset="3">
+              <el-form-item label="过滤信息：" prop="filterInformation">
+                <el-select
+                  v-model="setForm.filterInformation"
+                  placeholder="请选择过滤信息"
+                  clearable
+                  :style="{ width: '100%' }"
+                >
+                  <el-option
+                    v-for="(item, index) in informationStatus"
+                    :key="index"
+                    :label="item.label"
+                    :value="item.label"
+                  />
+                </el-select>
+              </el-form-item>
+            </el-col>
+          </div>
+          <el-col :span="15" :offset="3">
+            <el-form-item label="日志转发：" prop="logForwardingStatus">
+              <el-radio-group v-model="setForm.logForwardingStatus">
+                <el-radio-button label="开启">开启</el-radio-button>
+                <el-radio-button label="关闭">关闭</el-radio-button>
+              </el-radio-group>
+            </el-form-item>
+          </el-col>
+          <div v-if="this.setForm.logForwardingStatus === '开启'">
+            <el-col :span="15" :offset="3">
+              <el-form-item label="目的IP：" prop="logDestinationIp">
+                <el-input
+                  v-model="setForm.logDestinationIp"
+                  placeholder="请输入目的IP"
+                />
+              </el-form-item>
+            </el-col>
+          </div>
+          <div v-if="this.setForm.logForwardingStatus === '开启'">
+            <el-col :span="15" :offset="3">
+              <el-form-item
+                label="目的端口号："
+                prop="logDestinationPortNumber"
+              >
+                <el-input
+                  v-model="setForm.logDestinationPortNumber"
+                  placeholder="请输入目的端口号"
+                />
+              </el-form-item>
+            </el-col>
+          </div>
+          <div v-if="this.setForm.logForwardingStatus === '开启'">
+            <el-col :span="15" :offset="3">
+              <el-form-item label="协议：" prop="agreement">
+                <el-select
+                  v-model="setForm.agreement"
+                  placeholder="请选择协议"
+                  clearable
+                  :style="{ width: '100%' }"
+                >
+                  <el-option
+                    v-for="(item, index) in agreementStatus"
+                    :key="index"
+                    :label="item.label"
+                    :value="item.label"
+                  />
+                </el-select>
+              </el-form-item>
+            </el-col>
+          </div>
+          <div v-if="this.setForm.logForwardingStatus === '开启'">
+            <el-col :span="15" :offset="3">
+              <el-form-item label="源IP：" prop="logSourceIp">
+                <el-input
+                  v-model="setForm.logSourceIp"
+                  placeholder="请输入源IP"
+                />
+              </el-form-item>
+            </el-col>
+          </div>
+          <div v-if="this.setForm.logForwardingStatus === '开启'">
+            <el-col :span="15" :offset="3">
+              <el-form-item label="源端口号：" prop="logSourcePortNumber">
+                <el-input
+                  v-model="setForm.logSourcePortNumber"
+                  placeholder="请输入源端口号"
+                />
+              </el-form-item>
+            </el-col>
+          </div>
+          <el-col :span="15" :offset="3">
+            <el-form-item label="国密通道：" prop="stateSecretChannelStatus">
+              <el-radio-group v-model="setForm.stateSecretChannelStatus">
+                <el-radio-button label="开启">开启</el-radio-button>
+                <el-radio-button label="关闭">关闭</el-radio-button>
+              </el-radio-group>
+            </el-form-item>
+          </el-col>
+          <div v-if="this.setForm.stateSecretChannelStatus === '开启'">
+            <el-col :span="15" :offset="3">
+              <el-form-item label="目的IP：" prop="stateDestinationIp">
+                <el-input
+                  v-model="setForm.stateDestinationIp"
+                  placeholder="请输入目的IP"
+                />
+              </el-form-item>
+            </el-col>
+          </div>
+          <div v-if="this.setForm.stateSecretChannelStatus === '开启'">
+            <el-col :span="15" :offset="3">
+              <el-form-item
+                label="目的端口号："
+                prop="stateDestinationPortNumber"
+              >
+                <el-input
+                  v-model="setForm.stateDestinationPortNumber"
+                  placeholder="请输入目的端口号"
+                />
+              </el-form-item>
+            </el-col>
+          </div>
+          <div v-if="this.setForm.stateSecretChannelStatus === '开启'">
+            <el-col :span="15" :offset="3">
+              <el-form-item label="源IP：" prop="stateSourceIp">
+                <el-input
+                  v-model="setForm.stateSourceIp"
+                  placeholder="请输入源IP"
+                />
+              </el-form-item>
+            </el-col>
+          </div>
+          <div v-if="this.setForm.stateSecretChannelStatus === '开启'">
+            <el-col :span="15" :offset="3">
+              <el-form-item label="源端口号：" prop="stateSourcePortNumber">
+                <el-input
+                  v-model="setForm.stateSourcePortNumber"
+                  placeholder="请输入源端口号"
+                />
+              </el-form-item>
+            </el-col>
+          </div>
+          <el-col :span="15" :offset="3">
+            <el-form-item label="端口管理：" prop="portManagementStatus">
+              <el-radio-group v-model="setForm.portManagementStatus">
+                <el-radio-button label="开启">开启</el-radio-button>
+                <el-radio-button label="关闭">关闭</el-radio-button>
+              </el-radio-group>
+            </el-form-item>
+          </el-col>
+          <div v-if="this.setForm.portManagementStatus === '开启'">
+            <el-col :span="15" :offset="3">
+              <el-form-item label="端口号：" prop="portNumber">
+                <el-select
+                  v-model="setForm.portNumber"
+                  placeholder="请选择端口号"
+                  clearable
+                  :style="{ width: '100%' }"
+                >
+                  <el-option
+                    v-for="(item, index) in portNumberStatus"
+                    :key="index"
+                    :label="item.label"
+                    :value="item.label"
+                  />
+                </el-select>
+              </el-form-item>
+            </el-col>
+          </div>
+          <div v-if="this.setForm.portManagementStatus === '开启'">
+            <el-col :span="15" :offset="3">
+              <el-form-item label="端口类型：" prop="portType">
+                <el-select
+                  v-model="setForm.portType"
+                  placeholder="请选择端口类型"
+                  clearable
+                  :style="{ width: '100%' }"
+                >
+                  <el-option
+                    v-for="(item, index) in portNumberType"
+                    :key="index"
+                    :label="item.label"
+                    :value="item.label"
+                  />
+                </el-select>
+              </el-form-item>
+            </el-col>
+          </div>
+          <div v-if="this.setForm.portManagementStatus === '开启'">
+            <el-col :span="15" :offset="3">
+              <el-form-item label="端口状态：" prop="portStatus">
+                <el-select
+                  v-model="setForm.portStatus"
+                  placeholder="请选择端口状态"
+                  clearable
+                  :style="{ width: '100%' }"
+                >
+                  <el-option
+                    v-for="(item, index) in portStatusOptions"
+                    :key="index"
+                    :label="item.label"
+                    :value="item.label"
+                  />
+                </el-select>
+              </el-form-item>
+            </el-col>
+          </div>
+          <div v-if="this.setForm.portManagementStatus === '开启'">
+            <el-col :span="15" :offset="3">
+              <el-form-item label="传输速率：" prop="transmissionSpeed">
+                <el-input
+                  v-model="setForm.transmissionSpeed"
+                  placeholder="请输入传输速率"
+                />
+              </el-form-item>
+            </el-col>
+          </div>
+          <div v-if="this.setForm.portManagementStatus === '开启'">
+            <el-col :span="15" :offset="3">
+              <el-form-item label="端口地址：" prop="portAddress">
+                <el-input
+                  v-model="setForm.portAddress"
+                  placeholder="请输入端口地址"
+                />
+              </el-form-item>
+            </el-col>
+          </div>
+          <div v-if="this.setForm.portManagementStatus === '开启'">
+            <el-col :span="15" :offset="3">
+              <el-form-item label="预处理过滤器：" prop="pretreatmentFilter">
+                <el-select
+                  v-model="setForm.pretreatmentFilter"
+                  placeholder="请选择预处理过滤器"
+                  clearable
+                  :style="{ width: '100%' }"
+                >
+                  <el-option
+                    v-for="(item, index) in pretreatmentOptions"
+                    :key="index"
+                    :label="item.label"
+                    :value="item.label"
+                  />
+                </el-select>
+              </el-form-item>
+            </el-col>
+          </div>
+          <div v-if="this.setForm.portManagementStatus === '开启'">
+            <el-col :span="15" :offset="3">
+              <el-form-item
+                label="过滤器运行参数："
+                prop="filterOperatingParameters"
+              >
+                <el-select
+                  v-model="setForm.filterOperatingParameters"
+                  placeholder="请选择过滤器运行参数"
+                  clearable
+                  :style="{ width: '100%' }"
+                >
+                  <el-option
+                    v-for="(item, index) in pretreatmentOptions"
+                    :key="index"
+                    :label="item.label"
+                    :value="item.label"
+                  />
+                </el-select>
+              </el-form-item>
+            </el-col>
+          </div>
+          <div v-if="this.setForm.portManagementStatus === '开启'">
+            <el-col :span="15" :offset="3">
+              <el-form-item label="网关地址：" prop="defaultGateway">
+                <el-input
+                  v-model="setForm.defaultGateway"
+                  placeholder="请输入网关地址"
+                />
+              </el-form-item>
+            </el-col>
+          </div>
+          <el-col :span="15" :offset="3">
+            <el-form-item label="自动升级：" prop="upgradeState">
+              <el-radio-group v-model="setForm.upgradeState">
+                <el-radio-button label="开启">开启</el-radio-button>
+                <el-radio-button label="关闭">关闭</el-radio-button>
+              </el-radio-group>
+            </el-form-item>
+          </el-col>
+          <div v-if="this.setForm.upgradeState === '开启'">
+            <el-col :span="15" :offset="3">
+              <el-form-item label="升级包地址：" prop="upgradePackageAddress">
+                <el-input
+                  v-model="setForm.upgradePackageAddress"
+                  placeholder="请输入升级包地址："
+                />
+              </el-form-item>
+            </el-col>
+          </div>
+        </el-form>
+      </div>
+
+      <div slot="footer" class="dialog-footer">
+        <el-row type="flex" justify="center">
+          <el-button type="primary" @click="saveUpgradeForm()">保 存</el-button>
+          <el-button @click="cancel">取 消</el-button>
+        </el-row>
+      </div>
+    </el-dialog>
     <!-- 升级 -->
     <el-dialog
       :title="title"
@@ -973,21 +1344,28 @@
       width="700px"
       append-to-body
     >
-      <div class="contentBoxEdit">
-        <el-form ref="form" :model="form" :rules="rules" label-width="220px">
+      <div class="contentBoxUpgrade">
+        <el-form
+          ref="upgradeForm"
+          :model="upgradeForm"
+          :rules="rules"
+          label-width="220px"
+        >
           <el-col :span="15" :offset="3">
             <el-form-item label="目前的硬件版本：" prop="HardwareVersion">
               <el-input
-                v-model="form.HardwareVersion"
+                v-model="upgradeForm.versionNumber"
                 placeholder="请输入目前的硬件版本"
+                disabled
               />
             </el-form-item>
           </el-col>
           <el-col :span="15" :offset="3">
             <el-form-item label="目前的软件版本：" prop="HardwareVersion">
               <el-input
-                v-model="form.HardwareVersion"
+                v-model="upgradeForm.romVersionNumber"
                 placeholder="请输入目前的软件版本"
+                disabled
               />
             </el-form-item>
           </el-col>
@@ -996,19 +1374,37 @@
 
       <div slot="footer" class="dialog-footer">
         <el-row type="flex" justify="center">
-          <el-button type="primary" @click="submitUpgradeForm"
+          <el-button type="primary" @click="submitUpgradeForm()"
             >检测升级</el-button
           >
           <el-button @click="cancel">取 消</el-button>
         </el-row>
       </div>
     </el-dialog>
+    <el-dialog
+      title="提示"
+      :visible.sync="promptMessageDialog"
+      width="30%"
+    >
+      <span class="promptMessage"><i class='el-icon-info' style=' color: #ffaf37;font-size:20px' />暂无升级</span>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="promptMessageDialog = false">取 消</el-button>
+        <el-button type="primary" @click="promptMessageDialog = false"
+          >确 定</el-button
+        >
+      </span>
+    </el-dialog>
   </div>
 </template>
 
 <script>
 import { authorizationType } from "@/api/system/list";
-import { deviceListDetail } from "@/api/system/detail";
+import {
+  deviceListDetail,
+  TaskListDetail,
+  interfacePropertiesDetail,
+  handleSetDetail,
+} from "@/api/system/detail";
 import {
   listDevice,
   UsernameAndDepartmentOptions,
@@ -1017,6 +1413,7 @@ import {
   addDevice,
   updateDevice,
   exportDevice,
+  handleSetDevice
 } from "@/api/system/device";
 import { getNewStatus, updateStatus } from "@/api/system/status";
 import { getNewSet, updateSet } from "@/api/system/set";
@@ -1028,6 +1425,184 @@ export default {
   components: { eventTrend },
   data() {
     return {
+      retainerStatus: [
+        {
+          label: "自动组网",
+          value: "自动组网",
+        },
+        {
+          label: "手动组网",
+          value: "自动组网",
+        },
+      ],
+      informationStatus: [
+        {
+          label: "日志转发",
+          value: "日志转发",
+        },
+        {
+          label: "级连配置",
+          value: "级连配置",
+        },
+        {
+          label: "端口管理",
+          value: "端口管理",
+        },
+        {
+          label: "国密通道",
+          value: "国密通道",
+        },
+      ],
+      agreementStatus: [
+        {
+          label: "TCP",
+          value: "TCP",
+        },
+        {
+          label: "UDP",
+          value: "UDP",
+        },
+      ],
+      portNumberStatus: [
+        {
+          label: "UA0",
+          value: "UA0",
+        },
+        {
+          label: "UA1",
+          value: "UA1",
+        },
+        {
+          label: "UA2",
+          value: "UA2",
+        },
+        {
+          label: "UA3",
+          value: "UA3",
+        },
+        {
+          label: "UB0",
+          value: "UB0",
+        },
+        {
+          label: "UB1",
+          value: "UB1",
+        },
+        {
+          label: "UB2",
+          value: "UB2",
+        },
+        {
+          label: "UB3",
+          value: "UB3",
+        },
+        {
+          label: "UC0~UC3",
+          value: "UC0~UC3",
+        },
+        {
+          label: "UN0~UN1",
+          value: "UN0~UN1",
+        },
+        {
+          label: "G10~G131",
+          value: "G10~G131",
+        },
+        {
+          label: "GO0~GO31",
+          value: "G10~G131",
+        },
+        {
+          label: "GA0~GA7",
+          value: "GA0~GA7",
+        },
+        {
+          label: "GD0~GD7",
+          value: "GD0~GD7",
+        },
+        {
+          label: "ETH0~ETH5",
+          value: "ETH0~ETH5",
+        },
+        {
+          label: "WLAN0~WLAN2",
+          value: "WLAN0~WLAN2",
+        },
+        {
+          label: "ME1~ME2",
+          value: "ME1~ME2",
+        },
+      ],
+      portNumberType: [
+        {
+          label: "RS485",
+          value: "RS485",
+        },
+        {
+          label: "RS422",
+          value: "RS422",
+        },
+        {
+          label: "RS232",
+          value: "RS232",
+        },
+        {
+          label: "CAN",
+          value: "CAN",
+        },
+        {
+          label: "GPIO-IN",
+          value: "GPIO-IN",
+        },
+        {
+          label: "GPIO-OUT",
+          value: "GPIO-OUT",
+        },
+        {
+          label: "A/D",
+          value: "A/D",
+        },
+        {
+          label: "D/A",
+          value: "D/A",
+        },
+        {
+          label: "LAN",
+          value: "LAN",
+        },
+        {
+          label: "WLAN",
+          value: "WLAN",
+        },
+        {
+          label: "4G/5G",
+          value: "4G/5G",
+        },
+      ],
+      portStatusOptions: [
+        {
+          label: "打开",
+          value: "打开",
+        },
+        {
+          label: "关闭",
+          value: "关闭",
+        },
+      ],
+      pretreatmentOptions: [
+        {
+          label: "100_ZY07B",
+          value: "100_ZY07B",
+        },
+        {
+          label: "000_ORIGIN",
+          value: "000_ORIGIN",
+        },
+        {
+          label: "001_SNIFF",
+          value: "001_SNIFF",
+        },
+      ],
       sels: [],
       detailData: {},
       detailDataApi: {
@@ -1042,64 +1617,19 @@ export default {
         create: "管理员",
         createTime: "20220306 10:00:00",
       },
-      ListInterfaceProperties: [
-        {
-          reportName: "事件统计",
-          reportType: "事件统计",
-          create: "管理员",
-          Notify: "张三，李四，王五",
-          reportCycle: "周报",
-          status: "启用",
-          lastExecutionTime: "2022-01-29 10:10:00",
-          reportTimeRange: "2001",
-          executionTime: "20220320 18:00:00",
-          executionStatus: "执行中",
-        },
-        {
-          reportName: "资产统计",
-          reportType: "资产统计",
-          create: "管理员",
-          Notify: "张三，李四，王五",
-          reportCycle: "仅执行一次",
-          status: "停用",
-          lastExecutionTime: "2022-01-29 10:10:00",
-          reportTimeRange: "201",
-          executionTime: "20220313 18:00:00",
-          executionStatus: "成功",
-        },
-      ],
-      TaskList: [
-        {
-          reportName: "事件统计",
-          reportType: "事件统计",
-          create: "管理员",
-          Notify: "张三，李四，王五",
-          reportCycle: "周报",
-          status: "启用",
-          lastExecutionTime: "2022-01-29 10:10:00",
-          reportTimeRange: "201",
-          executionTime: "设备探查",
-          executionStatus: "执行中",
-        },
-        {
-          reportName: "资产统计",
-          reportType: "资产统计",
-          create: "管理员",
-          Notify: "张三，李四，王五",
-          reportCycle: "仅执行一次",
-          status: "停用",
-          lastExecutionTime: "2022-01-29 10:10:00",
-          reportTimeRange: "2001",
-          executionTime: "日志下发",
-          executionStatus: "成功",
-        },
-      ],
+      upgradeForm: {
+        versionNumber: "",
+        romVersionNumber: "",
+      },
+      ListInterfaceProperties: [],
+      TaskList: [],
       detailOpenDialog: false,
+      handleSetDetailDialog: false,
       usernameOptions: [],
       departmentOptions: [],
       serialNumberOptions: [
         {
-          label: "1,2,3...",
+          label: "1,关闭,3...",
           value: "1",
         },
         {
@@ -1119,6 +1649,37 @@ export default {
         serialNumber: "",
         username: "",
         department: "",
+      },
+      setForm: {
+        cascadeConfigurationState: "开启",
+        networkingMode:"",
+        timeInterval:"",
+        automaticNetworkingDetectionTime:"",
+        filterConfigurationState: "开启",
+        filterInformation:"",
+        logForwardingStatus: "开启",
+        logDestinationIp:"",
+        logDestinationPortNumber:"",
+        agreement:"",
+        logSourceIp:"",
+        logSourcePortNumber:"",
+        stateSecretChannelStatus:"",
+        stateDestinationIp:"",
+        stateDestinationPortNumber:"",
+        stateSourceIp:"",
+        stateSourcePortNumber:"",
+        setsta_secret_passage: "开启",
+        portManagementStatus: "开启",
+        portNumber:"",
+        portType:"",
+        portStatus:"",
+        transmissionSpeed:"",
+        portAddress:"",
+        pretreatmentFilter:"",
+        filterOperatingParameters:"",
+        defaultGateway:"",
+        upgradeState:"1",
+        upgradePackageAddress: "",
       },
       ifInherit: [
         {
@@ -1153,6 +1714,7 @@ export default {
       statusOpen: false,
       setOpen: false,
       upgradeDialog: false,
+      promptMessageDialog: false,
       // 创建时间时间范围
       daterangeCreateTime: [],
       // 分类
@@ -1376,16 +1938,38 @@ export default {
       });
     },
     async detail(id) {
-      const { data } = await deviceListDetail(id);
-      console.log("data", data);
-      this.detailOpenDialog = true;
-      this.title = "设备详情";
-      // this.detailData = this.detailDataApi;
-      this.detailData = data;
+      await deviceListDetail(id).then(({ data }) => {
+        this.detailOpenDialog = true;
+        this.title = "设备详情";
+        this.detailData = data;
+      });
+      await interfacePropertiesDetail(id).then(({ data }) => {
+        console.log("data-7-20", data);
+        this.ListInterfaceProperties = data;
+      });
+      await TaskListDetail(id).then(({ data }) => {
+        this.TaskList = data;
+      });
+    },
+    async upgrade(id) {
+      await deviceListDetail(id).then(({ data }) => {
+        console.log("data---升级", data);
+        this.upgradeDialog = true;
+        this.title = "升级";
+        this.upgradeForm = data;
+      });
     },
     //  升级保存
-    submitUpgradeForm() {
+    async submitUpgradeForm() {
+      this.promptMessageDialog = true;
       this.upgradeDialog = false;
+    },
+    saveUpgradeForm(){
+      handleSetDevice(this.setForm).then((response) => {
+            this.msgSuccess("配置成功");
+            this.handleSetDetailDialog = false;
+            this.getList();
+          });
     },
     // 查询设备分类
     getCategoryList() {
@@ -1417,6 +2001,7 @@ export default {
       this.open = false;
       this.detailOpenDialog = false;
       this.upgradeDialog = false;
+      this.handleSetDetailDialog = false;
       this.reset();
     },
     statusCancel() {
@@ -1521,7 +2106,10 @@ export default {
       this.title = "添加设备";
     },
     //升级
-    handleUpgrade() {},
+    handleUpgrade() {
+      this.promptMessageDialog = true;
+      this.getList();
+    },
     /** 修改按钮操作 */
     async handleUpdate(id) {
       const { data } = await deviceListDetail(id);
@@ -1538,6 +2126,14 @@ export default {
       this.title = "修改设备";
       // })
     },
+    async report(id) {
+      await deviceListDetail(id).then(({ data }) => {
+        this.$message({
+          type: "success",
+          message: "上报成功",
+        });
+      });
+    },
     /** 状态按钮操作 */
     handleStatus(row) {
       this.reset();
@@ -1549,19 +2145,21 @@ export default {
       });
     },
     /** 配置按钮操作 */
-    handleSet(row) {
-      this.reset();
-      const deviceId = row.deviceId || this.ids;
-      getNewSet(deviceId).then((response) => {
-        this.setForm = response.data;
-        this.setOpen = true;
-        this.setTitle = "配置设备";
-      });
-    },
-    //升级
-    upgrade() {
-      this.upgradeDialog = true;
-      this.title = "升级";
+    async handleSet(id) {
+      const { data } = await handleSetDetail(id);
+      console.log("data-7-18", data);
+      // this.setOpen = true;
+      this.handleSetDetailDialog = true;
+      this.title = "配置设备";
+      // // this.detailData = this.detailDataApi;
+      this.setForm = data;
+      // this.reset();
+      // const deviceId = row.deviceId || this.ids;
+      // getNewSet(deviceId).then((response) => {
+      //   this.setForm = response.data;
+
+      //   this.setTitle = "配置设备";
+      // });
     },
     /** 提交按钮 */
     submitForm() {
@@ -1650,6 +2248,9 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+.promptMessage{
+  padding-left: 30px;
+}
 .box-card {
   margin-bottom: 20px;
   position: relative;
@@ -1686,6 +2287,21 @@ export default {
   .dialog-footer {
     margin-top: 10px;
   }
+}
+.contentBoxSet {
+  height: 60vh;
+  overflow: auto;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+.contentBoxUpgrade {
+  height: 180px;
+  // overflow: auto;
+  // overflow-y: scroll;
+  // overflow-x: hidden;
+  width: 100%;
+  border-top: 1px solid #ccc;
+  padding: 10px 20px;
 }
 .contentBoxEdit {
   height: 380px;

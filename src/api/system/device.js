@@ -31,7 +31,7 @@ export function UsernameAndDepartmentOptions(query) {
 // 查询告警事件列表
 export function listAlarmEvent(query) {
   return request({
-    url: '/iot/alertLog/list',
+    url: '/iot/alert/list',
     method: 'get',
     params: query
   })
@@ -71,6 +71,14 @@ export function updateDevice(data) {
   })
 }
 
+// 配置设备 ---保存
+export function handleSetDevice(data) {
+  return request({
+    url: '/iot/configuration/toConfigure',
+    method: 'post',
+    data: data
+  })
+}
 // 删除设备
 export function delDevice(deviceId) {
   return request({
