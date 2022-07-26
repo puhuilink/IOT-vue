@@ -677,23 +677,23 @@ export default {
       field114Options: [
         {
           label: "待处置",
-          value: 1,
+          value: "待处置",
         },
         {
           label: "已处置",
-          value: 2,
+          value: "已处置",
         },
         {
           label: "处置中",
-          value: 3,
+          value: "处置中",
         },
         {
           label: "误报",
-          value: 4,
+          value: "误报",
         },
         {
           label: "不处置",
-          value: 5,
+          value: "不处置",
         },
       ],
     };

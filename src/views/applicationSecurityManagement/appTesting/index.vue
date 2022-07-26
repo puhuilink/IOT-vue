@@ -163,7 +163,7 @@
         />
       </div>
       <el-select
-        v-model.trim="form.region"
+        v-model.trim="form.location"
         placeholder="请选择区域"
         filterable
         clearable
