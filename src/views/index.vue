@@ -613,22 +613,18 @@
         <div class="group14 flex-col">
           <div class="group56 flex-col justify-between">
             <span class="word23">安全认证</span>
+            
             <div class="box26 flex-row justify-between">
-              <div class="ImageText117 flex-col justify-between">
-                <div class="outer40 flex-col"></div>
-                <div class="TextGroup117 flex-col">
-                  <span class="paragraph5">
-                    PKI/CA
-                    <br />
-                    基础设施
-                  </span>
-                </div>
-              </div>
+                <a
+            href=" https://123.60.135.63:8889/#/manage/v2/sso?ticket=d91c53aea100716097202d4c3a5ebd752feaf54940dd26d31de206aee261a4f2a068b7e8149f2d9f8446a26b45fe12af4ed535f64f55cc9389443a4b84d02f0f94bf2d634d078e1f73ea23fd2a4ac83878029bb561729e8c9cb5d57bf68771f2"
+            target="_blank"
+          >  
               <div class="ImageText118 flex-col justify-between">
                 <div class="group57 flex-col"></div>
                 <div class="TextGroup118 flex-col"><span class="info16">智能加密终端身份管控平台</span></div>
               </div>
-            </div>
+                </a>
+            </div> 
           </div>
         </div>
       </div>
