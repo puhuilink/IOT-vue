@@ -437,6 +437,15 @@ export function scanningeventStatusEcharts(query) {
     params: query
   })
 }
+
+// 设备分析统计---告警类型分布
+export function equipmentData(query) {
+  return request({
+    url: '/iot/statisticsAndAnalysis/getAlertName',
+    method: 'get',
+    params: query
+  })
+}
 // 查询主机趋势TOP5
 export function scanninghostEcharts(query) {
   return request({

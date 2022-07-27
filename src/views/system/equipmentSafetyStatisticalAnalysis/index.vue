@@ -34,18 +34,18 @@
     </el-row>
     <div class="boxContent">
       <div class="left">
-        <div class="container" id="container"></div>
+        <!-- <div class="container" ref="container"></div> -->
         <!-- <pointsChart /> -->
         <!-- <eventTrend   :name="'equipment'"  :tipname="'事件趋势分析'" /> -->
       </div>
-      <!-- <div class="right">
+      <div class="right">
         <eventType
           :tipname="'告警类型分布'"
           :type="'report'"
           :name="'equipment'"
         />
         <eventTrend :name="'equipment'" :tipname="'事件趋势分析'" />
-      </div> -->
+      </div>
     </div>
   </div>
 </template>
@@ -57,6 +57,7 @@ import {
   InvandList,
   ProbeList,
   attackNumberList,
+  mapDataList
 } from "@/api/system/device";
 // import pointsChart from "@/components/Echarts/pointsChart";
 import eventType from "@/components/Echarts/eventType";
@@ -78,6 +79,7 @@ export default {
     this.getInvandList();
     this.getProbeList();
     this.getAttackNumberList();
+    this.getMapData();
   },
    mounted() {
     this.$nextTick((_) => {
@@ -103,6 +105,11 @@ export default {
     getAttackNumberList() {
       attackNumberList(this.queryParams).then((response) => {
         this.attackNumber = response.data[0].count;
+      });
+    },
+    getMapData(){
+        mapDataList().then((response) => {
+        console.log('response',response)
       });
     },
     initMapInfo() {
@@ -452,7 +459,7 @@ export default {
     },
 
     initMap(series) {
-      let myChart = this.$echarts.init(document.getElementById("container"));
+      let myChart = this.$echarts.init(this.$refs.container);
       let option = {
         // bgColor: '#1a1e45',
         tooltip: {
