@@ -128,3 +128,11 @@ export function attackNumberList(query) {
     params: query
   })
 }
+// 设备安全统计与分析--- 中国地图
+export function mapDataList(query) {
+  return request({
+    url: 'iot/statisticsAndAnalysis/selectLongitudeAndLatitude',
+    method: 'get',
+    params: query
+  })
+}

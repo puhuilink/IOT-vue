@@ -30,9 +30,9 @@ import {
   getAbnormalBehaviorEventRetrievalData,
   getElasticDate,
   getManagementThreatEventsData,
-  equipmentData
 } from "@/utils/request";
 import {
+  equipmentData,
   scanningeventStatusEcharts,
   scanninghostEcharts,
   industrialNetworkAuditeventLevelEcharts,
@@ -457,6 +457,17 @@ export default {
       });
       return arrNew;
     },
+     transDicEquipment(data) {
+      var arr = data;
+      var arrNew = [];
+      arrNew = arr.map((item) => {
+        return {
+          value: item.count,
+          name: item.alert_name,
+        };
+      });
+      return arrNew;
+    },
     getType() {
       this.queryParms.aggs.field.terms.field = this.type;
     },
@@ -850,10 +861,18 @@ export default {
               ];
               break;
             case "equipment":
-               await equipmentData().then(
+              // this.hasData = [
+              //   { value: 1, name: "cpu使用率过高" },
+              //   { value: 1, name: "cpu使用率过高2" },
+              // ];
+              // this.datacopy = [
+              //   { value: 1, name: "cpu使用率过高" },
+              //   { value: 1, name: "cpu使用率过高2" },
+              // ];
+              await equipmentData(this.queryEquipmentParms).then(
                 ({ data }) => {
                   this.hasData = data
-                  this.datacopy = this.transType(
+                  this.datacopy = this.transDicEquipment(
                     data
                   );
                 }
