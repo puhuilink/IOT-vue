@@ -28,15 +28,17 @@
       <el-col :span="5">
         <div class="AssetsBox">
           <div class="Assets">设备类型</div>
-          <div class="AssetsNumber">{{ deviceType }}</div>
+          <div class="AssetsNumberLeft">汇聚网关</div>
+          <div class="AssetsNumberRight">接入网关</div>
+          <div class="AssetsNumberLeft">{{GatherTheGateway}}</div>
+          <div class="AssetsNumberRight">{{Accessgateway}}</div>
         </div>
       </el-col>
     </el-row>
     <div class="boxContent">
       <div class="left">
-        <!-- <div class="container" ref="container"></div> -->
+        <div class="container" ref="container"></div>
         <!-- <pointsChart /> -->
-        <!-- <eventTrend   :name="'equipment'"  :tipname="'事件趋势分析'" /> -->
       </div>
       <div class="right">
         <eventType
@@ -49,28 +51,32 @@
     </div>
   </div>
 </template>
-<script src="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts-gl/dist/echarts-gl.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/echarts/map/js/china.js"></script>
 <script>
+pointsChart
+
 import {
   AssetsNumberList,
   InvandList,
   ProbeList,
   attackNumberList,
-  mapDataList
+  mapDataList,
+  GatewayNumberList
 } from "@/api/system/device";
 // import pointsChart from "@/components/Echarts/pointsChart";
+import pointsChart from '@/components/Echarts/map'
 import eventType from "@/components/Echarts/eventType";
 import eventTrend from "@/components/Echarts/eventTrend";
 export default {
-  components: { eventType, eventTrend },
+  components: { pointsChart,eventType, eventTrend },
   data() {
     return {
       AssetsNumber: "",
       Invand: "",
       Probe: "",
       attackNumber: "",
-      deviceType: "汇聚网关",
+      // deviceType: "汇聚网关",
+      GatherTheGateway:"",
+      Accessgateway:""
     };
   },
   created() {
@@ -79,6 +85,7 @@ export default {
     this.getInvandList();
     this.getProbeList();
     this.getAttackNumberList();
+    this.getGatewayList();
     this.getMapData();
   },
    mounted() {
@@ -105,6 +112,12 @@ export default {
     getAttackNumberList() {
       attackNumberList(this.queryParams).then((response) => {
         this.attackNumber = response.data[0].count;
+      });
+    },
+     getGatewayList() {
+      GatewayNumberList(this.queryParams).then((response) => {
+        this.GatherTheGateway = response.data[0].count;
+        this.Accessgateway = response.data[1].count;
       });
     },
     getMapData(){
@@ -535,6 +548,26 @@ export default {
     font-weight: 800;
     text-align: center;
     line-height: 100px;
+  }
+  .AssetsNumberLeft{
+    width:50%;
+    height: 50px;
+    background-color: #5599ff;
+    color: #ffff77;
+    font-weight: 800;
+    text-align: center;
+    line-height: 50px;
+    float:left;
+  }
+  .AssetsNumberRight{
+    width: 50%;
+    height: 50px;
+    background-color: #5599ff;
+    color: #ffff77;
+    font-weight: 800;
+    text-align: center;
+    line-height: 50px;
+    float: right;
   }
 }
 .boxContent {

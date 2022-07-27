@@ -128,6 +128,14 @@ export function attackNumberList(query) {
     params: query
   })
 }
+// 设备安全统计与分析---网关数量
+export function GatewayNumberList(query) {
+  return request({
+    url: 'iot/statisticsAndAnalysis/getDeviceType',
+    method: 'get',
+    params: query
+  })
+}
 // 设备安全统计与分析--- 中国地图
 export function mapDataList(query) {
   return request({
