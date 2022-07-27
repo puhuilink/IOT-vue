@@ -282,7 +282,7 @@ import china from '@/components/Echarts/map/china.js'
 		            },
 		            label: {
 		              normal: {
-		                show: false,
+		                show: true,
 		                position: 'right', //显示位置
 		                offset: [5, 0], //偏移设置
 		                formatter: function (params) {
