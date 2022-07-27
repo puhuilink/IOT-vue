@@ -38,18 +38,19 @@
         <!-- <pointsChart /> -->
         <!-- <eventTrend   :name="'equipment'"  :tipname="'事件趋势分析'" /> -->
       </div>
-      <div class="right">
+      <!-- <div class="right">
         <eventType
           :tipname="'告警类型分布'"
           :type="'report'"
           :name="'equipment'"
         />
         <eventTrend :name="'equipment'" :tipname="'事件趋势分析'" />
-      </div>
+      </div> -->
     </div>
   </div>
 </template>
-
+<script src="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts-gl/dist/echarts-gl.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/echarts/map/js/china.js"></script>
 <script>
 import {
   AssetsNumberList,
@@ -310,7 +311,7 @@ export default {
       var convertData = function (data) {
         var res = [];
         for (var i = 0; i < data.length; i++) {
-          console.log(data[i]);
+          // console.log(data[i]);
           var dataItem = data[i];
           var fromCoord = chinaGeoCoordMap[dataItem[0].name];
           var toCoord = [108.384366, 30.439702]; //中心点地理坐标
