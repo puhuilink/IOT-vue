@@ -170,57 +170,42 @@
         @selection-change="handleSelectionChange"
       >
         <el-table-column type="selection" width="45" align="center" />
-        <el-table-column label="设备名称" align="center" prop="deviceName" />
-        <el-table-column label="设备类型" align="center" prop="deviceType" />
-        <el-table-column label="设备状态" align="center" prop="status" />
+        <el-table-column label="设备名称" align="center" prop="deviceName" :show-overflow-tooltip="true" />
+        <el-table-column label="设备类型" align="center" prop="deviceType" :show-overflow-tooltip="true"/>
+        <el-table-column label="设备状态" align="center" prop="status" :show-overflow-tooltip="true"/>
         <el-table-column
           label="授权状态"
           align="center"
           prop="authorizationType"
+          :show-overflow-tooltip="true"
         />
-        <el-table-column label="设备IP" align="center" prop="networkIp" />
+        <el-table-column label="设备IP" align="center" prop="networkIp" :show-overflow-tooltip="true"/>
         <!-- <el-table-column label="设备SN号" align="center" prop="isOnline">
         <template slot-scope="scope">
           <el-switch v-model="scope.row.isOnline" :active-value="1" :inactive-value="0" active-color="#13ce66" disabled />
         </template>
       </el-table-column> -->
-        <el-table-column label="设备SN号" align="center" prop="deviceSn" />
+        <el-table-column label="设备SN号" align="center" prop="deviceSn" :show-overflow-tooltip="true"/>
         <el-table-column
           label="硬件版本号"
           align="center"
           prop="versionNumber"
+          :show-overflow-tooltip="true"
         />
-        <!-- <el-table-column label="硬件版本号" align="center" prop="rssi">
-        <template slot-scope="scope" style="font-size: 40px">
-          <div style="font-size: 30px">
-            <svg-icon v-if="scope.row.rssi >= '-55'" icon-class="wifi_4" />
-            <svg-icon
-              v-else-if="scope.row.rssi >= '-70' && scope.row.rssi < '-55'"
-              icon-class="wifi_3"
-            />
-            <svg-icon
-              v-else-if="scope.row.rssi >= '-85' && scope.row.rssi < '-70'"
-              icon-class="wifi_2"
-            />
-            <svg-icon
-              v-else-if="scope.row.rssi >= '-100' && scope.row.rssi < '-85'"
-              icon-class="wifi_1"
-            />
-            <svg-icon v-else icon-class="wifi_0" />
-          </div>
-        </template>
-      </el-table-column> -->
+        
         <el-table-column
           label="ROM版本号"
           align="center"
           prop="romVersionNumber"
+          :show-overflow-tooltip="true"
         />
-        <el-table-column label="区域" align="center" prop="networkAddress" />
-        <el-table-column label="负责人" align="center" prop="username" />
+        <el-table-column label="区域" align="center" prop="networkAddress" :show-overflow-tooltip="true"/>
+        <el-table-column label="负责人" align="center" prop="username" :show-overflow-tooltip="true"/>
         <el-table-column
           label="最后活跃时间"
           align="center"
           prop="lastActiveTime"
+          :show-overflow-tooltip="true"
         />
         <!-- <el-table-column
         label="最后活跃时间"
