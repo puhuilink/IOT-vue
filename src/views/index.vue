@@ -420,7 +420,7 @@
                 <div class="TextGroup102 flex-col"><span class="word16">安全通报</span></div>
               </div>
               </a>
-                <a href="http://10.1.13.30/portal/user/login" target="_blank">
+                <a href="http://10.1.19.52/portal/user/login" target="_blank">
               <div class="ImageText103 flex-col justify-between">
                 <div class="layer25 flex-col"></div>
                 <div class="TextGroup103 flex-col">
