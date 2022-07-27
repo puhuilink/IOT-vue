@@ -2,7 +2,7 @@
  * 蓝湖自动生成的低代码,会存在大量重复样式
  * 
  */
-.main1 {
+ .main1 {
   height: 466px;
   background: url(../img/navbk.png)
     100% no-repeat;
@@ -2032,7 +2032,7 @@
   height: 180px;
   border: 4px solid rgba(244, 244, 244, 1);
   margin-left: 280px;
-  width: 220px;
+  width: 330px;
 }
 
 .group56 {
@@ -2050,14 +2050,13 @@
   text-align: left;
   white-space: nowrap;
   line-height: 20px;
-  margin-left: 50px;
+  margin-left: 80px;
 }
 
 .box26 {
   width: 184px;
   height: 104px;
   margin-top: 22px;
-  margin-left: 40px;
 }
 
 .ImageText117 {
@@ -2071,7 +2070,7 @@
   background: url(../img/SketchPng545783aac64b60dee2b5b5a150372163d8321c7415b85582406157bd381ae9e0.png)
     100% no-repeat;
   background-size: 100% 100%;
-  margin-left: 10px;
+  margin-left: 15px;
 }
 
 .TextGroup117 {
@@ -2091,7 +2090,7 @@
 }
 
 .ImageText118 {
-  width: 88px;
+  width: 100px;
   height: 104px;
 }
 
