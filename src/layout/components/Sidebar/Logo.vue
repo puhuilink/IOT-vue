@@ -9,6 +9,7 @@
         <img v-if="logo" :src="logo" class="sidebar-logo">
         <h1 class="sidebar-title">{{ title }} </h1>
       </router-link>
+     
     </transition>
   </div>
 </template>
@@ -27,7 +28,7 @@ export default {
   },
   data() {
     return {
-      title: '安全监测子平台',
+      title: '工业企业网络安全综合防护平台',
       logo: logoImg
     }
   },
@@ -65,10 +66,10 @@ export default {
     width: 100%;
 
     & .sidebar-logo {
-      width: 32px;
-      height: 32px;
+      width: 30px;
+      height: 30px;
       vertical-align: middle;
-      margin-right: 12px;
+      margin-right: 2px;
     }
 
     & .sidebar-title {

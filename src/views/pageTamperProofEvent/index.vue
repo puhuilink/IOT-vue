@@ -548,6 +548,8 @@ export default {
         severity: "",
         beginHappenTime: "",
         endHappenTime: "",
+        orderByColumn:'occurTime',
+        isAsc:'desc',
       },
       formData: {
         notificationName: "",

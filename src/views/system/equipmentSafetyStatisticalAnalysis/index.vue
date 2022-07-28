@@ -360,7 +360,7 @@ export default {
             coordinateSystem: "geo",
             zlevel: 2,
             effect: {
-              show: true,
+              show: false,
               period: 4, //箭头指向速度，值越小速度越快
               trailLength: 0, //特效尾迹长度[0,1]值越大，尾迹越长重
               symbol: "arrow", //箭头图标
@@ -369,11 +369,11 @@ export default {
             },
             lineStyle: {
               normal: {
-                show: true,
-                width: 1, //尾迹线条宽度
-                opacity: 1, //尾迹线条透明度
-                curveness: 0.3, //尾迹线条曲直度
-                color: "#fcdd6e", // 飞线颜色
+                show: false,
+                width: 0, //尾迹线条宽度
+                opacity: 0, //尾迹线条透明度
+                curveness: 0, //尾迹线条曲直度
+                // color: "#fcdd6e", // 飞线颜色
               },
               color: "#fcdd6e",
             },
@@ -387,12 +387,12 @@ export default {
               //涟漪特效
               period: 4, //动画时间，值越小速度越快
               brushType: "stroke", //波纹绘制方式 stroke, fill
-              scale: 3, //波纹圆环最大限制，值越大波纹越大
+              scale: 8, //波纹圆环最大限制，值越大波纹越大
               color: "#fcdd6e",
             },
             label: {
               normal: {
-                show: false,
+                show: true,
                 position: "right", //显示位置
                 offset: [5, 0], //偏移设置
                 formatter: function (params) {
@@ -402,7 +402,7 @@ export default {
                 fontSize: 13,
               },
               emphasis: {
-                show: false,
+                show: true,
               },
             },
             symbol: "circle",
