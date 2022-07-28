@@ -259,11 +259,11 @@ import china from '@/components/Echarts/map/china.js'
 		            },
 		            lineStyle: {
 		              normal: {
-		                show: true,
-		                width: 1, //尾迹线条宽度
-		                opacity: 1, //尾迹线条透明度
-		                curveness: 0.3, //尾迹线条曲直度
-		                color: '#fcdd6e', // 飞线颜色
+		                show: false,
+		                width: 0, //尾迹线条宽度
+		                opacity: 0, //尾迹线条透明度
+		                curveness: 0, //尾迹线条曲直度
+		                // color: '#fcdd6e', // 飞线颜色
 		              },
 		              color: '#fcdd6e',
 		            },
@@ -282,7 +282,7 @@ import china from '@/components/Echarts/map/china.js'
 		            },
 		            label: {
 		              normal: {
-		                show: true,
+		                show: false,
 		                position: 'right', //显示位置
 		                offset: [5, 0], //偏移设置
 		                formatter: function (params) {
