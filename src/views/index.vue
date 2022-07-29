@@ -21,48 +21,6 @@
           </div>
         </a>
         </div></swiper-slide>
-      <swiper-slide> <div class="outer6 flex-col">
-          <a href="http://10.1.51.199:8000/screen/alert" target="_blank">
-          <div class="mod1 flex-col justify-between">
-            <img
-              class="img3"
-              referrerpolicy="no-referrer"
-               src="./asset/img/picture_03.png" 
-            />
-            <span class="txt3">综合安全态势</span>
-          </div>
-</a>
-        </div></swiper-slide>
-        <swiper-slide> <div class="outer6 flex-col">
-            <a
-                href="https://10.201.30.40/situation/intranet?token=1689aa214982d88109aeab2abcbdc89c16a829d94c65603c9bd96d224d034696"
-                target="_blank"
-              >
-          <div class="layer1 flex-col justify-between">
-            <img
-              class="pic2"
-              referrerpolicy="no-referrer"
-              src="./asset/img/picture_05.png" 
-            />
-            <span class="info4">内网威胁态势</span>
-          </div>
-</a>
-        </div></swiper-slide>
-        <swiper-slide> <div class="outer6 flex-col">
-           <a
-                href="https://10.201.30.40/situation/external?token=1689aa214982d88109aeab2abcbdc89c16a829d94c65603c9bd96d224d034696"
-                target="_blank"
-              >
-          <div class="layer1 flex-col justify-between">
-            <img
-              class="pic2"
-              referrerpolicy="no-referrer"
-              src="./asset/img/picture_06.png" 
-            />
-            <span class="info4">外部威胁态势</span>
-          </div>
-</a>
-        </div></swiper-slide>
         <swiper-slide> <div class="outer6 flex-col">
             <a
                 href="http://10.1.13.118:8003/#/previewScreen?id=2GXN3VE1A_20220321104906"
@@ -75,6 +33,143 @@
               src="./asset/img/picture_07.png" 
             />
             <span class="info4">深中通道预制厂</span>
+          </div>
+</a>
+        </div></swiper-slide>
+            <swiper-slide> <div class="outer6 flex-col">
+           <a
+                href="http://10.1.13.118:8003/#/previewScreen?id=2H66KWEAZ_20220530065358"
+                target="_blank"
+              >
+          <div class="layer1 flex-col justify-between">
+            <img
+              class="pic2"
+              referrerpolicy="no-referrer"
+              src="./asset/img/picture_11.png" 
+            />
+            <span class="info4">广州地铁钢筋厂</span>
+          </div>
+</a>
+        </div></swiper-slide>
+               <swiper-slide> <div class="outer6 flex-col">
+           <a
+                href="http://10.1.13.118:8003/#/previewScreen?id=2GY7MEXD3_20220321031407&pre=1"
+                target="_blank"
+              >
+          <div class="layer1 flex-col justify-between">
+            <img
+              class="pic2"
+              referrerpolicy="no-referrer"
+              src="./asset/img/picture_北京.png" 
+            />
+            <span class="info4">北京城乡水厂</span>
+          </div>
+</a>
+        </div></swiper-slide>
+        
+           <swiper-slide> <div class="outer6 flex-col">
+           <a
+                href="http://10.1.13.118:8003/#/previewScreen?id=2H7AAD7QB_20220530065241&pre=1"
+                target="_blank"
+              >
+          <div class="layer1 flex-col justify-between">
+            <img
+              class="pic2"
+              referrerpolicy="no-referrer"
+              src="./asset/img/picture_新疆.png" 
+            />
+            <span class="info4">新疆八一钢筋厂</span>
+          </div>
+</a>
+        </div></swiper-slide>
+         <swiper-slide> <div class="outer6 flex-col">
+           <a
+                href="http://10.1.13.118:8003/#/previewScreen?id=2GW8252UC_20220310060257&pre=1"
+                target="_blank"
+              >
+          <div class="layer1 flex-col justify-between">
+            <img
+              class="pic2"
+              referrerpolicy="no-referrer"
+              src="./asset/img/picture_山西.png" 
+            />
+            <span class="info4">山西三通燃气厂</span>
+          </div>
+</a>
+        </div></swiper-slide>
+          <swiper-slide> <div class="outer6 flex-col">
+           <a
+                href="http://10.1.13.118:8003/#/previewScreen?id=2H5842BVU_20220530065302&pre=1"
+                target="_blank"
+              >
+          <div class="layer1 flex-col justify-between">
+            <img
+              class="pic2"
+              referrerpolicy="no-referrer"
+              src="./asset/img/picture_浙江.png" 
+            />
+            <span class="info4">浙江联顺预制厂</span>
+          </div>
+</a>
+        </div></swiper-slide>
+           <swiper-slide> <div class="outer6 flex-col">
+           <a
+                href="http://10.1.13.118:8003/#/previewScreen?id=2H6RXWWWQ_20220530065313&pre=1"
+                target="_blank"
+              >
+          <div class="layer1 flex-col justify-between">
+            <img
+              class="pic2"
+              referrerpolicy="no-referrer"
+              src="./asset/img/picture_重庆.png" 
+            />
+            <span class="info4">重庆预制厂</span>
+          </div>
+</a>
+        </div></swiper-slide>
+          <swiper-slide> <div class="outer6 flex-col">
+           <a
+                href="http://10.1.13.118:8003/#/previewScreen?id=2H4VTS7AT_20220530065323&pre=1"
+                target="_blank"
+              >
+          <div class="layer1 flex-col justify-between">
+            <img
+              class="pic2"
+              referrerpolicy="no-referrer"
+              src="./asset/img/picture_安徽.png" 
+            />
+            <span class="info4">安徽天恩砂石厂</span>
+          </div>
+</a>
+        </div></swiper-slide>
+        
+           <swiper-slide> <div class="outer6 flex-col">
+           <a
+                href="http://10.1.13.118:8003/#/previewScreen?id=2H72XVTED_20220530065333&pre=1"
+                target="_blank"
+              >
+          <div class="layer1 flex-col justify-between">
+            <img
+              class="pic2"
+              referrerpolicy="no-referrer"
+              src="./asset/img/picture_青岛.png" 
+            />
+            <span class="info4">青岛混凝土厂</span>
+          </div>
+</a>
+        </div></swiper-slide>
+         <swiper-slide> <div class="outer6 flex-col">
+           <a
+                href="http://10.1.13.118:8003/#/previewScreen?id=2GZGMZ1GC_20220321031558&pre=1"
+                target="_blank"
+              >
+          <div class="layer1 flex-col justify-between">
+            <img
+              class="pic2"
+              referrerpolicy="no-referrer"
+              src="./asset/img/picture_三亚.png" 
+            />
+            <span class="info4">三亚海投轨交</span>
           </div>
 </a>
         </div></swiper-slide>
@@ -123,18 +218,33 @@
           </div>
 </a>
         </div></swiper-slide>
-        <swiper-slide> <div class="outer6 flex-col">
-           <a
-                href="http://10.1.13.118:8003/#/previewScreen?id=2H66KWEAZ_20220530065358"
+            <swiper-slide> <div class="outer6 flex-col">
+            <a
+                href="https://10.201.30.40/situation/intranet?token=1689aa214982d88109aeab2abcbdc89c16a829d94c65603c9bd96d224d034696"
                 target="_blank"
               >
           <div class="layer1 flex-col justify-between">
             <img
               class="pic2"
               referrerpolicy="no-referrer"
-              src="./asset/img/picture_11.png" 
+              src="./asset/img/picture_05.png" 
             />
-            <span class="info4">广州地铁钢筋厂</span>
+            <span class="info4">内网威胁态势</span>
+          </div>
+</a>
+        </div></swiper-slide>
+        <swiper-slide> <div class="outer6 flex-col">
+           <a
+                href="https://10.201.30.40/situation/external?token=1689aa214982d88109aeab2abcbdc89c16a829d94c65603c9bd96d224d034696"
+                target="_blank"
+              >
+          <div class="layer1 flex-col justify-between">
+            <img
+              class="pic2"
+              referrerpolicy="no-referrer"
+              src="./asset/img/picture_06.png" 
+            />
+            <span class="info4">外部威胁态势</span>
           </div>
 </a>
         </div></swiper-slide>
