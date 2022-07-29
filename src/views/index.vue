@@ -522,7 +522,7 @@
         <div class="box_24 flex-col">
           <span class="text_21">安全态势</span>
           <div class="box_25 flex-row justify-between">
-              <a href="http://10.1.51.199:8000/screen/alert" target="_blank">
+              <a  href="http://10.1.13.118:8003/#/previewScreen?id=2H514ESG9_20220609083911" target="_blank">
             <div class="image-text_25 flex-col justify-between">
               <div class="section_9 flex-col"></div>
               <span class="text-group_25">综合态势</span>
