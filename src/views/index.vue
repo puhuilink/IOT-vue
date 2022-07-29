@@ -1,6 +1,6 @@
 <template>
   <div class="page flex-col">
-     <div class="main1 flex-col">
+       <div class="main1 flex-col">
       <div class="outer2 flex-row">
         <span class="word1">安全态势感知分析</span>
       </div>
@@ -30,22 +30,6 @@
                src="./asset/img/picture_03.png" 
             />
             <span class="txt3">综合安全态势</span>
-          </div>
-</a>
-        </div></swiper-slide>
-       <swiper-slide> 
-        <div class="outer6 flex-col">
-            <a
-                href="https://10.201.30.40/microapps/app-sso/index.html?token=e1a08736dede6c2f0f0ad2bfef727ce4d72b10ffd6ea32888cc0fd4e26bcaf15&redirectUrl=https://10.201.30.40/situation-awareness/integrated"
-                target="_blank"
-              >
-          <div class="main2 flex-col justify-between">
-            <img
-              class="img4"
-              referrerpolicy="no-referrer"
-               src="./asset/img/picture_04.png" 
-            />
-            <span class="info3">管理网威胁态势</span>
           </div>
 </a>
         </div></swiper-slide>
@@ -159,599 +143,546 @@
     </swiper>
       </div>
     </div>
-    <div class="box21 flex-col">
-      <div class="main25 flex-row">
-        <div class="section3 flex-col"></div>
-        <span class="word2">安全监测子平台</span>
-        <div class="section4 flex-col"></div>
-        <span class="info5">综合管控子平台</span>
+    <div class="box_7 flex-col">
+      <div class="group_11 flex-row justify-between">
+        <div class="section_1 flex-col"></div>
+        <span class="text_9">安全监测子平台</span>
       </div>
-      <div class="main26 flex-row">
-        <div class="group2 flex-col">
-          <div class="block12 flex-row"><span class="word3">安全监测</span></div>
-          <div class="block13 flex-row justify-between">
-             <a href="http://10.1.13.118:8001/bigScreen/overallSecurityPosture" target="_blank">
-            <div class="ImageText81 flex-col justify-between">
-              <div class="mod27 flex-col"></div>
-              <div class="TextGroup81 flex-col"><span class="word4">总体监测</span></div>
+      <div class="group_12 flex-row justify-between">
+        <div class="block_1 flex-col">
+          <div class="text-wrapper_2 flex-row"><span class="text_10">安全监测</span></div>
+          <div class="section_2 flex-row justify-between">
+              <a href="http://10.1.13.118:8001/bigScreen/overallSecurityPosture" target="_blank">
+            <div class="image-text_1 flex-col justify-between">
+              <div class="block_2 flex-col"></div>
+              <span class="text-group_1">总体监测</span>
             </div>
-            </a>
-             <a
-                href="https://10.201.30.40/microapps/app-sso/index.html?token=e1a08736dede6c2f0f0ad2bfef727ce4d72b10ffd6ea32888cc0fd4e26bcaf15&redirectUrl=https://10.201.30.40/situation-awareness/integrated"
-                target="_blank"
-              >
-            <div class="ImageText82 flex-col justify-between">
-              <div class="group45 flex-col"></div>
-              <div class="TextGroup82 flex-col"><span class="txt4">管理网安全监测</span></div>
-            </div>
-            </a>
-             <a
+</a>
+ <a
                 href="http://10.1.13.118:8001/bigScreen/productionSafety/zhuhaiScreen"
                 target="_blank"
               >
-            <div class="ImageText83 flex-col justify-between">
-              <div class="mod28 flex-col"></div>
-              <div class="TextGroup83 flex-col"><span class="txt5">试点单位安全监测</span></div>
+            <div class="image-text_2 flex-col justify-between">
+              <div class="group_13 flex-col"></div>
+              <span class="text-group_2">
+                试点单位
+                <br />
+                安全监测
+              </span>
             </div>
-            </a>
-            <a
+</a>
+ <a
                 href="http://10.1.13.118:8001/management/events"
                 target="_blank"
               >
-            <div class="ImageText84 flex-col justify-between">
-              <div class="outer35 flex-col"></div>
-              <div class="TextGroup84 flex-col"><span class="word5">总体事件检索及分析</span></div>
+            <div class="image-text_3 flex-col justify-between">
+              <div class="box_8 flex-col"></div>
+              <span class="text-group_3">总体事件检索及分析</span>
             </div>
-            </a>
+</a>
           </div>
         </div>
-        <div class="section7 flex-col">
-          <div class="group46 flex-row"><span class="word11">数据挖掘</span></div>
-          <div class="group47 flex-row justify-between">
-               <a
+        <div class="block_3 flex-col">
+          <div class="text-wrapper_3 flex-row"><span class="text_11">数据挖掘</span></div>
+          <div class="group_14 flex-row justify-between">
+                <a
             href="https://10.201.30.43:8988/noah/access/collector-manager"
             target="_blank"
           >
-            <div class="ImageText85 flex-col justify-between">
-              <div class="group48 flex-col"></div>
-              <div class="TextGroup85 flex-col"><span class="txt9">数据接入</span></div>
+            <div class="image-text_4 flex-col justify-between">
+              <div class="box_9 flex-col"></div>
+              <span class="text-group_4">数据接入</span>
             </div>
-            </a>
-             <a
+</a>
+  <a
           href="https://10.201.30.43:8988/noah/process/flows/flows-list"
           target="_blank"
         >
-            <div class="ImageText86 flex-col justify-between">
-              <div class="group49 flex-col"></div>
-              <div class="TextGroup86 flex-col"><span class="info9">数据处理</span></div>
+            <div class="image-text_5 flex-col justify-between">
+              <div class="box_10 flex-col"></div>
+              <span class="text-group_5">数据处理</span>
             </div>
-            </a>
-            <a
+</a>
+  <a
           href="https://10.201.30.43:8988/noah/process/rule-manage"
           target="_blank"
         >
-            <div class="ImageText87 flex-col justify-between">
-              <div class="block14 flex-col"></div>
-              <div class="TextGroup87 flex-col"><span class="info10">规则管理</span></div>
+            <div class="image-text_6 flex-col justify-between">
+              <div class="section_3 flex-col"></div>
+              <span class="text-group_6">规则管理</span>
+            </div>
+</a>
+          </div>
+        </div>
+        <div class="block_4 flex-col">
+          <div class="text-wrapper_4 flex-row"><span class="text_12">入侵诱捕</span></div>
+          <div class="box_11 flex-row justify-between">
+                  <a
+          href="http://10.1.13.118:8001/security/invasionOfTrap/honeypotEventRetrieval"
+          target="_blank"
+        >
+            <div class="image-text_7 flex-col justify-between">
+              <div class="box_12 flex-col"></div>
+              <span class="text-group_7">入侵诱捕</span>
+            </div>
+</a>
+          <a
+          href="http://10.1.13.118:8001/security/invasionOfTrap/statisticalSnalysis"
+          target="_blank"
+        >
+            <div class="image-text_8 flex-col justify-between">
+              <div class="section_4 flex-col"></div>
+              <span class="text-group_8">黑客溯源</span>
+            </div>
+</a>
+   <a
+          href="http://10.1.13.118:8001/security/invasionOfTrap/honeypotEventRetrieval"
+          target="_blank"
+        >
+            <div class="image-text_9 flex-col justify-between">
+              <div class="box_13 flex-col"></div>
+              <span class="text-group_9">行为分析</span>
+            </div>
+</a>
+          </div>
+        </div>
+        <div class="block_5 flex-col">
+          <span class="text_13">异常分析</span>
+          <div class="box_14 flex-row justify-between">
+   <a
+          href="https://10.201.30.40/search"
+          target="_blank"
+        >
+            <div class="image-text_10 flex-col justify-between">
+              <div class="box_15 flex-col"></div>
+              <span class="text-group_10">
+                异常日志
+                <br />
+                检索
+              </span>
+            </div>
+</a>
+  <a href="http://10.1.13.118:8001/management/eventEcharts" target="_blank">
+            <div class="image-text_11 flex-col justify-between">
+              <div class="group_15 flex-col"></div>
+              <span class="text-group_11">分析及统计</span>
             </div>
             </a>
           </div>
         </div>
-        <div class="group6 flex-col">
-          <div class="group50 flex-col justify-between">
-            <span class="txt6">安全联动</span>
-            <div class="group51 flex-row justify-between">
+        <div class="block_6 flex-col">
+          <span class="text_14">数据安全</span>
+             <a href="http://10.1.13.118:8001/security/dataSafe/echarts" target="_blank">
+          <div class="image-text_12 flex-col justify-between">
+            <div class="block_7 flex-col"></div>
+            <span class="text-group_12">
+              数据
+              <br />
+              安全分析
+            </span>
+          </div>
+</a>
+        </div>
+        <div class="block_8 flex-col">
+          <span class="text_15">资产管理</span>
+          <div class="block_9 flex-row justify-between">
+              <a href="http://10.1.13.118:8001/assetsManagement/assetGroup" target="_blank">
+            <div class="image-text_13 flex-col justify-between">
+              <div class="group_16 flex-col"></div>
+              <span class="text-group_13">资产分类</span>
+            </div>
+            </a>
+               <a href="http://10.1.13.118:8001/assetsManagement/assetsManagementList" target="_blank">
+            <div class="image-text_14 flex-col justify-between">
+              <div class="group_17 flex-col"></div>
+              <span class="text-group_14">资产列表</span>
+            </div>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="group_18 flex-row justify-between">
+        <div class="block_10 flex-col"></div>
+        <span class="text_16">综合管控子平台</span>
+      </div>
+      <div class="group_19 flex-row justify-between">
+        <div class="box_16 flex-col">
+          <span class="text_17">安全联动</span>
+          <div class="block_11 flex-row justify-between">
                 <a
            href="https://10.201.30.40/devlink"
             target="_blank"
           >
-              <div class="ImageText88 flex-col justify-between">
-                <div class="layer21 flex-col"></div>
-                <div class="TextGroup88 flex-col"><span class="txt7">防火墙联动</span></div>
-              </div>
-              </a>
+            <div class="image-text_15 flex-col justify-between">
+              <div class="block_12 flex-col"></div>
+              <span class="text-group_15">防火墙联动</span>
+            </div>
+</a>
                <a
           href="https://10.201.30.40/ti"
             target="_blank"
-          >
-              <div class="ImageText89 flex-col justify-between">
-                <div class="block15 flex-col"></div>
-                <div class="TextGroup89 flex-col">
-                  <span class="paragraph2">
-                    威胁情报
-                    <br />
-                    联动
-                  </span>
-                </div>
-              </div>
-              </a>
+          >   
+            <div class="image-text_16 flex-col justify-between">
+              <div class="box_17 flex-col"></div>
+              <span class="text-group_16">
+                威胁情报
+                <br />
+                联动
+              </span>
             </div>
+</a>
           </div>
         </div>
-        <div class="group7 flex-col">
-          <div class="block16 flex-row"><span class="info7">威胁情报</span></div>
-          <div class="block17 flex-row justify-between">
-             <a :href="'http://10.201.30.60:80/intelligence/login-with-params?username=jiance&token=' +
+        <div class="box_18 flex-col">
+          <div class="text-wrapper_5 flex-row"><span class="text_18">威胁情报</span></div>
+          <div class="section_5 flex-row justify-between">
+            <a :href="'http://10.201.30.60:80/intelligence/login-with-params?username=jiance&token=' +
             this.query.appToken +
             '&redirect=production-strategy'" target="_blank">
-            <div class="ImageText90 flex-col justify-between">
-              <div class="section36 flex-col"></div>
-              <div class="TextGroup90 flex-col"><span class="info8">情报录入</span></div>
+            <div class="image-text_17 flex-col justify-between">
+              <div class="section_6 flex-col"></div>
+              <span class="text-group_17">情报录入</span>
             </div>
-            </a>
-             <a
+</a>
+  <a
             href="http://10.1.13.118:8001/security/threatIntelligenceManagement/threatIntelligenceList"
             target="_blank"
           >
-            <div class="ImageText91 flex-col justify-between">
-              <div class="layer22 flex-col"></div>
-              <div class="TextGroup91 flex-col"><span class="word8">情报告警</span></div>
+            <div class="image-text_18 flex-col justify-between">
+              <div class="box_19 flex-col"></div>
+              <span class="text-group_18">情报告警</span>
             </div>
-            </a>
-             <a  :href="'http://10.201.30.60:80/intelligence/login-with-params?username=jiance&token=' +
+</a>
+ <a  :href="'http://10.201.30.60:80/intelligence/login-with-params?username=jiance&token=' +
             this.query.appToken +
             '&redirect=manage-intel'"  target="_blank">
-            <div class="ImageText92 flex-col justify-between">
-              <div class="block18 flex-col"></div>
-              <div class="TextGroup92 flex-col"><span class="word9">情报分析</span></div>
+            <div class="image-text_19 flex-col justify-between">
+              <div class="box_20 flex-col"></div>
+              <span class="text-group_19">情报分析</span>
             </div>
-            </a>
-             <a  :href="'http://10.201.30.60:80/intelligence/login-with-params?username=jiance&token=' +
+</a>
+ <a  :href="'http://10.201.30.60:80/intelligence/login-with-params?username=jiance&token=' +
             this.query.appToken +
             '&redirect=manage-source'" target="_blank">
-            <div class="ImageText93 flex-col justify-between">
-              <div class="outer36 flex-col"></div>
-              <div class="TextGroup93 flex-col"><span class="word10">情报源管理</span></div>
+            <div class="image-text_20 flex-col justify-between">
+              <div class="section_7 flex-col"></div>
+              <span class="text-group_20">情报源管理</span>
             </div>
-            </a>
-            <a  :href="'http://10.201.30.60:80/intelligence/login-with-params?username=jiance&token=' +
+</a>
+ <a  :href="'http://10.201.30.60:80/intelligence/login-with-params?username=jiance&token=' +
             this.query.appToken +
             '&redirect=ioc-detail'" target="_blank">
-            <div class="ImageText94 flex-col justify-between">
-              <div class="section37 flex-col"></div>
-              <div class="TextGroup94 flex-col"><span class="txt8">自定义情报</span></div>
+            <div class="image-text_21 flex-col justify-between">
+              <div class="group_20 flex-col"></div>
+              <span class="text-group_21">自定义情报</span>
+            </div>
+</a>
+          </div>
+        </div>
+        <div class="box_21 flex-col">
+          <span class="text_19">配置核查</span>
+            <a href="http://10.1.13.118:8001/security/inspect" target="_blank">
+          <div class="image-text_22 flex-col justify-between">
+            <div class="box_22 flex-col"></div>
+            <span class="text-group_22">
+              配置核查
+              <br />
+              管理
+            </span>
+          </div>
+          </a>
+        </div>
+        <div class="box_23 flex-col">
+          <span class="text_20">安全通报</span>
+          <div class="section_8 flex-row justify-between">
+             <a href="http://10.1.13.118:8001/safety/InformManagement" target="_blank">
+            <div class="image-text_23 flex-col justify-between">
+              <div class="group_21 flex-col"></div>
+              <span class="text-group_23">安全通报</span>
+            </div>
+            </a>
+              <a href="http://10.1.19.52/portal/user/login" target="_blank">
+            <div class="image-text_24 flex-col justify-between">
+              <div class="group_22 flex-col"></div>
+              <span class="text-group_24">通报管理</span>
             </div>
             </a>
           </div>
         </div>
-      </div>
-      <div class="main27 flex-row">
-        <div class="section9 flex-col">
-          <div class="group52 flex-row"><span class="info11">入侵诱捕</span></div>
-          <div class="group53 flex-row justify-between">
+        <div class="box_24 flex-col">
+          <span class="text_21">安全态势</span>
+          <div class="box_25 flex-row justify-between">
+              <a href="http://10.1.51.199:8000/screen/alert" target="_blank">
+            <div class="image-text_25 flex-col justify-between">
+              <div class="section_9 flex-col"></div>
+              <span class="text-group_25">综合态势</span>
+            </div>
+            </a>
+             <a href="http://10.1.13.118:8001/assetsManagement/assetSecurityStatisticalAnalysis" target="_blank">
+            <div class="image-text_26 flex-col justify-between">
+              <div class="box_26 flex-col"></div>
+              <span class="text-group_26">资产态势</span>
+            </div>
+            </a>
+          </div>
+        </div>
+        <div class="box_27 flex-col">
+          <div class="text-wrapper_6 flex-row"><span class="text_22">系统管理</span></div>
+          <div class="group_23 flex-row justify-between">
                 <a
-          href="http://10.1.13.118:8001/security/invasionOfTrap/honeypotEventRetrieval"
-          target="_blank"
-        >
-            <div class="ImageText95 flex-col justify-between">
-              <div class="layer23 flex-col"></div>
-              <div class="TextGroup95 flex-col"><span class="word12">入侵诱捕</span></div>
-            </div>
-            </a>
-             <a
-          href="http://10.1.13.118:8001/security/invasionOfTrap/statisticalSnalysis"
-          target="_blank"
-        >
-            <div class="ImageText96 flex-col justify-between">
-              <div class="mod29 flex-col"></div>
-              <div class="TextGroup96 flex-col"><span class="word13">黑客溯源</span></div>
-            </div>
-            </a>
-             <a
-          href="http://10.1.13.118:8001/security/invasionOfTrap/honeypotEventRetrieval"
-          target="_blank"
-        >
-            <div class="ImageText97 flex-col justify-between">
-              <div class="box22 flex-col"></div>
-              <div class="TextGroup97 flex-col"><span class="txt10">行为分析</span></div>
-            </div>
-            </a>
-          </div>
-        </div>
-        <div class="bd5 flex-col">
-          <div class="bd20 flex-col justify-between">
-            <span class="txt12">异常分析</span>
-            <div class="outer37 flex-row justify-between">
-                 <a
-          href="https://10.201.30.40/search"
-          target="_blank"
-        >
-              <div class="ImageText98 flex-col justify-between">
-                <div class="outer38 flex-col"></div>
-                <div class="TextGroup98 flex-col">
-                  <span class="infoBox3">
-                    异常日志
-                    <br />
-                    检索
-                  </span>
-                </div>
-              </div>
-              </a>
-                 <a href="http://10.1.13.118:8001/management/eventEcharts" target="_blank">
-              <div class="ImageText99 flex-col justify-between">
-                <div class="bd21 flex-col"></div>
-                <div class="TextGroup99 flex-col"><span class="txt13">分析及统计</span></div>
-              </div>
-</a>
-            </div>
-          </div>
-        </div>
-        <div class="section38 flex-col">
-          <div class="bd22 flex-col justify-between">
-            <span class="word24">数据安全</span>
-             <a href="http://10.1.13.118:8001/security/dataSafe/echarts" target="_blank">
-            <div class="ImageText100 flex-col justify-between">
-              <div class="mod30 flex-col"></div>
-              <div class="TextGroup100 flex-col">
-                <span class="infoBox5">
-                  数据
-                  <br />
-                  安全分析
-                </span>
-              </div>
-            </div>
-            </a>
-          </div>
-        </div>
-        <div class="section10 flex-col">
-          <div class="main28 flex-col justify-between">
-            <span class="word14">配置核查</span>
-              <a href="http://10.1.13.118:8001/security/inspect" target="_blank">
-            <div class="ImageText101 flex-col justify-between">
-              <div class="box23 flex-col"></div>
-              <div class="TextGroup101 flex-col">
-                <span class="infoBox2">
-                  配置核查
-                  <br />
-                  管理
-                </span>
-              </div>
-            </div>
-</a>
-          </div>
-        </div>
-        <div class="section12 flex-col">
-          <div class="layer24 flex-col justify-between">
-            <span class="word15">安全通报</span>
-            <div class="group54 flex-row justify-between">
-                <a href="http://10.1.13.118:8001/safety/InformManagement" target="_blank">
-              <div class="ImageText102 flex-col justify-between">
-                <div class="section39 flex-col"></div>
-                <div class="TextGroup102 flex-col"><span class="word16">安全通报</span></div>
-              </div>
-              </a>
-                <a href="http://10.1.19.52/portal/user/login" target="_blank">
-              <div class="ImageText103 flex-col justify-between">
-                <div class="layer25 flex-col"></div>
-                <div class="TextGroup103 flex-col">
-                  <span class="paragraph3">
-                    安全管理
-                    <br />
-                    平台集成
-                  </span>
-                </div>
-              </div>
-              </a>
-            </div>
-          </div>
-        </div>
-        <div class="section13 flex-col">
-          <div class="outer39 flex-col justify-between">
-            <span class="txt11">安全态势</span>
-            <div class="layer26 flex-row justify-between">
-                <a href="http://10.1.51.199:8000/screen/alert" target="_blank">
-              <div class="ImageText104 flex-col justify-between">
-                <div class="layer27 flex-col"></div>
-                <div class="TextGroup104 flex-col"><span class="info12">综合态势</span></div>
-              </div>
-              </a>
-     <a href="http://10.1.13.118:8001/assetsManagement/assetSecurityStatisticalAnalysis" target="_blank">
-              <div class="ImageText105 flex-col justify-between">
-                <div class="section40 flex-col"></div>
-                <div class="TextGroup105 flex-col"><span class="word17">资产态势</span></div>
-              </div>
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="main29 flex-row justify-between">
-        <div class="wrap4 flex-col">
-          <div class="main30 flex-col justify-between">
-            <span class="info13">资产管理</span>
-            <div class="box24 flex-row justify-between">
-               <a href="http://10.1.13.118:8001/assetsManagement/assetGroup" target="_blank">
-              <div class="ImageText106 flex-col justify-between">
-                <div class="block19 flex-col"></div>
-                <div class="TextGroup106 flex-col">
-                  <span class="paragraph4">
-                    资产分类
-                  </span>
-                </div>
-              </div>
-              </a>
-              <a href="http://10.1.13.118:8001/assetsManagement/assetsManagementList" target="_blank">
-              <div class="ImageText107 flex-col justify-between">
-                <div class="group55 flex-col"></div>
-                <div class="TextGroup107 flex-col"><span class="word19">资产列表</span></div>
-              </div>
-</a>
-            </div>
-          </div>
-        </div>
-        <div class="layer28 flex-col">
-          <div class="block20 flex-row"><span class="word25">系统管理</span></div>
-          <div class="block21 flex-row justify-between">
-               <a
             href=" http://10.1.13.118:8001/system/user"
             target="_blank"
           >
-            <div class="ImageText108 flex-col justify-between">
-              <div class="mod31 flex-col"></div>
-              <div class="TextGroup108 flex-col"><span class="word26">用户管理</span></div>
+            <div class="image-text_27 flex-col justify-between">
+              <div class="box_28 flex-col"></div>
+              <span class="text-group_27">用户管理</span>
             </div>
-          </a>
-                <a
+</a>
+     <a
             href="http://10.1.13.118:8001/system/role"
             target="_blank"
           >
-            <div class="ImageText109 flex-col justify-between">
-              <div class="main31 flex-col"></div>
-              <div class="TextGroup109 flex-col">
-                <span class="paragraph9">
-                  权限角色
-                  <br />
-                  管理
-                </span>
-              </div>
+            <div class="image-text_28 flex-col justify-between">
+              <div class="box_29 flex-col"></div>
+              <span class="text-group_28">
+                权限角色
+                <br />
+                管理
+              </span>
             </div>
-          </a>
-           <a
-            href="http://10.1.13.118:8001/system/dict"
-            target="_blank"
-          >
-            <div class="ImageText110 flex-col justify-between">
-              <div class="bd23 flex-col"></div>
-              <div class="TextGroup110 flex-col"><span class="word27">字典管理</span></div>
-            </div>
-          </a>
-          <a
+</a>
+ <a
             href="http://10.1.13.118:8001/system/log/operlog"
             target="_blank"
           >
-            <div class="ImageText111 flex-col justify-between">
-              <div class="bd24 flex-col"></div>
-              <div class="TextGroup111 flex-col">
-                <span class="infoBox6">
-                  审计日志
-                  <br />
-                  管理
-                </span>
-              </div>
+            <div class="image-text_29 flex-col justify-between">
+              <div class="section_10 flex-col"></div>
+              <span class="text-group_29">
+                审计日志
+                <br />
+                管理
+              </span>
             </div>
-          </a>
+</a>
           </div>
         </div>
       </div>
-      <div class="main32 flex-row">
-        <div class="block7 flex-col"></div>
-        <span class="info14">基础防护子平台</span>
-        <div class="layer7 flex-col"></div>
-        <span class="word18">安全认证子平台</span>
+      <div class="group_24 flex-row justify-between">
+        <div class="block_13 flex-col"></div>
+        <span class="text_23">基础防护子平台</span>
       </div>
-      <div class="main33 flex-row">
-        <div class="block8 flex-col">
-          <div class="bd25 flex-row"><span class="word20">云安全</span></div>
-          <div class="bd26 flex-row justify-between">
-              <a
+      <div class="group_25 flex-row justify-between">
+        <div class="group_26 flex-col">
+          <div class="text-wrapper_7 flex-row"><span class="text_24">云安全</span></div>
+          <div class="group_27 flex-row justify-between">
+                <a
             href="http://10.1.13.118:8001/security/applicationSecurityManagement/appTesting"
             target="_blank"
           >
-            <div class="ImageText112 flex-col justify-between">
-              <div class="bd27 flex-col"></div>
-              <div class="TextGroup112 flex-col">
-                <span class="infoBox4">
-                  移动APP
-                  <br />
-                  安全
-                </span>
-              </div>
+            <div class="image-text_30 flex-col justify-between">
+              <div class="box_30 flex-col"></div>
+              <span class="text-group_30">
+                移动APP
+                <br />
+                安全
+              </span>
             </div>
-          </a>
-           <a
+</a>
+ <a
             href=" http://10.1.13.118:8001/security/applicationSecurityManagement/applicationManagement"
             target="_blank"
           >
-            <div class="ImageText113 flex-col justify-between">
-              <div class="layer29 flex-col"></div>
-              <div class="TextGroup113 flex-col"><span class="info15">应用安全</span></div>
+            <div class="image-text_31 flex-col justify-between">
+              <div class="section_11 flex-col"></div>
+              <span class="text-group_31">应用安全</span>
             </div>
-          </a>
-               <a
+</a>
+      <a
             href="https://10.201.207.3/assetSafeStateBigScreen/page?screenId=4"
             target="_blank"
           >
-            <div class="ImageText114 flex-col justify-between">
-              <div class="section41 flex-col"></div>
-              <div class="TextGroup114 flex-col"><span class="word21">云主机安全</span></div>
+            <div class="image-text_32 flex-col justify-between">
+              <div class="section_12 flex-col"></div>
+              <span class="text-group_32">云主机安全</span>
             </div>
-          </a>
-             <a
+</a>
+   <a
             href="http://10.201.207.7/v3/#/app/assetcount/hardware?recordSearch=false"
             target="_blank"
           >   
-            <div class="ImageText115 flex-col justify-between">
-              <div class="box25 flex-col"></div>
-              <div class="TextGroup115 flex-col"><span class="word22">虚拟化安全</span></div>
+            <div class="image-text_33 flex-col justify-between">
+              <div class="section_13 flex-col"></div>
+              <span class="text-group_33">虚拟化安全</span>
             </div>
-          </a>
-          </div>
-        </div>
-         <div class="wrapCopy4 flex-col">
-          <div class="main30 flex-col justify-between">
-            <span class="infoCopy13">生产网络安全</span>
-            <div class="box24 flex-row justify-between">
-               <a href="http://10.1.13.118:8001/security/abnormalBehaviorManagement/firewallAccessControlEvent" target="_blank">
-              <div class="ImageText106 flex-col justify-between">
-                <div class="block191 flex-col"></div>
-                <div class="TextGroup106 flex-col">
-                  <span class="paragraph4">
-                    工业防火墙
-                  </span>
-                </div>
-              </div>
-              </a>
-              <a href="http://10.1.13.118:8001/industrialNetworkAudit/industrialNetworkAuditList" target="_blank">
-              <div class="ImageText107 flex-col justify-between">
-                <div class="group555 flex-col"></div>
-                <div class="TextGroup107 flex-col"><span class="word19">工业安全  <br />审计</span></div>
-              </div>
 </a>
-            </div>
           </div>
         </div>
-        <div class="group14 flex-col">
-          <div class="group56 flex-col justify-between">
-            <span class="word23">安全认证</span>
-            
-            <div class="box26 flex-row justify-between">
-                     <a
-            href="http://10.201.22.101:9443"
-            target="_blank"
-          >  
-                <div class="ImageText118 flex-col justify-between">
-                <div class="outer40 flex-col"></div>
-                <div class="TextGroup117 flex-col">
-                  <span class="paragraph5">
-                    CA数字证书
-                    <br />
-                   签发系统
-                  </span>
-                </div>
-              </div>
-              </a>
-                <a
-            href="http://10.201.22.102:30443"
-            target="_blank"
-          >  
-              <div class="ImageText118 flex-col justify-between">
-                <div class="outer40 flex-col"></div>
-                <div class="TextGroup118 flex-col"><span class="info16">RA数字证书注册系统</span></div>
-              </div>
-                </a>
-                     <a
-            href="http://10.201.22.100:10443"
-            target="_blank"
-          >  
-              <div class="ImageText118 flex-col justify-between">
-                <div class="outer40 flex-col"></div>
-                <div class="TextGroup118 flex-col"><span class="info16">KM密钥管理系统</span></div>
-              </div>
-                </a>
-            </div> 
-          </div>
-        </div>
-      </div>
-      <div class="main34 flex-row justify-between">
-        <div class="group16 flex-col">
-          <div class="bd28 flex-row"><span class="info17">数据安全</span></div>
-          <div class="bd29 flex-row justify-between">
-              <a
-            href="https://10.201.31.101:50089/"
-            target="_blank"
-          >
-            <div class="ImageText119 flex-col justify-between">
-              <div class="outer41 flex-col"></div>
-              <div class="TextGroup119 flex-col">
-                <span class="paragraph6">
-                  邮件数据
-                  <br />
-                  防泄漏
-                </span>
-              </div>
+        <div class="group_28 flex-col">
+          <span class="text_25">工业网络安全</span>
+          <div class="box_31 flex-row justify-between">
+             <a href="http://10.1.13.118:8001/security/abnormalBehaviorManagement/firewallAccessControlEvent" target="_blank">
+            <div class="image-text_34 flex-col justify-between">
+              <div class="group_29 flex-col"></div>
+              <span class="text-group_34">工业防火墙</span>
             </div>
-          </a>
-            <a
-            href="https://10.201.31.101:50089/"
-            target="_blank"
-          >
-            <div class="ImageText120 flex-col justify-between">
-              <div class="mod33 flex-col"></div>
-              <div class="TextGroup120 flex-col">
-                <span class="paragraph7">
-                  文件数据
-                  <br />
-                  防泄漏
-                </span>
-              </div>
-            </div>
-          </a>
-            <a
-            href="http://10.1.13.118:8001/security/dataSafe/pageTamperProofEvent"
-            target="_blank"
-          >
-            <div class="ImageText121 flex-col justify-between">
-              <div class="layer30 flex-col"></div>
-              <div class="TextGroup121 flex-col"><span class="info18">网页防篡改</span></div>
-            </div>
-          </a>
-           <a
-          href="https://10.201.31.101:50089/"
-          target="_blank"
-        >
-            <div class="ImageText122 flex-col justify-between">
-              <div class="mod34 flex-col"></div>
-              <div class="TextGroup122 flex-col">
-                <span class="paragraph8">
-                  流量数据
-                  <br />
-                  防泄漏
-                </span>
-              </div>
-            </div>
-          </a>
-          </div>
-        </div>
-        <div class="section43 flex-col">
-          <div class="layer31 flex-col justify-between">
-            <span class="info19">工业设备安全</span>
-               <a
-            href=" https://123.60.135.63:8889/#/manage/v2/sso?ticket=d91c53aea100716097202d4c3a5ebd752feaf54940dd26d31de206aee261a4f2a068b7e8149f2d9f8446a26b45fe12af4ed535f64f55cc9389443a4b84d02f0f94bf2d634d078e1f73ea23fd2a4ac83878029bb561729e8c9cb5d57bf68771f2"
-            target="_blank"
-          >  
-            <div class="ImageText123 flex-col justify-between">
-              <div class="group58 flex-col"></div>
-              <div class="TextGroup123 flex-col">
-                <span class="paragraph11">
-                  工业设备
-                  <br />
-                  安全
-                </span>
-              </div>
+            </a>
+             <a href="http://10.1.13.118:8001/industrialNetworkAudit/industrialNetworkAuditList" target="_blank">
+            <div class="image-text_35 flex-col justify-between">
+              <div class="group_30 flex-col"></div>
+              <span class="text-group_35">
+                工业安全
+                <br />
+                审计
+              </span>
             </div>
             </a>
           </div>
         </div>
-         <div class="wrap11 flex-col">
-          <div class="section42 flex-col justify-between">
-            <span class="txt14">工业主机安全</span>
-              <a
+        <div class="group_31 flex-col">
+          <div class="text-wrapper_8 flex-row"><span class="text_26">数据安全</span></div>
+          <div class="box_32 flex-row justify-between">
+                  <a
+            href="https://10.201.31.101:50089/"
+            target="_blank"
+          >
+            <div class="image-text_36 flex-col justify-between">
+              <div class="group_32 flex-col"></div>
+              <span class="text-group_36">
+                邮件数据
+                <br />
+                防泄漏
+              </span>
+            </div>
+</a>
+   <a
+            href="https://10.201.31.101:50089/"
+            target="_blank"
+          >
+            <div class="image-text_37 flex-col justify-between">
+              <div class="block_14 flex-col"></div>
+              <span class="text-group_37">
+                文件数据
+                <br />
+                防泄漏
+              </span>
+            </div>
+</a>
+  <a
+            href="http://10.1.13.118:8001/security/dataSafe/pageTamperProofEvent"
+            target="_blank"
+          >
+            <div class="image-text_38 flex-col justify-between">
+              <div class="block_15 flex-col"></div>
+              <span class="text-group_38">网页防篡改</span>
+            </div>
+</a>
+ <a
+          href="https://10.201.31.101:50089/"
+          target="_blank"
+        >
+            <div class="image-text_39 flex-col justify-between">
+              <div class="box_33 flex-col"></div>
+              <span class="text-group_39">
+                流量数据
+                <br />
+                防泄漏
+              </span>
+            </div>
+</a>
+          </div>
+        </div>
+        <div class="group_33 flex-col">
+          <span class="text_27">工业设备安全</span>
+            <a
+            href=" https://123.60.135.63:8889/#/manage/v2/sso?ticket=d91c53aea100716097202d4c3a5ebd752feaf54940dd26d31de206aee261a4f2a068b7e8149f2d9f8446a26b45fe12af4ed535f64f55cc9389443a4b84d02f0f94bf2d634d078e1f73ea23fd2a4ac83878029bb561729e8c9cb5d57bf68771f2"
+            target="_blank"
+          >  
+          <div class="image-text_40 flex-col justify-between">
+            <div class="group_34 flex-col"></div>
+            <span class="text-group_40">
+              工业设备
+              <br />
+              安全
+            </span>
+          </div>
+</a>
+        </div>
+        <div class="group_35 flex-col">
+          <span class="text_28">工业主机安全</span>
+             <a
             href="http://10.1.13.118:8001/security/hostSecurityManagement/hostSecuritySearch"
             target="_blank"
           >  
-            
-            <div class="ImageText116 flex-col justify-between">
-              <div class="mod32 flex-col"></div>
-              <div class="TextGroup116 flex-col">
-                <span class="paragraph10">
-                  工业主机
-                  <br />
-                  安全
-                </span>
-              </div>
-            </div>
-          </a>
+          <div class="image-text_41 flex-col justify-between">
+            <div class="section_14 flex-col"></div>
+            <span class="text-group_41">
+              工业主机
+              <br />
+              安全
+            </span>
           </div>
+</a>
+        </div>
+      </div>
+      <div class="group_36 flex-row justify-between">
+        <div class="group_37 flex-col"></div>
+        <span class="text_29">安全认证子平台</span>
+      </div>
+      <div class="group_38 flex-col">
+        <div class="text-wrapper_9 flex-row"><span class="text_30">安全认证</span></div>
+        <div class="section_15 flex-row">
+                  <a
+            href="http://10.201.22.101:9443"
+            target="_blank"
+          >  
+          <div class="image-text_42 flex-col justify-between">
+            <div class="block_16 flex-col"></div>
+            <span class="text-group_42">
+              CA数字证书
+              <br />
+              签发系统
+            </span>
+          </div>
+</a>
+  <a
+            href="http://10.201.22.102:30443"
+            target="_blank"
+          >  
+          <div class="image-text_43 flex-col justify-between">
+            <div class="box_34 flex-col"></div>
+            <span class="text-group_43">
+              RA数字证书
+              <br />
+              注册系统
+            </span>
+          </div>
+</a>
+        <a
+            href="http://10.201.22.100:10443"
+            target="_blank"
+          >  
+          <div class="image-text_44 flex-col justify-between">
+            <div class="box_35 flex-col"></div>
+            <span class="text-group_44">
+              KM秘钥
+              <br />
+              管理系统
+            </span>
+          </div>
+</a>
+ <a
+            href="https://123.60.135.63:8889/#/manage/v2/sso?ticket=d91c53aea100716097202d4c3a5ebd752feaf54940dd26d31de206aee261a4f2a068b7e8149f2d9f8446a26b45fe12af4ed535f64f55cc9389443a4b84d02f0f94bf2d634d078e1f73ea23fd2a4ac83878029bb561729e8c9cb5d57bf68771f2"
+            target="_blank"
+          >  
+          <div class="image-text_45 flex-col justify-between">
+            <div class="box_36 flex-col"></div>
+            <span class="text-group_45">
+              终端设备
+              <br />
+              身份认证管理
+            </span>
+          </div>
+</a>
         </div>
       </div>
     </div>
