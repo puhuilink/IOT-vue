@@ -8,35 +8,36 @@
         </div>
       </el-col>
       <el-col :span="5">
-        <div class="AssetsBox">
+        <div class="intrusionBox">
           <div class="Assets">未授权设备</div>
           <div class="AssetsNumber">{{ Invand }}</div>
         </div>
       </el-col>
       <el-col :span="4">
-        <div class="AssetsBox">
+        <div class="explore">
           <div class="Assets">在线的设备</div>
           <div class="AssetsNumber">{{ Probe }}</div>
         </div>
       </el-col>
       <el-col :span="5">
-        <div class="AssetsBox">
+        <div class="threat">
           <div class="Assets">异常的设备</div>
           <div class="AssetsNumber">{{ attackNumber }}</div>
         </div>
       </el-col>
       <el-col :span="5">
-        <div class="AssetsBox">
+        <div class="AssetsType">
           <div class="Assets">设备类型</div>
           <div class="AssetsNumberLeft">汇聚网关</div>
           <div class="AssetsNumberRight">接入网关</div>
-          <div class="AssetsNumberLeft">{{GatherTheGateway}}</div>
-          <div class="AssetsNumberRight">{{Accessgateway}}</div>
+          <div class="AssetsNumberLeft">{{ GatherTheGateway }}</div>
+          <div class="AssetsNumberRight">{{ Accessgateway }}</div>
         </div>
       </el-col>
     </el-row>
     <div class="boxContent">
       <div class="left">
+        <tip :date="this.date">组网情况</tip>
         <div class="container" ref="container"></div>
         <!-- <pointsChart /> -->
       </div>
@@ -52,7 +53,7 @@
   </div>
 </template>
 <script>
-pointsChart
+pointsChart;
 
 import {
   AssetsNumberList,
@@ -60,14 +61,15 @@ import {
   ProbeList,
   attackNumberList,
   mapDataList,
-  GatewayNumberList
+  GatewayNumberList,
 } from "@/api/system/device";
 // import pointsChart from "@/components/Echarts/pointsChart";
-import pointsChart from '@/components/Echarts/map'
+import pointsChart from "@/components/Echarts/map";
 import eventType from "@/components/Echarts/eventType";
 import eventTrend from "@/components/Echarts/eventTrend";
+import tip from "@/components/EchartsTip";
 export default {
-  components: { pointsChart,eventType, eventTrend },
+  components: { pointsChart, eventType, eventTrend ,tip},
   data() {
     return {
       AssetsNumber: "",
@@ -75,8 +77,8 @@ export default {
       Probe: "",
       attackNumber: "",
       // deviceType: "汇聚网关",
-      GatherTheGateway:"",
-      Accessgateway:""
+      GatherTheGateway: "",
+      Accessgateway: "",
     };
   },
   created() {
@@ -88,7 +90,7 @@ export default {
     this.getGatewayList();
     this.getMapData();
   },
-   mounted() {
+  mounted() {
     this.$nextTick((_) => {
       this.initMapInfo();
     });
@@ -114,15 +116,15 @@ export default {
         this.attackNumber = response.data[0].count;
       });
     },
-     getGatewayList() {
+    getGatewayList() {
       GatewayNumberList(this.queryParams).then((response) => {
         this.GatherTheGateway = response.data[0].count;
         this.Accessgateway = response.data[1].count;
       });
     },
-    getMapData(){
-        mapDataList().then((response) => {
-        console.log('response',response)
+    getMapData() {
+      mapDataList().then((response) => {
+        console.log("response", response);
       });
     },
     initMapInfo() {
@@ -533,49 +535,184 @@ export default {
 
 <style scoped lang="scss">
 .AssetsBox {
+  background: linear-gradient(180deg, #4fa8e7 0%, #3570d4 100%);
   .Assets {
-    background-color: #5599ff;
-    padding: 10px 80px 10px 10px;
-    border-bottom: 1px solid #fff;
+    // background-color: #5599ff;
+    // background: linear-gradient(180deg, #4FA8E7 0%, #3570D4 100%);
+    text-align: center;
+    padding-top: 20px;
+    font-size: 16px;
+    // padding: 10px 80px 10px 80px;
+    // border-bottom: 1px solid #fff;
     color: #fff;
     font-weight: bold;
   }
   .AssetsNumber {
     width: 100%;
-    height: 100px;
-    background-color: #5599ff;
-    color: #ffff77;
-    font-weight: 800;
-    text-align: center;
-    line-height: 100px;
-  }
-  .AssetsNumberLeft{
-    width:50%;
-    height: 50px;
-    background-color: #5599ff;
-    color: #ffff77;
-    font-weight: 800;
+    height: 60px;
+    font-size: 28px;
+    // background-color: #5599ff;
+    //  background: linear-gradient(180deg, #4FA8E7 0%, #3570D4 100%);
+    color: #fff;
+    // font-weight: 800;
     text-align: center;
     line-height: 50px;
-    float:left;
   }
-  .AssetsNumberRight{
+}
+.intrusionBox {
+  background: linear-gradient(180deg, #ffb070 0%, #ff605b 100%);
+  .Assets {
+    // background-color: #5599ff;
+    // background: linear-gradient(180deg, #4FA8E7 0%, #3570D4 100%);
+    text-align: center;
+    padding-top: 20px;
+    font-size: 16px;
+    // padding: 10px 80px 10px 80px;
+    // border-bottom: 1px solid #fff;
+    color: #fff;
+    font-weight: bold;
+  }
+  .AssetsNumber {
+    width: 100%;
+    height: 60px;
+    font-size: 28px;
+    // background-color: #5599ff;
+    //  background: linear-gradient(180deg, #4FA8E7 0%, #3570D4 100%);
+    color: #fff;
+    // font-weight: 800;
+    text-align: center;
+    line-height: 50px;
+  }
+}
+.explore {
+  background: linear-gradient(180deg, #3cd3aa 0%, #229b9f 100%);
+  .Assets {
+    // background-color: #5599ff;
+    // background: linear-gradient(180deg, #4FA8E7 0%, #3570D4 100%);
+    text-align: center;
+    padding-top: 20px;
+    font-size: 16px;
+    // padding: 10px 80px 10px 80px;
+    // border-bottom: 1px solid #fff;
+    color: #fff;
+    font-weight: bold;
+  }
+  .AssetsNumber {
+    width: 100%;
+    height: 60px;
+    font-size: 28px;
+    // background-color: #5599ff;
+    //  background: linear-gradient(180deg, #4FA8E7 0%, #3570D4 100%);
+    color: #fff;
+    // font-weight: 800;
+    text-align: center;
+    line-height: 50px;
+  }
+}
+.threat {
+  background: linear-gradient(180deg, #b56af9 0%, #6333b8 100%);
+  .Assets {
+    // background-color: #5599ff;
+    // background: linear-gradient(180deg, #4FA8E7 0%, #3570D4 100%);
+    text-align: center;
+    padding-top: 20px;
+    font-size: 16px;
+    // padding: 10px 80px 10px 80px;
+    // border-bottom: 1px solid #fff;
+    color: #fff;
+    font-weight: bold;
+  }
+  .AssetsNumber {
+    width: 100%;
+    height: 60px;
+    font-size: 28px;
+    // background-color: #5599ff;
+    //  background: linear-gradient(180deg, #4FA8E7 0%, #3570D4 100%);
+    color: #fff;
+    // font-weight: 800;
+    text-align: center;
+    line-height: 50px;
+  }
+}
+.AssetsType {
+ background: linear-gradient(180deg, #4fa8e7 0%, #3570d4 100%);
+  .Assets {
+    // background-color: #5599ff;
+    // background: linear-gradient(180deg, #4FA8E7 0%, #3570D4 100%);
+    text-align: center;
+    padding-top: 20px;
+    font-size: 16px;
+    // padding: 10px 80px 10px 80px;
+    // border-bottom: 1px solid #fff;
+    color: #fff;
+    font-weight: bold;
+  }
+  .AssetsNumberLeft {
     width: 50%;
-    height: 50px;
-    background-color: #5599ff;
+    height: 31px;
+    background: #3570d4 ;
     color: #ffff77;
     font-weight: 800;
     text-align: center;
-    line-height: 50px;
+    line-height: 31px;
+    float: left;
+  }
+  .AssetsNumberRight {
+    width: 50%;
+    height: 31px;
+   background: #3570d4 ;
+    color: #ffff77;
+    font-weight: 800;
+    text-align: center;
+    line-height: 31px;
     float: right;
   }
 }
+// .AssetsBox {
+//   .Assets {
+//     background-color: #5599ff;
+//     padding: 10px 80px 10px 10px;
+//     border-bottom: 1px solid #fff;
+//     color: #fff;
+//     font-weight: bold;
+//   }
+//   .AssetsNumber {
+//     width: 100%;
+//     height: 100px;
+//     background-color: #5599ff;
+//     color: #ffff77;
+//     font-weight: 800;
+//     text-align: center;
+//     line-height: 100px;
+//   }
+//   .AssetsNumberLeft{
+//     width:50%;
+//     height: 50px;
+//     background-color: #5599ff;
+//     color: #ffff77;
+//     font-weight: 800;
+//     text-align: center;
+//     line-height: 50px;
+//     float:left;
+//   }
+//   .AssetsNumberRight{
+//     width: 50%;
+//     height: 50px;
+//     background-color: #5599ff;
+//     color: #ffff77;
+//     font-weight: 800;
+//     text-align: center;
+//     line-height: 50px;
+//     float: right;
+//   }
+// }
 .boxContent {
   height: 900px;
   .left {
     float: left;
     width: 50%;
     height: 900px;
+    padding-left:30px;
     // background-color: #ffff77;
     .container {
       width: 100%;

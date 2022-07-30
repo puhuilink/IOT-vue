@@ -22,7 +22,7 @@
 </template>
 <script>
 import { setNotopt } from "@/utils/emptyEcharts.js";
-import { eventEsData,eventEsHostData, scanningeventLevelEcharts} from "@/api/system/echarts";
+import { eventEsData,eventEsHostData, equipmentIineData,scanningeventLevelEcharts} from "@/api/system/echarts";
 import tip from "@/components/EchartsTip";
 export default {
   name: "AAA",
@@ -65,7 +65,7 @@ export default {
         endGenerationTime: this.getdate(2)[1]+ ' 23-59-59',
         location: "",
       },
-      // queryEquipmentParms:{},
+      queryEquipmentParms:{},
       queryParms: {
         indexes: this.search,
         // beginGenerationTime:this.getdate(2)[0],
@@ -274,6 +274,62 @@ export default {
       }
       return [this.data1, this.data2, this.data3, this.data4, this.data5];
     },
+     transDicDataDevice(data) {
+      if (data.length) {
+        const aaa = data.filter((e) => e.AlertLevel === "1");
+        if (aaa.length) {
+          aaa.map((d) => {
+            this.data1 = d.data;
+            this.date = d.date;
+          });
+        } else {
+          this.data1 = [0,0,0,0,0,0,0];
+        }
+        const bbb = data.filter((e) => e.AlertLevel === "2");
+        if (bbb.length) {
+          bbb.map((d) => {
+            this.data2 = d.data;
+            this.date = d.date;
+          });
+        } else {
+          this.data2 = [0,0,0,0,0,0,0];
+        }
+        const ccc = data.filter((e) => e.AlertLevel === "3");
+        if (ccc.length) {
+          ccc.map((d) => {
+            this.data3 = d.data;
+            this.date = d.date;
+          });
+        } else {
+          this.data3 = [0,0,0,0,0,0,0];
+        }
+        const ddd = data.filter((e) => e.AlertLevel === "4");
+        if (ddd.length) {
+          ddd.map((d) => {
+            this.data4 = d.data;
+            this.date = d.date;
+          });
+        } else {
+          this.data4 = [0,0,0,0,0,0,0];
+        }
+        const eee = data.filter((e) => e.AlertLevel === "5");
+        if (eee.length) {
+          eee.map((d) => {
+            this.data5 = d.data;
+            this.date = d.date;
+          });
+        } else {
+          this.data5 = [0,0,0,0,0,0,0];
+        }
+      } else {
+        this.data1 = [];
+        this.data2 = [];
+        this.data3 = [];
+        this.data4 = [];
+        this.data5 = [];
+      }
+      return [this.data1, this.data2, this.data3, this.data4, this.data5];
+    },
     async getData() {
       switch (this.name) {
         case "Jiangwoodcreep":
@@ -326,19 +382,19 @@ export default {
          case "equipment":
           //  await equipmentIineData(this.queryEquipmentParms).then(({ data }) => {
           //   this.hasData = data;
-          //   this.data1 = this.transDicData(data)[0];
-          //   this.data2 = this.transDicData(data)[1];
-          //   this.data3 = this.transDicData(data)[2];
-          //   this.data4 = this.transDicData(data)[3];
-          //   this.data5 = this.transDicData(data)[4];
+          //   this.data1 = this.transDicDataDevice(data)[0];
+          //   this.data2 = this.transDicDataDevice(data)[1];
+          //   this.data3 = this.transDicDataDevice(data)[2];
+          //   this.data4 = this.transDicDataDevice(data)[3];
+          //   this.data5 = this.transDicDataDevice(data)[4];
           // });
           this.hasData = [ 332, 601, 834, 590, 930, 1010, 666];
-          this.data1 = [ 632, 701, 1134, 890, 430, 210, 777];
-          this.data2 = [ 332, 511, 134, 690, 830, 910, 888];
-          this.data3 = [ 132, 201, 704, 590, 930, 310, 999];
-          this.data4 = [ 32, 101, 94, 590, 930, 10, 555];
-          this.data5 = [ 332, 601, 834, 590, 930, 610, 333];
-          this.date = ['2022/5/13','2022/5/14','2022/5/15','2022/5/16','2022/5/17','2022/5/18','2022/5/19'];
+          this.data1 = [ 32, 11, 34, 90, 30, 10, 77];
+          this.data2 = [ 10, 25, 13, 16, 26, 23, 30];
+          this.data3 = [ 8, 12, 20, 17, 16, 23, 15];
+          this.data4 = [ 2, 1, 4, 50, 9, 1, 5];
+          this.data5 = [ 32, 61, 83, 59, 93, 61, 33];
+          this.date = ['2022/7/24','2022/7/25','2022/7/26','2022/7/27','2022/7/28','2022/7/29','2022/7/30'];
           break;
           // 主机安全管理和异常行为管理，事件趋势分析都展示30天数据，用同一个接口
         case "abnormal":
