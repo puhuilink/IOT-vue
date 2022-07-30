@@ -160,9 +160,9 @@
         :show-overflow-tooltip="true"
       />
       <el-table-column
-        label="设备名称"
+        label="设备SN号"
         align="center"
-        prop="_source.deviceName"
+        prop="_source.deviceSn"
         :show-overflow-tooltip="true"
       />
       <el-table-column

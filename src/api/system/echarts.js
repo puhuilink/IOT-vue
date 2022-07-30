@@ -59,14 +59,14 @@ export function eventEsHostData(query) {
     params: query
   })
 }
-//设备管理---事件趋势分析
-// export function equipmentIineData(query) {
-//   return request({
-//     url: '/event/eventMappingTO/getTestEventIds',
-//     method: 'post',
-//     params: query
-//   })
-// }
+// 设备管理---事件趋势分析
+export function equipmentIineData(query) {
+  return request({
+    url: '/iot/statisticsAndAnalysis/alertLevel',
+    method: 'get',
+    params: query
+  })
+}
 /** ****************************************************************************
  * 事件管理
  ******************************************************************************/

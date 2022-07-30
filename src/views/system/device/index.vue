@@ -39,9 +39,9 @@
               </el-form-item>
             </el-col>
             <el-col :span="6">
-              <el-form-item label="设备状态：" prop="deviceName">
+              <el-form-item label="设备状态：" prop="status">
                 <el-select
-                  v-model="queryParams.categoryId"
+                  v-model="queryParams.status"
                   placeholder="请选择设备状态"
                   clearable
                   :style="{ width: '100%' }"
@@ -50,7 +50,7 @@
                     v-for="(item, index) in categoryDeviceStatus"
                     :key="index"
                     :label="item.label"
-                    :value="item.label"
+                    :value="item.value"
                   />
                 </el-select>
               </el-form-item>
@@ -170,13 +170,30 @@
         @selection-change="handleSelectionChange"
       >
         <el-table-column type="selection" width="45" align="center" />
-        <el-table-column label="设备名称" align="center" prop="deviceName" :show-overflow-tooltip="true" />
+        <!-- <el-table-column label="设备名称" align="center" prop="deviceName" :show-overflow-tooltip="true" /> -->
         <el-table-column label="设备类型" align="center" prop="deviceType" :show-overflow-tooltip="true"/>
-        <el-table-column label="设备状态" align="center" prop="status" :show-overflow-tooltip="true"/>
+        <!-- <el-table-column label="设备状态" align="center" prop="status" :show-overflow-tooltip="true"/> -->
+        <el-table-column
+          label="设备状态"
+          align="center"
+          prop="status"
+        >
+          <template #default="scope">
+            <span>{{ transTypeDic(scope.row.status) }}</span>
+          </template>
+        </el-table-column>
         <el-table-column
           label="授权状态"
           align="center"
           prop="authorizationType"
+          :show-overflow-tooltip="true"
+        />
+        <el-table-column label="证书序列号" align="center" prop="certificateSerialNumber" :show-overflow-tooltip="true"/>
+        <el-table-column label="签名算法" align="center" prop="signatureAlgorithm" :show-overflow-tooltip="true"/>
+        <el-table-column
+          label="使用者"
+          align="center"
+          prop="deviceUsers"
           :show-overflow-tooltip="true"
         />
         <el-table-column label="设备IP" align="center" prop="networkIp" :show-overflow-tooltip="true"/>
@@ -186,7 +203,7 @@
         </template>
       </el-table-column> -->
         <el-table-column label="设备SN号" align="center" prop="deviceSn" :show-overflow-tooltip="true"/>
-        <el-table-column
+        <!-- <el-table-column
           label="硬件版本号"
           align="center"
           prop="versionNumber"
@@ -198,15 +215,15 @@
           align="center"
           prop="romVersionNumber"
           :show-overflow-tooltip="true"
-        />
+        /> -->
         <el-table-column label="区域" align="center" prop="networkAddress" :show-overflow-tooltip="true"/>
         <el-table-column label="负责人" align="center" prop="username" :show-overflow-tooltip="true"/>
-        <el-table-column
+        <!-- <el-table-column
           label="最后活跃时间"
           align="center"
           prop="lastActiveTime"
           :show-overflow-tooltip="true"
-        />
+        /> -->
         <!-- <el-table-column
         label="最后活跃时间"
         align="center"
@@ -793,6 +810,41 @@
             <el-col :span="8">
               <el-form-item label="最后活跃时间 :">
                 {{ detailData.lastActiveTime }}
+              </el-form-item>
+            </el-col>
+          </el-row>
+        </el-form>
+         <div class="information">证书信息</div>
+        <el-form
+          ref="form"
+          label-width="90px"
+          label-position="left"
+          class="label-type"
+        >
+          <el-row>
+            <el-col :span="8">
+              <el-form-item label="证书序列号 :">
+                {{ detailData.certificateSerialNumber }}
+              </el-form-item>
+            </el-col>
+            <el-col :span="8">
+              <el-form-item label="签名算法 :">
+                <tooltip :content="detailData.signatureAlgorithm" :length="40" />
+              </el-form-item>
+            </el-col>
+            <el-col :span="8">
+              <el-form-item label="颁发者 :">
+                {{ detailData.issuer }}
+              </el-form-item>
+            </el-col>
+            <el-col :span="8">
+              <el-form-item label="使用者 :">
+                {{ detailData.deviceUsers }}
+              </el-form-item>
+            </el-col>
+            <el-col :span="16">
+              <el-form-item label="证书有效期 :">
+                {{ detailData.certificateStartTime }}--- {{ detailData.certificateEndTime }}
               </el-form-item>
             </el-col>
           </el-row>
@@ -1772,11 +1824,11 @@ export default {
       categoryDeviceStatus: [
         {
           label: "在线",
-          value: "在线",
+          value: 3,
         },
         {
           label: "异常",
-          value: "异常",
+          value: 4,
         },
       ],
       categoryDeviceAuthorizationState: [
@@ -2094,6 +2146,24 @@ export default {
     handleUpgrade() {
       this.promptMessageDialog = true;
       this.getList();
+    },
+     transTypeDic(val) {
+      var t = [
+        {
+          name: 3,
+          content: "在线",
+        },
+        {
+          name: 4,
+          content: "异常",
+        },
+      ];
+      const orgTreeData1 = t
+        .filter((e) => e.name === val)
+        .map(({ content }) => ({
+          content,
+        }));
+      return `${orgTreeData1[0].content}`;
     },
     /** 修改按钮操作 */
     async handleUpdate(id) {
