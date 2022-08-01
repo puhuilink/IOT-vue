@@ -652,7 +652,7 @@
           <div class="text-wrapper_8 flex-row"><span class="text_26">数据安全</span></div>
           <div class="box_32 flex-row justify-between">
                   <a
-            href="https://10.201.31.101:50089/"
+            href="http://10.1.13.118:8001/security/dataSafe/table"
             target="_blank"
           >
             <div class="image-text_36 flex-col justify-between">
@@ -665,7 +665,7 @@
             </div>
 </a>
    <a
-            href="https://10.201.31.101:50089/"
+            href="http://10.1.13.118:8001/security/dataSafe/table"
             target="_blank"
           >
             <div class="image-text_37 flex-col justify-between">
@@ -687,7 +687,7 @@
             </div>
 </a>
  <a
-          href="https://10.201.31.101:50089/"
+          href="http://10.1.13.118:8001/security/dataSafe/table"
           target="_blank"
         >
             <div class="image-text_39 flex-col justify-between">
