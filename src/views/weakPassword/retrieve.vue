@@ -79,9 +79,9 @@
               </el-form-item>
             </el-col>
             <el-col :span="6">
-              <el-form-item label="IP地址:" prop="detail_src_ip">
+              <el-form-item label="IP地址:" prop="ev_com_socket_dst_ip">
                 <el-input
-                  v-model.trim="queryParams.detail_src_ip"
+                  v-model.trim="queryParams.ev_com_socket_dst_ip"
                   placeholder="请输入IP地址"
                   clearable
                   :style="{ width: '100%' }"
@@ -139,7 +139,7 @@
         <el-table-column
           label="IP地址"
           align="center"
-          prop="_source.detail_src_ip"
+          prop="_source.ev_com_socket_dst_ip"
           :show-overflow-tooltip="true"
           min-width="15%"
         />
@@ -357,7 +357,7 @@
           <el-row>
             <el-col :span="8">
               <el-form-item label="IP地址 :">
-                {{ detailData.detail_src_ip }}
+                {{ detailData.ev_com_socket_dst_ip }}
               </el-form-item>
             </el-col>
             <el-col :span="8">
@@ -586,10 +586,11 @@ export default {
       // 查询参数
       queryParams: {
         event_name: "",
+        ci_label:"",
         location: "",
         severity: "",
         procedure: "",
-        detail_src_ip: "",
+        ev_com_socket_dst_ip: "",
         ev_com_socket_protocol: "",
         date: [],
       },
@@ -610,7 +611,7 @@ export default {
         level: [],
         type: [],
         area: [],
-        detail_src_ip: [],
+        ev_com_socket_dst_ip: [],
         ip: [],
         newip: [],
         equipment: [],
@@ -843,6 +844,8 @@ export default {
     async getTableList() {
       this.addQuery(this.query, "event_name", this.queryParams.event_name);
 
+      this.addQuery(this.query, "ci_label", this.queryParams.ci_label);
+
       this.addQuery(this.query, "location", this.queryParams.location);
 
       this.addQuery(this.query, "severity", this.queryParams.severity);
@@ -851,8 +854,8 @@ export default {
 
       this.addQuery(
         this.query,
-        "detail_src_ip",
-        this.queryParams.detail_src_ip
+        "ev_com_socket_dst_ip",
+        this.queryParams.ev_com_socket_dst_ip
       );
 
       this.addQuery(
@@ -1128,7 +1131,7 @@ export default {
         location: "",
         severity: "",
         procedure: "",
-        detail_src_ip: "",
+        ev_com_socket_dst_ip: "",
         ev_com_socket_protocol: "",
         date: [],
       };

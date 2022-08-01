@@ -98,9 +98,9 @@
               </el-form-item>
             </el-col> -->
             <el-col :span="6">
-              <el-form-item label="IP：" prop="detail_src_ip">
+              <el-form-item label="IP：" prop="detail_dst_ip">
                 <el-input
-                  v-model="queryParams.detail_src_ip"
+                  v-model="queryParams.detail_dst_ip"
                   placeholder="请输入IP"
                   clearable
                   :style="{ width: '100%' }"
@@ -164,7 +164,7 @@
       <el-table-column
         label="IP"
         align="center"
-        prop="_source.detail_src_ip"
+        prop="_source.detail_dst_ip"
         :show-overflow-tooltip="true"
         min-width="10%"
       />
@@ -283,7 +283,7 @@
           </el-col>
           <el-col :span="12">
             <el-form-item label="IP :">
-              {{ detailData.detail_src_ip }}
+              {{ detailData.detail_dst_ip }}
             </el-form-item>
           </el-col>
           <el-col :span="12">
@@ -497,7 +497,7 @@ export default {
       queryParams: {
         event_name: "",
         severity: "",
-        detail_src_ip: "",
+        detail_dst_ip: "",
         ev_wsec_scce_scc_result: "",
         occur_time: "",
         location: "",
@@ -522,7 +522,7 @@ export default {
         type: [],
         area: [],
         agreement: [],
-        detail_src_ip: [],
+        detail_dst_ip: [],
         newip: [],
         equipment: [],
         date: [],
@@ -728,8 +728,8 @@ export default {
       this.addQuery(this.querys.query, "severity", this.queryParams.severity);
       this.addQuery(
         this.querys.query,
-        "detail_src_ip",
-        this.queryParams.detail_src_ip
+        "detail_dst_ip",
+        this.queryParams.detail_dst_ip
       );
       this.addQuery(
         this.querys.query,
@@ -981,7 +981,7 @@ export default {
       this.queryParams = {
         event_name: "",
         severity: "",
-        detail_src_ip: "",
+        detail_dst_ip: "",
         ev_wsec_scce_scc_result: "",
         occur_time: "",
         location: "",

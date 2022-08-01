@@ -50,7 +50,7 @@
                 </el-select>
               </el-form-item>
             </el-col>
-            <el-col :span="6">
+            <!-- <el-col :span="6">
               <el-form-item label="风险等级:" prop="riskLevel">
                 <el-select
                   v-model="queryParams.riskLevel"
@@ -68,7 +68,7 @@
                   />
                 </el-select>
               </el-form-item>
-            </el-col>
+            </el-col> -->
             <el-col :span="6">
               <el-form-item label="负责人:" prop="leader">
                 <el-input
@@ -91,7 +91,7 @@
                     v-for="(item, index) in levelOptions"
                     :key="index"
                     :label="item.label"
-                    :value="item.value"
+                    :value="item.label"
                     :disabled="item.disabled"
                   />
                 </el-select>
@@ -99,7 +99,7 @@
             </el-col>
             <el-col :span="6">
               <el-form-item label="资产类型:" prop="assetType ">
-                <el-select
+                <!-- <el-select
                   v-model="queryParams.assetType"
                   placeholder="请选择资产类型"
                   filterable
@@ -113,10 +113,15 @@
                     :value="item.value"
                     :disabled="item.disabled"
                   />
-                </el-select>
+                </el-select> -->
+                <el-input
+                  v-model="queryParams.assetType"
+                  placeholder="请输入资产类型"
+                  clearable
+                />
               </el-form-item>
             </el-col>
-            <el-col :span="18">
+            <el-col :span="24">
               <div class="btn">
                 <el-form-item>
                   <el-button type="primary" size="mini" @click="btnQuery"
@@ -898,6 +903,10 @@ export default {
       // 分组表格数据
       groupList: [],
       queryParams: {
+        region:"",
+        leader:"",
+        eventLevel:"",
+        assetType:"",
         pageNum: 1,
         pageSize: 10,
       },
@@ -1228,6 +1237,7 @@ export default {
 <style lang="scss" scoped>
 .box-card {
   margin-bottom: 20px;
+  height:120px;
    position: relative;
   .btn{
     position: absolute;

@@ -1,5 +1,6 @@
 <template>
   <div>
+    <el-card class="box-card">
     <el-row :gutter="30">
       <el-col :span="5">
         <div class="AssetsBox">
@@ -50,6 +51,7 @@
         <eventTrend :name="'equipment'" :tipname="'事件趋势分析'" />
       </div>
     </div>
+    </el-card>
   </div>
 </template>
 <script>
@@ -534,6 +536,8 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.box-card{
+  margin: 20px;
 .AssetsBox {
   background: linear-gradient(180deg, #4fa8e7 0%, #3570d4 100%);
   .Assets {
@@ -707,12 +711,14 @@ export default {
 //   }
 // }
 .boxContent {
+  padding-top:10px;
   height: 900px;
   .left {
     float: left;
     width: 50%;
     height: 900px;
-    padding-left:30px;
+    padding-left:5px;
+    padding-right:5px;
     // background-color: #ffff77;
    
     .container {
@@ -728,4 +734,6 @@ export default {
     // background-color:aqua;
   }
 }
+}
+
 </style>

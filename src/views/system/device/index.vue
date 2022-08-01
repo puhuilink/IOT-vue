@@ -744,12 +744,13 @@
           <el-row>
             <el-col :span="8">
               <el-form-item label="设备名称 :">
-                {{ detailData.deviceName }}
+                <tooltip :content="detailData.deviceName" :length="10" />
+                <!-- {{ detailData.deviceName }} -->
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item label="设备类型 :">
-                <tooltip :content="detailData.deviceType" :length="40" />
+                <tooltip :content="detailData.deviceType" :length="5" />
               </el-form-item>
             </el-col>
             <el-col :span="8">
@@ -817,7 +818,7 @@
          <div class="information">证书信息</div>
         <el-form
           ref="form"
-          label-width="90px"
+          label-width="120px"
           label-position="left"
           class="label-type"
         >
@@ -844,7 +845,7 @@
             </el-col>
             <el-col :span="16">
               <el-form-item label="证书有效期 :">
-                {{ detailData.certificateStartTime }}--- {{ detailData.certificateEndTime }}
+                {{ detailData.certificateStartTime }} 至 {{ detailData.certificateEndTime }}
               </el-form-item>
             </el-col>
           </el-row>
@@ -1979,6 +1980,7 @@ export default {
         this.detailOpenDialog = true;
         this.title = "设备详情";
         this.detailData = data;
+         this.detailData.status = this.transTypeDic(this.detailData.status);
       });
       await interfacePropertiesDetail(id).then(({ data }) => {
         console.log("data-7-20", data);
