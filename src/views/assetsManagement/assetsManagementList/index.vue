@@ -98,30 +98,24 @@
               </el-form-item>
             </el-col>
             <el-col :span="6">
-              <el-form-item label="资产类型:" prop="assetType ">
-                <!-- <el-select
-                  v-model="queryParams.assetType"
-                  placeholder="请选择资产类型"
-                  filterable
-                  clearable
-                  :style="{ width: '100%' }"
-                >
-                  <el-option
-                    v-for="(item, index) in assetTypeOptions"
-                    :key="index"
-                    :label="item.label"
-                    :value="item.value"
-                    :disabled="item.disabled"
-                  />
-                </el-select> -->
+              <el-form-item label="IP地址:" prop="ipAddress ">
                 <el-input
-                  v-model="queryParams.assetType"
-                  placeholder="请输入资产类型"
+                  v-model="queryParams.ipAddress"
+                  placeholder="请输入IP地址"
                   clearable
                 />
               </el-form-item>
             </el-col>
-            <el-col :span="24">
+            <el-col :span="6">
+              <el-form-item label="资产名称:" prop="assetName ">
+                <el-input
+                  v-model="queryParams.assetName"
+                  placeholder="请输入资产名称"
+                  clearable
+                />
+              </el-form-item>
+            </el-col>
+            <el-col :span="18">
               <div class="btn">
                 <el-form-item>
                   <el-button type="primary" size="mini" @click="btnQuery"
@@ -502,7 +496,7 @@
             />
           </el-form-item>
           <el-row>
-            <el-col :span="24">
+            <el-col :span="18">
               <el-form-item label="区域 :" prop="region">
                 <el-select
                   v-model="formData.region"
@@ -906,7 +900,8 @@ export default {
         region:"",
         leader:"",
         eventLevel:"",
-        assetType:"",
+        ipAddress:"",
+        assetName:"",
         pageNum: 1,
         pageSize: 10,
       },
