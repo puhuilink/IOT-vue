@@ -33,17 +33,17 @@
                   <el-option
                     v-for="(item, index) in interceptOptions"
                     :key="index"
-                    :label="item.label"
-                    :value="item.label"
+                    :label="item.value"
+                    :value="item.value"
                     :disabled="item.disabled"
                   />
                 </el-select>
               </el-form-item>
             </el-col>
             <el-col :span="6">
-              <el-form-item label="Web名称：" prop="userName">
+              <el-form-item label="Web名称：" prop="evQaxWppeWebname">
                 <el-input
-                  v-model="queryParams.detail_dst_ip"
+                  v-model="queryParams.evQaxWppeWebname"
                   placeholder="请输入Web名称"
                   clearable
                   :style="{ width: '100%' }"
@@ -54,10 +54,10 @@
             <el-col :span="6">
               <el-form-item
                 label="拦截的文件名称："
-                prop="ev_wsec_infe_application_layer_protocol"
+                prop="evQaxWppeFile"
               >
                 <el-input
-                  v-model="queryParams.ev_wsec_infe_application_layer_protocol"
+                  v-model="queryParams.evQaxWppeFile"
                   placeholder="请输入拦截的文件名称"
                   clearable
                   :style="{ width: '100%' }"
@@ -124,7 +124,7 @@
             <el-col :span="6">
               <el-form-item label="发生时间：" prop="date">
                 <el-date-picker
-                  v-model="queryParams.date"
+                  v-model="rangeTime"
                   size="small"
                   type="daterange"
                   value-format="yyyy-MM-dd"
@@ -133,6 +133,7 @@
                   range-separator="至"
                   clearable
                   :style="{ width: '100%' }"
+                  @change="setTimeList"
                 />
               </el-form-item>
             </el-col>
@@ -365,13 +366,13 @@
               </el-form-item>
             </el-col>
             <el-col :span="12">
-              <el-form-item label="Web名称：" prop="aimIp">
-                <tooltip :content="detailData.detail_dst_ip" :length="20" />
+              <el-form-item label="Web名称：" prop="evQaxWppeWebname">
+                <tooltip :content="detailData.evQaxWppeWebname" :length="20" />
               </el-form-item>
             </el-col>
             <el-col :span="12">
-              <el-form-item label="拦截的文件名称：" prop="ev_qax_wppe_file">
-                <tooltip :content="detailData.ev_qax_wppe_file" :length="20" />
+              <el-form-item label="拦截的文件名称：" prop="evQaxWppeFile">
+                <tooltip :content="detailData.evQaxWppeFile" :length="20" />
               </el-form-item>
             </el-col>
             <el-col :span="12">
@@ -542,6 +543,8 @@ export default {
         pageSize: 10,
         evQaxWppeDevicename: "",
         evQaxWppeAttack: "",
+        evQaxWppeWebname:"",
+        evQaxWppeFile:"",
         ev_wsec_infe_application_layer_protocol: "",
         disposalStatus: "",
         location: "",
@@ -567,15 +570,15 @@ export default {
       interceptOptions: [
         {
           label: "增加",
-          value: "增加",
+          value: "add",
         },
         {
           label: "删除",
-          value: "删除",
+          value: "delete",
         },
         {
           label: "修改",
-          value: "修改",
+          value: "modify",
         },
       ],
       levelOptions: [

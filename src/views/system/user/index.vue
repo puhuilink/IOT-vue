@@ -198,14 +198,14 @@
             prop="dept.deptName"
             :show-overflow-tooltip="true"
           />
-          <el-table-column
+          <!-- <el-table-column
             v-if="columns[4].visible"
             key="phonenumber"
             label="手机号码"
             align="center"
             prop="phonenumber"
             width="120"
-          />
+          /> -->
           <el-table-column
             v-if="columns[5].visible"
             key="status"
