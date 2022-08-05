@@ -408,7 +408,7 @@
               </el-form-item>
             </el-col>
             <el-col :span="12">
-              <el-form-item label="源设备：">
+              <el-form-item label="源设备：" prop="ev_com_socket_src_hostname">
                 <tooltip
                   :content="detailData.ev_com_socket_src_hostname"
                   :length="20"
@@ -424,7 +424,7 @@
               </el-form-item>
             </el-col>
             <el-col :span="12">
-              <el-form-item label="源MAC：">
+              <el-form-item label="源MAC：" prop="ev_com_link_src_mac">
                 <tooltip
                   :content="detailData.ev_com_link_src_mac"
                   :length="20"
@@ -432,12 +432,12 @@
               </el-form-item>
             </el-col>
             <el-col :span="12">
-              <el-form-item label="目的IP：" prop="aimIp">
+              <el-form-item label="目的IP：" prop="detail_dst_ip">
                 <tooltip :content="detailData.detail_dst_ip" :length="20" />
               </el-form-item>
             </el-col>
             <el-col :span="12">
-              <el-form-item label="目的MAC：" prop="field106">
+              <el-form-item label="目的MAC：" prop="ev_com_link_dst_mac">
                 <tooltip
                   :content="detailData.ev_com_link_dst_mac"
                   :length="20"
@@ -445,7 +445,7 @@
               </el-form-item>
             </el-col>
             <el-col :span="12">
-              <el-form-item label="目的设备：" prop="field107">
+              <el-form-item label="目的设备：" prop="ev_com_socket_dst_hostname">
                 <tooltip
                   :content="detailData.ev_com_socket_dst_hostname"
                   :length="20"
@@ -453,7 +453,7 @@
               </el-form-item>
             </el-col>
             <el-col :span="12">
-              <el-form-item label="目的端口：" prop="aimPort">
+              <el-form-item label="目的端口：" prop="ev_com_socket_dst_port">
                 <tooltip
                   :content="detailData.ev_com_socket_dst_port"
                   :length="20"
@@ -461,7 +461,7 @@
               </el-form-item>
             </el-col>
             <el-col :span="12">
-              <el-form-item label="传输层协议：" prop="transportProtocol">
+              <el-form-item label="传输层协议：" prop="ev_wsec_inpa_transport_layer_protocol">
                 <tooltip
                   :content="detailData.ev_wsec_inpa_transport_layer_protocol"
                   :length="20"
@@ -480,17 +480,17 @@
               </el-form-item>
             </el-col>
             <el-col :span="12">
-              <el-form-item label="事件级别：" prop="level">
+              <el-form-item label="事件级别：" prop="severity">
                 <tooltip :content="detailData.severity" :length="20" />
               </el-form-item>
             </el-col>
             <el-col :span="12">
-              <el-form-item label=" 事件类型：" prop="type">
+              <el-form-item label=" 事件类型：" prop="event_format">
                 <tooltip :content="detailData.event_format" :length="20" />
               </el-form-item>
             </el-col>
             <el-col :span="12">
-              <el-form-item label="发生时间：" prop="happen">
+              <el-form-item label="发生时间：" prop="occur_time">
                 <tooltip :content="detailData.occur_time" :length="20" />
               </el-form-item>
             </el-col>
@@ -500,7 +500,7 @@
               </el-form-item>
             </el-col>
             <el-col :span="12">
-              <el-form-item label="智能监测终端IP：" prop="field115">
+              <el-form-item label="智能监测终端IP：" prop="ev_wsec_inpa_monitor_terminal_ip">
                 <tooltip
                   :content="detailData.ev_wsec_inpa_monitor_terminal_ip"
                   :length="20"
