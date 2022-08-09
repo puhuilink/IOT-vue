@@ -139,7 +139,16 @@ export function GatewayNumberList(query) {
 // 设备安全统计与分析--- 中国地图
 export function mapDataList(query) {
   return request({
-    url: 'iot/statisticsAndAnalysis/selectLongitudeAndLatitude',
+    url: '/iot/statisticsAndAnalysis/selectLongitudeAndLatitude',
+    method: 'get',
+    params: query
+  })
+}
+
+// 设备安全统计与分析--- 中国地图value
+export function mapDataValueList(query) {
+  return request({
+    url: '/iot/statisticsAndAnalysis/selectPlaceName',
     method: 'get',
     params: query
   })

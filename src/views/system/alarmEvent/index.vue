@@ -162,7 +162,7 @@
       <el-table-column
         label="设备SN号"
         align="center"
-        prop="_source.deviceSn"
+        prop="deviceSn"
         :show-overflow-tooltip="true"
       />
       <el-table-column
