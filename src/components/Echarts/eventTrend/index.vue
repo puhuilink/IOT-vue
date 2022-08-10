@@ -380,21 +380,21 @@ export default {
           this.date = ['2022/5/13','2022/5/14','2022/5/15','2022/5/16','2022/5/17'];
           break;
          case "equipment":
-          //  await equipmentIineData(this.queryEquipmentParms).then(({ data }) => {
-          //   this.hasData = data;
-          //   this.data1 = this.transDicDataDevice(data)[0];
-          //   this.data2 = this.transDicDataDevice(data)[1];
-          //   this.data3 = this.transDicDataDevice(data)[2];
-          //   this.data4 = this.transDicDataDevice(data)[3];
-          //   this.data5 = this.transDicDataDevice(data)[4];
-          // });
-          this.hasData = [ 332, 601, 834, 590, 930, 1010, 666];
-          this.data1 = [ 32, 11, 34, 90, 30, 10, 77];
-          this.data2 = [ 10, 25, 13, 16, 26, 23, 30];
-          this.data3 = [ 8, 12, 20, 17, 16, 23, 15];
-          this.data4 = [ 2, 1, 4, 50, 9, 1, 5];
-          this.data5 = [ 32, 61, 83, 59, 93, 61, 33];
-          this.date = ['2022/7/24','2022/7/25','2022/7/26','2022/7/27','2022/7/28','2022/7/29','2022/7/30'];
+           await equipmentIineData(this.queryEquipmentParms).then(({ data }) => {
+            this.hasData = data;
+            this.data1 = this.transDicDataDevice(data)[0];
+            this.data2 = this.transDicDataDevice(data)[1];
+            this.data3 = this.transDicDataDevice(data)[2];
+            this.data4 = this.transDicDataDevice(data)[3];
+            this.data5 = this.transDicDataDevice(data)[4];
+          });
+          // this.hasData = [ 332, 601, 834, 590, 930, 1010, 666];
+          // this.data1 = [ 32, 11, 34, 90, 30, 10, 77];
+          // this.data2 = [ 10, 25, 13, 16, 26, 23, 30];
+          // this.data3 = [ 8, 12, 20, 17, 16, 23, 15];
+          // this.data4 = [ 2, 1, 4, 50, 9, 1, 5];
+          // this.data5 = [ 32, 61, 83, 59, 93, 61, 33];
+          // this.date = ['2022/7/24','2022/7/25','2022/7/26','2022/7/27','2022/7/28','2022/7/29','2022/7/30'];
           break;
           // 主机安全管理和异常行为管理，事件趋势分析都展示30天数据，用同一个接口
         case "abnormal":

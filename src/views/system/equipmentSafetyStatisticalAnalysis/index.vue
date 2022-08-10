@@ -407,7 +407,7 @@ export default {
               trailLength: 0, //特效尾迹长度[0,1]值越大，尾迹越长重
               symbol: "arrow", //箭头图标
               symbolSize: 5, //图标大小
-              color: "#fcdd6e", // 图标颜色
+              color: "#8B4513", // 图标颜色
             },
             lineStyle: {
               normal: {
@@ -415,9 +415,9 @@ export default {
                 width: 0, //尾迹线条宽度
                 opacity: 0, //尾迹线条透明度
                 curveness: 0, //尾迹线条曲直度
-                // color: "#fcdd6e", // 飞线颜色
+                // color: "#8B4513", // 飞线颜色
               },
-              color: "#fcdd6e",
+              color: "#8B4513",
             },
             data: convertData(item[1]),
           },
@@ -430,7 +430,7 @@ export default {
               period: 4, //动画时间，值越小速度越快
               brushType: "stroke", //波纹绘制方式 stroke, fill
               scale: 8, //波纹圆环最大限制，值越大波纹越大
-              color: "#fcdd6e",
+              color: "#8B4513",
             },
             label: {
               normal: {
@@ -442,6 +442,7 @@ export default {
                   return params.data.name;
                 },
                 fontSize: 13,
+                color: "#8B4513",
               },
               emphasis: {
                 show: true,
@@ -454,7 +455,7 @@ export default {
             itemStyle: {
               normal: {
                 show: false,
-                color: "#fce182",
+                color: "#8B4513",
               },
             },
             data: item[1].map(function (dataItem) {
