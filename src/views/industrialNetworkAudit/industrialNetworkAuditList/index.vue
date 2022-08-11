@@ -652,6 +652,7 @@ export default {
   data() {
     return {
       from: 1,
+      number: 10,
       title: "",
       detailData: {},
       detailDialog: false,
@@ -952,7 +953,8 @@ export default {
 
       this.addQuery(this.query, "event_format", this.queryParams.event_format);
 
-      this.query.from = this.from - 1;
+      // this.query.from = this.from - 1;
+      this.query.from = this.from *10 - this.number ;
 
       if (this.queryParams.date.length > 0) {
         this.query.query.bool.must.push({

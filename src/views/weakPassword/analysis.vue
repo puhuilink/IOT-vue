@@ -17,7 +17,7 @@
       :name="'weakPassword'"
     />
     <el-col :span="24">
-      <tip :date="12"> 最新弱口令事件 </tip>
+      <tip :date="1"> 最新弱口令事件 </tip>
       <el-table
         :data="List"
         tooltip-effect="light"
