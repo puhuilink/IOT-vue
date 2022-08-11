@@ -191,29 +191,29 @@ export default {
     async getData() {
       switch (this.name) {
         case "weakPassword":
-           this.queryParms.query.bool.must = [
-              {
-                range: {
-                  occur_time: {
-                    gte: this.getdate(5)[0],
-                    lte: this.getdate(5)[1],
-                  },
-                },
-              },
-            ];
+          //  this.queryParms.query.bool.must = [
+          //     {
+          //       range: {
+          //         occur_time: {
+          //           gte: this.getdate(5)[0],
+          //           lte: this.getdate(5)[1],
+          //         },
+          //       },
+          //     },
+          //   ];
           await getWeakPasswordData(this.queryParms).then(({ data }) => {
             this.hasData = data.aggregations.field.buckets;
             this.data1 = this.transDic(data.aggregations.field.buckets);
-            this.queryParms.query.bool.must = [
-              {
-                range: {
-                  occur_time: {
-                    gte: this.getdate(5)[0],
-                    lte: this.getdate(5)[1],
-                  },
-                },
-              },
-            ];
+            // this.queryParms.query.bool.must = [
+            //   {
+            //     range: {
+            //       occur_time: {
+            //         gte: this.getdate(5)[0],
+            //         lte: this.getdate(5)[1],
+            //       },
+            //     },
+            //   },
+            // ];
           });
           break;
         case "statisticalSnalysis":
