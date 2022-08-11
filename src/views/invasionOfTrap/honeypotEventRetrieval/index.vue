@@ -561,6 +561,7 @@ export default {
   data() {
     return {
       from: 1,
+      number: 10,
       loading: false,
       detailData: {},
       // 分组表格数据
@@ -843,7 +844,8 @@ export default {
 
       this.addQuery(this.query, "procedure", this.queryParams.procedure);
 
-      this.query.from = this.from - 1;
+      // this.query.from = this.from - 1;
+      this.query.from = this.from *10 - this.number ;
       if (this.queryParams.date.length > 0) {
         this.query.query.bool.must.push({
           range: {

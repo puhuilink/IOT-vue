@@ -554,6 +554,7 @@ export default {
   data() {
     return {
       from: 1,
+      number: 10,
       loading: false,
       name: "测试",
       detailData: {},
@@ -864,7 +865,7 @@ export default {
         this.queryParams.ev_com_socket_protocol
       );
 
-      this.query.from = this.from - 1;
+      this.query.from = this.from *10 - this.number ;
       if (this.queryParams.date.length > 0) {
         this.query.query.bool.must.push({
           range: {
@@ -882,6 +883,18 @@ export default {
         this.List = res.data.hits.hits;
       });
     },
+    async getResetTableList() {
+     
+      this.query.from = 1 ;
+      this.form = 1
+      getWeakPasswordData(this.query).then((res) => {
+        this.query.query.bool.must = [];
+        this.groupList = [];
+        this.total = res.data.hits.total;
+        this.List = res.data.hits.hits;
+      });
+    },
+    
     transType(val) {
       var t = [
         {
@@ -1127,7 +1140,16 @@ export default {
     },
     resetForm() {
       this.queryParams = {
-        event_name: "",
+        // event_name: "",
+        // location: "",
+        // severity: "",
+        // procedure: "",
+        // ev_com_socket_dst_ip: "",
+        // ev_com_socket_protocol: "",
+        // date: [],
+
+         event_name: "",
+        ci_label:"",
         location: "",
         severity: "",
         procedure: "",
@@ -1135,7 +1157,9 @@ export default {
         ev_com_socket_protocol: "",
         date: [],
       };
-      this.getTableList();
+      this.form = 1
+      // this.query.form = 1
+      this.getResetTableList();
     },
     async detail(row) {
       // const { data } = await WeakPasswordDetail(id)

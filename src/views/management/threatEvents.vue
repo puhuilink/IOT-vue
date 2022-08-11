@@ -565,6 +565,7 @@ export default {
   data() {
     return {
       from: 1,
+      number: 10,
       loading: false,
       name: "测试",
       dataDetail: {},
@@ -872,7 +873,7 @@ export default {
 
       this.addQuery(this.query, "agent", this.queryParams.agent);
 
-      this.query.from = this.from - 1;
+     this.query.from = this.from *10 - this.number ;
       if (this.queryParams.date.length > 0) {
         this.query.query.bool.must.push({
           range: {

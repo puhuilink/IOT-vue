@@ -468,6 +468,7 @@ export default {
   data() {
     return {
       from: 1,
+      number: 10,
       loading: true,
       name: "测试",
       detailData: {},
@@ -747,7 +748,7 @@ export default {
         this.queryParams.location
       );
       this.addQuery(this.querys.query, "procedure", this.queryParams.procedure);
-      this.querys.from = this.from - 1;
+       this.querys.from = this.from *10 - this.number ;
       if (this.queryParams.date.length > 0) {
         this.querys.query.bool.must.push({
           range: {

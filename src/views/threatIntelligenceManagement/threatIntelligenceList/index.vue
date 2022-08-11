@@ -613,6 +613,7 @@ export default {
   data() {
     return {
       from: 1,
+      number: 10,
       loading: true,
       name: "测试",
       detailData: {},
@@ -993,7 +994,8 @@ export default {
         this.queryParams.ev_ksec_killchain
       );
 
-      this.query.from = this.from - 1;
+      // this.query.from = this.from - 1;
+      this.query.from = this.from *10 - this.number ;
       if (this.queryParams.date.length > 0) {
         this.query.query.bool.must.push({
           range: {
