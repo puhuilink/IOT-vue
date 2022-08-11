@@ -43,14 +43,14 @@ export default {
         query: {
           bool: {
             must: [
-              {
-                range: {
-                  occur_time: {
-                    gte: this.getdate(2)[0],
-                    lte: this.getdate(2)[1],
-                  },
-                },
-              },
+              // {
+              //   range: {
+              //     occur_time: {
+              //       gte: this.getdate(2)[0],
+              //       lte: this.getdate(2)[1],
+              //     },
+              //   },
+              // },
             ],
           },
         },
