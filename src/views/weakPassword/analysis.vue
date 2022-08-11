@@ -1,17 +1,17 @@
 <template>
   <div class="app-container">
     <echarts @getquery="uploadData" />
-      <echartsa :tipname="'弱口令趋势分析'" :query="query"  :date="12" ></echartsa>
+    <echartsa :tipname="'弱口令趋势分析'" :query="query"  :date="1" ></echartsa>
     <echartsBar
       :tipname="'协议TOP5统计'"
-      :date="12"
+      :date="1"
       :detail="'detail_protocol'"
       :query="query"
       :name="'weakPassword'"
     />
     <echartsBar
       :tipname="'IP地址TOP5统计'"
-      :date="12"
+      :date="1"
       :detail="'detail_src_ip'"
       :query="query"
       :name="'weakPassword'"

@@ -84,7 +84,7 @@
        >
         <template #default="scope">
           <span>
-            {{ scope.row._source.ev_com_event_observe_time | moment }}
+            {{ scope.row._source.receive_time | moment }}
           </span>
         </template>
       </el-table-column>
