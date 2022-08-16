@@ -184,7 +184,7 @@
               referrerpolicy="no-referrer"
               src="./asset/img/picture_08.png" 
             />
-            <span class="info4">松通高速预制厂</span>
+            <span class="info4">中铁句容预制厂</span>
           </div>
 </a>
         </div></swiper-slide>
@@ -256,7 +256,7 @@
     <div class="box_7 flex-col">
       <div class="group_11 flex-row justify-between">
         <div class="section_1 flex-col"></div>
-        <span class="text_9">安全监测子平台</span>
+        <span class="text_9">安全监测</span>
       </div>
       <div class="group_12 flex-row justify-between">
         <div class="block_1 flex-col">
@@ -382,7 +382,7 @@
         </div>
         <div class="block_6 flex-col">
           <span class="text_14">数据安全</span>
-             <a href="http://10.1.13.118:8001/security/dataSafe/echarts" target="_blank">
+             <a href="https://10.201.30.40/search" target="_blank">
           <div class="image-text_12 flex-col justify-between">
             <div class="block_7 flex-col"></div>
             <span class="text-group_12">
@@ -413,7 +413,7 @@
       </div>
       <div class="group_18 flex-row justify-between">
         <div class="block_10 flex-col"></div>
-        <span class="text_16">综合管控子平台</span>
+        <span class="text_16">综合管控</span>
       </div>
       <div class="group_19 flex-row justify-between">
         <div class="box_16 flex-col">
@@ -505,7 +505,7 @@
         <div class="box_23 flex-col">
           <span class="text_20">安全通报</span>
           <div class="section_8 flex-row justify-between">
-             <a href="http://10.1.13.118:8001/safety/InformManagement" target="_blank">
+             <a href="http://10.1.13.30/" target="_blank">
             <div class="image-text_23 flex-col justify-between">
               <div class="group_21 flex-col"></div>
               <span class="text-group_23">安全通报</span>
@@ -528,10 +528,10 @@
               <span class="text-group_25">综合态势</span>
             </div>
             </a>
-             <a href="http://10.1.13.118:8001/assetsManagement/assetSecurityStatisticalAnalysis" target="_blank">
+             <a href="https://10.201.30.40/situation-awareness/home" target="_blank">
             <div class="image-text_26 flex-col justify-between">
               <div class="box_26 flex-col"></div>
-              <span class="text-group_26">资产态势</span>
+              <span class="text-group_26">全局态势</span>
             </div>
             </a>
           </div>
@@ -579,7 +579,7 @@
       </div>
       <div class="group_24 flex-row justify-between">
         <div class="block_13 flex-col"></div>
-        <span class="text_23">基础防护子平台</span>
+        <span class="text_23">基础防护</span>
       </div>
       <div class="group_25 flex-row justify-between">
         <div class="group_26 flex-col">
@@ -736,7 +736,7 @@
       </div>
       <div class="group_36 flex-row justify-between">
         <div class="group_37 flex-col"></div>
-        <span class="text_29">安全认证子平台</span>
+        <span class="text_29">安全认证</span>
       </div>
       <div class="group_38 flex-col">
         <div class="text-wrapper_9 flex-row"><span class="text_30">安全认证</span></div>
