@@ -505,13 +505,13 @@
         <div class="box_23 flex-col">
           <span class="text_20">安全通报</span>
           <div class="section_8 flex-row justify-between">
-             <a href="http://10.1.13.30/" target="_blank">
+             <a href="http://10.1.13.118:8001/safety/InformManagement" target="_blank">
             <div class="image-text_23 flex-col justify-between">
               <div class="group_21 flex-col"></div>
               <span class="text-group_23">安全通报</span>
             </div>
             </a>
-              <a href="http://10.1.19.52/portal/user/login" target="_blank">
+              <a href="http://10.1.13.30/" target="_blank">
             <div class="image-text_24 flex-col justify-between">
               <div class="group_22 flex-col"></div>
               <span class="text-group_24">通报管理</span>
