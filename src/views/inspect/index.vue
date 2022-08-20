@@ -650,8 +650,8 @@ export default {
           value: "山西三通燃气厂",
         },
         {
-          label: "中铁句容预制厂",
-          value: "中铁句容预制厂",
+          label: "松通高速预制厂",
+          value: "松通高速预制厂",
         },
         {
           label: "北京城乡水厂",
