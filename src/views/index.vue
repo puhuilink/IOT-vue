@@ -184,7 +184,7 @@
               referrerpolicy="no-referrer"
               src="./asset/img/picture_08.png" 
             />
-            <span class="info4">中铁句容预制厂</span>
+            <span class="info4">松通高速预制厂</span>
           </div>
 </a>
         </div></swiper-slide>
@@ -704,7 +704,7 @@
         <div class="group_33 flex-col">
           <span class="text_27">工业设备安全</span>
             <a
-            href=" https://123.60.135.63:8889/#/manage/v2/sso?ticket=d91c53aea100716097202d4c3a5ebd752feaf54940dd26d31de206aee261a4f2a068b7e8149f2d9f8446a26b45fe12af4ed535f64f55cc9389443a4b84d02f0f94bf2d634d078e1f73ea23fd2a4ac83878029bb561729e8c9cb5d57bf68771f2"
+            href="https://10.1.13.2:8889/#/manage/v2/sso?ticket=d91c53aea100716097202d4c3a5ebd752feaf54940dd26d31de206aee261a4f2a068b7e8149f2d9f8446a26b45fe12af4ed535f64f55cc9389443a4b84d02f0f94bf2d634d078e1f73ea23fd2a4ac83878029bb561729e8c9cb5d57bf68771f2"
             target="_blank"
           >  
           <div class="image-text_40 flex-col justify-between">
@@ -781,7 +781,7 @@
           </div>
 </a>
  <a
-            href="https://123.60.135.63:8889/#/manage/v2/sso?ticket=d91c53aea100716097202d4c3a5ebd752feaf54940dd26d31de206aee261a4f2a068b7e8149f2d9f8446a26b45fe12af4ed535f64f55cc9389443a4b84d02f0f94bf2d634d078e1f73ea23fd2a4ac83878029bb561729e8c9cb5d57bf68771f2"
+            href="https://10.1.13.2:8889/#/manage/v2/sso?ticket=d91c53aea100716097202d4c3a5ebd752feaf54940dd26d31de206aee261a4f2a068b7e8149f2d9f8446a26b45fe12af4ed535f64f55cc9389443a4b84d02f0f94bf2d634d078e1f73ea23fd2a4ac83878029bb561729e8c9cb5d57bf68771f2"
             target="_blank"
           >  
           <div class="image-text_45 flex-col justify-between">
