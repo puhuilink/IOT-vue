@@ -401,12 +401,12 @@
               {{ detailData.happenTime }}
             </el-form-item>
           </el-col>
-          <el-col :span="8">
+          <!-- <el-col :span="8">
             <el-form-item label="目标URL :">
               {{ detailData.targetUrl }}
             </el-form-item>
-          </el-col>
-          <el-col :span="8">
+          </el-col> -->
+          <!-- <el-col :span="8">
             <el-form-item label="发送者 :">
               {{ detailData.sender }}
             </el-form-item>
@@ -415,8 +415,8 @@
             <el-form-item label="接收者 :">
               {{ detailData.recipient }}
             </el-form-item>
-          </el-col>
-          <el-col :span="8">
+          </el-col> -->
+          <!-- <el-col :span="8">
             <el-form-item label="抄送人 :">
               {{ detailData.ccPeople }}
             </el-form-item>
@@ -425,7 +425,7 @@
             <el-form-item label="密送者 :">
               {{ detailData.secretSender }}
             </el-form-item>
-          </el-col>
+          </el-col> -->
           <el-col :span="8">
             <el-form-item label="源IP :">
               {{ detailData.sourceIp }}
@@ -446,11 +446,11 @@
               {{ detailData.macAddress }}
             </el-form-item>
           </el-col>
-          <el-col :span="8">
+          <!-- <el-col :span="8">
             <el-form-item label="域名 :">
               {{ detailData.domainName }}
             </el-form-item>
-          </el-col>
+          </el-col> -->
 
           <el-col :span="8">
             <el-form-item label="区域 :">

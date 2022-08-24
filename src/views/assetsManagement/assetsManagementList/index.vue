@@ -78,7 +78,7 @@
                 />
               </el-form-item>
             </el-col>
-            <el-col :span="6">
+            <!-- <el-col :span="6">
               <el-form-item label="事件等级:" prop="eventLevel">
                 <el-select
                   v-model="queryParams.eventLevel"
@@ -96,7 +96,7 @@
                   />
                 </el-select>
               </el-form-item>
-            </el-col>
+            </el-col> -->
             <el-col :span="6">
               <el-form-item label="IP地址:" prop="ipAddress ">
                 <el-input
@@ -220,24 +220,24 @@
                          align="center"
                          prop="assetType "
                          :show-overflow-tooltip="true" /> -->
-        <el-table-column
+        <!-- <el-table-column
           label="运行状态"
           align="center"
           prop="runState"
           :show-overflow-tooltip="true"
-        />
+        /> -->
         <!-- <el-table-column
           label="风险状态"
           align="center"
           prop="riskState"
           :show-overflow-tooltip="true"
         /> -->
-        <el-table-column
+        <!-- <el-table-column
           label="事件等级"
           align="center"
           prop="eventLevel"
           :show-overflow-tooltip="true"
-        />
+        /> -->
         <!-- <el-table-column
           label="资产标签"
           align="center"
@@ -696,21 +696,21 @@
           class="label-type"
         >
           <el-row>
-            <el-col :span="8">
+            <!-- <el-col :span="8">
               <el-form-item label="资产编号 :">
                 {{ dataDetails.name }}
               </el-form-item>
-            </el-col>
+            </el-col> -->
             <el-col :span="8">
               <el-form-item label="IP地址 :">
                 {{ dataDetails.ipAddress }}
               </el-form-item>
             </el-col>
-            <el-col :span="8">
+            <!-- <el-col :span="8">
               <el-form-item label="资产型号 :">
                 {{ dataDetails.assetModel }}
               </el-form-item>
-            </el-col>
+            </el-col> -->
             <el-col :span="8">
               <el-form-item label="资产名称 :">
                 {{ dataDetails.assetName }}
@@ -721,17 +721,17 @@
                 {{ dataDetails.assetType }}
               </el-form-item>
             </el-col>
-            <el-col :span="8">
+            <!-- <el-col :span="8">
               <el-form-item label="生产厂商 :">
                 {{ dataDetails.manufacturer }}
               </el-form-item>
-            </el-col>
-            <el-col :span="8">
+            </el-col> -->
+            <!-- <el-col :span="8">
               <el-form-item label="资产价值 :">
                 {{ dataDetails.assetValue }}
               </el-form-item>
-            </el-col>
-            <el-col :span="8">
+            </el-col> -->
+            <!-- <el-col :span="8">
               <el-form-item label="资产标签 :">
                 {{ dataDetails.assetTag }}
               </el-form-item>
@@ -740,13 +740,13 @@
               <el-form-item label="资产描述 :">
                 {{ dataDetails.Asset_description }}
               </el-form-item>
-            </el-col>
+            </el-col> -->
             <el-col :span="8">
               <el-form-item label="操作系统 :">
                 {{ dataDetails.assetDescription }}
               </el-form-item>
             </el-col>
-            <el-col :span="8">
+            <!-- <el-col :span="8">
               <el-form-item label="运行软件 :">
                 {{ dataDetails.runSoftware }}
               </el-form-item>
@@ -755,19 +755,19 @@
               <el-form-item label="数据库 :">
                 {{ dataDetails.db }}
               </el-form-item>
-            </el-col>
-            <el-col :span="8">
+            </el-col> -->
+            <!-- <el-col :span="8">
               <el-form-item label="风险状态 :">
                 {{ dataDetails.riskState }}
               </el-form-item>
-            </el-col>
+            </el-col> -->
 
             <el-col :span="8">
               <el-form-item label="运行状态 :">
                 {{ dataDetails.runState }}
               </el-form-item>
             </el-col>
-            <el-col :span="8">
+            <!-- <el-col :span="8">
               <el-form-item label="应用协议 :">
                 {{ dataDetails.applicationProtocol }}
               </el-form-item>
@@ -776,32 +776,32 @@
               <el-form-item label="风险协议 :">
                 {{ dataDetails.riskProtocol }}
               </el-form-item>
-            </el-col>
+            </el-col> -->
             <el-col :span="8">
               <el-form-item label="事件等级 :">
                 {{ dataDetails.eventLevel }}
               </el-form-item>
             </el-col>
-            <el-col :span="8">
+            <!-- <el-col :span="8">
               <el-form-item label="资产位置 :">
                 {{ dataDetails.assetLocation }}
               </el-form-item>
-            </el-col>
-            <el-col :span="8">
+            </el-col> -->
+            <!-- <el-col :span="8">
               <el-form-item label="威胁事件 :">
-                <!-- {{ dataDetails }} -->
+                {{ dataDetails }}
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item label="漏洞数量 :">
-                <!-- {{ dataDetails }} -->
+                {{ dataDetails }}
               </el-form-item>
-            </el-col>
-            <el-col :span="8">
+            </el-col> -->
+            <!-- <el-col :span="8">
               <el-form-item label="发现来源 :">
-                <!-- {{ dataDetails}} -->
+                {{ dataDetails}}
               </el-form-item>
-            </el-col>
+            </el-col> -->
             <el-col :span="8">
               <el-form-item label="负责人 :">
                 {{ dataDetails.leader }}
@@ -822,11 +822,11 @@
                 {{ dataDetails.whetherOutreach }}
               </el-form-item>
             </el-col>
-            <el-col :span="8">
+            <!-- <el-col :span="8">
               <el-form-item label="最后活跃时间 :">
-                <!-- {{ dataDetails.time }} -->
+                {{ dataDetails.time }}
               </el-form-item>
-            </el-col>
+            </el-col> -->
           </el-row>
         </el-form>
         <!-- <div class="information">资产分组</div>

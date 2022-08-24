@@ -453,11 +453,11 @@
                 {{ detailData.ev_com_socket_src_ip }}
               </el-form-item>
             </el-col>
-            <el-col :span="12">
+            <!-- <el-col :span="12">
               <el-form-item label="攻击者国家 :">
                 {{ detailData.ev_com_socket_src_ip_country }}
               </el-form-item>
-            </el-col>
+            </el-col> -->
             <el-col :span="12">
               <el-form-item label="目的IP :">
                 {{ detailData.ev_com_socket_dst_ip }}
@@ -469,11 +469,11 @@
               </el-form-item>
             </el-col>
 
-            <el-col :span="12">
+            <!-- <el-col :span="12">
               <el-form-item label="源端口 :">
                 {{ detailData.ev_com_socket_src_port }}
               </el-form-item>
-            </el-col>
+            </el-col> -->
             <el-col :span="12">
               <el-form-item label="目标端口 :">
                 {{ detailData.ev_com_socket_dst_port }}

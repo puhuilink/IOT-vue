@@ -100,7 +100,7 @@
               </el-form-item>
             </el-col>
             <el-col :span="6">
-              <el-form-item label="发生时间:" prop="date">
+              <el-form-item label="发现时间:" prop="date">
                 <el-date-picker
                   v-model.trim="queryParams.date"
                   size="small"
@@ -175,9 +175,9 @@
           min-width="8%"
         />
         <el-table-column
-          label="发生时间"
+          label="发现时间"
           align="center"
-          prop="_source.occur_time"
+          prop="_source.receive_time"
           :show-overflow-tooltip="true"
           min-width="15%"
         />
@@ -387,7 +387,7 @@
             </el-col>
             <el-col :span="8">
               <el-form-item label="发现时间 :">
-                {{ detailData.ev_com_event_observe_time | moment }}
+                {{ detailData.receive_time | moment }}
               </el-form-item>
             </el-col>
             <el-col :span="8">
@@ -395,12 +395,12 @@
                 {{ detailData.ci_label }}
               </el-form-item>
             </el-col>
-            <el-col :span="8">
+            <!-- <el-col :span="8">
               <el-form-item label="资产价值 :">
                 {{ detailData.assetValue }}
               </el-form-item>
-            </el-col>
-            <el-col :span="8">
+            </el-col> -->
+            <!-- <el-col :span="8">
               <el-form-item label="责任人 :">
                 {{ detailData.personLiable }}
               </el-form-item>
@@ -409,7 +409,7 @@
               <el-form-item label="部门 :">
                 {{ detailData.departmen }}
               </el-form-item>
-            </el-col>
+            </el-col> -->
             <el-col :span="8">
               <el-form-item label="区域 :">
                 {{ detailData.location }}
@@ -579,7 +579,7 @@ export default {
             must: [],
           },
         },
-        sort: [{ occur_time: { order: "desc" } }],
+        sort: [{ receive_time: { order: "desc" } }],
         from: 0,
         size: 10,
       },
@@ -869,7 +869,7 @@ export default {
       if (this.queryParams.date.length > 0) {
         this.query.query.bool.must.push({
           range: {
-            occur_time: {
+            receive_time: {
               gte: this.queryParams.date[0],
               lte: this.queryParams.date[1],
             },

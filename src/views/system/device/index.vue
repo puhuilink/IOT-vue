@@ -173,7 +173,7 @@
         <!-- <el-table-column label="设备名称" align="center" prop="deviceName" :show-overflow-tooltip="true" /> -->
         <el-table-column label="设备类型" align="center" prop="deviceType" :show-overflow-tooltip="true"/>
         <!-- <el-table-column label="设备状态" align="center" prop="status" :show-overflow-tooltip="true"/> -->
-        <el-table-column
+        <!-- <el-table-column
           label="设备状态"
           align="center"
           prop="status"
@@ -181,7 +181,7 @@
           <template #default="scope">
             <span>{{ transTypeDic(scope.row.status) }}</span>
           </template>
-        </el-table-column>
+        </el-table-column> -->
         <el-table-column
           label="授权状态"
           align="center"
