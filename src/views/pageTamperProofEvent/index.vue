@@ -349,7 +349,7 @@
             label-width="133px"
             class="label-type"
           >
-            <el-col :span="12">
+            <!-- <el-col :span="12">
               <el-form-item label="防护主机：" prop="ev_com_socket_src_port">
                 <tooltip
                   :content="detailData.ev_com_socket_src_port"
@@ -364,7 +364,7 @@
                   :length="20"
                 />
               </el-form-item>
-            </el-col>
+            </el-col> -->
             <el-col :span="12">
               <el-form-item label="Web名称：" prop="evQaxWppeWebname">
                 <tooltip :content="detailData.evQaxWppeWebname" :length="20" />

@@ -418,36 +418,36 @@
                 <tooltip :content="detailData.detail_src_ip" :length="20" />
               </el-form-item>
             </el-col>
-            <el-col :span="12">
+            <!-- <el-col :span="12">
               <el-form-item label="源设备：">
                 <tooltip
                   :content="detailData.ev_com_socket_src_hostname"
                   :length="20"
                 />
               </el-form-item>
-            </el-col>
-            <el-col :span="12">
+            </el-col> -->
+            <!-- <el-col :span="12">
               <el-form-item label="源端口：" prop="ev_com_socket_src_port">
                 <tooltip
                   :content="detailData.ev_com_socket_src_port"
                   :length="20"
                 />
               </el-form-item>
-            </el-col>
-            <el-col :span="12">
+            </el-col> -->
+            <!-- <el-col :span="12">
               <el-form-item label="源MAC：">
                 <tooltip
                   :content="detailData.ev_com_link_src_mac"
                   :length="20"
                 />
               </el-form-item>
-            </el-col>
+            </el-col> -->
             <el-col :span="12">
               <el-form-item label="目的IP：" prop="detail_dst_ip">
                 <tooltip :content="detailData.detail_dst_ip" :length="20" />
               </el-form-item>
             </el-col>
-            <el-col :span="12">
+            <!-- <el-col :span="12">
               <el-form-item label="目的MAC：" prop="field106">
                 <tooltip
                   :content="detailData.ev_com_link_dst_mac"
@@ -462,15 +462,15 @@
                   :length="20"
                 />
               </el-form-item>
-            </el-col>
-            <el-col :span="12">
+            </el-col> -->
+            <!-- <el-col :span="12">
               <el-form-item label="目的端口：" prop="aimPort">
                 <tooltip
                   :content="detailData.ev_com_socket_dst_port"
                   :length="20"
                 />
               </el-form-item>
-            </el-col>
+            </el-col> -->
             <el-col :span="12">
               <el-form-item label="传输层协议：" prop="transportProtocol">
                 <tooltip
@@ -523,14 +523,14 @@
                 />
               </el-form-item>
             </el-col>
-            <el-col :span="12">
+            <!-- <el-col :span="12">
               <el-form-item label="日志描述：" prop="receive_time">
                 <tooltip
                   :content="detailData.ev_wsec_event_comment"
                   :length="20"
                 />
               </el-form-item>
-            </el-col>
+            </el-col> -->
 
             <el-col :span="12">
               <el-form-item label="区域：" prop="location">
@@ -542,12 +542,12 @@
                 <tooltip :content="detailData.procedure" :length="20" />
               </el-form-item>
             </el-col>
-            <el-col :span="12">
+            <!-- <el-col :span="12">
               <el-form-item label="处理意见：">
                 <span>---</span>
-                <!-- <tooltip :content="detailData.procedure" :length="20" /> -->
+                <tooltip :content="detailData.procedure" :length="20" />
               </el-form-item>
-            </el-col>
+            </el-col> -->
           </el-form>
         </el-row>
         <div slot="footer" class="dialog-footer">
@@ -1418,7 +1418,7 @@ export default {
   }
 }
 .el-dialog-div {
-  height: 56vh;
+  height: 40vh;
   overflow: auto;
   overflow-x: hidden;
   border-top: 1px solid #ccc;

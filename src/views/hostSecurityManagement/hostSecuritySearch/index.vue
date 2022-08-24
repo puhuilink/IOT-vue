@@ -313,27 +313,27 @@
           <el-row>
             <el-col :span="12">
               <el-form-item label="接收时间 :">
-                {{ detailData.receive_time }}
+                {{ detailData.occur_time }}
               </el-form-item>
             </el-col>
-            <el-col :span="12">
+            <!-- <el-col :span="12">
               <el-form-item label="病毒类型 :">
                 <tooltip
                   :content="detailData.ev_wsec_hsme_virus_type"
                   :length="40"
                 />
               </el-form-item>
-            </el-col>
+            </el-col> -->
             <el-col :span="12">
               <el-form-item label="事件名称 :">
                 {{ detailData.event_format }}
               </el-form-item>
             </el-col>
-            <el-col :span="12">
+            <!-- <el-col :span="12">
               <el-form-item label="病毒名 :">
                 {{ detailData.ev_wsec_hsme_virus_name }}
               </el-form-item>
-            </el-col>
+            </el-col> -->
             <el-col :span="12">
               <el-form-item label="事件等级 :">
                 {{ detailData.severity }}
@@ -349,21 +349,21 @@
                 {{ detailData.event_format }}
               </el-form-item>
             </el-col>
-            <el-col :span="12">
+            <!-- <el-col :span="12">
               <el-form-item label="目的地址 :">
                 {{ detailData.ev_wsec_hsme_dst_addr }}
               </el-form-item>
-            </el-col>
+            </el-col> -->
             <el-col :span="12">
               <el-form-item label="客户端名称 :">
                 {{ detailData.ev_wsec_hsme_system_hostname }}
               </el-form-item>
             </el-col>
-            <el-col :span="12">
+            <!-- <el-col :span="12">
               <el-form-item label="公司名称 :">
                 {{ detailData.ev_wsec_hsme_process_app_vendor }}
               </el-form-item>
-            </el-col>
+            </el-col> -->
             <el-col :span="12">
               <el-form-item label="客户端IP :">
                 {{ detailData.ev_wsec_hsme_system_ip }}
@@ -379,11 +379,11 @@
                 {{ detailData.occur_time }}
               </el-form-item>
             </el-col>
-            <el-col :span="12">
+            <!-- <el-col :span="12">
               <el-form-item label="版本号 :">
                 {{ detailData.ev_wsec_hsme_process_app_version }}
               </el-form-item>
-            </el-col>
+            </el-col> -->
             <el-col :span="12">
               <el-form-item label="日志描述 :">
                 <tooltip :content="detailData.description" :length="20" />

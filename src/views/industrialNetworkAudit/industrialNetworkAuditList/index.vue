@@ -407,14 +407,14 @@
                 <tooltip :content="detailData.detail_src_ip" :length="20" />
               </el-form-item>
             </el-col>
-            <el-col :span="12">
+            <!-- <el-col :span="12">
               <el-form-item label="源设备：" prop="ev_com_socket_src_hostname">
                 <tooltip
                   :content="detailData.ev_com_socket_src_hostname"
                   :length="20"
                 />
               </el-form-item>
-            </el-col>
+            </el-col> -->
             <el-col :span="12">
               <el-form-item label="源端口：" prop="ev_com_socket_src_port">
                 <tooltip
@@ -423,35 +423,35 @@
                 />
               </el-form-item>
             </el-col>
-            <el-col :span="12">
+            <!-- <el-col :span="12">
               <el-form-item label="源MAC：" prop="ev_com_link_src_mac">
                 <tooltip
                   :content="detailData.ev_com_link_src_mac"
                   :length="20"
                 />
               </el-form-item>
-            </el-col>
+            </el-col> -->
             <el-col :span="12">
               <el-form-item label="目的IP：" prop="detail_dst_ip">
                 <tooltip :content="detailData.detail_dst_ip" :length="20" />
               </el-form-item>
             </el-col>
-            <el-col :span="12">
+            <!-- <el-col :span="12">
               <el-form-item label="目的MAC：" prop="ev_com_link_dst_mac">
                 <tooltip
                   :content="detailData.ev_com_link_dst_mac"
                   :length="20"
                 />
               </el-form-item>
-            </el-col>
-            <el-col :span="12">
+            </el-col> -->
+            <!-- <el-col :span="12">
               <el-form-item label="目的设备：" prop="ev_com_socket_dst_hostname">
                 <tooltip
                   :content="detailData.ev_com_socket_dst_hostname"
                   :length="20"
                 />
               </el-form-item>
-            </el-col>
+            </el-col> -->
             <el-col :span="12">
               <el-form-item label="目的端口：" prop="ev_com_socket_dst_port">
                 <tooltip
@@ -499,14 +499,14 @@
                 <tooltip :content="detailData.receive_time" :length="20" />
               </el-form-item>
             </el-col>
-            <el-col :span="12">
+            <!-- <el-col :span="12">
               <el-form-item label="智能监测终端IP：" prop="ev_wsec_inpa_monitor_terminal_ip">
                 <tooltip
                   :content="detailData.ev_wsec_inpa_monitor_terminal_ip"
                   :length="20"
                 />
               </el-form-item>
-            </el-col>
+            </el-col> -->
             <el-col :span="12">
               <el-form-item label="区域：" prop="location">
                 <tooltip :content="detailData.location" :length="20" />

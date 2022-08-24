@@ -321,15 +321,15 @@
                 <!-- {{ detailData.ev_ksec_aptOrganization }} -->
               </el-form-item>
             </el-col>
-            <el-col :span="12">
+            <!-- <el-col :span="12">
               <el-form-item label="情报类型 :">
                  <tooltip
                   :content="detailData.ev_ksec_ioc_type"
                   :length="40"
                 />
-                <!-- {{ detailData.ev_ksec_ioc_type }} -->
+                {{ detailData.ev_ksec_ioc_type }}
               </el-form-item>
-            </el-col>
+            </el-col> -->
             <el-col :span="12">
               <el-form-item label="情报IOC :">
                 <tooltip
@@ -357,15 +357,15 @@
                 <!-- {{ detailData.ev_com_socket_src_ip }} -->
               </el-form-item>
             </el-col>
-            <el-col :span="12">
+            <!-- <el-col :span="12">
               <el-form-item label="攻击者国家 :">
                  <tooltip
                   :content="detailData.ev_com_socket_src_ip_country"
                   :length="40"
                 />
-                <!-- {{ detailData.ev_com_socket_src_ip_country }} -->
+                {{ detailData.ev_com_socket_src_ip_country }}
               </el-form-item>
-            </el-col>
+            </el-col> -->
             <el-col :span="12">
               <el-form-item label="受害者IP :">
                  <tooltip
@@ -384,13 +384,13 @@
                 <!-- {{ detailData.ev_com_socket_dst_ip_country }} -->
               </el-form-item>
             </el-col>
-            <el-col :span="12">
+            <!-- <el-col :span="12">
               <el-form-item label="源端口 :">
                  <tooltip
                   :content="detailData.ev_com_socket_src_port"
                   :length="40"
                 />
-                <!-- {{ detailData.ev_com_socket_src_port }} -->
+                {{ detailData.ev_com_socket_src_port }}
               </el-form-item>
             </el-col>
             <el-col :span="12">
@@ -399,9 +399,9 @@
                   :content="detailData.ev_com_socket_dst_port"
                   :length="40"
                 />
-                <!-- {{ detailData.ev_com_socket_dst_port }} -->
+                {{ detailData.ev_com_socket_dst_port }}
               </el-form-item>
-            </el-col>
+            </el-col> -->
             <el-col :span="12">
               <el-form-item label="协议 :">
                  <tooltip

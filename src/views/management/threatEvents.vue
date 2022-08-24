@@ -333,7 +333,7 @@
         <el-row>
           <el-col :span="8">
             <el-form-item label="事件名称 :">
-              <tooltip :content="dataDetail.event_name" :length="20" />
+              <tooltip :content="dataDetail.event_name" :length="10" />
             </el-form-item>
           </el-col>
           <el-col :span="8">
@@ -348,11 +348,11 @@
               <!-- {{ dataDetail.severity }} -->
             </el-form-item>
           </el-col>
-          <el-col :span="8">
+          <!-- <el-col :span="8">
             <el-form-item label="事件描述 :">
               {{ "-" }}
             </el-form-item>
-          </el-col>
+          </el-col> -->
           <el-col :span="8">
             <el-form-item label="源IP :">
               <tooltip :content="dataDetail.detail_src_ip" :length="20" />
@@ -365,19 +365,19 @@
               <!-- {{ dataDetail.detail_dst_ip }} -->
             </el-form-item>
           </el-col>
-          <el-col :span="8">
+          <!-- <el-col :span="8">
             <el-form-item label="协议 :">
               <tooltip :content="dataDetail.detail_protocol" :length="20" />
-              <!-- {{ dataDetail.detail_protocol }} -->
+              {{ dataDetail.detail_protocol }}
             </el-form-item>
-          </el-col>
-          <el-col :span="8">
+          </el-col> -->
+          <!-- <el-col :span="8">
             <el-form-item label="上报设备 :">
               <tooltip :content="dataDetail.agent" :length="20" />
-              <!-- {{ dataDetail.agent }} -->
+              {{ dataDetail.agent }}
             </el-form-item>
-          </el-col>
-          <el-col :span="8">
+          </el-col> -->
+          <!-- <el-col :span="8">
             <el-form-item label="上报设备IP :">
               {{ "-" }}
             </el-form-item>
@@ -386,7 +386,7 @@
             <el-form-item label="攻击阶段 :">
               {{ "-" }}
             </el-form-item>
-          </el-col>
+          </el-col> -->
           <el-col :span="8">
             <el-form-item label="区域 :">
               <tooltip :content="dataDetail.location" :length="20" />
@@ -405,12 +405,12 @@
               <!-- {{ dataDetail.occur_time }} -->
             </el-form-item>
           </el-col>
-          <el-col :span="8">
+          <!-- <el-col :span="8">
             <el-form-item label="结束时间 :">
               <tooltip :content="dataDetail.close_time" :length="20" />
-              <!-- {{ dataDetail.close_time }} -->
+              {{ dataDetail.close_time }}
             </el-form-item>
-          </el-col>
+          </el-col> -->
         </el-row>
       </el-form>
       <div slot="footer" class="dialog-footer">
