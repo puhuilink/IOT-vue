@@ -773,46 +773,46 @@
                 {{ detailData.versionNumber }}
               </el-form-item>
             </el-col>
-            <el-col :span="8">
+            <!-- <el-col :span="8">
               <el-form-item label="设备ROM版本号 :">
                 {{ detailData.romVersionNumbe }}
               </el-form-item>
-            </el-col>
-            <el-col :span="8">
+            </el-col> -->
+            <!-- <el-col :span="8">
               <el-form-item label="设备IP :">
                 {{ detailData.networkIp }}
               </el-form-item>
-            </el-col>
+            </el-col> -->
             <el-col :span="8">
               <el-form-item label="负责人 :">
                 {{ detailData.username }}
               </el-form-item>
             </el-col>
-            <el-col :span="8">
+            <!-- <el-col :span="8">
               <el-form-item label="部门 :">
                 {{ detailData.department }}
               </el-form-item>
-            </el-col>
+            </el-col> -->
             <el-col :span="8">
               <el-form-item label="区域 :">
                 {{ detailData.networkAddress }}
               </el-form-item>
             </el-col>
-            <el-col :span="8">
+            <!-- <el-col :span="8">
               <el-form-item label="发现时间 :">
                 {{ detailData.createTime }}
               </el-form-item>
-            </el-col>
+            </el-col> -->
             <el-col :span="8">
               <el-form-item label="授权时间 :">
                 {{ detailData.authorizationTime }}
               </el-form-item>
             </el-col>
-            <el-col :span="8">
+            <!-- <el-col :span="8">
               <el-form-item label="最后活跃时间 :">
                 {{ detailData.lastActiveTime }}
               </el-form-item>
-            </el-col>
+            </el-col> -->
           </el-row>
         </el-form>
          <div class="information">证书信息</div>
@@ -858,7 +858,7 @@
           class="label-type"
         >
           <el-row>
-            <el-col :span="8">
+            <!-- <el-col :span="8">
               <el-form-item label="温度 :">
                 {{ detailData.temperature }}
               </el-form-item>
@@ -872,8 +872,8 @@
               <el-form-item label="湿度 :">
                 {{ detailData.humidity }}
               </el-form-item>
-            </el-col>
-            <el-col :span="8">
+            </el-col> -->
+            <!-- <el-col :span="8">
               <el-form-item label="方向角 :">
                 {{ detailData.yaw }}
               </el-form-item>
@@ -887,8 +887,8 @@
               <el-form-item label="震动幅度 :">
                 {{ detailData.acc }}
               </el-form-item>
-            </el-col>
-            <el-col :span="8">
+            </el-col> -->
+            <!-- <el-col :span="8">
               <el-form-item label="CPU使用率 :">
                 {{ detailData.cpu }}
               </el-form-item>
@@ -907,7 +907,7 @@
               <el-form-item label="状态 :">
                 {{ detailData.state }}
               </el-form-item>
-            </el-col>
+            </el-col> -->
           </el-row>
         </el-form>
         <div class="echartsCss">
