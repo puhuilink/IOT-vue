@@ -762,11 +762,7 @@
               </el-form-item>
             </el-col> -->
 
-            <el-col :span="8">
-              <el-form-item label="运行状态 :">
-                {{ dataDetails.runState }}
-              </el-form-item>
-            </el-col>
+           
             <!-- <el-col :span="8">
               <el-form-item label="应用协议 :">
                 {{ dataDetails.applicationProtocol }}
