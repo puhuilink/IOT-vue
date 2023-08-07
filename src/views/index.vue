@@ -366,9 +366,9 @@
             <div class="image-text_10 flex-col justify-between">
               <div class="box_15 flex-col"></div>
               <span class="text-group_10">
-                异常日志
+               日志异常
                 <br />
-                检索
+               分析
               </span>
             </div>
 </a>
@@ -382,7 +382,7 @@
         </div>
         <div class="block_6 flex-col">
           <span class="text_14">数据安全</span>
-             <a href="https://10.201.30.40/search" target="_blank">
+             <a href="http://10.1.13.118:8001/security/dataSafe/table" target="_blank">
           <div class="image-text_12 flex-col justify-between">
             <div class="block_7 flex-col"></div>
             <span class="text-group_12">
@@ -396,10 +396,10 @@
         <div class="block_8 flex-col">
           <span class="text_15">资产管理</span>
           <div class="block_9 flex-row justify-between">
-              <a href="http://10.1.13.118:8001/assetsManagement/assetGroup" target="_blank">
+              <a href="http://10.1.13.118:8001/assetsManagement/assetSecurityStatisticalAnalysis" target="_blank">
             <div class="image-text_13 flex-col justify-between">
               <div class="group_16 flex-col"></div>
-              <span class="text-group_13">资产分类</span>
+              <span class="text-group_13">资产监控</span>
             </div>
             </a>
                <a href="http://10.1.13.118:8001/assetsManagement/assetsManagementList" target="_blank">
@@ -781,15 +781,15 @@
           </div>
 </a>
  <a
-            href="https://10.1.13.2:8889/#/manage/v2/sso?ticket=d91c53aea100716097202d4c3a5ebd752feaf54940dd26d31de206aee261a4f2a068b7e8149f2d9f8446a26b45fe12af4ed535f64f55cc9389443a4b84d02f0f94bf2d634d078e1f73ea23fd2a4ac83878029bb561729e8c9cb5d57bf68771f2"
+            href="http://10.1.13.118:8001/iot/device"
             target="_blank"
           >  
           <div class="image-text_45 flex-col justify-between">
             <div class="box_36 flex-col"></div>
             <span class="text-group_45">
-              终端设备
+              设备
               <br />
-              身份认证管理
+              认证管理
             </span>
           </div>
 </a>
